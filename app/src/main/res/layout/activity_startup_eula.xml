@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background_v2"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/titleSubHeader1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleHeader1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="@string/habit_reform_and_routine_management"
+        android:textAlignment="viewStart"
+        android:textColor="#0D0D0D"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/titleHeader1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sprout"
+        android:textColor="#0D0D0D"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleSubHeader1"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+</RelativeLayout>
