@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background_v2"
-    android:padding="20dp">
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/titleSubHeader1"
@@ -27,16 +27,52 @@
         android:textStyle="bold" />
 
     <ScrollView
+        android:id="@+id/Eula_Scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/btn_Disagree"
         android:layout_below="@id/titleSubHeader1"
         android:layout_marginTop="20dp"
-        android:textAlignment="center">
+        android:layout_marginBottom="20dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/Eula_TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="5dp"
+            android:text="@string/sampleText"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_Disagree"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:background="#FA403D"
+        android:text="@string/disagree"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_alignParentEnd="true"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/btn_Agree"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@id/btn_Agree"
+        android:background="#7289da"
+        android:text="@string/agree"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        tools:ignore="TextContrastCheck" />
 
 </RelativeLayout>
