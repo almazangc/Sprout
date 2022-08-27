@@ -6,6 +6,15 @@
     android:padding="30dp">
 
     <TextView
+        android:id="@+id/titleHeader1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sprout"
+        android:textColor="#0D0D0D"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/titleSubHeader1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,15 +25,6 @@
         android:textAlignment="viewStart"
         android:textColor="#0D0D0D"
         android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/titleHeader1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sprout"
-        android:textColor="#0D0D0D"
-        android:textSize="34sp"
-        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/Eula_Scroll"
@@ -50,27 +50,28 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btn_Disagree"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:background="#FA403D"
-        android:text="@string/disagree"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:layout_alignParentEnd="true"
-        tools:ignore="TextContrastCheck" />
-
-    <Button
         android:id="@+id/btn_Agree"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@id/btn_Disagree"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
-        android:layout_toStartOf="@id/btn_Agree"
         android:background="#7289da"
         android:text="@string/agree"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/btn_Disagree"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="5dp"
+        android:background="#FA403D"
+        android:text="@string/disagree"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         tools:ignore="TextContrastCheck" />
