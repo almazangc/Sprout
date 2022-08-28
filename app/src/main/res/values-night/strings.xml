@@ -5,4 +5,7 @@
     <string name="textView_startup_introduction">Start growing your sprout, Reform the poor habits and become a better version of you!</string>
     <string name="continue_lbl">continue</string>
     <string name="lbl_getCommonWakeUpTime">What time do you usually wake up?</string>
+    <string name="ask_commonSleepTime">What time do you usually sleep?</string>
+    <string name="break_your_bad_habits_in_no_of_days">Break your bad habits in No.__ of days</string>
+    <string name="give_up_bad_habits_that_affect_your_well_being_and_health_and_become_a_better_version_of_yourself_using_the_guided_routines_methods">Give up bad habits that affect your well-being and health and become a better version of yourself using the guided routines methods.</string>
 </resources>

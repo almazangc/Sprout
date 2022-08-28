@@ -28,13 +28,9 @@
         android:textSize="20sp"
         android:textStyle="normal" />
 
+
     <Button
-        android:id="@+id/btn_Agree"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/rounded_blue_btn"
-        android:text="@string/continue_lbl"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+        android:id="@+id/btn_continue"
+        style="@style/style_continue" />
+
 </RelativeLayout>

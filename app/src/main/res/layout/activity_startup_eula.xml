@@ -53,7 +53,7 @@
 
     <Button
         android:id="@+id/btn_Agree"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="10dp"
@@ -67,11 +67,13 @@
 
     <Button
         android:id="@+id/btn_Disagree"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
         android:background="@drawable/rounded_red_btn"
         android:text="@string/disagree"
         android:textColor="#FFFFFF"

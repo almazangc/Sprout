@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_sleepTime"
+    android:id="@+id/layout_wakeTime"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/relativeLayoutPadding"
@@ -20,7 +20,7 @@
 
 
     <TimePicker
-        android:id="@+id/timePicker"
+        android:id="@+id/WakeTimePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -30,12 +30,6 @@
 
     <Button
         android:id="@+id/btn_continue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/rounded_blue_btn"
-        android:text="@string/continue_lbl"
-        android:textColor="@color/white"
-        android:textStyle="bold" />
+        style="@style/style_continue"/>
 
 </RelativeLayout>

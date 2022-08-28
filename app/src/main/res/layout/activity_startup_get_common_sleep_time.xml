@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_sleepTime"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/relativeLayoutPadding"
     tools:context=".activity.startup.get.CommonSleepTime">
 
+    <TextView
+        android:id="@+id/lbl_askCommonSleepTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/ask_commonSleepTime"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="20dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TimePicker
+        android:id="@+id/SleepTimePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:headerBackground="@color/light_blue"
+        android:numbersBackgroundColor="@color/cardview_light_background"
+        android:numbersSelectorColor="@color/light_blue" />
+
+    <Button
+        android:id="@+id/btn_continue"
+        style="@style/style_continue" />
+
+</RelativeLayout>

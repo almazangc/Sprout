@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/relativeLayoutPadding"
+    tools:context=".activity.startup.Greetings">
+
+    <ProgressBar
+        android:id="@+id/startup_progressBar"
+        style="@style/style_progressBar"/>
+
+    <ImageView
+        android:id="@+id/img_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textView1"
+        android:layout_below="@id/startup_progressBar"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/welcome" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textView2"
+        android:layout_marginBottom="10dp"
+        android:text="@string/break_your_bad_habits_in_no_of_days"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_continue"
+        android:text="@string/give_up_bad_habits_that_affect_your_well_being_and_health_and_become_a_better_version_of_yourself_using_the_guided_routines_methods"
+        android:textSize="18sp"
+        android:layout_marginBottom="30dp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btn_continue"
+        style="@style/style_continue" />
+
+</RelativeLayout>
