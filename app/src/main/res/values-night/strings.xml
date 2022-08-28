@@ -3,4 +3,6 @@
     <string name="disagree">Disagree</string>
     <string name="agree">Agree</string>
     <string name="textView_startup_introduction">Start growing your sprout, Reform the poor habits and become a better version of you!</string>
+    <string name="continue_lbl">continue</string>
+    <string name="lbl_getCommonWakeUpTime">What time do you usually wake up?</string>
 </resources>

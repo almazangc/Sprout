@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_eula"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp">
+    android:padding="@dimen/relativeLayoutPadding"
+    tools:context=".activity.startup.EULA">
 
     <TextView
-        android:id="@+id/titleHeader1"
+        android:id="@+id/lbl_titleHeader1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sprout"
@@ -15,10 +17,10 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/titleSubHeader1"
+        android:id="@+id/lbl_subHeader1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleHeader1"
+        android:layout_below="@id/lbl_titleHeader1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
         android:text="@string/habit_reform_and_routine_management"
@@ -27,16 +29,16 @@
         android:textSize="16sp" />
 
     <ScrollView
-        android:id="@+id/Eula_Scroll"
+        android:id="@+id/scrollView_lblEulaContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/btn_Disagree"
-        android:layout_below="@id/titleSubHeader1"
+        android:layout_below="@id/lbl_subHeader1"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp">
 
         <TextView
-            android:id="@+id/Eula_TextView"
+            android:id="@+id/lbl_EULA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
@@ -44,7 +46,7 @@
             android:paddingEnd="20dp"
             android:paddingBottom="5dp"
             android:text="@string/sampleText"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
     </ScrollView>
@@ -54,12 +56,12 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toStartOf="@id/btn_Disagree"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
-        android:background="#7289da"
+        android:layout_toStartOf="@id/btn_Disagree"
+        android:background="@drawable/rounded_blue_btn"
         android:text="@string/agree"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textStyle="bold"
         tools:ignore="TextContrastCheck" />
 
@@ -67,10 +69,10 @@
         android:id="@+id/btn_Disagree"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
-        android:background="#FA403D"
+        android:background="@drawable/rounded_red_btn"
         android:text="@string/disagree"
         android:textColor="#FFFFFF"
         android:textStyle="bold"

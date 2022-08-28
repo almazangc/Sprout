@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_introduction"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_sleepTime"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/relativeLayoutPadding">
+    android:padding="@dimen/relativeLayoutPadding"
+    tools:context=".activity.startup.get.CommonWakeUp">
 
     <TextView
-        android:id="@+id/lbl_titleHeader1"
+        android:id="@+id/lbl_askCommonWakeTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="@string/sprout"
+        android:layout_alignParentTop="true"
+        android:text="@string/lbl_getCommonWakeUpTime"
         android:textAlignment="center"
-        android:textColor="#0D0D0D"
-        android:textSize="34sp"
+        android:textColor="@color/black"
+        android:textSize="32sp"
         android:textStyle="bold" />
 
 
-    <TextView
-        android:id="@+id/textView_startup_introduction"
-        android:layout_width="match_parent"
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:justificationMode="inter_word"
-        android:text="@string/textView_startup_introduction"
-        android:textColor="@color/light_black"
-        android:textSize="20sp"
-        android:textStyle="normal" />
+        android:headerBackground="@color/light_blue"
+        android:numbersBackgroundColor="@color/cardview_light_background"
+        android:numbersSelectorColor="@color/light_blue" />
 
     <Button
-        android:id="@+id/btn_Agree"
+        android:id="@+id/btn_continue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -37,4 +37,5 @@
         android:text="@string/continue_lbl"
         android:textColor="@color/white"
         android:textStyle="bold" />
+
 </RelativeLayout>

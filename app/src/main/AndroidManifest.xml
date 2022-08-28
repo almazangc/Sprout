@@ -14,7 +14,10 @@
         android:theme="@style/Theme.Sprout"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.startup.Hello"
+            android:exported="false" />
+        <activity
+            android:name=".activity.Main"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
