@@ -3,6 +3,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/relativeLayoutPadding"
+    android:background="@drawable/simple_background_tempv1"
     tools:context=".activity.startup.get.Nickname">
+
+    <ProgressBar
+        android:id="@+id/startup_progressBar"
+        style="@style/style_progressBar"/>
+
+    <TextView
+        style="@style/textViewHeader"
+        android:layout_width="match_parent"
+        android:layout_above="@id/lbl_2"
+        android:text="@string/my_firstname_is"
+        android:layout_marginBottom="0dp"
+        />
+
+    <TextView
+        android:id="@+id/lbl_2"
+        style="@style/textViewSubHeader"
+        android:layout_width="match_parent"
+        android:layout_centerVertical="true"
+        android:text="@string/what_should_we_call_you"
+        android:textColor="@color/light_blue"
+        />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_2"
+        android:clickable="true"
+        android:ems="10"
+        android:background="@drawable/rounded_blue_btn"
+        android:inputType="textPersonName"
+        android:hint="@string/prompt_name"
+        android:textColorHint="@color/light_grey"
+        android:paddingStart="15dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btn_continue"
+        style="@style/style_continue"
+        />
 
 </RelativeLayout>

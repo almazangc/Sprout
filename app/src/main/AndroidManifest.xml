@@ -14,9 +14,11 @@
         android:theme="@style/Theme.Sprout"
         tools:targetApi="31">
         <activity
+            android:name=".activity.startup.get.Identity"
+            android:exported="false" />
+        <activity
             android:name=".activity.startup.get.Nickname"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".activity.startup.Greetings"
             android:exported="false" />

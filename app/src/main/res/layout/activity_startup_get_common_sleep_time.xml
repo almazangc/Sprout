@@ -22,12 +22,13 @@
 
     <TimePicker
         android:id="@+id/SleepTimePicker"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:headerBackground="@color/light_blue"
-        android:numbersBackgroundColor="@color/cardview_light_background"
-        android:numbersSelectorColor="@color/light_blue" />
+        android:timePickerMode="spinner"
+        android:layout_centerInParent="true"
+        android:scaleX="1.5"
+        android:scaleY="1.5" />
 
     <Button
         android:id="@+id/btn_continue"

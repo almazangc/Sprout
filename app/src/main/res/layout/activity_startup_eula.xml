@@ -9,7 +9,7 @@
     tools:context=".activity.startup.EULA">
 
     <TextView
-        android:id="@+id/lbl_titleHeader1"
+        android:id="@+id/lbl_titleMainHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sprout"
@@ -21,7 +21,7 @@
         android:id="@+id/lbl_subHeader1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lbl_titleHeader1"
+        android:layout_below="@id/lbl_titleMainHeader"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
         android:text="@string/habit_reform_and_routine_management"

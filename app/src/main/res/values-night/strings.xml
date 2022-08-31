@@ -8,4 +8,8 @@
     <string name="ask_commonSleepTime">What time do you usually sleep?</string>
     <string name="break_your_bad_habits_in_no_of_days">Break your bad habits in No.__ of days</string>
     <string name="give_up_bad_habits_that_affect_your_well_being_and_health_and_become_a_better_version_of_yourself_using_the_guided_routines_methods">Give up bad habits that affect your well-being and health and become a better version of yourself using the guided routines methods.</string>
+    <string name="greetingsvg">GreetingSVG</string>
+    <string name="my_firstname_is">My Firstname is....</string>
+    <string name="what_should_we_call_you">What should we call you?</string>
+    <string name="prompt_name">Enter your name</string>
 </resources>
