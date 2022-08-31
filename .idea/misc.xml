@@ -4,10 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2855" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable-v24/rounded_white_btn.xml" value="0.286" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable-v24/view_shapev1.xml" value="0.2005" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/background_bar.xml" value="0.286" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/bg_time_picker_bottom.xml" value="0.2985" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/bg_time_picker_middle.xml" value="0.2985" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/bg_time_picker_top.xml" value="0.2985" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/blurry_gradient_haikei.xml" value="0.286" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/gradient_background.xml" value="0.3635" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/gradient_background_v2.xml" value="0.3635" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2855" />
@@ -19,6 +22,10 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/rounded_blue_btn.xml" value="0.2985" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/rounded_btn.xml" value="0.3635" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/rounded_red_btn.xml" value="0.2985" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/scroll_vertical_tint_shape.xml" value="0.286" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/simple_background_tempv3.xml" value="0.286" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/view_background.xml" value="0.286" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_activitty_startup_get_started.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_get_common_wake_up.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_hello.xml" value="0.20778110303548525" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_main.xml" value="0.3625" />

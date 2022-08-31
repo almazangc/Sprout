@@ -14,12 +14,11 @@
     <ImageView
         android:id="@+id/img_identity"
         android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:background="@drawable/identity_svg"
+        android:layout_height="220dp"
+        android:layout_above="@id/lbl_askIdentity"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:layout_above="@id/lbl_askIdentity"
-        />
+        android:background="@drawable/identity_svg" />
 
     <TextView
         android:id="@+id/lbl_askIdentity"

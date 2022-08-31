@@ -11,5 +11,6 @@
     <color name="light_red">#FA403D</color>
     <color name="light_black">#0D0D0D</color>
     <color name="tint_black">#A6000000</color>
+    <color name="tint_dark_blue">#9B01095B</color>
     <color name="light_grey">#BABABA</color>
 </resources>
