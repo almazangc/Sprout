@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/relativeLayoutPadding"
-    android:background="@drawable/lofi_art"
+    android:background="@drawable/simple_background_tempv1"
     tools:context=".activity.startup.EULA">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sprout"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="34sp"
         android:textStyle="bold" />
 
@@ -26,7 +26,7 @@
         android:layout_marginTop="3dp"
         android:text="@string/habit_reform_and_routine_management"
         android:textAlignment="viewStart"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp" />
 
     <ScrollView
@@ -38,12 +38,11 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/scroll_vertical_tint_shape"
-        android:backgroundTint="#A6000000"
         android:paddingLeft="10dp"
         android:paddingTop="20dp"
         android:paddingRight="10dp"
         android:paddingBottom="20dp"
-        android:scrollbarThumbVertical="@android:color/white"
+        android:scrollbarThumbVertical="@color/tint_black"
         android:scrollbars="vertical">
 
         <TextView
@@ -55,7 +54,7 @@
             android:paddingEnd="20dp"
             android:paddingBottom="5dp"
             android:text="@string/sampleText"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
     </ScrollView>
@@ -85,7 +84,7 @@
         android:paddingRight="10sp"
         android:background="@drawable/rounded_red_btn"
         android:text="@string/disagree"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         android:textStyle="bold"
         tools:ignore="TextContrastCheck" />
 
