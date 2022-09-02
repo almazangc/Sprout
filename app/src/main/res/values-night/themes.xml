@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.Sprout" parent="Theme.AppCompat.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/AMETHYST</item>
+        <item name="colorPrimaryVariant">@color/PURPLE_HEARTH</item>
+        <item name="colorOnPrimary">@color/NIGHT</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/BRIGHT_SKY_BLUE</item>
+        <item name="colorSecondaryVariant">@color/BRIGHT_SKY_BLUE</item>
+        <item name="colorOnSecondary">@color/NIGHT</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

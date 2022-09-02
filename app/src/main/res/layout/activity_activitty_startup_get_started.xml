@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/relativeLayoutPadding"
         android:text="@string/sprout"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/CLOUDS"
         android:layout_above="@id/textSubHeader"/>
 
 
@@ -32,7 +32,7 @@
         android:layout_marginTop="@dimen/relativeLayoutPadding"
         android:text="Warm welcome _varName"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/CLOUDS"
         android:layout_above="@id/textSubHeader"
         android:textSize="25sp" />
 
@@ -48,7 +48,7 @@
         android:padding="30dp"
         android:text="You have the control to the power to transform your life for the best.\n\nAre you prepared to the path of fixing bad habits?"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/CLOUDS"
         android:textSize="18sp" />
 
     <Button
@@ -61,7 +61,7 @@
         android:layout_marginBottom="@dimen/relativeLayoutPadding"
         android:background="@drawable/rounded_white_btn"
         android:text="GET STARTED"
-        android:textColor="@color/black"/>
+        android:textColor="@color/NIGHT"/>
 
     <Button
         android:id="@+id/no"
@@ -71,6 +71,6 @@
         android:layout_marginBottom="@dimen/relativeLayoutPadding"
         android:background="@drawable/rounded_white_btn"
         android:text="NOT YET"
-        android:textColor="@color/black"/>
+        android:textColor="@color/NIGHT"/>
 
 </RelativeLayout>

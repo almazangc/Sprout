@@ -32,7 +32,7 @@
         android:paddingLeft="@dimen/relativeLayoutPadding"
         android:paddingRight="@dimen/relativeLayoutPadding"
         android:text="@string/textView_startup_introduction"
-        android:textColor="@color/light_black"
+        android:textColor="@color/NIGHT"
         android:textSize="20sp"
         android:textStyle="normal" />
 

@@ -14,6 +14,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/gradient_background.xml" value="0.3635" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/gradient_background_v2.xml" value="0.3635" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2855" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/identity_svg.xml" value="0.3355" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/radio_background_selected.xml" value="0.278" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/radio_background_unselected.xml" value="0.278" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/radio_selector.xml" value="0.2855" />
@@ -23,12 +24,16 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/rounded_btn.xml" value="0.3635" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/rounded_red_btn.xml" value="0.2985" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/scroll_vertical_tint_shape.xml" value="0.286" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/simple_background_temp_v4.xml" value="0.3355" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/simple_background_tempv1.xml" value="0.3355" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/simple_background_tempv2.xml" value="0.3355" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/simple_background_tempv3.xml" value="0.286" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/view_background.xml" value="0.286" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_activitty_startup_get_started.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_get_common_wake_up.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_hello.xml" value="0.20778110303548525" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_assessment.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_eula.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_get_common_sleep.xml" value="0.2731936725096195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_get_common_sleep_time.xml" value="0.22" />
