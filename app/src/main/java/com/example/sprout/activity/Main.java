@@ -9,26 +9,24 @@ import android.widget.Button;
 
 import com.example.sprout.R;
 import com.example.sprout.activity.startup.Initial;
+import com.example.sprout.activity.startup.Introduction;
+import com.example.sprout.databinding.ActivityMainBinding;
 
 public class Main extends AppCompatActivity {
 
-    Button btn_loadInitial;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-//      Initializing Variables
-        btn_loadInitial = (Button) findViewById(R.id.btn_main);
+//      ViewBinding Method
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View bindingRoot = binding.getRoot();
+        setContentView(bindingRoot);
 
-        btn_loadInitial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Switching layouts
-                Intent intent = new Intent(getApplicationContext(), Initial.class);
-                startActivity(intent);
-            }
+        binding.btnMain.setOnClickListener(view -> {
+            startActivity((new Intent(this, Introduction.class)));
         });
     }
 }

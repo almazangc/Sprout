@@ -24,11 +24,11 @@
         android:id="@+id/SleepTimePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:timePickerMode="spinner"
         android:layout_centerInParent="true"
+        android:alwaysDrawnWithCache="false"
         android:scaleX="1.5"
-        android:scaleY="1.5" />
+        android:scaleY="1.5"
+        android:timePickerMode="spinner" />
 
     <Button
         android:id="@+id/btn_continue"

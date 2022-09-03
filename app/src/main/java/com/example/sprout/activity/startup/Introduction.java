@@ -5,25 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-import com.example.sprout.R;
 import com.example.sprout.activity.startup.get.CommonWakeUp;
+import com.example.sprout.databinding.ActivityStartupIntroductionBinding;
 
 public class Introduction extends AppCompatActivity {
 
-    Button btn_next;
+    ActivityStartupIntroductionBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startup_introduction);
+        binding = ActivityStartupIntroductionBinding.inflate(getLayoutInflater());
+        View bindingRoot = binding.getRoot();
+        setContentView(bindingRoot);
 
-        btn_next = (Button) findViewById(R.id.btn_continue);
-
-        btn_next.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), CommonWakeUp.class);
-            startActivity(intent);
+        binding.btnContinue.setOnClickListener(view -> {
+            startActivity((new Intent(this, CommonWakeUp.class)));
         });
     }
 }

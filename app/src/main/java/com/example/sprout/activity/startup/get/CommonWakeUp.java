@@ -4,24 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
 
-import com.example.sprout.R;
+import com.example.sprout.databinding.ActivityStartupGetCommonWakeUpBinding;
 
 public class CommonWakeUp extends AppCompatActivity {
 
-    Button btn_setWakeTime;
+    ActivityStartupGetCommonWakeUpBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_startup_get_common_wake_up);
 
-        btn_setWakeTime = (Button) findViewById(R.id.btn_continue);
+        binding = ActivityStartupGetCommonWakeUpBinding.inflate(getLayoutInflater());
+        View bindingRoot = binding.getRoot();
+        setContentView(bindingRoot);
 
-        btn_setWakeTime.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), CommonSleepTime.class);
-            startActivity(intent);
+        binding.btnContinue.setOnClickListener(view -> {
+            startActivity((new Intent(this, CommonSleepTime.class)));
         });
+
+        binding.WakeTimePicker.setHour(6);
+        binding.WakeTimePicker.setMinute(30);
     }
 }

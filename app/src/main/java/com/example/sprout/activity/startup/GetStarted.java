@@ -11,6 +11,6 @@ public class GetStarted extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activitty_startup_get_started);
+        setContentView(R.layout.activity_activity_startup_get_started);
     }
 }
