@@ -3,14 +3,20 @@ package com.example.sprout.activity.startup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
-import com.example.sprout.R;
+import com.example.sprout.databinding.ActivityActivityStartupGetStartedBinding;
 
 public class GetStarted extends AppCompatActivity {
+
+    ActivityActivityStartupGetStartedBinding getStartedBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity_startup_get_started);
+
+        getStartedBinding = ActivityActivityStartupGetStartedBinding.inflate(getLayoutInflater());
+        View getStartedBindingRoot = getStartedBinding.getRoot();
+        setContentView(getStartedBindingRoot);
     }
 }

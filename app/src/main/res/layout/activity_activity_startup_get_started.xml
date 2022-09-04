@@ -15,9 +15,7 @@
         android:text="@string/sprout"
         android:textAlignment="center"
         android:textColor="@color/CLOUDS"
-        android:layout_above="@id/textSubHeader"/>
-
-
+        android:layout_above="@id/textSubHeader" />
 
     <View
         android:layout_width="match_parent"
@@ -26,14 +24,15 @@
         android:background="@drawable/view_background" />
 
     <TextView
+        android:id="@+id/lbl_welcome"
         style="@style/textViewHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/textSubHeader"
         android:layout_marginTop="@dimen/relativeLayoutPadding"
         android:text="Warm welcome _varName"
         android:textAlignment="center"
         android:textColor="@color/CLOUDS"
-        android:layout_above="@id/textSubHeader"
         android:textSize="25sp" />
 
     <TextView
@@ -61,7 +60,7 @@
         android:layout_marginBottom="@dimen/relativeLayoutPadding"
         android:background="@drawable/rounded_white_btn"
         android:text="GET STARTED"
-        android:textColor="@color/NIGHT"/>
+        android:textColor="@color/NIGHT" />
 
     <Button
         android:id="@+id/no"
@@ -71,6 +70,6 @@
         android:layout_marginBottom="@dimen/relativeLayoutPadding"
         android:background="@drawable/rounded_white_btn"
         android:text="NOT YET"
-        android:textColor="@color/NIGHT"/>
+        android:textColor="@color/NIGHT" />
 
 </RelativeLayout>

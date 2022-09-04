@@ -9,15 +9,14 @@
 
     <ProgressBar
         android:id="@+id/startup_progressBar"
-        style="@style/style_progressBar"/>
+        style="@style/style_progressBar" />
 
     <TextView
         style="@style/textViewHeader"
         android:layout_width="match_parent"
         android:layout_above="@id/lbl_2"
         android:text="@string/my_firstname_is"
-        android:layout_marginBottom="0dp"
-        />
+        android:layout_marginBottom="0dp" />
 
     <TextView
         android:id="@+id/lbl_2"
@@ -25,8 +24,7 @@
         android:layout_width="match_parent"
         android:layout_centerVertical="true"
         android:text="@string/what_should_we_call_you"
-        android:textColor="@color/WAIKAWA_GREY"
-        />
+        android:textColor="@color/WAIKAWA_GREY" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
@@ -35,6 +33,7 @@
         android:layout_below="@id/lbl_2"
         android:clickable="true"
         android:ems="10"
+        android:maxLength="18"
         android:background="@drawable/rounded_blue_btn"
         android:inputType="textPersonName"
         android:hint="@string/prompt_name"
@@ -43,11 +42,10 @@
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:textSize="18sp"
-        android:textColor="@color/CLOUDS"/>
+        android:textColor="@color/CLOUDS" />
 
     <Button
         android:id="@+id/btn_continue"
-        style="@style/style_continue"
-        />
+        style="@style/style_continue" />
 
 </RelativeLayout>

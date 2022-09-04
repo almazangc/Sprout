@@ -5,16 +5,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
-import com.example.sprout.R;
-import com.example.sprout.activity.startup.Greetings;
+import com.example.sprout.DBHelper;
+import com.example.sprout.DBManager;
 import com.example.sprout.databinding.ActivityStartupGetNicknameBinding;
-import com.example.sprout.databinding.ActivityStartupIntroductionBinding;
 
 public class Nickname extends AppCompatActivity {
 
     ActivityStartupGetNicknameBinding binding;
+
+    DBHelper databaseHelper;
+    DBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +25,21 @@ public class Nickname extends AppCompatActivity {
         View bindingRoot = binding.getRoot();
         setContentView(bindingRoot);
 
+        databaseHelper = new DBHelper(this);
+        dbManager = new DBManager(this);
+
         binding.btnContinue.setOnClickListener(view -> {
-            startActivity((new Intent(this, Identity.class)));
+
+            String nickname = binding.editTextTextPersonName.getText().toString();
+
+            if (nickname.equals("")) {
+                Toast.makeText(this, "Please enter a nickname", Toast.LENGTH_SHORT).show();
+            } else {
+                dbManager.open();
+                dbManager.insert(1, "TEST", "Undefined");
+                dbManager.close();
+                startActivity((new Intent(this, Identity.class)));
+            }
         });
     }
-
 }
