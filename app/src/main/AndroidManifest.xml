@@ -21,15 +21,18 @@
             android:exported="false" />
         <activity
             android:name=".activity.startup.get.Identity"
+            android:alwaysRetainTaskState="true"
             android:exported="false" />
         <activity
             android:name=".activity.startup.get.Nickname"
-            android:exported="true" />
+            android:alwaysRetainTaskState="true"
+            android:exported="false" />
         <activity
             android:name=".activity.startup.Greetings"
             android:exported="false" />
         <activity
             android:name=".activity.startup.Initial"
+            android:alwaysRetainTaskState="true"
             android:exported="false" />
         <activity
             android:name=".activity.startup.EULA"
@@ -39,9 +42,11 @@
             android:exported="false" />
         <activity
             android:name=".activity.startup.get.CommonWakeUp"
+            android:alwaysRetainTaskState="true"
             android:exported="false" />
         <activity
             android:name=".activity.startup.get.CommonSleepTime"
+            android:alwaysRetainTaskState="true"
             android:exported="false" />
         <activity
             android:name=".activity.Main"

@@ -18,7 +18,6 @@
         android:textSize="32sp"
         android:textStyle="bold" />
 
-
     <TimePicker
         android:id="@+id/WakeTimePicker"
         android:layout_width="match_parent"
@@ -27,8 +26,21 @@
         android:timePickerMode="spinner"
         android:layout_centerInParent="true"
         android:scaleX="1.5"
-        android:scaleY="1.5"
-        />
+        android:scaleY="1.5"/>
+<!--        android:saveEnabled="false"-->
+<!--        />-->
+
+    <EditText
+        android:id="@+id/edt_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/WakeTimePicker"
+        android:layout_marginTop="15dp"
+        android:hint="Enter Text"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT"
+        android:textSize="20sp" />
+
 
     <Button
         android:id="@+id/btn_continue"

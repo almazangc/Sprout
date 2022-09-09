@@ -1,10 +1,11 @@
 package com.example.sprout.activity.startup;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprout.activity.startup.get.Nickname;
 import com.example.sprout.databinding.ActivityStartupGreetingsBinding;
@@ -21,8 +22,12 @@ public class Greetings extends AppCompatActivity {
         View bindingRoot = binding.getRoot();
         setContentView(bindingRoot);
 
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+
         binding.btnContinue.setOnClickListener(view -> {
-            startActivity((new Intent(this, Nickname.class)));
+            startActivity((new Intent(this, Nickname.class))
+                    .putExtra("bundle", bundle)
+            );
         });
     }
 }

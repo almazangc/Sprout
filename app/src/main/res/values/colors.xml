@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <color name="TURQUOISE">#1abc9c</color>
     <color name="GREEN_SEA">#16a085</color>
     <color name="EMERALD">#2ecc71</color>

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">Sprout</string>
     <string name="sprout">Sprout</string>
     <string name="habit_reform_and_routine_management">Habit Reform and Routine Management</string>
