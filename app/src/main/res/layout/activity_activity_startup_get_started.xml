@@ -53,23 +53,11 @@
     <Button
         android:id="@+id/btn_continue"
         style="@style/style_continue"
-        android:layout_above="@id/no"
-        android:layout_alignParentBottom="false"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/relativeLayoutPadding"
         android:layout_marginRight="@dimen/relativeLayoutPadding"
         android:layout_marginBottom="@dimen/relativeLayoutPadding"
         android:background="@drawable/rounded_white_btn"
         android:text="GET STARTED"
         android:textColor="@color/NIGHT" />
-
-    <Button
-        android:id="@+id/no"
-        style="@style/style_continue"
-        android:layout_marginLeft="@dimen/relativeLayoutPadding"
-        android:layout_marginRight="@dimen/relativeLayoutPadding"
-        android:layout_marginBottom="@dimen/relativeLayoutPadding"
-        android:background="@drawable/rounded_white_btn"
-        android:text="NOT YET"
-        android:textColor="@color/NIGHT" />
-
 </RelativeLayout>

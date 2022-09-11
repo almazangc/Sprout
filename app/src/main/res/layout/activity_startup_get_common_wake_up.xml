@@ -30,18 +30,6 @@
 <!--        android:saveEnabled="false"-->
 <!--        />-->
 
-    <EditText
-        android:id="@+id/edt_txt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/WakeTimePicker"
-        android:layout_marginTop="15dp"
-        android:hint="Enter Text"
-        android:textAlignment="center"
-        android:textColor="@color/NIGHT"
-        android:textSize="20sp" />
-
-
     <Button
         android:id="@+id/btn_continue"
         style="@style/style_continue"/>

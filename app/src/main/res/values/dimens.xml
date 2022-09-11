@@ -2,4 +2,6 @@
 <resources>
     <dimen name="btn_radius">30dp</dimen>
     <dimen name="relativeLayoutPadding">20dp</dimen>
+    <dimen name="radio_margin_bottom">15dp</dimen>
+    <dimen name="radio_button_textSize">20sp</dimen>
 </resources>

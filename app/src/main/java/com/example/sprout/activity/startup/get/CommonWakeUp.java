@@ -20,20 +20,13 @@ public class CommonWakeUp extends AppCompatActivity {
     private static final String TAG = "TAG: ";
     private static final String SAVE_WAKEHOUR = "CommonWakeUp.SAVE_WAKEMINUTE";
     private static final String SAVE_WAKEMINUTE = "CommonWakeUp.SAVE_WAKEMINUTE";
-    private static final String SAVE_TEXT = "CommonWakeUp.SAVE_TEXT";
-    private static final String SAVE_TESTINT = "savetestint_int";
-    private static int num = 10;
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         savedInstanceState.putString(SAVE_WAKEHOUR, Integer.toString(binding.WakeTimePicker.getHour()));
         savedInstanceState.putString(SAVE_WAKEMINUTE, Integer.toString(binding.WakeTimePicker.getMinute()));
-        savedInstanceState.putString(SAVE_TEXT, binding.edtTxt.getText().toString());
-        savedInstanceState.putInt(SAVE_TESTINT, num);
         Log.d(TAG, "onSaveInstanceState: Bundle done\n" +
-                "Data: " + binding.WakeTimePicker.getHour() + ":" + binding.WakeTimePicker.getMinute() +
-                "\nText: " + binding.edtTxt.getText().toString() +
-                "\nInt: " + num);
+                "Data: " + binding.WakeTimePicker.getHour() + ":" + binding.WakeTimePicker.getMinute());
 
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -43,11 +36,8 @@ public class CommonWakeUp extends AppCompatActivity {
         savedInstanceState.getInt(SAVE_WAKEHOUR, 0);
         binding.WakeTimePicker.setHour(Integer.parseInt(savedInstanceState.getString(SAVE_WAKEHOUR, "")));
         binding.WakeTimePicker.setMinute(Integer.parseInt(savedInstanceState.getString(SAVE_WAKEMINUTE, "")));
-        binding.edtTxt.setText((CharSequence) savedInstanceState.getString(SAVE_TEXT, ""));
         Log.d(TAG, "onRestoreInstanceState: extracted bundle:\n" +
-                "Data: " + savedInstanceState.getInt(SAVE_WAKEHOUR, 0) + ":" + savedInstanceState.getInt(SAVE_WAKEMINUTE, 0) +
-                "\nText: " + savedInstanceState.getString(SAVE_TEXT, "") +
-                "\nInt: " + num);
+                "Data: " + savedInstanceState.getInt(SAVE_WAKEHOUR, 0) + ":" + savedInstanceState.getInt(SAVE_WAKEMINUTE, 0));
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -64,11 +54,9 @@ public class CommonWakeUp extends AppCompatActivity {
         if(savedInstanceState != null) {
             Log.d(TAG, "onCreate: savedInstanceState is not null");
             Log.d(TAG, "onCreate: extracted bundle:\n" +
-                    "Data: " + savedInstanceState.getInt(SAVE_WAKEHOUR, 0) + ":" + savedInstanceState.getInt(SAVE_WAKEMINUTE, 0) +
-                    "\nText: " + savedInstanceState.getString(SAVE_TEXT, "") +
-                    "\nInt: " + num);
-//            binding.WakeTimePicker.setHour(savedInstanceState.getInt(SAVE_WAKEHOUR, 0));
-//            binding.WakeTimePicker.setMinute(savedInstanceState.getInt(SAVE_WAKEMINUTE, 0));
+                    "Data: " + savedInstanceState.getInt(SAVE_WAKEHOUR, 0) + ":" + savedInstanceState.getInt(SAVE_WAKEMINUTE, 0));
+            binding.WakeTimePicker.setHour(savedInstanceState.getInt(SAVE_WAKEHOUR, 0));
+            binding.WakeTimePicker.setMinute(savedInstanceState.getInt(SAVE_WAKEMINUTE, 0));
         } else {
             // Default Initial Startup
             Log.d(TAG, "onCreate: savedInstance is null // Setting Default Time");

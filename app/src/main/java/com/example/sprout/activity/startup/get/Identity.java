@@ -1,29 +1,26 @@
 package com.example.sprout.activity.startup.get;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sprout.DbManager;
+import com.example.sprout.Database.AppDatabase;
+import com.example.sprout.Database.User;
 import com.example.sprout.activity.startup.GetStarted;
 import com.example.sprout.databinding.ActivityStartupGetIdentityBinding;
 
 public class Identity extends AppCompatActivity {
 
     ActivityStartupGetIdentityBinding binding;
-    DbManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dbManager = new DbManager(this);
 
         Bundle bundle = getIntent().getBundleExtra("bundle");
         int wakeHour = bundle.getInt("wakeHour");
@@ -31,10 +28,6 @@ public class Identity extends AppCompatActivity {
         int sleepHour = bundle.getInt("sleepHour");
         int sleepMinute = bundle.getInt("sleepMinute");
         String nickname = bundle.getString("nickname");
-
-        Log.d("01", "Identity:  WakeTime: " + wakeHour + ":" + wakeMinute);
-        Log.d("01", "Identity:  SleepTime: " + sleepHour + ":" + sleepMinute);
-        Log.d("01", "Identity:  Nickname: " + nickname);
 
         binding = ActivityStartupGetIdentityBinding.inflate(getLayoutInflater());
         View bindingRoot = binding.getRoot();
@@ -46,13 +39,13 @@ public class Identity extends AppCompatActivity {
 
             new AlertDialog.Builder(this)
                     .setMessage("Please Confirm!\n" +
-                            String.format("\n%-15s%d:%d", "Wake Time:", wakeHour, wakeMinute) +
+                            String.format("\n%-15s%d:%d", "Wake Time: ", wakeHour, wakeMinute) +
                             String.format("\n%-15s%d:%d", "Sleep Time:", sleepHour, sleepMinute) +
                             String.format("\n%-15s%s", "Nickname:", nickname) +
                             String.format("\n%-20s%s", "Identity:", identity))
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialogInterface, i) -> {
-                        writeOnDB(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute);
+                        saveUserData(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute);
                         startActivity((new Intent(this, GetStarted.class)).putExtra("Nickname", nickname));
                     })
                     .setNegativeButton("No", null)
@@ -61,15 +54,21 @@ public class Identity extends AppCompatActivity {
     }
 
     //    Radio Selection Button
-    public String addListenerOnButton() {
+    private String addListenerOnButton() {
         int selectedId = binding.identitySelection.getCheckedRadioButtonId();
         RadioButton radioButton = (binding.getRoot().findViewById(selectedId));
         return radioButton.getText().toString();
     }
 
-    private void writeOnDB(String nickname, String identity, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute) {
-        dbManager.open();
-        dbManager.insert(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute);
-        dbManager.close();
+    private void saveUserData(String nickname, String identity, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute){
+        AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
+        User user = new User();
+        user.nickname = nickname;
+        user.identity = identity;
+        user.wake_hour = wakeHour;
+        user.wake_minute = wakeMinute;
+        user.sleep_hour = sleepHour;
+        user.sleep_minute = sleepMinute;
+        db.userDao().insertUser(user);
     }
 }

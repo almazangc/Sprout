@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sprout</string>
+    <string name="app_name">Sprout_Prototype</string>
     <string name="sprout">Sprout</string>
     <string name="habit_reform_and_routine_management">Habit Reform and Routine Management</string>
     <string name="lets_do_it">Lets do it!</string>
@@ -21,4 +21,5 @@
     <string name="my_firstname_is">My Firstname is....</string>
     <string name="what_should_we_call_you">What should we call you?</string>
     <string name="prompt_name">Enter your name</string>
+    <string name="personalization">Personalization</string>
 </resources>
