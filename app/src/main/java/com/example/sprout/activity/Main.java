@@ -2,13 +2,11 @@ package com.example.sprout.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprout.Database.AppDatabase;
-import com.example.sprout.Database.Assestment;
 import com.example.sprout.Database.User;
 import com.example.sprout.activity.startup.Introduction;
 import com.example.sprout.activity.startup.get.Personalization;
@@ -19,8 +17,6 @@ import java.util.List;
 public class Main extends AppCompatActivity {
 
     ActivityMainBinding binding;
-//
-    Boolean isDone = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +34,5 @@ public class Main extends AppCompatActivity {
                 startActivity((new Intent(this, Introduction.class)));
             }
         });
-    }
-
-//    TODO: After analysis of inputs
-    public void setIsDone(boolean isDone){
-        this.isDone = isDone;
     }
 }

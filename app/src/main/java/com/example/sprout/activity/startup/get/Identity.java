@@ -2,7 +2,6 @@ package com.example.sprout.activity.startup.get;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 

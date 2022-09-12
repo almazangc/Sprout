@@ -10,12 +10,12 @@
         style="@style/textViewHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/textSubHeader"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/relativeLayoutPadding"
         android:text="@string/sprout"
         android:textAlignment="center"
-        android:textColor="@color/CLOUDS"
-        android:layout_above="@id/textSubHeader" />
+        android:textColor="@color/NIGHT" />
 
     <View
         android:layout_width="match_parent"

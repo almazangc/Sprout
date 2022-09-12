@@ -21,12 +21,7 @@ public class EULA extends AppCompatActivity {
         View bindingRoot = binding.getRoot();
         setContentView(bindingRoot);
 
-        binding.btnAgree.setOnClickListener(view -> {
-            startActivity((new Intent(this, Introduction.class)));
-        });
-
-        binding.btnDisagree.setOnClickListener(view -> {
-            startActivity((new Intent(this, Main.class)));
-        });
+        binding.btnAgree.setOnClickListener(view -> startActivity((new Intent(this, Introduction.class))));
+        binding.btnDisagree.setOnClickListener(view -> startActivity((new Intent(this, Main.class))));
     }
 }

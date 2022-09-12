@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f81b32d9f309dd2952b37b268c44b722",
+    "identityHash": "c8562b09552b995c15d1008e9f644857",
     "entities": [
       {
         "tableName": "User",
@@ -62,7 +62,7 @@
       },
       {
         "tableName": "Assestment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT, `aselect` TEXT, `bselect` TEXT, `cselect` TEXT, `dselect` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT, `aselect` TEXT, `bselect` TEXT, `cselect` TEXT, `dselect` TEXT, `selected` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -99,6 +99,12 @@
             "columnName": "dselect",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "selected",
+            "columnName": "selected",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -114,7 +120,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f81b32d9f309dd2952b37b268c44b722')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c8562b09552b995c15d1008e9f644857')"
     ]
   }
 }

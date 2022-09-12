@@ -26,6 +26,9 @@ public class Assestment {
     @ColumnInfo(name = "dselect")
     public String dselect;
 
+    @ColumnInfo(name = "selected")
+    public String selected;
+
     @Override
     public String toString() {
         return "Assestment{" + '\n'+
@@ -34,7 +37,8 @@ public class Assestment {
                 "aselect: " + aselect + '\n' +
                 "bselect: " + bselect + '\n' +
                 "cselect: " + cselect + '\n' +
-                "dselect: " + dselect + '}';
+                "dselect: " + dselect + '\n' +
+                "selected: " + selected + '}';
     }
 
     public int getUid() {
@@ -59,5 +63,13 @@ public class Assestment {
 
     public String getDselect() {
         return dselect;
+    }
+
+    public String getSelected() {
+        return selected;
+    }
+
+    public void setSelected(String selected) {
+        this.selected = selected;
     }
 }

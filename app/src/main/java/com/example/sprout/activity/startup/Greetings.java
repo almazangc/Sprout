@@ -2,7 +2,6 @@ package com.example.sprout.activity.startup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,11 +23,9 @@ public class Greetings extends AppCompatActivity {
 
         Bundle bundle = getIntent().getBundleExtra("bundle");
 
-        binding.btnContinue.setOnClickListener(view -> {
-            startActivity((new Intent(this, Nickname.class))
-                    .putExtra("bundle", bundle)
-            );
-        });
+        binding.btnContinue.setOnClickListener(view -> startActivity((new Intent(this, Nickname.class))
+                .putExtra("bundle", bundle)
+        ));
     }
 }
 

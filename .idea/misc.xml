@@ -30,10 +30,11 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/simple_background_tempv3.xml" value="0.286" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/view_background.xml" value="0.286" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_activitty_startup_get_started.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_activity_startup_get_started.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_activity_startup_get_started.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_get_common_wake_up.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_hello.xml" value="0.20778110303548525" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_analysis.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_assessment.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_eula.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_get_common_sleep.xml" value="0.2731936725096195" />
@@ -49,6 +50,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_time_picker_fragment.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/layout_btn_continue.xml" value="0.26934587430525864" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/layout_timepicker_view.xml" value="0.5" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/list_item.xml" value="0.2573749465583583" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/trial.xml" value="0.2731936725096195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.248" />

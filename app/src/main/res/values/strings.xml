@@ -22,4 +22,6 @@
     <string name="what_should_we_call_you">What should we call you?</string>
     <string name="prompt_name">Enter your name</string>
     <string name="personalization">Personalization</string>
+
+    <string name="select">Select Item</string>
 </resources>

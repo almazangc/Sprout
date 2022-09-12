@@ -20,8 +20,6 @@ public class Introduction extends AppCompatActivity {
         View bindingRoot = binding.getRoot();
         setContentView(bindingRoot);
 
-        binding.btnContinue.setOnClickListener(view -> {
-            startActivity((new Intent(this, CommonWakeUp.class)));
-        });
+        binding.btnContinue.setOnClickListener(view -> startActivity((new Intent(this, CommonWakeUp.class))));
     }
 }

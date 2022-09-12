@@ -7,8 +7,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sprout.Database.AppDatabase;
-import com.example.sprout.Database.Assestment;
 import com.example.sprout.Database.PopulateAssestmentDatabase;
 import com.example.sprout.activity.startup.get.Personalization;
 import com.example.sprout.databinding.ActivityActivityStartupGetStartedBinding;

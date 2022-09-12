@@ -13,5 +13,6 @@
         android:layout_margin="35dp"
         android:text="startup"
         android:layout_centerInParent="true"
+        android:background="@drawable/rounded_blue_btn"
         tools:ignore="HardcodedText" />
 </RelativeLayout>

@@ -20,8 +20,6 @@ public class Initial extends AppCompatActivity {
         View bindingRoot = binding.getRoot();
         setContentView(bindingRoot);
 
-        binding.btnLetsDoIt.setOnClickListener(view -> {
-            startActivity((new Intent(this, EULA.class)));
-        });
+        binding.btnLetsDoIt.setOnClickListener(view -> startActivity((new Intent(this, EULA.class))));
     }
 }
