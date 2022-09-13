@@ -21,12 +21,15 @@ public class Identity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getIntent().getBundleExtra("bundle");
-        int wakeHour = bundle.getInt("wakeHour");
-        int wakeMinute = bundle.getInt("wakeMinute");
-        int sleepHour = bundle.getInt("sleepHour");
-        int sleepMinute = bundle.getInt("sleepMinute");
-        String nickname = bundle.getString("nickname");
+        BundleKey bundleKey = new BundleKey();
+
+        Bundle bundle = getIntent().getBundleExtra(bundleKey.getKEY_BUNDLE());
+        boolean eula = bundle.getBoolean(bundleKey.getKEY_EULA());
+        int wakeHour = bundle.getInt(bundleKey.getKEY_WAKEHOUR());
+        int wakeMinute = bundle.getInt(bundleKey.getKEY_WAKEMINUTE());
+        int sleepHour = bundle.getInt(bundleKey.getKEY_SLEEPHOUR());
+        int sleepMinute = bundle.getInt(bundleKey.getKEY_SLEEPMINUTE());
+        String nickname = bundle.getString(bundleKey.getKEY_NICKNAME());
 
         binding = ActivityStartupGetIdentityBinding.inflate(getLayoutInflater());
         View bindingRoot = binding.getRoot();
@@ -44,8 +47,8 @@ public class Identity extends AppCompatActivity {
                             String.format("\n%-20s%s", "Identity:", identity))
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialogInterface, i) -> {
-                        saveUserData(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute);
-                        startActivity((new Intent(this, GetStarted.class)).putExtra("Nickname", nickname));
+                        saveUserData(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute, eula);
+                        startActivity((new Intent(this, GetStarted.class)).putExtra(bundleKey.getKEY_NICKNAME(), nickname));
                     })
                     .setNegativeButton("No", null)
                     .show();
@@ -59,7 +62,7 @@ public class Identity extends AppCompatActivity {
         return radioButton.getText().toString();
     }
 
-    private void saveUserData(String nickname, String identity, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute){
+    private void saveUserData(String nickname, String identity, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eula){
         AppDatabase db = AppDatabase.getDbInstance(this.getApplicationContext());
         User user = new User();
         user.nickname = nickname;
@@ -68,6 +71,7 @@ public class Identity extends AppCompatActivity {
         user.wake_minute = wakeMinute;
         user.sleep_hour = sleepHour;
         user.sleep_minute = sleepMinute;
-        db.userDao().insertUser(user);
+        user.agreed = eula;
+        db.userDao().insert(user);
     }
 }

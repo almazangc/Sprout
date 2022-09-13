@@ -23,9 +23,7 @@ public class Greetings extends AppCompatActivity {
 
         Bundle bundle = getIntent().getBundleExtra("bundle");
 
-        binding.btnContinue.setOnClickListener(view -> startActivity((new Intent(this, Nickname.class))
-                .putExtra("bundle", bundle)
-        ));
+        binding.btnContinue.setOnClickListener(view -> startActivity((new Intent(this, Nickname.class)).putExtra("bundle", bundle)));
     }
 }
 

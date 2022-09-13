@@ -23,10 +23,10 @@ public class CommonSleepTime extends AppCompatActivity {
         setInitialTime();
 
         binding.btnContinue.setOnClickListener(view -> {
-            Bundle bundle = getIntent().getBundleExtra("bundle"); // get the nested bundle, or it'll be getIntent().getExtras().getBundle("bundle")
-            bundle.putInt("sleepHour", binding.SleepTimePicker.getHour());
-            bundle.putInt("sleepMinute", binding.SleepTimePicker.getMinute());
-            startActivity((new Intent(this, Greetings.class).putExtra("bundle", bundle)));
+            Bundle bundle = getIntent().getBundleExtra(new BundleKey().getKEY_BUNDLE()); // get the nested bundle, or it'll be getIntent().getExtras().getBundle("bundle")
+            bundle.putInt(new BundleKey().getKEY_SLEEPHOUR(), binding.SleepTimePicker.getHour());
+            bundle.putInt(new BundleKey().getKEY_SLEEPMINUTE(), binding.SleepTimePicker.getMinute());
+            startActivity((new Intent(this, Greetings.class).putExtra(new BundleKey().getKEY_BUNDLE(), bundle)));
         });
     }
 

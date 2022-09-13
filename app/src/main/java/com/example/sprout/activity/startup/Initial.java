@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sprout.activity.startup.get.EULA;
 import com.example.sprout.databinding.ActivityStartupInitialBinding;
 
 public class Initial extends AppCompatActivity {

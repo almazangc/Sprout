@@ -47,7 +47,7 @@
             android:exported="false"
             android:screenOrientation="sensorPortrait" />
         <activity
-            android:name=".activity.startup.EULA"
+            android:name=".activity.startup.get.EULA"
             android:exported="false"
             android:screenOrientation="sensorPortrait" />
         <activity

@@ -1,5 +1,6 @@
 package com.example.sprout.Database;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -29,9 +30,10 @@ public class Assestment {
     @ColumnInfo(name = "selected")
     public String selected;
 
+    @NonNull
     @Override
     public String toString() {
-        return "Assestment{" + '\n'+
+        return "Assessment{" + '\n'+
                 "uid: " + uid  + '\n'+
                 "question: " + question + '\n' +
                 "aselect: " + aselect + '\n' +

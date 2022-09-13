@@ -30,11 +30,10 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/simple_background_tempv3.xml" value="0.286" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/view_background.xml" value="0.286" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_activitty_startup_get_started.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_activity_startup_get_started.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_activity_startup_get_started.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_get_common_wake_up.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_hello.xml" value="0.20778110303548525" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_analysis.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_assessment.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_eula.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_get_common_sleep.xml" value="0.2731936725096195" />
@@ -50,19 +49,40 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_time_picker_fragment.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/layout_btn_continue.xml" value="0.26934587430525864" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/layout_timepicker_view.xml" value="0.5" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/list_item.xml" value="0.2573749465583583" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/trial.xml" value="0.2731936725096195" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.248" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_bar.xml" value="0.347" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/backgroundbar.xml" value="0.3055" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/blurry_gradient_haikei.xml" value="0.3055" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/rounded_blue_btn.xml" value="0.3055" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/rounded_red_btn.xml" value="0.143" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/scroll_vertical_tint_shape.xml" value="0.143" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/simple_background_temp_v4.xml" value="0.3055" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/simple_background_tempv1.xml" value="0.174" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/simple_background_tempv3.xml" value="0.3055" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/svgviewer_output__1_.xml" value="0.3055" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/svgviewer_output__1___1_.xml" value="0.3055" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/view_background.xml" value="0.3055" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/wavy_background.xml" value="0.3055" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/wavy_background_1.xml" value="0.3055" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_activity_startup_get_started.xml" value="0.3411458333333333" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_analysis.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_eula.xml" value="0.3411458333333333" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_get_common_sleep_time.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_initial.xml" value="0.2513586956521739" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_introduction.xml" value="0.33" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_personalization.xml" value="0.3411458333333333" />
       </map>
     </option>
+  </component>
+  <component name="JavadocGenerationManager">
+    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/Output" />
+    <option name="OPTION_SCOPE" value="package" />
+    <option name="OPTION_DOCUMENT_TAG_USE" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

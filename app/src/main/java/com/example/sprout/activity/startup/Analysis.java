@@ -2,14 +2,10 @@ package com.example.sprout.activity.startup;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sprout.R;
 import com.example.sprout.databinding.ActivityStartupAnalysisBinding;
 
 public class Analysis extends AppCompatActivity {

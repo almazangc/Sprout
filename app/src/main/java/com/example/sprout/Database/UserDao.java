@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -13,8 +14,12 @@ public interface UserDao {
     public List<User> getAllUser();
 
     @Insert
-    void insertUser(User... users);
+    void insert(User... users);
+
+    @Update
+    void update(User users);
 
     @Delete
-    void deleteUser(User user);
+    void delete(User user);
+
 }

@@ -33,6 +33,6 @@ public class PopulateAssestmentDatabase{
         assestment.bselect = bselect;
         assestment.cselect = cselect;
         assestment.dselect = dselect;
-        db.assestmentDao().insertAssestment(assestment);
+        db.assestmentDao().insert(assestment);
     }
 }

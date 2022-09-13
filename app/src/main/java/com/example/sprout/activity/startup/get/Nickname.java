@@ -28,9 +28,9 @@ public class Nickname extends AppCompatActivity {
             if (nickname.equals("")) {
                 Toast.makeText(this, "Please enter a nickname", Toast.LENGTH_SHORT).show();
             } else {
-                Bundle bundle = getIntent().getBundleExtra("bundle");
-                bundle.putString("nickname", nickname);
-                startActivity((new Intent(this, Identity.class)).putExtra("bundle", bundle));
+                Bundle bundle = getIntent().getBundleExtra(new BundleKey().getKEY_BUNDLE());
+                bundle.putString(new BundleKey().getKEY_NICKNAME(), nickname);
+                startActivity((new Intent(this, Identity.class)).putExtra(new BundleKey().getKEY_BUNDLE(), bundle));
             }
         });
     }
