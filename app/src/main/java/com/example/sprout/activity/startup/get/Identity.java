@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprout.Database.AppDatabase;
-import com.example.sprout.Database.User;
+import com.example.sprout.Database.User.User;
 import com.example.sprout.activity.startup.GetStarted;
 import com.example.sprout.databinding.ActivityStartupGetIdentityBinding;
 

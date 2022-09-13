@@ -1,4 +1,4 @@
-package com.example.sprout.Database;
+package com.example.sprout.Database.Assestment;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

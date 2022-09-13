@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprout.Database.AppDatabase;
-import com.example.sprout.Database.Assestment;
+import com.example.sprout.Database.Assestment.Assestment;
 import com.example.sprout.activity.startup.Analysis;
 import com.example.sprout.databinding.ActivityStartupPersonalizationBinding;
 

@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprout.Database.AppDatabase;
-import com.example.sprout.Database.User;
+import com.example.sprout.Database.User.User;
 import com.example.sprout.activity.startup.Introduction;
 import com.example.sprout.activity.startup.get.Personalization;
 import com.example.sprout.databinding.ActivityMainBinding;
