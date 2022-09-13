@@ -1,14 +1,14 @@
 package com.example.sprout.activity.startup.get;
 
 public class BundleKey {
-    private static final String KEY_BUNDLE = "bundle";
-    private static final String KEY_EULA = "eula";
-    private static final String KEY_WAKEHOUR = "wakeHour";
-    private static final String KEY_WAKEMINUTE = "wakeMinute";
-    private static final String KEY_SLEEPHOUR = "sleepHour";
-    private static final String KEY_SLEEPMINUTE = "sleepMinute";
-    private static final String KEY_NICKNAME = "nickname";
-    private static final String KEY_IDENTITY = "identity";
+    private static final String KEY_BUNDLE = "bundle.key";
+    private static final String KEY_EULA = "eula.key";
+    private static final String KEY_WAKEHOUR = "wakeHour.key";
+    private static final String KEY_WAKEMINUTE = "wakeMinute.key";
+    private static final String KEY_SLEEPHOUR = "sleepHour.key";
+    private static final String KEY_SLEEPMINUTE = "sleepMinute.key";
+    private static final String KEY_NICKNAME = "nickname.key";
+    private static final String KEY_IDENTITY = "identity.key";
 
     public String getKEY_BUNDLE() {
         return KEY_BUNDLE;

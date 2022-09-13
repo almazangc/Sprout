@@ -22,7 +22,7 @@ public class Analysis extends AppCompatActivity {
 
         String[] items = new String[]{"Positive", "Negative", "Alive", "Dead", "YOKOSO", "JAK AMMOOOOO", "TODO: USE DAO ROOM"};
 //        binding.dropdown.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items));
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(this, android.R.layout.activity_list_item, binding.dropItems, items);
+        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(this, android.R.layout.activity_list_item, items);
         binding.dropItems.setAdapter(adapterItems);
     }
 }

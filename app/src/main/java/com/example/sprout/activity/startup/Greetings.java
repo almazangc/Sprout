@@ -6,6 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sprout.activity.startup.get.BundleKey;
 import com.example.sprout.activity.startup.get.Nickname;
 import com.example.sprout.databinding.ActivityStartupGreetingsBinding;
 
@@ -21,10 +22,6 @@ public class Greetings extends AppCompatActivity {
         View bindingRoot = binding.getRoot();
         setContentView(bindingRoot);
 
-        Bundle bundle = getIntent().getBundleExtra("bundle");
-
-        binding.btnContinue.setOnClickListener(view -> startActivity((new Intent(this, Nickname.class)).putExtra("bundle", bundle)));
+        binding.btnContinue.setOnClickListener(view -> startActivity((new Intent(this, Nickname.class)).putExtra(new BundleKey().getKEY_BUNDLE(), new Bundle(getIntent().getBundleExtra(new BundleKey().getKEY_BUNDLE())))));
     }
 }
-
-
