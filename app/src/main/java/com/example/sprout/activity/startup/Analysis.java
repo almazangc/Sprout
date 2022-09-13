@@ -1,11 +1,14 @@
 package com.example.sprout.activity.startup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sprout.R;
+import com.example.sprout.activity.Main;
 import com.example.sprout.databinding.ActivityStartupAnalysisBinding;
 
 public class Analysis extends AppCompatActivity {
@@ -20,9 +23,15 @@ public class Analysis extends AppCompatActivity {
         View bindingRoot = binding.getRoot();
         setContentView(bindingRoot);
 
-        String[] items = new String[]{"Positive", "Negative", "Alive", "Dead", "YOKOSO", "JAK AMMOOOOO", "TODO: USE DAO ROOM"};
-//        binding.dropdown.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items));
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(this, android.R.layout.activity_list_item, items);
+//        TODO: CREATE ROOM DATABASE
+        String[] items = new String[]{"YES, AN UPGRADE", "YES, GONNA RESELL IT", "NAH NO NEED", "...... Im speechless"};
+        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(this, R.layout.list_item, items);
         binding.dropItems.setAdapter(adapterItems);
+
+        binding.btnContinue.setOnClickListener(view -> {
+
+        });
     }
+
+
 }

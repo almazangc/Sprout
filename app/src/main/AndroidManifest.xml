@@ -21,53 +21,42 @@
         <!-- android:screenOrientation="locked" -->
         <activity
             android:name=".activity.startup.get.Personalization"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false" />
         <activity
             android:name=".activity.startup.GetStarted"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false"/>
         <activity
             android:name=".activity.startup.get.Identity"
             android:alwaysRetainTaskState="true"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false"/>
         <activity
             android:name=".activity.startup.get.Nickname"
             android:alwaysRetainTaskState="true"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false"/>
         <activity
             android:name=".activity.startup.Greetings"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false"/>
         <activity
             android:name=".activity.startup.Initial"
             android:alwaysRetainTaskState="true"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false"/>
         <activity
             android:name=".activity.startup.get.EULA"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false"/>
         <activity
             android:name=".activity.startup.Introduction"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false"/>
         <activity
             android:name=".activity.startup.get.CommonWakeUp"
             android:alwaysRetainTaskState="true"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false"/>
         <activity
             android:name=".activity.startup.get.CommonSleepTime"
             android:alwaysRetainTaskState="true"
-            android:exported="false"
-            android:screenOrientation="sensorPortrait" />
+            android:exported="false"/>
         <activity
             android:name=".activity.Main"
-            android:exported="true"
-            android:screenOrientation="sensorPortrait">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
