@@ -3,7 +3,7 @@
   <component name="navEditor-manualLayoutAlgorithm2">
     <option name="myPositions">
       <map>
-        <entry key="navigation_component.xml">
+        <entry key="main_navigation_component.xml">
           <value>
             <LayoutPositions>
               <option name="myPositions">
@@ -13,20 +13,20 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-220" />
-                            <option name="y" value="606" />
+                            <option name="x" value="-244" />
+                            <option name="y" value="-216" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="eula">
+                  <entry key="eulaFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="43" />
-                            <option name="y" value="1167" />
+                            <option name="x" value="572" />
+                            <option name="y" value="76" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -56,13 +56,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="528" />
-                            <option name="y" value="1178" />
+                            <option name="x" value="572" />
+                            <option name="y" value="819" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_navigate_from_getCommonSleepTime_to_getCommonWakeup">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_getCommonSleepTime_to_introduction">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -77,17 +82,12 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="288" />
-                            <option name="y" value="1175" />
+                            <option name="x" value="852" />
+                            <option name="y" value="527" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_navigate_from_getCommonWakeup_to_eula">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                             <entry key="action_navigate_from_getCommonWakeup_to_getCommonSleepTime">
                               <value>
                                 <LayoutPositions />
@@ -98,49 +98,86 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="getStarted">
+                  <entry key="getIdentityFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="412" />
-                            <option name="y" value="238" />
+                            <option name="x" value="1132" />
+                            <option name="y" value="1367" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_getIdentity_to_getNickname">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_getIdentity_to_getStarted">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="greetings">
+                  <entry key="getStartedFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-211" />
-                            <option name="y" value="237" />
+                            <option name="x" value="1412" />
+                            <option name="y" value="1367" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_getStarted_to_personalization">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="identity">
+                  <entry key="greetingsFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="203" />
-                            <option name="y" value="234" />
+                            <option name="x" value="572" />
+                            <option name="y" value="1325" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_greetings_to_getNickname">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_greetings_to_introduction">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="initial">
+                  <entry key="initialFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-213" />
-                            <option name="y" value="1168" />
+                            <option name="x" value="1132" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -160,26 +197,334 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="introduction">
+                  <entry key="introductionFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-444" />
-                            <option name="y" value="238" />
+                            <option name="x" value="852" />
+                            <option name="y" value="947" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_introduction_to_getCommonSleepTime">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_introduction_to_greetings">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nicknameFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="852" />
+                            <option name="y" value="1367" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_getNickname_to_getIdentity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_getNickname_to_greetings">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="personalizationFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1692" />
+                            <option name="y" value="1314" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="nickname">
+                  <entry key="startupFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="3" />
-                            <option name="y" value="238" />
+                            <option name="x" value="852" />
+                            <option name="y" value="108" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_startup_to_initial">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_startup_to_personalization">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </LayoutPositions>
+          </value>
+        </entry>
+        <entry key="navigation_component.xml">
+          <value>
+            <LayoutPositions>
+              <option name="myPositions">
+                <map>
+                  <entry key="analysis2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-220" />
+                            <option name="y" value="606" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="eulaFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="67" />
+                            <option name="y" value="1181" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_eula_to_getCommonWakeup">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_eula_to_initial">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_eula_to_startup">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="getCommonSleepTimeFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="598" />
+                            <option name="y" value="1174" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_getCommonSleepTime_to_getCommonWakeup">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_getCommonSleepTime_to_introduction">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="getCommonWakeupFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="314" />
+                            <option name="y" value="1180" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_getCommonWakeup_to_getCommonSleepTime">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="getIdentityFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1735" />
+                            <option name="y" value="1161" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_getIdentity_to_getNickname">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_getIdentity_to_getStarted">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="getStartedFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="2045" />
+                            <option name="y" value="1456" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="greetingsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1186" />
+                            <option name="y" value="1170" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_greetings_to_getNickname">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_greetings_to_introduction">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="initialFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-205" />
+                            <option name="y" value="1181" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_initial_to_eula">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_initial_to_startup">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="introductionFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="884" />
+                            <option name="y" value="1172" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_introduction_to_getCommonSleepTime">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_introduction_to_greetings">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nicknameFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1468" />
+                            <option name="y" value="1163" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_getNickname_to_getIdentity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_getNickname_to_greetings">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -196,13 +541,25 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="startup">
+                  <entry key="personalizationFragment2">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-431" />
-                            <option name="y" value="1168" />
+                            <option name="x" value="-200" />
+                            <option name="y" value="1744" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="startupFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-591" />
+                            <option name="y" value="1492" />
                           </Point>
                         </option>
                         <option name="myPositions">

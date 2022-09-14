@@ -7,10 +7,6 @@
     android:background="@drawable/simple_background_tempv1"
     tools:context=".activity.startup.get.Nickname">
 
-    <ProgressBar
-        android:id="@+id/startup_progressBar"
-        style="@style/style_progressBar" />
-
     <TextView
         style="@style/textViewHeader"
         android:layout_width="match_parent"

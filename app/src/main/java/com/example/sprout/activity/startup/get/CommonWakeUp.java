@@ -1,17 +1,14 @@
 package com.example.sprout.activity.startup.get;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sprout.activity.Main;
 import com.example.sprout.databinding.ActivityStartupGetCommonWakeUpBinding;
+import com.example.sprout.model.BundleKey;
 
 public class CommonWakeUp extends AppCompatActivity {
 

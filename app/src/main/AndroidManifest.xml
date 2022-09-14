@@ -20,7 +20,7 @@
             android:exported="false" />
         <!-- android:screenOrientation="locked" -->
         <activity
-            android:name=".activity.startup.get.Personalization"
+            android:name=".activity.Personalization"
             android:exported="false" />
         <activity
             android:name=".activity.startup.GetStarted"
@@ -34,13 +34,13 @@
             android:alwaysRetainTaskState="true"
             android:exported="false"/>
         <activity
-            android:name=".activity.startup.Greetings"
+            android:name=".activity.startup.Greetingsv2"
             android:exported="false"/>
         <activity
             android:name=".activity.startup.get.EULA"
             android:exported="false"/>
         <activity
-            android:name=".activity.startup.Introduction"
+            android:name=".activity.startup.Introductionv2"
             android:exported="false"/>
         <activity
             android:name=".activity.startup.get.CommonWakeUp"

@@ -1,0 +1,27 @@
+package com.example.sprout.activity.startup;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.sprout.model.BundleKey;
+import com.example.sprout.activity.startup.get.Nickname;
+import com.example.sprout.databinding.ActivityStartupGreetingsBinding;
+
+public class Greetingsv2 extends AppCompatActivity {
+
+    ActivityStartupGreetingsBinding binding;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        binding = ActivityStartupGreetingsBinding.inflate(getLayoutInflater());
+        View bindingRoot = binding.getRoot();
+        setContentView(bindingRoot);
+
+        binding.btnContinue.setOnClickListener(view -> startActivity((new Intent(this, Nickname.class)).putExtra(new BundleKey().getKEY_BUNDLE(), new Bundle(getIntent().getBundleExtra(new BundleKey().getKEY_BUNDLE())))));
+    }
+}

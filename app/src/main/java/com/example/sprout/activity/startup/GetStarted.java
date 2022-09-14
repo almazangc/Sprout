@@ -7,9 +7,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sprout.Database.Assestment.PopulateAssestmentDatabase;
-import com.example.sprout.activity.startup.get.BundleKey;
-import com.example.sprout.activity.startup.get.Personalization;
+import com.example.sprout.database.Assestment.PopulateAssestmentDatabase;
+import com.example.sprout.model.BundleKey;
+import com.example.sprout.activity.Personalization;
 import com.example.sprout.databinding.ActivityActivityStartupGetStartedBinding;
 
 public class GetStarted extends AppCompatActivity {

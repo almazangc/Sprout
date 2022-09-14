@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprout.databinding.ActivityStartupGetNicknameBinding;
+import com.example.sprout.model.BundleKey;
 
 public class Nickname extends AppCompatActivity {
 

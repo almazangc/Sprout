@@ -7,8 +7,8 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sprout.activity.Main;
-import com.example.sprout.activity.startup.Introduction;
 import com.example.sprout.databinding.ActivityStartupEulaBinding;
+import com.example.sprout.model.BundleKey;
 
 public class EULA extends AppCompatActivity {
 

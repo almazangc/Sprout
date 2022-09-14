@@ -1,121 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/relativeLayoutPadding"
-    android:background="@drawable/simple_background_tempv1"
-    tools:context=".activity.startup.get.Personalization">
+    android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/assestment_progressBar"
-        style="@style/style_progressBar" />
 
-    <TextView
-        android:id="@+id/lbl_titleMainHeader"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView2"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/assestment_progressBar"
-        android:text="@string/personalization"
-        android:textColor="@color/NIGHT"
-        android:textSize="34sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_navigation_component" />
 
-    <TextView
-        android:id="@+id/lbl_subHeader1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lbl_titleMainHeader"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
-        android:text="@string/habit_reform_and_routine_management"
-        android:textAlignment="viewStart"
-        android:textColor="@color/NIGHT"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/lbl_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/radiogroup_select"
-        android:layout_marginTop="30dp"
-        android:text="Question: Goes Here"
-        android:textColor="@color/NIGHT"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"/>
-
-    <RadioGroup
-        android:id="@+id/radiogroup_select"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btn_continue"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="@dimen/radio_margin_bottom"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:id="@+id/radio_aselect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="@dimen/radio_margin_bottom"
-            android:background="@drawable/radio_selector"
-            android:button="@null"
-            android:checked="true"
-            android:padding="20dp"
-            android:text="ASELECT"
-            android:textAlignment="center"
-            android:textColor="@drawable/radio_text_color_selector"
-            android:textSize="@dimen/radio_button_textSize" />
-
-        <RadioButton
-            android:id="@+id/radio_bselect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="@dimen/radio_margin_bottom"
-            android:background="@drawable/radio_selector"
-            android:button="@null"
-            android:contentDescription="BSLECT"
-            android:padding="20dp"
-            android:text="BSLECT"
-            android:textAlignment="center"
-            android:textColor="@drawable/radio_text_color_selector"
-            android:textSize="@dimen/radio_button_textSize" />
-
-        <RadioButton
-            android:id="@+id/radio_cselect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="@dimen/radio_margin_bottom"
-            android:background="@drawable/radio_selector"
-            android:button="@null"
-            android:contentDescription="CSELECT"
-            android:padding="20dp"
-            android:text="CSELECT"
-            android:textAlignment="center"
-            android:textColor="@drawable/radio_text_color_selector"
-            android:textSize="@dimen/radio_button_textSize" />
-
-        <RadioButton
-            android:id="@+id/radio_dselect"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="@dimen/radio_margin_bottom"
-            android:background="@drawable/radio_selector"
-            android:button="@null"
-            android:contentDescription="DSELECT"
-            android:padding="20dp"
-            android:text="DSELECT"
-            android:textAlignment="center"
-            android:textColor="@drawable/radio_text_color_selector"
-            android:textSize="@dimen/radio_button_textSize" />
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/btn_continue"
-        style="@style/style_continue"/>
 </RelativeLayout>

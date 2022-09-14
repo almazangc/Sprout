@@ -6,8 +6,9 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sprout.activity.startup.Greetings;
+import com.example.sprout.activity.startup.Greetingsv2;
 import com.example.sprout.databinding.ActivityStartupGetCommonSleepTimeBinding;
+import com.example.sprout.model.BundleKey;
 
 public class CommonSleepTime extends AppCompatActivity {
 
@@ -26,7 +27,7 @@ public class CommonSleepTime extends AppCompatActivity {
             Bundle bundle = getIntent().getBundleExtra(new BundleKey().getKEY_BUNDLE()); // get the nested bundle, or it'll be getIntent().getExtras().getBundle("bundle")
             bundle.putInt(new BundleKey().getKEY_SLEEPHOUR(), binding.SleepTimePicker.getHour());
             bundle.putInt(new BundleKey().getKEY_SLEEPMINUTE(), binding.SleepTimePicker.getMinute());
-            startActivity((new Intent(this, Greetings.class).putExtra(new BundleKey().getKEY_BUNDLE(), bundle)));
+            startActivity((new Intent(this, Greetingsv2.class).putExtra(new BundleKey().getKEY_BUNDLE(), bundle)));
         });
     }
 

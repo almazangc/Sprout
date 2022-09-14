@@ -6,18 +6,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/simple_background_tempv2"
     android:padding="@dimen/relativeLayoutPadding"
-    tools:context=".activity.startup.Greetings">
-
-    <ProgressBar
-        android:id="@+id/startup_progressBar"
-        style="@style/style_progressBar"/>
+    tools:context=".activity.startup.Greetingsv2">
 
     <ImageView
         android:id="@+id/img_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/textView1"
-        android:layout_below="@id/startup_progressBar"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/greetingsvg"
         app:srcCompat="@drawable/welcome" />

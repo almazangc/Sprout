@@ -8,10 +8,11 @@ import android.widget.RadioButton;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sprout.Database.AppDatabase;
-import com.example.sprout.Database.User.User;
+import com.example.sprout.database.AppDatabase;
+import com.example.sprout.database.User.User;
 import com.example.sprout.activity.startup.GetStarted;
 import com.example.sprout.databinding.ActivityStartupGetIdentityBinding;
+import com.example.sprout.model.BundleKey;
 
 public class Identity extends AppCompatActivity {
 

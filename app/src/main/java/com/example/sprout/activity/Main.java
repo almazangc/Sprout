@@ -9,7 +9,7 @@ import com.example.sprout.databinding.ActivityMainBinding;
 
 public class Main extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

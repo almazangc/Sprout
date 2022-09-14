@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.greetingsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/simple_background_tempv2"
+        android:padding="@dimen/relativeLayoutPadding">
+
+        <ImageView
+            android:id="@+id/img_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/textView1"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/greetingsvg"
+            app:srcCompat="@drawable/welcome" />
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/textViewHeader"
+            android:layout_above="@id/textView2"
+            android:text="@string/break_your_bad_habits_in_no_of_days"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/textViewSubHeader"
+            android:layout_above="@id/btn_continue"
+            android:text="@string/give_up_bad_habits_that_affect_your_well_being_and_health_and_become_a_better_version_of_yourself_using_the_guided_routines_methods"
+            android:layout_marginBottom="30dp"
+            />
+
+        <Button
+            android:id="@+id/btn_continue"
+            style="@style/style_continue"/>
+
+    </RelativeLayout>
+
+</FrameLayout>
