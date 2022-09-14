@@ -27,8 +27,6 @@
         android:layout_centerInParent="true"
         android:scaleX="1.5"
         android:scaleY="1.5"/>
-<!--        android:saveEnabled="false"-->
-<!--        />-->
 
     <Button
         android:id="@+id/btn_continue"

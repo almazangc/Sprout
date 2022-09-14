@@ -6,7 +6,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sprout.activity.startup.get.CommonWakeUp;
 import com.example.sprout.databinding.ActivityStartupIntroductionBinding;
 
 public class Introduction extends AppCompatActivity {
@@ -20,6 +19,6 @@ public class Introduction extends AppCompatActivity {
         View bindingRoot = binding.getRoot();
         setContentView(bindingRoot);
 
-        binding.btnContinue.setOnClickListener(view -> startActivity((new Intent(this, Initial.class))));
+//        binding.btnContinue.setOnClickListener(view -> startActivity((new Intent(this, Initial2.class))));
     }
 }

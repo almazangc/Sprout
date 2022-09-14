@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainFragments.getCommonSleepTimeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/relativeLayoutPadding">
+
+    <TextView
+        android:id="@+id/lbl_askCommonSleepTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/ask_commonSleepTime"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="20dp" />
+
+    <TimePicker
+        android:id="@+id/SleepTimePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:alwaysDrawnWithCache="false"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:timePickerMode="spinner" />
+
+    <Button
+        android:id="@+id/btn_continue"
+        style="@style/style_continue" />
+    </RelativeLayout>
+
+</FrameLayout>

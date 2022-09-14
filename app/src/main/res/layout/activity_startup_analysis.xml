@@ -1,78 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.startup.Analysis">
 
-    <data>
-        <variable name="Analysis" type="com.example.sprout.activity.startup.Analysis" />
-    </data>
+    <TextView
+        android:id="@+id/textViewHeader"
+        style="@style/textViewHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/relativeLayoutPadding"
+        android:text="Analysis Result"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT" />
 
-    <RelativeLayout
+    <View
+        android:id="@+id/backgroundView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.startup.Analysis">
+        android:layout_below="@id/textViewHeader"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/view_background" />
 
-        <TextView
-            android:id="@+id/textViewHeader"
-            style="@style/textViewHeader"
+    <TextView
+        android:id="@+id/textSubHeader"
+        style="@style/textViewSubHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/menu"
+        android:layout_marginTop="@dimen/relativeLayoutPadding"
+        android:layout_marginBottom="0dp"
+        android:justificationMode="inter_word"
+        android:padding="30dp"
+        android:text="You are now awarded with new sets of brain \n Please contact the brain replacement company witht the email provided. \n \n Proceed with Brain Replacement for as low as 99% disount. To redeem you free brain sets please take a copy of your: \n\n TICKET NUMBER \n[ ABN0RMAL AK0 #LUTANG NA ]"
+        android:textAlignment="center"
+        android:textColor="@color/CLOUDS"
+        android:textSize="18sp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/menu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Suggestion"
+        android:layout_above="@id/btn_continue"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="200dp"
+        android:layout_marginTop="10dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropItems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/relativeLayoutPadding"
-            android:text="Analysis Result"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT" />
+            android:inputType="none" />
 
-        <View
-            android:id="@+id/backgroundView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/textViewHeader"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/view_background" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/textSubHeader"
-            style="@style/textViewSubHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/menu"
-            android:layout_marginTop="@dimen/relativeLayoutPadding"
-            android:layout_marginBottom="0dp"
-            android:justificationMode="inter_word"
-            android:padding="30dp"
-            android:text="You are now awarded with new sets of brain \n Please contact the brain replacement company witht the email provided. \n \n Proceed with Brain Replacement for as low as 99% disount. To redeem you free brain sets please take a copy of your: \n\n TICKET NUMBER \n[ ABN0RMAL AK0 #LUTANG NA ]"
-            android:textAlignment="center"
-            android:textColor="@color/CLOUDS"
-            android:textSize="18sp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/menu"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Suggestion"
-            android:layout_above="@id/btn_continue"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="200dp"
-            android:layout_marginTop="10dp">
-
-            <AutoCompleteTextView
-                android:id="@+id/dropItems"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_continue"
-            style="@style/style_continue"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/relativeLayoutPadding"
-            android:layout_marginRight="@dimen/relativeLayoutPadding"
-            android:layout_marginBottom="@dimen/relativeLayoutPadding"
-            android:background="@drawable/rounded_blue_btn"
-            android:textColor="@color/CLOUDS" />
-    </RelativeLayout>
-</layout>
+    <Button
+        android:id="@+id/btn_continue"
+        style="@style/style_continue"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/relativeLayoutPadding"
+        android:layout_marginRight="@dimen/relativeLayoutPadding"
+        android:layout_marginBottom="@dimen/relativeLayoutPadding"
+        android:background="@drawable/rounded_blue_btn"
+        android:textColor="@color/CLOUDS" />
+</RelativeLayout>

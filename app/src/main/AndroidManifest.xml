@@ -37,10 +37,6 @@
             android:name=".activity.startup.Greetings"
             android:exported="false"/>
         <activity
-            android:name=".activity.startup.Initial"
-            android:alwaysRetainTaskState="true"
-            android:exported="false"/>
-        <activity
             android:name=".activity.startup.get.EULA"
             android:exported="false"/>
         <activity
