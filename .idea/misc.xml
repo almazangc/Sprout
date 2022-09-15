@@ -47,10 +47,15 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_initial.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_introduction.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/activity_startup_personalization.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_eula.xml" value="0.258230012825994" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_analysis.xml" value="0.258230012825994" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_blank.xml" value="0.258230012825994" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_eula.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_get_common_sleep_time.xml" value="0.25480974775545107" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_get_common_wakeup.xml" value="0.18" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_get_nickname.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_initial.xml" value="0.258230012825994" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_introduction.xml" value="0.258230012825994" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_personalization.xml" value="0.258230012825994" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_startup.xml" value="0.258230012825994" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_time_picker_fragment.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/layout_btn_continue.xml" value="0.26934587430525864" />

@@ -26,6 +26,39 @@
     <color name="SILVER">#bdc3c7</color>
     <color name="ASBESTOS">#7f8c8d</color>
     <color name="MIRAGE">#151621</color>
-    <color name="MIRAGE_70">#B3151621</color>
     <color name="NIGHT">#040000</color>
+
+    <color name="A80_TURQUOISE">#CD1ABC9C</color>
+    <color name="A80_GREEN_SEA">#CC16A085</color>
+    <color name="A80_EMERALD">#CC2ECC71</color>
+    <color name="A80_NEPRITHIS">#CC27AE60</color>
+    <color name="A80_CORAL_BLUE">#CCADD8E6</color>
+    <color name="A80_BRIGHT_SKY_BLUE">#CC05C7F2</color>
+    <color name="A80_PETER_RIVER">#CC3498DB</color>
+    <color name="A80_BELIZE_HOLE">#CC2980B9</color>
+    <color name="A80_AMETHYST">#CC9B59B6</color>
+    <color name="A80_WISTERIA">#CC8E44AD</color>
+    <color name="A80_WAIKAWA_GREY">#CC686DA3</color>
+    <color name="A80_PURPLE_HEARTH">#CC562EB4</color>
+    <color name="A80_WET_ASPHALT">#CC34495E</color>
+    <color name="A80_MIDNIGHT_BLUE">#CC2C3E50</color>
+    <color name="A80_SUNFLOWER">#CCF1C40F</color>
+    <color name="A80_CARROT">#CCE67E22</color>
+    <color name="A80_PUMPKIN">#CCD35400</color>
+    <color name="A80_ALIZARIN">#CCE74C3C</color>
+    <color name="A80_POMEGRANATE">#CCC0392B</color>
+    <color name="A80_CORAL_RED">#CCFA403D</color>
+    <color name="A80_ARTY_CLICK_RED">#CCF20505</color>
+    <color name="A80_RUSTIC_RED">#CC400106</color>
+    <color name="A80_CLOUDS">#CCECF0F1</color>
+    <color name="A80_SILVER">#CCBDC3C7</color>
+    <color name="A80_ASBESTOS">#CC7F8C8D</color>
+    <color name="A80_MIRAGE">#CC151621</color>
+    <color name="A80_NIGHT">#CC040000</color>
+
+    <color name="MIRAGE_70">#CC151621</color>
+
+    <color name="KIMBERLY">#686DA3</color>
+    <color name="A15_KIMBERLY">#27686DA3</color>
+    <color name="Pale_pink">#F9DED7</color>
 </resources>

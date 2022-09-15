@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.getNicknameFragment">
+    tools:context=".fragment.getNicknameFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -32,18 +32,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lbl_2"
+            android:background="@drawable/rounded_blue_btn"
             android:clickable="true"
             android:ems="10"
-            android:maxLength="18"
-            android:background="@drawable/rounded_blue_btn"
-            android:inputType="textPersonName"
             android:hint="@string/prompt_name"
-            android:textColorHint="@color/ASBESTOS"
-            android:paddingStart="15dp"
-            android:paddingBottom="8dp"
+            android:inputType="textPersonName"
+            android:maxLength="18"
+            android:paddingStart="30dp"
             android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/CLOUDS"
+            android:textColorHint="@color/CLOUDS"
             android:textSize="18sp"
-            android:textColor="@color/CLOUDS" />
+            android:padding="15dp"/>
 
         <Button
             android:id="@+id/btn_continue"

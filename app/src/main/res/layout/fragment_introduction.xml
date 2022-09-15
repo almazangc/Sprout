@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.introductionFragment">
+    tools:context=".fragment.introductionFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -42,7 +42,9 @@
             style="@style/style_continue"
             android:layout_marginBottom="@dimen/relativeLayoutPadding"
             android:layout_marginLeft="@dimen/relativeLayoutPadding"
-            android:layout_marginRight="@dimen/relativeLayoutPadding"/>
+            android:layout_marginRight="@dimen/relativeLayoutPadding"
+            android:background="@drawable/rounded_white_btn"
+            android:textColor="@color/NIGHT"/>
 
     </RelativeLayout>
 

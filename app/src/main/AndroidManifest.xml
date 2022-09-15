@@ -15,47 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sprout"
         tools:targetApi="31">
-        <activity
-            android:name=".activity.startup.Analysis"
-            android:exported="false" />
         <!-- android:screenOrientation="locked" -->
         <activity
-            android:name=".activity.Personalization"
-            android:exported="false" />
-        <activity
-            android:name=".activity.startup.GetStarted"
-            android:exported="false"/>
-        <activity
-            android:name=".activity.startup.get.Identity"
-            android:alwaysRetainTaskState="true"
-            android:exported="false"/>
-        <activity
-            android:name=".activity.startup.get.Nickname"
-            android:alwaysRetainTaskState="true"
-            android:exported="false"/>
-        <activity
-            android:name=".activity.startup.Greetingsv2"
-            android:exported="false"/>
-        <activity
-            android:name=".activity.startup.get.EULA"
-            android:exported="false"/>
-        <activity
-            android:name=".activity.startup.Introductionv2"
-            android:exported="false"/>
-        <activity
-            android:name=".activity.startup.get.CommonWakeUp"
-            android:alwaysRetainTaskState="true"
-            android:exported="false"/>
-        <activity
-            android:name=".activity.startup.get.CommonSleepTime"
-            android:alwaysRetainTaskState="true"
-            android:exported="false"/>
-        <activity
-            android:name=".activity.Main"
+            android:name=".activity.startup.Main"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
