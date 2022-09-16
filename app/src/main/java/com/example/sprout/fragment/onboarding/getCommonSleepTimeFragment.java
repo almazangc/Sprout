@@ -1,4 +1,4 @@
-package com.example.sprout.fragment;
+package com.example.sprout.fragment.onboarding;
 
 import android.os.Bundle;
 
@@ -8,18 +8,18 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.sprout.R;
-import com.example.sprout.databinding.FragmentGetNicknameBinding;
+import com.example.sprout.databinding.FragmentGetCommonSleepTimeBinding;
 import com.example.sprout.model.BundleKey;
+import com.example.sprout.model.InitialTime;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link getNicknameFragment#newInstance} factory method to
+ * Use the {@link getCommonSleepTimeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class getNicknameFragment extends Fragment {
+public class getCommonSleepTimeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,9 +27,9 @@ public class getNicknameFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     //View Binding
-    private FragmentGetNicknameBinding binding;
+    private FragmentGetCommonSleepTimeBinding binding;
 
-    public getNicknameFragment() {
+    public getCommonSleepTimeFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class getNicknameFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment nicknameFragment.
+     * @return A new instance of fragment getCommonSleepTimeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static getNicknameFragment newInstance(String param1, String param2) {
-        getNicknameFragment fragment = new getNicknameFragment();
+    public static getCommonSleepTimeFragment newInstance(String param1, String param2) {
+        getCommonSleepTimeFragment fragment = new getCommonSleepTimeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,7 +53,8 @@ public class getNicknameFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentGetNicknameBinding.inflate(inflater, container, false);
+        binding = FragmentGetCommonSleepTimeBinding.inflate(inflater, container, false);
+        setInitialTime();
         return binding.getRoot();
     }
 
@@ -61,22 +62,15 @@ public class getNicknameFragment extends Fragment {
     public void onStart() {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
-            String nickname = binding.editTextTextPersonName.getText().toString();
-            if (nickname.equals("")) {
-                Toast.makeText(requireContext(), "Please enter a nickname", Toast.LENGTH_SHORT).show();
-            } else {
-                Bundle bundle = getArguments();
-                bundle.putString(new BundleKey().getKEY_NICKNAME(), nickname);
-                Navigation.findNavController(view).navigate(R.id.action_navigate_from_getNickname_to_getIdentity, bundle);
-            }
+            Bundle bundle = getArguments();
+            bundle.putInt(new BundleKey().getKEY_SLEEPHOUR(), binding.SleepTimePicker.getHour());
+            bundle.putInt(new BundleKey().getKEY_SLEEPMINUTE(), binding.SleepTimePicker.getMinute());
+            Navigation.findNavController(view).navigate(R.id.action_navigate_from_getCommonSleepTime_to_introduction, bundle);
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    private void setInitialTime() {
+        binding.SleepTimePicker.setHour(new InitialTime().getSleepHour());
+        binding.SleepTimePicker.setMinute(new InitialTime().getSleepMinute());
     }
-
-
 }

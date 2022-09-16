@@ -14,7 +14,7 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="1247" />
-                            <option name="y" value="65" />
+                            <option name="y" value="118" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -151,7 +151,7 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="12" />
-                            <option name="y" value="97" />
+                            <option name="y" value="54" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -177,7 +177,7 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="506" />
-                            <option name="y" value="1384" />
+                            <option name="y" value="1451" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -287,6 +287,11 @@
                               </value>
                             </entry>
                             <entry key="action_navigate_from_startup_to_personalization">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_startupFragment_to_analysisFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

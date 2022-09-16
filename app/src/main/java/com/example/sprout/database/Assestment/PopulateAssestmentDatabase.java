@@ -13,6 +13,7 @@ public class PopulateAssestmentDatabase{
     }
 
     public void populateAssestmentDatabase(){
+        insertNewQuestion("Which habit troubles you, This is a very long questions as an input to the app?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending");
         insertNewQuestion("Which habit troubles you?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending");
         insertNewQuestion("1: How often do you feel happy?", "Always", "Usually", "Seldom", "Never");
         insertNewQuestion("2: Question number 2 right?", "Yes", "No", "I dont know", "I don't care");

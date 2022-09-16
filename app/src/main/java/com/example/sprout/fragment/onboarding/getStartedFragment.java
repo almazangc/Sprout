@@ -1,4 +1,4 @@
-package com.example.sprout.fragment;
+package com.example.sprout.fragment.onboarding;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

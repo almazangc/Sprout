@@ -1,4 +1,4 @@
-package com.example.sprout.fragment;
+package com.example.sprout.fragment.onboarding;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -76,7 +76,7 @@ public class personalizationFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         currentQuestion = getCurrentAssessments(uid);
-        setText();
+        setValues();
     }
 
     @Override
@@ -89,7 +89,7 @@ public class personalizationFragment extends Fragment{
             currentQuestion = getCurrentAssessments(uid);
 
             if (!currentQuestion.isEmpty()) {
-                setText();
+                setValues();
             } else {
                 uid--;
                 Toast.makeText(requireContext(),"End of Questions", Toast.LENGTH_LONG).show();
@@ -109,7 +109,8 @@ public class personalizationFragment extends Fragment{
             public void handleOnBackPressed() {
                 uid -= 2;
                 currentQuestion = getCurrentAssessments(uid);
-                setText();
+                setValues();
+
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -120,12 +121,30 @@ public class personalizationFragment extends Fragment{
         return currentQuestion = AppDatabase.getDbInstance(requireContext()).assestmentDao().getQuestionUID(uid);
     }
 
-    private void setText(){
+    private void setValues(){
         binding.lblQuestion.setText(currentQuestion.get(0).getQuestion());
         binding.radioAselect.setText(currentQuestion.get(0).getAselect());
         binding.radioBselect.setText(currentQuestion.get(0).getBselect());
         binding.radioCselect.setText(currentQuestion.get(0).getCselect());
         binding.radioDselect.setText(currentQuestion.get(0).getDselect());
+        String selectedRadioButtonText = currentQuestion.get(0).getSelected();
+
+//        int count = binding.radiogroupSelect.getChildCount();
+//        ArrayList<RadioButton> listOfRadioButtons = new ArrayList<RadioButton>();
+//        for (int i=0;i<count;i++) {
+//            View view = binding.radiogroupSelect.getChildAt(i);
+//            if (view instanceof RadioButton) {
+//                listOfRadioButtons.add((RadioButton) view);
+//            }
+//        }
+//        for (RadioButton radioButton: listOfRadioButtons){
+//            if (radioButton.getText().equals(currentQuestion.get(0).getSelected())){
+//                int radioID = radioButton.getId();
+//                binding.getRoot().findViewById(radioID)
+//            }
+//        }
+
+
     }
 
     private String addListenerOnButton() {

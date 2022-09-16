@@ -1,4 +1,4 @@
-package com.example.sprout.fragment;
+package com.example.sprout.fragment.onboarding;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.sprout.fragment;
+package com.example.sprout.fragment.onboarding;
 
 import android.os.Bundle;
 
@@ -10,14 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.sprout.R;
-import com.example.sprout.databinding.FragmentInitialBinding;
+import com.example.sprout.databinding.FragmentIntroductionBinding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link initialFragment#newInstance} factory method to
+ * Use the {@link introductionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class initialFragment extends Fragment {
+public class introductionFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,9 +25,9 @@ public class initialFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     //View Binding
-    private FragmentInitialBinding binding;
+    FragmentIntroductionBinding binding;
 
-    public initialFragment() {
+    public introductionFragment() {
         // Required empty public constructor
     }
 
@@ -37,11 +37,11 @@ public class initialFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment initialFragment.
+     * @return A new instance of fragment introductionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static initialFragment newInstance(String param1, String param2) {
-        initialFragment fragment = new initialFragment();
+    public static introductionFragment newInstance(String param1, String param2) {
+        introductionFragment fragment = new introductionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -51,15 +51,15 @@ public class initialFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentInitialBinding.inflate(inflater, container, false);
+        binding = FragmentIntroductionBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        binding.btnLetsDoIt.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigate_from_initial_to_eula);
+        binding.btnContinue.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_navigate_from_introduction_to_greetings , getArguments());
         });
     }
 

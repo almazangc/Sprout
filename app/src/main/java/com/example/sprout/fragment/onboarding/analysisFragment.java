@@ -1,13 +1,15 @@
-package com.example.sprout.fragment;
+package com.example.sprout.fragment.onboarding;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.sprout.R;
 import com.example.sprout.databinding.FragmentAnalysisBinding;
@@ -66,6 +68,14 @@ public class analysisFragment extends Fragment {
         binding.btnContinue.setOnClickListener(view -> {
 
         });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Toast.makeText(requireContext(), "You shall not ammend", Toast.LENGTH_SHORT).show();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
     @Override

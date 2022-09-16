@@ -53,11 +53,22 @@ public class startupFragment extends Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentStartupBinding.inflate(inflater, container, false);
-        boolean isUserRegistered = AppDatabase.getDbInstance(requireContext()).userDao().getAllUser().isEmpty();
+
+        boolean isUserRegistered = AppDatabase.getDbInstance(requireContext())
+                .userDao()
+                .getAllUser()
+                .isEmpty();
+        boolean isAssestmentDone = (AppDatabase.getDbInstance(requireContext())
+                .assestmentDao()
+                .getALLAssestment()
+                .isEmpty());
+
         if (!isUserRegistered) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_personalization);
-        } else {
+        } else if(isAssestmentDone) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_initial);
+        } else {
+            NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_analysis);
         }
         return binding.getRoot();
     }
