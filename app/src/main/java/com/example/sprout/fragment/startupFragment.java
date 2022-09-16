@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.sprout.database.AppDatabase;
 import com.example.sprout.R;
+import com.example.sprout.database.User.UserViewModel;
 import com.example.sprout.databinding.FragmentStartupBinding;
 
 /**
@@ -27,6 +27,8 @@ public class startupFragment extends Fragment {
 
     //Vew Binding
     private FragmentStartupBinding binding;
+
+
 
     public startupFragment() {
         // Required empty public constructor
@@ -58,19 +60,27 @@ public class startupFragment extends Fragment {
                 .userDao()
                 .getAllUser()
                 .isEmpty();
-        boolean isAssestmentDone = (AppDatabase.getDbInstance(requireContext())
-                .assestmentDao()
-                .getALLAssestment()
+        boolean isAssessmentDone = (AppDatabase.getDbInstance(requireContext())
+                .assessmentDao()
+                .getALLAssessment()
                 .isEmpty());
 
         if (!isUserRegistered) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_personalization);
-        } else if(isAssestmentDone) {
+        } else if(isAssessmentDone) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_initial);
         } else {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_analysis);
         }
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+
     }
 
     @Override

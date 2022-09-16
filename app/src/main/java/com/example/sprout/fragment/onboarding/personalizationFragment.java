@@ -16,7 +16,8 @@ import androidx.navigation.Navigation;
 
 import com.example.sprout.R;
 import com.example.sprout.database.AppDatabase;
-import com.example.sprout.database.Assestment.Assestment;
+import com.example.sprout.database.Assestment.Assessment;
+import com.example.sprout.database.Assestment.PopulateAssessmentDatabase;
 import com.example.sprout.databinding.FragmentPersonalizationBinding;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class personalizationFragment extends Fragment{
 
     private FragmentPersonalizationBinding binding;
     private static int uid = 1;
-    private List<Assestment> currentQuestion = new ArrayList<>();
+    private List<Assessment> currentQuestion = new ArrayList<>();
 
     public personalizationFragment() {
         // Required empty public constructor
@@ -84,7 +85,7 @@ public class personalizationFragment extends Fragment{
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
 
-            AppDatabase.getDbInstance(requireContext()).assestmentDao().updateSelectedUID(uid-1, addListenerOnButton());
+            AppDatabase.getDbInstance(requireContext()).assessmentDao().updateSelectedUID(uid-1, addListenerOnButton());
 
             currentQuestion = getCurrentAssessments(uid);
 
@@ -116,35 +117,24 @@ public class personalizationFragment extends Fragment{
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
-    private List<Assestment> getCurrentAssessments(int uid){
+    private List<Assessment> getCurrentAssessments(int uid){
         personalizationFragment.uid++;
-        return currentQuestion = AppDatabase.getDbInstance(requireContext()).assestmentDao().getQuestionUID(uid);
+        return currentQuestion = AppDatabase.getDbInstance(requireContext()).assessmentDao().getQuestionUID(uid);
     }
 
     private void setValues(){
         binding.lblQuestion.setText(currentQuestion.get(0).getQuestion());
-        binding.radioAselect.setText(currentQuestion.get(0).getAselect());
-        binding.radioBselect.setText(currentQuestion.get(0).getBselect());
-        binding.radioCselect.setText(currentQuestion.get(0).getCselect());
-        binding.radioDselect.setText(currentQuestion.get(0).getDselect());
+        binding.radioAselect.setText(currentQuestion.get(0).getASelect());
+        binding.radioBselect.setText(currentQuestion.get(0).getBSelect());
+        binding.radioCselect.setText(currentQuestion.get(0).getCSelect());
+        binding.radioDselect.setText(currentQuestion.get(0).getDSelect());
+
         String selectedRadioButtonText = currentQuestion.get(0).getSelected();
 
-//        int count = binding.radiogroupSelect.getChildCount();
-//        ArrayList<RadioButton> listOfRadioButtons = new ArrayList<RadioButton>();
-//        for (int i=0;i<count;i++) {
-//            View view = binding.radiogroupSelect.getChildAt(i);
-//            if (view instanceof RadioButton) {
-//                listOfRadioButtons.add((RadioButton) view);
-//            }
-//        }
-//        for (RadioButton radioButton: listOfRadioButtons){
-//            if (radioButton.getText().equals(currentQuestion.get(0).getSelected())){
-//                int radioID = radioButton.getId();
-//                binding.getRoot().findViewById(radioID)
-//            }
-//        }
+        if (!selectedRadioButtonText.equals(new PopulateAssessmentDatabase().DEFAULT_SELECTED)){
+            int radioGroupSelectChildCount = binding.radiogroupSelect.getChildCount();
 
-
+        }
     }
 
     private String addListenerOnButton() {

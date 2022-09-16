@@ -1,5 +1,6 @@
 package com.example.sprout.database.User;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -11,7 +12,10 @@ import java.util.List;
 @Dao
 public interface UserDao {
     @Query("SELECT * FROM user")
-    public List<User> getAllUser();
+    List<User> getAllUser();
+
+    @Query("SELECT * FROM user")
+    LiveData<List<User>> getAllUserLiveData();
 
     @Insert
     void insert(User... users);
@@ -22,4 +26,6 @@ public interface UserDao {
     @Delete
     void delete(User user);
 
+    @Query("DELETE FROM user")
+    void deleteAllUser();
 }

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "63e5eccef5829fdca1311c4dfc8cd171",
+    "identityHash": "5d0ecca0a59bf961a4080989f046f182",
     "entities": [
       {
         "tableName": "User",
@@ -27,31 +27,31 @@
             "notNull": false
           },
           {
-            "fieldPath": "wake_hour",
+            "fieldPath": "wakeHour",
             "columnName": "wake_hour",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "wake_minute",
+            "fieldPath": "wakeMinute",
             "columnName": "wake_minute",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "sleep_hour",
+            "fieldPath": "sleepHour",
             "columnName": "sleep_hour",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "sleep_minute",
+            "fieldPath": "sleepMinute",
             "columnName": "sleep_minute",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "agreed",
+            "fieldPath": "eulaAgreement",
             "columnName": "eula",
             "affinity": "INTEGER",
             "notNull": true
@@ -67,8 +67,8 @@
         "foreignKeys": []
       },
       {
-        "tableName": "Assestment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT, `aselect` TEXT, `bselect` TEXT, `cselect` TEXT, `dselect` TEXT, `selected` TEXT)",
+        "tableName": "Assessment",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT, `aSelect` TEXT, `bSelect` TEXT, `cSelect` TEXT, `dSelect` TEXT, `selected` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -83,26 +83,26 @@
             "notNull": false
           },
           {
-            "fieldPath": "aselect",
-            "columnName": "aselect",
+            "fieldPath": "aSelect",
+            "columnName": "aSelect",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "bselect",
-            "columnName": "bselect",
+            "fieldPath": "bSelect",
+            "columnName": "bSelect",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "cselect",
-            "columnName": "cselect",
+            "fieldPath": "cSelect",
+            "columnName": "cSelect",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "dselect",
-            "columnName": "dselect",
+            "fieldPath": "dSelect",
+            "columnName": "dSelect",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -126,7 +126,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '63e5eccef5829fdca1311c4dfc8cd171')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5d0ecca0a59bf961a4080989f046f182')"
     ]
   }
 }

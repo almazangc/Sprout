@@ -71,7 +71,7 @@
                 android:layout_marginLeft="@dimen/relativeLayoutPadding"
                 android:layout_marginRight="@dimen/relativeLayoutPadding"
                 android:layout_marginBottom="@dimen/relativeLayoutPadding"
-                android:background="@drawable/rounded_white_btn"
+                android:background="@drawable/continue_btn_selector"
                 android:textColor="@color/NIGHT" />
         </RelativeLayout>
     </LinearLayout>

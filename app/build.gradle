@@ -49,27 +49,30 @@ android {
 }
 
 dependencies {
+    def material_version = "1.6.1"
+    def fragment_version = "1.5.2"
+    def nav_version = "2.5.2"
+    def room_version = "2.4.3"
+    def lifecycle_version = "2.4.1"
 
-//    implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.appcompat:appcompat:1.5.1'
+
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
 //    Material Component
-    def material_version = "1.6.1"
     implementation "com.google.android.material:material:$material_version"
 
-    def fragment_version = "1.5.2"
+//    Fragments
     implementation "androidx.fragment:fragment:$fragment_version"
 
 //    Navigation Component
-    def nav_version = "2.5.2"
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
-    // Feature module Support
+//    Feature module Support
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
-    // Testing Navigation
+//    Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
-    // Jetpack Compose Integration
+//    Jetpack Compose Integration
     implementation "androidx.navigation:navigation-compose:$nav_version"
 
     testImplementation 'junit:junit:4.13.2'
@@ -77,12 +80,17 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 //    Room dependencies
-    def room_version = "2.4.3"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
-//    RecyclerView
-    implementation "androidx.recyclerview:recyclerview:1.2.0-rc01"
-    // For control over item selection of both touch and mouse driven selection
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    // Saved state module for ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
+    // Annotation processor
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+
 }

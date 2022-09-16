@@ -7,11 +7,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.example.sprout.R;
 import com.example.sprout.database.AppDatabase;
@@ -34,12 +34,13 @@ public class getIdentityFragment extends Fragment {
     // View Binding
     private FragmentGetIdentityBinding binding;
 
-    private boolean eula;
+    private String identity;
+    private String nickname;
     private int wakeHour;
     private int wakeMinute;
     private int sleepHour;
     private int sleepMinute;
-    private String nickname;
+    private boolean eula;
 
     private final BundleKey bundleKey = new BundleKey();
 
@@ -65,31 +66,31 @@ public class getIdentityFragment extends Fragment {
         return fragment;
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGetIdentityBinding.inflate(inflater, container, false);
+        getBundleArgs();
         return binding.getRoot();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        getBundleArgs();
 
         binding.btnContinue.setOnClickListener(view -> {
 
-            String identity = addListenerOnButton();
+            identity = addListenerOnButton();
 
             new AlertDialog.Builder(requireContext())
                     .setMessage("Please Confirm!\n" +
-                            String.format("\n%-15s%d:%d", "Wake Time: ", wakeHour, wakeMinute) +
+                            String.format("\n%-14s%d:%d", "Wake Time:", wakeHour, wakeMinute) +
                             String.format("\n%-15s%d:%d", "Sleep Time:", sleepHour, sleepMinute) +
                             String.format("\n%-15s%s", "Nickname:", nickname) +
                             String.format("\n%-20s%s", "Identity:", identity))
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialogInterface, i) -> {
-                        saveUserData(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute, eula);
+                        addUser();
+
                         Navigation.findNavController(view).navigate(R.id.action_navigate_from_getIdentity_to_getStarted , getArguments());
                     })
                     .setNegativeButton("No", null)
@@ -114,7 +115,7 @@ public class getIdentityFragment extends Fragment {
             sleepMinute = bundle.getInt(bundleKey.getKEY_SLEEPMINUTE());
             nickname = bundle.getString(bundleKey.getKEY_NICKNAME());
         } else {
-            Log.d("TAG", "getBundleArgs: BUNDLE IS NULL");
+            Toast.makeText(requireContext(), "ERROR: NO BUNDLE IS PASSED", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -125,17 +126,9 @@ public class getIdentityFragment extends Fragment {
         return radioButton.getText().toString();
     }
 
-    // Save userdata on room
-    private void saveUserData(String nickname, String identity, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eula){
-        AppDatabase appDatabase = AppDatabase.getDbInstance(this.requireContext());
-        User user = new User();
-        user.nickname = nickname;
-        user.identity = identity;
-        user.wake_hour = wakeHour;
-        user.wake_minute = wakeMinute;
-        user.sleep_hour = sleepHour;
-        user.sleep_minute = sleepMinute;
-        user.agreed = eula;
-        appDatabase.userDao().insert(user);
+    // Insert user data on room
+    private void addUser(){
+        AppDatabase appDatabase = AppDatabase.getDbInstance(requireContext());
+        appDatabase.userDao().insert(new User(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute, eula));
     }
 }

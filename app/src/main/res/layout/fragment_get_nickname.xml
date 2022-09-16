@@ -38,13 +38,13 @@
             android:hint="@string/prompt_name"
             android:inputType="textPersonName"
             android:maxLength="18"
+            android:padding="15dp"
             android:paddingStart="30dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:textColor="@color/CLOUDS"
             android:textColorHint="@color/CLOUDS"
-            android:textSize="18sp"
-            android:padding="15dp"/>
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_continue"

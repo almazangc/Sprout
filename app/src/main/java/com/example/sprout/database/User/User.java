@@ -1,35 +1,50 @@
 package com.example.sprout.database.User;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.sprout.database.AppDatabase;
+
 @Entity
 public class User {
     @PrimaryKey(autoGenerate = true)
-    public int uid;
+    private int uid;
 
     @ColumnInfo(name = "nickname")
-    public String nickname;
+    private String nickname;
 
     @ColumnInfo(name = "identity")
-    public String identity;
+    private String identity;
 
     @ColumnInfo(name = "wake_hour")
-    public int wake_hour;
+    private int wakeHour;
 
     @ColumnInfo(name = "wake_minute")
-    public int wake_minute;
+    private int wakeMinute;
 
     @ColumnInfo(name = "sleep_hour")
-    public int sleep_hour;
+    private int sleepHour;
 
     @ColumnInfo(name = "sleep_minute")
-    public int sleep_minute;
+    private int sleepMinute;
 
     @ColumnInfo(name = "eula")
-    public boolean agreed;
+    private boolean eulaAgreement;
+
+    public User() {
+
+    }
+
+    public User(String nickname, String identity, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement) {
+        this.nickname = nickname;
+        this.identity = identity;
+        this.wakeHour = wakeHour;
+        this.wakeMinute = wakeMinute;
+        this.sleepHour = sleepHour;
+        this.sleepMinute = sleepMinute;
+        this.eulaAgreement = eulaAgreement;
+    }
 
     public int getUid() {
         return uid;
@@ -55,43 +70,43 @@ public class User {
         this.identity = identity;
     }
 
-    public int getWake_hour() {
-        return wake_hour;
+    public int getWakeHour() {
+        return wakeHour;
     }
 
-    public void setWake_hour(int wake_hour) {
-        this.wake_hour = wake_hour;
+    public void setWakeHour(int wakeHour) {
+        this.wakeHour = wakeHour;
     }
 
-    public int getWake_minute() {
-        return wake_minute;
+    public int getWakeMinute() {
+        return wakeMinute;
     }
 
-    public void setWake_minute(int wake_minute) {
-        this.wake_minute = wake_minute;
+    public void setWakeMinute(int wakeMinute) {
+        this.wakeMinute = wakeMinute;
     }
 
-    public int getSleep_hour() {
-        return sleep_hour;
+    public int getSleepHour() {
+        return sleepHour;
     }
 
-    public void setSleep_hour(int sleep_hour) {
-        this.sleep_hour = sleep_hour;
+    public void setSleepHour(int sleepHour) {
+        this.sleepHour = sleepHour;
     }
 
-    public int getSleep_minute() {
-        return sleep_minute;
+    public int getSleepMinute() {
+        return sleepMinute;
     }
 
-    public void setSleep_minute(int sleep_minute) {
-        this.sleep_minute = sleep_minute;
+    public void setSleepMinute(int sleepMinute) {
+        this.sleepMinute = sleepMinute;
     }
 
-    public boolean isAgreed() {
-        return agreed;
+    public boolean isEulaAgreement() {
+        return eulaAgreement;
     }
 
-    public void setAgreed(boolean agreed) {
-        this.agreed = agreed;
+    public void setEulaAgreement(boolean eulaAgreement) {
+        this.eulaAgreement = eulaAgreement;
     }
 }
