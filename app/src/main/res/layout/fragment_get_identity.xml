@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onboarding.getIdentityFragment">
+    tools:context=".fragment.onBoarding.getIdentityFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/relativeLayoutPadding"
-        android:background="@drawable/simple_background_tempv1">
+        android:background="@drawable/simple_background_tempv1"
+        android:padding="@dimen/relativeLayoutPadding">
 
         <ImageView
             android:id="@+id/img_identity"
@@ -19,17 +19,17 @@
             android:layout_above="@id/lbl_askIdentity"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/identity_svg" />
+            android:background="@drawable/identity_svg"
+            android:contentDescription="SOME GENDER ART" />
 
         <TextView
             android:id="@+id/lbl_askIdentity"
             style="@style/textViewHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_above="@id/identity_selection"
             android:letterSpacing=".05"
-            android:text="How do you Identify?"
-            android:textAlignment="center" />
+            android:text="@string/lbl_how_do_you_identity"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT" />
 
         <RadioGroup
             android:id="@+id/identity_selection"
@@ -37,51 +37,25 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/btn_continue"
             android:layout_centerInParent="true"
-            android:orientation="vertical"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/id_male"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/radio_selector"
-                android:button="@null"
+                style="@style/radioButton"
                 android:checked="true"
-                android:padding="20dp"
-                android:text="Male"
-                android:textAlignment="center"
-                android:textColor="@drawable/radio_text_color_selector"
+                android:text="@string/male"
                 android:textSize="@dimen/radio_button_textSize" />
 
             <RadioButton
                 android:id="@+id/id_female"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/radio_selector"
-                android:button="@null"
-                android:padding="20dp"
-                android:text="Female"
-                android:textAlignment="center"
-                android:textColor="@drawable/radio_text_color_selector"
-                android:textSize="@dimen/radio_button_textSize" />
+                style="@style/radioButton"
+                android:text="@string/female" />
 
             <RadioButton
                 android:id="@+id/id_nonBinary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/radio_selector"
-                android:button="@null"
-                android:padding="20dp"
-                android:text="Non-Binary"
-                android:textAlignment="center"
-                android:textColor="@drawable/radio_text_color_selector"
-                android:textSize="@dimen/radio_button_textSize" />
+                style="@style/radioButton"
+                android:text="@string/non_binary" />
         </RadioGroup>
 
         <Button

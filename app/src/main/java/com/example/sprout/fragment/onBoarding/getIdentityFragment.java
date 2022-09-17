@@ -1,17 +1,15 @@
-package com.example.sprout.fragment.onboarding;
+package com.example.sprout.fragment.onBoarding;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.sprout.R;
 import com.example.sprout.database.AppDatabase;
@@ -30,10 +28,9 @@ public class getIdentityFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private final BundleKey bundleKey = new BundleKey();
     // View Binding
     private FragmentGetIdentityBinding binding;
-
     private String identity;
     private String nickname;
     private int wakeHour;
@@ -41,8 +38,6 @@ public class getIdentityFragment extends Fragment {
     private int sleepHour;
     private int sleepMinute;
     private boolean eula;
-
-    private final BundleKey bundleKey = new BundleKey();
 
     public getIdentityFragment() {
         // Required empty public constructor
@@ -91,7 +86,7 @@ public class getIdentityFragment extends Fragment {
                     .setPositiveButton("Yes", (dialogInterface, i) -> {
                         addUser();
 
-                        Navigation.findNavController(view).navigate(R.id.action_navigate_from_getIdentity_to_getStarted , getArguments());
+                        Navigation.findNavController(view).navigate(R.id.action_navigate_from_getIdentity_to_getStarted, getArguments());
                     })
                     .setNegativeButton("No", null)
                     .show();
@@ -105,7 +100,7 @@ public class getIdentityFragment extends Fragment {
     }
 
     // Unpack Bundle
-    private void getBundleArgs(){
+    private void getBundleArgs() {
         Bundle bundle = getArguments();
         if (bundle != null) {
             eula = bundle.getBoolean(bundleKey.getKEY_EULA(), true);
@@ -127,7 +122,7 @@ public class getIdentityFragment extends Fragment {
     }
 
     // Insert user data on room
-    private void addUser(){
+    private void addUser() {
         AppDatabase appDatabase = AppDatabase.getDbInstance(requireContext());
         appDatabase.userDao().insert(new User(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute, eula));
     }

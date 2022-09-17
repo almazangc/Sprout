@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.startupFragment"
-    android:background="@drawable/simple_background_wavy">
+    android:background="@drawable/simple_background_wavy"
+    tools:context=".fragment.startupFragment">
 
     <!-- TODO: Update blank fragment layout -->
-        <Button
-            android:id="@+id/btn_main"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
-            android:layout_gravity="center"
-            android:background="@drawable/rounded_white_btn"
-            android:text="startupFragment"
-            tools:ignore="HardcodedText" />
+    <Button
+        android:id="@+id/btn_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/rounded_white_btn"
+        tools:text="SPROUT SPLASH"/>
 
 </FrameLayout>

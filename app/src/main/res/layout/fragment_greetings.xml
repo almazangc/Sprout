@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onboarding.greetingsFragment">
+    tools:context=".fragment.onBoarding.greetingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/simple_background_tempv2"
@@ -26,19 +25,20 @@
             android:id="@+id/textView1"
             style="@style/textViewHeader"
             android:layout_above="@id/textView2"
-            android:text="@string/break_your_bad_habits_in_no_of_days"/>
+            android:text="@string/break_your_bad_habits_in_no_of_days"
+            android:textColor="@color/NIGHT"/>
 
         <TextView
             android:id="@+id/textView2"
             style="@style/textViewSubHeader"
             android:layout_above="@id/btn_continue"
-            android:text="@string/give_up_bad_habits_that_affect_your_well_being_and_health_and_become_a_better_version_of_yourself_using_the_guided_routines_methods"
             android:layout_marginBottom="30dp"
-            />
+            android:text="@string/give_up_bad_habits_that_affect_your_well_being_and_health_and_become_a_better_version_of_yourself_using_the_guided_routines_methods"
+            android:textColor="@color/A80_NIGHT"/>
 
         <Button
             android:id="@+id/btn_continue"
-            style="@style/style_continue"/>
+            style="@style/style_continue" />
 
     </RelativeLayout>
 

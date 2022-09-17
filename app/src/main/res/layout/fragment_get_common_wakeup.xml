@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onboarding.getCommonWakeupFragment">
+    tools:context=".fragment.onBoarding.getCommonWakeupFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -26,14 +26,14 @@
             android:id="@+id/WakeTimePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:timePickerMode="spinner"
             android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:scaleX="1.5"
-            android:scaleY="1.5"/>
+            android:scaleY="1.5"
+            android:timePickerMode="spinner" />
 
         <Button
             android:id="@+id/btn_continue"
-            style="@style/style_continue"/>
+            style="@style/style_continue" />
     </RelativeLayout>
 </FrameLayout>

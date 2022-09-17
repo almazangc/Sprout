@@ -2,14 +2,11 @@ package com.example.sprout.activity.startup;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviderGetKt;
-import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.sprout.database.Assestment.Assessment;
 import com.example.sprout.database.Assestment.AssessmentViewModel;

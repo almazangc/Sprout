@@ -19,19 +19,19 @@ public class AssessmentViewModel extends AndroidViewModel {
         allAssessmentListLiveData = repository.getAllAssessment();
     }
 
-    public void insert(Assessment assessment){
+    public void insert(Assessment assessment) {
         repository.insert(assessment);
     }
 
-    public void update(Assessment assessment){
+    public void update(Assessment assessment) {
         repository.update(assessment);
     }
 
-    public void delete(Assessment assessment){
+    public void delete(Assessment assessment) {
         repository.delete(assessment);
     }
 
-    public void deleteAllAssessment(){
+    public void deleteAllAssessment() {
         repository.deleteAll();
     }
 

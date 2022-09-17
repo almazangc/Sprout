@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.sprout.database.AppDatabase;
 import com.example.sprout.R;
-import com.example.sprout.database.User.UserViewModel;
+import com.example.sprout.database.AppDatabase;
 import com.example.sprout.databinding.FragmentStartupBinding;
 
 /**
@@ -27,7 +26,6 @@ public class startupFragment extends Fragment {
 
     //Vew Binding
     private FragmentStartupBinding binding;
-
 
 
     public startupFragment() {
@@ -53,7 +51,7 @@ public class startupFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentStartupBinding.inflate(inflater, container, false);
 
         boolean isUserRegistered = AppDatabase.getDbInstance(requireContext())
@@ -67,7 +65,7 @@ public class startupFragment extends Fragment {
 
         if (!isUserRegistered) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_personalization);
-        } else if(isAssessmentDone) {
+        } else if (isAssessmentDone) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_initial);
         } else {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_analysis);
@@ -78,7 +76,6 @@ public class startupFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
 
 
     }

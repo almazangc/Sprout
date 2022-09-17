@@ -6,4 +6,4 @@
     android:maxLines="1"
     android:padding="16dp"
     android:text="@string/app_name"
-    android:textAppearance="?attr/textAppearanceSubtitle1"/>
+    android:textAppearance="?attr/textAppearanceSubtitle1" />

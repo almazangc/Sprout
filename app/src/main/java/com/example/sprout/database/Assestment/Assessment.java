@@ -44,8 +44,8 @@ public class Assessment {
     @NonNull
     @Override
     public String toString() {
-        return "Assessment{" + '\n'+
-                "uid: " + getUid() + '\n'+
+        return "Assessment{" + '\n' +
+                "uid: " + getUid() + '\n' +
                 "question: " + getQuestion() + '\n' +
                 "aSelect: " + getASelect() + '\n' +
                 "bSelect: " + getBSelect() + '\n' +
@@ -58,24 +58,48 @@ public class Assessment {
         return uid;
     }
 
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
     public String getQuestion() {
         return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public String getASelect() {
         return aSelect;
     }
 
+    public void setASelect(String aSelect) {
+        this.aSelect = aSelect;
+    }
+
     public String getBSelect() {
         return bSelect;
+    }
+
+    public void setBSelect(String bSelect) {
+        this.bSelect = bSelect;
     }
 
     public String getCSelect() {
         return cSelect;
     }
 
+    public void setCSelect(String cSelect) {
+        this.cSelect = cSelect;
+    }
+
     public String getDSelect() {
         return dSelect;
+    }
+
+    public void setDSelect(String dSelect) {
+        this.dSelect = dSelect;
     }
 
     public String getSelected() {
@@ -84,29 +108,5 @@ public class Assessment {
 
     public void setSelected(String selected) {
         this.selected = selected;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public void setASelect(String aSelect) {
-        this.aSelect = aSelect;
-    }
-
-    public void setBSelect(String bSelect) {
-        this.bSelect = bSelect;
-    }
-
-    public void setCSelect(String cSelect) {
-        this.cSelect = cSelect;
-    }
-
-    public void setDSelect(String dSelect) {
-        this.dSelect = dSelect;
     }
 }

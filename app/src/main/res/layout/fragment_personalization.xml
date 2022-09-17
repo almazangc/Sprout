@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onboarding.personalizationFragment">
+    tools:context=".fragment.onBoarding.personalizationFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -46,13 +46,13 @@
                 android:textSize="16sp" />
         </RelativeLayout>
 
-<!--        For long questions-->
+        <!--        For long questions-->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="7"
-            android:scrollbars="none"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:scrollbars="none">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -64,80 +64,41 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginBottom="10dp"
-                    android:text="Question: A sample question description"
                     android:textColor="@color/NIGHT"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    tools:text="Question: How would you like your text be seen" />
 
                 <RadioGroup
-                    android:id="@+id/radiogroupSelect"
+                    android:id="@+id/radioGroupSelect"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:gravity="bottom"
                     android:layout_below="@id/lbl_question"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginBottom="@dimen/radio_margin_bottom"
+                    android:gravity="bottom"
                     android:orientation="vertical">
 
                     <RadioButton
-                        android:id="@+id/radio_aselect"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginBottom="@dimen/radio_margin_bottom"
-                        android:background="@drawable/radio_selector"
-                        android:button="@null"
+                        android:id="@+id/radio_aSelect"
+                        style="@style/radioButton"
                         android:checked="true"
-                        android:padding="20dp"
-                        android:text="ASELECT"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/radio_text_color_selector"
-                        android:textSize="@dimen/radio_button_textSize" />
+                        tools:text="Yes Good Day" />
 
                     <RadioButton
                         android:id="@+id/radio_bselect"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginBottom="@dimen/radio_margin_bottom"
-                        android:background="@drawable/radio_selector"
-                        android:button="@null"
-                        android:contentDescription="BSLECT"
-                        android:padding="20dp"
-                        android:text="BSLECT"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/radio_text_color_selector"
-                        android:textSize="@dimen/radio_button_textSize" />
+                        style="@style/radioButton"
+                        tools:text="Very Nice Day to work on something so cool" />
 
                     <RadioButton
                         android:id="@+id/radio_cselect"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginBottom="@dimen/radio_margin_bottom"
-                        android:background="@drawable/radio_selector"
-                        android:button="@null"
-                        android:contentDescription="CSELECT"
-                        android:padding="20dp"
-                        android:text="CSELECT"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/radio_text_color_selector"
-                        android:textSize="@dimen/radio_button_textSize" />
+                        style="@style/radioButton"
+                        tools:text="third selection" />
 
                     <RadioButton
                         android:id="@+id/radio_dselect"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginBottom="@dimen/radio_margin_bottom"
-                        android:background="@drawable/radio_selector"
-                        android:button="@null"
-                        android:contentDescription="DSELECT"
-                        android:padding="20dp"
-                        android:text="DSELECT"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/radio_text_color_selector"
-                        android:textSize="@dimen/radio_button_textSize" />
+                        style="@style/radioButton"
+                        tools:text="Last Radio Button Container DA FAK"/>
                 </RadioGroup>
 
             </RelativeLayout>

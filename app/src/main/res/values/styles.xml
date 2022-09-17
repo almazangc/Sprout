@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="style_continue" parent="TextAppearance.AppCompat.Button">
         <item name="android:textColor">@color/CLOUDS</item>
         <item name="android:layout_width">match_parent</item>
@@ -19,7 +20,7 @@
     </style>
 
     <style name="textViewHeader" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:textSize">30sp</item>
@@ -34,4 +35,19 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="radioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">20dp</item>
+        <item name="android:layout_marginBottom">@dimen/radio_margin_bottom</item>
+        <item name="android:background">@drawable/radio_selector</item>
+        <item name="android:button">@null</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@drawable/radio_text_color_selector</item>
+        <item name="android:textSize">@dimen/radio_button_textSize</item>
+        <item name="android:checked">false</item>
+    </style>
 </resources>

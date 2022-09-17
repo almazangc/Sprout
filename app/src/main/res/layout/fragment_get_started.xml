@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onboarding.getStartedFragment">
+    tools:context=".fragment.onBoarding.getStartedFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -32,31 +32,44 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/view_background"
-            android:layout_weight="4">
+            android:layout_weight="4"
+            android:background="@drawable/view_background">
 
             <TextView
-                android:id="@+id/lbl_welcome"
+                android:id="@+id/lbl_welcome_msg"
                 style="@style/textViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="40dp"
+                android:text="@string/welcome_msg"
                 android:textAlignment="center"
                 android:textColor="@color/CLOUDS"
-                android:textSize="25sp" />
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/lbl_name"
+                style="@style/textViewHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lbl_welcome_msg"
+                android:textAlignment="center"
+                android:textColor="@color/CLOUDS"
+                android:textSize="22sp"
+                android:textStyle="normal"
+                tools:text="@tools:sample/full_names" />
 
             <TextView
                 android:id="@+id/textSubHeader"
                 style="@style/textViewSubHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lbl_welcome"
+                android:layout_below="@id/lbl_name"
                 android:layout_marginTop="@dimen/relativeLayoutPadding"
                 android:layout_marginBottom="0dp"
                 android:justificationMode="inter_word"
                 android:padding="30dp"
-                android:text="You have the control to the power to transform your life for the best.\n\nAre you prepared to the path of fixing bad habits?"
+                android:text="@string/you_have_the_control_to_the_power_to_transform_your_life_for_the_best_n_nare_you_prepared_to_the_path_of_fixing_bad_habits"
                 android:textAlignment="center"
                 android:textColor="@color/CLOUDS"
                 android:textSize="18sp" />
@@ -69,7 +82,7 @@
                 android:layout_marginRight="@dimen/relativeLayoutPadding"
                 android:layout_marginBottom="@dimen/relativeLayoutPadding"
                 android:background="@drawable/rounded_white_btn"
-                android:text="GET STARTED"
+                android:text="@string/get_started"
                 android:textColor="@color/NIGHT" />
         </RelativeLayout>
     </LinearLayout>

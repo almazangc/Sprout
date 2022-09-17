@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.sprout.database.AppDatabase;
-
 @Entity
 public class User {
     @PrimaryKey(autoGenerate = true)

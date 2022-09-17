@@ -9,21 +9,25 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.sprout.database.Assestment.AssessmentDao;
 import com.example.sprout.database.Assestment.Assessment;
+import com.example.sprout.database.Assestment.AssessmentDao;
 import com.example.sprout.database.User.User;
 import com.example.sprout.database.User.UserDao;
 
 @Database(entities = {User.class, Assessment.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public abstract UserDao userDao();
-    public abstract AssessmentDao assessmentDao();
-
     private static AppDatabase INSTANCE;
+    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateAssessmentAsyncTask(INSTANCE).execute();
+        }
+    };
 
-    public static AppDatabase getDbInstance(Context context){
-        if (INSTANCE == null){
+    public static AppDatabase getDbInstance(Context context) {
+        if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "DB_NAME")
                     .allowMainThreadQueries()
                     .addCallback(roomCallback)
@@ -32,13 +36,9 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateAssessmentAsyncTask(INSTANCE).execute();
-        }
-    };
+    public abstract UserDao userDao();
+
+    public abstract AssessmentDao assessmentDao();
 
     private static class PopulateAssessmentAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -65,10 +65,12 @@ public abstract class AppDatabase extends RoomDatabase {
             assessmentDao.insert(new Assessment("7: Question number 7 right?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("8: Question number 8 right?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("9: Question number 9 right?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("10: Question number 10 right?", "Yes", "No", "I don't know", "I don't care",DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("10: Question number 10 right?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("11: Are you numb?", "Yes", "No", "I don't know", "Why should I care?", DEFAULT_SELECTED));
 
             return null;
         }
-    };
+    }
+
+    ;
 }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onboarding.analysisFragment">
+    tools:context=".fragment.onBoarding.analysisFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -25,7 +25,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:background="@drawable/view_background">
 
@@ -39,27 +39,27 @@
                 android:layout_marginBottom="0dp"
                 android:justificationMode="inter_word"
                 android:padding="30dp"
-                android:text="You are now awarded with new sets of brain \n Please contact the brain replacement company witht the email provided. \n \n Proceed with Brain Replacement for as low as 99% disount. To redeem you free brain sets please take a copy of your: \n\n TICKET NUMBER \n[ ABN0RMAL AK0 #LUTANG NA ]"
                 android:textAlignment="center"
-                android:textColor="@color/CLOUDS"
-                android:textSize="18sp" />
+                android:textColor="#FAFAFA"
+                android:textSize="18sp"
+                tools:text="Sample Text Goes Here: " />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/menu"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Suggestion"
                 android:layout_below="@id/textSubHeader"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="200dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginBottom="200dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/dropItems"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="list_item"
                     android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>

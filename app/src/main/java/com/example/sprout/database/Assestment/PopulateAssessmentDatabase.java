@@ -6,8 +6,8 @@ import com.example.sprout.database.AppDatabase;
 
 public class PopulateAssessmentDatabase {
 
-    private final Context context;
     public final String DEFAULT_SELECTED = "unset";
+    private final Context context;
 
     public PopulateAssessmentDatabase(Context context) {
         this.context = context;
@@ -17,7 +17,7 @@ public class PopulateAssessmentDatabase {
         this.context = null;
     }
 
-    public void populateAssessmentDatabase(){
+    public void populateAssessmentDatabase() {
         insertNewQuestion("Which habit troubles you, This is a very long questions as an input to the app?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending");
         insertNewQuestion("Which habit troubles you?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending");
         insertNewQuestion("1: How often do you feel happy?", "Always", "Usually", "Seldom", "Never");
@@ -33,7 +33,7 @@ public class PopulateAssessmentDatabase {
         insertNewQuestion("11: Are you numb?", "Yes", "No", "I don't know", "Why should I care?");
     }
 
-    private void insertNewQuestion(String question, String aSelect, String bSelect, String cSelect, String dSelect){
+    private void insertNewQuestion(String question, String aSelect, String bSelect, String cSelect, String dSelect) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(context);
         appDatabase.assessmentDao().insert(new Assessment(question, aSelect, bSelect, cSelect, dSelect, DEFAULT_SELECTED));
     }

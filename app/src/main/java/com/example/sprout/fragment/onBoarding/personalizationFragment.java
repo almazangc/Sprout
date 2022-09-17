@@ -1,4 +1,4 @@
-package com.example.sprout.fragment.onboarding;
+package com.example.sprout.fragment.onBoarding;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,15 +28,14 @@ import java.util.List;
  * Use the {@link personalizationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class personalizationFragment extends Fragment{
+public class personalizationFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private FragmentPersonalizationBinding binding;
     private static int uid = 1;
+    private FragmentPersonalizationBinding binding;
     private List<Assessment> currentQuestion = new ArrayList<>();
 
     public personalizationFragment() {
@@ -85,7 +84,7 @@ public class personalizationFragment extends Fragment{
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
 
-            AppDatabase.getDbInstance(requireContext()).assessmentDao().updateSelectedUID(uid-1, addListenerOnButton());
+            AppDatabase.getDbInstance(requireContext()).assessmentDao().updateSelectedUID(uid - 1, addListenerOnButton());
 
             currentQuestion = getCurrentAssessments(uid);
 
@@ -93,7 +92,7 @@ public class personalizationFragment extends Fragment{
                 setValues();
             } else {
                 uid--;
-                Toast.makeText(requireContext(),"End of Questions", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "End of Questions", Toast.LENGTH_LONG).show();
 
                 new AlertDialog.Builder(requireContext())
                         .setMessage("Are you done answering all?")
@@ -117,28 +116,28 @@ public class personalizationFragment extends Fragment{
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
-    private List<Assessment> getCurrentAssessments(int uid){
+    private List<Assessment> getCurrentAssessments(int uid) {
         personalizationFragment.uid++;
         return currentQuestion = AppDatabase.getDbInstance(requireContext()).assessmentDao().getQuestionUID(uid);
     }
 
-    private void setValues(){
+    private void setValues() {
         binding.lblQuestion.setText(currentQuestion.get(0).getQuestion());
-        binding.radioAselect.setText(currentQuestion.get(0).getASelect());
+        binding.radioASelect.setText(currentQuestion.get(0).getASelect());
         binding.radioBselect.setText(currentQuestion.get(0).getBSelect());
         binding.radioCselect.setText(currentQuestion.get(0).getCSelect());
         binding.radioDselect.setText(currentQuestion.get(0).getDSelect());
 
         String selectedRadioButtonText = currentQuestion.get(0).getSelected();
 
-        if (!selectedRadioButtonText.equals(new PopulateAssessmentDatabase().DEFAULT_SELECTED)){
-            int radioGroupSelectChildCount = binding.radiogroupSelect.getChildCount();
+        if (!selectedRadioButtonText.equals(new PopulateAssessmentDatabase().DEFAULT_SELECTED)) {
+            int radioGroupSelectChildCount = binding.radioGroupSelect.getChildCount();
 
         }
     }
 
     private String addListenerOnButton() {
-        int selectedId = binding.radiogroupSelect.getCheckedRadioButtonId();
+        int selectedId = binding.radioGroupSelect.getCheckedRadioButtonId();
         RadioButton radioButton = (binding.getRoot().findViewById(selectedId));
         return radioButton.getText().toString();
     }

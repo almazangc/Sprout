@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-
 import java.util.List;
 
 public class UserViewModel extends AndroidViewModel {
@@ -20,19 +19,19 @@ public class UserViewModel extends AndroidViewModel {
         allUserListLiveData = repository.getAllUser();
     }
 
-    public void insert(User user){
+    public void insert(User user) {
         repository.insert(user);
     }
 
-    public void update(User user){
+    public void update(User user) {
         repository.update(user);
     }
 
-    public void delete(User user){
+    public void delete(User user) {
         repository.delete(user);
     }
 
-    public void deleteAllUser(){
+    public void deleteAllUser() {
         repository.deleteAll();
     }
 

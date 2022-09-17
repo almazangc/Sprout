@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.example.sprout.database.AppDatabase;
-import com.example.sprout.database.Assestment.AssessmentDao;
 
 import java.util.List;
 
@@ -20,23 +19,23 @@ public class UserRepository {
         allUser = userDao.getAllUserLiveData();
     }
 
-    public void insert(User user){
+    public void insert(User user) {
         new InsertUserAsyncTask(userDao).execute(user);
     }
 
-    public void update(User user){
+    public void update(User user) {
         new UpdateUserAsyncTask(userDao).execute(user);
     }
 
-    public void delete(User user){
+    public void delete(User user) {
         new DeleteUserAsyncTask(userDao).execute(user);
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         new DeleteAllUserAsyncTask(userDao).execute();
     }
 
-    public LiveData<List<User>> getAllUser(){
+    public LiveData<List<User>> getAllUser() {
         return allUser;
     }
 
@@ -44,7 +43,7 @@ public class UserRepository {
 
         private UserDao userDao;
 
-        private InsertUserAsyncTask(UserDao userDao){
+        private InsertUserAsyncTask(UserDao userDao) {
             this.userDao = userDao;
         }
 
@@ -59,7 +58,7 @@ public class UserRepository {
 
         private UserDao userDao;
 
-        private UpdateUserAsyncTask(UserDao userDao){
+        private UpdateUserAsyncTask(UserDao userDao) {
             this.userDao = userDao;
         }
 
@@ -74,7 +73,7 @@ public class UserRepository {
 
         private UserDao userDao;
 
-        private DeleteUserAsyncTask(UserDao userDao){
+        private DeleteUserAsyncTask(UserDao userDao) {
             this.userDao = userDao;
         }
 
@@ -89,7 +88,7 @@ public class UserRepository {
 
         private UserDao userDao;
 
-        private DeleteAllUserAsyncTask(UserDao userDao){
+        private DeleteAllUserAsyncTask(UserDao userDao) {
             this.userDao = userDao;
         }
 

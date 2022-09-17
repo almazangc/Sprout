@@ -1,13 +1,12 @@
-package com.example.sprout.fragment.onboarding;
+package com.example.sprout.fragment.onBoarding;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.sprout.R;
 import com.example.sprout.databinding.FragmentGreetingsBinding;

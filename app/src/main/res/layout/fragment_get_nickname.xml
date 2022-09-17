@@ -3,21 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onboarding.getNicknameFragment">
+    tools:context=".fragment.onBoarding.getNicknameFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/relativeLayoutPadding"
-        android:background="@drawable/simple_background_tempv1">
+        android:background="@drawable/simple_background_tempv1"
+        android:padding="@dimen/relativeLayoutPadding">
 
         <TextView
             style="@style/textViewHeader"
-            android:layout_width="match_parent"
             android:layout_above="@id/lbl_2"
-            android:text="@string/my_firstname_is"
-            android:layout_marginBottom="0dp" />
+            android:layout_marginBottom="0dp"
+            android:textColor="@color/NIGHT"
+            android:text="@string/my_firstname_is" />
 
         <TextView
             android:id="@+id/lbl_2"
