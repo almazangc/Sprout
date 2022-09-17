@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.onBoarding.getNicknameFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/simple_background_tempv1"
+        android:padding="@dimen/relativeLayoutPadding">
+
+        <TextView
+            style="@style/textViewHeader"
+            android:layout_above="@id/lbl_2"
+            android:layout_marginBottom="0dp"
+            android:text="@string/my_firstname_is"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:textColor="@color/NIGHT" />
+
+        <TextView
+            android:id="@+id/lbl_2"
+            style="@style/textViewSubHeader"
+            android:layout_width="match_parent"
+            android:layout_above="@id/editTextTextPersonName"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:text="@string/what_should_we_call_you"
+            android:textColor="@color/WAIKAWA_GREY" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_blue_btn"
+            android:clickable="true"
+            android:ems="10"
+            android:hint="@string/prompt_name"
+            android:inputType="textPersonName"
+            android:maxLength="18"
+            android:padding="15dp"
+            android:paddingStart="30dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/CLOUDS"
+            android:textColorHint="@color/CLOUDS"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_continue"
+            style="@style/btn_continue_landscape" />
+
+    </RelativeLayout>
+
+</FrameLayout>

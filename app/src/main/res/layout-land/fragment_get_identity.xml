@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.onBoarding.getIdentityFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/simple_background_tempv1"
+        android:padding="@dimen/relativeLayoutPadding">
+
+        <TextView
+            android:id="@+id/lbl_askIdentity"
+            style="@style/textViewHeader"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="20dp"
+            android:letterSpacing=".05"
+            android:text="@string/lbl_how_do_you_identity"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT" />
+
+        <ImageView
+            android:id="@+id/img_identity"
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_above="@id/identity_selection"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/identity_svg"
+            android:contentDescription="SOME GENDER ART" />
+
+        <RadioGroup
+            android:id="@+id/identity_selection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_continue"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <RadioButton
+                android:id="@+id/id_male"
+                style="@style/radioButtonLandscape"
+                android:layout_width="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="@string/male"/>
+
+            <RadioButton
+                android:id="@+id/id_female"
+                style="@style/radioButtonLandscape"
+                android:layout_width="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="1"
+                android:text="@string/female" />
+
+            <RadioButton
+                android:id="@+id/id_nonBinary"
+                style="@style/radioButtonLandscape"
+                android:layout_width="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_weight="1"
+                android:text="@string/non_binary" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btn_continue"
+            style="@style/btn_continue_landscape" />
+
+    </RelativeLayout>
+</FrameLayout>

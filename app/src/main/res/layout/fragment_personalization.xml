@@ -81,23 +81,23 @@
 
                     <RadioButton
                         android:id="@+id/radio_aSelect"
-                        style="@style/radioButton"
+                        style="@style/radioButtonPortrait"
                         android:checked="true"
                         tools:text="Yes Good Day" />
 
                     <RadioButton
                         android:id="@+id/radio_bselect"
-                        style="@style/radioButton"
+                        style="@style/radioButtonPortrait"
                         tools:text="Very Nice Day to work on something so cool" />
 
                     <RadioButton
                         android:id="@+id/radio_cselect"
-                        style="@style/radioButton"
+                        style="@style/radioButtonPortrait"
                         tools:text="third selection" />
 
                     <RadioButton
                         android:id="@+id/radio_dselect"
-                        style="@style/radioButton"
+                        style="@style/radioButtonPortrait"
                         tools:text="Last Radio Button Container DA FAK"/>
                 </RadioGroup>
 
@@ -111,7 +111,7 @@
 
             <Button
                 android:id="@+id/btn_continue"
-                style="@style/style_continue" />
+                style="@style/btn_continue_portrait" />
         </RelativeLayout>
 
     </LinearLayout>

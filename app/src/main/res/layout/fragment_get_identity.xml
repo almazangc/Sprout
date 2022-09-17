@@ -42,25 +42,25 @@
 
             <RadioButton
                 android:id="@+id/id_male"
-                style="@style/radioButton"
+                style="@style/radioButtonPortrait"
                 android:checked="true"
                 android:text="@string/male"
                 android:textSize="@dimen/radio_button_textSize" />
 
             <RadioButton
                 android:id="@+id/id_female"
-                style="@style/radioButton"
+                style="@style/radioButtonPortrait"
                 android:text="@string/female" />
 
             <RadioButton
                 android:id="@+id/id_nonBinary"
-                style="@style/radioButton"
+                style="@style/radioButtonPortrait"
                 android:text="@string/non_binary" />
         </RadioGroup>
 
         <Button
             android:id="@+id/btn_continue"
-            style="@style/style_continue" />
+            style="@style/btn_continue_portrait" />
 
     </RelativeLayout>
 </FrameLayout>

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/simple_background_tempv1"
+        android:background="@drawable/portrait_wave_aesthetic"
         android:padding="@dimen/relativeLayoutPadding">
 
         <TextView

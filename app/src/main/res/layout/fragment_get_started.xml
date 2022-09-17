@@ -76,7 +76,7 @@
 
             <Button
                 android:id="@+id/btn_continue"
-                style="@style/style_continue"
+                style="@style/btn_continue_portrait"
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/relativeLayoutPadding"
                 android:layout_marginRight="@dimen/relativeLayoutPadding"

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.onBoarding.eulaFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/landscape_wave_aesthetic"
+        android:padding="@dimen/relativeLayoutPadding">
+
+        <TextView
+            android:id="@+id/lbl_titleMainHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sprout"
+            android:textColor="@color/NIGHT"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lbl_subHeader1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_titleMainHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:text="@string/habit_reform_and_routine_management"
+            android:textAlignment="viewStart"
+            android:textColor="@color/NIGHT"
+            android:textSize="16sp" />
+
+        <ScrollView
+            android:id="@+id/scrollView_lblEulaContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btn_Disagree"
+            android:layout_below="@id/lbl_subHeader1"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/scroll_vertical_tint_shape"
+            android:paddingLeft="10dp"
+            android:paddingTop="20dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="20dp"
+            android:scrollbarThumbVertical="@color/MIRAGE_70"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/lbl_EULA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp"
+                tools:text="@string/sampleText" />
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_Agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@id/btn_Disagree"
+            android:background="@drawable/rounded_blue_btn"
+            android:text="@string/agree"
+            android:textColor="@color/CLOUDS"
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
+            android:id="@+id/btn_Disagree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_red_btn"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:text="@string/disagree"
+            android:textColor="@color/CLOUDS"
+            android:textStyle="bold"
+            tools:ignore="TextContrastCheck" />
+
+    </RelativeLayout>
+
+</FrameLayout>

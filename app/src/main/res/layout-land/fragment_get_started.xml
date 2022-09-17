@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.onBoarding.getStartedFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/KIMBERLY">
+
+            <TextView
+                android:id="@+id/lbl_welcome_msg"
+                style="@style/textViewHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="40dp"
+                android:text="@string/welcome_msg"
+                android:textAlignment="center"
+                android:textColor="@color/CLOUDS"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/lbl_name"
+                style="@style/textViewHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lbl_welcome_msg"
+                android:textAlignment="center"
+                android:textColor="@color/CLOUDS"
+                android:textSize="22sp"
+                android:textStyle="normal"
+                tools:text="@tools:sample/full_names" />
+
+            <TextView
+                android:id="@+id/textSubHeader"
+                style="@style/textViewSubHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lbl_name"
+                android:layout_marginTop="@dimen/relativeLayoutPadding"
+                android:layout_marginBottom="0dp"
+                android:justificationMode="inter_word"
+                android:padding="30dp"
+                android:text="@string/you_have_the_control_to_the_power_to_transform_your_life_for_the_best_n_nare_you_prepared_to_the_path_of_fixing_bad_habits"
+                android:textAlignment="center"
+                android:textColor="@color/CLOUDS"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_continue"
+                style="@style/btn_continue_landscape"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/btn_continue_white_landscape"
+                android:text="@string/get_started"
+                android:textColor="@color/NIGHT" />
+        </RelativeLayout>
+</FrameLayout>

@@ -61,4 +61,8 @@
     <color name="KIMBERLY">#686DA3</color>
     <color name="A15_KIMBERLY">#27686DA3</color>
     <color name="Pale_pink">#F9DED7</color>
+
+    <color name="DarkBrown">#aa6f73</color>
+    <color name="LightBrown">#eea990</color>
+    <color name="Pale_Brown">#f6e0b5</color>
 </resources>
