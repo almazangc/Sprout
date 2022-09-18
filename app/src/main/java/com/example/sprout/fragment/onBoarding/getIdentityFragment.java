@@ -9,11 +9,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.sprout.R;
-import com.example.sprout.database.AppDatabase;
 import com.example.sprout.database.User.User;
+import com.example.sprout.database.User.UserViewModel;
 import com.example.sprout.databinding.FragmentGetIdentityBinding;
 import com.example.sprout.model.BundleKey;
 
@@ -31,8 +32,8 @@ public class getIdentityFragment extends Fragment {
     private final BundleKey bundleKey = new BundleKey();
     // View Binding
     private FragmentGetIdentityBinding binding;
-    private String identity;
     private String nickname;
+    private String identity;
     private int wakeHour;
     private int wakeMinute;
     private int sleepHour;
@@ -73,9 +74,7 @@ public class getIdentityFragment extends Fragment {
         super.onStart();
 
         binding.btnContinue.setOnClickListener(view -> {
-
-            identity = addListenerOnButton();
-
+            setIdentity();
             new AlertDialog.Builder(requireContext())
                     .setMessage("Please Confirm!\n" +
                             String.format("\n%-14s%d:%d", "Wake Time:", wakeHour, wakeMinute) +
@@ -85,7 +84,6 @@ public class getIdentityFragment extends Fragment {
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialogInterface, i) -> {
                         addUser();
-
                         Navigation.findNavController(view).navigate(R.id.action_navigate_from_getIdentity_to_getStarted, getArguments());
                     })
                     .setNegativeButton("No", null)
@@ -114,16 +112,14 @@ public class getIdentityFragment extends Fragment {
         }
     }
 
-    // Radio Selection Button
-    private String addListenerOnButton() {
+    private void setIdentity() {
         int selectedId = binding.identitySelection.getCheckedRadioButtonId();
         RadioButton radioButton = (binding.getRoot().findViewById(selectedId));
-        return radioButton.getText().toString();
+        identity = radioButton.getText().toString();
     }
 
-    // Insert user data on room
     private void addUser() {
-        AppDatabase appDatabase = AppDatabase.getDbInstance(requireContext());
-        appDatabase.userDao().insert(new User(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute, eula));
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.insert(new User(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute, eula));
     }
 }

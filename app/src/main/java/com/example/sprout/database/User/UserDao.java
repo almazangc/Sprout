@@ -17,6 +17,14 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     LiveData<List<User>> getAllUserLiveData();
 
+    @Query("SELECT COUNT(*) FROM user")
+    int countAllSections();
+
+    @Query("UPDATE user SET assesstment =1 WHERE uid =1")
+    void setUserAssesstmentTrue();
+
+    @Query("SELECT assesstment FROM user")
+    boolean isAssestment();
 
     @Insert
     void insert(User... users);

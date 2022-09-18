@@ -12,11 +12,13 @@ public class AssessmentViewModel extends AndroidViewModel {
 
     private AssessmentRepository repository;
     private LiveData<List<Assessment>> allAssessmentListLiveData;
+    private List<Assessment> allAssesstmentList;
 
     public AssessmentViewModel(@NonNull Application application) {
         super(application);
         repository = new AssessmentRepository(application);
-        allAssessmentListLiveData = repository.getAllAssessment();
+        allAssessmentListLiveData = repository.getAllAssesstmentListLivedata();
+        allAssesstmentList = repository.getAllAssesstmentList();
     }
 
     public void insert(Assessment assessment) {
@@ -39,4 +41,7 @@ public class AssessmentViewModel extends AndroidViewModel {
         return allAssessmentListLiveData;
     }
 
+    public List<Assessment> getAllAssesstmentList() {
+        return allAssesstmentList;
+    }
 }

@@ -11,12 +11,16 @@ import java.util.List;
 public class UserViewModel extends AndroidViewModel {
 
     private UserRepository repository;
-    private LiveData<List<User>> allUserListLiveData;
+    private LiveData<List<User>> userListLiveData;
+    private List<User> userList;
+    private int userCount;
 
     public UserViewModel(@NonNull Application application) {
         super(application);
         repository = new UserRepository(application);
-        allUserListLiveData = repository.getAllUser();
+        userList = repository.getUserList();
+        userListLiveData = repository.getUserListLiveData();
+        userCount = repository.getUserCount();
     }
 
     public void insert(User user) {
@@ -35,8 +39,23 @@ public class UserViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
-    public LiveData<List<User>> getAllUserListLiveData() {
-        return allUserListLiveData;
+    public LiveData<List<User>> getUserListLiveData() {
+        return userListLiveData;
     }
 
+    public List<User> getUserList(){
+        return userList;
+    }
+
+    public int getUserCount(){
+        return userCount;
+    }
+
+    public void setAssesstment(){
+        repository.setAssesstment();
+    }
+
+    public boolean getAssesstment(){
+        return repository.getAssestment();
+    }
 }

@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.sprout.R;
-import com.example.sprout.database.Assestment.PopulateAssessmentDatabase;
 import com.example.sprout.databinding.FragmentGetStartedBinding;
 import com.example.sprout.model.BundleKey;
 
@@ -63,8 +62,6 @@ public class getStartedFragment extends Fragment {
     public void onStart() {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
-            PopulateAssessmentDatabase populateAssessmentDatabase = new PopulateAssessmentDatabase(requireContext());
-            populateAssessmentDatabase.populateAssessmentDatabase();
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_getStarted_to_personalization);
         });
 

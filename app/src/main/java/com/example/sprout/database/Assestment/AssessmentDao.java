@@ -11,11 +11,12 @@ import java.util.List;
 
 @Dao
 public interface AssessmentDao {
-    @Query("SELECT * FROM Assessment")
-    List<Assessment> getALLAssessment();
 
     @Query("SELECT * FROM Assessment")
     LiveData<List<Assessment>> getALLAssessmentLiveData();
+
+    @Query("SELECT * FROM Assessment")
+    List<Assessment> getALLAssessment();
 
     @Query("SELECT * FROM Assessment WHERE uid = :uid")
     List<Assessment> getQuestionUID(int uid);

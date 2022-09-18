@@ -11,12 +11,14 @@ import java.util.List;
 
 public class AssessmentRepository {
     private AssessmentDao assessmentDao;
-    private LiveData<List<Assessment>> allAssessment;
+    private LiveData<List<Assessment>> allAssesstmentListLivedata;
+    private List<Assessment> allAssesstmentList;
 
     public AssessmentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         assessmentDao = appDatabase.assessmentDao();
-        allAssessment = assessmentDao.getALLAssessmentLiveData();
+        allAssesstmentListLivedata = assessmentDao.getALLAssessmentLiveData();
+        allAssesstmentList = assessmentDao.getALLAssessment();
     }
 
     public void insert(Assessment assessment) {
@@ -35,8 +37,12 @@ public class AssessmentRepository {
         new DeleteAssessmentAsyncTask(assessmentDao).execute();
     }
 
-    public LiveData<List<Assessment>> getAllAssessment() {
-        return allAssessment;
+    public LiveData<List<Assessment>> getAllAssesstmentListLivedata() {
+        return allAssesstmentListLivedata;
+    }
+
+    public List<Assessment> getAllAssesstmentList() {
+        return allAssesstmentList;
     }
 
     public static class InsertAssessmentAsyncTask extends AsyncTask<Assessment, Void, Void> {

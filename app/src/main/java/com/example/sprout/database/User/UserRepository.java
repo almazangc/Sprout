@@ -11,12 +11,18 @@ import java.util.List;
 
 public class UserRepository {
     private UserDao userDao;
-    private LiveData<List<User>> allUser;
+    private List<User> userList;
+    private LiveData<List<User>> userListLiveData;
+    private int userCount;
+    private boolean isAssesstment;
 
     public UserRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         userDao = appDatabase.userDao();
-        allUser = userDao.getAllUserLiveData();
+        userList = userDao.getAllUser();
+        userListLiveData = userDao.getAllUserLiveData();
+        userCount = userDao.countAllSections();
+        isAssesstment = userDao.isAssestment();
     }
 
     public void insert(User user) {
@@ -35,8 +41,24 @@ public class UserRepository {
         new DeleteAllUserAsyncTask(userDao).execute();
     }
 
-    public LiveData<List<User>> getAllUser() {
-        return allUser;
+    public LiveData<List<User>> getUserListLiveData() {
+        return userListLiveData;
+    }
+
+    public List<User> getUserList(){
+        return userList;
+    }
+
+    public int getUserCount(){
+        return userCount;
+    }
+
+    public void setAssesstment(){
+        userDao.setUserAssesstmentTrue();
+    }
+
+    public boolean getAssestment(){
+        return isAssesstment;
     }
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {

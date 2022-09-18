@@ -21,36 +21,10 @@ public class Main extends AppCompatActivity {
     //ViewBinding
     private ActivityMainBinding binding;
 
-    //User Live Data
-    private UserViewModel userViewModel;
-    private AssessmentViewModel assessmentViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        assessmentViewModel = new ViewModelProvider(this).get(AssessmentViewModel.class);
-
-        userViewModel.getAllUserListLiveData().observe(this, new Observer<List<User>>() {
-            @Override
-            public void onChanged(List<User> users) {
-                // Update Recycler View
-                Toast.makeText(Main.this, "Update Recycler View: Onchange", Toast.LENGTH_LONG).show();
-                Log.d("TAG", "onChanged: ");
-            }
-        });
-
-        assessmentViewModel.getAllAssessmentListLiveData().observe(this, new Observer<List<Assessment>>() {
-            @Override
-            public void onChanged(List<Assessment> assessments) {
-                // Update Recycler View
-                Toast.makeText(Main.this, "Update Recycler View: Onchange", Toast.LENGTH_LONG).show();
-                Log.d("TAG", "onChanged: ");
-            }
-        });
     }
 }

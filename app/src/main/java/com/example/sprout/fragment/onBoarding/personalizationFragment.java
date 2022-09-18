@@ -12,57 +12,35 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.sprout.R;
 import com.example.sprout.database.AppDatabase;
 import com.example.sprout.database.Assestment.Assessment;
-import com.example.sprout.database.Assestment.PopulateAssessmentDatabase;
+import com.example.sprout.database.Assestment.AssessmentViewModel;
+import com.example.sprout.database.User.UserViewModel;
 import com.example.sprout.databinding.FragmentPersonalizationBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link personalizationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class personalizationFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static int uid = 1;
+    private static int uid = 0;
     private FragmentPersonalizationBinding binding;
     private List<Assessment> currentQuestion = new ArrayList<>();
+    private List<Assessment> allAssesstmentList;
 
     public personalizationFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PersonalizationFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static personalizationFragment newInstance(String param1, String param2) {
-        personalizationFragment fragment = new personalizationFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPersonalizationBinding.inflate(inflater, container, false);
+        AssessmentViewModel assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
+        allAssesstmentList = assessmentViewModel.getAllAssesstmentList();
         return binding.getRoot();
     }
 
@@ -75,30 +53,28 @@ public class personalizationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        currentQuestion = getCurrentAssessments(uid);
-        setValues();
+        setAssesstmentText();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
-
-            AppDatabase.getDbInstance(requireContext()).assessmentDao().updateSelectedUID(uid - 1, addListenerOnButton());
-
-            currentQuestion = getCurrentAssessments(uid);
-
-            if (!currentQuestion.isEmpty()) {
-                setValues();
+            if (!allAssesstmentList.isEmpty() && allAssesstmentList.size() < uid + 1) {
+                //Also check if end of index getSize
+                uid++;
+                setAssesstmentText();
             } else {
                 uid--;
                 Toast.makeText(requireContext(), "End of Questions", Toast.LENGTH_LONG).show();
-
                 new AlertDialog.Builder(requireContext())
                         .setMessage("Are you done answering all?")
                         .setCancelable(false)
                         //analysis
-                        .setPositiveButton("Yes", (dialogInterface, i) -> Navigation.findNavController(view).navigate(R.id.action_navigate_from_personalization_to_analysis))
+                        .setPositiveButton("YES", (dialogInterface, i) -> {
+                            setUserAssesstmentTrue();
+                            Navigation.findNavController(view).navigate(R.id.action_navigate_from_personalization_to_analysis);
+                        })
                         .setNegativeButton("No", null)
                         .show();
             }
@@ -107,38 +83,32 @@ public class personalizationFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                uid -= 2;
-                currentQuestion = getCurrentAssessments(uid);
-                setValues();
-
+                uid--;
+                setAssesstmentText();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
-    private List<Assessment> getCurrentAssessments(int uid) {
-        personalizationFragment.uid++;
-        return currentQuestion = AppDatabase.getDbInstance(requireContext()).assessmentDao().getQuestionUID(uid);
-    }
-
-    private void setValues() {
-        binding.lblQuestion.setText(currentQuestion.get(0).getQuestion());
-        binding.radioASelect.setText(currentQuestion.get(0).getASelect());
-        binding.radioBselect.setText(currentQuestion.get(0).getBSelect());
-        binding.radioCselect.setText(currentQuestion.get(0).getCSelect());
-        binding.radioDselect.setText(currentQuestion.get(0).getDSelect());
-
-        String selectedRadioButtonText = currentQuestion.get(0).getSelected();
-
-        if (!selectedRadioButtonText.equals(new PopulateAssessmentDatabase().DEFAULT_SELECTED)) {
-            int radioGroupSelectChildCount = binding.radioGroupSelect.getChildCount();
-
-        }
+    private void setAssesstmentText() {
+        //Over Index
+//        if (uid > allAssesstmentList.size()) return;
+        binding.lblQuestion.setText(allAssesstmentList.get(uid).getQuestion());
+        binding.radioASelect.setText(allAssesstmentList.get(uid).getASelect());
+        binding.radioBselect.setText(allAssesstmentList.get(uid).getBSelect());
+        binding.radioCselect.setText(allAssesstmentList.get(uid).getCSelect());
+        binding.radioDselect.setText(allAssesstmentList.get(uid).getDSelect());
     }
 
     private String addListenerOnButton() {
         int selectedId = binding.radioGroupSelect.getCheckedRadioButtonId();
         RadioButton radioButton = (binding.getRoot().findViewById(selectedId));
         return radioButton.getText().toString();
+    }
+
+    // Update User: AsssestmentToTrue
+    private void setUserAssesstmentTrue(){
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.setAssesstment();
     }
 }

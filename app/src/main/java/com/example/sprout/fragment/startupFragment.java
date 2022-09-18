@@ -1,15 +1,19 @@
 package com.example.sprout.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.sprout.R;
 import com.example.sprout.database.AppDatabase;
+import com.example.sprout.database.Assestment.AssessmentViewModel;
+import com.example.sprout.database.User.UserViewModel;
 import com.example.sprout.databinding.FragmentStartupBinding;
 
 /**
@@ -26,7 +30,6 @@ public class startupFragment extends Fragment {
 
     //Vew Binding
     private FragmentStartupBinding binding;
-
 
     public startupFragment() {
         // Required empty public constructor
@@ -54,21 +57,18 @@ public class startupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentStartupBinding.inflate(inflater, container, false);
 
-        boolean isUserRegistered = AppDatabase.getDbInstance(requireContext())
-                .userDao()
-                .getAllUser()
-                .isEmpty();
-        boolean isAssessmentDone = (AppDatabase.getDbInstance(requireContext())
-                .assessmentDao()
-                .getALLAssessment()
-                .isEmpty());
+        //User Live Data
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        Log.d("TAG", "onCreateView: " + userViewModel.getUserCount());
+        Log.d("TAG", "onCreateView: " + userViewModel.getAssesstment());
 
-        if (!isUserRegistered) {
+
+        if (userViewModel.getUserCount() == 1 & !userViewModel.getAssesstment()) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_personalization);
-        } else if (isAssessmentDone) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_initial);
-        } else {
+        } else if (userViewModel.getAssesstment()) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_analysis);
+        } else {
+            NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_initial);
         }
         return binding.getRoot();
     }
@@ -76,8 +76,6 @@ public class startupFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-
     }
 
     @Override

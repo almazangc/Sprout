@@ -23,6 +23,7 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             new PopulateAssessmentAsyncTask(INSTANCE).execute();
+//            new PopulateUserAsyncTask(INSTANCE).execute();
         }
     };
 
@@ -70,7 +71,20 @@ public abstract class AppDatabase extends RoomDatabase {
 
             return null;
         }
-    }
+    };
 
-    ;
+    private static class PopulateUserAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private UserDao userDao;
+
+        public PopulateUserAsyncTask(AppDatabase instance) {
+            userDao = instance.userDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            userDao.insert(new User("Vit", "Alien", 8, 30, 20, 55, true));
+            return null;
+        }
+    };
 }

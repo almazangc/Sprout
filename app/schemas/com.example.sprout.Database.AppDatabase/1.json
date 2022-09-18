@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5d0ecca0a59bf961a4080989f046f182",
+    "identityHash": "7db335069b3fa45573fb9a124f90edbe",
     "entities": [
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT, `identity` TEXT, `wake_hour` INTEGER NOT NULL, `wake_minute` INTEGER NOT NULL, `sleep_hour` INTEGER NOT NULL, `sleep_minute` INTEGER NOT NULL, `eula` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT, `identity` TEXT, `wake_hour` INTEGER NOT NULL, `wake_minute` INTEGER NOT NULL, `sleep_hour` INTEGER NOT NULL, `sleep_minute` INTEGER NOT NULL, `eula` INTEGER NOT NULL, `assesstment` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -53,6 +53,12 @@
           {
             "fieldPath": "eulaAgreement",
             "columnName": "eula",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "assesstmentDone",
+            "columnName": "assesstment",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -126,7 +132,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5d0ecca0a59bf961a4080989f046f182')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7db335069b3fa45573fb9a124f90edbe')"
     ]
   }
 }
