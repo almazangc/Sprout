@@ -1,121 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.onBoarding.personalizationFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/simple_background_tempv1"
-        android:orientation="vertical"
-        android:padding="@dimen/relativeLayoutPadding"
-        android:weightSum="10">
+        android:layout_height="match_parent"
+        tools:context=".fragment.onBoarding.personalizationFragment">
 
-        <RelativeLayout
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2">
-
-            <ProgressBar
-                android:id="@+id/assestment_progressBar"
-                style="@style/style_progressBar"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/lbl_titleMainHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:text="@string/personalization"
-                android:textColor="@color/NIGHT"
-                android:textSize="34sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/lbl_subHeader1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/lbl_titleMainHeader"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="3dp"
-                android:text="@string/habit_reform_and_routine_management"
-                android:textAlignment="viewStart"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <!--        For long questions-->
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7"
-            android:fillViewport="true"
-            android:scrollbars="none">
+            android:layout_height="wrap_content"
+            android:background="@drawable/simple_background_tempv1"
+            android:orientation="vertical"
+            android:padding="@dimen/relativeLayoutPadding"
+            android:weightSum="10">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/assessment_progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"/>
+
+<!--                <ProgressBar-->
+<!--                    android:id="@+id/assessment_progressBar"-->
+<!--                    style="@style/style_progressBar"-->
+<!--                    android:visibility="invisible" />-->
 
                 <TextView
-                    android:id="@+id/lbl_question"
+                    android:id="@+id/lbl_titleMainHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_marginBottom="10dp"
+                    android:text="@string/personalization"
                     android:textColor="@color/NIGHT"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    tools:text="Question: How would you like your text be seen"
-                    android:textAlignment="center"/>
+                    android:textSize="34sp"
+                    android:textStyle="bold" />
 
-                <RadioGroup
-                    android:id="@+id/radioGroupSelect"
+                <TextView
+                    android:id="@+id/lbl_subHeader1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/lbl_question"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/radio_margin_bottom"
-                    android:gravity="bottom"
-                    android:orientation="vertical">
-
-                    <RadioButton
-                        android:id="@+id/radio_aSelect"
-                        style="@style/radioButtonLandscape"
-                        android:checked="true"
-                        tools:text="Yes Good Day" />
-
-                    <RadioButton
-                        android:id="@+id/radio_bselect"
-                        style="@style/radioButtonLandscape"
-                        tools:text="Very Nice Day to work on something so cool" />
-
-                    <RadioButton
-                        android:id="@+id/radio_cselect"
-                        style="@style/radioButtonLandscape"
-                        tools:text="third selection" />
-
-                    <RadioButton
-                        android:id="@+id/radio_dselect"
-                        style="@style/radioButtonLandscape"
-                        tools:text="Last Radio Button Container DA FAK" />
-                </RadioGroup>
-
+                    android:layout_below="@id/lbl_titleMainHeader"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/habit_reform_and_routine_management"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="16sp" />
             </RelativeLayout>
-        </ScrollView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            <!--        For long questions-->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7"
+                android:fillViewport="true"
+                android:scrollbars="none">
 
-            <Button
-                android:id="@+id/btn_continue"
-                style="@style/btn_continue_landscape"
-                />
-        </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    </LinearLayout>
-</FrameLayout>
+                    <TextView
+                        android:id="@+id/lbl_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        tools:text="Question: How would you like your text be seen"
+                        android:textAlignment="center" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupSelect"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lbl_question"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/radio_margin_bottom"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/radio_aSelect"
+                            style="@style/radioButtonLandscape"
+                            android:checked="true"
+                            tools:text="Yes Good Day" />
+
+                        <RadioButton
+                            android:id="@+id/radio_bSelect"
+                            style="@style/radioButtonLandscape"
+                            tools:text="Very Nice Day to work on something so cool" />
+
+                        <RadioButton
+                            android:id="@+id/radio_cSelect"
+                            style="@style/radioButtonLandscape"
+                            tools:text="third selection" />
+
+                        <RadioButton
+                            android:id="@+id/radio_dSelect"
+                            style="@style/radioButtonLandscape"
+                            tools:text="Last Radio Button Container DA FAK" />
+                    </RadioGroup>
+
+                </RelativeLayout>
+            </ScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btn_continue"
+                    style="@style/btn_continue_landscape" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </FrameLayout>

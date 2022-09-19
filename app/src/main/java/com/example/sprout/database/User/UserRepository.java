@@ -14,7 +14,7 @@ public class UserRepository {
     private List<User> userList;
     private LiveData<List<User>> userListLiveData;
     private int userCount;
-    private boolean isAssesstment;
+    private boolean isAssessment;
 
     public UserRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -22,7 +22,7 @@ public class UserRepository {
         userList = userDao.getAllUser();
         userListLiveData = userDao.getAllUserLiveData();
         userCount = userDao.countAllSections();
-        isAssesstment = userDao.isAssestment();
+        isAssessment = userDao.isAssessment();
     }
 
     public void insert(User user) {
@@ -58,7 +58,7 @@ public class UserRepository {
     }
 
     public boolean getAssestment(){
-        return isAssesstment;
+        return isAssessment;
     }
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {

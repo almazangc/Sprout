@@ -30,8 +30,8 @@ public class User {
     @ColumnInfo(name = "eula")
     private boolean eulaAgreement;
 
-    @ColumnInfo(name = "assesstment")
-    private boolean assesstmentDone;
+    @ColumnInfo(name = "assessment")
+    private boolean assessmentDone;
 
     public User() {
 
@@ -46,10 +46,6 @@ public class User {
         this.sleepMinute = sleepMinute;
         this.eulaAgreement = eulaAgreement;
     }
-
-//    public User(boolean assesstmentDone){
-//        th
-//    }
 
     public int getUid() {
         return uid;
@@ -115,11 +111,11 @@ public class User {
         this.eulaAgreement = eulaAgreement;
     }
 
-    public boolean isAssesstmentDone() {
-        return assesstmentDone;
+    public boolean isAssessmentDone() {
+        return assessmentDone;
     }
 
-    public void setAssesstmentDone(boolean assesstmentDone) {
-        this.assesstmentDone = assesstmentDone;
+    public void setAssessmentDone(boolean assessmentDone) {
+        this.assessmentDone = assessmentDone;
     }
 }

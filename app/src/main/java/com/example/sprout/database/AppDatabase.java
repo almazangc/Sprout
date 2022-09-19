@@ -9,8 +9,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.sprout.database.Assestment.Assessment;
-import com.example.sprout.database.Assestment.AssessmentDao;
+import com.example.sprout.database.Assessment.Assessment;
+import com.example.sprout.database.Assessment.AssessmentDao;
 import com.example.sprout.database.User.User;
 import com.example.sprout.database.User.UserDao;
 

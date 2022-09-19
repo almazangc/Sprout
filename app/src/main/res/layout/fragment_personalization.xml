@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.onBoarding.personalizationFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -19,15 +20,22 @@
             android:layout_height="0dp"
             android:layout_weight="2">
 
-            <ProgressBar
-                android:id="@+id/assestment_progressBar"
-                style="@style/style_progressBar" />
+<!--            <ProgressBar-->
+<!--                android:id="@+id/assessment_progressBar"-->
+<!--                style="@style/style_progressBar" />-->
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/assessment_progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:trackThickness="10dp"
+                app:indicatorColor="@color/CARROT"/>
 
             <TextView
                 android:id="@+id/lbl_titleMainHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/assestment_progressBar"
+                android:layout_below="@id/assessment_progressBar"
                 android:text="@string/personalization"
                 android:textColor="@color/NIGHT"
                 android:textSize="34sp"
@@ -67,6 +75,7 @@
                     android:textColor="@color/NIGHT"
                     android:textSize="25sp"
                     android:textStyle="bold"
+                    android:text="@{question}"
                     tools:text="Question: How would you like your text be seen" />
 
                 <RadioGroup
@@ -83,22 +92,24 @@
                         android:id="@+id/radio_aSelect"
                         style="@style/radioButtonPortrait"
                         android:checked="true"
+                        android:text="@{aSelect}"
                         tools:text="Yes Good Day" />
 
                     <RadioButton
-                        android:id="@+id/radio_bselect"
+                        android:id="@+id/radio_bSelect"
                         style="@style/radioButtonPortrait"
+
                         tools:text="Very Nice Day to work on something so cool" />
 
                     <RadioButton
-                        android:id="@+id/radio_cselect"
+                        android:id="@+id/radio_cSelect"
                         style="@style/radioButtonPortrait"
                         tools:text="third selection" />
 
                     <RadioButton
-                        android:id="@+id/radio_dselect"
+                        android:id="@+id/radio_dSelect"
                         style="@style/radioButtonPortrait"
-                        tools:text="Last Radio Button Container DA FAK"/>
+                        tools:text="Last Radio Button Container DA FAK" />
                 </RadioGroup>
 
             </RelativeLayout>
@@ -113,6 +124,5 @@
                 android:id="@+id/btn_continue"
                 style="@style/btn_continue_portrait" />
         </RelativeLayout>
-
     </LinearLayout>
 </FrameLayout>

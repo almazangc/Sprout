@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Sprout_Prototype</string>
+    <string name="app_name">Sprout Development Stage</string>
     <string name="sprout">Sprout</string>
+
     <string name="habit_reform_and_routine_management">Habit Reform and Routine Management</string>
     <string name="lets_do_it">Lets do it!</string>
     <string name="eula_and_privacy_policy"><b><u>EULA</u></b> and <b><u>Privacy Policy</u></b></string>
@@ -12,8 +13,6 @@
     <string name="textView_startup_introduction">Start growing your sprout.\nReform the poor habits and become a better version of you!</string>
     <string name="continue_lbl">C O N T I N U E</string>
     <string name="lbl_getCommonWakeUpTime">What time do you usually wake up?</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ask_commonSleepTime">What time do you usually sleep?</string>
     <string name="break_your_bad_habits_in_no_of_days">Break your bad habits in 21 of days</string>

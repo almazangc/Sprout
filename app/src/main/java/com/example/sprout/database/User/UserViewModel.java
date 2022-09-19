@@ -51,7 +51,7 @@ public class UserViewModel extends AndroidViewModel {
         return userCount;
     }
 
-    public void setAssesstment(){
+    public void setAssessment(){
         repository.setAssesstment();
     }
 

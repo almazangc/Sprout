@@ -52,6 +52,7 @@ public class eulaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentEulaBinding.inflate(inflater, container, false);
+        binding.lblEULA.setText(getString(R.string.sampleText));
         return binding.getRoot();
     }
 

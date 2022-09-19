@@ -1,7 +1,6 @@
 package com.example.sprout.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.sprout.R;
-import com.example.sprout.database.AppDatabase;
-import com.example.sprout.database.Assestment.AssessmentViewModel;
 import com.example.sprout.database.User.UserViewModel;
 import com.example.sprout.databinding.FragmentStartupBinding;
 
@@ -59,10 +56,6 @@ public class startupFragment extends Fragment {
 
         //User Live Data
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        Log.d("TAG", "onCreateView: " + userViewModel.getUserCount());
-        Log.d("TAG", "onCreateView: " + userViewModel.getAssesstment());
-
-
         if (userViewModel.getUserCount() == 1 & !userViewModel.getAssesstment()) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_personalization);
         } else if (userViewModel.getAssesstment()) {

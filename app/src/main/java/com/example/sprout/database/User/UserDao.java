@@ -20,11 +20,11 @@ public interface UserDao {
     @Query("SELECT COUNT(*) FROM user")
     int countAllSections();
 
-    @Query("UPDATE user SET assesstment =1 WHERE uid =1")
+    @Query("UPDATE user SET assessment =1 WHERE uid =1")
     void setUserAssesstmentTrue();
 
-    @Query("SELECT assesstment FROM user")
-    boolean isAssestment();
+    @Query("SELECT assessment FROM user")
+    boolean isAssessment();
 
     @Insert
     void insert(User... users);
