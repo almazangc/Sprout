@@ -1,6 +1,7 @@
 package com.example.sprout.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,16 +54,16 @@ public class startupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentStartupBinding.inflate(inflater, container, false);
-
-        //User Live Data
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        if (userViewModel.getUserCount() == 1 & !userViewModel.getAssesstment()) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_personalization);
-        } else if (userViewModel.getAssesstment()) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_analysis);
-        } else {
-            NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_startup_to_initial);
-        }
+        boolean isEmpty = userViewModel.getUserList().isEmpty();
+
+        if (isEmpty) NavHostFragment.findNavController(this).navigate(R.id.action_startup_to_onboarding);
+        if (!isEmpty)
+            if (!userViewModel.getOnBoarding())
+                NavHostFragment.findNavController(this).navigate(R.id.action_startup_to_onboarding);
+
+         binding.btnMain.setText("WELCOME TO START");
+
         return binding.getRoot();
     }
 

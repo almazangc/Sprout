@@ -52,10 +52,18 @@ public class UserViewModel extends AndroidViewModel {
     }
 
     public void setAssessment(){
-        repository.setAssesstment();
+        repository.setAssessment();
     }
 
-    public boolean getAssesstment(){
-        return repository.getAssestment();
+    public boolean getAssessment(){
+        return repository.getAssessment();
+    }
+
+    public void setOnBoarding(){
+        repository.setOnBoarding();
+    }
+
+    public boolean getOnBoarding(){
+        return repository.getOnBoarding();
     }
 }

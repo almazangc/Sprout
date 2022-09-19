@@ -8,5 +8,14 @@
         android:id="@+id/startupFragment2"
         android:name="com.example.sprout.fragment.startupFragment"
         android:label="fragment_startup"
-        tools:layout="@layout/fragment_startup" />
+        tools:layout="@layout/fragment_startup" >
+        <action
+            android:id="@+id/action_startupFragment2_to_bottomFragment"
+            app:destination="@id/bottomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bottomFragment"
+        android:name="com.example.sprout.fragment.sprout.bottomFragment"
+        android:label="fragment_bottom"
+        tools:layout="@layout/fragment_bottom" />
 </navigation>

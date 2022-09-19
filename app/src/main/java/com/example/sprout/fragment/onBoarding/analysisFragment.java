@@ -1,5 +1,6 @@
 package com.example.sprout.fragment.onBoarding;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sprout.R;
+import com.example.sprout.activity.startup.Main;
+import com.example.sprout.database.User.UserViewModel;
 import com.example.sprout.databinding.FragmentAnalysisBinding;
 
 /**
@@ -65,13 +69,14 @@ public class analysisFragment extends Fragment {
     public void onStart() {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
-
+            setOnBoarding();
+            startActivity(new Intent(requireActivity(), Main.class));
         });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Toast.makeText(requireContext(), "You shall not ammend", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "You shall not amend", Toast.LENGTH_SHORT).show();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -82,4 +87,10 @@ public class analysisFragment extends Fragment {
         super.onDestroy();
         binding = null;
     }
+
+    private void setOnBoarding(){
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.setOnBoarding();
+    }
+
 }

@@ -20,11 +20,17 @@ public interface UserDao {
     @Query("SELECT COUNT(*) FROM user")
     int countAllSections();
 
-    @Query("UPDATE user SET assessment =1 WHERE uid =1")
-    void setUserAssesstmentTrue();
+    @Query("UPDATE user SET assessment = 1 WHERE uid = 1")
+    void setUserAssessmentTrue();
 
-    @Query("SELECT assessment FROM user")
+    @Query("SELECT assessment FROM user WHERE uid = 1")
     boolean isAssessment();
+
+    @Query("UPDATE user SET onBoarding = 1 WHERE uid = 1")
+    void setUserOnBoardingTrue();
+
+    @Query("SELECT onBoarding FROM user WHERE uid = 1")
+    boolean isOnBoarding();
 
     @Insert
     void insert(User... users);

@@ -65,7 +65,7 @@ public class eulaFragment extends Fragment {
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_getCommonWakeup, bundle);
         });
         binding.btnDisagree.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_startup);
+            Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_initial);
         });
     }
 
