@@ -77,6 +77,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/backgroundbar.xml" value="0.3055" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/blurry_gradient_haikei.xml" value="0.3055" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/continue_btn_selector.xml" value="0.182" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_launcher_background.xml" value="0.306" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/identity_svg.xml" value="0.306" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/radio_text_color_selector.xml" value="0.2595" />
@@ -94,7 +95,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_analysis.xml" value="0.409375" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_eula.xml" value="0.409375" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_get_identity.xml" value="0.28327495621716287" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_get_nickname.xml" value="0.28327495621716287" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_get_nickname.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_get_started.xml" value="0.28327495621716287" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_initial.xml" value="0.28327495621716287" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_personalization.xml" value="0.409375" />
@@ -115,16 +116,18 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_get_common_sleep_time.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_get_common_wakeup.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_get_identity.xml" value="0.28396739130434784" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_get_nickname.xml" value="0.28396739130434784" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_get_nickname.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_get_started.xml" value="0.28396739130434784" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_greetings.xml" value="0.28396739130434784" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_initial.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_introduction.xml" value="0.21965579710144928" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_nickname.xml" value="0.28396739130434784" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_on_boarding.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_personalization.xml" value="0.28396739130434784" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_startup.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/list_item.xml" value="0.26268115942028986" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/onbording.xml" value="0.33697916666666666" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/spinner_time_selector.xml" value="0.3411458333333333" />
       </map>
     </option>
   </component>

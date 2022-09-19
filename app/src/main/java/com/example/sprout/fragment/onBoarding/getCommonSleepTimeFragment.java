@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TimePicker;
 
+import androidx.databinding.adapters.TimePickerBindingAdapter;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.sprout.R;
 import com.example.sprout.databinding.FragmentGetCommonSleepTimeBinding;
+import com.example.sprout.databinding.SpinnerTimeSelectorBinding;
 import com.example.sprout.model.BundleKey;
 import com.example.sprout.model.InitialTime;
 
@@ -27,6 +30,7 @@ public class getCommonSleepTimeFragment extends Fragment {
 
     //View Binding
     private FragmentGetCommonSleepTimeBinding binding;
+    private TimePicker timePicker;
 
     public getCommonSleepTimeFragment() {
         // Required empty public constructor
@@ -53,6 +57,7 @@ public class getCommonSleepTimeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGetCommonSleepTimeBinding.inflate(inflater, container, false);
+        timePicker = binding.SleepTimePicker.getRoot();
         setInitialTime();
         return binding.getRoot();
     }
@@ -62,14 +67,14 @@ public class getCommonSleepTimeFragment extends Fragment {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
             Bundle bundle = getArguments();
-            bundle.putInt(new BundleKey().getKEY_SLEEPHOUR(), binding.SleepTimePicker.getHour());
-            bundle.putInt(new BundleKey().getKEY_SLEEPMINUTE(), binding.SleepTimePicker.getMinute());
+            bundle.putInt(new BundleKey().getKEY_SLEEPHOUR(), timePicker.getHour());
+            bundle.putInt(new BundleKey().getKEY_SLEEPMINUTE(), timePicker.getMinute());
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_getCommonSleepTime_to_introduction, bundle);
         });
     }
 
     private void setInitialTime() {
-        binding.SleepTimePicker.setHour(new InitialTime().getSleepHour());
-        binding.SleepTimePicker.setMinute(new InitialTime().getSleepMinute());
+        timePicker.setHour(new InitialTime().getSleepHour());
+        timePicker.setMinute(new InitialTime().getSleepMinute());
     }
 }

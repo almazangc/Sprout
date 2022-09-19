@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -27,6 +28,7 @@ public class getCommonWakeupFragment extends Fragment {
 
     //View Binding
     private FragmentGetCommonWakeupBinding binding;
+    private TimePicker timePicker;
 
     public getCommonWakeupFragment() {
         // Required empty public constructor
@@ -53,6 +55,7 @@ public class getCommonWakeupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGetCommonWakeupBinding.inflate(inflater, container, false);
+        timePicker = binding.WakeTimePicker.getRoot();
         setInitialTime();
         return binding.getRoot();
     }
@@ -62,8 +65,8 @@ public class getCommonWakeupFragment extends Fragment {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
             Bundle bundle = getArguments();
-            bundle.putInt(new BundleKey().getKEY_WAKEHOUR(), binding.WakeTimePicker.getHour());
-            bundle.putInt(new BundleKey().getKEY_WAKEMINUTE(), binding.WakeTimePicker.getMinute());
+            bundle.putInt(new BundleKey().getKEY_WAKEHOUR(), timePicker.getHour());
+            bundle.putInt(new BundleKey().getKEY_WAKEMINUTE(), timePicker.getMinute());
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_getCommonWakeup_to_getCommonSleepTime, bundle);
         });
     }
@@ -75,7 +78,7 @@ public class getCommonWakeupFragment extends Fragment {
     }
 
     private void setInitialTime() {
-        binding.WakeTimePicker.setHour(new InitialTime().getWakeHour());
-        binding.WakeTimePicker.setMinute(new InitialTime().getWakeMinute());
+        timePicker.setHour(new InitialTime().getWakeHour());
+        timePicker.setMinute(new InitialTime().getWakeMinute());
     }
 }

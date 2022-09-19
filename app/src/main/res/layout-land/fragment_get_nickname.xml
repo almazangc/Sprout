@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,42 +16,63 @@
         <TextView
             style="@style/textViewHeader"
             android:layout_above="@id/lbl_2"
-            android:layout_marginBottom="0dp"
-            android:text="@string/my_firstname_is"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
+            android:layout_marginBottom="0dp"
+            android:text="@string/my_firstname_is"
             android:textColor="@color/NIGHT" />
 
         <TextView
             android:id="@+id/lbl_2"
             style="@style/textViewSubHeader"
             android:layout_width="match_parent"
-            android:layout_above="@id/editTextTextPersonName"
+            android:layout_above="@id/outlinedTextField"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
             android:text="@string/what_should_we_call_you"
             android:textColor="@color/WAIKAWA_GREY" />
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_blue_btn"
-            android:clickable="true"
-            android:ems="10"
-            android:hint="@string/prompt_name"
-            android:inputType="textPersonName"
-            android:maxLength="18"
-            android:padding="15dp"
-            android:paddingStart="30dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:textColor="@color/CLOUDS"
-            android:textColorHint="@color/CLOUDS"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
-            android:textSize="18sp" />
+            android:hint="Nickname"
+            android:maxLines="1"
+            android:textColor="@color/NIGHT"
+            android:textColorHint="@color/NIGHT"
+            app:boxCornerRadiusBottomEnd="@dimen/relativeLayoutPadding"
+            app:boxCornerRadiusBottomStart="@dimen/relativeLayoutPadding"
+            app:boxCornerRadiusTopEnd="@dimen/relativeLayoutPadding"
+            app:boxCornerRadiusTopStart="@dimen/relativeLayoutPadding"
+            app:boxStrokeColor="@color/KIMBERLY"
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+            app:counterTextColor="@color/CORAL_RED"
+            app:helperText="Required*"
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/A80_CORAL_RED"
+            app:startIconDrawable="@drawable/ic_person">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ems="10"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:padding="15dp"
+                android:paddingStart="15dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/NIGHT"
+                android:textColorHint="@color/NIGHT"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_continue"

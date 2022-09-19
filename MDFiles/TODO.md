@@ -17,6 +17,10 @@
 * [ ]  REFACTORS CODES
 * [ ]  FIX APP ROTATION PROBLEM
 * [ ]  APPLICATION FOR MUTIPLE SCREEN SIZE LAYOUT, HDPI, DPI, MDPI, XHDPI, XXHDPI
+* [ ]  Layout Varieties
+* [ ]  Custom Toast
+* [ ]  Custom DialogBox
+* [ ]  WakeUp and Sleep Orientation Variant
 
 ## DEPENDENCIES
 
@@ -24,6 +28,6 @@ Room Persistence Library
 
 Material Component Bridge (For Dropdown List)
 
-Recycler View 
+Recycler View
 
 Data Binding and View Binding Enables

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wallpaper"
     tools:context=".fragment.onBoarding.getCommonSleepTimeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -18,25 +19,21 @@
             android:layout_alignParentTop="true"
             android:text="@string/ask_commonSleepTime"
             android:textAlignment="center"
-            android:textColor="@color/NIGHT"
+            android:textColor="@color/CLOUDS"
             android:textSize="32sp"
             android:textStyle="bold"
             tools:layout_editor_absoluteX="20dp"
             tools:layout_editor_absoluteY="20dp" />
 
-        <TimePicker
+        <include
             android:id="@+id/SleepTimePicker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:alwaysDrawnWithCache="false"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:timePickerMode="spinner" />
+            layout="@layout/spinner_time_selector" />
 
         <Button
             android:id="@+id/btn_continue"
-            style="@style/btn_continue_portrait" />
+            style="@style/btn_continue_portrait"
+            android:background="@drawable/rounded_white_btn"
+            android:textColor="@color/NIGHT" />
     </RelativeLayout>
 
 </FrameLayout>

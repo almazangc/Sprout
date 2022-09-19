@@ -64,9 +64,13 @@ public class getNicknameFragment extends Fragment {
             if (nickname.equals("")) {
                 Toast.makeText(requireContext(), "Please enter a nickname", Toast.LENGTH_SHORT).show();
             } else {
-                Bundle bundle = getArguments();
-                bundle.putString(new BundleKey().getKEY_NICKNAME(), nickname);
-                Navigation.findNavController(view).navigate(R.id.action_navigate_from_getNickname_to_getIdentity, bundle);
+                if (nickname.length() <= 15){
+                    Bundle bundle = getArguments();
+                    bundle.putString(new BundleKey().getKEY_NICKNAME(), nickname);
+                    Navigation.findNavController(view).navigate(R.id.action_navigate_from_getNickname_to_getIdentity, bundle);
+                } else {
+                    Toast.makeText(requireContext(), "Please enter within the limit", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

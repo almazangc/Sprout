@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onBoarding.getCommonWakeupFragment">
+    tools:context=".fragment.onBoarding.getCommonWakeupFragment"
+    android:background="@drawable/wallpaper">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -18,22 +19,29 @@
             android:layout_alignParentTop="true"
             android:text="@string/lbl_getCommonWakeUpTime"
             android:textAlignment="center"
-            android:textColor="@color/NIGHT"
+            android:textColor="@color/CLOUDS"
             android:textSize="32sp"
             android:textStyle="bold" />
 
-        <TimePicker
+
+        <include
             android:id="@+id/WakeTimePicker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:timePickerMode="spinner" />
+            layout="@layout/spinner_time_selector" />
+
+<!--        <TimePicker-->
+<!--            android:id="@+id/WakeTimePicker"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:scaleX="1.5"-->
+<!--            android:scaleY="1.5"-->
+<!--            android:timePickerMode="spinner" />-->
 
         <Button
             android:id="@+id/btn_continue"
-            style="@style/btn_continue_portrait" />
+            style="@style/btn_continue_portrait"
+            android:background="@drawable/rounded_white_btn"
+            android:textColor="@color/NIGHT" />
+
     </RelativeLayout>
 </FrameLayout>
