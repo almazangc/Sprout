@@ -1,11 +1,10 @@
 package com.prototype.sprout.activity.startup;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.prototype.sprout.databinding.ActivityMainBinding;
-import com.prototype.sprout.databinding.OnbordingBinding;
 
 public class Main extends AppCompatActivity {
 

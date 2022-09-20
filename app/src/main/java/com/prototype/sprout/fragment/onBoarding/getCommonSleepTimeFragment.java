@@ -11,7 +11,6 @@ import androidx.navigation.Navigation;
 
 import com.prototype.sprout.R;
 import com.prototype.sprout.databinding.FragmentGetCommonSleepTimeBinding;
-import com.prototype.sprout.databinding.SpinnerTimeSelectorBinding;
 import com.prototype.sprout.model.BundleKey;
 import com.prototype.sprout.model.InitialTime;
 

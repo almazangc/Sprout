@@ -3,6 +3,7 @@ package com.prototype.sprout.activity.startup;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.prototype.sprout.databinding.OnbordingBinding;
 
 public class OnBoarding extends AppCompatActivity {
