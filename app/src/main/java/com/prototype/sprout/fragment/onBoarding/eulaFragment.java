@@ -12,11 +12,6 @@ import com.prototype.sprout.R;
 import com.prototype.sprout.databinding.FragmentEulaBinding;
 import com.prototype.sprout.model.BundleKey;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link eulaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class eulaFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -29,24 +24,6 @@ public class eulaFragment extends Fragment {
 
     public eulaFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment eula.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static eulaFragment newInstance(String param1, String param2) {
-        eulaFragment fragment = new eulaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override

@@ -58,6 +58,22 @@ public class User {
         this.eulaAgreement = eulaAgreement;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", nickname='" + nickname + '\'' +
+                ", identity='" + identity + '\'' +
+                ", wakeHour=" + wakeHour +
+                ", wakeMinute=" + wakeMinute +
+                ", sleepHour=" + sleepHour +
+                ", sleepMinute=" + sleepMinute +
+                ", eulaAgreement=" + eulaAgreement +
+                ", assessmentDone=" + assessmentDone +
+                ", onBoardingDone=" + onBoardingDone +
+                '}';
+    }
+
     public int getUid() {
         return uid;
     }

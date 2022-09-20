@@ -1,5 +1,6 @@
 package com.prototype.sprout.fragment;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -16,80 +19,62 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.prototype.sprout.R;
+import com.prototype.sprout.database.Assessment.Assessment;
 import com.prototype.sprout.database.User.User;
 import com.prototype.sprout.database.User.UserViewModel;
 import com.prototype.sprout.databinding.FragmentStartupBinding;
+import com.prototype.sprout.model.OnBackPressHandler;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link startupFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class startupFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class startupFragment extends Fragment {
 
     //Vew Binding
     private FragmentStartupBinding binding;
-    private UserViewModel userViewModel;
-    private boolean isOnBoardingDone;
 
     public startupFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment startupFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static startupFragment newInstance(String param1, String param2) {
-        startupFragment fragment = new startupFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentStartupBinding.inflate(inflater, container, false);
 
-        this.userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        userViewModel.getUserListLiveData().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
-            @Override
-            public void onChanged(List<User> users) {
-                Log.d("TAG", "onCreateView: OBV start" );
-                if (users == null){
-                    isOnBoardingDone = false;
-                } else {
-                    isOnBoardingDone = users.get(0).isOnBoardingDone();
-                }
-            }
-        });
+        boolean isOnBoardingDone;
 
-        Log.d("TAG", "isOnBoardingDone: " + isOnBoardingDone);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            isOnBoardingDone = bundle.getBoolean("x");
+        } else {
+            UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+            isOnBoardingDone = userViewModel.getOnBoarding();
+        }
 
-        if (!isOnBoardingDone) NavHostFragment.findNavController(this).navigate(R.id.action_startup_to_onboarding);
+        if (!isOnBoardingDone) NavHostFragment.findNavController(startupFragment.this).navigate(R.id.action_startup_to_onboarding);
 
-         binding.btnMain.setText("WELCOME TO START");
+        onBackPress();
 
+        binding.btnMain.setText("BANANA!!!");
         return binding.getRoot();
+    }
+
+
+    private void onBackPress() {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                //Do Something
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.d("TAG", "onDestroyView: ");
         binding = null;
     }
 }
