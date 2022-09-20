@@ -16,9 +16,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.database.Assessment.Assessment;
-import com.prototype.sprout.database.Assessment.AssessmentViewModel;
-import com.prototype.sprout.database.User.UserViewModel;
+import com.prototype.sprout.database.assessment.Assessment;
+import com.prototype.sprout.database.assessment.AssessmentViewModel;
+import com.prototype.sprout.database.user.UserViewModel;
 import com.prototype.sprout.databinding.FragmentPersonalizationBinding;
 
 import java.util.ArrayList;

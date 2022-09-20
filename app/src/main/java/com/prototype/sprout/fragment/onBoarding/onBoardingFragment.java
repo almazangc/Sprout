@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.database.User.UserViewModel;
+import com.prototype.sprout.database.user.UserViewModel;
 import com.prototype.sprout.databinding.FragmentOnBoardingBinding;
 
 public class onBoardingFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.prototype.sprout.database.User;
+package com.prototype.sprout.database.user;
 
 import android.app.Application;
 

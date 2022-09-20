@@ -1,4 +1,4 @@
-package com.prototype.sprout.database.User;
+package com.prototype.sprout.database.user;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

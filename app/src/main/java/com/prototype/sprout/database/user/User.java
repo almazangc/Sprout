@@ -1,4 +1,4 @@
-package com.prototype.sprout.database.User;
+package com.prototype.sprout.database.user;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

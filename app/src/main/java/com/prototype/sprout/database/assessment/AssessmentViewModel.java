@@ -1,4 +1,4 @@
-package com.prototype.sprout.database.Assessment;
+package com.prototype.sprout.database.assessment;
 
 import android.app.Application;
 

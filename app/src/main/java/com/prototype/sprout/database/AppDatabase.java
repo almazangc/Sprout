@@ -9,10 +9,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.prototype.sprout.database.Assessment.Assessment;
-import com.prototype.sprout.database.Assessment.AssessmentDao;
-import com.prototype.sprout.database.User.User;
-import com.prototype.sprout.database.User.UserDao;
+import com.prototype.sprout.database.assessment.Assessment;
+import com.prototype.sprout.database.assessment.AssessmentDao;
+import com.prototype.sprout.database.user.User;
+import com.prototype.sprout.database.user.UserDao;
 
 @Database(entities = {User.class, Assessment.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {

@@ -1,7 +1,6 @@
 package com.prototype.sprout.fragment.onBoarding;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.database.User.UserViewModel;
+import com.prototype.sprout.database.user.UserViewModel;
 import com.prototype.sprout.databinding.FragmentAnalysisBinding;
 import com.prototype.sprout.model.OnBackPressHandler;
 
