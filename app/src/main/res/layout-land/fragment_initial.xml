@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/simple_background_tempv1"
+        android:background="@drawable/background_wavy_1"
         android:padding="@dimen/relativeLayoutPadding">
 
         <ImageView
@@ -21,7 +21,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:contentDescription="@string/application_logo"
-            app:srcCompat="@drawable/sprout_logo"
+            app:srcCompat="@drawable/logo_sprout"
             tools:ignore="ImageContrastCheck" />
 
         <TextView

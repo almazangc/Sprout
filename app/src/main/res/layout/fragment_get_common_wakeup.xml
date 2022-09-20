@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.onBoarding.getCommonWakeupFragment"
-    android:background="@drawable/wallpaper">
+    android:background="@drawable/background_raindeer">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -40,7 +40,7 @@
         <Button
             android:id="@+id/btn_continue"
             style="@style/btn_continue_portrait"
-            android:background="@drawable/rounded_white_btn"
+            android:background="@drawable/shape_rounded_cloud_btn"
             android:textColor="@color/NIGHT" />
 
     </RelativeLayout>

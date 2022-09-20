@@ -55,7 +55,7 @@
                 android:id="@+id/btn_continue"
                 style="@style/btn_continue_landscape"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/btn_continue_white_landscape"
+                android:background="@drawable/shape_top_rounded_corners_cloud"
                 android:text="@string/get_started"
                 android:textColor="@color/NIGHT" />
         </RelativeLayout>
