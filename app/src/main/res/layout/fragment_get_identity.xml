@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/simple_background_tempv1"
+        android:background="@drawable/background_wavy_1"
         android:padding="@dimen/relativeLayoutPadding">
 
         <ImageView
@@ -19,7 +19,7 @@
             android:layout_above="@id/lbl_askIdentity"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/identity_svg"
+            android:background="@drawable/illus_identity"
             android:contentDescription="SOME GENDER ART" />
 
         <TextView

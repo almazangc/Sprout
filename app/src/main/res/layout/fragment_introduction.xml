@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/simple_background_wavy">
+        android:background="@drawable/background_wavy_4">
 
         <TextView
             android:id="@+id/lbl_titleMainHeader"
@@ -43,7 +43,7 @@
             android:layout_marginLeft="@dimen/relativeLayoutPadding"
             android:layout_marginRight="@dimen/relativeLayoutPadding"
             android:layout_marginBottom="@dimen/relativeLayoutPadding"
-            android:background="@drawable/rounded_white_btn"
+            android:background="@drawable/shape_rounded_cloud_btn"
             android:textColor="@color/NIGHT" />
 
     </RelativeLayout>

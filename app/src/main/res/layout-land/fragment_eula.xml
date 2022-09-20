@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/landscape_wave_aesthetic"
+        android:background="@drawable/background_wave_aesthetic_land"
         android:padding="@dimen/relativeLayoutPadding">
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_below="@id/lbl_subHeader1"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/scroll_vertical_tint_shape"
+            android:background="@drawable/shape_rounded_scrollview_a15kimberly"
             android:paddingLeft="10dp"
             android:paddingTop="20dp"
             android:paddingRight="10dp"
@@ -71,7 +71,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:layout_toStartOf="@id/btn_Disagree"
-            android:background="@drawable/rounded_blue_btn"
+            android:background="@drawable/shape_rounded_kimberly_btn"
             android:text="@string/agree"
             android:textColor="@color/CLOUDS"
             android:textStyle="bold"
@@ -84,7 +84,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/rounded_red_btn"
+            android:background="@drawable/shape_rounded_coral_red_btn"
             android:paddingLeft="10sp"
             android:paddingRight="10sp"
             android:text="@string/disagree"

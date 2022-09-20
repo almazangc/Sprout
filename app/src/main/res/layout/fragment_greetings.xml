@@ -9,7 +9,7 @@
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/simple_background_tempv2"
+        android:background="@drawable/background_wavy_2"
         android:padding="@dimen/relativeLayoutPadding">
 
         <ImageView
@@ -19,7 +19,7 @@
             android:layout_above="@id/textView1"
             android:layout_centerHorizontal="true"
             android:contentDescription="@string/greetingsvg"
-            app:srcCompat="@drawable/welcome" />
+            app:srcCompat="@drawable/illus_welcome" />
 
         <TextView
             android:id="@+id/textView1"

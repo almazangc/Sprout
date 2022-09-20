@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/landscape_wave_aesthetic"
+    android:background="@drawable/background_wave_aesthetic_land"
     tools:context=".fragment.startupFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="15dp"
-        android:background="@drawable/rounded_lightbrown_btn"
+        android:background="@drawable/shape_rounded_lightbrown_btn"
         tools:text="SPROUT HOME"
         android:textStyle="bold"
         android:letterSpacing=".5"

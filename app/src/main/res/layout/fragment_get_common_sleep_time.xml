@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wallpaper"
+    android:background="@drawable/background_raindeer"
     tools:context=".fragment.onBoarding.getCommonSleepTimeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -32,7 +32,7 @@
         <Button
             android:id="@+id/btn_continue"
             style="@style/btn_continue_portrait"
-            android:background="@drawable/rounded_white_btn"
+            android:background="@drawable/shape_rounded_cloud_btn"
             android:textColor="@color/NIGHT" />
     </RelativeLayout>
 

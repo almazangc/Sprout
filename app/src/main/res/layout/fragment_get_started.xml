@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/simple_background_tempv2"
+        android:background="@drawable/background_wavy_2"
         android:orientation="vertical"
         android:weightSum="7">
 
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="4"
-            android:background="@drawable/view_background">
+            android:background="@drawable/shape_top_rounded_corners_kimberly">
 
             <TextView
                 android:id="@+id/lbl_welcome_msg"
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="@dimen/relativeLayoutPadding"
                 android:layout_marginRight="@dimen/relativeLayoutPadding"
                 android:layout_marginBottom="@dimen/relativeLayoutPadding"
-                android:background="@drawable/rounded_white_btn"
+                android:background="@drawable/shape_rounded_cloud_btn"
                 android:text="@string/get_started"
                 android:textColor="@color/NIGHT" />
         </RelativeLayout>
