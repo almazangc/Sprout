@@ -72,7 +72,7 @@ public class getCommonSleepTimeFragment extends Fragment {
     }
 
     private void setInitialTime() {
-        timePicker.setHour(new InitialTime().getSleepHour());
-        timePicker.setMinute(new InitialTime().getSleepMinute());
+        timePicker.setHour(InitialTime.SLEEP_HOUR.getValue());
+        timePicker.setMinute(InitialTime.SLEEP_MINUTE.getValue());
     }
 }

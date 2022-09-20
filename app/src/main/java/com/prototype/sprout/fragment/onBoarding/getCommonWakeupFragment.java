@@ -78,7 +78,7 @@ public class getCommonWakeupFragment extends Fragment {
     }
 
     private void setInitialTime() {
-        timePicker.setHour(new InitialTime().getWakeHour());
-        timePicker.setMinute(new InitialTime().getWakeMinute());
+        timePicker.setHour(InitialTime.WAKE_HOUR.getValue());
+        timePicker.setMinute(InitialTime.WAKE_MINUTE.getValue());
     }
 }

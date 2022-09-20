@@ -1,24 +1,18 @@
 package com.prototype.sprout.model;
 
-public class InitialTime {
-    private final int wakeHour = 8;
-    private final int wakeMinute = 0;
-    private final int sleepHour = 20;
-    private final int sleepMinute = 30;
+public enum InitialTime {
 
-    public int getWakeHour() {
-        return wakeHour;
+    WAKE_HOUR(8),
+    WAKE_MINUTE(0),
+    SLEEP_HOUR(20),
+    SLEEP_MINUTE(30);
+
+    int value;
+    InitialTime(int value){
+        this.value = value;
     }
 
-    public int getWakeMinute() {
-        return wakeMinute;
-    }
-
-    public int getSleepHour() {
-        return sleepHour;
-    }
-
-    public int getSleepMinute() {
-        return sleepMinute;
+    public int getValue() {
+        return value;
     }
 }
