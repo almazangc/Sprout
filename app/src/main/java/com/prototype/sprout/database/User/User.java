@@ -33,6 +33,9 @@ public class User {
     @ColumnInfo(name = "assessment")
     private boolean assessmentDone;
 
+    @ColumnInfo(name = "onBoarding")
+    private boolean onBoardingDone;
+
     public boolean isOnBoardingDone() {
         return onBoardingDone;
     }
@@ -40,9 +43,6 @@ public class User {
     public void setOnBoardingDone(boolean onBoardingDone) {
         this.onBoardingDone = onBoardingDone;
     }
-
-    @ColumnInfo(name = "onBoarding")
-    private boolean onBoardingDone;
 
     public User() {
 

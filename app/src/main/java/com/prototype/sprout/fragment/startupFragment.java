@@ -1,17 +1,26 @@
 package com.prototype.sprout.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.prototype.sprout.R;
+import com.prototype.sprout.database.User.User;
 import com.prototype.sprout.database.User.UserViewModel;
 import com.prototype.sprout.databinding.FragmentStartupBinding;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +36,8 @@ public class startupFragment extends Fragment {
 
     //Vew Binding
     private FragmentStartupBinding binding;
+    private UserViewModel userViewModel;
+    private boolean isOnBoardingDone;
 
     public startupFragment() {
         // Required empty public constructor
@@ -53,22 +64,27 @@ public class startupFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentStartupBinding.inflate(inflater, container, false);
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        boolean isEmpty = userViewModel.getUserList().isEmpty();
 
-        if (isEmpty) NavHostFragment.findNavController(this).navigate(R.id.action_startup_to_onboarding);
-        if (!isEmpty)
-            if (!userViewModel.getOnBoarding())
-                NavHostFragment.findNavController(this).navigate(R.id.action_startup_to_onboarding);
+        this.userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.getUserListLiveData().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+                Log.d("TAG", "onCreateView: OBV start" );
+                if (users == null){
+                    isOnBoardingDone = false;
+                } else {
+                    isOnBoardingDone = users.get(0).isOnBoardingDone();
+                }
+            }
+        });
+
+        Log.d("TAG", "isOnBoardingDone: " + isOnBoardingDone);
+
+        if (!isOnBoardingDone) NavHostFragment.findNavController(this).navigate(R.id.action_startup_to_onboarding);
 
          binding.btnMain.setText("WELCOME TO START");
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.prototype.sprout.fragment.onBoarding;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +10,9 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.activity.startup.Main;
 import com.prototype.sprout.database.User.UserViewModel;
 import com.prototype.sprout.databinding.FragmentAnalysisBinding;
 
@@ -61,7 +60,6 @@ public class analysisFragment extends Fragment {
         String[] items = new String[]{"YES, AN UPGRADE", "YES, GONNA RESELL IT", "NAH NO NEED", "...... Im speechless"};
         ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.list_item, items);
         binding.dropItems.setAdapter(adapterItems);
-
         return binding.getRoot();
     }
 
@@ -70,7 +68,7 @@ public class analysisFragment extends Fragment {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
             setOnBoarding();
-            startActivity(new Intent(requireActivity(), Main.class));
+            Navigation.findNavController(view).navigate(R.id.action_navigate_from_analysis_to_startup);
         });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -92,5 +90,4 @@ public class analysisFragment extends Fragment {
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.setOnBoarding();
     }
-
 }

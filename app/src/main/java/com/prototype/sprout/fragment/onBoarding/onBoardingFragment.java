@@ -1,6 +1,7 @@
 package com.prototype.sprout.fragment.onBoarding;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,9 @@ public class onBoardingFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private FragmentOnBoardingBinding binding;
+    private UserViewModel userViewModel;
+    private boolean isEmpty = true, isAssessmentDone = false;
+    private int userCount = 0;
 
     public onBoardingFragment() {
         // Required empty public constructor
@@ -58,15 +62,26 @@ public class onBoardingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentOnBoardingBinding.inflate(inflater, container, false);
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        if (userViewModel.getUserCount() == 1 & !userViewModel.getAssessment()) {
+        this.userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.getUserListLiveData().observe(getViewLifecycleOwner(), assessmentList -> {
+            Log.d("TAG", "onCreateView: Onboard" );
+            if (assessmentList == null){
+                isEmpty = true;
+                userCount = 0;
+                isAssessmentDone = false;
+            } else {
+                userCount = assessmentList.size();
+                isAssessmentDone = assessmentList.get(0).isAssessmentDone();
+            }
+        });
+
+        if (userCount == 1 & !isAssessmentDone) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_onboarding_to_personalization);
-        } else if (userViewModel.getAssessment()) {
+        } else if (isAssessmentDone) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_onboarding_to_analysis);
         } else {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_onboarding_to_initial);
         }
-
         return binding.getRoot();
     }
 }

@@ -159,7 +159,13 @@
         android:id="@+id/analysisFragment"
         android:name="com.prototype.sprout.fragment.onBoarding.analysisFragment"
         android:label="fragment_analysis"
-        tools:layout="@layout/fragment_analysis" />
+        tools:layout="@layout/fragment_analysis" >
+        <action
+            android:id="@+id/action_navigate_from_analysis_to_startup"
+            app:destination="@id/startupFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
         android:name="com.prototype.sprout.fragment.onBoarding.onBoardingFragment"

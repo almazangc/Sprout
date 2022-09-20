@@ -4,16 +4,17 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.prototype.sprout.databinding.ActivityMainBinding;
+import com.prototype.sprout.databinding.OnbordingBinding;
 
 public class Main extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+    //ViewBinding
+    private OnbordingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = OnbordingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
 }
