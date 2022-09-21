@@ -1,7 +1,7 @@
 package com.prototype.sprout.model;
 
 public class BundleKey {
-    private static final String KEY_BUNDLE = "bundle.key";
+
     private static final String KEY_EULA = "eula.key";
     private static final String KEY_WAKEHOUR = "wakeHour.key";
     private static final String KEY_WAKEMINUTE = "wakeMinute.key";
@@ -10,11 +10,6 @@ public class BundleKey {
     private static final String KEY_NICKNAME = "nickname.key";
     private static final String KEY_IDENTITY = "identity.key";
     private static final String KEY_ANALYSIS = "analysis.key";
-
-
-    public String getKEY_BUNDLE() {
-        return KEY_BUNDLE;
-    }
 
     public String getKEY_EULA() {
         return KEY_EULA;
