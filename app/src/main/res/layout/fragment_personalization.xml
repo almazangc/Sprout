@@ -28,7 +28,7 @@
                 android:id="@+id/assessment_progressBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:trackThickness="10dp"
+                app:trackThickness="5dp"
                 app:indicatorColor="@color/CARROT"/>
 
             <TextView

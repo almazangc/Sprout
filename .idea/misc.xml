@@ -106,7 +106,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_get_nickname.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_get_started.xml" value="0.2" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_initial.xml" value="0.28327495621716287" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_personalization.xml" value="0.409375" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_personalization.xml" value="0.16" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_startup.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_activity_startup_get_started.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -119,7 +119,9 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_initial.xml" value="0.2513586956521739" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_introduction.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_personalization.xml" value="0.3411458333333333" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/custom_bottom_navigation_bar.xml" value="0.2477238239757208" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_analysis.xml" value="0.3411458333333333" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_bottom.xml" value="0.2484825493171472" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_eula.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_get_common_sleep_time.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_get_common_wakeup.xml" value="0.3411458333333333" />

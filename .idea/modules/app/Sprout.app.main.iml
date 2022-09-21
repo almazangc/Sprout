@@ -117,5 +117,7 @@
     <orderEntry type="library" name="Gradle: androidx.room:room-runtime:2.4.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.sqlite:sqlite-framework:2.2.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.sqlite:sqlite:2.2.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.MackHartley:RoundedProgressBar:3.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.simformsolutions:SSCustomBottomNavigation:2.1@aar" level="project" />
   </component>
 </module>

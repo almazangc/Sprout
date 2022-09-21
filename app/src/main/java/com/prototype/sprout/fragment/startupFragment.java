@@ -43,7 +43,12 @@ public class startupFragment extends Fragment {
 
         if (!isOnBoardingDone) NavHostFragment.findNavController(startupFragment.this).navigate(R.id.action_startup_to_onboarding);
 
-        if (isOnBoardingDone) {onBackPress();}
+        if (isOnBoardingDone) NavHostFragment.findNavController(startupFragment.this).navigate(R.id.action_navigate_from_startup_to_main);
+
+
+
+            onBackPress();
+
 
         binding.btnMain.setText("BANANA!!!");
         return binding.getRoot();

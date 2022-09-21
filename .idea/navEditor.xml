@@ -51,13 +51,34 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="analysis2">
+                  <entry key="analysisFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-220" />
-                            <option name="y" value="606" />
+                            <option name="x" value="1167" />
+                            <option name="y" value="325" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_analysis_to_startup">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="bottomFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1715" />
+                            <option name="y" value="261" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -68,8 +89,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="67" />
-                            <option name="y" value="1181" />
+                            <option name="x" value="705" />
+                            <option name="y" value="878" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -84,11 +105,6 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_navigate_from_eula_to_startup">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -99,8 +115,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="598" />
-                            <option name="y" value="1174" />
+                            <option name="x" value="705" />
+                            <option name="y" value="1330" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -125,8 +141,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="314" />
-                            <option name="y" value="1180" />
+                            <option name="x" value="936" />
+                            <option name="y" value="1218" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -146,8 +162,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1735" />
-                            <option name="y" value="1161" />
+                            <option name="x" value="474" />
+                            <option name="y" value="432" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -172,9 +188,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="2045" />
-                            <option name="y" value="1456" />
+                            <option name="x" value="705" />
+                            <option name="y" value="432" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_getStarted_to_personalization">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -184,8 +209,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1186" />
-                            <option name="y" value="1170" />
+                            <option name="x" value="12" />
+                            <option name="y" value="1638" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -210,18 +235,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-205" />
-                            <option name="y" value="1181" />
+                            <option name="x" value="936" />
+                            <option name="y" value="798" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_navigate_from_initial_to_eula">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_navigate_from_initial_to_startup">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -236,8 +256,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="884" />
-                            <option name="y" value="1172" />
+                            <option name="x" value="936" />
+                            <option name="y" value="1638" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -262,8 +282,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1468" />
-                            <option name="y" value="1163" />
+                            <option name="x" value="243" />
+                            <option name="y" value="432" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -283,26 +303,59 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="personalization">
+                  <entry key="onBoardingFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-444" />
-                            <option name="y" value="610" />
+                            <option name="x" value="705" />
+                            <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_onboarding_to_analysis">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_onboarding_to_initial">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_navigate_from_onboarding_to_personalization">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_onboarding_to_startup">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="personalizationFragment2">
+                  <entry key="personalizationFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-200" />
-                            <option name="y" value="1744" />
+                            <option name="x" value="936" />
+                            <option name="y" value="378" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_navigate_from_personalization_to_analysis">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -312,13 +365,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-591" />
-                            <option name="y" value="1492" />
+                            <option name="x" value="1431" />
+                            <option name="y" value="273" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_navigate_from_startup_to_initial">
+                            <entry key="action_startupFragment_to_bottomFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_startup_to_onboarding">
                               <value>
                                 <LayoutPositions />
                               </value>

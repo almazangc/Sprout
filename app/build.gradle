@@ -91,4 +91,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
     // Annotation processor
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    // https://github.com/MackHartley/RoundedProgressBar
+    implementation 'com.github.MackHartley:RoundedProgressBar:3.0.0'
+
+    // https://github.com/SimformSolutionsPvtLtd/SSCustomBottomNavigation
+    implementation 'com.github.simformsolutions:SSCustomBottomNavigation:2.1'
 }
