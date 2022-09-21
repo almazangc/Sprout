@@ -9,6 +9,8 @@ public class BundleKey {
     private static final String KEY_SLEEPMINUTE = "sleepMinute.key";
     private static final String KEY_NICKNAME = "nickname.key";
     private static final String KEY_IDENTITY = "identity.key";
+    private static final String KEY_ANALYSIS = "analysis.key";
+
 
     public String getKEY_BUNDLE() {
         return KEY_BUNDLE;
@@ -40,5 +42,9 @@ public class BundleKey {
 
     public String getKEY_IDENTITY() {
         return KEY_IDENTITY;
+    }
+
+    public String getKEY_ANALYSIS(){
+        return KEY_ANALYSIS;
     }
 }

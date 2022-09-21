@@ -15,7 +15,7 @@ import androidx.navigation.Navigation;
 import com.prototype.sprout.R;
 import com.prototype.sprout.database.user.UserViewModel;
 import com.prototype.sprout.databinding.FragmentAnalysisBinding;
-import com.prototype.sprout.model.OnBackPressHandler;
+import com.prototype.sprout.model.BundleKey;
 
 public class analysisFragment extends Fragment {
 
@@ -42,7 +42,7 @@ public class analysisFragment extends Fragment {
         binding.btnContinue.setOnClickListener(view -> {
             setOnBoarding();
             Bundle bundle = new Bundle();
-            bundle.putBoolean("x", true);
+            bundle.putBoolean(new BundleKey().getKEY_ANALYSIS(), true);
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_analysis_to_startup, bundle);
         });
 
@@ -53,14 +53,6 @@ public class analysisFragment extends Fragment {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
-
-       new OnBackPressHandler(requireActivity(), getViewLifecycleOwner()) {
-           @Override
-           public void onBackPress() {
-               super.onBackPress();
-                Toast.makeText(requireContext(), "Cannot go back", Toast.LENGTH_SHORT).show();
-           }
-       };
     }
 
     @Override

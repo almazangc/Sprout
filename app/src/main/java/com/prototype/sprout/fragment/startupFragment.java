@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.prototype.sprout.R;
 import com.prototype.sprout.database.user.UserViewModel;
 import com.prototype.sprout.databinding.FragmentStartupBinding;
+import com.prototype.sprout.model.BundleKey;
 
 
 public class startupFragment extends Fragment {
@@ -30,11 +31,11 @@ public class startupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentStartupBinding.inflate(inflater, container, false);
 
-        boolean isOnBoardingDone;
+        boolean isOnBoardingDone = false;
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            isOnBoardingDone = bundle.getBoolean("x");
+            isOnBoardingDone = bundle.getBoolean(new BundleKey().getKEY_ANALYSIS());
         } else {
             UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
             isOnBoardingDone = userViewModel.getOnBoarding();
@@ -42,7 +43,7 @@ public class startupFragment extends Fragment {
 
         if (!isOnBoardingDone) NavHostFragment.findNavController(startupFragment.this).navigate(R.id.action_startup_to_onboarding);
 
-        onBackPress();
+        if (isOnBoardingDone) {onBackPress();}
 
         binding.btnMain.setText("BANANA!!!");
         return binding.getRoot();
@@ -54,6 +55,7 @@ public class startupFragment extends Fragment {
             @Override
             public void handleOnBackPressed() {
                 //Do Something
+                Log.d("TAG", "handleOnBackPressed: Disabled");
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
