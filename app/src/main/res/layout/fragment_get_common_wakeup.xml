@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onBoarding.getCommonWakeupFragment"
+    tools:context=".ui.userOnBoarding.getCommonWakeupFragment"
     android:background="@drawable/background_raindeer">
 
     <!-- TODO: Update blank fragment layout -->

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onBoarding.getStartedFragment">
+    tools:context=".ui.userOnBoarding.getStartedFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -69,7 +69,7 @@
                 android:layout_marginBottom="0dp"
                 android:justificationMode="inter_word"
                 android:padding="30dp"
-                android:text="@string/you_have_the_control_to_the_power_to_transform_your_life_for_the_best_n_nare_you_prepared_to_the_path_of_fixing_bad_habits"
+                android:text="@string/motivation"
                 android:textAlignment="center"
                 android:textColor="@color/CLOUDS"
                 android:textSize="18sp" />

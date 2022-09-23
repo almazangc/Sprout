@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.onBoarding.greetingsFragment">
+    tools:context=".ui.userOnBoarding.greetingsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -33,7 +33,7 @@
             style="@style/textViewSubHeader"
             android:layout_above="@id/btn_continue"
             android:layout_marginBottom="30dp"
-            android:text="@string/give_up_bad_habits_that_affect_your_well_being_and_health_and_become_a_better_version_of_yourself_using_the_guided_routines_methods"
+            android:text="@string/qoute"
             android:textColor="@color/A80_NIGHT"/>
 
         <Button

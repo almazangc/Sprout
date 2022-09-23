@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_raindeer"
-    tools:context=".fragment.onBoarding.getCommonSleepTimeFragment">
+    tools:context=".ui.userOnBoarding.getCommonSleepTimeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout

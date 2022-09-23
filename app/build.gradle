@@ -54,10 +54,12 @@ dependencies {
     def nav_version = "2.5.2"
     def room_version = "2.4.3"
     def lifecycle_version = "2.4.1"
+    def constraint_layout = "2.1.4"
+    def appcompat = "1.5.1"
 
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation "androidx.appcompat:appcompat:$appcompat"
 
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
 
 //    Material Component
     implementation "com.google.android.material:material:$material_version"
@@ -68,6 +70,9 @@ dependencies {
 //    Navigation Component
     implementation "androidx.navigation:navigation-fragment:$nav_version"
     implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 //    Feature module Support
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 //    Testing Navigation
@@ -85,6 +90,7 @@ dependencies {
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     // Saved state module for ViewModel
@@ -92,9 +98,6 @@ dependencies {
     // Annotation processor
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
-    // https://github.com/MackHartley/RoundedProgressBar
-    implementation 'com.github.MackHartley:RoundedProgressBar:3.0.0'
-
-    // https://github.com/SimformSolutionsPvtLtd/SSCustomBottomNavigation
-    implementation 'com.github.simformsolutions:SSCustomBottomNavigation:2.1'
+    //https://github.com/Droppers/AnimatedBottomBar
+    implementation 'nl.joery.animatedbottombar:library:1.1.0'
 }

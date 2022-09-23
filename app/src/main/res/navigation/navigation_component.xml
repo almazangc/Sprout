@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startupFragment"
-        android:name="com.prototype.sprout.fragment.startupFragment"
+        android:name="com.prototype.sprout.ui.startupFragment"
         android:label="fragment_startup"
         tools:layout="@layout/fragment_startup">
         <action
@@ -16,12 +16,14 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
-            android:id="@+id/action_navigate_from_startup_to_main"
-            app:destination="@id/bottomFragment" />
+            android:id="@+id/action_startupFragment_to_navigation_main_component"
+            app:destination="@id/navigation_main_component"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/initialFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.initialFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.initialFragment"
         android:label="fragment_initial"
         tools:layout="@layout/fragment_initial">
         <action
@@ -32,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/eulaFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.eulaFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.eulaFragment"
         android:label="fragment_eula"
         tools:layout="@layout/fragment_eula">
         <action
@@ -48,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/getCommonWakeupFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.getCommonWakeupFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.getCommonWakeupFragment"
         android:label="fragment_get_common_wakeup"
         tools:layout="@layout/fragment_get_common_wakeup">
         <action
@@ -59,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/getCommonSleepTimeFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.getCommonSleepTimeFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.getCommonSleepTimeFragment"
         android:label="fragment_get_common_sleep_time"
         tools:layout="@layout/fragment_get_common_sleep_time">
         <action
@@ -75,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/introductionFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.introductionFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.introductionFragment"
         android:label="fragment_introduction"
         tools:layout="@layout/fragment_introduction">
         <action
@@ -91,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/greetingsFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.greetingsFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.greetingsFragment"
         android:label="fragment_greetings"
         tools:layout="@layout/fragment_greetings">
         <action
@@ -107,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/nicknameFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.getNicknameFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.getNicknameFragment"
         android:label="fragment_nickname"
         tools:layout="@layout/fragment_get_nickname">
         <action
@@ -122,7 +124,7 @@
     </fragment>
     <fragment
         android:id="@+id/getIdentityFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.getIdentityFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.getIdentityFragment"
         android:label="fragment_get_identity"
         tools:layout="@layout/fragment_get_identity">
         <action
@@ -138,7 +140,7 @@
     </fragment>
     <fragment
         android:id="@+id/getStartedFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.getStartedFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.getStartedFragment"
         android:label="fragment_get_started"
         tools:layout="@layout/fragment_get_started">
         <action
@@ -149,7 +151,7 @@
     </fragment>
     <fragment
         android:id="@+id/personalizationFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.personalizationFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.personalizationFragment"
         android:label="fragment_personalization"
         tools:layout="@layout/fragment_personalization">
         <action
@@ -160,7 +162,7 @@
     </fragment>
     <fragment
         android:id="@+id/analysisFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.analysisFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.analysisFragment"
         android:label="fragment_analysis"
         tools:layout="@layout/fragment_analysis" >
         <action
@@ -171,7 +173,7 @@
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.prototype.sprout.fragment.onBoarding.onBoardingFragment"
+        android:name="com.prototype.sprout.ui.userOnBoarding.onBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" >
         <action
@@ -193,9 +195,5 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
-    <fragment
-        android:id="@+id/bottomFragment"
-        android:name="com.prototype.sprout.fragment.sprout.bottomFragment"
-        android:label="fragment_bottom"
-        tools:layout="@layout/fragment_main" />
+    <include app:graph="@navigation/navigation_main_component" />
 </navigation>

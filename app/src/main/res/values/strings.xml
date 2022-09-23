@@ -16,7 +16,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ask_commonSleepTime">What time do you usually sleep?</string>
     <string name="break_your_bad_habits_in_no_of_days">Break your bad habits in 21 of days</string>
-    <string name="give_up_bad_habits_that_affect_your_well_being_and_health_and_become_a_better_version_of_yourself_using_the_guided_routines_methods">Give up bad habits that affect your well-being and health and become a better version of yourself using the guided routines methods.</string>
+    <string name="qoute">Give up bad habits that affect your well-being and health and become a better version of yourself using the guided routines methods.</string>
     <string name="greetingsvg">GreetingSVG</string>
     <string name="my_firstname_is">My Firstname is....</string>
     <string name="what_should_we_call_you">What should we call you?</string>
@@ -25,7 +25,7 @@
 
     <string name="select">Select Item</string>
     <string name="get_started">GET STARTED</string>
-    <string name="you_have_the_control_to_the_power_to_transform_your_life_for_the_best_n_nare_you_prepared_to_the_path_of_fixing_bad_habits">You have the control to the power to transform your life for the best.\n\nAre you prepared to the path of fixing bad habits?</string>
+    <string name="motivation">You have the control to the power to transform your life for the best.\n\nAre you prepared to the path of fixing bad habits?</string>
     <string name="welcome_msg">Start Your Journey</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
