@@ -72,6 +72,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="bottomNavigationFragment2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1741" />
+                            <option name="y" value="1192" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="eulaFragment">
                     <value>
                       <LayoutPositions>
@@ -265,18 +277,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="navigation_main_component">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="1745" />
-                            <option name="y" value="1329" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="nicknameFragment">
                     <value>
                       <LayoutPositions>
@@ -371,6 +371,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_startupFragment_to_main">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_startup_to_onboarding">
                               <value>
                                 <LayoutPositions />
@@ -413,13 +418,13 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="homeFragment">
+                  <entry key="bottomNavigationFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-545" />
-                            <option name="y" value="73" />
+                            <option name="x" value="-108" />
+                            <option name="y" value="699" />
                           </Point>
                         </option>
                       </LayoutPositions>

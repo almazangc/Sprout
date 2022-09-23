@@ -3,17 +3,17 @@
     <item
         android:id="@+id/tab_home"
         android:icon="@drawable/ic_home"
-        android:title="home" />
+        android:title="Home" />
     <item
-        android:id="@+id/tab_person"
-        android:icon="@drawable/ic_person"
-        android:title="alarm" />
+        android:id="@+id/tab_task"
+        android:icon="@drawable/ic_table_chart"
+        android:title="Task" />
     <item
         android:id="@+id/tab_analytic"
-        android:icon="@drawable/ic_table_chart"
-        android:title="analytics" />
+        android:icon="@drawable/ic_analytics"
+        android:title="Analytics" />
     <item
         android:id="@+id/tab_settings"
         android:icon="@drawable/ic_settings"
-        android:title="settings" />
+        android:title="Settings" />
 </menu>

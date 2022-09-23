@@ -320,7 +320,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/table_chart/baseline_table_chart_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/analytics/baseline_analytics_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -330,7 +330,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_table_chart" />
+                            <entry key="outputName" value="ic_analytics" />
                             <entry key="sourceFile" value="C:\Users\User\Documents\GitHub\Sprout" />
                           </map>
                         </option>
