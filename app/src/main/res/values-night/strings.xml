@@ -2,18 +2,18 @@
 <resources>
     <string name="disagree">Disagree</string>
     <string name="agree">Agree</string>
-    <string name="textView_startup_introduction">Start growing your sprout, Reform the poor habits and become a better version of you!</string>
+    <string name="textView_startup_introduction">Start growing your sprout, Reform the poor habit and become a better version of you!</string>
     <string name="continue_lbl">continue</string>
     <string name="lbl_getCommonWakeUpTime">What time do you usually wake up?</string>
     <string name="ask_commonSleepTime">What time do you usually sleep?</string>
-    <string name="break_your_bad_habits_in_no_of_days">Break your bad habits in No.__ of days</string>
-    <string name="qoute">Give up bad habits that affect your well-being and health and become a better version of yourself using the guided routines methods.</string>
+    <string name="break_your_bad_habits_in_no_of_days">Break your bad habit in No.__ of days</string>
+    <string name="qoute">Give up bad habit that affect your well-being and health and become a better version of yourself using the guided routines methods.</string>
     <string name="greetingsvg">GreetingSVG</string>
     <string name="my_firstname_is">My Firstname is....</string>
     <string name="what_should_we_call_you">What should we call you?</string>
     <string name="prompt_name">Enter your name</string>
     <string name="get_started">GET STARTED</string>
-    <string name="motivation">You have the control to the power to transform your life for the best.\n\nAre you prepared to the path of fixing bad habits?</string>
+    <string name="motivation">You have the control to the power to transform your life for the best.\n\nAre you prepared to the path of fixing bad habit?</string>
     <string name="welcome_msg">Start Your Journey</string>
     <string name="male">Male</string>
     <string name="female">Female</string>

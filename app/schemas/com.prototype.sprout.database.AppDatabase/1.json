@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "421d97a68bd4d8adb311b093e94443a1",
+    "identityHash": "d0e3b6047e40ad11d6ddfe94dd79099a",
     "entities": [
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT, `identity` TEXT, `wake_hour` INTEGER NOT NULL, `wake_minute` INTEGER NOT NULL, `sleep_hour` INTEGER NOT NULL, `sleep_minute` INTEGER NOT NULL, `eula` INTEGER NOT NULL, `assessment` INTEGER NOT NULL, `onBoarding` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT, `identity` TEXT, `streakCount` INTEGER NOT NULL, `wake_hour` INTEGER NOT NULL, `wake_minute` INTEGER NOT NULL, `sleep_hour` INTEGER NOT NULL, `sleep_minute` INTEGER NOT NULL, `eula` INTEGER NOT NULL, `assessment` INTEGER NOT NULL, `onBoarding` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -25,6 +25,12 @@
             "columnName": "identity",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "streakCount",
+            "columnName": "streakCount",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "wakeHour",
@@ -133,12 +139,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Habit",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habits` TEXT, `subRoutineUID` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "habits",
+            "columnName": "habits",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "subRoutineUID",
+            "columnName": "subRoutineUID",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '421d97a68bd4d8adb311b093e94443a1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd0e3b6047e40ad11d6ddfe94dd79099a')"
     ]
   }
 }

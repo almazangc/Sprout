@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +15,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.prototype.sprout.R;
+import com.prototype.sprout.database.Converter;
+import com.prototype.sprout.database.habit.Habit;
+import com.prototype.sprout.database.habit.HabitViewModel;
 import com.prototype.sprout.databinding.FragmentBottomNavigationBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 
@@ -22,11 +29,8 @@ public class BottomNavigationFragment extends Fragment {
 
     private FragmentBottomNavigationBinding binding;
     private FragmentManager fragmentManager;
-    private Fragment fragment;
-    private Fragment Home;
-    private Fragment Task;
-    private Fragment Analytics;
-    private Fragment Settings;
+    private Fragment fragment, Home, Task, Analytics, Settings;
+    private HabitViewModel habitViewModel;
 
     public BottomNavigationFragment() {
         // Required empty public constructor
@@ -89,6 +93,16 @@ public class BottomNavigationFragment extends Fragment {
 
             }
         });
+
+        habitViewModel = new ViewModelProvider(requireActivity()).get(HabitViewModel.class);
+
+        List<Habit> allHabit = habitViewModel.getAllhabitsList();
+        for (Habit habit: allHabit){
+            String desc = habit.getHabits();
+            ArrayList<Integer> arrayList = habit.getSubRoutineUID();
+            String list = Converter.fromArrayList(arrayList);
+            Log.d("TAG", "DESC: " + desc + "\tREF: " + list);
+        }
         return binding.getRoot();
     }
 }

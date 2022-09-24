@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(List<User> users) {
                 String text = "Welcome again now now " + users.get(0).getNickname();
+
                 binding.lblWelcomeMsg.setText(text);
             }
         });

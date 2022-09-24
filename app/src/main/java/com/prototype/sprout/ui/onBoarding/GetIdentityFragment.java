@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,7 +37,7 @@ public class GetIdentityFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGetIdentityBinding.inflate(inflater, container, false);
         getBundleArgs();
         return binding.getRoot();
@@ -92,7 +93,7 @@ public class GetIdentityFragment extends Fragment {
     }
 
     private void addUser() {
-        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.insert(new User(nickname, identity, wakeHour, wakeMinute, sleepHour, sleepMinute, eula));
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.insert(new User(nickname, identity, 0 , wakeHour, wakeMinute, sleepHour, sleepMinute, eula, false, false));
     }
 }

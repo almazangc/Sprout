@@ -2,6 +2,7 @@ package com.prototype.sprout.database.user;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -14,6 +15,9 @@ public class User {
 
     @ColumnInfo(name = "identity")
     private String identity;
+
+    @ColumnInfo(name = "streakCount")
+    private int streakCount;
 
     @ColumnInfo(name = "wake_hour")
     private int wakeHour;
@@ -36,26 +40,22 @@ public class User {
     @ColumnInfo(name = "onBoarding")
     private boolean onBoardingDone;
 
-    public boolean isOnBoardingDone() {
-        return onBoardingDone;
-    }
-
-    public void setOnBoardingDone(boolean onBoardingDone) {
-        this.onBoardingDone = onBoardingDone;
-    }
-
+    @Ignore
     public User() {
 
     }
 
-    public User(String nickname, String identity, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement) {
+    public User(String nickname, String identity, int streakCount, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement, boolean assessmentDone, boolean onBoardingDone) {
         this.nickname = nickname;
         this.identity = identity;
+        this.streakCount = streakCount;
         this.wakeHour = wakeHour;
         this.wakeMinute = wakeMinute;
         this.sleepHour = sleepHour;
         this.sleepMinute = sleepMinute;
         this.eulaAgreement = eulaAgreement;
+        this.assessmentDone = assessmentDone;
+        this.onBoardingDone = onBoardingDone;
     }
 
     @Override
@@ -64,6 +64,7 @@ public class User {
                 "uid=" + uid +
                 ", nickname='" + nickname + '\'' +
                 ", identity='" + identity + '\'' +
+                ", streakCount=" + streakCount +
                 ", wakeHour=" + wakeHour +
                 ", wakeMinute=" + wakeMinute +
                 ", sleepHour=" + sleepHour +
@@ -96,6 +97,14 @@ public class User {
 
     public void setIdentity(String identity) {
         this.identity = identity;
+    }
+
+    public int getStreakCount() {
+        return streakCount;
+    }
+
+    public void setStreakCount(int streakCount) {
+        this.streakCount = streakCount;
     }
 
     public int getWakeHour() {
@@ -144,5 +153,13 @@ public class User {
 
     public void setAssessmentDone(boolean assessmentDone) {
         this.assessmentDone = assessmentDone;
+    }
+
+    public boolean isOnBoardingDone() {
+        return onBoardingDone;
+    }
+
+    public void setOnBoardingDone(boolean onBoardingDone) {
+        this.onBoardingDone = onBoardingDone;
     }
 }

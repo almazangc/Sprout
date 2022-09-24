@@ -3,6 +3,7 @@ package com.prototype.sprout.database.user;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.prototype.sprout.database.AppDatabase;
@@ -17,8 +18,7 @@ public class UserRepository {
     private boolean isAssessment;
     private boolean isOnBoarding;
 
-
-    public UserRepository(Application application) {
+    public UserRepository(@NonNull Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         userDao = appDatabase.userDao();
         userList = userDao.getAllUser();

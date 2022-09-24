@@ -7,14 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.prototype.sprout.database.assessment.Assessment;
 import com.prototype.sprout.database.assessment.AssessmentDao;
+import com.prototype.sprout.database.habit.Habit;
+import com.prototype.sprout.database.habit.HabitDao;
 import com.prototype.sprout.database.user.User;
 import com.prototype.sprout.database.user.UserDao;
 
-@Database(entities = {User.class, Assessment.class}, version = 1)
+@Database(entities = {User.class, Assessment.class, Habit.class}, version = 1)
+@TypeConverters({Converter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -24,6 +28,7 @@ public abstract class AppDatabase extends RoomDatabase {
             super.onCreate(db);
             new PopulateAssessmentAsyncTask(INSTANCE).execute();
 //            new PopulateUserAsyncTask(INSTANCE).execute();
+            new PopulatedHabitAsyncTask(INSTANCE).execute();
         }
     };
 
@@ -40,6 +45,39 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
 
     public abstract AssessmentDao assessmentDao();
+
+    public abstract HabitDao habitDao();
+
+
+    private static class PopulatedHabitAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        private HabitDao habitDao;
+
+        public PopulatedHabitAsyncTask(AppDatabase instance) {
+            this.habitDao = instance.habitDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            habitDao.insert(new Habit("Stress Eating", Converter.fromString("[3,5,8]")));
+            habitDao.insert(new Habit("Poor Sleep Management", Converter.fromString("[3,4,5,6]")));
+            habitDao.insert(new Habit("Drinking", Converter.fromString("[2,5,8,9,10]")));
+            habitDao.insert(new Habit("Gambling", Converter.fromString("[1,4,7,8,9]")));
+            habitDao.insert(new Habit("Poor spending habits", Converter.fromString("[1,3,6,7,8]")));
+            habitDao.insert(new Habit("Excessive profanity", Converter.fromString("[1,4,5,6,7]")));
+            habitDao.insert(new Habit("Multi-tasking", Converter.fromString("[1,3,6,8,9]")));
+            habitDao.insert(new Habit("Smoking", Converter.fromString("[1,3,7,9]")));
+            habitDao.insert(new Habit("Procrastination", Converter.fromString("[1,2,4,6,9]")));
+            habitDao.insert(new Habit("Overthinking and worrying", Converter.fromString("[1,2,4,5]")));
+            habitDao.insert(new Habit("Cluttering your living/workspace", Converter.fromString("[1,4,7,9]")));
+            habitDao.insert(new Habit("Leaving the toilet seat up", Converter.fromString("[1,3,6,8]")));
+            habitDao.insert(new Habit("Leaving clothes on the floor",Converter.fromString("[0,3,5,6]")));
+            habitDao.insert(new Habit("Taking things personally", Converter.fromString("[1,4,5,6]")));
+            habitDao.insert(new Habit("Overusing slang", Converter.fromString("[0,3,5,6]")));
+            habitDao.insert(new Habit("Alot", Converter.fromString("[1,4,6,7]")));
+            return null;
+        }
+    }
 
     private static class PopulateAssessmentAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -82,8 +120,8 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            userDao.insert(new User("Vit", "Alien", 8, 30, 20, 55, true));
+            userDao.insert(new User("Vit", "Alien", 0, 8, 30, 20, 55, true, true, true));
             return null;
         }
-    };
+    }
 }
