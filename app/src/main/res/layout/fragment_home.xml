@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_wave_aesthetic"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/relativeLayoutPadding"
     tools:context=".ui.home.HomeFragment">
 
@@ -13,7 +13,20 @@
         style="@style/textViewHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@id/lottie_main"
         android:layout_centerInParent="true"
-        android:text="HOME REALLY?"
+        android:text="HOME"
         android:textAlignment="center" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_main"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="lottie_anim_choose-your-colors.json"
+        app:lottie_loop="true"
+        app:lottie_speed="1"
+        tools:background="@color/LightBrown"/>
+
 </RelativeLayout>

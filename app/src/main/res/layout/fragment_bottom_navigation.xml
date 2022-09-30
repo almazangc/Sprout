@@ -12,22 +12,21 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_bar"
-        tools:background="@drawable/background_wave_aesthetic_3" />
+        android:layout_above="@id/bottom_bar" />
 
     <nl.joery.animatedbottombar.AnimatedBottomBar
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/LightBrown"
+        android:background="@color/A80_CLOUDS"
         app:abb_indicatorAppearance="round"
-        app:abb_indicatorColor="@color/Pale_pink"
+        app:abb_indicatorColor="@color/A80_PUMPKIN"
         app:abb_indicatorHeight="4dp"
         app:abb_indicatorMargin="16dp"
         app:abb_selectedIndex="0"
         app:abb_selectedTabType="text"
-        app:abb_tabColor="@color/CLOUDS"
-        app:abb_tabColorSelected="@color/CLOUDS"
+        app:abb_tabColor="@color/A80_NIGHT"
+        app:abb_tabColorSelected="@color/NIGHT"
         app:abb_tabs="@menu/tabs" />
 </RelativeLayout>

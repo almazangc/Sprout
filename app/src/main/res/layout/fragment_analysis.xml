@@ -42,6 +42,7 @@
                 android:textAlignment="center"
                 android:textColor="#FAFAFA"
                 android:textSize="18sp"
+                android:text="You scored 70 and it has been noted that your struggling with breaking from bad habit of your's we suggest you to choose on the list of habit you wanna break"
                 tools:text="Sample Text Goes Here: " />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -53,13 +54,15 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
+
                 android:layout_marginBottom="200dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/dropItems"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="list_item"
+                    android:hint="HABITS"
+                    android:background="@drawable/shape_top_rounded_corners_kimberly"
                     android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>

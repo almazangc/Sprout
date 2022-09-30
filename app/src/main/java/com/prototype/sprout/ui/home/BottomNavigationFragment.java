@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.database.Converter;
+import com.prototype.sprout.database.converters.ConverterArrayListInteger;
 import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitViewModel;
 import com.prototype.sprout.databinding.FragmentBottomNavigationBinding;
@@ -29,7 +29,7 @@ public class BottomNavigationFragment extends Fragment {
 
     private FragmentBottomNavigationBinding binding;
     private FragmentManager fragmentManager;
-    private Fragment fragment, Home, Task, Analytics, Settings;
+    private Fragment fragment, Home, Task, Analytics, Settings, Journal;
     private HabitViewModel habitViewModel;
 
     public BottomNavigationFragment() {
@@ -48,6 +48,7 @@ public class BottomNavigationFragment extends Fragment {
         Home = new HomeFragment();
         Task = new TaskFragment();
         Analytics = new AnalyticsFragment();
+        Journal = new JournalFragment();
         Settings = new SettingsFragment();
 
         if(savedInstanceState == null){
@@ -69,6 +70,9 @@ public class BottomNavigationFragment extends Fragment {
                         break;
                     case R.id.tab_analytic:
                             fragment = Analytics;
+                        break;
+                    case R.id.tab_journal:
+                            fragment = Journal;
                         break;
                     case R.id.tab_settings:
                             fragment = Settings;
@@ -100,7 +104,7 @@ public class BottomNavigationFragment extends Fragment {
         for (Habit habit: allHabit){
             String desc = habit.getHabits();
             ArrayList<Integer> arrayList = habit.getSubRoutineUID();
-            String list = Converter.fromArrayList(arrayList);
+            String list = ConverterArrayListInteger.fromArrayList(arrayList);
             Log.d("TAG", "DESC: " + desc + "\tREF: " + list);
         }
         return binding.getRoot();

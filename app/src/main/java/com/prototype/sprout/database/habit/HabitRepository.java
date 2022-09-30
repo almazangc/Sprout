@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.airbnb.lottie.L;
 import com.prototype.sprout.database.AppDatabase;
 
 import java.util.List;
@@ -13,12 +14,14 @@ public class HabitRepository {
 
     private HabitDao habitDao;
     private List<Habit> allhabitsList;
+    private List<String> getHabits;
     private LiveData<List<Habit>> allhabitsListLiveData;
 
     public HabitRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         habitDao = appDatabase.habitDao();
         allhabitsList = habitDao.getAllHabits();
+        getHabits = habitDao.getHabits();
         allhabitsListLiveData = habitDao.getAllHabitsLiveData();
     }
 
@@ -40,6 +43,10 @@ public class HabitRepository {
 
     public List<Habit> getAllhabitsList() {
         return allhabitsList;
+    }
+
+    public List<String> getHabits() {
+        return getHabits;
     }
 
     public LiveData<List<Habit>> getAllhabitsListLiveData() {

@@ -12,12 +12,14 @@ public class HabitViewModel extends AndroidViewModel {
 
     private HabitRepository repository;
     private List<Habit> allhabitsList;
+    private List<String> getHabits;
     private LiveData<List<Habit>> allhabitsListLiveData;
 
     public HabitViewModel(@NonNull Application application) {
         super(application);
         repository = new HabitRepository(application);
         allhabitsList = repository.getAllhabitsList();
+        getHabits = repository.getHabits();
         allhabitsListLiveData = repository.getAllhabitsListLiveData();
     }
 
@@ -39,6 +41,10 @@ public class HabitViewModel extends AndroidViewModel {
 
     public List<Habit> getAllhabitsList() {
         return allhabitsList;
+    }
+
+    public List<String> getGetHabits() {
+        return getHabits;
     }
 
     public LiveData<List<Habit>> getAllhabitsListLiveData() {

@@ -52,16 +52,17 @@ public class PersonalizationFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
         binding.assessmentProgressBar.setMax(assessmentViewModel.getAllAssessmentList().size());
-        assessmentViewModel.getAllAssessmentListLiveData().observe(getViewLifecycleOwner(), assessmentList -> {
+        assessmentViewModel.getAllAssessmentListLiveData().observe(getViewLifecycleOwner(), assessments -> {
 
-            if (uid == 0)setUIText(assessmentList);
+            if (uid == 0)setUIText(assessments);
             binding.assessmentProgressBar.setProgress(uid+1);
 
             binding.btnContinue.setOnClickListener(view1 -> {
-                if (!assessmentList.isEmpty() && assessmentList.size() > uid+1) {
+                if (!assessments.isEmpty() && assessments.size() > uid+1) {
                     uid++;
                     saveSelection();
-                    setUIText(assessmentList);
+                    setUIText(assessments);
+                    upCheckedRadioButtons(assessments);
                     binding.assessmentProgressBar.setProgress(uid);
                 } else {
                     uid--;
@@ -79,7 +80,7 @@ public class PersonalizationFragment extends Fragment {
                 }
             });
 
-            onBackPress(assessmentList);
+            onBackPress(assessments);
 
         });
     }

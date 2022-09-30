@@ -72,6 +72,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="analyticsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1960" />
+                            <option name="y" value="1548" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="bottomNavigationFragment2">
                     <value>
                       <LayoutPositions>
@@ -230,6 +242,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="homeFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1957" />
+                            <option name="y" value="448" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="initialFragment">
                     <value>
                       <LayoutPositions>
@@ -273,6 +297,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="journalFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1959" />
+                            <option name="y" value="1188" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -360,6 +396,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="settingsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1964" />
+                            <option name="y" value="1915" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="startupFragment">
                     <value>
                       <LayoutPositions>
@@ -382,6 +430,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="taskFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1958" />
+                            <option name="y" value="816" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

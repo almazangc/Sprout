@@ -15,6 +15,9 @@ public interface HabitDao {
     @Query("SELECT * FROM Habit")
     List<Habit> getAllHabits();
 
+    @Query("SELECT habits from Habit")
+    List<String> getHabits();
+
     @Query("SELECT * FROM Habit")
     LiveData<List<Habit>> getAllHabitsLiveData();
 

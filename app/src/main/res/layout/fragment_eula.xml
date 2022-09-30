@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/relativeLayoutPadding"
     tools:context=".ui.onBoarding.EulaFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_wave_aesthetic"
-        android:padding="@dimen/relativeLayoutPadding">
-
         <TextView
             android:id="@+id/lbl_titleMainHeader"
             android:layout_width="match_parent"
@@ -91,7 +86,4 @@
             android:textColor="@color/CLOUDS"
             android:textStyle="bold"
             tools:ignore="TextContrastCheck" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>

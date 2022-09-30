@@ -12,13 +12,14 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.prototype.sprout.database.assessment.Assessment;
 import com.prototype.sprout.database.assessment.AssessmentDao;
+import com.prototype.sprout.database.converters.ConverterArrayListInteger;
 import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitDao;
 import com.prototype.sprout.database.user.User;
 import com.prototype.sprout.database.user.UserDao;
 
 @Database(entities = {User.class, Assessment.class, Habit.class}, version = 1)
-@TypeConverters({Converter.class})
+@TypeConverters({ConverterArrayListInteger.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -59,22 +60,22 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            habitDao.insert(new Habit("Stress Eating", Converter.fromString("[3,5,8]")));
-            habitDao.insert(new Habit("Poor Sleep Management", Converter.fromString("[3,4,5,6]")));
-            habitDao.insert(new Habit("Drinking", Converter.fromString("[2,5,8,9,10]")));
-            habitDao.insert(new Habit("Gambling", Converter.fromString("[1,4,7,8,9]")));
-            habitDao.insert(new Habit("Poor spending habits", Converter.fromString("[1,3,6,7,8]")));
-            habitDao.insert(new Habit("Excessive profanity", Converter.fromString("[1,4,5,6,7]")));
-            habitDao.insert(new Habit("Multi-tasking", Converter.fromString("[1,3,6,8,9]")));
-            habitDao.insert(new Habit("Smoking", Converter.fromString("[1,3,7,9]")));
-            habitDao.insert(new Habit("Procrastination", Converter.fromString("[1,2,4,6,9]")));
-            habitDao.insert(new Habit("Overthinking and worrying", Converter.fromString("[1,2,4,5]")));
-            habitDao.insert(new Habit("Cluttering your living/workspace", Converter.fromString("[1,4,7,9]")));
-            habitDao.insert(new Habit("Leaving the toilet seat up", Converter.fromString("[1,3,6,8]")));
-            habitDao.insert(new Habit("Leaving clothes on the floor",Converter.fromString("[0,3,5,6]")));
-            habitDao.insert(new Habit("Taking things personally", Converter.fromString("[1,4,5,6]")));
-            habitDao.insert(new Habit("Overusing slang", Converter.fromString("[0,3,5,6]")));
-            habitDao.insert(new Habit("Alot", Converter.fromString("[1,4,6,7]")));
+            habitDao.insert(new Habit("Stress Eating", ConverterArrayListInteger.fromString("[3,5,8]")));
+            habitDao.insert(new Habit("Poor Sleep Management", ConverterArrayListInteger.fromString("[3,4,5,6]")));
+            habitDao.insert(new Habit("Drinking", ConverterArrayListInteger.fromString("[2,5,8,9,10]")));
+            habitDao.insert(new Habit("Gambling", ConverterArrayListInteger.fromString("[1,4,7,8,9]")));
+            habitDao.insert(new Habit("Poor spending habits", ConverterArrayListInteger.fromString("[1,3,6,7,8]")));
+            habitDao.insert(new Habit("Excessive profanity", ConverterArrayListInteger.fromString("[1,4,5,6,7]")));
+            habitDao.insert(new Habit("Multi-tasking", ConverterArrayListInteger.fromString("[1,3,6,8,9]")));
+            habitDao.insert(new Habit("Smoking", ConverterArrayListInteger.fromString("[1,3,7,9]")));
+            habitDao.insert(new Habit("Procrastination", ConverterArrayListInteger.fromString("[1,2,4,6,9]")));
+            habitDao.insert(new Habit("Overthinking and worrying", ConverterArrayListInteger.fromString("[1,2,4,5]")));
+            habitDao.insert(new Habit("Cluttering your living/workspace", ConverterArrayListInteger.fromString("[1,4,7,9]")));
+            habitDao.insert(new Habit("Leaving the toilet seat up", ConverterArrayListInteger.fromString("[1,3,6,8]")));
+            habitDao.insert(new Habit("Leaving clothes on the floor", ConverterArrayListInteger.fromString("[0,3,5,6]")));
+            habitDao.insert(new Habit("Taking things personally", ConverterArrayListInteger.fromString("[1,4,5,6]")));
+            habitDao.insert(new Habit("Overusing slang", ConverterArrayListInteger.fromString("[0,3,5,6]")));
+            habitDao.insert(new Habit("Alot", ConverterArrayListInteger.fromString("[1,4,6,7]")));
             return null;
         }
     }
@@ -91,7 +92,6 @@ public abstract class AppDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
 
             final String DEFAULT_SELECTED = "null";
-
             assessmentDao.insert(new Assessment("Question", "A", "B", "C", "D", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("Which habit troubles you, This is a very long questions as an input to the app?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("Which habit troubles you?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));

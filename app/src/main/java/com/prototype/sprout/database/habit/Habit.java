@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.prototype.sprout.database.Converter;
+import com.prototype.sprout.database.converters.ConverterArrayListInteger;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class Habit {
     private String habits;
 
     @ColumnInfo(name = "subRoutineUID")
-    @TypeConverters(Converter.class)
+    @TypeConverters(ConverterArrayListInteger.class)
     private ArrayList<Integer> subRoutineUID;
 
     public Habit(String habits, ArrayList<Integer> subRoutineUID) {
