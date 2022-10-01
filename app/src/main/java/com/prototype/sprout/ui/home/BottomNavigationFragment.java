@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.database.converters.ConverterArrayListInteger;
+import com.prototype.sprout.database.converters.ArrayListConverter;
 import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitViewModel;
 import com.prototype.sprout.databinding.FragmentBottomNavigationBinding;
@@ -104,7 +104,7 @@ public class BottomNavigationFragment extends Fragment {
         for (Habit habit: allHabit){
             String desc = habit.getHabits();
             ArrayList<Integer> arrayList = habit.getSubRoutineUID();
-            String list = ConverterArrayListInteger.fromArrayList(arrayList);
+            String list = ArrayListConverter.fromArrayList(arrayList);
             Log.d("TAG", "DESC: " + desc + "\tREF: " + list);
         }
         return binding.getRoot();

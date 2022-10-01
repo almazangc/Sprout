@@ -33,5 +33,60 @@ public class Routine {
 
     }
 
+    public Routine(String routine, String desc, String streak, String total, String skips, int alarm) {
+        this.routine = routine;
+        this.desc = desc;
+        this.streak = streak;
+        this.total = total;
+        this.skips = skips;
+        this.alarm = alarm;
+    }
 
+    public String getRoutine() {
+        return routine;
+    }
+
+    public void setRoutine(String routine) {
+        this.routine = routine;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getStreak() {
+        return streak;
+    }
+
+    public void setStreak(String streak) {
+        this.streak = streak;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public String getSkips() {
+        return skips;
+    }
+
+    public void setSkips(String skips) {
+        this.skips = skips;
+    }
+
+    public int getAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(int alarm) {
+        this.alarm = alarm;
+    }
 }

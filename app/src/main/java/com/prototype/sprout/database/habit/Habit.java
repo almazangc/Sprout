@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.prototype.sprout.database.converters.ConverterArrayListInteger;
+import com.prototype.sprout.database.converters.ArrayListConverter;
 
 import java.util.ArrayList;
 
@@ -18,18 +18,27 @@ public class Habit {
     @ColumnInfo(name = "habits")
     private String habits;
 
-    @ColumnInfo(name = "subRoutineUID")
-    @TypeConverters(ConverterArrayListInteger.class)
-    private ArrayList<Integer> subRoutineUID;
+    @ColumnInfo(name = "desc")
+    private String desc;
 
-    public Habit(String habits, ArrayList<Integer> subRoutineUID) {
-        this.habits = habits;
-        this.subRoutineUID = subRoutineUID;
-    }
+    @ColumnInfo(name = "abstinence")
+    private int abstinence;
+
+    @ColumnInfo(name = "relapse")
+    private int relapse;
+
+    @ColumnInfo(name = "subRoutineUID")
+    @TypeConverters(ArrayListConverter.class)
+    private ArrayList<Integer> subRoutineUID;
 
     @Ignore
     public Habit() {
 
+    }
+    public Habit(String habits, String desc, ArrayList<Integer> subRoutineUID) {
+        this.habits = habits;
+        this.desc = desc;
+        this.subRoutineUID = subRoutineUID;
     }
 
     @Override
@@ -37,6 +46,9 @@ public class Habit {
         return "Habit{" +
                 "uid=" + uid +
                 ", habits='" + habits + '\'' +
+                ", desc='" + desc + '\'' +
+                ", abstinence=" + abstinence +
+                ", relapse=" + relapse +
                 ", subRoutineUID=" + subRoutineUID +
                 '}';
     }
@@ -55,6 +67,30 @@ public class Habit {
 
     public void setHabits(String habits) {
         this.habits = habits;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public int getAbstinence() {
+        return abstinence;
+    }
+
+    public void setAbstinence(int abstinence) {
+        this.abstinence = abstinence;
+    }
+
+    public int getRelapse() {
+        return relapse;
+    }
+
+    public void setRelapse(int relapse) {
+        this.relapse = relapse;
     }
 
     public ArrayList<Integer> getSubRoutineUID() {

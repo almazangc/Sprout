@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d0e3b6047e40ad11d6ddfe94dd79099a",
+    "identityHash": "51c1a3623f042c78320d6dfaa1f17523",
     "entities": [
       {
         "tableName": "User",
@@ -142,7 +142,7 @@
       },
       {
         "tableName": "Habit",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habits` TEXT, `subRoutineUID` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habits` TEXT, `desc` TEXT, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `subRoutineUID` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -155,6 +155,24 @@
             "columnName": "habits",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "desc",
+            "columnName": "desc",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "abstinence",
+            "columnName": "abstinence",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "relapse",
+            "columnName": "relapse",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "subRoutineUID",
@@ -176,7 +194,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd0e3b6047e40ad11d6ddfe94dd79099a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '51c1a3623f042c78320d6dfaa1f17523')"
     ]
   }
 }
