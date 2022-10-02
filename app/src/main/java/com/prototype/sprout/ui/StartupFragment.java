@@ -19,16 +19,21 @@ import com.prototype.sprout.model.BundleKey;
 
 public class StartupFragment extends Fragment {
 
-    //Vew Binding
+    /**
+     * Startup Fragment View Binding
+     */
     private FragmentStartupBinding binding;
 
+    /**
+     * Auto Generated Empty Public Constructor
+     */
     public StartupFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         binding = FragmentStartupBinding.inflate(inflater, container, false);
 
         boolean isOnBoardingDone = false;

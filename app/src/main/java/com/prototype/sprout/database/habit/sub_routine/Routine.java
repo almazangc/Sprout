@@ -17,13 +17,13 @@ public class Routine {
     private String desc;
 
     @ColumnInfo(name = "streak")
-    private String streak;
+    private int streak;
 
     @ColumnInfo(name = "total")
-    private String total;
+    private int total;
 
     @ColumnInfo(name = "skips")
-    private String skips;
+    private int skips;
 
     @ColumnInfo(name = "alarm")
     private int alarm;
@@ -33,13 +33,27 @@ public class Routine {
 
     }
 
-    public Routine(String routine, String desc, String streak, String total, String skips, int alarm) {
+    @Ignore
+    public Routine(String routine, String desc) {
+        this.routine = routine;
+        this.desc = desc;
+    }
+
+    public Routine(String routine, String desc, int streak, int total, int skips, int alarm) {
         this.routine = routine;
         this.desc = desc;
         this.streak = streak;
         this.total = total;
         this.skips = skips;
         this.alarm = alarm;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getRoutine() {
@@ -58,27 +72,27 @@ public class Routine {
         this.desc = desc;
     }
 
-    public String getStreak() {
+    public int getStreak() {
         return streak;
     }
 
-    public void setStreak(String streak) {
+    public void setStreak(int streak) {
         this.streak = streak;
     }
 
-    public String getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
-    public String getSkips() {
+    public int getSkips() {
         return skips;
     }
 
-    public void setSkips(String skips) {
+    public void setSkips(int skips) {
         this.skips = skips;
     }
 

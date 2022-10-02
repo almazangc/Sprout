@@ -15,10 +15,12 @@ import com.prototype.sprout.database.assessment.AssessmentDao;
 import com.prototype.sprout.database.converters.ArrayListConverter;
 import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitDao;
+import com.prototype.sprout.database.habit.sub_routine.Routine;
+import com.prototype.sprout.database.habit.sub_routine.RoutineDao;
 import com.prototype.sprout.database.user.User;
 import com.prototype.sprout.database.user.UserDao;
 
-@Database(entities = {User.class, Assessment.class, Habit.class}, version = 1)
+@Database(entities = {User.class, Assessment.class, Habit.class, Routine.class}, version = 1)
 @TypeConverters({ArrayListConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -29,6 +31,7 @@ public abstract class AppDatabase extends RoomDatabase {
             super.onCreate(db);
             new PopulateAssessmentAsyncTask(INSTANCE).execute();
 //            new PopulateUserAsyncTask(INSTANCE).execute();
+            new PopulateRoutineAsyncTask(INSTANCE).execute();
             new PopulatedHabitAsyncTask(INSTANCE).execute();
         }
     };
@@ -48,6 +51,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract AssessmentDao assessmentDao();
 
     public abstract HabitDao habitDao();
+
+    public abstract RoutineDao routineDao();
 
 
     private static class PopulatedHabitAsyncTask extends AsyncTask<Void, Void, Void>{
@@ -76,6 +81,22 @@ public abstract class AppDatabase extends RoomDatabase {
             habitDao.insert(new Habit("Taking things personally", "arsagid jkjk", ArrayListConverter.fromString("[1,4,5,6]")));
             habitDao.insert(new Habit("Overusing slang", "Feeling slang", ArrayListConverter.fromString("[0,3,5,6]")));
             habitDao.insert(new Habit("Alot", "and more....",ArrayListConverter.fromString("[1,4,6,7]")));
+            return null;
+        }
+    }
+
+    private static class PopulateRoutineAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private RoutineDao routineDao;
+
+        public PopulateRoutineAsyncTask(AppDatabase instance) {
+            routineDao = instance.routineDao();
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            routineDao.insert(new Routine("Walking Dog", "Getting pet Accustomeed"));
+            routineDao.insert(new Routine("Walking Dog", "Getting pet Accustomeed"));
+            routineDao.insert(new Routine("Walking Dog", "Getting pet Accustomeed"));
             return null;
         }
     }

@@ -1,9 +1,12 @@
 package com.prototype.sprout.ui.onBoarding;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -40,7 +43,8 @@ public class GetStartedFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Toast.makeText(requireContext(), "DATA IS WRITTEN", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(requireContext(), "DATA IS WRITTEN", Toast.LENGTH_SHORT).show();
+                showToast("DATA IS ALREADY SAVED");
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -50,5 +54,21 @@ public class GetStartedFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void showToast(String string) {
+        CharSequence message = string;
+        int duration = Toast.LENGTH_LONG;
+
+//        View layout = binding.getRoot().findViewById(R.id.custom_toast_layout);
+        View layout = getLayoutInflater().inflate(R.layout.custom_toast, (ViewGroup) binding.getRoot().findViewById(R.id.custom_toast_layout));
+        TextView text = layout.findViewById(R.id.custom_toast_lbl);
+        text.setText(message);
+
+        Toast toast = new Toast(requireContext());
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setView(layout);
+        toast.setDuration(duration);
+        toast.show();
     }
 }

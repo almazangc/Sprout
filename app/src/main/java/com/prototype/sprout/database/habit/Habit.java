@@ -35,9 +35,19 @@ public class Habit {
     public Habit() {
 
     }
+
+    @Ignore
     public Habit(String habits, String desc, ArrayList<Integer> subRoutineUID) {
         this.habits = habits;
         this.desc = desc;
+        this.subRoutineUID = subRoutineUID;
+    }
+
+    public Habit(String habits, String desc, int abstinence, int relapse, ArrayList<Integer> subRoutineUID) {
+        this.habits = habits;
+        this.desc = desc;
+        this.abstinence = abstinence;
+        this.relapse = relapse;
         this.subRoutineUID = subRoutineUID;
     }
 

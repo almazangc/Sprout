@@ -89,10 +89,12 @@ public class PersonalizationFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                uid--;
-                binding.assessmentProgressBar.setProgress(uid);
-                setUIText(assessments);
-                upCheckedRadioButtons(assessments);
+                if (uid > 0) {
+                    uid--;
+                    binding.assessmentProgressBar.setProgress(uid);
+                    setUIText(assessments);
+                    upCheckedRadioButtons(assessments);
+                }
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

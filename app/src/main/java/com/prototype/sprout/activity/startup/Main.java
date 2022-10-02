@@ -8,7 +8,9 @@ import com.prototype.sprout.databinding.ActivityMainBinding;
 
 public class Main extends AppCompatActivity {
 
-    //ViewBinding
+    /**
+     * Main Activity View Binding
+     */
     private ActivityMainBinding binding;
 
     @Override
