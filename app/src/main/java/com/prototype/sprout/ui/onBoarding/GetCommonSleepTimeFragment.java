@@ -37,8 +37,8 @@ public class GetCommonSleepTimeFragment extends Fragment {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
             Bundle bundle = getArguments();
-            bundle.putInt(new BundleKey().getKEY_SLEEPHOUR(), timePicker.getHour());
-            bundle.putInt(new BundleKey().getKEY_SLEEPMINUTE(), timePicker.getMinute());
+            bundle.putInt(new BundleKey().getKEY_SLEEP_HOUR(), timePicker.getHour());
+            bundle.putInt(new BundleKey().getKEY_SLEEP_MINUTE(), timePicker.getMinute());
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_getCommonSleepTime_to_introduction, bundle);
         });
     }

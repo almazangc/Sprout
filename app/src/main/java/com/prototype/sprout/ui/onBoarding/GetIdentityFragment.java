@@ -76,10 +76,10 @@ public class GetIdentityFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
             eula = bundle.getBoolean(bundleKey.getKEY_EULA(), true);
-            wakeHour = bundle.getInt(bundleKey.getKEY_WAKEHOUR());
-            wakeMinute = bundle.getInt(bundleKey.getKEY_WAKEMINUTE());
-            sleepHour = bundle.getInt(bundleKey.getKEY_SLEEPHOUR());
-            sleepMinute = bundle.getInt(bundleKey.getKEY_SLEEPMINUTE());
+            wakeHour = bundle.getInt(bundleKey.getKEY_WAKE_HOUR());
+            wakeMinute = bundle.getInt(bundleKey.getKEY_WAKE_MINUTE());
+            sleepHour = bundle.getInt(bundleKey.getKEY_SLEEP_HOUR());
+            sleepMinute = bundle.getInt(bundleKey.getKEY_SLEEP_MINUTE());
             nickname = bundle.getString(bundleKey.getKEY_NICKNAME());
         } else {
             Toast.makeText(requireContext(), "ERROR: NO BUNDLE IS PASSED", Toast.LENGTH_LONG).show();
