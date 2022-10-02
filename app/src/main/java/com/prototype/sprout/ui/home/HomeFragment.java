@@ -38,7 +38,7 @@ public class HomeFragment extends Fragment {
         userViewModel.getUserListLiveData().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
-                String text = "Welcome again now now " + users.get(0).getNickname();
+                String text = "How was your day" + users.get(0).getNickname() + "?";
 
                 binding.lblWelcomeMsg.setText(text);
             }
