@@ -21,12 +21,12 @@
         android:layout_alignParentBottom="true"
         android:background="@color/A80_CLOUDS"
         app:abb_indicatorAppearance="round"
-        app:abb_indicatorColor="@color/A80_PUMPKIN"
+        app:abb_indicatorColor="@color/KIMBERLY"
         app:abb_indicatorHeight="4dp"
         app:abb_indicatorMargin="16dp"
         app:abb_selectedIndex="0"
         app:abb_selectedTabType="text"
-        app:abb_tabColor="@color/A80_NIGHT"
-        app:abb_tabColorSelected="@color/NIGHT"
+        app:abb_tabColor="@color/KIMBERLY"
+        app:abb_tabColorSelected="@color/KIMBERLY"
         app:abb_tabs="@menu/tabs" />
 </RelativeLayout>

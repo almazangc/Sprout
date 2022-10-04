@@ -210,7 +210,7 @@
         tools:layout="@layout/fragment_analytics" />
     <fragment
         android:id="@+id/journalFragment"
-        android:name="com.prototype.sprout.ui.home.JournalFragment"
+        android:name="com.prototype.sprout.ui.home.journal.JournalFragment"
         android:label="fragment_journal"
         tools:layout="@layout/fragment_journal" />
     <fragment
@@ -223,4 +223,9 @@
         android:name="com.prototype.sprout.ui.home.TaskFragment"
         android:label="fragment_task"
         tools:layout="@layout/fragment_task" />
+    <fragment
+        android:id="@+id/journalNewFragment"
+        android:name="com.prototype.sprout.ui.home.journal.JournalNewFragment"
+        android:label="fragment_journal_new"
+        tools:layout="@layout/fragment_journal_new" />
 </navigation>

@@ -49,7 +49,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.preference:preference:1.2.0'
+
     def material_version = "1.6.1"
     def fragment_version = "1.5.2"
     def nav_version = "2.5.2"
@@ -60,6 +60,10 @@ dependencies {
     def animated_bottom_nav_version = "1.1.0"
     def gson_version = "2.9.1"
     def lottie_version = "3.4.0"
+    def recyclerview_version = "1.2.1"
+    def recyclerview_selection_version = "1.1.0"
+
+    implementation 'androidx.preference:preference:1.2.0'
 
     implementation "androidx.appcompat:appcompat:$appcompat"
 
@@ -77,6 +81,7 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
 //    Feature module Support
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 //    Testing Navigation
@@ -110,4 +115,9 @@ dependencies {
 
     // Lottie Animation
     implementation "com.airbnb.android:lottie:$lottie_version"
+
+    // Recycler View
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:$recyclerview_selection_version"
 }

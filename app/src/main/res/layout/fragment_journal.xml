@@ -1,30 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.JournalFragment">
+    android:background="@color/CLOUDS"
+    tools:context=".ui.home.journal.JournalFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_main"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="lottie_anim_under-construction.json"
-        app:lottie_loop="true"
-        app:lottie_speed="1"
-        tools:background="@color/LightBrown"/>
-
-    <TextView
-        style="@style/textViewHeader"
+    <LinearLayout
+        android:id="@+id/header_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textAlignment="center"
-        android:text="Journal" />
+        android:background="@color/KIMBERLY"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:padding="10dp">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie_anim_journal_notes.json"
+            app:lottie_loop="true"
+            app:lottie_speed="1"
+            tools:background="@color/CLOUDS" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:maxLines="1"
+            android:textColor="@color/NIGHT"
+            android:textColorHint="@color/NIGHT"
+            app:boxBackgroundColor="@color/CLOUDS"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/KIMBERLY"
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/ic_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ems="10"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:paddingStart="15dp"
+                android:textColor="@color/NIGHT"
+                android:textColorHint="@color/NIGHT"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/journal_logs_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/menu_line"
+        android:layout_below="@id/header_container"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="add_new_log"
+        app:backgroundTint="@color/CLOUDS"
+        app:borderWidth="5dp"
+        app:srcCompat="@drawable/ic_add"
+        tools:ignore="RelativeOverlap" />
+
+    <LinearLayout
+        android:id="@+id/menu_line"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/KIMBERLY"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:orientation="horizontal">
+    </LinearLayout>
 </RelativeLayout>

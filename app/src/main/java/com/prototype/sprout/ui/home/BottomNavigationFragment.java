@@ -19,6 +19,7 @@ import com.prototype.sprout.database.converters.ArrayListConverter;
 import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitViewModel;
 import com.prototype.sprout.databinding.FragmentBottomNavigationBinding;
+import com.prototype.sprout.ui.home.journal.JournalFragment;
 
 import java.util.ArrayList;
 import java.util.List;

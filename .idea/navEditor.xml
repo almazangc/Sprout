@@ -313,6 +313,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="journalNewFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="2221" />
+                            <option name="y" value="1186" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="nicknameFragment">
                     <value>
                       <LayoutPositions>
