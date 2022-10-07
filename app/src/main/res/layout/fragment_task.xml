@@ -3,27 +3,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_canva_task"
     tools:context=".ui.home.TaskFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="140dp"
+        android:background="@drawable/shape_note_canva"
+        android:paddingLeft="5dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="50dp"
+        android:paddingRight="5dp">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_main"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="lottie_anim_under-construction.json"
-        app:lottie_loop="true"
-        app:lottie_speed="1"
-        tools:background="@color/LightBrown"/>
+        <TextView
+            android:id="@+id/lblTitle"
+            style="@style/textViewHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:layout_centerHorizontal="true"
+            android:text="Namae wo yobu yo"
+            android:textAlignment="center" />
 
-    <TextView
-        style="@style/textViewHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="TASK" />
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lblTitle"
+            android:layout_centerInParent="true"
+            android:scrollbarAlwaysDrawVerticalTrack="false">
 
+            <TextView
+                android:id="@+id/lblDesc"
+                style="@style/textViewSubHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_margin="12dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:justificationMode="inter_word"
+                android:text="\t“I’ll Call Out Your Name”* by Luck Life is a song about the badge of one’s life: their name. Given to us when we were born, it is the sign that we live. We are not some hollow human who keeps droning through life. We are something that has a reason to live. And our beloved ones exemplify that definition as they call out our name. Now, let’s call out their name, so that we can let them know that they live for at least one more reason: so we can let them know that they exist and are loved by us."
+                android:textAlignment="center" />
+        </ScrollView>
+    </RelativeLayout>
 </RelativeLayout>

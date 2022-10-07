@@ -9,7 +9,10 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable-v24/shape_top_rounded_corners_cloud.xml" value="0.2495" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable-v24/view_shapev1.xml" value="0.2005" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/background_bar.xml" value="0.286" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/background_canva_aesthetic.xml" value="0.2965" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/background_canva_highend_land.xml" value="0.2965" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/background_wave_aesthetic.xml" value="0.2495" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/background_wave_aesthetic_land.xml" value="0.2965" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/bg_time_picker_bottom.xml" value="0.2985" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/bg_time_picker_middle.xml" value="0.2985" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/bg_time_picker_top.xml" value="0.2985" />
@@ -27,6 +30,8 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/ic_settings.xml" value="0.2965" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/ic_table_chart.xml" value="0.2965" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/identity_svg.xml" value="0.3355" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/note_shape.xml" value="0.2965" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/note_shape_land.xml" value="0.2965" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/radio_background_selected.xml" value="0.278" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/radio_background_unselected.xml" value="0.278" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/radio_selector.xml" value="0.2855" />
@@ -40,6 +45,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/shape_background_radiobtn_selected.xml" value="0.2965" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/shape_background_radiobtn_unselected.xml" value="0.2965" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/shape_custom_toast_background.xml" value="0.2495" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/shape_note_canva.xml" value="0.2965" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/shape_rounded_kimberly_btn.xml" value="0.2965" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/shape_top_rounded_corners_kimberly.xml" value="0.2495" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/drawable/simple_background_temp_v4.xml" value="0.3355" />
@@ -79,7 +85,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_get_nickname.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_get_started.xml" value="0.258230012825994" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_greetings.xml" value="0.2702009405728944" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_home.xml" value="0.18" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_home.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_initial.xml" value="0.258230012825994" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_introduction.xml" value="0.258230012825994" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_journal.xml" value="0.22" />
@@ -89,7 +95,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_profile_fragmet.xml" value="0.13161182840483132" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_settings.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_startup.xml" value="0.258230012825994" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_task.xml" value="0.2702009405728944" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_task.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/fragment_time_picker_fragment.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/layout_btn_continue.xml" value="0.26934587430525864" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/layout/layout_dhilds.xml" value="0.2573749465583583" />

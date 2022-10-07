@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/relativeLayoutPadding"
+    android:background="@drawable/background_canva_aesthetic"
     tools:context=".ui.home.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -27,6 +28,6 @@
         app:lottie_fileName="lottie_anim_choose-your-colors.json"
         app:lottie_loop="true"
         app:lottie_speed="1"
-        tools:background="@color/CLOUDS"/>
+        tools:background="@color/CLOUDS" />
 
 </RelativeLayout>
