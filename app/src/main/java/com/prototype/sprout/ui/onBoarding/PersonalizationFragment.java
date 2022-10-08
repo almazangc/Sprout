@@ -66,6 +66,7 @@ public class PersonalizationFragment extends Fragment {
                     binding.assessmentProgressBar.setProgress(uid);
                 } else {
                     uid--;
+                    saveSelection();
                     Toast.makeText(requireContext(), "End of Questions", Toast.LENGTH_LONG).show();
                     new AlertDialog.Builder(requireContext())
                             .setMessage("Are you done answering all?")
