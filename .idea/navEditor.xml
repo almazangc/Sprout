@@ -62,6 +62,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_analysisFragment_to_bottomNavigationFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_navigate_from_analysis_to_startup">
                               <value>
                                 <LayoutPositions />
@@ -425,8 +430,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1494" />
-                            <option name="y" value="1192" />
+                            <option name="x" value="1554" />
+                            <option name="y" value="1185" />
                           </Point>
                         </option>
                         <option name="myPositions">

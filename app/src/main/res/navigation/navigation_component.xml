@@ -17,7 +17,7 @@
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
             android:id="@+id/action_startupFragment_to_main"
-            app:destination="@id/bottomNavigationFragment2" />
+            app:destination="@id/bottomNavigationFragment" />
     </fragment>
     <fragment
         android:id="@+id/initialFragment"
@@ -168,6 +168,9 @@
             app:destination="@id/startupFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_navigate_from_analysis_to_Home"
+            app:destination="@id/bottomNavigationFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -194,7 +197,7 @@
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/bottomNavigationFragment2"
+        android:id="@+id/bottomNavigationFragment"
         android:name="com.prototype.sprout.ui.home.BottomNavigationFragment"
         android:label="fragment_bottom_navigation"
         tools:layout="@layout/fragment_bottom_navigation" />

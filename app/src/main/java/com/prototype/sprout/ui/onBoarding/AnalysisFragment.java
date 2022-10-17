@@ -48,7 +48,7 @@ public class AnalysisFragment extends Fragment {
             setOnBoarding();
             Bundle bundle = new Bundle();
             bundle.putBoolean(new BundleKey().getKEY_ANALYSIS(), true);
-            Navigation.findNavController(view).navigate(R.id.action_navigate_from_analysis_to_startup, bundle);
+            Navigation.findNavController(view).navigate(R.id.action_navigate_from_analysis_to_Home, bundle);
         });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {

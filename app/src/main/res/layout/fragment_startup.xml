@@ -1,22 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_canva_aesthetic"
+    android:background="@drawable/background_wavy_1"
+    android:padding="@dimen/relativeLayoutPadding"
     tools:context=".ui.StartupFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/btn_main"
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:id="@+id/sproutLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@id/appName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@string/application_logo"
+        app:srcCompat="@drawable/logo_sprout"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/appName"
+        style="@style/textViewHeader"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:background="@drawable/shape_rounded_lightbrown_btn"
-        tools:text="SPROUT HOME"
-        android:textStyle="bold"
-        android:letterSpacing=".5"
-        android:textColor="@color/CLOUDS"/>
-</FrameLayout>
+        android:layout_centerInParent="true"
+        android:text="@string/sprout"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/sub_lbl"
+        style="@style/textViewSubHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="Prototype Stage"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT" />
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.prototype.sprout.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,23 +37,29 @@ public class StartupFragment extends Fragment {
 
         binding = FragmentStartupBinding.inflate(inflater, container, false);
 
-        boolean isOnBoardingDone = false;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Loading intents of fragments
+                //TODO: FIX FROM TODO LIST TO HOME
+                boolean isOnBoardingDone;
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            isOnBoardingDone = bundle.getBoolean(new BundleKey().getKEY_ANALYSIS());
-        } else {
-            UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-            isOnBoardingDone = userViewModel.getOnBoarding();
-        }
+                Bundle bundle = getArguments();
+                if (bundle != null) {
+                    isOnBoardingDone = bundle.getBoolean(new BundleKey().getKEY_ANALYSIS());
+                } else {
+                    UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+                    isOnBoardingDone = userViewModel.getOnBoarding();
+                }
 
-        if (!isOnBoardingDone) NavHostFragment.findNavController(StartupFragment.this).navigate(R.id.action_startup_to_onboarding);
+                if (!isOnBoardingDone) NavHostFragment.findNavController(StartupFragment.this).navigate(R.id.action_startup_to_onboarding);
 
-        if (isOnBoardingDone) NavHostFragment.findNavController(StartupFragment.this).navigate(R.id.action_startupFragment_to_main);
+                if (isOnBoardingDone) NavHostFragment.findNavController(StartupFragment.this).navigate(R.id.action_startupFragment_to_main);
+            }
+        }, 2000);
 
-            onBackPress();
+        onBackPress();
 
-        binding.btnMain.setText("BANANA!!!");
         return binding.getRoot();
     }
 
@@ -62,7 +69,6 @@ public class StartupFragment extends Fragment {
             @Override
             public void handleOnBackPressed() {
                 //Do Something
-                Log.d("TAG", "handleOnBackPressed: Disabled");
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -71,7 +77,6 @@ public class StartupFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d("TAG", "onDestroyView: ");
         binding = null;
     }
 }

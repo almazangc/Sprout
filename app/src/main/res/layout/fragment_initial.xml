@@ -31,7 +31,7 @@
             android:layout_centerInParent="true"
             android:text="@string/sprout"
             android:textAlignment="center"
-            android:textColor="#0D0D0D"
+            android:textColor="@color/NIGHT"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
             android:layout_marginTop="3dp"
             android:text="@string/habit_reform_and_routine_management"
             android:textAlignment="center"
-            android:textColor="#0D0D0D" />
+            android:textColor="@color/NIGHT" />
 
         <Button
             android:id="@+id/btn_letsDoIt"
@@ -54,7 +54,7 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/shape_rounded_kimberly_btn"
             android:text="@string/lets_do_it"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/CLOUDS"
             android:textStyle="bold"
             tools:ignore="TextContrastCheck" />
 
@@ -65,7 +65,7 @@
             android:layout_alignParentBottom="true"
             android:text="@string/eula_and_privacy_policy"
             android:textAlignment="center"
-            android:textColor="#0D0D0D" />
+            android:textColor="@color/NIGHT" />
 
     </RelativeLayout>
 
