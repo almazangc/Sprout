@@ -30,7 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             new PopulateAssessmentAsyncTask(INSTANCE).execute();
-//            new PopulateUserAsyncTask(INSTANCE).execute();
+            new PopulateUserAsyncTask(INSTANCE).execute();
             new PopulateRoutineAsyncTask(INSTANCE).execute();
             new PopulatedHabitAsyncTask(INSTANCE).execute();
         }
@@ -113,20 +113,20 @@ public abstract class AppDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
 
             final String DEFAULT_SELECTED = "null";
-            assessmentDao.insert(new Assessment("Question", "A", "B", "C", "D", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("Which habit troubles you, This is a very long questions as an input to the app?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("Which habit troubles you?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("How often do you feel happy?", "Always", "Usually", "Seldom", "Never", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("Do you like banana?", "Yes", "No", "I dont know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("Do you fear life?", "Yes not", "No Yes", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("If 1 + 1 - 2, What is the circumference of the sun?", "Yes?", "WTH", "I don't know", "Life ain't fun", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("Do you see you future?", "Who care about that", "A bit Foggy", "I don't know anymore", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("Is this a generic question?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("What is the name of app?", "Sprout", "Dont Know", "Undeciced", "I wanna change, it sucks", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("Do you always owo?", "Yes", "Absolutely Not", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("Is this question number 10?", "Yes", "No","I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("If you answered yes then your wrong, this is question number 10?", "OK", "Meh", "LOL", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("Last Question?", "Yes", "No", "I don't know", "Why should I care?", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("1: Question", "A", "B", "C", "D", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("2: Which habit troubles you, This is a very long questions as an input to the app?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("3: Which habit troubles you?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("4: How often do you feel happy?", "Always", "Usually", "Seldom", "Never", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("5: Do you like banana?", "Yes", "No", "I dont know", "I don't care", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("6: Do you fear life?", "Yes not", "No Yes", "I don't know", "I don't care", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("7: If 1 + 1 - 2, What is the circumference of the sun?", "Yes?", "WTH", "I don't know", "Life ain't fun", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("8: Do you see you future?", "Who care about that", "A bit Foggy", "I don't know anymore", "I don't care", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("9: Is this a generic question?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("10: What is the name of app?", "Sprout", "Dont Know", "Undeciced", "I wanna change, it sucks", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("11: Do you always owo?", "Yes", "Absolutely Not", "I don't know", "I don't care", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("12: Is this question number 10?", "Yes", "No","I don't know", "I don't care", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("13: If you answered yes then your wrong, this is question number 10?", "OK", "Meh", "LOL", "I don't care", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("14: Last Question?", "Yes", "No", "I don't know", "Why should I care?", DEFAULT_SELECTED));
 
             return null;
         }
@@ -141,7 +141,7 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            userDao.insert(new User("Vit", "Alien", 0, 8, 30, 20, 55, true, true, true));
+            userDao.insert(new User("Vit", "Alien", 0, 8, 30, 20, 55, true, false, false));
             return null;
         }
     }
