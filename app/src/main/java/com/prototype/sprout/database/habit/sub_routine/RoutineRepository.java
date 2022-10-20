@@ -40,26 +40,6 @@ public class RoutineRepository {
         new RoutineRepository.DeleteAllRoutinesAsyncTask(routineDao).execute();
     }
 
-    public RoutineDao getRoutineDao() {
-        return routineDao;
-    }
-
-    public List<Routine> getAllRoutineList() {
-        return allRoutineList;
-    }
-
-    public List<String> getGetRoutines() {
-        return getRoutines;
-    }
-
-    public LiveData<List<Routine>> getAllRoutineListLiveData() {
-        return allRoutineListLiveData;
-    }
-
-    public List<Routine> getRoutine(int uid){
-        return routineDao.getRoutine(uid);
-    }
-
     private static class InsertRoutinesAsyncTask extends AsyncTask<Routine, Void, Void> {
 
         private RoutineDao routineDao;
@@ -118,5 +98,25 @@ public class RoutineRepository {
             routineDao.deleteAllRoutines();
             return null;
         }
+    }
+
+    public RoutineDao getRoutineDao() {
+        return routineDao;
+    }
+
+    public List<Routine> getAllRoutineList() {
+        return allRoutineList;
+    }
+
+    public List<String> getGetRoutines() {
+        return getRoutines;
+    }
+
+    public LiveData<List<Routine>> getAllRoutineListLiveData() {
+        return allRoutineListLiveData;
+    }
+
+    public List<Routine> getRoutine(int uid){
+        return routineDao.getRoutine(uid);
     }
 }

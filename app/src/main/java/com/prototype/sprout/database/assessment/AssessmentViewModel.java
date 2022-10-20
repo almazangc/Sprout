@@ -11,14 +11,14 @@ import java.util.List;
 public class AssessmentViewModel extends AndroidViewModel {
 
     private AssessmentRepository repository;
-    private LiveData<List<Assessment>> allAssessmentListLiveData;
-    private List<Assessment> allAssessmentList;
+    private LiveData<List<Assessment>> assessmentListLiveData;
+    private List<Assessment> assessmentList;
 
     public AssessmentViewModel(@NonNull Application application) {
         super(application);
         repository = new AssessmentRepository(application);
-        allAssessmentListLiveData = repository.getAllAssessmentListLivedata();
-        allAssessmentList = repository.getAllAssessmentList();
+        assessmentListLiveData = repository.getAssessmentListLivedata();
+        assessmentList = repository.getAssessmentList();
     }
 
     public void insert(Assessment assessment) {
@@ -37,19 +37,19 @@ public class AssessmentViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
-    public LiveData<List<Assessment>> getAllAssessmentListLiveData() {
-        return allAssessmentListLiveData;
+    public LiveData<List<Assessment>> getAssessmentListLiveData() {
+        return assessmentListLiveData;
     }
 
-    public List<Assessment> getAllAssessmentList() {
-        return allAssessmentList;
-    }
-
-    public void updateSelectedUID(int uid, String value){
-        repository.updateSelectedUID(uid, value);
+    public List<Assessment> getAssessmentList() {
+        return assessmentList;
     }
 
     public String getAssessmentSelected(int uid){
         return repository.getAssessmentSelected(uid);
+    }
+
+    public void updateSelectedUID(int uid, String value){
+        repository.updateSelectedUID(uid, value);
     }
 }

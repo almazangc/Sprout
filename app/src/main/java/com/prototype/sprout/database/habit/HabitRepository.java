@@ -42,22 +42,6 @@ public class HabitRepository {
         new HabitRepository.DeleteAllHabitsAsyncTask(habitDao).execute();
     }
 
-    public List<Habit> getAllhabitsList() {
-        return allhabitsList;
-    }
-
-    public List<String> getHabits() {
-        return getHabits;
-    }
-
-    public LiveData<List<Habit>> getAllhabitsListLiveData() {
-        return allhabitsListLiveData;
-    }
-
-    public List<Habit> getHabitList(int uid) {
-        return habitDao.getHabit(uid);
-    }
-
     private static class InsertHabitsAsyncTask extends AsyncTask<Habit, Void, Void> {
 
         private HabitDao habitDao;
@@ -116,6 +100,22 @@ public class HabitRepository {
             habitDao.deleteAllHabits();
             return null;
         }
+    }
+
+    public List<Habit> getAllhabitsList() {
+        return allhabitsList;
+    }
+
+    public List<String> getHabits() {
+        return getHabits;
+    }
+
+    public LiveData<List<Habit>> getAllhabitsListLiveData() {
+        return allhabitsListLiveData;
+    }
+
+    public List<Habit> getHabitList(int uid) {
+        return habitDao.getHabit(uid);
     }
 }
 

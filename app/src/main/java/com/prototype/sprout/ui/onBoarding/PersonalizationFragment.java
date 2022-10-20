@@ -1,7 +1,6 @@
 package com.prototype.sprout.ui.onBoarding;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +55,7 @@ public class PersonalizationFragment extends Fragment {
 
         assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
         setProgressBarMaxSize();
-        assessmentViewModel.getAllAssessmentListLiveData().observe(getViewLifecycleOwner(), assessments -> {
+        assessmentViewModel.getAssessmentListLiveData().observe(getViewLifecycleOwner(), assessments -> {
 
             //Initial UI Update and Initialize ProgressBar Value to 1
             if (uid == 0) setUIText(assessments);
@@ -107,7 +106,7 @@ public class PersonalizationFragment extends Fragment {
      * Sets the progressbar size
      */
     private void setProgressBarMaxSize() {
-        binding.assessmentProgressBar.setMax(assessmentViewModel.getAllAssessmentList().size());
+        binding.assessmentProgressBar.setMax(assessmentViewModel.getAssessmentList().size());
     }
 
     /**

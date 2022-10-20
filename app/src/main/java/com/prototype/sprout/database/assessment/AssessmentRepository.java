@@ -11,14 +11,14 @@ import java.util.List;
 
 public class AssessmentRepository {
     private AssessmentDao assessmentDao;
-    private LiveData<List<Assessment>> allAssessmentListLivedata;
-    private List<Assessment> allAssessmentList;
+    private LiveData<List<Assessment>> AssessmentListLivedata;
+    private List<Assessment> AssessmentList;
 
     public AssessmentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         assessmentDao = appDatabase.assessmentDao();
-        allAssessmentListLivedata = assessmentDao.getALLAssessmentLiveData();
-        allAssessmentList = assessmentDao.getALLAssessment();
+        AssessmentListLivedata = assessmentDao.getALLAssessmentLiveData();
+        AssessmentList = assessmentDao.getALLAssessment();
     }
 
     public void insert(Assessment assessment) {
@@ -34,23 +34,7 @@ public class AssessmentRepository {
     }
 
     public void deleteAll() {
-        new DeleteAssessmentAsyncTask(assessmentDao).execute();
-    }
-
-    public LiveData<List<Assessment>> getAllAssessmentListLivedata() {
-        return allAssessmentListLivedata;
-    }
-
-    public List<Assessment> getAllAssessmentList() {
-        return allAssessmentList;
-    }
-
-    public void updateSelectedUID(int uid, String value){
-        assessmentDao.updateSelectedUID(uid, value);
-    }
-
-    public String getAssessmentSelected(int uid){
-        return assessmentDao.getAssessmentSelected(uid);
+        new DeleteAllAssessmentAsyncTask(assessmentDao).execute();
     }
 
     public static class InsertAssessmentAsyncTask extends AsyncTask<Assessment, Void, Void> {
@@ -111,6 +95,22 @@ public class AssessmentRepository {
             assessmentDao.deleteAllAssessment();
             return null;
         }
+    }
+
+    public LiveData<List<Assessment>> getAssessmentListLivedata() {
+        return AssessmentListLivedata;
+    }
+
+    public List<Assessment> getAssessmentList() {
+        return AssessmentList;
+    }
+
+    public void updateSelectedUID(int uid, String value){
+        assessmentDao.updateSelectedUID(uid, value);
+    }
+
+    public String getAssessmentSelected(int uid){
+        return assessmentDao.getAssessmentSelected(uid);
     }
 }
 
