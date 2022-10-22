@@ -30,9 +30,13 @@ public class PersonalizationFragment extends Fragment {
     private int uid = 0;
     // Data Biding
     private FragmentPersonalizationBinding binding;
-    // Assessment View Model MVVM Achitecture
+    // Assessment View Model MVVM Architecture
     private AssessmentViewModel assessmentViewModel;
 
+    /**
+     * Scale: Must be able generate radiobutton instance in a radiogroup depending on number of selection
+     * Room Database: Entity: Choices Type: ArrayList String use TypeConverter to Store
+     */
     public PersonalizationFragment() {
         // Required empty public constructor
     }
@@ -43,11 +47,6 @@ public class PersonalizationFragment extends Fragment {
         return binding.getRoot();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class PersonalizationFragment extends Fragment {
             binding.btnContinue.setOnClickListener(view1 -> {
 
                 //PROMPT: NO SELECTED ANSWER
-                if (isAllRadioButtonUncheked()) {
+                if (isAllRadioButtonUnchecked()) {
                     Toast.makeText(requireContext(), "Please Answer the Question before proceeding", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -142,10 +141,10 @@ public class PersonalizationFragment extends Fragment {
 
 
     /**
-     * Validate if user seleted an answer
+     * Validate if user selected an answer
      * @return boolean
      */
-    private boolean isAllRadioButtonUncheked(){
+    private boolean isAllRadioButtonUnchecked(){
         ArrayList<RadioButton> radioButtonList = getRadioButtonList();
         for (RadioButton radioButton: radioButtonList){
             if (radioButton.isChecked()) return false;
@@ -193,7 +192,7 @@ public class PersonalizationFragment extends Fragment {
 
     /**
      * Gets all list of radio buttons
-     * @return matched instance of ArrrayList of Radio Buttons
+     * @return matched instance of ArrayList of Radio Buttons
      */
     private ArrayList<RadioButton> getRadioButtonList(){
         ArrayList<RadioButton> radioButtonList = new ArrayList<>();
@@ -206,10 +205,16 @@ public class PersonalizationFragment extends Fragment {
     }
 
     /**
-     * Updates Room Databaser: Assessment Entity of User Table to True
+     * Updates Room Database: Assessment Entity of User Table to True
      */
     private void setUserAssessmentTrue(){
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.setAssessment();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
