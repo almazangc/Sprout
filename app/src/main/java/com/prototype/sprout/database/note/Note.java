@@ -3,6 +3,7 @@ package com.prototype.sprout.database.note;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -32,6 +33,23 @@ public class Note implements Serializable {
 
     @ColumnInfo(name = "web_link")
     private String webLink;
+
+    @Ignore
+    public Note(String title, String dateTime, String subtitle) {
+        this.title = title;
+        this.dateTime = dateTime;
+        this.subtitle = subtitle;
+    }
+
+    public Note(String title, String dateTime, String subtitle, String noteText, String imagePath, String color, String webLink) {
+        this.title = title;
+        this.dateTime = dateTime;
+        this.subtitle = subtitle;
+        this.noteText = noteText;
+        this.imagePath = imagePath;
+        this.color = color;
+        this.webLink = webLink;
+    }
 
     public int getUid() {
         return uid;

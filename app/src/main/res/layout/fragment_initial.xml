@@ -1,72 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_wavy_1"
+    android:padding="10dp"
     tools:context=".ui.onBoarding.InitialFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/sproutLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@id/appName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@string/application_logo"
+        app:srcCompat="@drawable/logo_sprout"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/sprout"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/startup_initial_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="@string/habit_reform_and_routine_management"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT" />
+
+    <Button
+        android:id="@+id/btn_letsDoIt"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_wavy_1"
-        android:padding="@dimen/relativeLayoutPadding">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/agreement"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/shape_rounded_kimberly_btn"
+        android:text="@string/lets_do_it"
+        android:textColor="@color/CLOUDS"
+        android:textStyle="bold"
+        tools:ignore="TextContrastCheck" />
 
-        <ImageView
-            android:id="@+id/sproutLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_above="@id/appName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:contentDescription="@string/application_logo"
-            app:srcCompat="@drawable/logo_sprout"
-            tools:ignore="ImageContrastCheck" />
+    <TextView
+        android:id="@+id/agreement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/eula_and_privacy_policy"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT" />
 
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/sprout"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/startup_initial_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/appName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="3dp"
-            android:text="@string/habit_reform_and_routine_management"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT" />
-
-        <Button
-            android:id="@+id/btn_letsDoIt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/agreement"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/shape_rounded_kimberly_btn"
-            android:text="@string/lets_do_it"
-            android:textColor="@color/CLOUDS"
-            android:textStyle="bold"
-            tools:ignore="TextContrastCheck" />
-
-        <TextView
-            android:id="@+id/agreement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:text="@string/eula_and_privacy_policy"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>

@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitViewModel;
 import com.prototype.sprout.database.user.UserViewModel;
 import com.prototype.sprout.databinding.FragmentAnalysisBinding;
@@ -36,7 +35,7 @@ public class AnalysisFragment extends Fragment {
         HabitViewModel habitViewModel = new ViewModelProvider(requireActivity()).get(HabitViewModel.class);
         List<String> habits = habitViewModel.getGetHabits();
 
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.list_item, habits);
+        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.analysis_habits_container, habits);
         binding.dropItems.setAdapter(adapterItems);
         return binding.getRoot();
     }

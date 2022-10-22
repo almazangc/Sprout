@@ -31,3 +31,11 @@ txtView.setText(Html.fromHtml(name+" "+surName));
 
 78: Chapter 6: Autosizing TextViews
 A TextView that automatically resizes text to fit perfectly within its bounds.
+
+Android Java Doc Genetation > Tools > Generate Java Doc
+
+add cli
+
+-sourcepath C:\Users\User\AppData\Local\Android\Sdk\platforms\android-32\android.jar
+
+https://www.youtube.com/watch?v=qfdiU_XTd68

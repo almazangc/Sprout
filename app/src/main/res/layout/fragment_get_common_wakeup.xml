@@ -6,7 +6,6 @@
     tools:context=".ui.onBoarding.GetCommonWakeupFragment"
     android:background="@drawable/background_raindeer">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,19 +27,10 @@
             android:id="@+id/WakeTimePicker"
             layout="@layout/spinner_time_selector" />
 
-<!--        <TimePicker-->
-<!--            android:id="@+id/WakeTimePicker"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            android:scaleX="1.5"-->
-<!--            android:scaleY="1.5"-->
-<!--            android:timePickerMode="spinner" />-->
-
         <Button
             android:id="@+id/btn_continue"
             style="@style/btn_continue_portrait"
-            android:background="@drawable/shape_rounded_cloud_btn"
+            android:background="@drawable/selector_btn_continue"
             android:textColor="@color/NIGHT" />
 
     </RelativeLayout>

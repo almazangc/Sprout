@@ -1,28 +1,19 @@
 package com.prototype.sprout.ui.home;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.database.converters.ArrayListConverter;
-import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitViewModel;
 import com.prototype.sprout.databinding.FragmentBottomNavigationBinding;
-import com.prototype.sprout.ui.home.journal.JournalFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.prototype.sprout.ui.home.journalNote.JournalFragment;
 
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 
@@ -79,7 +70,6 @@ public class BottomNavigationFragment extends Fragment {
                             fragment = Settings;
                         break;
                     default:
-                        Toast.makeText(requireContext(), "Default Fragment", Toast.LENGTH_LONG).show();
                         fragment = Home;
                         break;
                 }
@@ -88,8 +78,6 @@ public class BottomNavigationFragment extends Fragment {
                     fragmentManager = getChildFragmentManager();
                     fragmentManager.beginTransaction().replace(binding.fragmentContainer.getId(), fragment)
                             .commit();
-                } else {
-                    Log.d("TAG", "onTabSelected: eerrror");
                 }
             }
 
@@ -99,15 +87,16 @@ public class BottomNavigationFragment extends Fragment {
             }
         });
 
-        habitViewModel = new ViewModelProvider(requireActivity()).get(HabitViewModel.class);
+//        habitViewModel = new ViewModelProvider(requireActivity()).get(HabitViewModel.class);
+//
+//        List<Habit> allHabit = habitViewModel.getAllhabitsList();
+//        for (Habit habit: allHabit){
+//            String desc = habit.getHabits();
+//            ArrayList<Integer> arrayList = habit.getSubRoutineUID();
+//            String list = ArrayListConverter.fromArrayList(arrayList);
+//            Log.d("TAG", "DESC: " + desc + "\tREF: " + list);
+//        }
 
-        List<Habit> allHabit = habitViewModel.getAllhabitsList();
-        for (Habit habit: allHabit){
-            String desc = habit.getHabits();
-            ArrayList<Integer> arrayList = habit.getSubRoutineUID();
-            String list = ArrayListConverter.fromArrayList(arrayList);
-            Log.d("TAG", "DESC: " + desc + "\tREF: " + list);
-        }
         return binding.getRoot();
     }
 }

@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_component"
-    app:startDestination="@id/startupFragment">
+    app:startDestination="@id/SplashScreenFragment">
 
     <fragment
-        android:id="@+id/startupFragment"
-        android:name="com.prototype.sprout.ui.StartupFragment"
-        android:label="fragment_startup"
-        tools:layout="@layout/fragment_startup">
+        android:id="@+id/SplashScreenFragment"
+        android:name="com.prototype.sprout.ui.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen">
         <action
-            android:id="@+id/action_startup_to_onboarding"
+            android:id="@+id/action_splashscreen_to_onboarding"
             app:destination="@id/onBoardingFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
-            android:id="@+id/action_startupFragment_to_main"
+            android:id="@+id/action_splashscreen_to_main"
             app:destination="@id/bottomNavigationFragment" />
     </fragment>
     <fragment
@@ -164,8 +164,8 @@
         android:label="fragment_analysis"
         tools:layout="@layout/fragment_analysis" >
         <action
-            android:id="@+id/action_navigate_from_analysis_to_startup"
-            app:destination="@id/startupFragment"
+            android:id="@+id/action_navigate_from_analysis_to_splashscreen"
+            app:destination="@id/SplashScreenFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
@@ -174,7 +174,7 @@
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.OnBoardingFragment"
+        android:name="com.prototype.sprout.ui.OnBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" >
         <action
@@ -191,8 +191,8 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
-            android:id="@+id/action_onboarding_to_startup"
-            app:destination="@id/startupFragment"
+            android:id="@+id/action_onboarding_to_splashscreen"
+            app:destination="@id/SplashScreenFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
@@ -213,7 +213,7 @@
         tools:layout="@layout/fragment_analytics" />
     <fragment
         android:id="@+id/journalFragment"
-        android:name="com.prototype.sprout.ui.home.journal.JournalFragment"
+        android:name="com.prototype.sprout.ui.home.journalNote.JournalFragment"
         android:label="fragment_journal"
         tools:layout="@layout/fragment_journal" />
     <fragment
@@ -228,7 +228,7 @@
         tools:layout="@layout/fragment_task" />
     <fragment
         android:id="@+id/journalNewFragment"
-        android:name="com.prototype.sprout.ui.home.journal.JournalNewFragment"
+        android:name="com.prototype.sprout.ui.home.journalNote.JournalNewFragment"
         android:label="fragment_journal_new"
         tools:layout="@layout/fragment_journal_new" />
 </navigation>
