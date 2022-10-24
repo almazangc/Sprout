@@ -48,26 +48,22 @@ public class SplashScreenFragment extends Fragment {
      * Check Status of User (Handles Display at app_start)
      */
     private void checkStatus() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Loading intents of fragments
-                //TODO: FIX FROM TODO LIST TO HOME
-                boolean isOnBoardingDone;
+        new Handler().postDelayed(() -> {
+            //Loading intents of fragments
+            boolean isOnBoardingDone;
 
-                Bundle bundle = getArguments();
-                if (bundle != null) {
-                    isOnBoardingDone = bundle.getBoolean(new BundleKey().getKEY_ANALYSIS());
-                } else {
-                    UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-                    isOnBoardingDone = userViewModel.getOnBoarding();
-                }
-
-                if (!isOnBoardingDone)
-                    NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_onboarding);
-                if (isOnBoardingDone)
-                    NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_main);
+            Bundle bundle = SplashScreenFragment.this.getArguments();
+            if (bundle != null) {
+                isOnBoardingDone = bundle.getBoolean(new BundleKey().getKEY_ANALYSIS());
+            } else {
+                UserViewModel userViewModel = new ViewModelProvider(SplashScreenFragment.this.requireActivity()).get(UserViewModel.class);
+                isOnBoardingDone = userViewModel.getOnBoarding();
             }
+
+            if (!isOnBoardingDone)
+                NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_onboarding);
+            if (isOnBoardingDone)
+                NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_main);
         }, 2000);
     }
 

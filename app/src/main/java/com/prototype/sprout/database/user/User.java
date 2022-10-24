@@ -1,50 +1,103 @@
 package com.prototype.sprout.database.user;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+/**
+ * User Class Room Entity
+ */
 @Entity
 public class User {
+    /**
+     * Auto Generated ID
+     */
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
+    /**
+     * User Nickname
+     */
     @ColumnInfo(name = "nickname")
     private String nickname;
 
+    /**
+     * User Gender
+     */
     @ColumnInfo(name = "identity")
     private String identity;
 
+    /**
+     * User App Streak Count
+     */
     @ColumnInfo(name = "streakCount")
     private int streakCount;
 
+    /**
+     * User Wake Time Hour
+     */
     @ColumnInfo(name = "wake_hour")
     private int wakeHour;
 
+    /**
+     * User Wake Time Minute
+     */
     @ColumnInfo(name = "wake_minute")
     private int wakeMinute;
 
+    /**
+     * User Sleep Time Hour
+     */
     @ColumnInfo(name = "sleep_hour")
     private int sleepHour;
 
+    /**
+     * User Sleep Time Minute
+     */
     @ColumnInfo(name = "sleep_minute")
     private int sleepMinute;
 
+    /**
+     * User EULA Agreement
+     */
     @ColumnInfo(name = "eula")
     private boolean eulaAgreement;
 
+    /**
+     * Checker for assessment finish
+     */
     @ColumnInfo(name = "assessment")
     private boolean assessmentDone;
 
+    /**
+     * Checker for onboarding finish
+     */
     @ColumnInfo(name = "onBoarding")
     private boolean onBoardingDone;
 
+    /**
+     * Default Empty Constructor
+     */
     @Ignore
     public User() {
 
     }
 
+    /**
+     * New User Object Constructor
+     * @param nickname user nickname
+     * @param identity selected gender identity (male, female, non-binary)
+     * @param streakCount total user streak count
+     * @param wakeHour morning wakehour
+     * @param wakeMinute morning wakeminute
+     * @param sleepHour evening sleephour
+     * @param sleepMinute evening sleepminute
+     * @param eulaAgreement boolean value for user agreement to eula
+     * @param assessmentDone boolean value for assessment completion checker
+     * @param onBoardingDone boolean value for user onboarding completion
+     */
     public User(String nickname, String identity, int streakCount, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement, boolean assessmentDone, boolean onBoardingDone) {
         this.nickname = nickname;
         this.identity = identity;
@@ -58,6 +111,11 @@ public class User {
         this.onBoardingDone = onBoardingDone;
     }
 
+    /**
+     * Display User Object to String
+     * @return String
+     */
+    @NonNull
     @Override
     public String toString() {
         return "User{" +

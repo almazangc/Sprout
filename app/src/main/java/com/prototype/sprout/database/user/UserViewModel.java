@@ -43,27 +43,27 @@ public class UserViewModel extends AndroidViewModel {
         return userListLiveData;
     }
 
-    public List<User> getUserList(){
+    public List<User> getUserList() {
         return userList;
     }
 
-    public int getUserCount(){
+    public int getUserCount() {
         return userCount;
     }
 
-    public void setAssessment(){
+    public void setAssessment() {
         repository.setAssessment();
     }
 
-    public boolean getAssessment(){
+    public boolean getAssessment() {
         return repository.getAssessment();
     }
 
-    public void setOnBoarding(){
+    public void setOnBoarding() {
         repository.setOnBoarding();
     }
 
-    public boolean getOnBoarding(){
+    public boolean getOnBoarding() {
         return repository.getOnBoarding();
     }
 }
