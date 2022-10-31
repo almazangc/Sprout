@@ -2,16 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.Sprout" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/WISTERIA</item>
+        <item name="colorPrimary">@color/WAIKAWA_GREY</item>
         <item name="colorPrimaryVariant">@color/PURPLE_HEARTH</item>
         <item name="colorOnPrimary">@color/CLOUDS</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/BRIGHT_SKY_BLUE</item>
         <item name="colorSecondaryVariant">@color/BELIZE_HOLE</item>
-        <item name="colorOnSecondary">@color/NIGHT</item>
+        <item name="colorOnSecondary">@color/CLOUDS</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-
 </resources>

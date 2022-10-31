@@ -51,22 +51,7 @@ public class JournalFragment extends Fragment {
             noteAdapter.setNotes(notes);
         });
 
-        //Fills layout
-        /*
-         java.lang.NullPointerException: Attempt to read from field
-         null object reference
-         */
-//        binding.journalNoteRecyclerView.setLayoutManager(
-//                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-//        );
-
-//        noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
-//        noteList = noteViewModel.getNoteList();
-//        noteAdapter = new NoteAdapter(noteList);
-//        binding.journalNoteRecyclerView.setAdapter(noteAdapter);
-//
-//
-//        getNotes();
+        getNotes();
         return binding.getRoot();
     }
 

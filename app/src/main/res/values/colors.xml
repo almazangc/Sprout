@@ -66,4 +66,6 @@
     <color name="DarkBrown">#aa6f73</color>
     <color name="LightBrown">#eea990</color>
     <color name="Pale_Brown">#f6e0b5</color>
+
+    <color name="font_color">#040000</color>
 </resources>
