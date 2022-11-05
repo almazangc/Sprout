@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.onBoarding.GetCommonWakeupFragment"
-    android:background="@drawable/background_raindeer">
+    tools:context=".ui.onBoarding.GetCommonWakeupFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:layout_alignParentTop="true"
             android:text="@string/lbl_getCommonWakeUpTime"
             android:textAlignment="center"
-            android:textColor="@color/CLOUDS"
+            android:textColor="@color/NIGHT"
             android:textSize="32sp"
             android:textStyle="bold" />
 

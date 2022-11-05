@@ -1,5 +1,6 @@
 package com.prototype.sprout.database.note;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         return notes.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setNotes(List<Note> notes) {
         this.notes = notes;
         notifyDataSetChanged();

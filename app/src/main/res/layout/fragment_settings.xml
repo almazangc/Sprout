@@ -4,26 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_main"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="lottie_anim_under-construction.json"
-        app:lottie_loop="true"
-        app:lottie_speed="1"
-        tools:background="@color/LightBrown"/>
-
-    <TextView
-        style="@style/textViewHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="SETTINGS" />
-
-</RelativeLayout>
+    tools:context=".ui.home.SettingsFragment"/>

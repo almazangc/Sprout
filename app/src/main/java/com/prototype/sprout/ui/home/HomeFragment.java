@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment {
              */
             if (users.size() == 1)
                 text = "How was your day" + users.get(0).getNickname() + "?";
-            binding.lblWelcomeMsg.setText(text);
         });
 
         onBackPress();

@@ -160,12 +160,13 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new Note("Note 1", "Date", "SampleSubTitle"));
-            noteDao.insert(new Note("Note 2", "Date", "SampleSubTitle"));
-            noteDao.insert(new Note("Note 3", "Date", "SampleSubTitle"));
-            noteDao.insert(new Note("Note 4", "Date", "SampleSubTitle"));
-            noteDao.insert(new Note("Note 5", "Date", "SampleSubTitle"));
-            noteDao.insert(new Note("Note 6", "Date", "SampleSubTitle"));
+            noteDao.insert(new Note("Note 1", "April 28, 2000", "Subtitle in a nutshell"));
+            noteDao.insert(new Note("Test", "June 1, 1999", "A very short sentence. Second part of the sentence"));
+            noteDao.insert(new Note("What?", "No date", "SampleSubTitle, but no thought. You are baka!!!!!"));
+            noteDao.insert(new Note("Note 4", "Sample Date", "SampleSubTitle"));
+            noteDao.insert(new Note("Note 4", "Sample Date", "SampleSubTitle"));
+            noteDao.insert(new Note("No time to spend", "Clean Date", "SampleSubTitle, you need to learn how to integrate the application"));
+            noteDao.insert(new Note("Note Sample 6 Title", "10.34.432/423423", "SampleSubTitle"));
             return null;
         }
     }

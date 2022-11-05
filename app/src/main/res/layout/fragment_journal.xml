@@ -7,25 +7,14 @@
     android:background="@color/CLOUDS"
     tools:context=".ui.home.journalNote.JournalFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/header_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/WAIKAWA_GREY"
+        android:background="@drawable/shape_bottom_rounded_corners_waikawa_grey"
         android:orientation="horizontal"
         android:padding="10dp">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_anim_journal_notes.json"
-            app:lottie_loop="true"
-            app:lottie_speed="1"
-            tools:background="@color/CLOUDS" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField"
@@ -57,19 +46,17 @@
                 android:inputType="text"
                 android:maxLength="25"
                 android:maxLines="1"
-                android:paddingStart="15dp"
                 android:textColor="@color/NIGHT"
                 android:textColorHint="@color/NIGHT"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/journalNoteRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_above="@id/menu_line"
+        android:layout_height="match_parent"
         android:layout_below="@id/header_container"
         tools:listitem="@layout/journal_note_container" />
 
@@ -79,22 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
-        android:contentDescription="add_new_note"
+        android:layout_marginBottom="10dp"
         app:backgroundTint="@color/CLOUDS"
         app:borderWidth="5dp"
-        app:srcCompat="@drawable/ic_add"
-        tools:ignore="RelativeOverlap" />
-
-    <LinearLayout
-        android:id="@+id/menu_line"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/KIMBERLY"
-        android:layout_alignParentBottom="true"
-        android:padding="10dp"
-        android:orientation="horizontal">
-    </LinearLayout>
-
+        app:srcCompat="@drawable/ic_add" />
 </RelativeLayout>

@@ -3,52 +3,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_canva_task"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.TaskFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="140dp"
-        android:background="@drawable/shape_note_canva"
-        android:paddingLeft="5dp"
-        android:paddingBottom="10dp"
-        android:paddingTop="50dp"
-        android:paddingRight="5dp">
+    <TextView
+        android:id="@+id/TaskTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:text="DAILY SUBROUTINE TASK"
+        android:textAlignment="center"
+        android:textColor="@color/MIRAGE"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/lblTitle"
-            style="@style/textViewHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:layout_centerHorizontal="true"
-            android:text="Namae wo yobu yo"
-            android:textAlignment="center" />
+    <TextView
+        android:id="@+id/TaskSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TaskTitle"
+        android:paddingTop="2dp"
+        android:paddingBottom="5dp"
+        android:text="Subroutines helps you in reforming bad habits"
+        android:textAlignment="center"
+        android:textColor="@color/MIRAGE"
+        android:textSize="15dp" />
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lblTitle"
-            android:layout_centerInParent="true"
-            android:scrollbarAlwaysDrawVerticalTrack="false">
-
-            <TextView
-                android:id="@+id/lblDesc"
-                style="@style/textViewSubHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_margin="12dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:justificationMode="inter_word"
-                android:text="\t“I’ll Call Out Your Name”* by Luck Life is a song about the badge of one’s life: their name. Given to us when we were born, it is the sign that we live. We are not some hollow human who keeps droning through life. We are something that has a reason to live. And our beloved ones exemplify that definition as they call out our name. Now, let’s call out their name, so that we can let them know that they live for at least one more reason: so we can let them know that they exist and are loved by us."
-                android:textAlignment="center" />
-        </ScrollView>
-    </RelativeLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Add_Habit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:backgroundTint="@color/CLOUDS"
+        app:borderWidth="5dp"
+        app:srcCompat="@drawable/ic_add" />
 </RelativeLayout>

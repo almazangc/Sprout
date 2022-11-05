@@ -51,7 +51,7 @@ public class JournalFragment extends Fragment {
             noteAdapter.setNotes(notes);
         });
 
-        getNotes();
+//        getNotes();
         return binding.getRoot();
     }
 

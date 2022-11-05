@@ -1,33 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/relativeLayoutPadding"
-    android:background="@drawable/background_canva_aesthetic"
+    android:background="@color/CLOUDS"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/lbl_welcome_msg"
-        style="@style/textViewHeader"
+        android:id="@+id/homeTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:text="Habit Reform"
+        android:textAlignment="center"
+        android:textColor="@color/MIRAGE"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/homeSubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/homeTitle"
+        android:paddingTop="2dp"
+        android:paddingBottom="5dp"
+        android:text="Programmer: A machine that turns coffee into code."
+        android:textAlignment="center"
+        android:textColor="@color/MIRAGE"
+        android:textSize="15dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/BadHabits_onReform"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/homeSubTitle"
+        tools:listitem="@layout/home_habit_container" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Add_Habit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/lottie_main"
-        android:layout_centerInParent="true"
-        android:text="HOME"
-        android:textAlignment="center" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_main"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="lottie_anim_choose-your-colors.json"
-        app:lottie_loop="true"
-        app:lottie_speed="1"
-        tools:background="@color/CLOUDS" />
-
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:backgroundTint="@color/CLOUDS"
+        app:borderWidth="5dp"
+        app:srcCompat="@drawable/ic_add" />
 </RelativeLayout>

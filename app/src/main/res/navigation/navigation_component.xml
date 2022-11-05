@@ -215,7 +215,11 @@
         android:id="@+id/journalFragment"
         android:name="com.prototype.sprout.ui.home.journalNote.JournalFragment"
         android:label="fragment_journal"
-        tools:layout="@layout/fragment_journal" />
+        tools:layout="@layout/fragment_journal" >
+        <action
+            android:id="@+id/action_journalFragment_to_journalNewFragment"
+            app:destination="@id/journalNewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.prototype.sprout.ui.home.SettingsFragment"
@@ -226,4 +230,13 @@
         android:name="com.prototype.sprout.ui.home.TaskFragment"
         android:label="fragment_task"
         tools:layout="@layout/fragment_task" />
+    <fragment
+        android:id="@+id/journalNewFragment"
+        android:name="com.prototype.sprout.ui.home.journalNote.JournalNewFragment"
+        android:label="fragment_journal_new"
+        tools:layout="@layout/fragment_journal_new" >
+        <action
+            android:id="@+id/action_journalNewFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
+    </fragment>
 </navigation>
