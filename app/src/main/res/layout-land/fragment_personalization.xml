@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="@dimen/relativeLayoutPadding"
     android:weightSum="10"
-    tools:context=".ui.onBoarding.PersonalizationFragment">
+    tools:context=".ui.onBoarding.assessment.PersonalizationFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

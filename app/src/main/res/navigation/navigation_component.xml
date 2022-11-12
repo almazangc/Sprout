@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/eulaFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.EulaFragment"
+        android:name="com.prototype.sprout.ui.onBoarding.eula.EulaFragment"
         android:label="fragment_eula"
         tools:layout="@layout/fragment_eula">
         <action
@@ -149,7 +149,7 @@
     </fragment>
     <fragment
         android:id="@+id/personalizationFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.PersonalizationFragment"
+        android:name="com.prototype.sprout.ui.onBoarding.assessment.PersonalizationFragment"
         android:label="fragment_personalization"
         tools:layout="@layout/fragment_personalization">
         <action
@@ -160,7 +160,7 @@
     </fragment>
     <fragment
         android:id="@+id/analysisFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.AnalysisFragment"
+        android:name="com.prototype.sprout.ui.onBoarding.assessment.AnalysisFragment"
         android:label="fragment_analysis"
         tools:layout="@layout/fragment_analysis" >
         <action
@@ -198,45 +198,120 @@
     </fragment>
     <fragment
         android:id="@+id/bottomNavigationFragment"
-        android:name="com.prototype.sprout.ui.home.BottomNavigationFragment"
+        android:name="com.prototype.sprout.ui.menu.BottomNavigationFragment"
         android:label="fragment_bottom_navigation"
         tools:layout="@layout/fragment_bottom_navigation" />
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.prototype.sprout.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
-    <fragment
         android:id="@+id/analyticsFragment"
-        android:name="com.prototype.sprout.ui.home.AnalyticsFragment"
+        android:name="com.prototype.sprout.ui.menu.analytic.AnalyticFragment"
         android:label="fragment_analytics"
-        tools:layout="@layout/fragment_analytics" />
+        tools:layout="@layout/fragment_analytic" />
     <fragment
         android:id="@+id/journalFragment"
-        android:name="com.prototype.sprout.ui.home.journalNote.JournalFragment"
+        android:name="com.prototype.sprout.ui.menu.journal.JournalFragment"
         android:label="fragment_journal"
         tools:layout="@layout/fragment_journal" >
         <action
-            android:id="@+id/action_journalFragment_to_journalNewFragment"
-            app:destination="@id/journalNewFragment" />
+            android:id="@+id/action_journalFragment_to_addNoteFragment"
+            app:destination="@id/addNoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.prototype.sprout.ui.home.SettingsFragment"
+        android:name="com.prototype.sprout.ui.menu.setting.SettingFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
-    <fragment
-        android:id="@+id/taskFragment"
-        android:name="com.prototype.sprout.ui.home.TaskFragment"
-        android:label="fragment_task"
-        tools:layout="@layout/fragment_task" />
-    <fragment
-        android:id="@+id/journalNewFragment"
-        android:name="com.prototype.sprout.ui.home.journalNote.JournalNewFragment"
-        android:label="fragment_journal_new"
-        tools:layout="@layout/fragment_journal_new" >
+        tools:layout="@layout/fragment_setting" >
         <action
-            android:id="@+id/action_journalNewFragment_to_journalFragment"
+            android:id="@+id/action_settingsFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_learnMoreFragment"
+            app:destination="@id/learnMoreFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_techStackInfoFragment"
+            app:destination="@id/techStackInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subroutineFragment"
+        android:name="com.prototype.sprout.ui.menu.subroutine.SubroutineFragment"
+        android:label="fragment_subroutine"
+        tools:layout="@layout/fragment_subroutine" >
+        <action
+            android:id="@+id/action_subroutineFragment_to_addNewSubroutineFragment"
+            app:destination="@id/addNewSubroutineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.prototype.sprout.ui.menu.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_addNewHabitFragment"
+            app:destination="@id/addNewHabitFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_addDefaultHabitFragment"
+            app:destination="@id/addDefaultHabitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.prototype.sprout.ui.menu.journal.AddNoteFragment"
+        android:label="fragment_journal_new"
+        tools:layout="@layout/fragment_add_note" >
+        <action
+            android:id="@+id/action_addNoteFragment_to_journalFragment"
             app:destination="@id/journalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewHabitFragment"
+        android:name="com.prototype.sprout.ui.menu.home.AddNewHabitFragment"
+        android:label="fragment_add_new_habit"
+        tools:layout="@layout/fragment_add_new_habit" >
+        <action
+            android:id="@+id/action_addNewHabitFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDefaultHabitFragment"
+        android:name="com.prototype.sprout.ui.menu.home.AddDefaultHabitFragment"
+        android:label="fragment_add_default_habit"
+        tools:layout="@layout/fragment_add_default_habit" >
+        <action
+            android:id="@+id/action_addDefaultHabitFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewSubroutineFragment"
+        android:name="com.prototype.sprout.ui.menu.subroutine.AddNewSubroutineFragment"
+        android:label="fragment_add_new_subroutine"
+        tools:layout="@layout/fragment_add_new_subroutine" >
+        <action
+            android:id="@+id/action_addNewSubroutineFragment_to_subroutineFragment"
+            app:destination="@id/subroutineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.prototype.sprout.ui.menu.setting.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" >
+        <action
+            android:id="@+id/action_aboutUsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/learnMoreFragment"
+        android:name="com.prototype.sprout.ui.menu.setting.LearnMoreFragment"
+        android:label="fragment_learn_more"
+        tools:layout="@layout/fragment_learn_more" >
+        <action
+            android:id="@+id/action_learnMoreFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/techStackInfoFragment"
+        android:name="com.prototype.sprout.ui.menu.setting.TechStackInfoFragment"
+        android:label="fragment_tech_stack_info"
+        tools:layout="@layout/fragment_tech_stack_info" >
+        <action
+            android:id="@+id/action_techStackInfoFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 </navigation>

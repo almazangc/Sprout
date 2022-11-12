@@ -5,9 +5,9 @@
         android:icon="@drawable/ic_home"
         android:title="@string/home" />
     <item
-        android:id="@+id/tab_task"
+        android:id="@+id/tab_subroutine"
         android:icon="@drawable/ic_table_chart"
-        android:title="@string/task" />
+        android:title="@string/subroutine" />
     <item
         android:id="@+id/tab_analytic"
         android:icon="@drawable/ic_analytics"

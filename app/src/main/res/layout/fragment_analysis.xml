@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.onBoarding.AnalysisFragment">
+    tools:context=".ui.onBoarding.assessment.AnalysisFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout

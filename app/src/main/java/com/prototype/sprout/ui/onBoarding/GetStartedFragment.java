@@ -1,6 +1,5 @@
 package com.prototype.sprout.ui.onBoarding;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -61,7 +60,7 @@ public class GetStartedFragment extends Fragment {
         int duration = Toast.LENGTH_LONG;
 
 //        View layout = binding.getRoot().findViewById(R.id.custom_toast_layout);
-        View layout = getLayoutInflater().inflate(R.layout.custom_toast, (ViewGroup) binding.getRoot().findViewById(R.id.custom_toast_layout));
+        View layout = getLayoutInflater().inflate(R.layout.get_started_custom_toast, (ViewGroup) binding.getRoot().findViewById(R.id.custom_toast_layout));
         TextView text = layout.findViewById(R.id.custom_toast_lbl);
         text.setText(message);
 
