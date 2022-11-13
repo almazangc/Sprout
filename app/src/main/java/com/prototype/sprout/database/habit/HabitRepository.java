@@ -12,16 +12,20 @@ import java.util.List;
 public class HabitRepository {
 
     private HabitDao habitDao;
-    private List<Habit> allhabitsList;
-    private List<String> getHabits;
-    private LiveData<List<Habit>> allhabitsListLiveData;
+    private List<Habit> allHabitList;
+    private List<Habit> allHabitOnReform;
+    private List<String> allHabitTitle;
+    private LiveData<List<Habit>> allHabitListLiveData;
+    private LiveData<List<Habit>> allHabitOnReformLiveData;
 
     public HabitRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         habitDao = appDatabase.habitDao();
-        allhabitsList = habitDao.getAllHabits();
-        getHabits = habitDao.getHabits();
-        allhabitsListLiveData = habitDao.getAllHabitsLiveData();
+        allHabitList = habitDao.getAllHabit();
+        allHabitOnReform = habitDao.getAllHabitOnReform();
+        allHabitTitle = habitDao.getAllHabitTitle();
+        allHabitListLiveData = habitDao.getAllHabitLiveData();
+        allHabitOnReformLiveData = habitDao.getAllHabitOnReformLiveData();
     }
 
     public void insert(Habit habit) {
@@ -100,20 +104,28 @@ public class HabitRepository {
         }
     }
 
-    public List<Habit> getAllhabitsList() {
-        return allhabitsList;
+    public List<Habit> getAllHabitList() {
+        return allHabitList;
+    }
+
+    public List<Habit> getAllHabitOnReform() {
+        return allHabitOnReform;
     }
 
     public List<String> getHabits() {
-        return getHabits;
+        return allHabitTitle;
     }
 
-    public LiveData<List<Habit>> getAllhabitsListLiveData() {
-        return allhabitsListLiveData;
+    public LiveData<List<Habit>> getAllHabitListLiveData() {
+        return allHabitListLiveData;
     }
 
     public List<Habit> getHabitList(int uid) {
-        return habitDao.getHabit(uid);
+        return habitDao.getAllHabitTitle(uid);
+    }
+
+    public LiveData<List<Habit>> getAllHabitOnReformLiveData() {
+        return allHabitOnReformLiveData;
     }
 }
 

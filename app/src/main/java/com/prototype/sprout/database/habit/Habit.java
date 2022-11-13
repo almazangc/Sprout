@@ -15,17 +15,26 @@ public class Habit {
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
-    @ColumnInfo(name = "habits")
-    private String habits;
+    @ColumnInfo(name = "on_reform")
+    private boolean onReform;
+
+    @ColumnInfo(name = "habit")
+    private String habit;
 
     @ColumnInfo(name = "desc")
-    private String desc;
+    private String description;
 
     @ColumnInfo(name = "abstinence")
     private int abstinence;
 
     @ColumnInfo(name = "relapse")
     private int relapse;
+
+    @ColumnInfo(name = "date_started")
+    private String dateStarted;
+
+    @ColumnInfo(name = "completed_subroutine")
+    private int completedSubroutine;
 
     @ColumnInfo(name = "subRoutineUID")
     @TypeConverters(ArrayListConverter.class)
@@ -37,30 +46,34 @@ public class Habit {
     }
 
     @Ignore
-    public Habit(String habits, String desc, ArrayList<Integer> subRoutineUID) {
-        this.habits = habits;
-        this.desc = desc;
+    public Habit(String habit, String description, ArrayList<Integer> subRoutineUID) {
+        this.habit = habit;
+        this.description = description;
         this.subRoutineUID = subRoutineUID;
     }
 
-    public Habit(String habits, String desc, int abstinence, int relapse, ArrayList<Integer> subRoutineUID) {
-        this.habits = habits;
-        this.desc = desc;
+    public Habit(boolean onReform, String habit, String description, ArrayList<Integer> subRoutineUID) {
+        this.onReform = onReform;
+        this.habit = habit;
+        this.description = description;
+        this.subRoutineUID = subRoutineUID;
+    }
+
+    @Ignore
+    public Habit(boolean onReform, String habit, String description, int abstinence, int relapse, String dateStarted, int completedSubroutine, ArrayList<Integer> subRoutineUID) {
+        this.onReform = onReform;
+        this.habit = habit;
+        this.description = description;
         this.abstinence = abstinence;
         this.relapse = relapse;
+        this.dateStarted = dateStarted;
+        this.completedSubroutine = completedSubroutine;
         this.subRoutineUID = subRoutineUID;
     }
 
     @Override
     public String toString() {
-        return "Habit{" +
-                "uid=" + uid +
-                ", habits='" + habits + '\'' +
-                ", desc='" + desc + '\'' +
-                ", abstinence=" + abstinence +
-                ", relapse=" + relapse +
-                ", subRoutineUID=" + subRoutineUID +
-                '}';
+        return "onReform: " + onReform + ",\thabit: " + habit + "}\n";
     }
 
     public int getUid() {
@@ -71,20 +84,28 @@ public class Habit {
         this.uid = uid;
     }
 
-    public String getHabits() {
-        return habits;
+    public boolean isOnReform() {
+        return onReform;
     }
 
-    public void setHabits(String habits) {
-        this.habits = habits;
+    public void setOnReform(boolean onReform) {
+        this.onReform = onReform;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getHabit() {
+        return habit;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setHabit(String habit) {
+        this.habit = habit;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getAbstinence() {
@@ -101,6 +122,22 @@ public class Habit {
 
     public void setRelapse(int relapse) {
         this.relapse = relapse;
+    }
+
+    public String getDateStarted() {
+        return dateStarted;
+    }
+
+    public void setDateStarted(String dateStarted) {
+        this.dateStarted = dateStarted;
+    }
+
+    public int getCompletedSubroutine() {
+        return completedSubroutine;
+    }
+
+    public void setCompletedSubroutine(int completedSubroutine) {
+        this.completedSubroutine = completedSubroutine;
     }
 
     public ArrayList<Integer> getSubRoutineUID() {

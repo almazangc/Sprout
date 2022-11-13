@@ -5,12 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.onBoarding.assessment.AnalysisFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textViewHeader"
@@ -25,8 +23,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textSubHeader"
@@ -40,7 +37,7 @@
                 android:padding="30dp"
                 android:text="You scored 70 and it has been noted that your struggling with breaking from bad habit of your's we suggest you to choose on the list of habit you wanna break"
                 android:textAlignment="center"
-                android:textColor="#FAFAFA"
+                android:textColor="@color/NIGHT"
                 android:textSize="18sp"
                 tools:text="Sample Text Goes Here: " />
 
@@ -53,7 +50,6 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-
                 android:layout_marginBottom="200dp">
 
                 <AutoCompleteTextView

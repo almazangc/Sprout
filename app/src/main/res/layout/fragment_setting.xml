@@ -1,9 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settings_frame_layout"
+    android:layout_height="match_parent"
+    tools:context=".ui.menu.setting.SettingFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/settings_top_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT"
+            android:textSize="25sp" />
+
+        <ScrollView
+            android:id="@+id/settings_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/settings_top_label"
+            android:layout_alignParentBottom="true"
+            android:scrollbarThumbVertical="@color/MIRAGE_70"
+            android:scrollbars="vertical">
+
+            <RelativeLayout
+                android:id="@+id/settings_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:isScrollContainer="true"
+                android:orientation="vertical">
 
 
-    tools:context=".ui.menu.setting.SettingFragment"/>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottie_avatar"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="profile-avatar-setting.json"
+                    app:lottie_loop="true"
+                    app:lottie_speed="1" />
+
+                <TextView
+                    android:id="@+id/nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lottie_avatar"
+                    android:layout_centerHorizontal="true"
+                    android:text="Nickname"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="18sp"
+                    tools:text="@tools:sample/full_names" />
+
+                <RelativeLayout
+                    android:id="@+id/settings_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/nickname"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/edit_nickname_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@id/select_theme_btn"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/selector_btn_continue"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="1dp"
+                            android:text="Edit Profile"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/select_theme_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@id/tech_stack_info_btn"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/selector_btn_continue"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="1dp"
+                            android:text="THEME"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/tech_stack_info_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@id/learn_more_btn"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/selector_btn_continue"
+                            android:text="Tech Stack Info"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/learn_more_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_above="@id/about_us_btn"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/selector_btn_continue"
+                            android:text="Learn More"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/about_us_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:background="@drawable/selector_btn_continue"
+                            android:text="About Us"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/bottomView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</FrameLayout>

@@ -22,4 +22,10 @@ public class SettingFragment extends Fragment {
         binding = FragmentSettingBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
 }

@@ -13,16 +13,22 @@ import java.util.List;
 public interface HabitDao {
 
     @Query("SELECT * FROM Habit")
-    List<Habit> getAllHabits();
+    List<Habit> getAllHabit();
 
-    @Query("SELECT habits from Habit")
-    List<String> getHabits();
+    @Query("SELECT habit from Habit")
+    List<String> getAllHabitTitle();
 
     @Query("SELECT * FROM Habit")
-    LiveData<List<Habit>> getAllHabitsLiveData();
+    LiveData<List<Habit>> getAllHabitLiveData();
 
     @Query("SELECT * FROM Habit WHERE uid =:uid")
-    List<Habit> getHabit(int uid);
+    List<Habit> getAllHabitTitle(int uid);
+
+    @Query("SELECT * FROM Habit WHERE on_reform = 1")
+    List<Habit> getAllHabitOnReform();
+
+    @Query("SELECT * FROM Habit WHERE on_reform = 1")
+    LiveData<List<Habit>> getAllHabitOnReformLiveData();
 
     @Insert
     void insert(Habit... habits);

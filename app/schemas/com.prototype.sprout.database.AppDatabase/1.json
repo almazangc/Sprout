@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f2881c3990b7af366809f9bcf30c6510",
+    "identityHash": "dffa0e607bfce851b447eddd56fb55f1",
     "entities": [
       {
         "tableName": "User",
@@ -142,7 +142,7 @@
       },
       {
         "tableName": "Habit",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habits` TEXT, `desc` TEXT, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `subRoutineUID` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `on_reform` INTEGER NOT NULL, `habit` TEXT, `desc` TEXT, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `completed_subroutine` INTEGER NOT NULL, `subRoutineUID` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -151,13 +151,19 @@
             "notNull": true
           },
           {
-            "fieldPath": "habits",
-            "columnName": "habits",
+            "fieldPath": "onReform",
+            "columnName": "on_reform",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "habit",
+            "columnName": "habit",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "desc",
+            "fieldPath": "description",
             "columnName": "desc",
             "affinity": "TEXT",
             "notNull": false
@@ -171,6 +177,18 @@
           {
             "fieldPath": "relapse",
             "columnName": "relapse",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateStarted",
+            "columnName": "date_started",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "completedSubroutine",
+            "columnName": "completed_subroutine",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -312,7 +330,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f2881c3990b7af366809f9bcf30c6510')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dffa0e607bfce851b447eddd56fb55f1')"
     ]
   }
 }

@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/homeSubTitle"
-            tools:listitem="@layout/home_parent_habit_adapter_item" />
+            tools:listitem="@layout/adapter_home_parent_habit_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/home_fab"

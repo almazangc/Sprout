@@ -33,9 +33,9 @@ public class AnalysisFragment extends Fragment {
         binding = FragmentAnalysisBinding.inflate(inflater, container, false);
 
         HabitViewModel habitViewModel = new ViewModelProvider(requireActivity()).get(HabitViewModel.class);
-        List<String> habits = habitViewModel.getGetHabits();
+        List<String> habits = habitViewModel.getAllHabitTitle();
 
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.analysis_habit_adapter_item, habits);
+        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_analysis_habit_item, habits);
         binding.dropItems.setAdapter(adapterItems);
         return binding.getRoot();
     }

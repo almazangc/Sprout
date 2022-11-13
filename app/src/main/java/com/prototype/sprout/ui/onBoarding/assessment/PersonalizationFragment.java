@@ -54,7 +54,7 @@ public class PersonalizationFragment extends Fragment {
 
         assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
         setProgressBarMaxSize();
-        assessmentViewModel.getAssessmentListLiveData().observe(getViewLifecycleOwner(), assessments -> {
+        assessmentViewModel.getAllAssessmentListLiveData().observe(getViewLifecycleOwner(), assessments -> {
 
             //Initial UI Update and Initialize ProgressBar Value to 1
             if (uid == 0) setUIText(assessments);
@@ -105,7 +105,7 @@ public class PersonalizationFragment extends Fragment {
      * Sets the progressbar size
      */
     private void setProgressBarMaxSize() {
-        binding.assessmentProgressBar.setMax(assessmentViewModel.getAssessmentList().size());
+        binding.assessmentProgressBar.setMax(assessmentViewModel.getAllAssessmentList().size());
     }
 
     /**

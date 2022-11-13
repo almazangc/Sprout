@@ -20,10 +20,6 @@ public class OnBoardingFragment extends Fragment {
     private boolean isAssessmentDone = false;
     private int userCount = 0;
 
-    public OnBoardingFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

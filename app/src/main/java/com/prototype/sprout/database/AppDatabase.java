@@ -70,22 +70,22 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            habitDao.insert(new Habit("Stress Eating", "Eating a lot due to stress", ArrayListConverter.fromString("[3,5,8]")));
-            habitDao.insert(new Habit("Poor Sleep Management", "Not Sleeping on time daily", ArrayListConverter.fromString("[3,4,5,6]")));
-            habitDao.insert(new Habit("Drinking", "Alcohol, Beverage, uncontrolled drinking" ,ArrayListConverter.fromString("[2,5,8,9,10]")));
-            habitDao.insert(new Habit("Gambling", "Uncontrolled betting of cash" , ArrayListConverter.fromString("[1,4,7,8,9]")));
-            habitDao.insert(new Habit("Poor spending habits", "Unable to resist from spending", ArrayListConverter.fromString("[1,3,6,7,8]")));
-            habitDao.insert(new Habit("Excessive profanity", "Uncontrolled toxicity", ArrayListConverter.fromString("[1,4,5,6,7]")));
-            habitDao.insert(new Habit("Multi-tasking", "Jumping from one task to another not lack of focus", ArrayListConverter.fromString("[1,3,6,8,9]")));
-            habitDao.insert(new Habit("Smoking", "Addicted to smoking, eg., vape",ArrayListConverter.fromString("[1,3,7,9]")));
-            habitDao.insert(new Habit("Procrastination", "The action of delaying something", ArrayListConverter.fromString("[1,2,4,6,9]")));
-            habitDao.insert(new Habit("Overthinking and worrying", "Thinking too much about something",ArrayListConverter.fromString("[1,2,4,5]")));
-            habitDao.insert(new Habit("Cluttering your living/workspace", "Pileup, Messy or Unmanaged Living Room or Workspace",ArrayListConverter.fromString("[1,4,7,9]")));
-            habitDao.insert(new Habit("Leaving the toilet seat up", "Some desc",ArrayListConverter.fromString("[1,3,6,8]")));
-            habitDao.insert(new Habit("Leaving clothes on the floor", "Throwing used clothes anyone in the house",ArrayListConverter.fromString("[0,3,5,6]")));
-            habitDao.insert(new Habit("Taking things personally", "arsagid jkjk", ArrayListConverter.fromString("[1,4,5,6]")));
-            habitDao.insert(new Habit("Overusing slang", "Feeling slang", ArrayListConverter.fromString("[0,3,5,6]")));
-            habitDao.insert(new Habit("A lot", "and more....",ArrayListConverter.fromString("[1,4,6,7]")));
+            habitDao.insert(new Habit(false, "Stress Eating", "Eating a lot due to stress", ArrayListConverter.fromString("[3,5,8]")));
+            habitDao.insert(new Habit(true, "Poor Sleep Management", "Not Sleeping on time daily", ArrayListConverter.fromString("[1, 2, 3, 4, 5]")));
+            habitDao.insert(new Habit(false, "Drinking", "Alcohol, Beverage, uncontrolled drinking", ArrayListConverter.fromString("[2,5,8,9,10]")));
+            habitDao.insert(new Habit(false, "Gambling", "Uncontrolled betting of cash", ArrayListConverter.fromString("[1,4,7,8,9]")));
+            habitDao.insert(new Habit(false, "Poor spending habits", "Unable to resist from spending", ArrayListConverter.fromString("[1,3,6,7,8]")));
+            habitDao.insert(new Habit(false, "Excessive profanity", "Uncontrolled toxicity", ArrayListConverter.fromString("[1,4,5,6,7]")));
+            habitDao.insert(new Habit(false, "Multi-tasking", "Jumping from one task to another not lack of focus", ArrayListConverter.fromString("[1,3,6,8,9]")));
+            habitDao.insert(new Habit(false, "Smoking", "Addicted to smoking, eg., vape", ArrayListConverter.fromString("[1,3,7,9]")));
+            habitDao.insert(new Habit(true, "Procrastination", "The action of delaying something", ArrayListConverter.fromString("[6,7,8,9,10]")));
+            habitDao.insert(new Habit(false, "Overthinking and worrying", "Thinking too much about something", ArrayListConverter.fromString("[1,2,4,5]")));
+            habitDao.insert(new Habit(false, "Cluttering your living/workspace", "Pileup, Messy or Unmanaged Living Room or Workspace", ArrayListConverter.fromString("[1,4,7,9]")));
+            habitDao.insert(new Habit(false, "Leaving the toilet seat up", "Some desc", ArrayListConverter.fromString("[1,3,6,8]")));
+            habitDao.insert(new Habit(false, "Leaving clothes on the floor", "Throwing used clothes anyone in the house", ArrayListConverter.fromString("[0,3,5,6]")));
+            habitDao.insert(new Habit(false, "Taking things personally", "arsagid jkjk", ArrayListConverter.fromString("[1,4,5,6]")));
+            habitDao.insert(new Habit(false, "Overusing slang", "Feeling slang", ArrayListConverter.fromString("[0,3,5,6]")));
+            habitDao.insert(new Habit(false, "A lot", "and more....", ArrayListConverter.fromString("[1,4,6,7]")));
             return null;
         }
     }

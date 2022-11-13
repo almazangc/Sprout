@@ -11,14 +11,14 @@ import java.util.List;
 
 public class AssessmentRepository {
     private AssessmentDao assessmentDao;
-    private LiveData<List<Assessment>> AssessmentListLivedata;
-    private List<Assessment> AssessmentList;
+    private LiveData<List<Assessment>> allAssessmentListLivedata;
+    private List<Assessment> allAssessmentList;
 
     public AssessmentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         assessmentDao = appDatabase.assessmentDao();
-        AssessmentListLivedata = assessmentDao.getALLAssessmentLiveData();
-        AssessmentList = assessmentDao.getALLAssessment();
+        allAssessmentListLivedata = assessmentDao.getALLAssessmentLiveData();
+        allAssessmentList = assessmentDao.getALLAssessment();
     }
 
     public void insert(Assessment assessment) {
@@ -97,12 +97,12 @@ public class AssessmentRepository {
         }
     }
 
-    public LiveData<List<Assessment>> getAssessmentListLivedata() {
-        return AssessmentListLivedata;
+    public LiveData<List<Assessment>> getAllAssessmentListLivedata() {
+        return allAssessmentListLivedata;
     }
 
-    public List<Assessment> getAssessmentList() {
-        return AssessmentList;
+    public List<Assessment> getAllAssessmentList() {
+        return allAssessmentList;
     }
 
     public void updateSelectedUID(int uid, String value){

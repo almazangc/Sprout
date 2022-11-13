@@ -11,16 +11,20 @@ import java.util.List;
 public class HabitViewModel extends AndroidViewModel {
 
     private HabitRepository repository;
-    private List<Habit> allhabitsList;
-    private List<String> getHabits;
-    private LiveData<List<Habit>> allhabitsListLiveData;
+    private List<Habit> allHabitList;
+    private List<Habit> allHabitOnReform;
+    private List<String> allHabitTitle;
+    private LiveData<List<Habit>> allHabitListLiveData;
+    private LiveData<List<Habit>> allHabitOnReformLiveData;
 
     public HabitViewModel(@NonNull Application application) {
         super(application);
         repository = new HabitRepository(application);
-        allhabitsList = repository.getAllhabitsList();
-        getHabits = repository.getHabits();
-        allhabitsListLiveData = repository.getAllhabitsListLiveData();
+        allHabitList = repository.getAllHabitList();
+        allHabitOnReform = repository.getAllHabitOnReform();
+        allHabitTitle = repository.getHabits();
+        allHabitListLiveData = repository.getAllHabitListLiveData();
+        allHabitOnReformLiveData = repository.getAllHabitOnReformLiveData();
     }
 
     public void insert(Habit habit) {
@@ -39,19 +43,27 @@ public class HabitViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
-    public List<Habit> getAllhabitsList() {
-        return allhabitsList;
+    public List<Habit> getAllHabitList() {
+        return allHabitList;
     }
 
-    public List<String> getGetHabits() {
-        return getHabits;
+    public List<Habit> getAllHabitOnReform() {
+        return allHabitOnReform;
     }
 
-    public LiveData<List<Habit>> getAllhabitsListLiveData() {
-        return allhabitsListLiveData;
+    public List<String> getAllHabitTitle() {
+        return allHabitTitle;
+    }
+
+    public LiveData<List<Habit>> getAllHabitListLiveData() {
+        return allHabitListLiveData;
     }
 
     public List<Habit> getHabitList(int uid) {
         return repository.getHabitList(uid);
+    }
+
+    public LiveData<List<Habit>> getAllHabitOnReformLiveData() {
+        return allHabitOnReformLiveData;
     }
 }
