@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.database.habit.HabitViewModel;
 import com.prototype.sprout.databinding.FragmentBottomNavigationBinding;
 import com.prototype.sprout.ui.menu.analytic.AnalyticFragment;
 import com.prototype.sprout.ui.menu.home.HomeFragment;

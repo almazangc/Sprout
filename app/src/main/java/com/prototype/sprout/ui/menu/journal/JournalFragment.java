@@ -16,6 +16,7 @@ import com.prototype.sprout.database.AppDatabase;
 import com.prototype.sprout.database.note.Note;
 import com.prototype.sprout.database.note.NoteViewModel;
 import com.prototype.sprout.databinding.FragmentJournalBinding;
+import com.prototype.sprout.ui.menu.journal.adapter.NoteAdapter;
 
 import java.util.List;
 

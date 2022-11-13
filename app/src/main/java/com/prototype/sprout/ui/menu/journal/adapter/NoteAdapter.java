@@ -1,4 +1,4 @@
-package com.prototype.sprout.ui.menu.journal;
+package com.prototype.sprout.ui.menu.journal.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
