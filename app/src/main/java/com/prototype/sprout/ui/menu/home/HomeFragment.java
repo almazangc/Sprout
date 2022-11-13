@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitViewModel;
+import com.prototype.sprout.databinding.FragmentHomeBinding;
 import com.prototype.sprout.ui.menu.home.adapter.HomeParentAdapterItem;
 import com.prototype.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
 import com.prototype.sprout.ui.menu.home.ui.AddNewHabitFragment;
