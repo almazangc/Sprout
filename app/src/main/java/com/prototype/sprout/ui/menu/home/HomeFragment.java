@@ -2,11 +2,9 @@ package com.prototype.sprout.ui.menu.home;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -17,8 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitViewModel;
-import com.prototype.sprout.databinding.FragmentHomeBinding;
-import com.prototype.sprout.ui.menu.home.adapter.HabitAdapter;
+import com.prototype.sprout.ui.menu.home.adapter.HomeParentAdapterItem;
+import com.prototype.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
+import com.prototype.sprout.ui.menu.home.ui.AddNewHabitFragment;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
-    private HabitAdapter habitAdapter;
+    private HomeParentAdapterItem homeParentAdapterItem;
     private List<Habit> habitsOnReform;
     private HabitViewModel habitViewModel;
 
@@ -39,31 +38,29 @@ public class HomeFragment extends Fragment {
         habitViewModel = new ViewModelProvider(requireActivity()).get(HabitViewModel.class);
 
         habitsOnReform = habitViewModel.getAllHabitOnReform();
-        Log.d("TAG", "Initial: "+ habitsOnReform.toString());
-        habitAdapter = new HabitAdapter(habitsOnReform);
-        binding.homeRecyclerView.setAdapter(habitAdapter);
+        homeParentAdapterItem = new HomeParentAdapterItem(habitsOnReform);
+        binding.homeRecyclerView.setAdapter(homeParentAdapterItem);
 
         habitViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habitsOnReform -> {
-            habitAdapter.setHabits(habitsOnReform);
-            Log.d("TAG", "LiveData: "+ habitsOnReform.toString());
+            homeParentAdapterItem.setHabits(habitsOnReform);
         });
 
         binding.homeFab.setOnClickListener(view -> {
-            Toast.makeText(requireContext(), "FAB Button", Toast.LENGTH_SHORT).show();
+            FragmentManager fragmentManager = getChildFragmentManager();
 
             String[] items = {"Choose from Predefined-list", "Add New Habit"};
 
-            // setup the alert builder
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
             builder.setTitle("Add Habit on Reform");
-            // add a list
             builder.setItems(items, (dialog, which) -> {
                 switch (which) {
-                    case 0: //
+                    case 0:
+                        AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
+                        fragmentManager.beginTransaction().replace(binding.homeFrameLayout.getId(), addDefaultHabitFragment)
+                                .commit();
+                        binding.homeContainer.setVisibility(View.GONE);
                         break;
                     case 1:
-                        FragmentManager fragmentManager;
-                        fragmentManager = getChildFragmentManager();
                         AddNewHabitFragment addHabitHomeFragment = new AddNewHabitFragment();
                         fragmentManager.beginTransaction().replace(binding.homeFrameLayout.getId(), addHabitHomeFragment)
                                 .commit();
@@ -72,7 +69,6 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            // create and show the alert dialog
             AlertDialog dialog = builder.create();
             dialog.show();
         });

@@ -7,7 +7,7 @@
     android:layout_marginStart="12dp"
     android:layout_marginTop="3dp"
     android:layout_marginEnd="12dp"
-    android:background="@drawable/background_note"
+    android:background="@drawable/background_item_cloud"
     android:backgroundTint="@color/CLOUDS"
     android:orientation="vertical"
     tools:showIn="@layout/fragment_home">

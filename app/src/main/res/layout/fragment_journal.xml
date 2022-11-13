@@ -17,7 +17,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_alignParentTop="true"
-           android:background="@drawable/background_note"
+           android:background="@drawable/background_item_cloud"
            android:orientation="horizontal"
            android:elevation="5dp"
            android:padding="10dp">

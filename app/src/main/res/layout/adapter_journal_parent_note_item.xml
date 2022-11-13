@@ -6,7 +6,7 @@
     android:layout_marginStart="6dp"
     android:layout_marginTop="12dp"
     android:layout_marginEnd="6dp"
-    android:background="@drawable/background_note"
+    android:background="@drawable/background_item_cloud"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="@layout/fragment_journal">

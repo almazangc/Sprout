@@ -64,6 +64,7 @@ public class SplashScreenFragment extends Fragment {
                 NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_onboarding);
             if (isOnBoardingDone)
                 NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_main);
+                onDestroyView();
         }, 2000);
     }
 

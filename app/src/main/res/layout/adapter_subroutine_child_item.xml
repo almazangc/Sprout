@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
-    android:layout_marginTop="12dp"
+    android:layout_marginTop="5dp"
     android:layout_marginEnd="12dp"
-    android:background="@drawable/background_note"
+    android:background="@drawable/background_item_cloud"
     android:orientation="vertical"
-    android:paddingBottom="5dp"
     tools:showIn="@layout/adapter_subroutine_parent_item">
 
     <LinearLayout

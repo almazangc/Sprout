@@ -35,10 +35,11 @@ public class Note implements Serializable {
     private String webLink;
 
     @Ignore
-    public Note(String title, String dateTime, String subtitle) {
+    public Note(String title, String dateTime, String subtitle, String color) {
         this.title = title;
         this.dateTime = dateTime;
         this.subtitle = subtitle;
+        this.color = color;
     }
 
     public Note(String title, String dateTime, String subtitle, String noteText, String imagePath, String color, String webLink) {

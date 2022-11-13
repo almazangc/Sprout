@@ -5,28 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
-    android:layout_marginTop="12dp"
-    android:layout_marginBottom="12dp"
+    android:layout_marginTop="5dp"
     android:layout_marginEnd="12dp"
-    android:orientation="vertical"
-    android:paddingBottom="5dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/habit_category"
+    <Button
+        android:id="@+id/habitOnReform_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Lorem Ipsum Dolor"
+        android:layout_height="40dp"
+        android:text="Lorem Ipsum"
         android:textColor="@color/NIGHT"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textSize="11sp"
+        android:background="@drawable/selector_btn_continue"
+        android:textAlignment="viewStart"
+        android:paddingLeft="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textStyle="bold"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subroutine_child_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_height="match_parent"
+        tools:itemCount="3"
+        android:visibility="gone"
         tools:listitem="@layout/adapter_subroutine_child_item" />
 </LinearLayout>

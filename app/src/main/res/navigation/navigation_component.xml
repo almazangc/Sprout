@@ -253,7 +253,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNoteFragment"
-        android:name="com.prototype.sprout.ui.menu.journal.AddNoteFragment"
+        android:name="com.prototype.sprout.ui.menu.journal.ui.AddNoteFragment"
         android:label="fragment_journal_new"
         tools:layout="@layout/fragment_add_note" >
         <action
@@ -262,7 +262,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewHabitFragment"
-        android:name="com.prototype.sprout.ui.menu.home.AddNewHabitFragment"
+        android:name="com.prototype.sprout.ui.menu.home.ui.AddNewHabitFragment"
         android:label="fragment_add_new_habit"
         tools:layout="@layout/fragment_add_new_habit" >
         <action
@@ -271,7 +271,7 @@
     </fragment>
     <fragment
         android:id="@+id/addDefaultHabitFragment"
-        android:name="com.prototype.sprout.ui.menu.home.AddDefaultHabitFragment"
+        android:name="com.prototype.sprout.ui.menu.home.ui.AddDefaultHabitFragment"
         android:label="fragment_add_default_habit"
         tools:layout="@layout/fragment_add_default_habit" >
         <action
@@ -280,7 +280,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewSubroutineFragment"
-        android:name="com.prototype.sprout.ui.menu.subroutine.AddNewSubroutineFragment"
+        android:name="com.prototype.sprout.ui.menu.subroutine.ui.AddNewSubroutineFragment"
         android:label="fragment_add_new_subroutine"
         tools:layout="@layout/fragment_add_new_subroutine" >
         <action
@@ -289,7 +289,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
-        android:name="com.prototype.sprout.ui.menu.setting.AboutUsFragment"
+        android:name="com.prototype.sprout.ui.menu.setting.ui.AboutUsFragment"
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us" >
         <action
@@ -298,7 +298,7 @@
     </fragment>
     <fragment
         android:id="@+id/learnMoreFragment"
-        android:name="com.prototype.sprout.ui.menu.setting.LearnMoreFragment"
+        android:name="com.prototype.sprout.ui.menu.setting.ui.LearnMoreFragment"
         android:label="fragment_learn_more"
         tools:layout="@layout/fragment_learn_more" >
         <action
@@ -307,7 +307,7 @@
     </fragment>
     <fragment
         android:id="@+id/techStackInfoFragment"
-        android:name="com.prototype.sprout.ui.menu.setting.TechStackInfoFragment"
+        android:name="com.prototype.sprout.ui.menu.setting.ui.TechStackInfoFragment"
         android:label="fragment_tech_stack_info"
         tools:layout="@layout/fragment_tech_stack_info" >
         <action
