@@ -36,7 +36,7 @@ public class BottomNavigationFragment extends Fragment {
         Journal = new JournalFragment();
         Settings = new SettingFragment();
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             binding.bottomBar.selectTabById(R.id.tab_home, true);
             fragmentManager = getChildFragmentManager();
             fragmentManager.beginTransaction().replace(binding.fragmentContainer.getId(), Home)
@@ -46,28 +46,28 @@ public class BottomNavigationFragment extends Fragment {
         binding.bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
             @Override
             public void onTabSelected(int lastIndex, @Nullable AnimatedBottomBar.Tab LastTab, int newIndex, @NonNull AnimatedBottomBar.Tab newTab) {
-                switch (newTab.getId()){
+                switch (newTab.getId()) {
                     case R.id.tab_home:
-                            fragment = Home;
+                        fragment = Home;
                         break;
                     case R.id.tab_subroutine:
-                            fragment = Subroutine;
+                        fragment = Subroutine;
                         break;
                     case R.id.tab_analytic:
-                            fragment = Analytics;
+                        fragment = Analytics;
                         break;
                     case R.id.tab_journal:
-                            fragment = Journal;
+                        fragment = Journal;
                         break;
                     case R.id.tab_settings:
-                            fragment = Settings;
+                        fragment = Settings;
                         break;
                     default:
                         fragment = Home;
                         break;
                 }
 
-                if(fragment != null){
+                if (fragment != null) {
                     fragmentManager = getChildFragmentManager();
                     fragmentManager.beginTransaction().replace(binding.fragmentContainer.getId(), fragment)
                             .commit();
@@ -79,7 +79,6 @@ public class BottomNavigationFragment extends Fragment {
 
             }
         });
-
         return binding.getRoot();
     }
 }
