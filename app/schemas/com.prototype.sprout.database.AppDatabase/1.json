@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c21152e9a9afeaa048e5fc558c3683c6",
+    "identityHash": "672a27d6e3bedef7d7a08da7b27e72a6",
     "entities": [
       {
         "tableName": "User",
@@ -447,7 +447,17 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_Subroutine_fk_habit_uid",
+            "unique": false,
+            "columnNames": [
+              "fk_habit_uid"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Subroutine_fk_habit_uid` ON `${TABLE_NAME}` (`fk_habit_uid`)"
+          }
+        ],
         "foreignKeys": [
           {
             "table": "Habits",
@@ -466,7 +476,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c21152e9a9afeaa048e5fc558c3683c6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '672a27d6e3bedef7d7a08da7b27e72a6')"
     ]
   }
 }

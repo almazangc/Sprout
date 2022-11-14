@@ -245,6 +245,30 @@ public abstract class AppDatabase extends RoomDatabase {
             list.add(sample);
             habitsDao.insertSubroutines(setFk_habit_uid(list,id));
 
+            list.clear();
+            Habits habits = new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description));
+            habits.setOnReform(true);
+            id = habitsDao.insertHabit(habits);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+
+            list.clear();
+            habits = new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description));
+            habits.setOnReform(true);
+            id = habitsDao.insertHabit(habits);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+
 //            habitDao.insert(new Habit(false, "Stress Eating", "Eating a lot due to stress", ArrayListConverter.fromString("[3,5,8]")));
 //            habitDao.insert(new Habit(true, "Poor Sleep Management", "Not Sleeping on time daily", ArrayListConverter.fromString("[1, 2, 3, 4, 5]")));
 //            habitDao.insert(new Habit(false, "Drinking", "Alcohol, Beverage, uncontrolled drinking", ArrayListConverter.fromString("[2,5,8,9,10]")));

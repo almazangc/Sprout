@@ -1,5 +1,6 @@
 package com.prototype.sprout.ui.menu.subroutine.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.prototype.sprout.R;
-import com.prototype.sprout.database.sub_routine.Routine;
+import com.prototype.sprout.database.habits_with_subroutines.Habits;
+import com.prototype.sprout.database.habits_with_subroutines.Subroutines;
 
 import java.util.List;
 
 public class SubroutineChildAdapterItem extends RecyclerView.Adapter<SubroutineChildAdapterItem.ChildItemViewHolder> {
 
-    List<Routine> routinesOnReform;
+    List<Subroutines> subroutines;
 
-    public SubroutineChildAdapterItem(List<Routine> routinesOnReform) {
-        this.routinesOnReform = routinesOnReform;
+    public SubroutineChildAdapterItem(List<Subroutines> subroutines) {
+        this.subroutines = subroutines;
     }
 
     @NonNull
@@ -33,12 +35,12 @@ public class SubroutineChildAdapterItem extends RecyclerView.Adapter<SubroutineC
 
     @Override
     public void onBindViewHolder(@NonNull SubroutineChildAdapterItem.ChildItemViewHolder holder, int position) {
-        holder.bindDate(routinesOnReform.get(position));
+        holder.bindDate(subroutines.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return routinesOnReform.size();
+        return subroutines.size();
     }
 
     @Override
@@ -46,11 +48,11 @@ public class SubroutineChildAdapterItem extends RecyclerView.Adapter<SubroutineC
         return super.getItemViewType(position);
     }
 
-    public void setRoutinesOnReform(List<Routine> routinesOnReform) {
-        this.routinesOnReform = routinesOnReform;
+    public void setHabitWithSubroutines(List<Subroutines> subroutines) {
+        this.subroutines = subroutines;
     }
 
-    static class ChildItemViewHolder extends RecyclerView.ViewHolder {
+    public class ChildItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView subroutine, description, totalStreak;
         Button upvote, downvote, markAsDone;
@@ -66,10 +68,11 @@ public class SubroutineChildAdapterItem extends RecyclerView.Adapter<SubroutineC
             markAsDone = itemView.findViewById(R.id.mark_as_done);
         }
 
-        void bindDate(Routine routine) {
-            subroutine.setText(routine.getRoutine());
-            description.setText("\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta pharetra magna, eu laoreet urna condimentum a. Vivamus dapibus ante eget nunc ultrices bibendum. Duis consectetur fermentum nibh nec porta. Ut in fringilla leo. Aenean quis tortor vel tortor finibus cursus vel vel tellus. Nullam tellus enim, viverra et imperdiet sed, egestas id ante. Fusce rhoncus odio molestie elit ornare vulputate.");
-            totalStreak.setText("999");
+        void bindDate(Subroutines subroutines) {
+
+            subroutine.setText(subroutines.getSubroutine());
+            description.setText(subroutines.getDescription());
+            totalStreak.setText("0");
 
             upvote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "UpVote", Toast.LENGTH_SHORT).show();

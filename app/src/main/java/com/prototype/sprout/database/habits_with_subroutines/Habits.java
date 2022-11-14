@@ -41,6 +41,20 @@ public class Habits {
         this.total_subroutine = 0;
     }
 
+    @Override
+    public String toString() {
+        return "Habits{" +
+                "pk_habit_uid=" + pk_habit_uid +
+                ", onReform=" + onReform +
+                ", habit='" + habit + '\'' +
+                ", description='" + description + '\'' +
+                ", abstinence=" + abstinence +
+                ", relapse=" + relapse +
+                ", date_started='" + date_started + '\'' +
+                ", total_subroutine=" + total_subroutine +
+                '}';
+    }
+
     public long getPk_habit_uid() {
         return pk_habit_uid;
     }

@@ -18,7 +18,7 @@ public class Subroutines {
     @ColumnInfo(name = "pk_subroutine_uid")
     private long pk_subroutine_uid;
 
-    @ColumnInfo(name = "fk_habit_uid")
+    @ColumnInfo(name = "fk_habit_uid", index = true)
     private long fk_habit_uid;
 
     @ColumnInfo(name = "routine")
@@ -46,6 +46,20 @@ public class Subroutines {
         this.streak = 0;
         this.total_streak = 0;
         this.skips = 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Subroutines{" +
+                "pk_subroutine_uid=" + pk_subroutine_uid +
+                ", fk_habit_uid=" + fk_habit_uid +
+                ", subroutine='" + subroutine + '\'' +
+                ", description='" + description + '\'' +
+                ", is_marked_done=" + is_marked_done +
+                ", streak=" + streak +
+                ", total_streak=" + total_streak +
+                ", skips=" + skips +
+                '}';
     }
 
     public long getPk_subroutine_uid() {
