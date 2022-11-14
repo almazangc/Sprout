@@ -16,7 +16,6 @@ tools:context=".ui.menu.subroutine.SubroutineFragment">
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/CLOUDS"
         android:elevation="5dp"
         android:gravity="center">
 
@@ -28,7 +27,7 @@ tools:context=".ui.menu.subroutine.SubroutineFragment">
             android:text="DAILY SUBROUTINE TASK"
             android:textAlignment="center"
             android:textColor="@color/NIGHT"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textStyle="bold" />
 
         <TextView

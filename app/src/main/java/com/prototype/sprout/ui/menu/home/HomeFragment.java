@@ -13,8 +13,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.prototype.sprout.database.habit.Habit;
-import com.prototype.sprout.database.habit.HabitViewModel;
+import com.prototype.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
+import com.prototype.sprout.database.habits_with_subroutines.Habits;
 import com.prototype.sprout.databinding.FragmentHomeBinding;
 import com.prototype.sprout.ui.menu.home.adapter.HomeParentAdapterItem;
 import com.prototype.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
@@ -27,8 +27,8 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
 
     private HomeParentAdapterItem homeParentAdapterItem;
-    private List<Habit> habitsOnReform;
-    private HabitViewModel habitViewModel;
+    private List<Habits> habitsOnReform;
+    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,13 +36,13 @@ public class HomeFragment extends Fragment {
 
         binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        habitViewModel = new ViewModelProvider(requireActivity()).get(HabitViewModel.class);
+        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
-        habitsOnReform = habitViewModel.getAllHabitOnReform();
+        habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
         homeParentAdapterItem = new HomeParentAdapterItem(habitsOnReform);
         binding.homeRecyclerView.setAdapter(homeParentAdapterItem);
 
-        habitViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habitsOnReform -> {
+        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habitsOnReform -> {
             homeParentAdapterItem.setHabits(habitsOnReform);
         });
 

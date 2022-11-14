@@ -3,27 +3,28 @@ package com.prototype.sprout.database.habits_with_subroutines;
 import android.app.Application;
 import androidx.lifecycle.LiveData;
 
-import com.airbnb.lottie.L;
 import com.prototype.sprout.database.AppDatabase;
 
 import java.util.List;
 
 public class HabitWithSubroutinesRepository {
-    private HabitsDao habitsDao;
+    private HabitWithSubroutinesDao habitWithSubroutinesDao;
     private List<Habits> allHabitOnReform;
     private LiveData<List<Habits>> allHabitOnReformLiveData;
     private List<HabitWithSubroutines> allHabitOnReformWithSubroutines;
     private LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
     private List<Long> allHabitOnReformUID;
+    private List<String> allHabitTitle;
 
     public HabitWithSubroutinesRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
-        this.habitsDao = appDatabase.habitsDao();
-        this.allHabitOnReform = habitsDao.getAllHabitOnReform();
-        this.allHabitOnReformLiveData = habitsDao.getAllHabitOnReformLiveData();
-        this.allHabitOnReformWithSubroutines = habitsDao.getAllHabitsOnReformWithSubroutines();
-        this.allHabitOnReformWithSubroutinesLiveData = habitsDao.getAllHabitsOnReformWithSubroutinesLiveData();
-        this.allHabitOnReformUID = habitsDao.getAllHabitsOnReformUID();
+        this.habitWithSubroutinesDao = appDatabase.habitsDao();
+        this.allHabitOnReform = habitWithSubroutinesDao.getAllHabitOnReform();
+        this.allHabitOnReformLiveData = habitWithSubroutinesDao.getAllHabitOnReformLiveData();
+        this.allHabitOnReformWithSubroutines = habitWithSubroutinesDao.getAllHabitsOnReformWithSubroutines();
+        this.allHabitOnReformWithSubroutinesLiveData = habitWithSubroutinesDao.getAllHabitsOnReformWithSubroutinesLiveData();
+        this.allHabitOnReformUID = habitWithSubroutinesDao.getAllHabitsOnReformUID();
+        this.allHabitTitle = habitWithSubroutinesDao.getAllHabitTitle();
     }
 
     public List<Habits> getAllHabitOnReform() {
@@ -47,10 +48,14 @@ public class HabitWithSubroutinesRepository {
     }
 
     public List<Subroutines> getAllSubroutinesOnReformHabit(long uid) {
-        return habitsDao.getAllSubroutinesOfHabit(uid);
+        return habitWithSubroutinesDao.getAllSubroutinesOfHabit(uid);
     }
 
     public LiveData<List<Subroutines>> getAllSubroutinesOnReformHabitLiveData(long uid) {
-        return habitsDao.getAllSubroutinesOfHabitLiveData(uid);
+        return habitWithSubroutinesDao.getAllSubroutinesOfHabitLiveData(uid);
+    }
+
+    public List<String> getAllHabitTitle() {
+        return allHabitTitle;
     }
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Dao
-public interface HabitsDao {
+public interface HabitWithSubroutinesDao {
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertHabit(Habits habits);
@@ -47,6 +47,9 @@ public interface HabitsDao {
 
     @Query("SELECT * FROM Subroutine WHERE fk_habit_uid=:uid")
     LiveData<List<Subroutines>> getAllSubroutinesOfHabitLiveData(long uid);
+
+    @Query("SELECT habit FROM habits")
+    List<String> getAllHabitTitle();
 
 //    @Query("SELECT h.pk_habit_uid as pk_habitUID, s.fk_habit_uid as fk_habitUID, h.on_reform, h.habit, h.`desc`, s.pk_subroutine_uid as subroutineUID ,s.routine as routineTitle, s.description as routineDescription, s.total_streak, s.isMarkedDone FROM Habits AS h INNER JOIN Subroutine AS s ON h.pk_habit_uid = s.fk_habit_uid WHERE h.on_reform = 1 ORDER BY h.pk_habit_uid")
 //    LiveData<List<HabitWithSubroutines>> getAllHabitsOnReformWithSubroutinesLiveData();

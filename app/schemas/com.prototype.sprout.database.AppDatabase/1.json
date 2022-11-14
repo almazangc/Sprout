@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "672a27d6e3bedef7d7a08da7b27e72a6",
+    "identityHash": "7e76cc6982becbfa2ace8e84e8e22908",
     "entities": [
       {
         "tableName": "User",
@@ -129,130 +129,6 @@
             "columnName": "selected",
             "affinity": "TEXT",
             "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "uid"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "Habit",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `on_reform` INTEGER NOT NULL, `habit` TEXT, `desc` TEXT, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `completed_subroutine` INTEGER NOT NULL, `subRoutineUID` TEXT)",
-        "fields": [
-          {
-            "fieldPath": "uid",
-            "columnName": "uid",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "onReform",
-            "columnName": "on_reform",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "habit",
-            "columnName": "habit",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "desc",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "abstinence",
-            "columnName": "abstinence",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "relapse",
-            "columnName": "relapse",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "dateStarted",
-            "columnName": "date_started",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "completedSubroutine",
-            "columnName": "completed_subroutine",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "subRoutineUID",
-            "columnName": "subRoutineUID",
-            "affinity": "TEXT",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "columnNames": [
-            "uid"
-          ],
-          "autoGenerate": true
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "Routine",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `routine` TEXT, `desc` TEXT, `streak` INTEGER NOT NULL, `total` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `alarm` INTEGER NOT NULL)",
-        "fields": [
-          {
-            "fieldPath": "uid",
-            "columnName": "uid",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "routine",
-            "columnName": "routine",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "desc",
-            "columnName": "desc",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "streak",
-            "columnName": "streak",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "total",
-            "columnName": "total",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "skips",
-            "columnName": "skips",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "alarm",
-            "columnName": "alarm",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
@@ -476,7 +352,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '672a27d6e3bedef7d7a08da7b27e72a6')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7e76cc6982becbfa2ace8e84e8e22908')"
     ]
   }
 }

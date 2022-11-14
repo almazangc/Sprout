@@ -3,10 +3,8 @@ package com.prototype.sprout.database;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -17,14 +15,9 @@ import com.prototype.sprout.R;
 import com.prototype.sprout.database.assessment.Assessment;
 import com.prototype.sprout.database.assessment.AssessmentDao;
 import com.prototype.sprout.database.converters.ArrayListConverter;
-import com.prototype.sprout.database.habit.Habit;
-import com.prototype.sprout.database.habit.HabitDao;
-import com.prototype.sprout.database.habits_with_subroutines.HabitWithSubroutines;
+import com.prototype.sprout.database.habits_with_subroutines.HabitWithSubroutinesDao;
 import com.prototype.sprout.database.habits_with_subroutines.Habits;
-import com.prototype.sprout.database.habits_with_subroutines.HabitsDao;
 import com.prototype.sprout.database.habits_with_subroutines.Subroutines;
-import com.prototype.sprout.database.sub_routine.Routine;
-import com.prototype.sprout.database.sub_routine.RoutineDao;
 import com.prototype.sprout.database.note.Note;
 import com.prototype.sprout.database.note.NoteDao;
 import com.prototype.sprout.database.user.User;
@@ -33,7 +26,7 @@ import com.prototype.sprout.database.user.UserDao;
 import java.util.ArrayList;
 import java.util.List;
 
-@Database(entities = {User.class, Assessment.class, Habit.class, Routine.class, Note.class, Habits.class, Subroutines.class}, version = 1)
+@Database(entities = {User.class, Assessment.class, Note.class, Habits.class, Subroutines.class}, version = 1)
 @TypeConverters({ArrayListConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -45,9 +38,6 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             new PopulateAssessmentAsyncTask(INSTANCE).execute();
-            new PopulateUserAsyncTask(INSTANCE).execute();
-            new PopulateRoutineAsyncTask(INSTANCE).execute();
-            new PopulatedHabitAsyncTask(INSTANCE).execute();
             new PopulateNoteAsyncTask(INSTANCE).execute();
             new PopulateHabitWithSubroutinesAsyncTask(INSTANCE).execute();
         }
@@ -69,59 +59,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract AssessmentDao assessmentDao();
 
-    public abstract HabitDao habitDao();
-
-    public abstract RoutineDao routineDao();
-
     public abstract NoteDao noteDao();
 
-    public abstract HabitsDao habitsDao();
-
-    private static class PopulatedHabitAsyncTask extends AsyncTask<Void, Void, Void>{
-
-        private HabitDao habitDao;
-
-        public PopulatedHabitAsyncTask(AppDatabase instance) {
-            this.habitDao = instance.habitDao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            habitDao.insert(new Habit(false, "Stress Eating", "Eating a lot due to stress", ArrayListConverter.fromString("[3,5,8]")));
-            habitDao.insert(new Habit(true, "Poor Sleep Management", "Not Sleeping on time daily", ArrayListConverter.fromString("[1, 2, 3, 4, 5]")));
-            habitDao.insert(new Habit(false, "Drinking", "Alcohol, Beverage, uncontrolled drinking", ArrayListConverter.fromString("[2,5,8,9,10]")));
-            habitDao.insert(new Habit(false, "Gambling", "Uncontrolled betting of cash", ArrayListConverter.fromString("[1,4,7,8,9]")));
-            habitDao.insert(new Habit(false, "Poor spending habits", "Unable to resist from spending", ArrayListConverter.fromString("[1,3,6,7,8]")));
-            habitDao.insert(new Habit(false, "Excessive profanity", "Uncontrolled toxicity", ArrayListConverter.fromString("[1,4,5,6,7]")));
-            habitDao.insert(new Habit(false, "Multi-tasking", "Jumping from one task to another not lack of focus", ArrayListConverter.fromString("[1,3,6,8,9]")));
-            habitDao.insert(new Habit(false, "Smoking", "Addicted to smoking, eg., vape", ArrayListConverter.fromString("[1,3,7,9]")));
-            habitDao.insert(new Habit(true, "Procrastination", "The action of delaying something", ArrayListConverter.fromString("[6,7,8,9,10]")));
-            habitDao.insert(new Habit(false, "Overthinking and worrying", "Thinking too much about something", ArrayListConverter.fromString("[1,2,4,5]")));
-            habitDao.insert(new Habit(false, "Cluttering your living/workspace", "Pileup, Messy or Unmanaged Living Room or Workspace", ArrayListConverter.fromString("[1,4,7,9]")));
-            habitDao.insert(new Habit(false, "Leaving the toilet seat up", "Some desc", ArrayListConverter.fromString("[1,3,6,8]")));
-            habitDao.insert(new Habit(false, "Leaving clothes on the floor", "Throwing used clothes anyone in the house", ArrayListConverter.fromString("[0,3,5,6]")));
-            habitDao.insert(new Habit(false, "Taking things personally", "arsagid jkjk", ArrayListConverter.fromString("[1,4,5,6]")));
-            habitDao.insert(new Habit(false, "Overusing slang", "Feeling slang", ArrayListConverter.fromString("[0,3,5,6]")));
-            habitDao.insert(new Habit(false, "A lot", "and more....", ArrayListConverter.fromString("[1,4,6,7]")));
-            return null;
-        }
-    }
-
-    private static class PopulateRoutineAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        private RoutineDao routineDao;
-
-        public PopulateRoutineAsyncTask(AppDatabase instance) {
-            routineDao = instance.routineDao();
-        }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            routineDao.insert(new Routine("Walking Dog", "Getting pet Accustomed"));
-            routineDao.insert(new Routine("Walking Dog", "Getting pet Accustomed"));
-            routineDao.insert(new Routine("Walking Dog", "Getting pet Accustomed"));
-            return null;
-        }
-    }
+    public abstract HabitWithSubroutinesDao habitsDao();
 
     private static class PopulateAssessmentAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -146,27 +86,15 @@ public abstract class AppDatabase extends RoomDatabase {
             assessmentDao.insert(new Assessment("9: Is this a generic question?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("10: What is the name of app?", "Sprout", "Don't Know", "Undecided", "I wanna change, it sucks", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("11: Do you always owo?", "Yes", "Absolutely Not", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("12: Is this question number 10?", "Yes", "No","I don't know", "I don't care", DEFAULT_SELECTED));
+            assessmentDao.insert(new Assessment("12: Is this question number 10?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("13: If you answered yes then your wrong, this is question number 10?", "OK", "Meh", "LOL", "I don't care", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("14: Last Question?", "Yes", "No", "I don't know", "Why should I care?", DEFAULT_SELECTED));
 
             return null;
         }
-    };
-
-    private static class PopulateUserAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        private UserDao userDao;
-
-        public PopulateUserAsyncTask(AppDatabase instance) {
-            userDao = instance.userDao();
-        }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            userDao.insert(new User("Vit", "Alien", 0, 8, 30, 20, 55, true, false, false));
-            return null;
-        }
     }
+
+    ;
 
     private static class PopulateNoteAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -191,10 +119,10 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static class PopulateHabitWithSubroutinesAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private HabitsDao habitsDao;
+        private HabitWithSubroutinesDao habitWithSubroutinesDao;
 
         public PopulateHabitWithSubroutinesAsyncTask(AppDatabase instance) {
-            habitsDao = instance.habitsDao();
+            habitWithSubroutinesDao = instance.habitsDao();
         }
 
         @Override
@@ -202,30 +130,30 @@ public abstract class AppDatabase extends RoomDatabase {
             Resources res = AppContext.getApplicationContext().getResources();
             Subroutines sample = new Subroutines(getString(R.string.sample_subroutine_title), getString(R.string.sample_subroutine_description));
 
-            long id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            long id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
             List<Subroutines> list = new ArrayList<>();
             list.add(sample);
             list.add(sample);
             list.add(sample);
             list.add(sample);
             list.add(sample);
-            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
             list.add(sample);
             list.add(sample);
             list.add(sample);
-            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
             list.add(sample);
             list.add(sample);
-            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
             list.add(sample);
             list.add(sample);
             list.add(sample);
@@ -234,31 +162,31 @@ public abstract class AppDatabase extends RoomDatabase {
             list.add(sample);
             list.add(sample);
             list.add(sample);
-            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
             list.add(sample);
             list.add(sample);
             list.add(sample);
             list.add(sample);
             list.add(sample);
-            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
             Habits habits = new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description));
             habits.setOnReform(true);
-            id = habitsDao.insertHabit(habits);
+            id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);
             list.add(sample);
             list.add(sample);
-            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
             habits = new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description));
             habits.setOnReform(true);
-            id = habitsDao.insertHabit(habits);
+            id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);
             list.add(sample);
@@ -267,7 +195,7 @@ public abstract class AppDatabase extends RoomDatabase {
             list.add(sample);
             list.add(sample);
             list.add(sample);
-            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
 //            habitDao.insert(new Habit(false, "Stress Eating", "Eating a lot due to stress", ArrayListConverter.fromString("[3,5,8]")));
 //            habitDao.insert(new Habit(true, "Poor Sleep Management", "Not Sleeping on time daily", ArrayListConverter.fromString("[1, 2, 3, 4, 5]")));
@@ -290,12 +218,12 @@ public abstract class AppDatabase extends RoomDatabase {
             return null;
         }
 
-        private String getString(int id){
+        private String getString(int id) {
             return AppContext.getApplicationContext().getResources().getString(id);
         }
 
-        private List<Subroutines> setFk_habit_uid(List<Subroutines> list, long id){
-            for (Subroutines subroutine: list){
+        private List<Subroutines> setFk_habit_uid(List<Subroutines> list, long id) {
+            for (Subroutines subroutine : list) {
                 subroutine.setFk_habit_uid(id);
             }
             return list;

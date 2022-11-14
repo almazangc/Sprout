@@ -9,6 +9,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * For parsing and unparsing Object(Type) on Room Database as String
+ */
 public class ArrayListConverter {
 
     //From room

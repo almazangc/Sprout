@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.prototype.sprout.R;
 import com.prototype.sprout.database.habit.Habit;
+import com.prototype.sprout.database.habits_with_subroutines.Habits;
 
 import java.util.List;
 
 public class HomeParentAdapterItem extends RecyclerView.Adapter<HomeParentAdapterItem.HabitViewHolder> {
 
-    private List<Habit> habits;
+    private List<Habits> habits;
 
-    public HomeParentAdapterItem(List<Habit> habits) {
+    public HomeParentAdapterItem(List<Habits> habits) {
         this.habits = habits;
     }
 
@@ -48,7 +49,7 @@ public class HomeParentAdapterItem extends RecyclerView.Adapter<HomeParentAdapte
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setHabits(List<Habit> habits) {
+    public void setHabits(List<Habits> habits) {
         this.habits = habits;
         notifyDataSetChanged();
     }
@@ -75,7 +76,7 @@ public class HomeParentAdapterItem extends RecyclerView.Adapter<HomeParentAdapte
             drop = itemView.findViewById(R.id.home_drop_btn);
         }
 
-        void bindHabit(Habit habit) {
+        void bindHabit(Habits habit) {
             habitHeader.setText(habit.getHabit());
 
             if (habit.getDescription().trim().isEmpty()) {
@@ -88,7 +89,7 @@ public class HomeParentAdapterItem extends RecyclerView.Adapter<HomeParentAdapte
 
             dateStarted.setText("November 7 2022, 14:25PM");
 
-            completedSubroutine.setText(String.valueOf(habit.getCompletedSubroutine()));
+            completedSubroutine.setText(String.valueOf(habit.getTotal_subroutine()));
             daysOfAbstinence.setText(String.valueOf(habit.getAbstinence()));
             totalReplase.setText(String.valueOf(habit.getRelapse()));
 

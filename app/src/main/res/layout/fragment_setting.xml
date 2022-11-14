@@ -18,6 +18,7 @@
             android:text="Settings"
             android:textAlignment="center"
             android:textColor="@color/NIGHT"
+            android:textStyle="bold"
             android:textSize="25sp" />
 
         <ScrollView
