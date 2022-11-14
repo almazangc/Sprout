@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    HabitTitle and Description     -->
+    <string name="habit_stress_eating">Stress Eating</string>
+    <string name="habit_stress_eating_desc">Also known as emotional eating, stress-eating involves using food as a coping mechanism to help you feel better. Typically, it has nothing to do with physical hunger and everything to do with soothing or suppressing uncomfortable feelings and situations.</string>
+
+    <string name="habit_poor_sleep_management">Poor Sleep Management</string>
+    <string name="habit_poor_sleep_management_desc">Hello</string>
+
+    <string name="sample_habit_title">
+        Sample Habit Tittle
+    </string>
+
+    <string name="sample_habit_description">
+        This is a sample habit description.
+    </string>
+</resources>

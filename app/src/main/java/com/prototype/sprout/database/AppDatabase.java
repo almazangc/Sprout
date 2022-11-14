@@ -1,20 +1,28 @@
 package com.prototype.sprout.database;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.prototype.sprout.R;
 import com.prototype.sprout.database.assessment.Assessment;
 import com.prototype.sprout.database.assessment.AssessmentDao;
 import com.prototype.sprout.database.converters.ArrayListConverter;
 import com.prototype.sprout.database.habit.Habit;
 import com.prototype.sprout.database.habit.HabitDao;
+import com.prototype.sprout.database.habits_with_subroutines.HabitWithSubroutines;
+import com.prototype.sprout.database.habits_with_subroutines.Habits;
+import com.prototype.sprout.database.habits_with_subroutines.HabitsDao;
+import com.prototype.sprout.database.habits_with_subroutines.Subroutines;
 import com.prototype.sprout.database.sub_routine.Routine;
 import com.prototype.sprout.database.sub_routine.RoutineDao;
 import com.prototype.sprout.database.note.Note;
@@ -22,11 +30,16 @@ import com.prototype.sprout.database.note.NoteDao;
 import com.prototype.sprout.database.user.User;
 import com.prototype.sprout.database.user.UserDao;
 
-@Database(entities = {User.class, Assessment.class, Habit.class, Routine.class, Note.class}, version = 1)
+import java.util.ArrayList;
+import java.util.List;
+
+@Database(entities = {User.class, Assessment.class, Habit.class, Routine.class, Note.class, Habits.class, Subroutines.class}, version = 1)
 @TypeConverters({ArrayListConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
+    private static Context AppContext;
+
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -36,6 +49,7 @@ public abstract class AppDatabase extends RoomDatabase {
             new PopulateRoutineAsyncTask(INSTANCE).execute();
             new PopulatedHabitAsyncTask(INSTANCE).execute();
             new PopulateNoteAsyncTask(INSTANCE).execute();
+            new PopulateHabitWithSubroutinesAsyncTask(INSTANCE).execute();
         }
     };
 
@@ -47,6 +61,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     .addCallback(roomCallback)
                     .build();
         }
+        AppContext = context;
         return INSTANCE;
     }
 
@@ -59,6 +74,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract RoutineDao routineDao();
 
     public abstract NoteDao noteDao();
+
+    public abstract HabitsDao habitsDao();
 
     private static class PopulatedHabitAsyncTask extends AsyncTask<Void, Void, Void>{
 
@@ -158,6 +175,7 @@ public abstract class AppDatabase extends RoomDatabase {
         public PopulateNoteAsyncTask(AppDatabase instance) {
             noteDao = instance.noteDao();
         }
+
         @Override
         protected Void doInBackground(Void... voids) {
             noteDao.insert(new Note("Note 1", "April 28, 2000", "Subtitle in a nutshell", "cloud"));
@@ -168,6 +186,95 @@ public abstract class AppDatabase extends RoomDatabase {
             noteDao.insert(new Note("No time to spend", "Clean Date", "SampleSubTitle, you need to learn how to integrate the application", "amethyst"));
             noteDao.insert(new Note("Note Sample 6 Title", "10.34.432/423423", "SampleSubTitle", "brightsky_blue"));
             return null;
+        }
+    }
+
+    private static class PopulateHabitWithSubroutinesAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private HabitsDao habitsDao;
+
+        public PopulateHabitWithSubroutinesAsyncTask(AppDatabase instance) {
+            habitsDao = instance.habitsDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Resources res = AppContext.getApplicationContext().getResources();
+            Subroutines sample = new Subroutines(getString(R.string.sample_subroutine_title), getString(R.string.sample_subroutine_description));
+
+            long id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            List<Subroutines> list = new ArrayList<>();
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+
+            list.clear();
+            id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+
+            list.clear();
+            id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            list.add(sample);
+            list.add(sample);
+            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+
+            list.clear();
+            id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+
+            list.clear();
+            id = habitsDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitsDao.insertSubroutines(setFk_habit_uid(list,id));
+
+//            habitDao.insert(new Habit(false, "Stress Eating", "Eating a lot due to stress", ArrayListConverter.fromString("[3,5,8]")));
+//            habitDao.insert(new Habit(true, "Poor Sleep Management", "Not Sleeping on time daily", ArrayListConverter.fromString("[1, 2, 3, 4, 5]")));
+//            habitDao.insert(new Habit(false, "Drinking", "Alcohol, Beverage, uncontrolled drinking", ArrayListConverter.fromString("[2,5,8,9,10]")));
+//            habitDao.insert(new Habit(false, "Gambling", "Uncontrolled betting of cash", ArrayListConverter.fromString("[1,4,7,8,9]")));
+//            habitDao.insert(new Habit(false, "Poor spending habits", "Unable to resist from spending", ArrayListConverter.fromString("[1,3,6,7,8]")));
+//            habitDao.insert(new Habit(false, "Excessive profanity", "Uncontrolled toxicity", ArrayListConverter.fromString("[1,4,5,6,7]")));
+//            habitDao.insert(new Habit(false, "Multi-tasking", "Jumping from one task to another not lack of focus", ArrayListConverter.fromString("[1,3,6,8,9]")));
+//            habitDao.insert(new Habit(false, "Smoking", "Addicted to smoking, eg., vape", ArrayListConverter.fromString("[1,3,7,9]")));
+//            habitDao.insert(new Habit(true, "Procrastination", "The action of delaying something", ArrayListConverter.fromString("[6,7,8,9,10]")));
+//            habitDao.insert(new Habit(false, "Overthinking and worrying", "Thinking too much about something", ArrayListConverter.fromString("[1,2,4,5]")));
+//            habitDao.insert(new Habit(false, "Cluttering your living/workspace", "Pileup, Messy or Unmanaged Living Room or Workspace", ArrayListConverter.fromString("[1,4,7,9]")));
+//            habitDao.insert(new Habit(false, "Leaving the toilet seat up", "Some desc", ArrayListConverter.fromString("[1,3,6,8]")));
+//            habitDao.insert(new Habit(false, "Leaving clothes on the floor", "Throwing used clothes anyone in the house", ArrayListConverter.fromString("[0,3,5,6]")));
+//            habitDao.insert(new Habit(false, "Taking things personally", "arsagid jkjk", ArrayListConverter.fromString("[1,4,5,6]")));
+//            habitDao.insert(new Habit(false, "Overusing slang", "Feeling slang", ArrayListConverter.fromString("[0,3,5,6]")));
+//            habitDao.insert(new Habit(false, "A lot", "and more....", ArrayListConverter.fromString("[1,4,6,7]")));
+//
+
+            return null;
+        }
+
+        private String getString(int id){
+            return AppContext.getApplicationContext().getResources().getString(id);
+        }
+
+        private List<Subroutines> setFk_habit_uid(List<Subroutines> list, long id){
+            for (Subroutines subroutine: list){
+                subroutine.setFk_habit_uid(id);
+            }
+            return list;
         }
     }
 }
