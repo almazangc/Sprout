@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/subroutine_parent_item"
@@ -8,38 +8,49 @@
     android:layout_marginStart="12dp"
     android:layout_marginTop="5dp"
     android:layout_marginEnd="12dp"
-    android:orientation="vertical"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="3dp"
-    app:cardMaxElevation="5dp">
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/habitOnReform_title"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/TRANSPARENT"
-        android:backgroundTint="@color/TRANSPARENT"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingLeft="10dp"
-        android:text="Lorem Ipsum"
-        android:textAlignment="viewStart"
-        android:textColor="@color/NIGHT"
-        android:textSize="13sp"
-        android:inputType="textCapSentences"
-        android:textStyle="normal" />
+    <RelativeLayout
+        android:id="@+id/layout_habit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/habitOnReform_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:background="@drawable/selector_btn"
+            android:maxLines="1"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            tools:text="Lorem Ipsum"
+            android:textAlignment="viewStart"
+            android:textColor="@color/NIGHT"
+            android:textSize="13sp"
+            android:insetTop="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="3dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:minHeight="40dp"
+            android:textAllCaps="false"
+            android:textStyle="normal" />
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subroutine_child_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layoutAnimation="@anim/layout_animation"
+        android:layout_below="@+id/layout_habit"
         android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:itemCount="3"/>
 
     <TextView
-        android:id="@+id/emptyfooter"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_height="1dp"/>
+</RelativeLayout>

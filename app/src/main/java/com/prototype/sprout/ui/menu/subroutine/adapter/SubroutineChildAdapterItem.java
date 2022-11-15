@@ -54,14 +54,13 @@ public class SubroutineChildAdapterItem extends RecyclerView.Adapter<SubroutineC
 
     public class ChildItemViewHolder extends RecyclerView.ViewHolder {
 
-        TextView subroutine, description, totalStreak;
+        TextView subroutine, description;
         Button upvote, downvote, markAsDone;
 
         public ChildItemViewHolder(@NonNull View itemView) {
             super(itemView);
             subroutine = itemView.findViewById(R.id.subroutine);
             description = itemView.findViewById(R.id.description);
-            totalStreak = itemView.findViewById(R.id.total_streak);
 
             upvote = itemView.findViewById(R.id.btn_upvote_subroutine);
             downvote = itemView.findViewById(R.id.btn_downvote_subroutine);
@@ -72,7 +71,6 @@ public class SubroutineChildAdapterItem extends RecyclerView.Adapter<SubroutineC
 
             subroutine.setText(subroutines.getSubroutine());
             description.setText(subroutines.getDescription());
-            totalStreak.setText("0");
 
             upvote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "UpVote", Toast.LENGTH_SHORT).show();

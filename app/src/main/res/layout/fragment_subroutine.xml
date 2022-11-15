@@ -66,8 +66,9 @@
             android:layout_marginBottom="10dp"
             app:backgroundTint="@color/CLOUDS"
             app:borderWidth="5dp"
+            app:fabCustomSize="45dp"
             app:srcCompat="@drawable/ic_add"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"/>
 
     </RelativeLayout>
 </FrameLayout>

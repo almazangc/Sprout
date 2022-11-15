@@ -22,102 +22,107 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
             android:layout_margin="12dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/total_streak"
-                android:layout_width="40dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="999"
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="20dp"/>
+                android:orientation="vertical"
+                android:visibility="visible">
 
-            <LinearLayout
+                <Button
+                    android:id="@+id/btn_upvote_subroutine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/selector_btn_continue"
+                    android:drawableStart="@drawable/ic_upvote"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="0sp" />
+
+                <Button
+                    android:id="@+id/btn_downvote_subroutine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_margin="5dp"
+                    android:layout_toEndOf="@id/btn_upvote_subroutine"
+                    android:background="@drawable/selector_btn_continue"
+                    android:drawableStart="@drawable/ic_downvote"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="0sp" />
+
+
+            </LinearLayout>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/subroutine"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:text="Lorem Ipsum Dolor"
+                    android:ellipsize="end"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:text="Lorem Dolor"
                     android:textColor="@color/NIGHT"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/mark_as_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/selector_btn_continue"
+                    android:drawableStart="@drawable/ic_not_done"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/subroutine"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="4dp"
+                    android:ellipsize="end"
+                    android:maxLines="4"
                     android:textColor="@color/NIGHT"
                     android:textSize="12sp"
                     tools:text="\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta pharetra magna, eu laoreet urna condimentum a. Vivamus dapibus ante eget nunc ultrices bibendum. Duis consectetur fermentum nibh nec porta. Ut in fringilla leo. Aenean quis tortor vel tortor finibus cursus vel vel tellus. Nullam tellus enim, viverra et imperdiet sed, egestas id ante. Fusce rhoncus odio molestie elit ornare vulputate." />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginEnd="12dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_upvote_subroutine"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="start"
-                    android:drawableStart="@drawable/ic_upvote"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/btn_downvote_subroutine"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="50dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="start"
-                    android:drawableStart="@drawable/ic_downvote"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/mark_as_done"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:padding="3sp"
-                    android:text="Mark as done"
-                    android:textColor="@color/NIGHT"
-                    android:inputType="textCapSentences"
-                    android:textSize="12sp" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
