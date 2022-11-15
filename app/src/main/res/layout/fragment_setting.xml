@@ -3,30 +3,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/settings_frame_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".ui.menu.setting.SettingFragment">
 
     <RelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/settings_container"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/settings_top_label"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/settingTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6dp"
+                    android:text="Setting"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/settingSubTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/settingTitle"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="5dp"
+                    android:text="In a nutshell"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <ScrollView
             android:id="@+id/settings_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/settings_top_label"
+            android:layout_below="@id/cardview"
             android:layout_alignParentBottom="true"
             android:scrollbarThumbVertical="@color/WAIKAWA_GREY"
             android:scrollbars="vertical">
@@ -41,7 +67,6 @@
                 android:layout_marginBottom="12dp"
                 android:isScrollContainer="true"
                 android:orientation="vertical">
-
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/lottie_avatar"

@@ -123,18 +123,16 @@ public class BottomNavigationFragment extends Fragment {
                 fragment = Home;
                 break;
         }
-
         if (fragment != null) {
             fragmentManager = getChildFragmentManager();
             fragmentManager.beginTransaction().replace(binding.fragmentContainer.getId(), fragment)
                     .commit();
         }
-
         binding.bottomBar.selectTabAt(tabID, true);
     }
 
     /**
-     * Listener on Touch Swipe Action
+     * Listener on Touch Swipe Action Handle Navigation Through Swiping
      */
     private class SwipeListener implements View.OnTouchListener {
 
@@ -186,7 +184,9 @@ public class BottomNavigationFragment extends Fragment {
 
             gestureDetector = new GestureDetector(listener);
             gestureDetector.setContextClickListener(listener);
-            binding.bottomNavView.setOnTouchListener(this);
+
+            //TODO: Need to be able to listen on movement even its recycler view
+            binding.fragmentContainer.setOnTouchListener(this);
         }
 
         @Override
@@ -195,11 +195,43 @@ public class BottomNavigationFragment extends Fragment {
         }
 
         void onSwipeRight() {
-            Toast.makeText(requireContext(), "Right Swipe", Toast.LENGTH_SHORT).show();
+            switch (last_selected_index) {
+                case 0:
+                    updateFragment( 4);
+                    break;
+                case 1:
+                    updateFragment( 0);
+                    break;
+                case 2:
+                    updateFragment( 1);
+                    break;
+                case 3:
+                    updateFragment( 2);
+                    break;
+                case 4:
+                    updateFragment( 3);
+                    break;
+            }
         }
 
         void onSwipeLeft() {
-            Toast.makeText(requireContext(), "Left Swipe", Toast.LENGTH_SHORT).show();
+            switch (last_selected_index) {
+                case 0:
+                    updateFragment( 1);
+                    break;
+                case 1:
+                    updateFragment( 2);
+                    break;
+                case 2:
+                    updateFragment( 3);
+                    break;
+                case 3:
+                    updateFragment( 4);
+                    break;
+                case 4:
+                    updateFragment( 0);
+                    break;
+            }
         }
 
         void onSwipeTop() {
@@ -208,6 +240,10 @@ public class BottomNavigationFragment extends Fragment {
 
         void onSwipeBottom() {
             Toast.makeText(requireContext(), "Bottom Swipe", Toast.LENGTH_SHORT).show();
+        }
+
+        void updateFragment(int newTab){
+            binding.bottomBar.selectTabAt(newTab, true);
         }
     }
 }
