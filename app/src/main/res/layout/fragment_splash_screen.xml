@@ -38,7 +38,7 @@
         android:layout_below="@id/appName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-15dp"
-        android:text="Developmental Stage"
+        tools:text="Developmental Stage"
         android:textAlignment="center"
         android:textColor="@color/NIGHT" />
 </RelativeLayout>
