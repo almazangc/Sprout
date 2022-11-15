@@ -22,11 +22,11 @@
     <color name="CORAL_RED">#FA403D</color>
     <color name="ARTY_CLICK_RED">#F20505</color>
     <color name="RUSTIC_RED">#400106</color>
-    <color name="CLOUDS">#ecf0f1</color>
+    <color name="CLOUDS">#040000</color>
     <color name="SILVER">#bdc3c7</color>
     <color name="ASBESTOS">#7f8c8d</color>
     <color name="MIRAGE">#151621</color>
-    <color name="NIGHT">#040000</color>
+    <color name="NIGHT">#ecf0f1</color>
 
     <color name="A80_TURQUOISE">#CD1ABC9C</color>
     <color name="A80_GREEN_SEA">#CC16A085</color>
@@ -50,11 +50,11 @@
     <color name="A80_CORAL_RED">#CCFA403D</color>
     <color name="A80_ARTY_CLICK_RED">#CCF20505</color>
     <color name="A80_RUSTIC_RED">#CC400106</color>
-    <color name="A80_CLOUDS">#CCECF0F1</color>
+    <color name="A80_CLOUDS">#CC040000</color>
     <color name="A80_SILVER">#CCBDC3C7</color>
     <color name="A80_ASBESTOS">#CC7F8C8D</color>
     <color name="A80_MIRAGE">#CC151621</color>
-    <color name="A80_NIGHT">#CC040000</color>
+    <color name="A80_NIGHT">#CCECF0F1</color>
 
     <color name="font_color">#ecf0f1</color>
 

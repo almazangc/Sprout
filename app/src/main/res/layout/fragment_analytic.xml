@@ -45,11 +45,14 @@
         app:lottie_speed="1"
         tools:background="@color/WAIKAWA_GREY"/>
 
-        <TextView
-            style="@style/textViewHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="ANALYTICS" />
+    <TextView
+        style="@style/textViewHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lottie_main"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-90dp"
+        android:textColor="@color/NIGHT"
+        android:text="ANALYTICS" />
 
 </RelativeLayout>
