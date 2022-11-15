@@ -32,6 +32,9 @@ public interface UserDao {
     @Query("SELECT onBoarding FROM user WHERE uid = 1")
     boolean isOnBoarding();
 
+    @Query("SELECT nickname FROM user WHERE uid = 1")
+    LiveData<String> getNickname();
+
     @Insert
     void insert(User... users);
 

@@ -14,6 +14,7 @@ public class UserViewModel extends AndroidViewModel {
     private LiveData<List<User>> userListLiveData;
     private List<User> userList;
     private int userCount;
+    private LiveData<String> userNickname;
 
     public UserViewModel(@NonNull Application application) {
         super(application);
@@ -21,6 +22,7 @@ public class UserViewModel extends AndroidViewModel {
         userList = repository.getUserList();
         userListLiveData = repository.getUserListLiveData();
         userCount = repository.getUserCount();
+        userNickname = repository.getUserNickname();
     }
 
     public void insert(User user) {
@@ -65,5 +67,9 @@ public class UserViewModel extends AndroidViewModel {
 
     public boolean getOnBoarding() {
         return repository.getOnBoarding();
+    }
+
+    public LiveData<String> getUserNickname() {
+        return userNickname;
     }
 }

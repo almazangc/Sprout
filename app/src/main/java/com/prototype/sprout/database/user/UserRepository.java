@@ -17,6 +17,7 @@ public class UserRepository {
     private int userCount;
     private boolean isAssessment;
     private boolean isOnBoarding;
+    private LiveData<String> userNickname;
 
     public UserRepository(@NonNull Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -26,6 +27,7 @@ public class UserRepository {
         userCount = userDao.countAllSections();
         isAssessment = userDao.isAssessment();
         isOnBoarding = userDao.isOnBoarding();
+        userNickname = userDao.getNickname();
     }
 
     public void insert(User user) {
@@ -70,6 +72,10 @@ public class UserRepository {
 
     public boolean getOnBoarding() {
         return isOnBoarding;
+    }
+
+    public LiveData<String> getUserNickname() {
+        return userNickname;
     }
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {

@@ -8,9 +8,10 @@ import android.view.ViewGroup;
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.prototype.sprout.database.user.UserViewModel;
 import com.prototype.sprout.databinding.FragmentSettingBinding;
-import com.prototype.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
 import com.prototype.sprout.ui.menu.setting.ui.AboutUsFragment;
 import com.prototype.sprout.ui.menu.setting.ui.LearnMoreFragment;
 import com.prototype.sprout.ui.menu.setting.ui.TechStackInfoFragment;
@@ -19,11 +20,17 @@ public class SettingFragment extends Fragment {
 
     private FragmentSettingBinding binding;
     private FragmentManager fragmentManager;
+    private UserViewModel userViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSettingBinding.inflate(inflater, container, false);
         fragmentManager = getChildFragmentManager();
+
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.getUserNickname().observe(getViewLifecycleOwner(), nickname -> {
+            binding.nickname.setText(nickname);
+        });
 
         goToAboutUs();
         goToLearnMore();
@@ -55,7 +62,7 @@ public class SettingFragment extends Fragment {
         });
     }
 
-    private void changeFragment(Fragment newFragment){
+    private void changeFragment(Fragment newFragment) {
         fragmentManager.beginTransaction().replace(binding.settingsFrameLayout.getId(), newFragment)
                 .commit();
         binding.settingsContainer.setVisibility(View.GONE);
