@@ -17,6 +17,7 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
     private LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
     private List<Long> allHabitOnReformUID;
     private List<String> allHabitTitle;
+    private long getHabitOnReformCount;
 
     public HabitWithSubroutinesViewModel(@NonNull Application application) {
         super(application);
@@ -27,6 +28,7 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         allHabitOnReformWithSubroutinesLiveData = repository.getAllHabitOnReformWithSubroutinesLiveData();
         allHabitOnReformUID = repository.getAllHabitOnReformUID();
         allHabitTitle = repository.getAllHabitTitle();
+        getHabitOnReformCount = repository.getGetHabitOnReformCount();
     }
 
     public List<Habits> getAllHabitOnReform() {
@@ -59,5 +61,9 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
 
     public List<String> getAllHabitTitle() {
         return allHabitTitle;
+    }
+
+    public long getGetHabitOnReformCount() {
+        return getHabitOnReformCount;
     }
 }

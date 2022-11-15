@@ -7,18 +7,58 @@ import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.prototype.sprout.databinding.FragmentSettingBinding;
+import com.prototype.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
+import com.prototype.sprout.ui.menu.setting.ui.AboutUsFragment;
+import com.prototype.sprout.ui.menu.setting.ui.LearnMoreFragment;
+import com.prototype.sprout.ui.menu.setting.ui.TechStackInfoFragment;
 
 public class SettingFragment extends Fragment {
 
     private FragmentSettingBinding binding;
+    private FragmentManager fragmentManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSettingBinding.inflate(inflater, container, false);
+        fragmentManager = getChildFragmentManager();
+
+        goToAboutUs();
+        goToLearnMore();
+        goToTechStack();
+
         onBackPress();
+
         return binding.getRoot();
+    }
+
+    private void goToAboutUs() {
+        binding.aboutUsBtn.setOnClickListener(view -> {
+            AboutUsFragment fragment = new AboutUsFragment();
+            changeFragment(fragment);
+        });
+    }
+
+    private void goToLearnMore() {
+        binding.learnMoreBtn.setOnClickListener(view -> {
+            LearnMoreFragment fragment = new LearnMoreFragment();
+            changeFragment(fragment);
+        });
+    }
+
+    private void goToTechStack() {
+        binding.techStackInfoBtn.setOnClickListener(view -> {
+            TechStackInfoFragment fragment = new TechStackInfoFragment();
+            changeFragment(fragment);
+        });
+    }
+
+    private void changeFragment(Fragment newFragment){
+        fragmentManager.beginTransaction().replace(binding.settingsFrameLayout.getId(), newFragment)
+                .commit();
+        binding.settingsContainer.setVisibility(View.GONE);
     }
 
     private void onBackPress() {

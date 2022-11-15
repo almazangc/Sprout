@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/settings_frame_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.menu.setting.SettingFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:id="@+id/settings_container"
         android:layout_height="match_parent">
 
         <TextView
@@ -18,8 +19,8 @@
             android:text="Settings"
             android:textAlignment="center"
             android:textColor="@color/NIGHT"
-            android:textStyle="bold"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <ScrollView
             android:id="@+id/settings_scrollview"
@@ -31,7 +32,6 @@
             android:scrollbars="vertical">
 
             <RelativeLayout
-                android:id="@+id/settings_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -147,5 +147,4 @@
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>
-
 </FrameLayout>

@@ -94,8 +94,6 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     }
 
-    ;
-
     private static class PopulateNoteAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private NoteDao noteDao;
@@ -175,7 +173,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
             list.clear();
             Habits habits = new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description));
-            habits.setOnReform(true);
+            habits.setOnReform(false);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);

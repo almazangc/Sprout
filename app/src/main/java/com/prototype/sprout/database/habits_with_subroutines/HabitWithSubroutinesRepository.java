@@ -15,6 +15,7 @@ public class HabitWithSubroutinesRepository {
     private LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
     private List<Long> allHabitOnReformUID;
     private List<String> allHabitTitle;
+    private long getHabitOnReformCount;
 
     public HabitWithSubroutinesRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -25,6 +26,7 @@ public class HabitWithSubroutinesRepository {
         this.allHabitOnReformWithSubroutinesLiveData = habitWithSubroutinesDao.getAllHabitsOnReformWithSubroutinesLiveData();
         this.allHabitOnReformUID = habitWithSubroutinesDao.getAllHabitsOnReformUID();
         this.allHabitTitle = habitWithSubroutinesDao.getAllHabitTitle();
+        this.getHabitOnReformCount = habitWithSubroutinesDao.getHabitOnReformCount();
     }
 
     public List<Habits> getAllHabitOnReform() {
@@ -57,5 +59,9 @@ public class HabitWithSubroutinesRepository {
 
     public List<String> getAllHabitTitle() {
         return allHabitTitle;
+    }
+
+    public long getGetHabitOnReformCount() {
+        return getHabitOnReformCount;
     }
 }

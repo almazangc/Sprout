@@ -46,9 +46,44 @@ public class HomeFragment extends Fragment {
             homeParentAdapterItem.setHabits(habitsOnReform);
         });
 
+        if (habitWithSubroutinesViewModel.getGetHabitOnReformCount() <= 1) {
+            binding.homeFab.setVisibility(View.VISIBLE);
+            binding.homeFab.setClickable(true);
+            FabButton();
+        } else {
+            binding.homeFab.setVisibility(View.GONE);
+            binding.homeFab.setClickable(false);
+        }
+
+        onBackPress();
+
+        return binding.getRoot();
+    }
+
+    private void onBackPress() {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                //Do Something
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
+
+    /**
+     * Listens to the FAB Button Click
+     */
+    void FabButton() {
         binding.homeFab.setOnClickListener(view -> {
             FragmentManager fragmentManager = getChildFragmentManager();
 
+            //Store in xml string
             String[] items = {"Choose from Predefined-list", "Add New Habit"};
 
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -73,24 +108,5 @@ public class HomeFragment extends Fragment {
             AlertDialog dialog = builder.create();
             dialog.show();
         });
-
-        onBackPress();
-        return binding.getRoot();
-    }
-
-    private void onBackPress() {
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                //Do Something
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
     }
 }

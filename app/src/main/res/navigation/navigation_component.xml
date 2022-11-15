@@ -200,12 +200,38 @@
         android:id="@+id/bottomNavigationFragment"
         android:name="com.prototype.sprout.ui.menu.BottomNavigationFragment"
         android:label="fragment_bottom_navigation"
-        tools:layout="@layout/fragment_bottom_navigation" />
+        tools:layout="@layout/fragment_bottom_navigation" >
+        <action
+            android:id="@+id/action_bottomNavigationFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_bottomNavigationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_bottomNavigationFragment_to_subroutineFragment"
+            app:destination="@id/subroutineFragment" />
+        <action
+            android:id="@+id/action_bottomNavigationFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_bottomNavigationFragment_to_analyticsFragment"
+            app:destination="@id/analyticsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/analyticsFragment"
         android:name="com.prototype.sprout.ui.menu.analytic.AnalyticFragment"
         android:label="fragment_analytics"
-        tools:layout="@layout/fragment_analytic" />
+        tools:layout="@layout/fragment_analytic" >
+        <action
+            android:id="@+id/action_analyticsFragment_to_subroutineFragment"
+            app:destination="@id/subroutineFragment" />
+        <action
+            android:id="@+id/action_analyticsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_analyticsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/journalFragment"
         android:name="com.prototype.sprout.ui.menu.journal.JournalFragment"
@@ -214,6 +240,18 @@
         <action
             android:id="@+id/action_journalFragment_to_addNoteFragment"
             app:destination="@id/addNoteFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_analyticsFragment"
+            app:destination="@id/analyticsFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_subroutineFragment"
+            app:destination="@id/subroutineFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -229,6 +267,21 @@
         <action
             android:id="@+id/action_settingsFragment_to_techStackInfoFragment"
             app:destination="@id/techStackInfoFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_subroutineFragment"
+            app:destination="@id/subroutineFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_self"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_analyticsFragment"
+            app:destination="@id/analyticsFragment" />
     </fragment>
     <fragment
         android:id="@+id/subroutineFragment"
@@ -238,6 +291,18 @@
         <action
             android:id="@+id/action_subroutineFragment_to_addNewSubroutineFragment"
             app:destination="@id/addNewSubroutineFragment" />
+        <action
+            android:id="@+id/action_subroutineFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_subroutineFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_subroutineFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_subroutineFragment_to_analyticsFragment"
+            app:destination="@id/analyticsFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -250,6 +315,18 @@
         <action
             android:id="@+id/action_homeFragment_to_addDefaultHabitFragment"
             app:destination="@id/addDefaultHabitFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_subroutineFragment"
+            app:destination="@id/subroutineFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_journalFragment"
+            app:destination="@id/journalFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_analyticsFragment"
+            app:destination="@id/analyticsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNoteFragment"

@@ -7,8 +7,13 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="12dp"
+        android:textColor="@color/NIGHT"
+        android:layout_margin="20dp"
+        android:text="This will display create form for new habit without subroutine and add it on reform, to add subroutine navigate to subroutine class"
+        android:textAlignment="center"/>
 
 </FrameLayout>
