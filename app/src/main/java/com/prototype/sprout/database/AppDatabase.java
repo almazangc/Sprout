@@ -75,6 +75,8 @@ public abstract class AppDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
 
             final String DEFAULT_SELECTED = "null";
+
+            assessmentDao.insert(new Assessment(getString(R.string.Q0), getString(R.string.Q0_SEL1), getString(R.string.Q0_SEL2), getString(R.string.Q0_SEL3), getString(R.string.Q0_SEL4), DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("1: Question", "A", "B", "C", "D", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("2: Which habit troubles you, This is a very long questions as an input to the app?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
             assessmentDao.insert(new Assessment("3: Which habit troubles you?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
@@ -91,6 +93,10 @@ public abstract class AppDatabase extends RoomDatabase {
             assessmentDao.insert(new Assessment("14: Last Question?", "Yes", "No", "I don't know", "Why should I care?", DEFAULT_SELECTED));
 
             return null;
+        }
+
+        private String getString(int id) {
+            return AppContext.getApplicationContext().getResources().getString(id);
         }
     }
 
@@ -125,10 +131,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Resources res = AppContext.getApplicationContext().getResources();
             Subroutines sample = new Subroutines(getString(R.string.sample_subroutine_title), getString(R.string.sample_subroutine_description));
 
-            long id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            long id = habitWithSubroutinesDao.insertHabit(new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description)));
             List<Subroutines> list = new ArrayList<>();
             list.add(sample);
             list.add(sample);
@@ -138,32 +143,23 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            id = habitWithSubroutinesDao.insertHabit(new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description)));
             list.add(sample);
             list.add(sample);
             list.add(sample);
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            id = habitWithSubroutinesDao.insertHabit(new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description)));
             list.add(sample);
             list.add(sample);
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
+            id = habitWithSubroutinesDao.insertHabit(new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description)));
             list.add(sample);
             list.add(sample);
             list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
-
-            list.clear();
-            id = habitWithSubroutinesDao.insertHabit(new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description)));
             list.add(sample);
             list.add(sample);
             list.add(sample);
@@ -172,7 +168,16 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            Habits habits = new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description));
+            id = habitWithSubroutinesDao.insertHabit(new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description)));
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
+
+            list.clear();
+            Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description));
             habits.setOnReform(false);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
@@ -182,7 +187,7 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            habits = new Habits(res.getString(R.string.sample_habit_title), res.getString(R.string.sample_habit_description));
+            habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description));
             habits.setOnReform(true);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
@@ -227,4 +232,6 @@ public abstract class AppDatabase extends RoomDatabase {
             return list;
         }
     }
+
+
 }
