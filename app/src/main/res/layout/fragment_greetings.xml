@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/textView1"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-150dp"
         android:contentDescription="@string/greetingsvg"
         app:srcCompat="@drawable/illus_welcome" />
 
@@ -35,6 +36,7 @@
 
     <Button
         android:id="@+id/btn_continue"
-        style="@style/btn_continue_portrait" />
+        style="@style/btn_continue_portrait"
+        android:textColor="@color/ClOUDS_" />
 
 </RelativeLayout>

@@ -48,7 +48,7 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/shape_rounded_waikawa_grey_btn"
         android:text="@string/lets_do_it"
-        android:textColor="@color/CLOUDS"
+        android:textColor="@color/ClOUDS_"
         android:textStyle="bold"
         tools:ignore="TextContrastCheck" />
 

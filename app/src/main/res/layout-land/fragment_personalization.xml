@@ -113,6 +113,7 @@
 
         <Button
             android:id="@+id/btn_continue"
-            style="@style/btn_continue_landscape" />
+            style="@style/btn_continue_landscape"
+            android:textColor="@color/ClOUDS_"/>
     </RelativeLayout>
 </LinearLayout>

@@ -71,7 +71,8 @@
 
         <Button
             android:id="@+id/btn_continue"
-            style="@style/btn_continue_portrait" />
+            style="@style/btn_continue_portrait"
+            android:textColor="@color/ClOUDS_"/>
 
     </RelativeLayout>
 

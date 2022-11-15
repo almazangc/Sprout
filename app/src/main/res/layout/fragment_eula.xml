@@ -68,7 +68,7 @@
             android:layout_toStartOf="@id/btn_Disagree"
             android:background="@drawable/shape_rounded_waikawa_grey_btn"
             android:text="@string/agree"
-            android:textColor="@color/CLOUDS"
+            android:textColor="@color/ClOUDS_"
             android:textStyle="bold"
             tools:ignore="TextContrastCheck" />
 
@@ -83,7 +83,7 @@
             android:paddingLeft="10sp"
             android:paddingRight="10sp"
             android:text="@string/disagree"
-            android:textColor="@color/CLOUDS"
+            android:textColor="@color/ClOUDS_"
             android:textStyle="bold"
             tools:ignore="TextContrastCheck" />
 </RelativeLayout>
