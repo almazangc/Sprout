@@ -56,7 +56,9 @@
     <color name="A80_MIRAGE">#CC151621</color>
     <color name="A80_NIGHT">#CC040000</color>
 
-    <color name="MIRAGE_70">#CC151621</color>
-
     <color name="font_color">#ecf0f1</color>
+
+    <color name="BLUE_BELL">#3a4274</color>
+
+    <color name="TRANSPARENT">#00FFFFFF</color>
 </resources>

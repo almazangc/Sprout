@@ -17,14 +17,14 @@
         app:lottie_fileName="lottie_anim_error.json"
         app:lottie_loop="true"
         app:lottie_speed="1"
-        tools:background="@color/LightBrown" />
+        android:background="@color/WAIKAWA_GREY"/>
 
     <TextView
         android:id="@+id/custom_toast_lbl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lottie_main"
-        android:background="@drawable/shape_rounded_kimberly_btn"
+        android:background="@drawable/shape_rounded_waikawa_grey_btn"
         android:padding="5dp"
         android:text="Custom Toast Message"
         android:textColor="@color/CLOUDS"

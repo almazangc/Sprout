@@ -1,6 +1,8 @@
 package com.prototype.sprout.ui.menu.journal.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,18 +61,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
     static class NoteViewHolder extends RecyclerView.ViewHolder {
 
         TextView noteTitle, noteSubtitle, noteDateTime;
-        LinearLayout layout_note;
+        CardView layout_note;
         Drawable cloud, amethyst, sunflower, nephritis, brightsky_blue, alzarin;
+        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_brightsky_blue, cs_alzarin;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             noteTitle = itemView.findViewById(R.id.noteTitle);
             noteSubtitle = itemView.findViewById(R.id.noteSubtitle);
             noteDateTime = itemView.findViewById(R.id.note_DateTime);
-            layout_note = itemView.findViewById(R.id.layoutNote);
-
-            //Deprecated way to get drawable resource
-//          itemView.getContext().getResources().getDrawable(R.drawable.background_item_cloud)
+            layout_note = itemView.findViewById(R.id.layout_note);
 
             cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_cloud);
             amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_amethyst);
@@ -77,6 +78,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_nephritis);
             brightsky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_brightsky_blue);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_alzarin);
+
+            cs_cloud = ContextCompat.getColorStateList(itemView.getContext(), R.color.CLOUDS);
+            cs_amethyst = ContextCompat.getColorStateList(itemView.getContext(), R.color.AMETHYST);
+            cs_sunflower = ContextCompat.getColorStateList(itemView.getContext(), R.color.SUNFLOWER);
+            cs_nephritis = ContextCompat.getColorStateList(itemView.getContext(), R.color.NEPHRITIS);
+            cs_brightsky_blue = ContextCompat.getColorStateList(itemView.getContext(), R.color.BRIGHT_SKY_BLUE);
+            cs_alzarin = ContextCompat.getColorStateList(itemView.getContext(), R.color.ALIZARIN);
+
         }
 
         void bindNote(Note note) {
@@ -91,21 +100,27 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             switch (note.getColor()){
                 case "amethyst":
                     layout_note.setBackground(amethyst);
+                    layout_note.setBackgroundTintList(cs_amethyst);
                     break;
                 case "sunflower":
                     layout_note.setBackground(sunflower);
+                    layout_note.setBackgroundTintList(cs_sunflower);
                     break;
                 case "nephritis":
                     layout_note.setBackground(nephritis);
+                    layout_note.setBackgroundTintList(cs_nephritis);
                     break;
                 case "brightsky_blue":
                     layout_note.setBackground(brightsky_blue);
+                    layout_note.setBackgroundTintList(cs_brightsky_blue);
                     break;
                 case "alzarin":
                     layout_note.setBackground(alzarin);
+                    layout_note.setBackgroundTintList(cs_alzarin);
                     break;
                 default:
                     layout_note.setBackground(cloud);
+                    layout_note.setBackgroundTintList(cs_cloud);
                     break;
             }
         }

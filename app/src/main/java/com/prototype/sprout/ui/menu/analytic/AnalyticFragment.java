@@ -17,6 +17,7 @@ public class AnalyticFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAnalyticBinding.inflate(inflater, container, false);
+
         onBackPress();
         return binding.getRoot();
     }

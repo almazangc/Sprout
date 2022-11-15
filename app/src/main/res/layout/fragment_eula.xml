@@ -41,7 +41,7 @@
             android:paddingTop="20dp"
             android:paddingRight="10dp"
             android:paddingBottom="20dp"
-            android:scrollbarThumbVertical="@color/MIRAGE_70"
+            android:scrollbarThumbVertical="@color/WAIKAWA_GREY"
             android:scrollbars="vertical">
 
             <TextView
@@ -66,7 +66,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:layout_toStartOf="@id/btn_Disagree"
-            android:background="@drawable/shape_rounded_kimberly_btn"
+            android:background="@drawable/shape_rounded_waikawa_grey_btn"
             android:text="@string/agree"
             android:textColor="@color/CLOUDS"
             android:textStyle="bold"

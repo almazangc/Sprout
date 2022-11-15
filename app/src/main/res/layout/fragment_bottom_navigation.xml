@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/bottom_nav_view"
     tools:context=".ui.menu.BottomNavigationFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -21,12 +22,12 @@
         android:layout_alignParentBottom="true"
         android:background="@color/A80_CLOUDS"
         app:abb_indicatorAppearance="round"
-        app:abb_indicatorColor="@color/KIMBERLY"
+        app:abb_indicatorColor="@color/NIGHT"
         app:abb_indicatorHeight="4dp"
         app:abb_indicatorMargin="16dp"
         app:abb_selectedIndex="0"
         app:abb_selectedTabType="text"
-        app:abb_tabColor="@color/KIMBERLY"
-        app:abb_tabColorSelected="@color/KIMBERLY"
+        app:abb_tabColor="@color/NIGHT"
+        app:abb_tabColorSelected="@color/NIGHT"
         app:abb_tabs="@menu/tabs" />
 </RelativeLayout>

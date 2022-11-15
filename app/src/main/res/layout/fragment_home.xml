@@ -2,44 +2,57 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/home_frame_layout"
     tools:context=".ui.menu.home.HomeFragment">
 
     <RelativeLayout
+        android:id="@+id/home_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/home_container">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/homeTitle"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="6dp"
-            android:text="Habit Reform"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            app:cardElevation="10dp">
 
-        <TextView
-            android:id="@+id/homeSubTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/homeTitle"
-            android:paddingTop="2dp"
-            android:paddingBottom="5dp"
-            android:text="Programmer: A machine that turns coffee into code."
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="15dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/homeTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6dp"
+                    android:text="Habit Reform"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/homeSubTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/homeTitle"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="5dp"
+                    android:text="Programmer: A machine that turns coffee into code."
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/homeSubTitle"
+            android:layout_below="@+id/cardview"
             tools:listitem="@layout/adapter_home_parent_habit_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

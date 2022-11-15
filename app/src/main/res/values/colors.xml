@@ -56,16 +56,9 @@
     <color name="A80_MIRAGE">#CC151621</color>
     <color name="A80_NIGHT">#CC040000</color>
 
-    <color name="MIRAGE_70">#CC151621</color>
-
-    <color name="KIMBERLY">#30324F</color>
-    <color name="A15_KIMBERLY">#27686DA3</color>
-    <color name="FIORD">#484B73</color>
-    <color name="Pale_pink">#F9DED7</color>
-
-    <color name="DarkBrown">#aa6f73</color>
-    <color name="LightBrown">#eea990</color>
-    <color name="Pale_Brown">#f6e0b5</color>
-
     <color name="font_color">#040000</color>
+
+    <color name="BLUE_BELL">#989BD5</color>
+
+    <color name="TRANSPARENT">#00FFFFFF</color>
 </resources>

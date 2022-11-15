@@ -1,67 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:id="@+id/subroutine_frame_layout"
-tools:context=".ui.menu.subroutine.SubroutineFragment">
-
-<RelativeLayout
-    android:id="@+id/subroutine_container"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/subroutine_frame_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.menu.subroutine.SubroutineFragment">
 
     <RelativeLayout
-        android:id="@+id/layout_top"
+        android:id="@+id/subroutine_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="5dp"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/subroutineTitle"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/layout_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="6dp"
-            android:text="DAILY SUBROUTINE TASK"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            app:cardElevation="10dp">
 
-        <TextView
-            android:id="@+id/subroutineSubTitle"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/subroutineTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6dp"
+                    android:text="DAILY SUBROUTINE TASK"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subroutineSubTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/subroutineTitle"
+                    android:paddingBottom="5dp"
+                    android:text="Subroutines helps you in reforming bad habits"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subroutineRecyclerView"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/layout_top"
+            android:layout_marginTop="2dp"
+            tools:listitem="@layout/adapter_subroutine_parent_item" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_subroutine"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/subroutineTitle"
-            android:paddingBottom="5dp"
-            android:text="Subroutines helps you in reforming bad habits"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="15dp" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            app:backgroundTint="@color/CLOUDS"
+            app:borderWidth="5dp"
+            app:srcCompat="@drawable/ic_add"
+            tools:ignore="ContentDescription" />
+
     </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/subroutineRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/layout_top"
-        android:layout_marginTop="2dp"
-        tools:listitem="@layout/adapter_subroutine_parent_item" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_subroutine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        app:backgroundTint="@color/CLOUDS"
-        app:borderWidth="5dp"
-        app:srcCompat="@drawable/ic_add"
-        tools:ignore="ContentDescription" />
-
-</RelativeLayout>
 </FrameLayout>

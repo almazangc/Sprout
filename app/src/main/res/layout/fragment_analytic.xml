@@ -15,7 +15,7 @@
         app:lottie_fileName="lottie_anim_under-construction.json"
         app:lottie_loop="true"
         app:lottie_speed="1"
-        tools:background="@color/LightBrown"/>
+        tools:background="@color/WAIKAWA_GREY"/>
 
         <TextView
             style="@style/textViewHeader"

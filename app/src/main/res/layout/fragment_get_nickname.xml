@@ -42,7 +42,7 @@
             app:boxCornerRadiusBottomStart="@dimen/relativeLayoutPadding"
             app:boxCornerRadiusTopEnd="@dimen/relativeLayoutPadding"
             app:boxCornerRadiusTopStart="@dimen/relativeLayoutPadding"
-            app:boxStrokeColor="@color/KIMBERLY"
+            app:boxStrokeColor="@color/WAIKAWA_GREY"
             app:counterEnabled="true"
             app:counterMaxLength="15"
             app:counterTextColor="@color/CORAL_RED"

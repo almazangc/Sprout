@@ -220,6 +220,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="blankFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1174" />
+                            <option name="y" value="79" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="bottomNavigationFragment">
                     <value>
                       <LayoutPositions>

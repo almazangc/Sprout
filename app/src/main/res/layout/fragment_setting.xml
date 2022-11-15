@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/settings_top_label"
             android:layout_alignParentBottom="true"
-            android:scrollbarThumbVertical="@color/MIRAGE_70"
+            android:scrollbarThumbVertical="@color/WAIKAWA_GREY"
             android:scrollbars="vertical">
 
             <RelativeLayout
