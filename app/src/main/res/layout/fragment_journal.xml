@@ -2,81 +2,105 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/journal_frame_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.menu.journal.JournalFragment">
 
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:id="@+id/journal_container"
-       android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/journal_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-       <RelativeLayout
-           android:id="@+id/header_container"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_alignParentTop="true"
-           android:background="@drawable/background_item_cloud"
-           android:orientation="horizontal"
-           android:elevation="5dp"
-           android:padding="10dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/layout_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="10dp">
 
-           <com.google.android.material.textfield.TextInputLayout
-               android:id="@+id/outlinedTextField"
-               style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="5dp"
-               android:layout_marginRight="5dp"
-               android:maxLines="1"
-               android:textColor="@color/NIGHT"
-               android:textColorHint="@color/NIGHT"
-               app:boxBackgroundColor="@color/CLOUDS"
-               app:boxCornerRadiusBottomEnd="10dp"
-               app:boxCornerRadiusBottomStart="10dp"
-               app:boxCornerRadiusTopEnd="10dp"
-               app:boxCornerRadiusTopStart="10dp"
-               app:boxStrokeColor="@color/WAIKAWA_GREY"
-               app:endIconMode="clear_text"
-               app:startIconDrawable="@drawable/ic_search">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-               <com.google.android.material.textfield.TextInputEditText
-                   android:id="@+id/edit_search"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:clickable="true"
-                   android:ems="10"
-                   android:hint="Search Journal Note"
-                   android:importantForAutofill="no"
-                   android:inputType="text"
-                   android:maxLength="25"
-                   android:maxLines="1"
-                   android:textColor="@color/NIGHT"
-                   android:textColorHint="@color/NIGHT"
-                   android:textSize="15sp" />
-           </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:id="@+id/journalTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6dp"
+                    android:text="Reflection Journal"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
-       </RelativeLayout>
+                <TextView
+                    android:id="@+id/journalSubTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/journalTitle"
+                    android:paddingBottom="5dp"
+                    android:text="Write down your reflection about your progress"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="15dp" />
+            </RelativeLayout>
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/journal_recycler_view"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_below="@id/header_container"
-           tools:listitem="@layout/adapter_journal_parent_note_item" />
+        </androidx.cardview.widget.CardView>
 
-       <com.google.android.material.floatingactionbutton.FloatingActionButton
-           android:id="@+id/fab_journal"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_alignParentEnd="true"
-           android:layout_alignParentBottom="true"
-           android:layout_marginEnd="10dp"
-           app:fabCustomSize="45dp"
-           android:layout_marginBottom="10dp"
-           app:backgroundTint="@color/CLOUDS"
-           app:borderWidth="5dp"
-           app:srcCompat="@drawable/ic_add" />
-   </RelativeLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_below="@id/layout_top"
+            android:id="@+id/outlinedTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:maxLines="1"
+            android:textColor="@color/NIGHT"
+            android:textColorHint="@color/NIGHT"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxStrokeColor="@color/WAIKAWA_GREY"
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/ic_search">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ems="10"
+                android:hint="Note Search"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:textColor="@color/NIGHT"
+                android:textColorHint="@color/NIGHT"
+                android:textSize="13sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/journal_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/outlinedTextField"
+            tools:listitem="@layout/adapter_journal_parent_note_item" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_journal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            app:backgroundTint="@color/CLOUDS"
+            app:borderWidth="5dp"
+            app:fabCustomSize="45dp"
+            app:srcCompat="@drawable/ic_add" />
+    </RelativeLayout>
 </FrameLayout>

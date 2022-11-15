@@ -6,6 +6,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.menu.analytic.AnalyticFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/analytic_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:text="Progress"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/analytic_SubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/analytic_Title"
+            android:paddingBottom="5dp"
+            android:text="Have a better understanding of your progress"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT"
+            android:textSize="15dp" />
+    </RelativeLayout>
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_main"
         android:layout_width="300dp"
