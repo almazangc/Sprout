@@ -3,17 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/add_new_habit_frame_layout"
     tools:context=".ui.menu.home.ui.AddNewHabitFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="12dp"
-        android:textColor="@color/NIGHT"
-        android:layout_margin="20dp"
-        android:text="This will display create form for new habit without subroutine and add it on reform, to add subroutine navigate to subroutine class"
-        android:textAlignment="center"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/add_new_habit_container">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="12sp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/NIGHT"
+            android:layout_margin="20dp"
+            android:text="This will display create form for new habit without subroutine and add it on reform, to add subroutine navigate to subroutine class"
+            android:textAlignment="center"/>
+    </RelativeLayout>
 
 </FrameLayout>

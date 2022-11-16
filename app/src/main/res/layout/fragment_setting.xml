@@ -2,18 +2,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/settings_frame_layout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:id="@+id/setting_frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.menu.setting.SettingFragment">
 
     <RelativeLayout
-        android:id="@+id/settings_container"
+        android:id="@+id/setting_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview"
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="10dp">
@@ -30,7 +30,7 @@
                     android:text="Setting"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="25dp"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -43,7 +43,7 @@
                     android:text="In a nutshell"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
@@ -52,7 +52,7 @@
             android:id="@+id/settings_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/cardview"
+            android:layout_below="@id/cardView"
             android:layout_alignParentBottom="true"
             android:scrollbarThumbVertical="@color/WAIKAWA_GREY"
             android:scrollbars="vertical">
@@ -172,4 +172,5 @@
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>
+
 </FrameLayout>

@@ -26,14 +26,21 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private HomeParentAdapterItem homeParentAdapterItem;
+    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        setRecyclerViewAdapter();
+        fabVisibility();
+        onBackPress();
+        return binding.getRoot();
+    }
 
+    private void setRecyclerViewAdapter() {
         binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         List<Habits> habitsOnReform1 = habitWithSubroutinesViewModel.getAllHabitOnReform();
         homeParentAdapterItem = new HomeParentAdapterItem(habitsOnReform1);
@@ -42,7 +49,9 @@ public class HomeFragment extends Fragment {
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habitsOnReform -> {
             homeParentAdapterItem.setHabits(habitsOnReform);
         });
+    }
 
+    private void fabVisibility() {
         if (habitWithSubroutinesViewModel.getGetHabitOnReformCount() <= 1) {
             binding.homeFab.setVisibility(View.VISIBLE);
             binding.homeFab.setClickable(true);
@@ -51,11 +60,8 @@ public class HomeFragment extends Fragment {
             binding.homeFab.setVisibility(View.GONE);
             binding.homeFab.setClickable(false);
         }
-
-        onBackPress();
-
-        return binding.getRoot();
     }
+
 
     private void onBackPress() {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -105,6 +111,7 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         homeParentAdapterItem = null;
+        habitWithSubroutinesViewModel = null;
         binding = null;
     }
 }

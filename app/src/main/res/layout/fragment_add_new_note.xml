@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_new_note_frame_layout"
     android:layout_width="match_parent"
-    android:id="@+id/add_from_default_habit_frame_layout"
     android:layout_height="match_parent"
-    tools:context=".ui.menu.home.ui.AddDefaultHabitFragment">
+    tools:context=".ui.menu.journal.ui.AddNoteFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
+        android:id="@+id/add_new_note_container"
         android:layout_width="match_parent"
-        android:id="@+id/add_from_default_habit_container"
         android:layout_height="match_parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="12dp"
             android:layout_centerInParent="true"
-            android:textColor="@color/NIGHT"
+            android:layout_gravity="center"
             android:layout_margin="20dp"
-            android:text="This will display predefined the list of habits that are not on reform and its subroutines"
-            android:textAlignment="center"/>
+            android:text="This will display create form for new note and attach it on journal notes"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT"
+            android:textSize="12sp" />
 
     </RelativeLayout>
+
+
 </FrameLayout>

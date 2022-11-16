@@ -33,9 +33,10 @@ public class AboutUsFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                SettingFragment fragment = new SettingFragment();
                 FragmentManager fragmentManager = getChildFragmentManager();
-                fragmentManager.beginTransaction().replace(binding.aboutUsFrameLayout.getId(), fragment)
+                SettingFragment setting = new SettingFragment();
+                fragmentManager.beginTransaction()
+                        .replace(binding.aboutUsFrameLayout.getId(),setting)
                         .commit();
                 binding.aboutUsContainer.setVisibility(View.GONE);
             }

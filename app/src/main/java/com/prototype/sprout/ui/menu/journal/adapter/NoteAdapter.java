@@ -85,7 +85,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
             cs_nephritis = ContextCompat.getColorStateList(itemView.getContext(), R.color.NEPHRITIS);
             cs_brightsky_blue = ContextCompat.getColorStateList(itemView.getContext(), R.color.BRIGHT_SKY_BLUE);
             cs_alzarin = ContextCompat.getColorStateList(itemView.getContext(), R.color.ALIZARIN);
-
         }
 
         void bindNote(Note note) {

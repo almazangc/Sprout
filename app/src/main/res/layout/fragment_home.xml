@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview"
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="10dp">
@@ -52,7 +52,7 @@
             android:id="@+id/home_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/cardview"
+            android:layout_below="@+id/cardView"
             tools:listitem="@layout/adapter_home_parent_habit_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -68,4 +68,5 @@
             app:borderWidth="5dp"
             app:srcCompat="@drawable/ic_add" />
     </RelativeLayout>
+
 </FrameLayout>

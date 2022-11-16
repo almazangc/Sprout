@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.prototype.sprout.database.user.UserViewModel;
 import com.prototype.sprout.databinding.FragmentSettingBinding;
+import com.prototype.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
 import com.prototype.sprout.ui.menu.setting.ui.AboutUsFragment;
 import com.prototype.sprout.ui.menu.setting.ui.LearnMoreFragment;
 import com.prototype.sprout.ui.menu.setting.ui.TechStackInfoFragment;
@@ -20,51 +21,46 @@ public class SettingFragment extends Fragment {
 
     private FragmentSettingBinding binding;
     private FragmentManager fragmentManager;
+    private UserViewModel userViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSettingBinding.inflate(inflater, container, false);
-        fragmentManager = getChildFragmentManager();
 
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.getUserNickname().observe(getViewLifecycleOwner(), nickname -> {
             binding.nickname.setText(nickname);
         });
 
-        goToAboutUs();
-        goToLearnMore();
-        goToTechStack();
+        fragmentManager = getChildFragmentManager();
+
+        binding.aboutUsBtn.setOnClickListener(v -> {
+            AboutUsFragment aboutUs = new AboutUsFragment();
+            fragmentManager.beginTransaction()
+                    .replace(binding.settingFrameLayout.getId(), aboutUs)
+                    .commit();
+            binding.settingContainer.setVisibility(View.GONE);
+        });
+
+        binding.learnMoreBtn.setOnClickListener(v -> {
+            LearnMoreFragment learnMore = new LearnMoreFragment();
+            fragmentManager.beginTransaction()
+                    .replace(binding.settingFrameLayout.getId(), learnMore)
+                    .commit();
+            binding.settingContainer.setVisibility(View.GONE);
+
+        });
+
+        binding.techStackInfoBtn.setOnClickListener(v -> {
+            TechStackInfoFragment techStackInfo = new TechStackInfoFragment();
+            fragmentManager.beginTransaction()
+                    .replace(binding.settingFrameLayout.getId(), techStackInfo)
+                    .commit();
+            binding.settingContainer.setVisibility(View.GONE);
+        });
 
         onBackPress();
-
         return binding.getRoot();
-    }
-
-    private void goToAboutUs() {
-        binding.aboutUsBtn.setOnClickListener(view -> {
-            AboutUsFragment fragment = new AboutUsFragment();
-            changeFragment(fragment);
-        });
-    }
-
-    private void goToLearnMore() {
-        binding.learnMoreBtn.setOnClickListener(view -> {
-            LearnMoreFragment fragment = new LearnMoreFragment();
-            changeFragment(fragment);
-        });
-    }
-
-    private void goToTechStack() {
-        binding.techStackInfoBtn.setOnClickListener(view -> {
-            TechStackInfoFragment fragment = new TechStackInfoFragment();
-            changeFragment(fragment);
-        });
-    }
-
-    private void changeFragment(Fragment newFragment) {
-        fragmentManager.beginTransaction().replace(binding.settingsFrameLayout.getId(), newFragment)
-                .commit();
-        binding.settingsContainer.setVisibility(View.GONE);
     }
 
     private void onBackPress() {
@@ -81,6 +77,7 @@ public class SettingFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         fragmentManager = null;
+        userViewModel = null;
         binding = null;
     }
 }

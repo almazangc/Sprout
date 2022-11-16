@@ -5,27 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/relativeLayoutPadding"
+    android:layout_gravity="center"
+    android:gravity="center"
     tools:context=".ui.SplashScreenFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/sproutLogo"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_centerInParent="true"
         app:lottie_autoPlay="true"
         app:lottie_fileName="sprout-splash-screen.json"
         app:lottie_loop="true"
+        android:layout_marginTop="-65dp"
+        android:layout_centerInParent="true"
         app:lottie_speed="1" />
 
     <TextView
         android:id="@+id/appName"
         style="@style/textViewHeader"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/sproutLogo"
-        android:text="@string/sprout"
         android:layout_marginTop="-65dp"
+        android:text="@string/sprout"
         android:textAlignment="center"
         android:textColor="@color/NIGHT"
         android:textStyle="bold" />
@@ -33,12 +35,11 @@
     <TextView
         android:id="@+id/sub_lbl"
         style="@style/textViewSubHeader"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/appName"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="-15dp"
-        tools:text="Developmental Stage"
         android:textAlignment="center"
-        android:textColor="@color/NIGHT" />
+        android:textColor="@color/NIGHT"
+        tools:text="Developmental Stage" />
 </RelativeLayout>
