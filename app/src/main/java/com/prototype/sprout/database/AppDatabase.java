@@ -168,7 +168,14 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            id = habitWithSubroutinesDao.insertHabit(new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description)));
+            Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description));
+            habits.setOnReform(true);
+            id = habitWithSubroutinesDao.insertHabit(habits);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
             list.add(sample);
             list.add(sample);
             list.add(sample);
@@ -177,8 +184,6 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description));
-            habits.setOnReform(false);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);
@@ -187,8 +192,18 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description));
-            habits.setOnReform(true);
+            id = habitWithSubroutinesDao.insertHabit(habits);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
+
+            list.clear();
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);

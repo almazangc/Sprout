@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.prototype.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
 import com.prototype.sprout.database.habits_with_subroutines.Habits;
@@ -27,10 +30,12 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private HomeParentAdapterItem homeParentAdapterItem;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private List<Habits> habitsOnReform;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
         setRecyclerViewAdapter();
         fabVisibility();
         onBackPress();
@@ -42,13 +47,44 @@ public class HomeFragment extends Fragment {
 
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
-        List<Habits> habitsOnReform1 = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        homeParentAdapterItem = new HomeParentAdapterItem(habitsOnReform1);
+        habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
+        homeParentAdapterItem = new HomeParentAdapterItem(habitsOnReform);
         binding.homeRecyclerView.setAdapter(homeParentAdapterItem);
 
-        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habitsOnReform -> {
-            homeParentAdapterItem.setHabits(habitsOnReform);
+        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
+            homeParentAdapterItem.setHabits(habits);
+            habitsOnReform = habits;
         });
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.END | ItemTouchHelper.START);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                switch (direction){
+                    case ItemTouchHelper.END:
+                        long uid = habitsOnReform.get(viewHolder.getBindingAdapterPosition()).getPk_habit_uid();
+                        habitWithSubroutinesViewModel.updateOnReformStatus(false, uid);
+                        homeParentAdapterItem.notifyItemRemoved(viewHolder.getBindingAdapterPosition());
+                        break;
+                    case ItemTouchHelper.START:
+                        //
+                        break;
+                }
+            }
+        });
+        //Attach on Recycler View
+        itemTouchHelper.attachToRecyclerView(binding.homeRecyclerView);
+
     }
 
     private void fabVisibility() {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
@@ -33,6 +34,14 @@ public class SettingFragment extends Fragment {
         });
 
         fragmentManager = getChildFragmentManager();
+
+        binding.editNicknameBtn.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Edit Nickname", Toast.LENGTH_SHORT).show();
+        });
+
+        binding.selectThemeBtn.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Change Theme", Toast.LENGTH_SHORT).show();
+        });
 
         binding.aboutUsBtn.setOnClickListener(v -> {
             AboutUsFragment aboutUs = new AboutUsFragment();

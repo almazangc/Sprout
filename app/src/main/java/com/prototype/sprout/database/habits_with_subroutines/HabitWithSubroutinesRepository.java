@@ -64,4 +64,8 @@ public class HabitWithSubroutinesRepository {
     public long getGetHabitOnReformCount() {
         return getHabitOnReformCount;
     }
+
+    public void updateOnReformStatus(boolean bool, long uid){
+        habitWithSubroutinesDao.updateOnReformStatus(bool, uid);
+    }
 }

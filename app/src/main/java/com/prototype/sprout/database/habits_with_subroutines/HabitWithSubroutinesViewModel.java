@@ -66,4 +66,8 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
     public long getGetHabitOnReformCount() {
         return getHabitOnReformCount;
     }
+
+    public void updateOnReformStatus(boolean bool, long uid){
+        repository.updateOnReformStatus(bool, uid);
+    }
 }
