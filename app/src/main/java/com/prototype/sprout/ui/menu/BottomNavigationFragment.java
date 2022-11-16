@@ -1,5 +1,6 @@
 package com.prototype.sprout.ui.menu;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -27,11 +28,6 @@ public class BottomNavigationFragment extends Fragment {
 
     private FragmentBottomNavigationBinding binding;
     private FragmentManager fragmentManager;
-    private Fragment Home;
-    private Fragment Subroutine;
-    private Fragment Analytics;
-    private Fragment Settings;
-    private Fragment Journal;
     private int last_menu_selected, last_selected_index;
 
     public BottomNavigationFragment() {
@@ -42,18 +38,12 @@ public class BottomNavigationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBottomNavigationBinding.inflate(inflater, container, false);
 
-        Home = new HomeFragment();
-        Subroutine = new SubroutineFragment();
-        Analytics = new AnalyticFragment();
-        Journal = new JournalFragment();
-        Settings = new SettingFragment();
-
         SwipeListener swipeListener = new SwipeListener();
 
         if (savedInstanceState == null) {
             binding.bottomBar.selectTabById(R.id.tab_home, true);
             fragmentManager = getChildFragmentManager();
-            fragmentManager.beginTransaction().replace(binding.fragmentContainer.getId(), Home)
+            fragmentManager.beginTransaction().replace(binding.fragmentContainer.getId(), new HomeFragment())
                     .commit();
             binding.bottomBar.selectTabAt(0, true);
         } else {
@@ -103,30 +93,51 @@ public class BottomNavigationFragment extends Fragment {
     }
 
     private void setMenu(int id, int tabID) {
+
+        Fragment Home = new HomeFragment();
+        Fragment Subroutine = new SubroutineFragment();
+        Fragment Analytics = new AnalyticFragment();
+        Fragment Journal = new JournalFragment();
+        Fragment Settings = new SettingFragment();
+
         Fragment fragment;
-        switch (id) {
-            case R.id.tab_subroutine:
-                fragment = Subroutine;
-                break;
-            case R.id.tab_analytic:
-                fragment = Analytics;
-                break;
-            case R.id.tab_journal:
-                fragment = Journal;
-                break;
-            case R.id.tab_settings:
-                fragment = Settings;
-                break;
-            case R.id.tab_home:
-            default:
-                fragment = Home;
-                break;
+
+//        Warning: Resource IDs will be non-final by default in Android Gradle Plugin Version 8.0 avoid using them in switch case statements
+//        switch (id) {
+//            case R.id.tab_subroutine:
+//                fragment = Subroutine;
+//                break;
+//            case R.id.tab_analytic:
+//                fragment = Analytics;
+//                break;
+//            case R.id.tab_journal:
+//                fragment = Journal;
+//                break;
+//            case R.id.tab_settings:
+//                fragment = Settings;
+//                break;
+//            case R.id.tab_home:
+//            default:
+//                fragment = Home;
+//                break;
+//        }
+
+        if (id == R.id.tab_subroutine) {
+            fragment = Subroutine;
+        } else if (id == R.id.tab_analytic) {
+            fragment = Analytics;
+        } else if (id == R.id.tab_journal) {
+            fragment = Journal;
+        } else if (id == R.id.tab_settings) {
+            fragment = Settings;
+        } else {
+            fragment = Home;
         }
-        if (fragment != null) {
-            fragmentManager = getChildFragmentManager();
-            fragmentManager.beginTransaction().replace(binding.fragmentContainer.getId(), fragment)
-                    .commit();
-        }
+
+        fragmentManager = getChildFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(binding.fragmentContainer.getId(), fragment)
+                .commit();
         binding.bottomBar.selectTabAt(tabID, true);
     }
 
@@ -184,10 +195,10 @@ public class BottomNavigationFragment extends Fragment {
             gestureDetector = new GestureDetector(listener);
             gestureDetector.setContextClickListener(listener);
 
-            //TODO: Need to be able to listen on movement even its recycler view
             binding.fragmentContainer.setOnTouchListener(this);
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
             return gestureDetector.onTouchEvent(motionEvent);
@@ -250,11 +261,6 @@ public class BottomNavigationFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         fragmentManager = null;
-        Home = null;
-        Subroutine = null;
-        Analytics = null;
-        Journal = null;
-        Settings = null;
         binding = null;
     }
 }
