@@ -25,10 +25,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-
     private HomeParentAdapterItem homeParentAdapterItem;
-    private List<Habits> habitsOnReform;
-    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,10 +33,10 @@ public class HomeFragment extends Fragment {
 
         binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+        HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
-        habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        homeParentAdapterItem = new HomeParentAdapterItem(habitsOnReform);
+        List<Habits> habitsOnReform1 = habitWithSubroutinesViewModel.getAllHabitOnReform();
+        homeParentAdapterItem = new HomeParentAdapterItem(habitsOnReform1);
         binding.homeRecyclerView.setAdapter(homeParentAdapterItem);
 
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habitsOnReform -> {
@@ -68,12 +65,6 @@ public class HomeFragment extends Fragment {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
     }
 
     /**
@@ -108,5 +99,12 @@ public class HomeFragment extends Fragment {
             AlertDialog dialog = builder.create();
             dialog.show();
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        homeParentAdapterItem = null;
+        binding = null;
     }
 }

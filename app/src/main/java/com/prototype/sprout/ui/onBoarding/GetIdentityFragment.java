@@ -65,12 +65,6 @@ public class GetIdentityFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
     // Unpack Bundle
     private void getBundleArgs() {
         Bundle bundle = getArguments();
@@ -95,5 +89,11 @@ public class GetIdentityFragment extends Fragment {
     private void addUser() {
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.insert(new User(nickname, identity, 0 , wakeHour, wakeMinute, sleepHour, sleepMinute, eula, false, false));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

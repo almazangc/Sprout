@@ -76,8 +76,6 @@ public class SplashScreenFragment extends Fragment {
         int int_random = random.nextInt(someFun.length);
         binding.subLbl.setText(someFun[int_random]);
 
-        Toast.makeText(requireActivity(), int_random + "", Toast.LENGTH_SHORT).show();
-
         checkStatus();
         onBackPress();
         return binding.getRoot();

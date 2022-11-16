@@ -20,14 +20,13 @@ public class SettingFragment extends Fragment {
 
     private FragmentSettingBinding binding;
     private FragmentManager fragmentManager;
-    private UserViewModel userViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSettingBinding.inflate(inflater, container, false);
         fragmentManager = getChildFragmentManager();
 
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.getUserNickname().observe(getViewLifecycleOwner(), nickname -> {
             binding.nickname.setText(nickname);
         });
@@ -79,8 +78,9 @@ public class SettingFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentManager = null;
         binding = null;
     }
 }

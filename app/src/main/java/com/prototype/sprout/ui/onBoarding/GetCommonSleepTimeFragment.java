@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -25,7 +26,7 @@ public class GetCommonSleepTimeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGetCommonSleepTimeBinding.inflate(inflater, container, false);
         timePicker = binding.SleepTimePicker.getRoot();
         setInitialTime();
@@ -37,6 +38,7 @@ public class GetCommonSleepTimeFragment extends Fragment {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
             Bundle bundle = getArguments();
+            assert bundle != null;
             bundle.putInt(new BundleKey().getKEY_SLEEP_HOUR(), timePicker.getHour());
             bundle.putInt(new BundleKey().getKEY_SLEEP_MINUTE(), timePicker.getMinute());
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_getCommonSleepTime_to_introduction, bundle);
@@ -46,5 +48,12 @@ public class GetCommonSleepTimeFragment extends Fragment {
     private void setInitialTime() {
         timePicker.setHour(InitialTime.SLEEP_HOUR.getValue());
         timePicker.setMinute(InitialTime.SLEEP_MINUTE.getValue());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        timePicker = null;
+        binding = null;
     }
 }

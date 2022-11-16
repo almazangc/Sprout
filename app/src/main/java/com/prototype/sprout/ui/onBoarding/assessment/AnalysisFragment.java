@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -23,15 +24,14 @@ import java.util.List;
 public class AnalysisFragment extends Fragment {
 
     private FragmentAnalysisBinding binding;
-    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAnalysisBinding.inflate(inflater, container, false);
 
         //Recommender Algorithm Here to display result according to the analysis
 
-        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+        HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         List<String> habits = habitWithSubroutinesViewModel.getAllHabitTitle();
 
         ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_analysis_habit_item, habits);
@@ -58,14 +58,14 @@ public class AnalysisFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
-
     private void setOnBoarding(){
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.setOnBoarding();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

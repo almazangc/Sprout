@@ -55,7 +55,6 @@ public class BottomNavigationFragment extends Fragment {
             fragmentManager = getChildFragmentManager();
             fragmentManager.beginTransaction().replace(binding.fragmentContainer.getId(), Home)
                     .commit();
-            Toast.makeText(requireContext(), "NULL", Toast.LENGTH_SHORT).show();
             binding.bottomBar.selectTabAt(0, true);
         } else {
             setMenu(last_menu_selected, last_selected_index);
@@ -245,5 +244,17 @@ public class BottomNavigationFragment extends Fragment {
         void updateFragment(int newTab){
             binding.bottomBar.selectTabAt(newTab, true);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        fragmentManager = null;
+        Home = null;
+        Subroutine = null;
+        Analytics = null;
+        Journal = null;
+        Settings = null;
+        binding = null;
     }
 }

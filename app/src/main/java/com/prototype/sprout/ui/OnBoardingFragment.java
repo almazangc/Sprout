@@ -28,14 +28,14 @@ public class OnBoardingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentOnBoardingBinding.inflate(inflater, container, false);
-        checkProgess();
+        checkProgress();
         return binding.getRoot();
     }
 
     /**
      * Check Status of User (Handles Display Onboarding Progress)
      */
-    private void checkProgess(){
+    private void checkProgress(){
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.getUserListLiveData().observe(getViewLifecycleOwner(), assessmentList -> {
             if (assessmentList == null){
@@ -57,8 +57,8 @@ public class OnBoardingFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         binding = null;
     }
 }

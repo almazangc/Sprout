@@ -26,7 +26,6 @@ public class JournalFragment extends Fragment {
     private FragmentJournalBinding binding;
     private NoteAdapter noteAdapter;
     private List<Note> noteList;
-    private NoteViewModel noteViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -37,7 +36,7 @@ public class JournalFragment extends Fragment {
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         );
 
-        noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
+        NoteViewModel noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
 
         noteList = noteViewModel.getNoteList();
 
@@ -96,5 +95,12 @@ public class JournalFragment extends Fragment {
             }
         }
         new GetNotesTask().execute();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        noteAdapter = null;
+        binding = null;
     }
 }

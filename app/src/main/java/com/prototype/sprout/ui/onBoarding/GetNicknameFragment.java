@@ -6,12 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.prototype.sprout.R;
 import com.prototype.sprout.databinding.FragmentGetNicknameBinding;
 import com.prototype.sprout.model.BundleKey;
+
+import java.util.Objects;
 
 public class GetNicknameFragment extends Fragment {
 
@@ -23,7 +26,7 @@ public class GetNicknameFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGetNicknameBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -32,12 +35,13 @@ public class GetNicknameFragment extends Fragment {
     public void onStart() {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
-            String nickname = binding.editTextTextPersonName.getText().toString();
-            if (nickname.equals("")) {
+            String nickname = Objects.requireNonNull(binding.editTextTextPersonName.getText()).toString();
+            if (nickname.trim().isEmpty()) {
                 Toast.makeText(requireContext(), "Please enter a nickname", Toast.LENGTH_SHORT).show();
             } else {
                 if (nickname.length() <= 15){
                     Bundle bundle = getArguments();
+                    assert bundle != null;
                     bundle.putString(new BundleKey().getKEY_NICKNAME(), nickname);
                     Navigation.findNavController(view).navigate(R.id.action_navigate_from_getNickname_to_getIdentity, bundle);
                 } else {

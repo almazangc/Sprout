@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -26,8 +27,9 @@ public class GetStartedFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGetStartedBinding.inflate(inflater, container, false);
+        assert getArguments() != null;
         binding.lblName.setText(getArguments().getString(new BundleKey().getKEY_NICKNAME()));
         return binding.getRoot();
     }
@@ -42,24 +44,20 @@ public class GetStartedFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-//                Toast.makeText(requireContext(), "DATA IS WRITTEN", Toast.LENGTH_SHORT).show();
-                showToast("DATA IS ALREADY SAVED");
+              showToast();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 
-    private void showToast(String string) {
-        CharSequence message = string;
+    /**
+     * Example of custom toast
+     */
+    private void showToast() {
+        CharSequence message = "DATA IS ALREADY SAVED";
         int duration = Toast.LENGTH_LONG;
 
-//        View layout = binding.getRoot().findViewById(R.id.custom_toast_layout);
         View layout = getLayoutInflater().inflate(R.layout.get_started_custom_toast, (ViewGroup) binding.getRoot().findViewById(R.id.custom_toast_layout));
         TextView text = layout.findViewById(R.id.custom_toast_lbl);
         text.setText(message);
@@ -70,4 +68,11 @@ public class GetStartedFragment extends Fragment {
         toast.setDuration(duration);
         toast.show();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
 }

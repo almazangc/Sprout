@@ -22,20 +22,17 @@ import java.util.List;
 public class SubroutineFragment extends Fragment {
 
     private FragmentSubroutineBinding binding;
-
     private SubroutineParentAdapterItem parentAdapterItem;
-    private List<Habits> habitsOnReform;
-    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSubroutineBinding.inflate(inflater, container, false);
 
-        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+        HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         binding.subroutineRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        parentAdapterItem = new SubroutineParentAdapterItem(requireActivity(), getViewLifecycleOwner(), habitsOnReform);
+        List<Habits> habitsOnReform1 = habitWithSubroutinesViewModel.getAllHabitOnReform();
+        parentAdapterItem = new SubroutineParentAdapterItem(requireActivity(), getViewLifecycleOwner(), habitsOnReform1);
         binding.subroutineRecyclerView.setAdapter(parentAdapterItem);
 
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habitsOnReform -> {
@@ -65,8 +62,9 @@ public class SubroutineFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        parentAdapterItem = null;
         binding = null;
     }
 }
