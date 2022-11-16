@@ -63,7 +63,8 @@ public class GetStartedFragment extends Fragment {
         text.setText(message);
 
         Toast toast = new Toast(requireContext());
-        toast.setGravity(Gravity.CENTER, 0, 0);
+//        E/Toast: setGravity() shouldn't be called on text toasts, the values won't be used
+//        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.setView(layout);
         toast.setDuration(duration);
         toast.show();
@@ -74,5 +75,4 @@ public class GetStartedFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }
