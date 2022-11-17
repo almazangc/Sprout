@@ -2,6 +2,7 @@ package com.prototype.sprout.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -20,6 +22,8 @@ import com.prototype.sprout.databinding.FragmentSplashScreenBinding;
 import com.prototype.sprout.model.BundleKey;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenFragment extends Fragment {
@@ -28,6 +32,7 @@ public class SplashScreenFragment extends Fragment {
      * Startup Fragment View Binding
      */
     private FragmentSplashScreenBinding binding;
+    private int splashDuration;
 
     /**
      * Auto Generated Empty Public Constructor
@@ -40,6 +45,16 @@ public class SplashScreenFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false);
+        splashDuration = 6000; //6 sec
+        checkStatus();
+        onBackPress();
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         String[] someFun = {
                 "“Your beliefs become your thoughts,\n" +
                         "Your thoughts become your words,\n" +
@@ -73,14 +88,39 @@ public class SplashScreenFragment extends Fragment {
         };
 
         Random random = new Random();
-        int int_random = random.nextInt(someFun.length);
-        binding.subLbl.setText(someFun[int_random]);
 
-        checkStatus();
-        onBackPress();
-        return binding.getRoot();
+        int delay = 0; // delay for 5 sec.
+        int period = 3000; // repeat every 2 sec.
+
+        new CountDownTimer(splashDuration, period) {
+
+            public void onTick(long millisUntilFinished) {
+                requireActivity().runOnUiThread(() -> {
+                    int int_random = random.nextInt(someFun.length);
+                    binding.subLbl.setText(someFun[int_random]);
+                });
+            }
+
+            public void onFinish() {
+                    // Do on finish timer
+            }
+        }.start();
+
+//        Timer timer = new Timer();
+//        timer.scheduleAtFixedRate(new TimerTask()
+//        {
+//            public void run()
+//            {
+//                requireActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                    }
+//                });
+//            }
+//        }, delay, period);
+
     }
-
 
     /**
      * Check Status of User (Handles Display at app_start)
@@ -103,7 +143,7 @@ public class SplashScreenFragment extends Fragment {
             if (isOnBoardingDone)
                 NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_main);
             onDestroyView();
-        }, 6000);
+        }, splashDuration);
     }
 
 
