@@ -49,11 +49,11 @@
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_below="@id/layout_top"
             android:id="@+id/outlinedTextField"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/layout_top"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:maxLines="1"
@@ -83,12 +83,22 @@
                 android:textSize="13sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/journal_recycler_view"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/outlinedTextField"
-            tools:listitem="@layout/adapter_journal_parent_note_item" />
+            android:layout_below="@id/outlinedTextField">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/journal_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="2"
+                tools:itemCount="15"
+                tools:listitem="@layout/adapter_journal_parent_note_item" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_journal"

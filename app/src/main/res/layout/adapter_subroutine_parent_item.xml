@@ -43,11 +43,12 @@
         android:id="@+id/subroutine_child_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutAnimation="@anim/layout_animation"
         android:layout_below="@+id/layout_habit"
-        android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:itemCount="3"/>
+        tools:listitem="@layout/adapter_subroutine_child_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        app:reverseLayout="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <TextView
         android:layout_width="match_parent"

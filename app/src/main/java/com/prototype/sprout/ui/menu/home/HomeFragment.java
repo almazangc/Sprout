@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -13,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.prototype.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
@@ -43,19 +41,18 @@ public class HomeFragment extends Fragment {
     }
 
     private void setRecyclerViewAdapter() {
-        binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
-
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
         homeParentAdapterItem = new HomeParentAdapterItem(habitsOnReform);
         binding.homeRecyclerView.setAdapter(homeParentAdapterItem);
 
-        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
-            homeParentAdapterItem.setHabits(habits);
-            habitsOnReform = habits;
-        });
+        recyclerViewObserver();
+        recyclerViewItemTouchHelper();
 
+    }
+
+    private void recyclerViewItemTouchHelper() {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
 
             @Override
@@ -84,18 +81,26 @@ public class HomeFragment extends Fragment {
         });
         //Attach on Recycler View
         itemTouchHelper.attachToRecyclerView(binding.homeRecyclerView);
-
     }
 
     private void fabVisibility() {
-        if (habitWithSubroutinesViewModel.getGetHabitOnReformCount() <= 1) {
-            binding.homeFab.setVisibility(View.VISIBLE);
-            binding.homeFab.setClickable(true);
-            FabButton();
-        } else {
-            binding.homeFab.setVisibility(View.GONE);
-            binding.homeFab.setClickable(false);
-        }
+        habitWithSubroutinesViewModel.getGetHabitOnReformCount().observe(getViewLifecycleOwner(), count -> {
+            if (count <= 1) {
+                binding.homeFab.setVisibility(View.VISIBLE);
+                binding.homeFab.setClickable(true);
+                FabButton();
+            } else {
+                binding.homeFab.setVisibility(View.GONE);
+                binding.homeFab.setClickable(false);
+            }
+        });
+    }
+
+    private void recyclerViewObserver() {
+        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
+            homeParentAdapterItem.setHabits(habits);
+            habitsOnReform = habits;
+        });
     }
 
 
@@ -148,6 +153,7 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         homeParentAdapterItem = null;
         habitWithSubroutinesViewModel = null;
+        habitsOnReform = null;
         binding = null;
     }
 }

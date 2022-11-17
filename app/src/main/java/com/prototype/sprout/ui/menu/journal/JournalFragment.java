@@ -37,9 +37,10 @@ public class JournalFragment extends Fragment {
     }
 
     private void setRecyclerViewAdapter(){
-        binding.journalRecyclerView.setLayoutManager(
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        );
+        //Can be done on xml to set layout manager
+//        binding.journalRecyclerView.setLayoutManager(
+//                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+//        );
         NoteViewModel noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
 
         noteList = noteViewModel.getNoteList();
@@ -103,6 +104,7 @@ public class JournalFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         noteAdapter = null;
+        noteList = null;
         binding = null;
     }
 }

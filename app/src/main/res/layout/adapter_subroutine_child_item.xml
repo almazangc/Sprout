@@ -11,6 +11,7 @@
     android:layout_marginBottom="3dp"
     android:background="@drawable/background_item_cloud"
     app:cardCornerRadius="15dp"
+    tools:showIn="@layout/adapter_subroutine_parent_item"
     app:cardElevation="3dp"
     app:cardMaxElevation="5dp">
 
@@ -29,8 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="vertical"
-                android:visibility="visible">
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_upvote_subroutine"
@@ -107,17 +107,17 @@
                     android:minHeight="0dp"
                     android:textAllCaps="false"
                     android:textColor="@color/NIGHT"
-                    android:textSize="12sp" />
+                    android:textSize="0sp" />
 
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/subroutine"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="40dp"
-                    android:layout_alignParentStart="true"
                     android:layout_marginBottom="4dp"
                     android:ellipsize="end"
                     android:maxLines="4"

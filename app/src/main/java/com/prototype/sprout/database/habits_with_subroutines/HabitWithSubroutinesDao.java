@@ -52,7 +52,7 @@ public interface HabitWithSubroutinesDao {
     List<String> getAllHabitTitle();
 
     @Query("SELECT COUNT(*) FROM Habits WHERE Habits.on_reform = 1")
-    long getHabitOnReformCount();
+    LiveData<Long> getHabitOnReformCount();
 
     @Query("UPDATE Habits SET on_reform=:bool WHERE pk_habit_uid=:uid")
     void updateOnReformStatus(boolean bool, long uid);

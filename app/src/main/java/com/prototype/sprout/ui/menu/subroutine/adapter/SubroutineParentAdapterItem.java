@@ -3,6 +3,8 @@ package com.prototype.sprout.ui.menu.subroutine.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -48,7 +50,12 @@ public class SubroutineParentAdapterItem extends RecyclerView.Adapter<Subroutine
     public void onBindViewHolder(@NonNull ParentItemViewHolder holder, int position) {
         long uid = holder.bindData(habitsOnReform.get(position));
 
-        holder.childRecycleView.setLayoutManager(new LinearLayoutManager(holder.childRecycleView.getContext(), LinearLayoutManager.VERTICAL, false));
+//        Done through xml
+//        holder.childRecycleView.setLayoutManager(new LinearLayoutManager(holder.childRecycleView.getContext(), LinearLayoutManager.VERTICAL, false));
+
+        LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation);
+        holder.childRecycleView.setLayoutAnimation(animationController);
+        holder.childRecycleView.setVisibility(View.GONE);
 
         List<Subroutines> habitWithSubroutines;
 

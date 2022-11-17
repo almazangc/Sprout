@@ -15,7 +15,7 @@ public class HabitWithSubroutinesRepository {
     private LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
     private List<Long> allHabitOnReformUID;
     private List<String> allHabitTitle;
-    private long getHabitOnReformCount;
+    private LiveData<Long> getHabitOnReformCount;
 
     public HabitWithSubroutinesRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -61,7 +61,7 @@ public class HabitWithSubroutinesRepository {
         return allHabitTitle;
     }
 
-    public long getGetHabitOnReformCount() {
+    public LiveData<Long> getGetHabitOnReformCount() {
         return getHabitOnReformCount;
     }
 

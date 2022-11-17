@@ -127,4 +127,7 @@ dependencies {
 
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
+
+    // swipeRefreshLayout Dependency
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
