@@ -25,14 +25,14 @@
             android:id="@+id/lbl_2"
             style="@style/textViewSubHeader"
             android:layout_width="match_parent"
-            android:layout_above="@id/outlinedTextField"
+            android:layout_above="@id/edit_nickname_container"
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
             android:text="@string/what_should_we_call_you"
-            android:textColor="@color/WAIKAWA_GREY" />
+            android:textColor="@color/NIGHT" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField"
+            android:id="@+id/edit_nickname_container"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,10 +43,10 @@
             android:maxLines="1"
             android:textColor="@color/NIGHT"
             android:textColorHint="@color/NIGHT"
-            app:boxCornerRadiusBottomEnd="@dimen/relativeLayoutPadding"
-            app:boxCornerRadiusBottomStart="@dimen/relativeLayoutPadding"
-            app:boxCornerRadiusTopEnd="@dimen/relativeLayoutPadding"
-            app:boxCornerRadiusTopStart="@dimen/relativeLayoutPadding"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
             app:boxStrokeColor="@color/WAIKAWA_GREY"
             app:counterEnabled="true"
             app:counterMaxLength="15"
@@ -57,7 +57,7 @@
             app:startIconDrawable="@drawable/ic_person">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/edit_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"

@@ -1,32 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="TRANSPARENT">#00FFFFFF</color>
+
+    <color name="NIGHT">#ecf0f1</color>
+    <color name="CLOUDS">#202225</color>
+    <color name="WAIKAWA_GREY">#686da3</color>
+
+    <color name="NIGHT_">#040000</color>
+    <color name="ClOUDS_">#ecf0f1</color>
+    <color name="BLUE_BELL">#3a4274</color>
+
+    <color name="NEPHRITIS">#27ae60</color>
+    <color name="BRIGHT_SKY_BLUE">#ff02586b</color>
+    <color name="AMETHYST">#ff6a3d7d</color>
+    <color name="SUNFLOWER">#ff5c4b06</color> <!-- FF5C4B06 -->
+    <color name="ALIZARIN">#ff822c2c</color> <!-- #FF822C2C  #e74c3c-->
+
     <color name="TURQUOISE">#1abc9c</color>
     <color name="GREEN_SEA">#16a085</color>
     <color name="EMERALD">#2ecc71</color>
-    <color name="NEPHRITIS">#27ae60</color>
     <color name="CORAL_BLUE">#ADD8E6</color>
-    <color name="BRIGHT_SKY_BLUE">#05C7F2</color>
+
     <color name="PETER_RIVER">#3498db</color>
     <color name="BELIZE_HOLE">#2980b9</color>
-    <color name="AMETHYST">#9b59b6</color>
     <color name="WISTERIA">#8e44ad</color>
-    <color name="WAIKAWA_GREY">#686da3</color>
     <color name="PURPLE_HEARTH">#562EB4</color>
     <color name="WET_ASPHALT">#34495e</color>
     <color name="MIDNIGHT_BLUE">#2c3e50</color>
-    <color name="SUNFLOWER">#f1c40f</color>
     <color name="CARROT">#e67e22</color>
     <color name="PUMPKIN">#d35400</color>
-    <color name="ALIZARIN">#e74c3c</color>
     <color name="POMEGRANATE">#c0392b</color>
     <color name="CORAL_RED">#FA403D</color>
     <color name="ARTY_CLICK_RED">#F20505</color>
     <color name="RUSTIC_RED">#400106</color>
-    <color name="CLOUDS">#040000</color>
     <color name="SILVER">#bdc3c7</color>
     <color name="ASBESTOS">#7f8c8d</color>
     <color name="MIRAGE">#151621</color>
-    <color name="NIGHT">#ecf0f1</color>
+
 
     <color name="A80_TURQUOISE">#CD1ABC9C</color>
     <color name="A80_GREEN_SEA">#CC16A085</color>
@@ -50,16 +60,9 @@
     <color name="A80_CORAL_RED">#CCFA403D</color>
     <color name="A80_ARTY_CLICK_RED">#CCF20505</color>
     <color name="A80_RUSTIC_RED">#CC400106</color>
-    <color name="A80_CLOUDS">#CC040000</color>
+    <color name="A80_CLOUDS">#CC202225</color>
     <color name="A80_SILVER">#CCBDC3C7</color>
     <color name="A80_ASBESTOS">#CC7F8C8D</color>
     <color name="A80_MIRAGE">#CC151621</color>
     <color name="A80_NIGHT">#CCECF0F1</color>
-
-    <color name="NIGHT_">#040000</color>
-    <color name="ClOUDS_">#ecf0f1</color>
-
-    <color name="BLUE_BELL">#3a4274</color>
-
-    <color name="TRANSPARENT">#00FFFFFF</color>
 </resources>
