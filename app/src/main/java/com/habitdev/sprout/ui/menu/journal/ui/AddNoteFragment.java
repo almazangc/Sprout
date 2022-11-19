@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.habitdev.sprout.databinding.FragmentAddNewNoteBinding;
+import com.habitdev.sprout.ui.menu.journal.JournalFragment;
 import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
 
 public class AddNoteFragment extends Fragment {
@@ -28,10 +29,10 @@ public class AddNoteFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                SubroutineFragment subroutineFragment = new SubroutineFragment();
+                JournalFragment journalFragment = new JournalFragment();
                 FragmentManager fragmentManager = getChildFragmentManager();
                 fragmentManager.beginTransaction()
-                        .replace(binding.addNewNoteFrameLayout.getId(), subroutineFragment)
+                        .replace(binding.addNewNoteFrameLayout.getId(), journalFragment)
                         .commit();
                 binding.addNewNoteContainer.setVisibility(View.GONE);
             }

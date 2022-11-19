@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habits_with_subroutines.Habits;
@@ -33,8 +35,16 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-
         setRecyclerViewAdapter();
+
+        binding.homeSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(requireContext(), "Home Refesh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
+                binding.homeSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         fabVisibility();
         onBackPress();
         return binding.getRoot();
@@ -49,7 +59,6 @@ public class HomeFragment extends Fragment {
 
         recyclerViewObserver();
         recyclerViewItemTouchHelper();
-
     }
 
     private void recyclerViewItemTouchHelper() {
