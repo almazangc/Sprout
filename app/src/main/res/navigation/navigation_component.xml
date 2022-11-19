@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/SplashScreenFragment"
-        android:name="com.prototype.sprout.ui.SplashScreenFragment"
+        android:name="com.habitdev.sprout.ui.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen">
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/initialFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.InitialFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.InitialFragment"
         android:label="fragment_initial"
         tools:layout="@layout/fragment_initial">
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/eulaFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.eula.EulaFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.eula.EulaFragment"
         android:label="fragment_eula"
         tools:layout="@layout/fragment_eula">
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/getCommonWakeupFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.GetCommonWakeupFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.GetCommonWakeupFragment"
         android:label="fragment_get_common_wakeup"
         tools:layout="@layout/fragment_get_common_wakeup">
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/getCommonSleepTimeFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.GetCommonSleepTimeFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.GetCommonSleepTimeFragment"
         android:label="fragment_get_common_sleep_time"
         tools:layout="@layout/fragment_get_common_sleep_time">
         <action
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/introductionFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.IntroductionFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.IntroductionFragment"
         android:label="fragment_introduction"
         tools:layout="@layout/fragment_introduction">
         <action
@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/greetingsFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.GreetingsFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.GreetingsFragment"
         android:label="fragment_greetings"
         tools:layout="@layout/fragment_greetings">
         <action
@@ -107,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/nicknameFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.GetNicknameFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.GetNicknameFragment"
         android:label="fragment_nickname"
         tools:layout="@layout/fragment_get_nickname">
         <action
@@ -122,7 +122,7 @@
     </fragment>
     <fragment
         android:id="@+id/getIdentityFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.GetIdentityFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.GetIdentityFragment"
         android:label="fragment_get_identity"
         tools:layout="@layout/fragment_get_identity">
         <action
@@ -138,7 +138,7 @@
     </fragment>
     <fragment
         android:id="@+id/getStartedFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.GetStartedFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.GetStartedFragment"
         android:label="fragment_get_started"
         tools:layout="@layout/fragment_get_started">
         <action
@@ -149,7 +149,7 @@
     </fragment>
     <fragment
         android:id="@+id/personalizationFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.assessment.PersonalizationFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.assessment.PersonalizationFragment"
         android:label="fragment_personalization"
         tools:layout="@layout/fragment_personalization">
         <action
@@ -160,7 +160,7 @@
     </fragment>
     <fragment
         android:id="@+id/analysisFragment"
-        android:name="com.prototype.sprout.ui.onBoarding.assessment.AnalysisFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.assessment.AnalysisFragment"
         android:label="fragment_analysis"
         tools:layout="@layout/fragment_analysis" >
         <action
@@ -174,7 +174,7 @@
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.prototype.sprout.ui.OnBoardingFragment"
+        android:name="com.habitdev.sprout.ui.OnBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" >
         <action
@@ -198,7 +198,7 @@
     </fragment>
     <fragment
         android:id="@+id/bottomNavigationFragment"
-        android:name="com.prototype.sprout.ui.menu.BottomNavigationFragment"
+        android:name="com.habitdev.sprout.ui.menu.BottomNavigationFragment"
         android:label="fragment_bottom_navigation"
         tools:layout="@layout/fragment_bottom_navigation" >
         <action
@@ -219,7 +219,7 @@
     </fragment>
     <fragment
         android:id="@+id/analyticsFragment"
-        android:name="com.prototype.sprout.ui.menu.analytic.AnalyticFragment"
+        android:name="com.habitdev.sprout.ui.menu.analytic.AnalyticFragment"
         android:label="fragment_analytics"
         tools:layout="@layout/fragment_analytic" >
         <action
@@ -234,7 +234,7 @@
     </fragment>
     <fragment
         android:id="@+id/journalFragment"
-        android:name="com.prototype.sprout.ui.menu.journal.JournalFragment"
+        android:name="com.habitdev.sprout.ui.menu.journal.JournalFragment"
         android:label="fragment_journal"
         tools:layout="@layout/fragment_journal" >
         <action
@@ -255,7 +255,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.prototype.sprout.ui.menu.setting.SettingFragment"
+        android:name="com.habitdev.sprout.ui.menu.setting.SettingFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_setting" >
         <action
@@ -285,7 +285,7 @@
     </fragment>
     <fragment
         android:id="@+id/subroutineFragment"
-        android:name="com.prototype.sprout.ui.menu.subroutine.SubroutineFragment"
+        android:name="com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment"
         android:label="fragment_subroutine"
         tools:layout="@layout/fragment_subroutine" >
         <action
@@ -306,7 +306,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.prototype.sprout.ui.menu.home.HomeFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -330,7 +330,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNoteFragment"
-        android:name="com.prototype.sprout.ui.menu.journal.ui.AddNoteFragment"
+        android:name="com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment"
         android:label="fragment_journal_new"
         tools:layout="@layout/fragment_add_new_note" >
         <action
@@ -339,7 +339,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewHabitFragment"
-        android:name="com.prototype.sprout.ui.menu.home.ui.AddNewHabitFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.ui.AddNewHabitFragment"
         android:label="fragment_add_new_habit"
         tools:layout="@layout/fragment_add_new_habit" >
         <action
@@ -348,7 +348,7 @@
     </fragment>
     <fragment
         android:id="@+id/addDefaultHabitFragment"
-        android:name="com.prototype.sprout.ui.menu.home.ui.AddDefaultHabitFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.ui.AddDefaultHabitFragment"
         android:label="fragment_add_default_habit"
         tools:layout="@layout/fragment_add_default_habit" >
         <action
@@ -357,7 +357,7 @@
     </fragment>
     <fragment
         android:id="@+id/addNewSubroutineFragment"
-        android:name="com.prototype.sprout.ui.menu.subroutine.ui.AddNewSubroutineFragment"
+        android:name="com.habitdev.sprout.ui.menu.subroutine.ui.AddNewSubroutineFragment"
         android:label="fragment_add_new_subroutine"
         tools:layout="@layout/fragment_add_new_subroutine" >
         <action
@@ -366,7 +366,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
-        android:name="com.prototype.sprout.ui.menu.setting.ui.AboutUsFragment"
+        android:name="com.habitdev.sprout.ui.menu.setting.ui.AboutUsFragment"
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us" >
         <action
@@ -375,7 +375,7 @@
     </fragment>
     <fragment
         android:id="@+id/learnMoreFragment"
-        android:name="com.prototype.sprout.ui.menu.setting.ui.LearnMoreFragment"
+        android:name="com.habitdev.sprout.ui.menu.setting.ui.LearnMoreFragment"
         android:label="fragment_learn_more"
         tools:layout="@layout/fragment_learn_more" >
         <action
@@ -384,7 +384,7 @@
     </fragment>
     <fragment
         android:id="@+id/techStackInfoFragment"
-        android:name="com.prototype.sprout.ui.menu.setting.ui.TechStackInfoFragment"
+        android:name="com.habitdev.sprout.ui.menu.setting.ui.TechStackInfoFragment"
         android:label="fragment_tech_stack_info"
         tools:layout="@layout/fragment_tech_stack_info" >
         <action
