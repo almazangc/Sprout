@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -21,19 +21,19 @@ public class GetNicknameFragment extends Fragment {
 
     //View Binding
     private FragmentGetNicknameBinding binding;
+    private final BundleKey bundleKey = new BundleKey();
+    private String nickname;
 
     public GetNicknameFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGetNicknameBinding.inflate(inflater, container, false);
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey(bundleKey.getKEY_NICKNAME())) nickname = bundle.getString(bundleKey.getKEY_NICKNAME());
+        if (nickname != null) binding.editNickname.setText(nickname);
         return binding.getRoot();
     }
 
@@ -41,17 +41,16 @@ public class GetNicknameFragment extends Fragment {
     public void onStart() {
         super.onStart();
         binding.btnContinue.setOnClickListener(view -> {
-            String nickname = Objects.requireNonNull(binding.editNickname.getText()).toString();
-
+            nickname = Objects.requireNonNull(binding.editNickname.getText()).toString();
             binding.editNicknameContainer.setHelperText(validate_nickname(nickname));
-
             if (binding.editNicknameContainer.getHelperText() == null){
                 Bundle bundle = getArguments();
                 assert bundle != null;
-                bundle.putString(new BundleKey().getKEY_NICKNAME(), nickname);
+                bundle.putString(bundleKey.getKEY_NICKNAME(), nickname);
                 Navigation.findNavController(view).navigate(R.id.action_navigate_from_getNickname_to_getIdentity, bundle);
             }
         });
+        onBackPress();
     }
 
     private String validate_nickname(String nickname) {
@@ -64,6 +63,28 @@ public class GetNicknameFragment extends Fragment {
             return "Invalid nickname*";
         }
         return null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        onBackPress();
+    }
+
+    /**
+     * Handles onBackPress Key
+     */
+    private void onBackPress() {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                nickname = Objects.requireNonNull(binding.editNickname.getText()).toString();
+                Bundle bundle = getArguments();
+                if (!Objects.requireNonNull(bundle).containsKey(bundleKey.getKEY_NICKNAME())) bundle.putString(bundleKey.getKEY_NICKNAME(), nickname);
+                Navigation.findNavController(requireView()).navigate(R.id.action_navigate_from_getNickname_to_greetings, bundle);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
     @Override
