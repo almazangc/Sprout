@@ -35,7 +35,7 @@ public class SplashScreenFragment extends Fragment {
      * Auto Generated Empty Public Constructor
      */
     public SplashScreenFragment() {
-
+        //Required
     }
 
 
