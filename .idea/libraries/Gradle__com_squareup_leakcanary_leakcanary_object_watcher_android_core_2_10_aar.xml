@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.squareup.leakcanary:leakcanary-object-watcher-android-core:2.10@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/87778038f28045ce442e5a97035b36d4/transformed/jetified-leakcanary-object-watcher-android-core-2.10/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/87778038f28045ce442e5a97035b36d4/transformed/jetified-leakcanary-object-watcher-android-core-2.10/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/87778038f28045ce442e5a97035b36d4/transformed/jetified-leakcanary-object-watcher-android-core-2.10/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b8cc33800b61a9e91989623deb48b323/transformed/jetified-leakcanary-object-watcher-android-core-2.10/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b8cc33800b61a9e91989623deb48b323/transformed/jetified-leakcanary-object-watcher-android-core-2.10/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b8cc33800b61a9e91989623deb48b323/transformed/jetified-leakcanary-object-watcher-android-core-2.10/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-object-watcher-android-core/2.10/1289fd43eb849a4de08f8ed1aba1f27a2524e71/leakcanary-object-watcher-android-core-2.10-javadoc.jar!/" />

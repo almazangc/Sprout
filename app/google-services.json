@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "305455760286",
+    "project_id": "sprout-902ee",
+    "storage_bucket": "sprout-902ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305455760286:android:cdeee38db91e5718fecc8f",
+        "android_client_info": {
+          "package_name": "com.example.sprout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305455760286-dcvc8gesc7bhcjuv7ssh8f3p97puq18n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB8q079CU1giUf2y6PNYl2FIqp0S5ZPQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305455760286-dcvc8gesc7bhcjuv7ssh8f3p97puq18n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
