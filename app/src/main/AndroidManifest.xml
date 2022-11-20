@@ -4,6 +4,8 @@
     package="com.habitdev.sprout">
     <!-- Read External Storage -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--Internet Connection Permision-->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
