@@ -5,6 +5,12 @@ public class Qoutes {
     String quoted;
 
     public Qoutes() {
+
+    }
+
+    public Qoutes(String author, String quoted) {
+        this.author = author;
+        this.quoted = quoted;
     }
 
     public String getAuthor() {

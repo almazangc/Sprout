@@ -24,7 +24,6 @@ public class QoutesViewModel extends AndroidViewModel {
     }
 
     public List<Qoutes> getQoutesList() {
-        Log.d("tag", "View Model: getQoutesList: " + qoutesList.toString());
         return qoutesList;
     }
 }
