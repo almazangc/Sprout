@@ -53,7 +53,6 @@ android {
 }
 
 dependencies {
-
     def material_version = "1.6.1"
     def fragment_version = "1.5.2"
     def nav_version = "2.5.2"
@@ -101,7 +100,10 @@ dependencies {
     // Firebase Dependency
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    //Realtime Database
     implementation 'com.google.firebase:firebase-database:'
+    //Firestore Database
+    implementation 'com.google.firebase:firebase-firestore:'
     // Add the dependency for the Firebase SDK for Google Analytics
     implementation 'com.google.firebase:firebase-analytics:'
 
@@ -135,6 +137,10 @@ dependencies {
 
     // swipeRefreshLayout Dependency
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // Glide : Source Media Management and Image Loading Framework
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
