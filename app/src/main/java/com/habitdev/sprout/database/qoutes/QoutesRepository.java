@@ -2,8 +2,11 @@ package com.habitdev.sprout.database.qoutes;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -24,21 +27,36 @@ public class QoutesRepository {
     }
 
     public List<Qoutes> getQoutesList() {
-        firebaseFirestore.collection("quotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                List<Qoutes> qoutes = new ArrayList<>();
-                assert value != null;
-                for (QueryDocumentSnapshot documentSnapshot : value) {
-                    if (documentSnapshot != null)
-                        qoutes.add(documentSnapshot.toObject(Qoutes.class));
+
+        firebaseFirestore.collection("quotes").get().addOnCompleteListener(task -> {
+            List<Qoutes> qoutes = new ArrayList<>();
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    qoutes.add(document.toObject(Qoutes.class));
+                    Log.d("tag", document.getId() + " => " + document.getData());
                 }
-                Log.d("tag", "Repository: Quotes: " + qoutes.toString());
-                for (Qoutes q: qoutes){
-                    qoutesList.add(q);
-                }
+            } else {
+                Log.d("tag", "Error getting documents: ", task.getException());
             }
+            qoutesList.addAll(qoutes);
         });
+
+//        firebaseFirestore.collection("quotes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                List<Qoutes> qoutes = new ArrayList<>();
+//                assert value != null;
+//                for (QueryDocumentSnapshot documentSnapshot : value) {
+//                    if (documentSnapshot != null)
+//                        qoutes.add(documentSnapshot.toObject(Qoutes.class));
+//                }
+//                Log.d("tag", "Repository: Quotes: " + qoutes.toString());
+//                for (Qoutes q: qoutes){
+//                    qoutesList.add(q);
+//                }
+//            }
+//        });
+
         Log.d("tag", "Repository: QuoteList: " + qoutesList.toString());
         return qoutesList;
     }
