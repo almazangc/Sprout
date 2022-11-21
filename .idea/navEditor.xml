@@ -472,6 +472,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="homeRecyclerViewItemAdapterOnClickView">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-510" />
+                            <option name="y" value="-345" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="initialFragment">
                     <value>
                       <LayoutPositions>

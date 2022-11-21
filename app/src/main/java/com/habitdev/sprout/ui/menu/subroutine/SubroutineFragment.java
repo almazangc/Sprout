@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habits_with_subroutines.Habits;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
-import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentAdapterItem;
+import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.AddNewSubroutineFragment;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 public class SubroutineFragment extends Fragment {
 
     private FragmentSubroutineBinding binding;
-    private SubroutineParentAdapterItem parentAdapterItem;
+    private SubroutineParentItemAdapter parentAdapterItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class SubroutineFragment extends Fragment {
         binding.subroutineRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
         List<Habits> habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        parentAdapterItem = new SubroutineParentAdapterItem(requireActivity(), getViewLifecycleOwner(), habitsOnReform);
+        parentAdapterItem = new SubroutineParentItemAdapter(requireActivity(), getViewLifecycleOwner(), habitsOnReform);
         binding.subroutineRecyclerView.setAdapter(parentAdapterItem);
 
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {

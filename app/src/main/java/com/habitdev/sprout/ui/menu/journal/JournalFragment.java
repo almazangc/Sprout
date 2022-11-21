@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.habitdev.sprout.database.note.Note;
 import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.databinding.FragmentJournalBinding;
-import com.habitdev.sprout.ui.menu.journal.adapter.NoteAdapter;
+import com.habitdev.sprout.ui.menu.journal.adapter.NoteItemAdapter;
 import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 public class JournalFragment extends Fragment {
 
     private FragmentJournalBinding binding;
-    private NoteAdapter noteAdapter;
+    private NoteItemAdapter noteItemAdapter;
     private List<Note> noteList;
 
     @Override
@@ -42,11 +42,11 @@ public class JournalFragment extends Fragment {
         NoteViewModel noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
 
         noteList = noteViewModel.getNoteList();
-        noteAdapter = new NoteAdapter(noteList);
-        binding.journalRecyclerView.setAdapter(noteAdapter);
+        noteItemAdapter = new NoteItemAdapter(noteList);
+        binding.journalRecyclerView.setAdapter(noteItemAdapter);
 
         noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> {
-            noteAdapter.setNotes(notes);
+            noteItemAdapter.setNotes(notes);
         });
     }
 
@@ -101,7 +101,7 @@ public class JournalFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        noteAdapter = null;
+        noteItemAdapter = null;
         noteList = null;
         binding = null;
     }

@@ -18,11 +18,11 @@ import com.habitdev.sprout.database.note.Note;
 
 import java.util.List;
 
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
+public class NoteItemAdapter extends RecyclerView.Adapter<NoteItemAdapter.NoteViewHolder> {
 
     private List<Note> notes;
 
-    public NoteAdapter(List<Note> notes) {
+    public NoteItemAdapter(List<Note> notes) {
         this.notes = notes;
     }
 

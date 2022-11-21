@@ -7,11 +7,8 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
-import com.habitdev.sprout.database.quotes.Quotes;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
 import com.habitdev.sprout.utill.NetworkMonitoringUtil;
 import com.habitdev.sprout.utill.NetworkStateManager;
@@ -47,7 +44,6 @@ public class Main extends AppCompatActivity {
      * Main Activity View Binding
      */
     private ActivityMainBinding binding;
-
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -63,20 +59,23 @@ public class Main extends AppCompatActivity {
         final String SharedPreferences_KEY = "SP_DB";
         sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
-        final Observer<Boolean> activeNetworkStateObserver = isConnected -> {
-            if(isConnected){
-                if(!sharedPreferences.contains("isDB_loaded") || (sharedPreferences.contains("isDB_loaded") && sharedPreferences.getBoolean("isDB_loaded", false))){
-                    loadFireStoreQuotesCollection();
-                    Log.d("tag", "Main isConnected() called: data is fetch from server");
-                } else {
-                    Log.d("tag", "Main isConnected() called: data already available on cache");
+        //need to fetch quotes once only (need to fetch once every week for updates)
+            NetworkStateManager netStateMgr = NetworkStateManager.getInstance();
+            netStateMgr.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean isConnected) {
+                    if(isConnected){
+                        if(!sharedPreferences.contains("isDB_loaded") || (sharedPreferences.contains("isDB_loaded") && sharedPreferences.getBoolean("isDB_loaded", false))){
+                            loadFireStoreQuotesCollection();
+                            Log.d("tag", "Main isConnected() called: data is fetch from server");
+                        } else {
+                            Log.d("tag", "Main isConnected() called: data already available on cache");
+                            netStateMgr.getNetworkConnectivityStatus().removeObserver(this);
+                        }
+                    }
+                    Log.d("tag", "onChanged() called: Main " + isConnected);
                 }
-            }
-            Log.d("tag", "onChanged() called: Main " + isConnected);
-        };
-
-        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(this, activeNetworkStateObserver);
-
+            });
         setContentView(binding.getRoot());
     }
 

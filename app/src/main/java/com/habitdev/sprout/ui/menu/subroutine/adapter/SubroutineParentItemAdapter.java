@@ -21,7 +21,7 @@ import com.habitdev.sprout.database.habits_with_subroutines.Subroutines;
 
 import java.util.List;
 
-public class SubroutineParentAdapterItem extends RecyclerView.Adapter<SubroutineParentAdapterItem.ParentItemViewHolder> {
+public class SubroutineParentItemAdapter extends RecyclerView.Adapter<SubroutineParentItemAdapter.ParentItemViewHolder> {
 
     private List<Habits> habitsOnReform;
     private LifecycleOwner lifecycleOwner;
@@ -30,7 +30,7 @@ public class SubroutineParentAdapterItem extends RecyclerView.Adapter<Subroutine
     //for continues scroll loop
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-    public SubroutineParentAdapterItem(ViewModelStoreOwner viewModelStoreOwner, LifecycleOwner lifecycleOwner, List<Habits> habitsOnReform) {
+    public SubroutineParentItemAdapter(ViewModelStoreOwner viewModelStoreOwner, LifecycleOwner lifecycleOwner, List<Habits> habitsOnReform) {
         this.lifecycleOwner = lifecycleOwner;
         this.habitsOnReform = habitsOnReform;
         this.habitWithSubroutinesViewModel = new ViewModelProvider(viewModelStoreOwner).get(HabitWithSubroutinesViewModel.class);
@@ -59,7 +59,7 @@ public class SubroutineParentAdapterItem extends RecyclerView.Adapter<Subroutine
 
         habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabit(uid);
 
-        SubroutineChildAdapterItem childAdapterItem = new SubroutineChildAdapterItem(habitWithSubroutines);
+        SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter(habitWithSubroutines);
         holder.childRecycleView.setAdapter(childAdapterItem);
         //Can be removed: for continuous flow of recycler
         holder.childRecycleView.setRecycledViewPool(viewPool);

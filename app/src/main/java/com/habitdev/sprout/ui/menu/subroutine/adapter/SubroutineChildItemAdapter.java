@@ -15,24 +15,24 @@ import com.habitdev.sprout.database.habits_with_subroutines.Subroutines;
 
 import java.util.List;
 
-public class SubroutineChildAdapterItem extends RecyclerView.Adapter<SubroutineChildAdapterItem.ChildItemViewHolder> {
+public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineChildItemAdapter.ChildItemViewHolder> {
 
     List<Subroutines> subroutines;
 
-    public SubroutineChildAdapterItem(List<Subroutines> subroutines) {
+    public SubroutineChildItemAdapter(List<Subroutines> subroutines) {
         this.subroutines = subroutines;
     }
 
     @NonNull
     @Override
-    public SubroutineChildAdapterItem.ChildItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SubroutineChildAdapterItem.ChildItemViewHolder(
+    public SubroutineChildItemAdapter.ChildItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new SubroutineChildItemAdapter.ChildItemViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_subroutine_child_item, parent, false)
         );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SubroutineChildAdapterItem.ChildItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SubroutineChildItemAdapter.ChildItemViewHolder holder, int position) {
         holder.bindDate(subroutines.get(position));
     }
 
