@@ -18,24 +18,22 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habits_with_subroutines.Habits;
-import com.habitdev.sprout.database.quotes.Quotes;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
-import com.habitdev.sprout.ui.menu.home.adapter.HomeParentAdapterItem;
+import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
+import com.habitdev.sprout.ui.menu.home.adapter.RecyclerViewInterface;
 import com.habitdev.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.AddNewHabitFragment;
+import com.habitdev.sprout.ui.menu.home.ui.HomeRecyclerViewItemAdapterOnClickFragment;
 import com.habitdev.sprout.utill.NetworkStateManager;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RecyclerViewInterface {
 
     private FragmentHomeBinding binding;
-    private HomeParentAdapterItem homeParentAdapterItem;
+    private HomeParentItemAdapter homeParentItemAdapter;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private List<Habits> habitsOnReform;
 
@@ -47,7 +45,7 @@ public class HomeFragment extends Fragment {
         binding.homeSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(requireContext(), "Home Refesh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Home Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
                 binding.homeSwipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -70,8 +68,8 @@ public class HomeFragment extends Fragment {
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        homeParentAdapterItem = new HomeParentAdapterItem(habitsOnReform);
-        binding.homeRecyclerView.setAdapter(homeParentAdapterItem);
+        homeParentItemAdapter = new HomeParentItemAdapter(habitsOnReform, this);
+        binding.homeRecyclerView.setAdapter(homeParentItemAdapter);
 
         recyclerViewObserver();
         recyclerViewItemTouchHelper();
@@ -96,7 +94,7 @@ public class HomeFragment extends Fragment {
                     case ItemTouchHelper.END:
                         long uid = habitsOnReform.get(viewHolder.getBindingAdapterPosition()).getPk_habit_uid();
                         habitWithSubroutinesViewModel.updateOnReformStatus(false, uid);
-                        homeParentAdapterItem.notifyItemRemoved(viewHolder.getBindingAdapterPosition());
+                        homeParentItemAdapter.notifyItemRemoved(viewHolder.getBindingAdapterPosition());
                         break;
                     case ItemTouchHelper.START:
                         //
@@ -123,17 +121,29 @@ public class HomeFragment extends Fragment {
 
     private void recyclerViewObserver() {
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
-            homeParentAdapterItem.setHabits(habits);
+            homeParentItemAdapter.setHabits(habits);
             habitsOnReform = habits;
         });
     }
 
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(requireContext(), "Recycler View on Item Click", Toast.LENGTH_SHORT).show();
+        //Learn Passing Data through parcelable:
+
+        HomeRecyclerViewItemAdapterOnClickFragment onClickFragment = new HomeRecyclerViewItemAdapterOnClickFragment();
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(binding.homeFrameLayout.getId(), onClickFragment)
+                .commit();
+        binding.homeContainer.setVisibility(View.GONE);
+    }
 
     private void onBackPress() {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                //Do Something
+                //Promp app exit, or exits
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -175,7 +185,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        homeParentAdapterItem = null;
+        homeParentItemAdapter = null;
         habitWithSubroutinesViewModel = null;
         habitsOnReform = null;
         binding = null;

@@ -16,24 +16,26 @@ import com.habitdev.sprout.database.habits_with_subroutines.Habits;
 
 import java.util.List;
 
-public class HomeParentAdapterItem extends RecyclerView.Adapter<HomeParentAdapterItem.HabitViewHolder> {
+public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAdapter.HabitViewHolder> {
 
     private List<Habits> habits;
+    private final RecyclerViewInterface recyclerViewInterface;
 
-    public HomeParentAdapterItem(List<Habits> habits) {
+    public HomeParentItemAdapter(List<Habits> habits, RecyclerViewInterface recyclerViewInterface) {
         this.habits = habits;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
     @Override
-    public HomeParentAdapterItem.HabitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HomeParentAdapterItem.HabitViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_parent_habit_item, parent, false)
+    public HomeParentItemAdapter.HabitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new HomeParentItemAdapter.HabitViewHolder(
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_parent_habit_item, parent, false), recyclerViewInterface
         );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeParentAdapterItem.HabitViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeParentItemAdapter.HabitViewHolder holder, int position) {
         holder.bindHabit(habits.get(position));
     }
 
@@ -58,7 +60,7 @@ public class HomeParentAdapterItem extends RecyclerView.Adapter<HomeParentAdapte
         TextView habitHeader, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalReplase;
         Button upvote, downvote, modify, relapse, drop;
 
-        public HabitViewHolder(@NonNull View itemView) {
+        public HabitViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             habitHeader = itemView.findViewById(R.id.header);
             habitDescription = itemView.findViewById(R.id.description);
@@ -73,6 +75,19 @@ public class HomeParentAdapterItem extends RecyclerView.Adapter<HomeParentAdapte
             modify = itemView.findViewById(R.id.home_modify_btn);
             relapse = itemView.findViewById(R.id.home_relapse_btn);
             drop = itemView.findViewById(R.id.home_drop_btn);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface != null){
+                        int position = getBindingAdapterPosition();
+
+                        if(position != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
 
         void bindHabit(Habits habit) {

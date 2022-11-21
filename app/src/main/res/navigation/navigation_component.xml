@@ -391,4 +391,9 @@
             android:id="@+id/action_techStackInfoFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeRecyclerViewItemAdapterOnClickView"
+        android:name="com.habitdev.sprout.ui.menu.home.ui.HomeRecyclerViewItemAdapterOnClickFragment"
+        android:label="fragment_home_recycler_view_item_adapter_on_click_view"
+        tools:layout="@layout/fragment_home_recycler_view_item_adapter_on_click_view" />
 </navigation>
