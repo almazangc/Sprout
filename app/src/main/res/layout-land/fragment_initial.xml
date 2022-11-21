@@ -8,16 +8,17 @@
     android:padding="10dp"
     tools:context=".ui.onBoarding.InitialFragment">
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/sproutLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_above="@id/appName"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="sprout-splash-screen.json"
+        app:lottie_loop="true"
+        android:layout_above="@+id/appName"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:contentDescription="@string/application_logo"
-        app:srcCompat="@drawable/logo_sprout"
-        tools:ignore="ImageContrastCheck" />
+        android:layout_marginBottom="-65dp"
+        app:lottie_speed="1" />
 
     <TextView
         android:id="@+id/appName"
