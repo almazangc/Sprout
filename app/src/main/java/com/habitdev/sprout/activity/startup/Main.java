@@ -1,10 +1,20 @@
 package com.habitdev.sprout.activity.startup;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
+import com.habitdev.sprout.database.quotes.Quotes;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
+import com.habitdev.sprout.utill.NetworkMonitoringUtil;
+import com.habitdev.sprout.utill.NetworkStateManager;
 
 /**
  * Sprout:  HABIT BUSTER REFORM WITH BITE-SIZE SUBROUTINES
@@ -30,7 +40,6 @@ import com.habitdev.sprout.databinding.ActivityMainBinding;
  * @author Almazan, Gilbert C.
  * @version 1.0
  * @since 07-27-2022
- * @url
  */
 public class Main extends AppCompatActivity {
 
@@ -39,11 +48,40 @@ public class Main extends AppCompatActivity {
      */
     private ActivityMainBinding binding;
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
+        // Check the network state before registering for the 'networkCallbackEvents'
+        mNetworkMonitoringUtil.checkNetworkState();
+        mNetworkMonitoringUtil.registerNetworkCallbackEvents();
+
+        final String SharedPreferences_KEY = "SP_DB";
+        sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
+
+        final Observer<Boolean> activeNetworkStateObserver = isConnected -> {
+            if(isConnected){
+                if(!sharedPreferences.contains("isDB_loaded") || (sharedPreferences.contains("isDB_loaded") && sharedPreferences.getBoolean("isDB_loaded", false))){
+                    loadFireStoreQuotesCollection();
+                    Log.d("tag", "Main isConnected() called: data is fetch from server");
+                } else {
+                    Log.d("tag", "Main isConnected() called: data already available on cache");
+                }
+            }
+            Log.d("tag", "onChanged() called: Main " + isConnected);
+        };
+
+        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(this, activeNetworkStateObserver);
+
         setContentView(binding.getRoot());
+    }
+
+    void loadFireStoreQuotesCollection(){
+        sharedPreferences.edit().putBoolean("isDB_loaded", FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER).isComplete()).apply();
     }
 
     @Override

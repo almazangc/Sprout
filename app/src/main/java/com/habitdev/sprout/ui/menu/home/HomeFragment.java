@@ -2,6 +2,7 @@ package com.habitdev.sprout.ui.menu.home;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +12,23 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habits_with_subroutines.Habits;
+import com.habitdev.sprout.database.quotes.Quotes;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentAdapterItem;
 import com.habitdev.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.AddNewHabitFragment;
+import com.habitdev.sprout.utill.NetworkStateManager;
 
 import java.util.List;
 
@@ -44,6 +51,15 @@ public class HomeFragment extends Fragment {
                 binding.homeSwipeRefreshLayout.setRefreshing(false);
             }
         });
+
+        final Observer<Boolean> activeNetworkStateObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isConnected) {
+                Log.d("tag", "onChanged: " + isConnected);
+            }
+        };
+
+        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(requireActivity(), activeNetworkStateObserver);
 
         fabVisibility();
         onBackPress();
@@ -151,7 +167,6 @@ public class HomeFragment extends Fragment {
                         break;
                 }
             });
-
             AlertDialog dialog = builder.create();
             dialog.show();
         });
