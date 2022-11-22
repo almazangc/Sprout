@@ -16,13 +16,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habits_with_subroutines.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
-import com.habitdev.sprout.ui.menu.home.adapter.RecyclerViewInterface;
+import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.AddNewHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.HomeRecyclerViewItemAdapterOnClickFragment;
@@ -30,7 +29,7 @@ import com.habitdev.sprout.utill.NetworkStateManager;
 
 import java.util.List;
 
-public class HomeFragment extends Fragment implements RecyclerViewInterface {
+public class HomeFragment extends Fragment implements IRecyclerView {
 
     private FragmentHomeBinding binding;
     private HomeParentItemAdapter homeParentItemAdapter;
@@ -42,12 +41,9 @@ public class HomeFragment extends Fragment implements RecyclerViewInterface {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         setRecyclerViewAdapter();
 
-        binding.homeSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Toast.makeText(requireContext(), "Home Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
-                binding.homeSwipeRefreshLayout.setRefreshing(false);
-            }
+        binding.homeSwipeRefreshLayout.setOnRefreshListener(() -> {
+            Toast.makeText(requireContext(), "Home Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
+            binding.homeSwipeRefreshLayout.setRefreshing(false);
         });
 
         final Observer<Boolean> activeNetworkStateObserver = new Observer<Boolean>() {
