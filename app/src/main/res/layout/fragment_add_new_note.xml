@@ -23,24 +23,24 @@
                 android:id="@+id/note_layout_miscellaneous"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_alignParentTop="true">
+                android:visibility="gone">
 
                 <Button
                     android:id="@+id/note_layout_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:background="@color/TRANSPARENT"
-                    android:text="Pick Color"
-                    android:textAllCaps="false"
-                    android:textColor="@color/NIGHT"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    android:layout_marginTop="5dp"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:text="Pick Color"
+                    android:textAllCaps="false"
+                    android:textColor="@color/NIGHT" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -50,9 +50,9 @@
                     android:orientation="horizontal">
 
                     <FrameLayout
+                        android:id="@+id/color_cloud"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/color_cloud"
                         android:layout_weight="1">
 
                         <View
@@ -73,9 +73,9 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/color_alzarin"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/color_alzarin"
                         android:layout_weight="1">
 
                         <View
@@ -96,8 +96,8 @@
                     </FrameLayout>
 
                     <FrameLayout
-                        android:layout_width="0dp"
                         android:id="@+id/color_amethyst"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
@@ -119,9 +119,9 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/color_brightsky_blue"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/color_brightsky_blue"
                         android:layout_weight="1">
 
                         <View
@@ -142,9 +142,9 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/color_nephritis"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/color_nephritis"
                         android:layout_weight="1">
 
                         <View
@@ -165,9 +165,9 @@
                     </FrameLayout>
 
                     <FrameLayout
+                        android:id="@+id/color_sunflower"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/color_sunflower"
                         android:layout_weight="1">
 
                         <View
@@ -205,10 +205,10 @@
                 android:id="@+id/note_title_card_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/note_current_time"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_below="@id/note_current_time"
                 android:layout_marginBottom="10dp"
                 app:cardCornerRadius="15dp">
 
@@ -239,7 +239,7 @@
                     android:layout_width="5dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:background="@drawable/background_note_indicator_clouds"/>
+                    android:background="@drawable/background_note_indicator_clouds" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/note_sub_title_card_view"
