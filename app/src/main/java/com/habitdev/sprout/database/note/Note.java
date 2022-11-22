@@ -22,8 +22,8 @@ public class Note implements Serializable {
     @ColumnInfo(name = "subtitle")
     private String subtitle;
 
-    @ColumnInfo(name = "note_text")
-    private String noteText;
+    @ColumnInfo(name = "note_content")
+    private String noteContent;
 
     @ColumnInfo(name = "image_path")
     private String imagePath;
@@ -34,23 +34,29 @@ public class Note implements Serializable {
     @ColumnInfo(name = "web_link")
     private String webLink;
 
+    public Note() {
+
+    }
+
     @Ignore
-    public Note(String title, String dateTime, String subtitle, String color) {
+    public Note(String title, String dateTime, String subtitle, String noteContent, String color) {
         this.title = title;
         this.dateTime = dateTime;
         this.subtitle = subtitle;
+        this.noteContent = noteContent;
         this.color = color;
     }
 
-    public Note(String title, String dateTime, String subtitle, String noteText, String imagePath, String color, String webLink) {
+    @Ignore
+    public Note(String title, String dateTime, String noteContent, String color) {
         this.title = title;
         this.dateTime = dateTime;
-        this.subtitle = subtitle;
-        this.noteText = noteText;
-        this.imagePath = imagePath;
+        this.subtitle = "";
+        this.noteContent = noteContent;
         this.color = color;
-        this.webLink = webLink;
     }
+
+
 
     public int getUid() {
         return uid;
@@ -84,12 +90,12 @@ public class Note implements Serializable {
         this.subtitle = subtitle;
     }
 
-    public String getNoteText() {
-        return noteText;
+    public String getNoteContent() {
+        return noteContent;
     }
 
-    public void setNoteText(String noteText) {
-        this.noteText = noteText;
+    public void setNoteContent(String noteContent) {
+        this.noteContent = noteContent;
     }
 
     public String getImagePath() {
@@ -124,7 +130,7 @@ public class Note implements Serializable {
                 ", title='" + title + '\'' +
                 ", dateTime='" + dateTime + '\'' +
                 ", subtitle='" + subtitle + '\'' +
-                ", noteText='" + noteText + '\'' +
+                ", noteText='" + noteContent + '\'' +
                 ", imagePath='" + imagePath + '\'' +
                 ", color='" + color + '\'' +
                 ", webLink='" + webLink + '\'' +

@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu.journal;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.note.Note;
 import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.databinding.FragmentJournalBinding;
@@ -23,11 +25,18 @@ public class JournalFragment extends Fragment {
 
     private FragmentJournalBinding binding;
     private NoteItemAdapter noteItemAdapter;
+    private NoteViewModel noteViewModel;
     private List<Note> noteList;
+    private FragmentManager fragmentManager;
+
+    public JournalFragment() {
+
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentJournalBinding.inflate(inflater, container, false);
+        fragmentManager = getChildFragmentManager();
         setRecyclerViewAdapter();
         fabOnClick();
         onBackPress();
@@ -35,11 +44,7 @@ public class JournalFragment extends Fragment {
     }
 
     private void setRecyclerViewAdapter(){
-        //Can be done on xml to set layout manager
-//        binding.journalRecyclerView.setLayoutManager(
-//                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-//        );
-        NoteViewModel noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
+        noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
 
         noteList = noteViewModel.getNoteList();
         noteItemAdapter = new NoteItemAdapter(noteList);
@@ -52,10 +57,12 @@ public class JournalFragment extends Fragment {
 
     private void fabOnClick(){
         binding.fabJournal.setOnClickListener(view -> {
-            FragmentManager fragmentManager = getChildFragmentManager();
-            fragmentManager.beginTransaction().replace(binding.journalFrameLayout.getId(), new AddNoteFragment())
+            fragmentManager
+                    .beginTransaction()
+                    .replace(binding.journalFrameLayout.getId(), new AddNoteFragment(fragmentManager))
                     .commit();
-            binding.journalContainer.setVisibility(View.GONE);
+//            Log.d("tag", "fabOnClick() called: backstack counts " + fragmentManager.getBackStackEntryCount());
+        binding.journalContainer.setVisibility(View.GONE);
         });
     }
 
@@ -101,6 +108,7 @@ public class JournalFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.d("tag", "Journal Fragment: onDestroyView() called");
         noteItemAdapter = null;
         noteList = null;
         binding = null;

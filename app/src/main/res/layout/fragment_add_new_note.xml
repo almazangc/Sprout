@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_new_note_frame_layout"
     android:layout_width="match_parent"
@@ -12,18 +13,305 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <RelativeLayout
+            android:id="@+id/note_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:text="This will display create form for new note and attach it on journal notes"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="12sp" />
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
+            <LinearLayout
+                android:id="@+id/note_layout_miscellaneous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_alignParentTop="true">
+
+                <Button
+                    android:id="@+id/note_layout_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/TRANSPARENT"
+                    android:text="Pick Color"
+                    android:textAllCaps="false"
+                    android:textColor="@color/NIGHT"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:layout_marginTop="5dp"
+                    android:padding="3dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/color_cloud"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/cloud_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_note_color_selection_cloud" />
+
+                        <ImageView
+                            android:id="@+id/cloud_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/color_alzarin"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/alzarin_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_note_color_selection_alzarin" />
+
+                        <ImageView
+                            android:id="@+id/alzarin_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:id="@+id/color_amethyst"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/amethyst_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_note_color_selection_amethyst" />
+
+                        <ImageView
+                            android:id="@+id/amethyst_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/color_brightsky_blue"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/brightsky_blue_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_note_color_selection_brightsky_blue" />
+
+                        <ImageView
+                            android:id="@+id/brightsky_blue_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/color_nephritis"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/nephritis_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_note_color_selection_nephritis" />
+
+                        <ImageView
+                            android:id="@+id/nephritis_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/color_sunflower"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/sunflower_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_note_color_selection_sunflower" />
+
+                        <ImageView
+                            android:id="@+id/sunflower_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/note_current_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/note_layout_miscellaneous"
+                android:padding="5dp"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/NIGHT"
+                android:textSize="11sp"
+                android:textStyle="italic" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/note_title_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_below="@id/note_current_time"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="15dp">
+
+                <EditText
+                    android:id="@+id/note_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/TRANSPARENT"
+                    android:ellipsize="end"
+                    android:hint="Title"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/note_sub_title_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/note_title_card_view"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/note_color_selector"
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/background_note_indicator_clouds"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/note_sub_title_card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="10dp">
+
+                    <EditText
+                        android:id="@+id/note_sub_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/TRANSPARENT"
+                        android:ellipsize="end"
+                        android:hint="Sub Title"
+                        android:maxLines="1"
+                        android:padding="10dp"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/note_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/note_sub_title_layout"
+                android:layout_marginStart="15dp"
+                android:text="Required*"
+                android:textColor="@color/CORAL_RED"
+                android:textSize="11sp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/note_content_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/note_hint"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="15dp">
+
+                <EditText
+                    android:id="@+id/note_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/TRANSPARENT"
+                    android:gravity="top"
+                    android:hint="Content Description"
+                    android:padding="10dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_save_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:backgroundTint="@color/CLOUDS"
+        app:borderWidth="5dp"
+        app:fabCustomSize="45dp"
+        app:srcCompat="@drawable/ic_check" />
     </RelativeLayout>
-
-
 </FrameLayout>
