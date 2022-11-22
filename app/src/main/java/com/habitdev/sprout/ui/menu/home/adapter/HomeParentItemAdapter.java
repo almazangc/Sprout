@@ -13,24 +13,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habits_with_subroutines.Habits;
+import com.habitdev.sprout.interfaces.IRecyclerView;
 
 import java.util.List;
 
 public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAdapter.HabitViewHolder> {
 
     private List<Habits> habits;
-    private final RecyclerViewInterface recyclerViewInterface;
+    private final com.habitdev.sprout.interfaces.IRecyclerView IRecyclerView;
 
-    public HomeParentItemAdapter(List<Habits> habits, RecyclerViewInterface recyclerViewInterface) {
+    public HomeParentItemAdapter(List<Habits> habits, IRecyclerView IRecyclerView) {
         this.habits = habits;
-        this.recyclerViewInterface = recyclerViewInterface;
+        this.IRecyclerView = IRecyclerView;
     }
 
     @NonNull
     @Override
     public HomeParentItemAdapter.HabitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new HomeParentItemAdapter.HabitViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_parent_habit_item, parent, false), recyclerViewInterface
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_parent_habit_item, parent, false), IRecyclerView
         );
     }
 
@@ -60,7 +61,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         TextView habitHeader, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalReplase;
         Button upvote, downvote, modify, relapse, drop;
 
-        public HabitViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
+        public HabitViewHolder(@NonNull View itemView, IRecyclerView IRecyclerView) {
             super(itemView);
             habitHeader = itemView.findViewById(R.id.header);
             habitDescription = itemView.findViewById(R.id.description);
@@ -79,11 +80,11 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(recyclerViewInterface != null){
+                    if(IRecyclerView != null){
                         int position = getBindingAdapterPosition();
 
                         if(position != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onItemClick(position);
+                            IRecyclerView.onItemClick(position);
                         }
                     }
                 }
