@@ -15,22 +15,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.note.Note;
+import com.habitdev.sprout.enums.NoteColor;
+import com.habitdev.sprout.interfaces.IRecyclerView;
 
 import java.util.List;
 
 public class NoteItemAdapter extends RecyclerView.Adapter<NoteItemAdapter.NoteViewHolder> {
 
     private List<Note> notes;
+    private final IRecyclerView IRecyclerView;
 
-    public NoteItemAdapter(List<Note> notes) {
+    public NoteItemAdapter(List<Note> notes, IRecyclerView IRecyclerView) {
         this.notes = notes;
+        this.IRecyclerView = IRecyclerView;
     }
 
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new NoteViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_journal_parent_note_item, parent, false)
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_journal_parent_note_item, parent, false), IRecyclerView
         );
     }
 
@@ -45,7 +49,7 @@ public class NoteItemAdapter extends RecyclerView.Adapter<NoteItemAdapter.NoteVi
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setNotes(List<Note> notes) {
+    public void updateNotes(List<Note> notes) {
         this.notes = notes;
         notifyDataSetChanged();
     }
@@ -62,12 +66,26 @@ public class NoteItemAdapter extends RecyclerView.Adapter<NoteItemAdapter.NoteVi
         Drawable cloud, amethyst, sunflower, nephritis, brightsky_blue, alzarin;
         ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_brightsky_blue, cs_alzarin;
 
-        public NoteViewHolder(@NonNull View itemView) {
+
+        public NoteViewHolder(@NonNull View itemView, IRecyclerView IRecyclerView) {
             super(itemView);
             noteTitle = itemView.findViewById(R.id.noteTitle);
             noteSubtitle = itemView.findViewById(R.id.noteSubtitle);
             noteDateTime = itemView.findViewById(R.id.note_DateTime);
             layout_note = itemView.findViewById(R.id.layout_note);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(IRecyclerView != null){
+                        int position = getBindingAdapterPosition();
+
+                        if(position != RecyclerView.NO_POSITION){
+                            IRecyclerView.onItemClick(position);
+                        }
+                    }
+                }
+            });
 
             cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_cloud);
             amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_amethyst);
@@ -93,31 +111,24 @@ public class NoteItemAdapter extends RecyclerView.Adapter<NoteItemAdapter.NoteVi
             }
             noteDateTime.setText(note.getDateTime());
 
-            switch (note.getColor()){
-                case "amethyst":
-                    layout_note.setBackground(amethyst);
-                    layout_note.setBackgroundTintList(cs_amethyst);
-                    break;
-                case "sunflower":
-                    layout_note.setBackground(sunflower);
-                    layout_note.setBackgroundTintList(cs_sunflower);
-                    break;
-                case "nephritis":
-                    layout_note.setBackground(nephritis);
-                    layout_note.setBackgroundTintList(cs_nephritis);
-                    break;
-                case "brightsky_blue":
-                    layout_note.setBackground(brightsky_blue);
-                    layout_note.setBackgroundTintList(cs_brightsky_blue);
-                    break;
-                case "alzarin":
-                    layout_note.setBackground(alzarin);
-                    layout_note.setBackgroundTintList(cs_alzarin);
-                    break;
-                default:
-                    layout_note.setBackground(cloud);
-                    layout_note.setBackgroundTintList(cs_cloud);
-                    break;
+            if (note.getColor().equals(NoteColor.ALZARIN.getColor())){
+                layout_note.setBackground(alzarin);
+                layout_note.setBackgroundTintList(cs_alzarin);
+            } else if (note.getColor().equals(NoteColor.AMETHYST.getColor())){
+                layout_note.setBackground(amethyst);
+                layout_note.setBackgroundTintList(cs_amethyst);
+            } else if (note.getColor().equals(NoteColor.BRIGHT_SKY_BLUE.getColor())){
+                layout_note.setBackground(brightsky_blue);
+                layout_note.setBackgroundTintList(cs_brightsky_blue);
+            } else if (note.getColor().equals(NoteColor.NEPHRITIS.getColor())){
+                layout_note.setBackground(nephritis);
+                layout_note.setBackgroundTintList(cs_nephritis);
+            } else if (note.getColor().equals(NoteColor.SUNFLOWER.getColor())){
+                layout_note.setBackground(sunflower);
+                layout_note.setBackgroundTintList(cs_sunflower);
+            } else {
+                layout_note.setBackground(cloud);
+                layout_note.setBackgroundTintList(cs_cloud);
             }
         }
     }
