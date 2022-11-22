@@ -39,7 +39,7 @@ public class SplashScreenFragment extends Fragment {
     private int splashDuration;
 
     public SplashScreenFragment() {
-        this.splashDuration = 20000;
+        this.splashDuration = 2000;
     }
 
     @Override
