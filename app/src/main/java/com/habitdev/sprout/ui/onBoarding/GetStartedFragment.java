@@ -14,7 +14,7 @@ import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentGetStartedBinding;
-import com.habitdev.sprout.model.BundleKey;
+import com.habitdev.sprout.enums.BundleKeys;
 
 public class GetStartedFragment extends Fragment {
 
@@ -29,7 +29,7 @@ public class GetStartedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGetStartedBinding.inflate(inflater, container, false);
         assert getArguments() != null;
-        binding.lblName.setText(getArguments().getString(new BundleKey().getKEY_NICKNAME()));
+        binding.lblName.setText(getArguments().getString(BundleKeys.NICKNAME.getKEY()));
         return binding.getRoot();
     }
 

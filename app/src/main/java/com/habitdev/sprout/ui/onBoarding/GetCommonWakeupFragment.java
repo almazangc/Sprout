@@ -12,8 +12,8 @@ import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentGetCommonWakeupBinding;
-import com.habitdev.sprout.model.BundleKey;
-import com.habitdev.sprout.model.InitialTime;
+import com.habitdev.sprout.enums.BundleKeys;
+import com.habitdev.sprout.enums.InitialTime;
 
 public class GetCommonWakeupFragment extends Fragment {
 
@@ -39,8 +39,8 @@ public class GetCommonWakeupFragment extends Fragment {
         binding.btnContinue.setOnClickListener(view -> {
             Bundle bundle = getArguments();
             assert bundle != null;
-            bundle.putInt(new BundleKey().getKEY_WAKE_HOUR(), timePicker.getHour());
-            bundle.putInt(new BundleKey().getKEY_WAKE_MINUTE(), timePicker.getMinute());
+            bundle.putInt(BundleKeys.WAKE_HOUR.getKEY(), timePicker.getHour());
+            bundle.putInt(BundleKeys.WAKE_MINUTE.getKEY(), timePicker.getMinute());
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_getCommonWakeup_to_getCommonSleepTime, bundle);
         });
     }

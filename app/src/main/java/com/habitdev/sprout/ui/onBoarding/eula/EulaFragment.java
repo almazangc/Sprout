@@ -10,7 +10,7 @@ import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentEulaBinding;
-import com.habitdev.sprout.model.BundleKey;
+import com.habitdev.sprout.enums.BundleKeys;
 
 public class EulaFragment extends Fragment {
 
@@ -33,7 +33,7 @@ public class EulaFragment extends Fragment {
         super.onStart();
         binding.btnAgree.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
-            bundle.putBoolean(new BundleKey().getKEY_EULA(), true);
+            bundle.putBoolean(BundleKeys.EULA.getKEY(), true);
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_getCommonWakeup, bundle);
         });
         binding.btnDisagree.setOnClickListener(view -> {

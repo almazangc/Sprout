@@ -17,7 +17,7 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentAnalysisBinding;
-import com.habitdev.sprout.model.BundleKey;
+import com.habitdev.sprout.enums.BundleKeys;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class AnalysisFragment extends Fragment {
         binding.btnContinue.setOnClickListener(view -> {
             setOnBoarding();
             Bundle bundle = new Bundle();
-            bundle.putBoolean(new BundleKey().getKEY_ANALYSIS(), true);
+            bundle.putBoolean(BundleKeys.ANALYSIS.getKEY(), true);
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_analysis_to_Home, bundle);
         });
 

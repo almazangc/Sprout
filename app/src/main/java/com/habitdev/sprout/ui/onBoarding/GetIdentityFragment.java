@@ -17,11 +17,10 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.user.User;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentGetIdentityBinding;
-import com.habitdev.sprout.model.BundleKey;
+import com.habitdev.sprout.enums.BundleKeys;
 
 public class GetIdentityFragment extends Fragment {
 
-    private final BundleKey bundleKey = new BundleKey();
     // View Binding
     private FragmentGetIdentityBinding binding;
     private String nickname;
@@ -69,12 +68,12 @@ public class GetIdentityFragment extends Fragment {
     private void getBundleArgs() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            eula = bundle.getBoolean(bundleKey.getKEY_EULA(), true);
-            wakeHour = bundle.getInt(bundleKey.getKEY_WAKE_HOUR());
-            wakeMinute = bundle.getInt(bundleKey.getKEY_WAKE_MINUTE());
-            sleepHour = bundle.getInt(bundleKey.getKEY_SLEEP_HOUR());
-            sleepMinute = bundle.getInt(bundleKey.getKEY_SLEEP_MINUTE());
-            nickname = bundle.getString(bundleKey.getKEY_NICKNAME());
+            eula = bundle.getBoolean(BundleKeys.EULA.getKEY(), true);
+            wakeHour = bundle.getInt(BundleKeys.WAKE_HOUR.getKEY());
+            wakeMinute = bundle.getInt(BundleKeys.WAKE_MINUTE.getKEY());
+            sleepHour = bundle.getInt(BundleKeys.SLEEP_HOUR.getKEY());
+            sleepMinute = bundle.getInt(BundleKeys.SLEEP_MINUTE.getKEY());
+            nickname = bundle.getString(BundleKeys.NICKNAME.getKEY());
         } else {
             Toast.makeText(requireContext(), "ERROR: NO BUNDLE IS PASSED", Toast.LENGTH_LONG).show();
         }

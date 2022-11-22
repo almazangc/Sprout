@@ -24,7 +24,7 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.quotes.Quotes;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentSplashScreenBinding;
-import com.habitdev.sprout.model.BundleKey;
+import com.habitdev.sprout.enums.BundleKeys;
 
 import java.util.List;
 import java.util.Random;
@@ -118,7 +118,7 @@ public class SplashScreenFragment extends Fragment {
 
             Bundle bundle = SplashScreenFragment.this.getArguments();
             if (bundle != null) {
-                isOnBoardingDone = bundle.getBoolean(new BundleKey().getKEY_ANALYSIS());
+                isOnBoardingDone = bundle.getBoolean(BundleKeys.ANALYSIS.getKEY());
             } else {
                 UserViewModel userViewModel = new ViewModelProvider(SplashScreenFragment.this.requireActivity()).get(UserViewModel.class);
                 isOnBoardingDone = userViewModel.getOnBoarding();
