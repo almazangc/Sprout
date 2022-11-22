@@ -21,6 +21,7 @@ import com.habitdev.sprout.database.note.Note;
 import com.habitdev.sprout.database.note.NoteDao;
 import com.habitdev.sprout.database.user.User;
 import com.habitdev.sprout.database.user.UserDao;
+import com.habitdev.sprout.enums.NoteColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,13 +110,13 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new Note("Note 1", "April 28, 2000", "Subtitle in a nutshell", "cloud"));
-            noteDao.insert(new Note("Test", "June 1, 1999", "A very short sentence. Second part of the sentence", "alzarin"));
-            noteDao.insert(new Note("What?", "No date", "SampleSubTitle, but no thought. You are baka!!!!!", "sunflower"));
-            noteDao.insert(new Note("Note 4", "Sample Date", "SampleSubTitle", "nephritis"));
-            noteDao.insert(new Note("Note 4", "Sample Date", "SampleSubTitle", "sunflower"));
-            noteDao.insert(new Note("No time to spend", "Clean Date", "SampleSubTitle, you need to learn how to integrate the application", "amethyst"));
-            noteDao.insert(new Note("Note Sample 6 Title", "10.34.432/423423", "SampleSubTitle", "brightsky_blue"));
+            noteDao.insert(new Note("Note 1", "", "Subtitle in a nutshell", NoteColor.CLOUDS.getColor()));
+            noteDao.insert(new Note("Test", "", "A very short sentence. Second part of the sentence", NoteColor.SUNFLOWER.getColor()));
+            noteDao.insert(new Note("What?", "", "SampleSubTitle, but no thought. You are baka!!!!!", NoteColor.BRIGHT_SKY_BLUE.getColor()));
+            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", NoteColor.NEPHRITIS.getColor()));
+            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", NoteColor.AMETHYST.getColor()));
+            noteDao.insert(new Note("No time to spend", "", "SampleSubTitle, you need to learn how to integrate the application", NoteColor.ALZARIN.getColor()));
+            noteDao.insert(new Note("Note Sample 6 Title", "date?", "SampleSubTitle", NoteColor.SUNFLOWER.getColor()));
             return null;
         }
     }
