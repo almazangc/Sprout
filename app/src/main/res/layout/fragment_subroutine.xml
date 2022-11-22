@@ -15,7 +15,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/layout_top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
             app:cardElevation="10dp">
 
             <RelativeLayout
@@ -31,7 +31,7 @@
                     android:text="DAILY SUBROUTINE TASK"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="25dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView

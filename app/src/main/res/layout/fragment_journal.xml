@@ -15,7 +15,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/layout_top"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
             app:cardElevation="10dp">
 
             <RelativeLayout
@@ -31,7 +31,7 @@
                     android:text="Reflection Journal"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="25dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -43,7 +43,7 @@
                     android:text="Write down your reflection about your progress"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
@@ -86,6 +86,8 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:id="@+id/journal_swipe_refresh"
             android:layout_below="@id/outlinedTextField">
 
             <androidx.recyclerview.widget.RecyclerView

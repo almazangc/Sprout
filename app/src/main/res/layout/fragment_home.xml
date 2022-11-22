@@ -15,7 +15,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
             app:cardElevation="10dp">
 
             <RelativeLayout
@@ -30,7 +30,7 @@
                     android:text="Habit on reform"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="25dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -43,7 +43,7 @@
                     android:text="Programmer: A machine that turns coffee into code."
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="15dp" />
+                    android:textSize="15sp" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
