@@ -1,4 +1,4 @@
-package com.habitdev.sprout.model;
+package com.habitdev.sprout.enums;
 
 public enum InitialTime {
 
