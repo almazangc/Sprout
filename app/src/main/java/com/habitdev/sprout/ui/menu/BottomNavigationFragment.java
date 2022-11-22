@@ -43,7 +43,7 @@ public class BottomNavigationFragment extends Fragment {
         if (savedInstanceState == null) {
             binding.bottomBar.selectTabById(R.id.tab_home, true);
             fragmentManager = getChildFragmentManager();
-            fragmentManager.beginTransaction().replace(binding.fragmentContainer.getId(), new HomeFragment())
+            fragmentManager.beginTransaction().replace(binding.mainNavFragmentContainer.getId(), new HomeFragment())
                     .commit();
             binding.bottomBar.selectTabAt(0, true);
         } else {
@@ -102,26 +102,6 @@ public class BottomNavigationFragment extends Fragment {
 
         Fragment fragment;
 
-//        Warning: Resource IDs will be non-final by default in Android Gradle Plugin Version 8.0 avoid using them in switch case statements
-//        switch (id) {
-//            case R.id.tab_subroutine:
-//                fragment = Subroutine;
-//                break;
-//            case R.id.tab_analytic:
-//                fragment = Analytics;
-//                break;
-//            case R.id.tab_journal:
-//                fragment = Journal;
-//                break;
-//            case R.id.tab_settings:
-//                fragment = Settings;
-//                break;
-//            case R.id.tab_home:
-//            default:
-//                fragment = Home;
-//                break;
-//        }
-
         if (id == R.id.tab_subroutine) {
             fragment = Subroutine;
         } else if (id == R.id.tab_analytic) {
@@ -136,7 +116,7 @@ public class BottomNavigationFragment extends Fragment {
 
         fragmentManager = getChildFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(binding.fragmentContainer.getId(), fragment)
+                .replace(binding.mainNavFragmentContainer.getId(), fragment)
                 .commit();
         binding.bottomBar.selectTabAt(tabID, true);
     }
@@ -195,7 +175,7 @@ public class BottomNavigationFragment extends Fragment {
             gestureDetector = new GestureDetector(listener);
             gestureDetector.setContextClickListener(listener);
 
-            binding.fragmentContainer.setOnTouchListener(this);
+            binding.mainNavFragmentContainer.setOnTouchListener(this);
         }
 
         @SuppressLint("ClickableViewAccessibility")
