@@ -94,6 +94,8 @@
                 android:id="@+id/journal_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:backgroundTint="@color/TRANSPARENT"
+                android:background="@color/TRANSPARENT"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="2"
@@ -101,6 +103,17 @@
                 tools:listitem="@layout/adapter_journal_parent_note_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/journal_empty_lbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:text="Journal is Currently Empty"
+            android:textColor="@color/NIGHT"
+            android:layout_centerInParent="true"
+            android:textAlignment="center"
+            android:textSize="16sp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_journal"
@@ -113,6 +126,7 @@
             app:backgroundTint="@color/CLOUDS"
             app:borderWidth="5dp"
             app:fabCustomSize="45dp"
-            app:srcCompat="@drawable/ic_add" />
+            app:srcCompat="@drawable/ic_add"
+            android:contentDescription="Add Note" />
     </RelativeLayout>
 </FrameLayout>

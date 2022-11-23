@@ -168,6 +168,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_analytics.xml" value="0.1655" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_check.xml" value="0.2875" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_delete.xml" value="0.2065" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_downvote.xml" value="0.299" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_drop.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_home.xml" value="0.1655" />
@@ -243,7 +244,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_analysis_habit_item.xml" value="0.11990363232023721" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_comment_item.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_item.xml" value="0.5" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_journal_parent_note_item.xml" value="0.5" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_journal_parent_note_item.xml" value="0.67" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_child_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_parent_item.xml" value="0.22" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/analysis_habit_adapter_item.xml" value="0.32916666666666666" />
@@ -274,6 +275,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_journal.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_learn_more.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_nickname.xml" value="0.28396739130434784" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_note.xml" value="0.24544764795144158" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_on_boarding.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_personalization.xml" value="0.28396739130434784" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_setting.xml" value="0.75" />
@@ -309,7 +311,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.258230012825994" />
+        <option name="scale" value="0.5" />
       </ProjectState>
     </option>
   </component>

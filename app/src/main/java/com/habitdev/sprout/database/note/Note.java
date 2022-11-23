@@ -39,6 +39,26 @@ public class Note implements Serializable {
     }
 
     @Ignore
+    public Note(int uid, String title, String dateTime, String subtitle, String noteContent, String color) {
+        this.uid = uid;
+        this.title = title;
+        this.dateTime = dateTime;
+        this.subtitle = subtitle;
+        this.noteContent = noteContent;
+        this.color = color;
+    }
+
+    @Ignore
+    public Note(int uid, String title, String dateTime, String noteContent, String color) {
+        this.uid = uid;
+        this.title = title;
+        this.dateTime = dateTime;
+        this.subtitle = "";
+        this.noteContent = noteContent;
+        this.color = color;
+    }
+
+    @Ignore
     public Note(String title, String dateTime, String subtitle, String noteContent, String color) {
         this.title = title;
         this.dateTime = dateTime;

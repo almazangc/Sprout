@@ -20,7 +20,7 @@ public interface NoteDao {
     void insert(Note... notes);
 
     @Update
-    void update(Note note);
+    void update(Note... note);
 
     @Delete
     void delete(Note note);

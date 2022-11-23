@@ -28,8 +28,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:text="Note_Title"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/NIGHT"
-            android:textSize="13sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/noteSubtitle"
@@ -39,12 +42,28 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
+            android:textStyle="italic"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="noteSubTitle"
             android:textColor="@color/NIGHT"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/note_DateTime"
+            android:id="@+id/noteContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:maxLines="10"
+            android:ellipsize="end"
+            android:text="Note Contents Goes here"
+            android:textColor="@color/NIGHT"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/noteDateTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

@@ -1,7 +1,6 @@
 package com.habitdev.sprout.ui.menu.journal;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.habitdev.sprout.database.note.Note;
 import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.databinding.FragmentJournalBinding;
+import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.ui.menu.journal.adapter.NoteItemAdapter;
-import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
+import com.habitdev.sprout.ui.menu.journal.ui.NoteFragment;
 
 import java.util.List;
 
@@ -44,35 +44,35 @@ public class JournalFragment extends Fragment implements IRecyclerView {
         return binding.getRoot();
     }
 
-    private void setRecyclerViewAdapter(){
+    private void setRecyclerViewAdapter() {
         NoteViewModel noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
         noteList = noteViewModel.getNoteList();
         noteItemAdapter = new NoteItemAdapter(noteList, this);
         binding.journalRecyclerView.setAdapter(noteItemAdapter);
 
-        noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> noteItemAdapter.updateNotes(notes));
 
+        noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> {
+            noteItemAdapter.updateNotes(notes);
+            noteList = notes;
+            setEmptyJournalLbl();
+        });
         onSwipeRefresh();
     }
 
-    private void fabOnClick(){
-        binding.fabJournal.setOnClickListener(view -> {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(binding.journalFrameLayout.getId(), new AddNoteFragment(fragmentManager))
-                    .commit();
-        binding.journalContainer.setVisibility(View.GONE);
+    private void fabOnClick() {
+        binding.fabJournal.setOnClickListener(v -> {
+            changeFragment(new NoteFragment(fragmentManager));
         });
     }
 
-    private void onSwipeRefresh(){
+    private void onSwipeRefresh() {
         binding.journalSwipeRefresh.setOnRefreshListener(() -> {
             Toast.makeText(requireContext(), "Journal Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
             binding.journalSwipeRefresh.setRefreshing(false);
         });
     }
 
-    private void onSearchNote(){
+    private void onSearchNote() {
         //Updates Notes based search query
     }
 
@@ -80,6 +80,29 @@ public class JournalFragment extends Fragment implements IRecyclerView {
     public void onItemClick(int position) {
         Toast.makeText(requireContext(), "Recycler View on Item Click", Toast.LENGTH_SHORT).show();
 
+        Fragment fragment = new NoteFragment(fragmentManager);
+        Bundle bundle = new Bundle();
+        Note note = noteList.get(position);
+        bundle.putSerializable(BundleKeys.JOURNAL_NOTE.getKEY(), note);
+        fragment.setArguments(bundle);
+        changeFragment(fragment);
+    }
+
+    private void setEmptyJournalLbl(){
+        if(noteList.isEmpty()){
+            binding.journalEmptyLbl.setVisibility(View.VISIBLE);
+        } else {
+            binding.journalEmptyLbl.setVisibility(View.GONE);
+        }
+    }
+
+
+    private void changeFragment(Fragment fragment) {
+        fragmentManager
+                .beginTransaction()
+                .replace(binding.journalFrameLayout.getId(), fragment)
+                .commit();
+        binding.journalContainer.setVisibility(View.GONE);
     }
 
     private void onBackPress() {
