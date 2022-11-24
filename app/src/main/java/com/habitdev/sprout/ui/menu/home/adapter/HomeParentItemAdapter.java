@@ -100,9 +100,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 habitDescription.setText(habit.getDescription());
             }
 
-//            dateStarted.setVisibility(View.GONE);
-
-            dateStarted.setText("November 7 2022, 14:25PM");
+            dateStarted.setText(habit.getDate_started());
 
             completedSubroutine.setText(String.valueOf(habit.getTotal_subroutine()));
             daysOfAbstinence.setText(String.valueOf(habit.getAbstinence()));

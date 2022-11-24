@@ -126,8 +126,6 @@ public abstract class AppDatabase extends RoomDatabase {
 //            assessmentsDao.insert(new Assessments("12: Is this question number 10?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
 //            assessmentsDao.insert(new Assessments("13: If you answered yes then your wrong, this is question number 10?", "OK", "Meh", "LOL", "I don't care", DEFAULT_SELECTED));
 //            assessmentsDao.insert(new Assessments("14: Last Question?", "Yes", "No", "I don't know", "Why should I care?", DEFAULT_SELECTED));
-
-
             return null;
         }
 
@@ -216,7 +214,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
             list.clear();
             Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description));
-            habits.setOnReform(true);
+            habits.setOnReform(false);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);
@@ -260,6 +258,15 @@ public abstract class AppDatabase extends RoomDatabase {
             list.add(sample);
             list.add(sample);
             list.add(sample);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
+
+            list.clear();
+            habits = new Habits("Poor Sleep Management", "Not Sleeping on time daily");
+            habits.setOnReform(false);
+            id = habitWithSubroutinesDao.insertHabit(habits);
+            list.add(new Subroutines("Relax.", "Find calming, relaxing activities to do before bedtime."));
+            list.add(new Subroutines("Adjust your bedtime, but be patient", "If you’re aiming to go to sleep earlier, try slowly scaling back your bedtime until you are at the desired hour."));
+            list.add(new Subroutines("Do not nap, even if you feel tired", "Napping can interfere with going to sleep at night. Pelayo recommends scheduling exercise when you feel like napping. “The exercise will chase away the sleepiness. Then you can save up that drive to sleep for later,” he says."));
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
 //            habitDao.insert(new Habit(false, "Stress Eating", "Eating a lot due to stress", ArrayListConverter.fromString("[3,5,8]")));

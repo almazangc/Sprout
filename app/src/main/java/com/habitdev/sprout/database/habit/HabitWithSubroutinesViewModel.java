@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 
@@ -20,6 +21,7 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
     private LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
     private List<Long> allHabitOnReformUID;
     private List<String> allHabitTitle;
+    private List<Habits> allHabits;
     private LiveData<Long> getHabitOnReformCount;
 
     public HabitWithSubroutinesViewModel(@NonNull Application application) {
@@ -31,7 +33,12 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         allHabitOnReformWithSubroutinesLiveData = repository.getAllHabitOnReformWithSubroutinesLiveData();
         allHabitOnReformUID = repository.getAllHabitOnReformUID();
         allHabitTitle = repository.getAllHabitTitle();
+        allHabits = repository.getAllHabits();
         getHabitOnReformCount = repository.getGetHabitOnReformCount();
+    }
+
+    public void update(Habits habit) {
+        repository.updateHabit(habit);
     }
 
     public List<Habits> getAllHabitOnReform() {
@@ -64,6 +71,10 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
 
     public List<String> getAllHabitTitle() {
         return allHabitTitle;
+    }
+
+    public List<Habits> getAllHabits() {
+        return allHabits;
     }
 
     public LiveData<Long> getGetHabitOnReformCount() {

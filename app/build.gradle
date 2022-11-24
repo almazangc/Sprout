@@ -70,7 +70,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompat"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
 
-//    Material Component
+//    Material
     implementation "com.google.android.material:material:$material_version"
 
 //    Fragments

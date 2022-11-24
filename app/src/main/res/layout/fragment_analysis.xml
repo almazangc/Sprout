@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.onBoarding.assessments.AnalysisFragment">
+    tools:context=".ui.onBoarding.personalizationAssessment.AnalysisFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,11 +34,11 @@
                 android:layout_marginTop="@dimen/relativeLayoutPadding"
                 android:layout_marginBottom="0dp"
                 android:justificationMode="inter_word"
-                android:padding="30dp"
+                android:padding="10dp"
                 android:text="You scored 70 and it has been noted that your struggling with breaking from bad habit of your's we suggest you to choose on the list of habit you wanna break"
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 tools:text="Sample Text Goes Here: " />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -57,6 +57,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Predefined Habits"
+                    android:textSize="13sp"
+                    android:textColor="@color/NIGHT"
                     android:inputType="none" />
 
             </com.google.android.material.textfield.TextInputLayout>

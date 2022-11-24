@@ -1,9 +1,13 @@
 package com.habitdev.sprout.database.habit;
 
 import android.app.Application;
+import android.os.AsyncTask;
+
 import androidx.lifecycle.LiveData;
 
 import com.habitdev.sprout.database.AppDatabase;
+import com.habitdev.sprout.database.assessment.AssessmentDao;
+import com.habitdev.sprout.database.assessment.model.Question;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 
@@ -17,6 +21,7 @@ public class HabitWithSubroutinesRepository {
     private LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
     private List<Long> allHabitOnReformUID;
     private List<String> allHabitTitle;
+    private List<Habits> allHabits;
     private LiveData<Long> getHabitOnReformCount;
 
     public HabitWithSubroutinesRepository(Application application) {
@@ -28,7 +33,27 @@ public class HabitWithSubroutinesRepository {
         this.allHabitOnReformWithSubroutinesLiveData = habitWithSubroutinesDao.getAllHabitsOnReformWithSubroutinesLiveData();
         this.allHabitOnReformUID = habitWithSubroutinesDao.getAllHabitsOnReformUID();
         this.allHabitTitle = habitWithSubroutinesDao.getAllHabitTitle();
+        this.allHabits = habitWithSubroutinesDao.getAllHabit();
         this.getHabitOnReformCount = habitWithSubroutinesDao.getHabitOnReformCount();
+    }
+
+    public void updateHabit(Habits habit) {
+        new UpdateHabitAsyncTask(habitWithSubroutinesDao).execute(habit);
+    }
+
+    public static class UpdateHabitAsyncTask extends AsyncTask<Habits, Void, Void> {
+
+        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
+
+        public UpdateHabitAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
+            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
+        }
+
+        @Override
+        protected Void doInBackground(Habits... habit) {
+            habitWithSubroutinesDao.updateHabit(habit[0]);
+            return null;
+        }
     }
 
     public List<Habits> getAllHabitOnReform() {
@@ -61,6 +86,10 @@ public class HabitWithSubroutinesRepository {
 
     public List<String> getAllHabitTitle() {
         return allHabitTitle;
+    }
+
+    public List<Habits> getAllHabits() {
+        return allHabits;
     }
 
     public LiveData<Long> getGetHabitOnReformCount() {
