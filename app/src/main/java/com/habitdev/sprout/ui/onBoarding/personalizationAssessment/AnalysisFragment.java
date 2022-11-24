@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentAnalysisBinding;
 import com.habitdev.sprout.enums.BundleKeys;

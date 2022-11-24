@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
+import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 
 import java.util.List;

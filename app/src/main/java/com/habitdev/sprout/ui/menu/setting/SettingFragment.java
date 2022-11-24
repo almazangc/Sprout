@@ -15,7 +15,10 @@ import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentSettingBinding;
 import com.habitdev.sprout.ui.menu.setting.ui.AboutUsFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.LearnMoreFragment;
+import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.TechStackInfoFragment;
+import com.habitdev.sprout.ui.menu.setting.ui.TerminalFragment;
+import com.habitdev.sprout.ui.menu.setting.ui.ThemeFragment;
 
 public class SettingFragment extends Fragment {
 
@@ -28,41 +31,58 @@ public class SettingFragment extends Fragment {
         binding = FragmentSettingBinding.inflate(inflater, container, false);
 
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+
         userViewModel.getUserNickname().observe(getViewLifecycleOwner(), nickname -> {
             binding.nickname.setText(nickname);
         });
 
         fragmentManager = getChildFragmentManager();
 
-        binding.editNicknameBtn.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "Edit Nickname", Toast.LENGTH_SHORT).show();
+        binding.editProfile.setOnClickListener(v -> {
+            ProfileFragment profileFragment = new ProfileFragment();
+            fragmentManager.beginTransaction()
+                    .replace(binding.settingFrameLayout.getId(), profileFragment)
+                    .commit();
+            binding.settingContainer.setVisibility(View.GONE);
         });
 
         binding.selectThemeBtn.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "Change Theme", Toast.LENGTH_SHORT).show();
+            ThemeFragment themeFragment = new ThemeFragment();
+            fragmentManager.beginTransaction()
+                    .replace(binding.settingFrameLayout.getId(), themeFragment)
+                    .commit();
+            binding.settingContainer.setVisibility(View.GONE);
         });
 
         binding.aboutUsBtn.setOnClickListener(v -> {
-            AboutUsFragment aboutUs = new AboutUsFragment();
+            AboutUsFragment aboutUsFragment = new AboutUsFragment();
             fragmentManager.beginTransaction()
-                    .replace(binding.settingFrameLayout.getId(), aboutUs)
+                    .replace(binding.settingFrameLayout.getId(), aboutUsFragment)
                     .commit();
             binding.settingContainer.setVisibility(View.GONE);
         });
 
         binding.learnMoreBtn.setOnClickListener(v -> {
-            LearnMoreFragment learnMore = new LearnMoreFragment();
+            LearnMoreFragment learnMoreFragment = new LearnMoreFragment();
             fragmentManager.beginTransaction()
-                    .replace(binding.settingFrameLayout.getId(), learnMore)
+                    .replace(binding.settingFrameLayout.getId(), learnMoreFragment)
                     .commit();
             binding.settingContainer.setVisibility(View.GONE);
 
         });
 
         binding.techStackInfoBtn.setOnClickListener(v -> {
-            TechStackInfoFragment techStackInfo = new TechStackInfoFragment();
+            TechStackInfoFragment techStackInfoFragment = new TechStackInfoFragment();
             fragmentManager.beginTransaction()
-                    .replace(binding.settingFrameLayout.getId(), techStackInfo)
+                    .replace(binding.settingFrameLayout.getId(), techStackInfoFragment)
+                    .commit();
+            binding.settingContainer.setVisibility(View.GONE);
+        });
+
+        binding.terminalBtn.setOnClickListener(view -> {
+            TerminalFragment terminalFragment = new TerminalFragment();
+            fragmentManager.beginTransaction()
+                    .replace(binding.settingFrameLayout.getId(), terminalFragment)
                     .commit();
             binding.settingContainer.setVisibility(View.GONE);
         });

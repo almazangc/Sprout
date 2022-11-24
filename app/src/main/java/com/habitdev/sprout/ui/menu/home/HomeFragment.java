@@ -17,14 +17,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
+import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.AddNewHabitFragment;
-import com.habitdev.sprout.ui.menu.home.ui.HomeRecyclerViewItemAdapterOnClickFragment;
+import com.habitdev.sprout.ui.menu.home.ui.HomeItemAdapterOnClickFragment;
 import com.habitdev.sprout.utill.NetworkStateManager;
 
 import java.util.List;
@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         Toast.makeText(requireContext(), "Recycler View on Item Click", Toast.LENGTH_SHORT).show();
         //Learn Passing Data through parcelable:
 
-        HomeRecyclerViewItemAdapterOnClickFragment onClickFragment = new HomeRecyclerViewItemAdapterOnClickFragment();
+        HomeItemAdapterOnClickFragment onClickFragment = new HomeItemAdapterOnClickFragment();
         getChildFragmentManager()
                 .beginTransaction()
                 .replace(binding.homeFrameLayout.getId(), onClickFragment)

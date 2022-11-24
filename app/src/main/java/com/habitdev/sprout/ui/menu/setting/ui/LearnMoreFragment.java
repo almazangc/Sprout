@@ -33,9 +33,9 @@ public class LearnMoreFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                SettingFragment fragment = new SettingFragment();
                 FragmentManager fragmentManager = getChildFragmentManager();
-                fragmentManager.beginTransaction().replace(binding.learnMoreFrameLayout.getId(), fragment)
+                SettingFragment settingFragment = new SettingFragment();
+                fragmentManager.beginTransaction().replace(binding.learnMoreFrameLayout.getId(), settingFragment)
                         .commit();
                 binding.learnMoreContainer.setVisibility(View.GONE);
             }

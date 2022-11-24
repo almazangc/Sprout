@@ -33,9 +33,9 @@ public class TechStackInfoFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                SettingFragment fragment = new SettingFragment();
                 FragmentManager fragmentManager = getChildFragmentManager();
-                fragmentManager.beginTransaction().replace(binding.techStackInfoFrameLayout.getId(), fragment)
+                SettingFragment settingFragment = new SettingFragment();
+                fragmentManager.beginTransaction().replace(binding.techStackInfoFrameLayout.getId(), settingFragment)
                         .commit();
                 binding.techStackInfoContainer.setVisibility(View.GONE);
             }

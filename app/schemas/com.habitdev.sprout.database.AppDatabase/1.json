@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1f23bdefa61c52eef530bc6703c964bf",
+    "identityHash": "606592aa09ce3fa2303b5b600c1ff9f5",
     "entities": [
       {
         "tableName": "User",
@@ -112,7 +112,7 @@
       },
       {
         "tableName": "Choices",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_choices_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `question` TEXT, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_choices_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `choices` TEXT, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_choices_uid",
@@ -128,7 +128,7 @@
           },
           {
             "fieldPath": "choices",
-            "columnName": "question",
+            "columnName": "choices",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -288,17 +288,11 @@
       },
       {
         "tableName": "Habits",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `on_reform` INTEGER NOT NULL, `habit` TEXT, `desc` TEXT, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_habit_uid",
             "columnName": "pk_habit_uid",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "onReform",
-            "columnName": "on_reform",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -313,6 +307,18 @@
             "columnName": "desc",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "onReform",
+            "columnName": "on_reform",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifiable",
+            "columnName": "modifiable",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "abstinence",
@@ -436,7 +442,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1f23bdefa61c52eef530bc6703c964bf')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '606592aa09ce3fa2303b5b600c1ff9f5')"
     ]
   }
 }

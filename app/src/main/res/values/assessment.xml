@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    Questions, Choices, Default Selected-->
+    <string name="Q0">This is the first Question</string>
+    <string name="Q0_SEL1">Choice A</string>
+    <string name="Q0_SEL2">Choice B</string>
+    <string name="Q0_SEL3">Choice C</string>
+    <string name="Q0_SEL4">Choice D</string>
+</resources>

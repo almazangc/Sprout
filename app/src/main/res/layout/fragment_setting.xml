@@ -51,10 +51,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/card_view"
             android:layout_gravity="center"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
-            android:layout_below="@id/card_view"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
             android:isScrollContainer="true"
@@ -91,71 +91,308 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="12dp">
 
-                <LinearLayout
+                <GridLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:columnCount="2"
+                    android:orientation="vertical"
+                    android:rowCount="3">
 
-                    <Button
-                        android:id="@+id/edit_nickname_btn"
-                        android:layout_width="match_parent"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/edit_profile"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@id/select_theme_btn"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/selector_btn_continue"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="1dp"
-                        android:text="Edit Profile"
-                        android:textColor="@color/NIGHT"
-                        android:textSize="12sp" />
+                        android:layout_row="0"
+                        android:layout_rowWeight="1"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_gravity="fill"
+                        android:layout_margin="6dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="10dp">
 
-                    <Button
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_edit_profile" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="10dp"
+                                android:text="Edit Profile"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/NIGHT"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/select_theme_btn"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@id/tech_stack_info_btn"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/selector_btn_continue"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="1dp"
-                        android:text="THEME"
-                        android:textColor="@color/NIGHT"
-                        android:textSize="12sp" />
+                        android:layout_row="0"
+                        android:layout_rowWeight="1"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_gravity="fill"
+                        android:layout_margin="6dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="10dp">
 
-                    <Button
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_theme" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="10dp"
+                                android:text="Theme"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/NIGHT"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/tech_stack_info_btn"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@id/learn_more_btn"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/selector_btn_continue"
-                        android:text="Tech Stack Info"
-                        android:textColor="@color/NIGHT"
-                        android:textSize="12sp" />
+                        android:layout_row="1"
+                        android:layout_rowWeight="1"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_gravity="fill"
+                        android:layout_margin="6dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="10dp">
 
-                    <Button
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_info" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="10dp"
+                                android:text="Tech Stack Info"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/NIGHT"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/learn_more_btn"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@id/about_us_btn"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/selector_btn_continue"
-                        android:text="Learn More"
-                        android:textColor="@color/NIGHT"
-                        android:textSize="12sp" />
+                        android:layout_row="1"
+                        android:layout_rowWeight="1"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_gravity="fill"
+                        android:layout_margin="6dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="10dp">
 
-                    <Button
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_learn_more" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="10dp"
+                                android:text="Learn More"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/NIGHT"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
                         android:id="@+id/about_us_btn"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/selector_btn_continue"
-                        android:text="About Us"
-                        android:textColor="@color/NIGHT"
-                        android:textSize="12sp" />
-                </LinearLayout>
+                        android:layout_row="2"
+                        android:layout_rowWeight="1"
+                        android:layout_column="0"
+                        android:layout_columnWeight="1"
+                        android:layout_gravity="fill"
+                        android:layout_margin="6dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="10dp">
 
-                <TextView
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_about_us" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="10dp"
+                                android:text="About Us"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/NIGHT"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/terminal_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="2"
+                        android:layout_rowWeight="1"
+                        android:layout_column="1"
+                        android:layout_columnWeight="1"
+                        android:layout_gravity="fill"
+                        android:layout_margin="6dp"
+                        android:elevation="5dp"
+                        app:cardCornerRadius="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_terminal" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:padding="10dp"
+                                android:text="Terminal"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/NIGHT"
+                                android:textSize="13sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                    <!--                    <Button-->
+                    <!--                        android:id="@+id/select_theme_btn"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_above="@id/tech_stack_info_btn"-->
+                    <!--                        android:layout_marginBottom="12dp"-->
+                    <!--                        android:background="@drawable/selector_btn_continue"-->
+                    <!--                        android:drawableTop="@drawable/ic_theme"-->
+                    <!--                        android:padding="10dp"-->
+                    <!--                        android:text="THEME"-->
+                    <!--                        android:textColor="@color/NIGHT"-->
+                    <!--                        android:textSize="12sp" />-->
+
+                    <!--                    <Button-->
+                    <!--                        android:id="@+id/tech_stack_info_btn"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_above="@id/learn_more_btn"-->
+                    <!--                        android:layout_marginBottom="12dp"-->
+                    <!--                        android:background="@drawable/selector_btn_continue"-->
+                    <!--                        android:drawableTop="@drawable/ic_info"-->
+                    <!--                        android:padding="10dp"-->
+                    <!--                        android:text="Tech Stack Info"-->
+                    <!--                        android:textColor="@color/NIGHT"-->
+                    <!--                        android:textSize="12sp" />-->
+
+                    <!--                    <Button-->
+                    <!--                        android:id="@+id/learn_more_btn"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_above="@id/about_us_btn"-->
+                    <!--                        android:layout_marginBottom="12dp"-->
+                    <!--                        android:background="@drawable/selector_btn_continue"-->
+                    <!--                        android:drawableTop="@drawable/ic_learn_more"-->
+                    <!--                        android:padding="10dp"-->
+                    <!--                        android:text="Learn More"-->
+                    <!--                        android:textColor="@color/NIGHT"-->
+                    <!--                        android:textSize="12sp" />-->
+
+                    <!--                    <Button-->
+                    <!--                        android:id="@+id/about_us_btn"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginBottom="12dp"-->
+                    <!--                        android:background="@drawable/selector_btn_continue"-->
+                    <!--                        android:drawableTop="@drawable/ic_about_us"-->
+                    <!--                        android:padding="10dp"-->
+                    <!--                        android:text="About Us"-->
+                    <!--                        android:textColor="@color/NIGHT"-->
+                    <!--                        android:textSize="12sp" />-->
+
+                    <!--                    <Button-->
+                    <!--                        android:id="@+id/terminal"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_marginBottom="12dp"-->
+                    <!--                        android:background="@drawable/selector_btn_continue"-->
+                    <!--                        android:drawableTop="@drawable/ic_terminal"-->
+                    <!--                        android:padding="10dp"-->
+                    <!--                        android:text="Terminal"-->
+                    <!--                        android:textColor="@color/NIGHT"-->
+                    <!--                        android:textSize="12sp" />-->
+                </GridLayout>
+
+                <View
                     android:id="@+id/bottomView"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

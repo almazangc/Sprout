@@ -23,7 +23,7 @@ public class Choices implements Serializable {
     @ColumnInfo(name = "fk_question_uid", index = true)
     private long fk_question_uid;
 
-    @ColumnInfo(name = "question")
+    @ColumnInfo(name = "choices")
     private String choices;
 
     public Choices(String choices) {

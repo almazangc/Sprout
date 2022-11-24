@@ -34,9 +34,9 @@ public class AboutUsFragment extends Fragment {
             @Override
             public void handleOnBackPressed() {
                 FragmentManager fragmentManager = getChildFragmentManager();
-                SettingFragment setting = new SettingFragment();
+                SettingFragment settingFragment = new SettingFragment();
                 fragmentManager.beginTransaction()
-                        .replace(binding.aboutUsFrameLayout.getId(),setting)
+                        .replace(binding.aboutUsFrameLayout.getId(),settingFragment)
                         .commit();
                 binding.aboutUsContainer.setVisibility(View.GONE);
             }

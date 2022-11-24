@@ -77,6 +77,10 @@ public class PersonalizationFragment extends Fragment {
         });
     }
 
+    /**
+     * Create Instance of Radiobuttons on RadioGroup and set attributes
+     * @param view reference
+     */
     private void setAssessment(View view) {
         if (position < questionsList.size()) {
 
@@ -251,7 +255,7 @@ public class PersonalizationFragment extends Fragment {
      * Updates Room Database: Assessment Entity of User Table to True
      */
     private void setUserAssessmentTrue() {
-        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.setAssessment();
     }
 

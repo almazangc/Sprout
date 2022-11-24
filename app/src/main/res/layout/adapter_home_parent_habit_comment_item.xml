@@ -7,7 +7,7 @@
     android:layout_marginStart="12dp"
     android:layout_marginTop="3dp"
     android:layout_marginEnd="3dp"
-    tools:showIn="@layout/fragment_home_recycler_view_item_adapter_on_click_view"
+    tools:showIn="@layout/fragment_home_item_adapter_on_click_view"
     app:cardMaxElevation="5dp">
 
         <TextView
