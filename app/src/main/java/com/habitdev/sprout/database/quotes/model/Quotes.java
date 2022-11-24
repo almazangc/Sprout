@@ -1,4 +1,4 @@
-package com.habitdev.sprout.database.quotes;
+package com.habitdev.sprout.database.quotes.model;
 
 public class Quotes {
     String author;

@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.habits_with_subroutines.Habits;
-import com.habitdev.sprout.database.habits_with_subroutines.Subroutines;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Subroutines;
 
 import java.util.List;
 

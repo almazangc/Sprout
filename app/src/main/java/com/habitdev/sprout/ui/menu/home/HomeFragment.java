@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.habits_with_subroutines.Habits;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.interfaces.IRecyclerView;

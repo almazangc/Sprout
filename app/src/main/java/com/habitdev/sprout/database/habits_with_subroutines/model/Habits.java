@@ -1,11 +1,14 @@
-package com.habitdev.sprout.database.habits_with_subroutines;
+package com.habitdev.sprout.database.habits_with_subroutines.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Habits")
-public class Habits {
+public class Habits implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pk_habit_uid")
     private long pk_habit_uid;
@@ -42,10 +45,11 @@ public class Habits {
         this.description = description;
         this.abstinence = 0;
         this.relapse = 0;
-        this.date_started = "todo:fix";
+        this.date_started = "";
         this.total_subroutine = 0;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Habits{" +

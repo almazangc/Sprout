@@ -6,117 +6,159 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.habitdev.sprout.database.AppDatabase;
+import com.habitdev.sprout.database.assessment.model.Answer;
+import com.habitdev.sprout.database.assessment.model.Choices;
+import com.habitdev.sprout.database.assessment.model.Question;
 
 import java.util.List;
 
 public class AssessmentRepository {
-    private AssessmentDao assessmentDao;
-    private LiveData<List<Assessment>> allAssessmentListLivedata;
-    private List<Assessment> allAssessmentList;
+    private final AssessmentDao assessmentDao;
+    private final LiveData<List<Assessment>> AssessmentsListLiveData;
+    private final LiveData<List<Answer>> getAllAnswerListLiveData;
 
     public AssessmentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
-        assessmentDao = appDatabase.assessmentDao();
-        allAssessmentListLivedata = assessmentDao.getALLAssessmentLiveData();
-        allAssessmentList = assessmentDao.getALLAssessment();
+        this.assessmentDao = appDatabase.assessmentDao();
+        AssessmentsListLiveData = assessmentDao.getAssessmentsListLiveData();
+        getAllAnswerListLiveData = assessmentDao.getAllAnswerListLiveData();
     }
 
-    public void insert(Assessment assessment) {
-        new InsertAssessmentAsyncTask(assessmentDao).execute(assessment);
+    public void updateQuestion(Question question) {
+        new AssessmentRepository.UpdateQuestionAsyncTask(assessmentDao).execute(question);
     }
 
-    public void update(Assessment assessment) {
-        new UpdateAssessmentAsyncTask(assessmentDao).execute(assessment);
+    public void updateChoice(Choices choices) {
+        new AssessmentRepository.UpdateChoicesAsyncTask(assessmentDao).execute(choices);
     }
 
-    public void delete(Assessment assessment) {
-        new DeleteAssessmentAsyncTask(assessmentDao).execute(assessment);
+    public void insertAnswer(Answer answer) {
+        new AssessmentRepository.InsertAnswerAsyncTask(assessmentDao).execute(answer);
     }
 
-    public void deleteAll() {
-        new DeleteAllAssessmentAsyncTask(assessmentDao).execute();
+    public void updateAnswer(Answer answer) {
+        new AssessmentRepository.UpdateAnswerAsyncTask(assessmentDao).execute(answer);
     }
 
-    public static class InsertAssessmentAsyncTask extends AsyncTask<Assessment, Void, Void> {
+    public void deleteQuestion(Question question) {
+        new AssessmentRepository.DeleteQuestionAsyncTask(assessmentDao).execute(question);
+    }
 
-        private AssessmentDao assessmentDao;
+    public void deleteChoice(Choices choices) {
+        new AssessmentRepository.DeleteChoiceAsyncTask(assessmentDao).execute(choices);
+    }
 
-        public InsertAssessmentAsyncTask(AssessmentDao assessmentDao) {
+    public static class UpdateQuestionAsyncTask extends AsyncTask<Question, Void, Void> {
+
+        private final AssessmentDao assessmentDao;
+
+        public UpdateQuestionAsyncTask(AssessmentDao assessmentDao) {
             this.assessmentDao = assessmentDao;
         }
 
         @Override
-        protected Void doInBackground(Assessment... assessments) {
-            assessmentDao.insert(assessments[0]);
+        protected Void doInBackground(Question... questions) {
+            assessmentDao.updateQuestion(questions[0]);
             return null;
         }
     }
 
-    public static class UpdateAssessmentAsyncTask extends AsyncTask<Assessment, Void, Void> {
+    public static class UpdateChoicesAsyncTask extends AsyncTask<Choices, Void, Void> {
 
-        private AssessmentDao assessmentDao;
+        private final AssessmentDao assessmentDao;
 
-        public UpdateAssessmentAsyncTask(AssessmentDao assessmentDao) {
+        public UpdateChoicesAsyncTask(AssessmentDao assessmentDao) {
             this.assessmentDao = assessmentDao;
         }
 
         @Override
-        protected Void doInBackground(Assessment... assessments) {
-            assessmentDao.update(assessments[0]);
+        protected Void doInBackground(Choices... choices) {
+            assessmentDao.updateChoice(choices[0]);
             return null;
         }
     }
 
-    public static class DeleteAssessmentAsyncTask extends AsyncTask<Assessment, Void, Void> {
+    public static class InsertAnswerAsyncTask extends AsyncTask<Answer, Void, Void> {
 
         private AssessmentDao assessmentDao;
 
-        public DeleteAssessmentAsyncTask(AssessmentDao assessmentDao) {
+        public InsertAnswerAsyncTask(AssessmentDao assessmentDao) {
             this.assessmentDao = assessmentDao;
         }
 
         @Override
-        protected Void doInBackground(Assessment... assessments) {
-            assessmentDao.delete(assessments[0]);
+        protected Void doInBackground(Answer... answers) {
+            assessmentDao.insertAnswer(answers[0]);
             return null;
         }
     }
 
-    public static class DeleteAllAssessmentAsyncTask extends AsyncTask<Void, Void, Void> {
+    public static class UpdateAnswerAsyncTask extends AsyncTask<Answer, Void, Void> {
 
         private AssessmentDao assessmentDao;
 
-        public DeleteAllAssessmentAsyncTask(AssessmentDao assessmentDao) {
+        public UpdateAnswerAsyncTask(AssessmentDao assessmentDao) {
             this.assessmentDao = assessmentDao;
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            assessmentDao.deleteAllAssessment();
+        protected Void doInBackground(Answer... answers) {
+            assessmentDao.updateAnswer(answers[0]);
             return null;
         }
     }
 
-    public LiveData<List<Assessment>> getAllAssessmentListLivedata() {
-        return allAssessmentListLivedata;
+    public static class DeleteQuestionAsyncTask extends AsyncTask<Question, Void, Void> {
+
+        private final AssessmentDao assessmentDao;
+
+        public DeleteQuestionAsyncTask(AssessmentDao assessmentDao) {
+            this.assessmentDao = assessmentDao;
+        }
+
+        @Override
+        protected Void doInBackground(Question... questions) {
+            assessmentDao.deleteQuestion(questions[0]);
+            return null;
+        }
     }
 
-    public List<Assessment> getAllAssessmentList() {
-        return allAssessmentList;
+    public static class DeleteChoiceAsyncTask extends AsyncTask<Choices, Void, Void> {
+
+        private final AssessmentDao assessmentDao;
+
+        public DeleteChoiceAsyncTask(AssessmentDao assessmentDao) {
+            this.assessmentDao = assessmentDao;
+        }
+
+        @Override
+        protected Void doInBackground(Choices... choices) {
+            assessmentDao.deleteChoice(choices[0]);
+            return null;
+        }
     }
 
-    public void updateSelectedUID(int uid, String value){
-        assessmentDao.updateSelectedUID(uid, value);
+    public LiveData<List<Assessment>> getAssessmentsListLiveData() {
+        return AssessmentsListLiveData;
     }
 
-    public String getAssessmentSelected(int uid){
-        return assessmentDao.getAssessmentSelected(uid);
+    public LiveData<List<Answer>> getGetAllAnswerListLiveData() {
+        return getAllAnswerListLiveData;
+    }
+
+    public List<Question> getQuestionList() {
+        return assessmentDao.getAllQuestion();
+    }
+
+    public List<Choices> getChoicesList(long uid) {
+        return assessmentDao.getAllChoices(uid);
+    }
+
+    public long doesAnswerExist(long uid){
+        return assessmentDao.doesAnswerExist(uid);
+    }
+
+    public Answer getAnswerByFkQuestionUID(long uid){
+        return assessmentDao.getAnswerByFkQuestionUID(uid);
     }
 }
-
-
-
-
-
-
-

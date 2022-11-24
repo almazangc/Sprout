@@ -1,4 +1,4 @@
-package com.habitdev.sprout.database.user;
+package com.habitdev.sprout.database.user.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

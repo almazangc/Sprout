@@ -1,13 +1,18 @@
 package com.habitdev.sprout.database.habits_with_subroutines;
 
+import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.Relation;
 
+import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Subroutines;
+
+import java.io.Serializable;
 import java.util.List;
 
-@Entity()
-public class HabitWithSubroutines {
+@Entity
+public class HabitWithSubroutines implements Serializable{
     @Embedded
     public Habits habit;
 
@@ -17,6 +22,15 @@ public class HabitWithSubroutines {
     public HabitWithSubroutines(Habits habit, List<Subroutines> subroutines) {
         this.habit = habit;
         this.subroutines = subroutines;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "HabitWithSubroutines{" +
+                "habit=" + habit +
+                ", subroutines=" + subroutines +
+                '}';
     }
 
     public Habits getHabit() {

@@ -6,6 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Subroutines;
+
 import java.util.List;
 
 public class HabitWithSubroutinesViewModel extends AndroidViewModel {

@@ -1,4 +1,4 @@
-package com.habitdev.sprout.ui.onBoarding.assessment;
+package com.habitdev.sprout.ui.onBoarding.personalizationAssessment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

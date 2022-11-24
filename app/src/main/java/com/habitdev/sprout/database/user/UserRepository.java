@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.habitdev.sprout.database.AppDatabase;
+import com.habitdev.sprout.database.user.model.User;
 
 import java.util.List;
 

@@ -6,50 +6,54 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.habitdev.sprout.database.assessment.model.Answer;
+import com.habitdev.sprout.database.assessment.model.Choices;
+import com.habitdev.sprout.database.assessment.model.Question;
+
 import java.util.List;
 
 public class AssessmentViewModel extends AndroidViewModel {
-
     private AssessmentRepository repository;
-    private LiveData<List<Assessment>> allAssessmentListLiveData;
-    private List<Assessment> allAssessmentList;
+    private LiveData<List<Assessment>> assessmentListLiveData;
+    private final LiveData<List<Answer>> getAllAnswerListLiveData;
+
 
     public AssessmentViewModel(@NonNull Application application) {
         super(application);
         repository = new AssessmentRepository(application);
-        allAssessmentListLiveData = repository.getAllAssessmentListLivedata();
-        allAssessmentList = repository.getAllAssessmentList();
+        assessmentListLiveData = repository.getAssessmentsListLiveData();
+        getAllAnswerListLiveData = repository.getGetAllAnswerListLiveData();
     }
 
-    public void insert(Assessment assessment) {
-        repository.insert(assessment);
+    public LiveData<List<Assessment>> getAssessmentListLiveData() {
+        return assessmentListLiveData;
     }
 
-    public void update(Assessment assessment) {
-        repository.update(assessment);
+    public LiveData<List<Answer>> getGetAllAnswerListLiveData() {
+        return getAllAnswerListLiveData;
     }
 
-    public void delete(Assessment assessment) {
-        repository.delete(assessment);
+    public List<Question> getQuestionList() {
+        return repository.getQuestionList();
     }
 
-    public void deleteAllAssessment() {
-        repository.deleteAll();
+    public List<Choices> getChoicesList(long uid) {
+        return repository.getChoicesList(uid);
     }
 
-    public LiveData<List<Assessment>> getAllAssessmentListLiveData() {
-        return allAssessmentListLiveData;
+    public long doesAnswerExist(long uid){
+        return repository.doesAnswerExist(uid);
     }
 
-    public List<Assessment> getAllAssessmentList() {
-        return allAssessmentList;
+    public Answer getAnswerByFkQuestionUID(long uid){
+        return repository.getAnswerByFkQuestionUID(uid);
     }
 
-    public String getAssessmentSelected(int uid){
-        return repository.getAssessmentSelected(uid);
+    public void insert(Answer answer) {
+        repository.insertAnswer(answer);
     }
 
-    public void updateSelectedUID(int uid, String value){
-        repository.updateSelectedUID(uid, value);
+    public void update(Answer answer) {
+        repository.updateAnswer(answer);
     }
 }

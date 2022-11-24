@@ -4,35 +4,61 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
+
+import com.habitdev.sprout.database.assessment.model.Answer;
+import com.habitdev.sprout.database.assessment.model.Choices;
+import com.habitdev.sprout.database.assessment.model.Question;
 
 import java.util.List;
 
 @Dao
 public interface AssessmentDao {
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long insertQuestion(Question question);
 
-    @Query("SELECT * FROM Assessment")
-    LiveData<List<Assessment>> getALLAssessmentLiveData();
+    @Transaction
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertChoices(List<Choices> choices);
 
-    @Query("SELECT * FROM Assessment")
-    List<Assessment> getALLAssessment();
+    @Transaction
+    @Query("SELECT * FROM question INNER JOIN choices ON pk_questions_uid = fk_question_uid")
+    LiveData<List<Assessment>> getAssessmentsListLiveData();
 
-    @Query("UPDATE Assessment SET selected = :value WHERE uid = :uid")
-    void updateSelectedUID(int uid, String value);
+    @Query("SELECT * FROM question")
+    List<Question> getAllQuestion();
 
-    @Query("SELECT selected FROM assessment WHERE uid = :uid")
-    String getAssessmentSelected(int uid);
+    @Query("SELECT * FROM Choices WHERE fk_question_uid=:pk_uid_question")
+    List<Choices> getAllChoices(long pk_uid_question);
 
-    @Insert
-    void insert(Assessment... assessment);
+    @Query("SELECT * FROM Answer")
+    LiveData<List<Answer>> getAllAnswerListLiveData();
+
+    @Query("SELECT COUNT(fk_question_uid) FROM Answer WHERE fk_question_uid=:uid")
+    long doesAnswerExist(long uid);
+
+    @Query("SELECT * FROM Answer WHERE fk_question_uid=:uid")
+    Answer getAnswerByFkQuestionUID(long uid);
 
     @Update
-    void update(Assessment assessment);
+    void updateQuestion(Question question);
+
+    @Update
+    void updateChoice(Choices choices);
+
+    @Insert
+    void insertAnswer(Answer... answers);
+
+    @Update
+    void updateAnswer(Answer... answers);
 
     @Delete
-    void delete(Assessment assessment);
+    void deleteQuestion(Question question);
 
-    @Query("DELETE FROM assessment")
-    void deleteAllAssessment();
+    @Delete
+    void deleteChoice(Choices choices);
 }

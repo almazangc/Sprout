@@ -4,6 +4,8 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.habitdev.sprout.database.AppDatabase;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Subroutines;
 
 import java.util.List;
 

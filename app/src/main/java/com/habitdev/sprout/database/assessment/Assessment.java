@@ -1,114 +1,51 @@
 package com.habitdev.sprout.database.assessment;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
+import androidx.room.Relation;
+
+import com.habitdev.sprout.database.assessment.model.Choices;
+import com.habitdev.sprout.database.assessment.model.Question;
+
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class Assessment {
-    @PrimaryKey(autoGenerate = true)
-    private int uid;
+public class Assessment implements Serializable {
+    @Embedded
+    public Question question;
 
-    @ColumnInfo(name = "question")
-    private String question;
+    @Relation(parentColumn = "pk_questions_uid", entityColumn = "pk_choices_uid")
+    public List<Choices> choices;
 
-    @ColumnInfo(name = "aSelect")
-    private String aSelect;
-
-    @ColumnInfo(name = "bSelect")
-    private String bSelect;
-
-    @ColumnInfo(name = "cSelect")
-    private String cSelect;
-
-    @ColumnInfo(name = "dSelect")
-    private String dSelect;
-
-    @ColumnInfo(name = "selected")
-    private String selected;
-
-    @Ignore
-    public Assessment() {
-
-    }
-
-    public Assessment(String question, String aSelect, String bSelect, String cSelect, String dSelect, String selected) {
+    public Assessment(Question question, List<Choices> choices) {
         this.question = question;
-        this.aSelect = aSelect;
-        this.bSelect = bSelect;
-        this.cSelect = cSelect;
-        this.dSelect = dSelect;
-        this.selected = selected;
+        this.choices = choices;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return "Assessment{" + '\n' +
-                "uid: " + getUid() + '\n' +
-                "question: " + getQuestion() + '\n' +
-                "aSelect: " + getASelect() + '\n' +
-                "bSelect: " + getBSelect() + '\n' +
-                "cSelect: " + getCSelect() + '\n' +
-                "dSelect: " + getDSelect() + '\n' +
-                "selected: " + getSelected() + '}';
+        return "Assessment{" +
+                "question=" + question +
+                ", choices=" + choices +
+                '}';
     }
 
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
-    public String getQuestion() {
+    public Question getQuestion() {
         return question;
     }
 
-    public void setQuestion(String question) {
+    public void setQuestion(Question question) {
         this.question = question;
     }
 
-    public String getASelect() {
-        return aSelect;
+    public List<Choices> getChoices() {
+        return choices;
     }
 
-    public void setASelect(String aSelect) {
-        this.aSelect = aSelect;
-    }
-
-    public String getBSelect() {
-        return bSelect;
-    }
-
-    public void setBSelect(String bSelect) {
-        this.bSelect = bSelect;
-    }
-
-    public String getCSelect() {
-        return cSelect;
-    }
-
-    public void setCSelect(String cSelect) {
-        this.cSelect = cSelect;
-    }
-
-    public String getDSelect() {
-        return dSelect;
-    }
-
-    public void setDSelect(String dSelect) {
-        this.dSelect = dSelect;
-    }
-
-    public String getSelected() {
-        return selected;
-    }
-
-    public void setSelected(String selected) {
-        this.selected = selected;
+    public void setChoices(List<Choices> choices) {
+        this.choices = choices;
     }
 }

@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.note.Note;
+import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.enums.NoteColor;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 

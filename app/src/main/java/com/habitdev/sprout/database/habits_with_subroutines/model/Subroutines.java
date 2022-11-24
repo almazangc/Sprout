@@ -1,9 +1,12 @@
-package com.habitdev.sprout.database.habits_with_subroutines;
+package com.habitdev.sprout.database.habits_with_subroutines.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
 
 @Entity(tableName = "Subroutine",
         foreignKeys = @ForeignKey(
@@ -13,7 +16,7 @@ import androidx.room.PrimaryKey;
                 onDelete = ForeignKey.CASCADE,
                 onUpdate = ForeignKey.CASCADE
         ))
-public class Subroutines {
+public class Subroutines implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pk_subroutine_uid")
     private long pk_subroutine_uid;
@@ -48,6 +51,7 @@ public class Subroutines {
         this.skips = 0;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Subroutines{" +

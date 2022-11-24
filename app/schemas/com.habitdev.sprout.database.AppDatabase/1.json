@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2a5b36277af3270f0df033055c14e5ad",
+    "identityHash": "1f23bdefa61c52eef530bc6703c964bf",
     "entities": [
       {
         "tableName": "User",
@@ -85,12 +85,12 @@
         "foreignKeys": []
       },
       {
-        "tableName": "Assessment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT, `aSelect` TEXT, `bSelect` TEXT, `cSelect` TEXT, `dSelect` TEXT, `selected` TEXT)",
+        "tableName": "Question",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_questions_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT)",
         "fields": [
           {
-            "fieldPath": "uid",
-            "columnName": "uid",
+            "fieldPath": "pk_question_uid",
+            "columnName": "pk_questions_uid",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -99,46 +99,130 @@
             "columnName": "question",
             "affinity": "TEXT",
             "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pk_questions_uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Choices",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_choices_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `question` TEXT, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "pk_choices_uid",
+            "columnName": "pk_choices_uid",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
-            "fieldPath": "aSelect",
-            "columnName": "aSelect",
-            "affinity": "TEXT",
-            "notNull": false
+            "fieldPath": "fk_question_uid",
+            "columnName": "fk_question_uid",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
-            "fieldPath": "bSelect",
-            "columnName": "bSelect",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "cSelect",
-            "columnName": "cSelect",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "dSelect",
-            "columnName": "dSelect",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "selected",
-            "columnName": "selected",
+            "fieldPath": "choices",
+            "columnName": "question",
             "affinity": "TEXT",
             "notNull": false
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "uid"
+            "pk_choices_uid"
           ],
           "autoGenerate": true
         },
-        "indices": [],
-        "foreignKeys": []
+        "indices": [
+          {
+            "name": "index_Choices_fk_question_uid",
+            "unique": false,
+            "columnNames": [
+              "fk_question_uid"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Choices_fk_question_uid` ON `${TABLE_NAME}` (`fk_question_uid`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Question",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "fk_question_uid"
+            ],
+            "referencedColumns": [
+              "pk_questions_uid"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Answer",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_answer_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `selected_answer` TEXT, `user_uid` INTEGER NOT NULL, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "pk_answer_uid",
+            "columnName": "pk_answer_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fk_question_uid",
+            "columnName": "fk_question_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "selected_answer",
+            "columnName": "selected_answer",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "user_uid",
+            "columnName": "user_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pk_answer_uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Answer_fk_question_uid",
+            "unique": false,
+            "columnNames": [
+              "fk_question_uid"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Answer_fk_question_uid` ON `${TABLE_NAME}` (`fk_question_uid`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Question",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "fk_question_uid"
+            ],
+            "referencedColumns": [
+              "pk_questions_uid"
+            ]
+          }
+        ]
       },
       {
         "tableName": "Note",
@@ -352,7 +436,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2a5b36277af3270f0df033055c14e5ad')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1f23bdefa61c52eef530bc6703c964bf')"
     ]
   }
 }

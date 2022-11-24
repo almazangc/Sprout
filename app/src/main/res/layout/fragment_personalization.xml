@@ -1,120 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/relativeLayoutPadding"
+    android:padding="16dp"
     android:weightSum="10"
-    tools:context=".ui.onBoarding.assessment.PersonalizationFragment">
+    tools:context=".ui.onBoarding.personalizationAssessment.PersonalizationFragment">
 
-    <RelativeLayout
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/assessment_progressBar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        app:indicatorColor="@color/WAIKAWA_GREY"
+        app:trackThickness="5dp"
+        tools:max="6"
+        tools:progress="5" />+
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/assessment_progressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:indicatorColor="@color/WAIKAWA_GREY"
-            app:trackThickness="5dp"
-            tools:max="6"
-            tools:progress="5" />
+    <TextView
+        android:id="@+id/lbl_titleMainHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/assessment_progressBar"
+        android:layout_centerHorizontal="true"
+        android:text="@string/personalization"
+        android:textColor="@color/NIGHT"
+        android:textSize="34sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/lbl_titleMainHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/assessment_progressBar"
-            android:text="@string/personalization"
-            android:textColor="@color/NIGHT"
-            android:textSize="34sp"
-            android:textStyle="bold" />
+    <TextView
+        android:id="@+id/lbl_subHeader1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_titleMainHeader"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="@string/habit_reform_and_routine_management"
+        android:textAlignment="viewStart"
+        android:textColor="@color/NIGHT"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/lbl_subHeader1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lbl_titleMainHeader"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="3dp"
-            android:text="@string/habit_reform_and_routine_management"
-            android:textAlignment="viewStart"
-            android:textColor="@color/NIGHT"
-            android:textSize="16sp" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/lbl_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_subHeader1"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/NIGHT"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        tools:text="Question: How would you like your text be seen" />
 
-    <!--        For long questions-->
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/choices_recycler_View"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_above="@id/btn_continue"-->
+    <!--        android:layout_below="@id/lbl_question"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        tools:listitem="@layout/adapter_personalization_parent_choices_item"-->
+    <!--        tools:itemCount="5"-->
+    <!--        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+    <!--        android:layout_marginBottom="10dp" />-->
+
     <ScrollView
+        android:id="@+id/choices_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="7"
-        android:fillViewport="true"
-        android:scrollbars="none">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_continue"
+        android:layout_below="@id/lbl_question">
 
-        <RelativeLayout
+        <RadioGroup
+            android:id="@+id/choices_radio_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/lbl_question"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="10dp"
-                android:text="@{question}"
-                android:textColor="@color/NIGHT"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                tools:text="Question: How would you like your text be seen" />
-
-            <RadioGroup
-                android:id="@+id/radioGroupSelect"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/lbl_question"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/radio_margin_bottom"
-                android:gravity="bottom"
-                android:orientation="vertical">
-
-                <RadioButton
-                    android:id="@+id/radio_aSelect"
-                    style="@style/radioButtonPortrait"
-                    android:checked="true"
-                    android:text="@{aSelect}"
-                    tools:text="Yes Good Day" />
-
-                <RadioButton
-                    android:id="@+id/radio_bSelect"
-                    style="@style/radioButtonPortrait"
-
-                    tools:text="Very Nice Day to work on something so cool" />
-
-                <RadioButton
-                    android:id="@+id/radio_cSelect"
-                    style="@style/radioButtonPortrait"
-                    tools:text="third selection" />
-
-                <RadioButton
-                    android:id="@+id/radio_dSelect"
-                    style="@style/radioButtonPortrait"
-                    tools:text="Last Radio Button Container DA FAK" />
-            </RadioGroup>
-
-        </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+        </RadioGroup>
     </ScrollView>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <Button
+        android:id="@+id/btn_continue"
+        style="@style/btn_continue_portrait"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/ClOUDS_" />
 
-        <Button
-            android:id="@+id/btn_continue"
-            style="@style/btn_continue_portrait"
-            android:textColor="@color/ClOUDS_"/>
-    </RelativeLayout>
-</LinearLayout>
+
+    <!--        For long questions-->
+    <!--    <ScrollView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="7"-->
+    <!--        android:fillViewport="true"-->
+    <!--        android:scrollbars="none">-->
+
+    <!--        <RelativeLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content">-->
+
+    <!--            <TextView-->
+    <!--                android:id="@+id/lbl_question"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_alignParentTop="true"-->
+    <!--                android:layout_marginBottom="10dp"-->
+    <!--                android:text="@{question}"-->
+    <!--                android:textColor="@color/NIGHT"-->
+    <!--                android:textSize="25sp"-->
+    <!--                android:textStyle="bold"-->
+    <!--                tools:text="Question: How would you like your text be seen" />-->
+
+    <!--&lt;!&ndash;            <RadioGroup&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:id="@+id/radioGroupSelect"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_below="@id/lbl_question"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_alignParentBottom="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:layout_marginBottom="@dimen/radio_margin_bottom"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:gravity="bottom"&ndash;&gt;-->
+    <!--&lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                <RadioButton&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:id="@+id/radio_aSelect"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    style="@style/radioButtonPortrait"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:checked="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:text="@{aSelect}"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    tools:text="Yes Good Day" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                <RadioButton&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:id="@+id/radio_bSelect"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    style="@style/radioButtonPortrait"&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                    tools:text="Very Nice Day to work on something so cool" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                <RadioButton&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:id="@+id/radio_cSelect"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    style="@style/radioButtonPortrait"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    tools:text="third selection" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;                <RadioButton&ndash;&gt;-->
+    <!--&lt;!&ndash;                    android:id="@+id/radio_dSelect"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    style="@style/radioButtonPortrait"&ndash;&gt;-->
+    <!--&lt;!&ndash;                    tools:text="Last Radio Button Container DA FAK" />&ndash;&gt;-->
+    <!--&lt;!&ndash;            </RadioGroup>&ndash;&gt;-->
+
+    <!--        </RelativeLayout>-->
+    <!--    </ScrollView>-->
+</RelativeLayout>

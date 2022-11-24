@@ -1,6 +1,5 @@
 package com.habitdev.sprout.ui.menu.journal.ui;
 
-import android.app.AlertDialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +15,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.note.Note;
+import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.databinding.FragmentNoteBinding;
 import com.habitdev.sprout.enums.BundleKeys;
@@ -60,7 +58,7 @@ public class NoteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNoteBinding.inflate(inflater, container, false);
         noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
-        showDeleteNote();
+        setFabDisplay();
         setNotes();
         colorSelect();
         onSaveNote();
@@ -69,11 +67,13 @@ public class NoteFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void showDeleteNote(){
+    private void setFabDisplay(){
         if (bundle != null){
             binding.fabDeleteNote.setVisibility(View.VISIBLE);
+            binding.fabSaveNote.setImageResource(R.drawable.ic_save);
         } else {
             binding.fabDeleteNote.setVisibility(View.GONE);
+            binding.fabSaveNote.setImageResource(R.drawable.ic_check);
         }
     }
 
@@ -82,6 +82,7 @@ public class NoteFragment extends Fragment {
 
             note = (Note) bundle.getSerializable(BundleKeys.JOURNAL_NOTE.getKEY());
 
+            binding.noteHint.setText("");
             binding.noteTitle.setText(note.getTitle());
             binding.noteSubTitle.setText(note.getSubtitle());
             binding.noteCurrentTime.setText(note.getDateTime());

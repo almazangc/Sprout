@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.habits_with_subroutines.Habits;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.AddNewSubroutineFragment;

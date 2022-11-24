@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.quotes.Quotes;
+import com.habitdev.sprout.database.quotes.model.Quotes;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentSplashScreenBinding;
 import com.habitdev.sprout.enums.BundleKeys;

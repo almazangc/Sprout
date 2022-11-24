@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.user.User;
+import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentGetIdentityBinding;
 import com.habitdev.sprout.enums.BundleKeys;

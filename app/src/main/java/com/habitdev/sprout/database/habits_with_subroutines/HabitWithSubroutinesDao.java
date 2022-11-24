@@ -7,6 +7,9 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Subroutines;
+
 import java.util.List;
 
 @Dao
@@ -18,10 +21,6 @@ public interface HabitWithSubroutinesDao {
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSubroutines(List<Subroutines> subroutines);
-
-    @Transaction
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertSubroutine(Subroutines subroutines);
 
     @Query("SELECT * FROM Habits WHERE on_reform = 1")
     List<Habits> getAllHabitOnReform();

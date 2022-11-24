@@ -11,22 +11,24 @@ import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.assessment.Assessment;
+import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.AssessmentDao;
+import com.habitdev.sprout.database.assessment.model.Choices;
+import com.habitdev.sprout.database.assessment.model.Question;
 import com.habitdev.sprout.database.converters.ArrayListConverter;
 import com.habitdev.sprout.database.habits_with_subroutines.HabitWithSubroutinesDao;
-import com.habitdev.sprout.database.habits_with_subroutines.Habits;
-import com.habitdev.sprout.database.habits_with_subroutines.Subroutines;
-import com.habitdev.sprout.database.note.Note;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Habits;
+import com.habitdev.sprout.database.habits_with_subroutines.model.Subroutines;
+import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.database.note.NoteDao;
-import com.habitdev.sprout.database.user.User;
+import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.database.user.UserDao;
 import com.habitdev.sprout.enums.NoteColor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Database(entities = {User.class, Assessment.class, Note.class, Habits.class, Subroutines.class}, version = 1)
+@Database(entities = {User.class, Question.class, Choices.class, Answer.class, Note.class, Habits.class, Subroutines.class}, version = 1)
 @TypeConverters({ArrayListConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -74,29 +76,74 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            final String DEFAULT_SELECTED = "null";
+            long uid;
+            uid = insertQuestion(new Question("1: How long does it take to complete the application?"));
+            List<Choices> choices = new ArrayList<>();
+            choices.add(new Choices("A Month"));
+            choices.add(new Choices("2 Years"));
+            choices.add(new Choices("Never"));
+            choices.add(new Choices("Long Time"));
+            choices.add(new Choices("Until then"));
+            assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
-            assessmentDao.insert(new Assessment(getString(R.string.Q0), getString(R.string.Q0_SEL1), getString(R.string.Q0_SEL2), getString(R.string.Q0_SEL3), getString(R.string.Q0_SEL4), DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("1: Question", "A", "B", "C", "D", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("2: Which habit troubles you, This is a very long questions as an input to the app?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("3: Which habit troubles you?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("4: How often do you feel happy?", "Always", "Usually", "Seldom", "Never", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("5: Do you like banana?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("6: Do you fear life?", "Yes not", "No Yes", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("7: If 1 + 1 - 2, What is the circumference of the sun?", "Yes?", "WTH", "I don't know", "Life ain't fun", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("8: Do you see you future?", "Who care about that", "A bit Foggy", "I don't know anymore", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("9: Is this a generic question?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("10: What is the name of app?", "Sprout", "Don't Know", "Undecided", "I wanna change, it sucks", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("11: Do you always owo?", "Yes", "Absolutely Not", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("12: Is this question number 10?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("13: If you answered yes then your wrong, this is question number 10?", "OK", "Meh", "LOL", "I don't care", DEFAULT_SELECTED));
-            assessmentDao.insert(new Assessment("14: Last Question?", "Yes", "No", "I don't know", "Why should I care?", DEFAULT_SELECTED));
+            uid = insertQuestion(new Question("2:How contented are with your current self?"));
+            choices.clear();
+            choices.add(new Choices("Not Enough"));
+            choices.add(new Choices("Contented"));
+            choices.add(new Choices("A little bit contented"));
+            choices.add(new Choices("Overly contented"));
+            assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
+
+            uid = insertQuestion(new Question("3: What is the application name?"));
+            choices.clear();
+            choices.add(new Choices("Habit"));
+            choices.add(new Choices("Sprout"));
+            choices.add(new Choices("Peanut"));
+            assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
+
+            uid = insertQuestion(new Question("4: Question 4?"));
+            choices.clear();
+            choices.add(new Choices("Select A"));
+            choices.add(new Choices("Select B"));
+            choices.add(new Choices("Select C"));
+            choices.add(new Choices("Select D"));
+            choices.add(new Choices("Select E"));
+            choices.add(new Choices("Select F"));
+            assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
+
+//            assessmentsDao.insert(new Assessments(getString(R.string.Q0), getString(R.string.Q0_SEL1), getString(R.string.Q0_SEL2), getString(R.string.Q0_SEL3), getString(R.string.Q0_SEL4), DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("1: Question", "A", "B", "C", "D", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("2: Which habit troubles you, This is a very long questions as an input to the app?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("3: Which habit troubles you?", "Wasting Time", "Smoking and Drinking", "No Motivation to work", "Over Spending", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("4: How often do you feel happy?", "Always", "Usually", "Seldom", "Never", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("5: Do you like banana?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("6: Do you fear life?", "Yes not", "No Yes", "I don't know", "I don't care", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("7: If 1 + 1 - 2, What is the circumference of the sun?", "Yes?", "WTH", "I don't know", "Life ain't fun", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("8: Do you see you future?", "Who care about that", "A bit Foggy", "I don't know anymore", "I don't care", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("9: Is this a generic question?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("10: What is the name of app?", "Sprout", "Don't Know", "Undecided", "I wanna change, it sucks", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("11: Do you always owo?", "Yes", "Absolutely Not", "I don't know", "I don't care", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("12: Is this question number 10?", "Yes", "No", "I don't know", "I don't care", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("13: If you answered yes then your wrong, this is question number 10?", "OK", "Meh", "LOL", "I don't care", DEFAULT_SELECTED));
+//            assessmentsDao.insert(new Assessments("14: Last Question?", "Yes", "No", "I don't know", "Why should I care?", DEFAULT_SELECTED));
+
 
             return null;
         }
 
         private String getString(int id) {
             return AppContext.getApplicationContext().getResources().getString(id);
+        }
+
+        private List<Choices> setFk_Question_uid(List<Choices> list, long id) {
+            for (Choices choices : list) {
+                choices.setFk_question_uid(id);
+            }
+            return list;
+        }
+
+        private long insertQuestion(Question question) {
+            return assessmentDao.insertQuestion(question);
         }
     }
 
@@ -247,6 +294,5 @@ public abstract class AppDatabase extends RoomDatabase {
             return list;
         }
     }
-
 
 }
