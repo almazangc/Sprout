@@ -39,56 +39,40 @@ public class SettingFragment extends Fragment {
         fragmentManager = getChildFragmentManager();
 
         binding.editProfile.setOnClickListener(v -> {
-            ProfileFragment profileFragment = new ProfileFragment();
-            fragmentManager.beginTransaction()
-                    .replace(binding.settingFrameLayout.getId(), profileFragment)
-                    .commit();
-            binding.settingContainer.setVisibility(View.GONE);
+            changeFragment(new ProfileFragment());
         });
 
         binding.selectThemeBtn.setOnClickListener(v -> {
-            ThemeFragment themeFragment = new ThemeFragment();
-            fragmentManager.beginTransaction()
-                    .replace(binding.settingFrameLayout.getId(), themeFragment)
-                    .commit();
-            binding.settingContainer.setVisibility(View.GONE);
+            changeFragment(new ThemeFragment());
         });
 
         binding.aboutUsBtn.setOnClickListener(v -> {
-            AboutUsFragment aboutUsFragment = new AboutUsFragment();
-            fragmentManager.beginTransaction()
-                    .replace(binding.settingFrameLayout.getId(), aboutUsFragment)
-                    .commit();
-            binding.settingContainer.setVisibility(View.GONE);
+            changeFragment(new AboutUsFragment());
         });
 
         binding.learnMoreBtn.setOnClickListener(v -> {
-            LearnMoreFragment learnMoreFragment = new LearnMoreFragment();
-            fragmentManager.beginTransaction()
-                    .replace(binding.settingFrameLayout.getId(), learnMoreFragment)
-                    .commit();
-            binding.settingContainer.setVisibility(View.GONE);
+            changeFragment(new LearnMoreFragment());
 
         });
 
         binding.techStackInfoBtn.setOnClickListener(v -> {
-            TechStackInfoFragment techStackInfoFragment = new TechStackInfoFragment();
-            fragmentManager.beginTransaction()
-                    .replace(binding.settingFrameLayout.getId(), techStackInfoFragment)
-                    .commit();
-            binding.settingContainer.setVisibility(View.GONE);
+            changeFragment(new TechStackInfoFragment());
         });
 
         binding.terminalBtn.setOnClickListener(view -> {
-            TerminalFragment terminalFragment = new TerminalFragment();
-            fragmentManager.beginTransaction()
-                    .replace(binding.settingFrameLayout.getId(), terminalFragment)
-                    .commit();
-            binding.settingContainer.setVisibility(View.GONE);
+            changeFragment(new TerminalFragment());
         });
 
         onBackPress();
         return binding.getRoot();
+    }
+
+    private void changeFragment(Fragment fragment){
+        fragmentManager.beginTransaction()
+                .replace(binding.settingFrameLayout.getId(), fragment)
+                .commit();
+        binding.settingContainer.setVisibility(View.GONE);
+        userViewModel.getUserNickname().removeObservers(getViewLifecycleOwner());
     }
 
     private void onBackPress() {

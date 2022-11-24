@@ -46,14 +46,14 @@ public class HomeFragment extends Fragment implements IRecyclerView {
             binding.homeSwipeRefreshLayout.setRefreshing(false);
         });
 
-        final Observer<Boolean> activeNetworkStateObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isConnected) {
-                Log.d("tag", "onChanged: " + isConnected);
-            }
-        };
-
-        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(requireActivity(), activeNetworkStateObserver);
+//        final Observer<Boolean> activeNetworkStateObserver = new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(Boolean isConnected) {
+//                Log.d("tag", "onChanged: " + isConnected);
+//            }
+//        };
+//
+//        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(requireActivity(), activeNetworkStateObserver);
 
         fabVisibility();
         onBackPress();

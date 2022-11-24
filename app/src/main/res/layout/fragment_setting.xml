@@ -26,26 +26,14 @@
                     android:id="@+id/settingTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:paddingTop="6dp"
                     android:text="Setting"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
                     android:textSize="20sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/settingSubTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/settingTitle"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="5dp"
-                    android:text="In a nutshell"
-                    android:textAlignment="center"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="15sp" />
             </RelativeLayout>
-
         </androidx.cardview.widget.CardView>
 
         <RelativeLayout
@@ -93,7 +81,8 @@
 
                 <GridLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:columnCount="2"
                     android:orientation="vertical"
                     android:rowCount="3">
@@ -108,26 +97,29 @@
                         android:layout_columnWeight="1"
                         android:layout_gravity="fill"
                         android:layout_margin="6dp"
+                        android:clickable="true"
                         android:elevation="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:layout_margin="5dp"
                                 android:src="@drawable/ic_edit_profile" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:padding="10dp"
                                 android:text="Edit Profile"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
@@ -146,26 +138,29 @@
                         android:layout_columnWeight="1"
                         android:layout_gravity="fill"
                         android:layout_margin="6dp"
+                        android:clickable="true"
                         android:elevation="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:layout_margin="5dp"
                                 android:src="@drawable/ic_theme" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:padding="10dp"
                                 android:text="Theme"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
@@ -184,26 +179,29 @@
                         android:layout_columnWeight="1"
                         android:layout_gravity="fill"
                         android:layout_margin="6dp"
+                        android:clickable="true"
                         android:elevation="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:layout_margin="5dp"
                                 android:src="@drawable/ic_info" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:padding="10dp"
                                 android:text="Tech Stack Info"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
@@ -222,26 +220,29 @@
                         android:layout_columnWeight="1"
                         android:layout_gravity="fill"
                         android:layout_margin="6dp"
+                        android:clickable="true"
                         android:elevation="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:layout_margin="5dp"
                                 android:src="@drawable/ic_learn_more" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:padding="10dp"
                                 android:text="Learn More"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
@@ -261,26 +262,29 @@
                         android:layout_columnWeight="1"
                         android:layout_gravity="fill"
                         android:layout_margin="6dp"
+                        android:clickable="true"
                         android:elevation="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:layout_margin="5dp"
                                 android:src="@drawable/ic_about_us" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:padding="10dp"
                                 android:text="About Us"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"
@@ -299,26 +303,29 @@
                         android:layout_columnWeight="1"
                         android:layout_gravity="fill"
                         android:layout_margin="6dp"
+                        android:clickable="true"
                         android:elevation="5dp"
+                        android:foreground="?android:attr/selectableItemBackground"
                         app:cardCornerRadius="10dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_margin="5dp"
                             android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:layout_margin="5dp"
                                 android:src="@drawable/ic_terminal" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:padding="10dp"
                                 android:text="Terminal"
                                 android:textAlignment="center"
                                 android:textAllCaps="true"

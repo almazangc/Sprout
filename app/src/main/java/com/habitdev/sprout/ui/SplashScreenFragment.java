@@ -66,19 +66,6 @@ public class SplashScreenFragment extends Fragment {
                         Log.d("tag", "SplashScreen: onFailure() called: Data is not available on CACHE");
                     }
                 });
-
-//        final Observer<Boolean> activeNetworkStateObserver = new Observer<Boolean>() {
-//            @Override
-//            public void onChanged(Boolean isConnected) {
-//                if (isConnected) {
-//
-//                }
-//                Log.d("tag", "onChanged() called: SplashScreen " + isConnected);
-//            }
-//        };
-//
-//        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(requireActivity(), activeNetworkStateObserver);
-
         checkStatus();
         return binding.getRoot();
     }

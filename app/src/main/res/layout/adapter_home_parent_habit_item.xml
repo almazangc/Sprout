@@ -177,6 +177,8 @@
                     android:minWidth="0dp"
                     android:textColor="@color/NIGHT"
                     android:textSize="11sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     tools:text="Saturday, November 5, 2022: 12:25" />
 
                 <TextView
