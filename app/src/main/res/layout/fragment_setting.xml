@@ -204,7 +204,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:text="Tech Stack Info"
+                                    android:text="Stack Info"
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textColor="@color/NIGHT"

@@ -12,6 +12,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -43,7 +44,13 @@ public class AnalysisFragment extends Fragment {
         //Recommender Algorithm Here to display result according to the analysis
 
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
-        habitsList = habitWithSubroutinesViewModel.getAllHabits();
+        habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), new Observer<List<Habits>>() {
+            @Override
+            public void onChanged(List<Habits> habits) {
+                habitsList = habits;
+                habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
+            }
+        });
 
         List<String> habitTitles = new ArrayList<>();
         for(Habits habits : habitsList){

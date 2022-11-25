@@ -22,7 +22,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
-            app:boxBackgroundColor="@color/CLOUDS"
+            app:boxBackgroundColor="@color/LIGHT"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
@@ -111,8 +111,8 @@
                     android:id="@+id/habit_subroutines_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentBottom="true"
                     android:layout_below="@id/subroutine_lbl"
+                    android:layout_alignParentBottom="true"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/adapter_home_add_default_parent_item" />
 
@@ -122,7 +122,7 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_on_reform"
+            android:id="@+id/add_habit_on_reform_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

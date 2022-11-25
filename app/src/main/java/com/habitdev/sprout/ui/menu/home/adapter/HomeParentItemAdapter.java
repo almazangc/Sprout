@@ -113,10 +113,13 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             downvote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Downvote", Toast.LENGTH_SHORT).show();
             });
-
-            modify.setOnClickListener(view -> {
-                Toast.makeText(itemView.getContext(), "Modify", Toast.LENGTH_SHORT).show();
-            });
+            if (habit.isModifiable()) {
+                modify.setOnClickListener(view -> {
+                    Toast.makeText(itemView.getContext(), "Modify", Toast.LENGTH_SHORT).show();
+                });
+            } else {
+                modify.setVisibility(View.GONE);
+            }
 
             relapse.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Relapse", Toast.LENGTH_SHORT).show();

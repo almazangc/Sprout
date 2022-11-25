@@ -2,6 +2,9 @@
 <resources>
     <color name="TRANSPARENT">#00FFFFFF</color>
 
+    <color name="DARK">#202124</color>
+    <color name="LIGHT">#FFFFFF</color>
+
     <color name="NIGHT">#040000</color>
     <color name="CLOUDS">#ecf0f1</color>
     <color name="WAIKAWA_GREY">#686da3</color>

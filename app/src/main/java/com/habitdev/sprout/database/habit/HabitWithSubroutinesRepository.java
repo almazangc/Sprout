@@ -6,8 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.habitdev.sprout.database.AppDatabase;
-import com.habitdev.sprout.database.assessment.AssessmentDao;
-import com.habitdev.sprout.database.assessment.model.Question;
+import com.habitdev.sprout.database.habit.model.HabitWithSubroutines;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 
@@ -20,7 +19,7 @@ public class HabitWithSubroutinesRepository {
     private List<HabitWithSubroutines> allHabitOnReformWithSubroutines;
     private LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
     private List<Long> allHabitOnReformUID;
-    private List<String> allHabitTitle;
+    private LiveData<List<Habits>> allHabitListLiveData;
     private List<Habits> allHabits;
     private LiveData<Long> getHabitOnReformCount;
 
@@ -32,8 +31,8 @@ public class HabitWithSubroutinesRepository {
         this.allHabitOnReformWithSubroutines = habitWithSubroutinesDao.getAllHabitsOnReformWithSubroutines();
         this.allHabitOnReformWithSubroutinesLiveData = habitWithSubroutinesDao.getAllHabitsOnReformWithSubroutinesLiveData();
         this.allHabitOnReformUID = habitWithSubroutinesDao.getAllHabitsOnReformUID();
-        this.allHabitTitle = habitWithSubroutinesDao.getAllHabitTitle();
-        this.allHabits = habitWithSubroutinesDao.getAllHabit();
+        this.allHabitListLiveData = habitWithSubroutinesDao.getAllHabitListLiveData();
+        this.allHabits = habitWithSubroutinesDao.getAllHabitList();
         this.getHabitOnReformCount = habitWithSubroutinesDao.getHabitOnReformCount();
     }
 
@@ -84,8 +83,8 @@ public class HabitWithSubroutinesRepository {
         return habitWithSubroutinesDao.getAllSubroutinesOfHabitLiveData(uid);
     }
 
-    public List<String> getAllHabitTitle() {
-        return allHabitTitle;
+    public LiveData<List<Habits>> getAllHabitListLiveData() {
+        return allHabitListLiveData;
     }
 
     public List<Habits> getAllHabits() {

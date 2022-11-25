@@ -1,24 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/comment_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginStart="12dp"
-    android:layout_marginTop="3dp"
-    android:layout_marginEnd="3dp"
-    tools:showIn="@layout/fragment_home_item_adapter_on_click_view"
-    app:cardMaxElevation="5dp">
-
-        <TextView
-            android:id="@+id/comment_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textColor="@color/NIGHT"
-            android:text="This is a sample comment in the habit, future feature"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"/>
-</RelativeLayout>
+    android:background="@drawable/background_item_underline"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginBottom="5dp"
+    android:paddingBottom="2dp"
+    android:paddingTop="5dp"
+    android:paddingStart="10dp"
+    android:text="This is a sample comment in the habit, future feature."
+    android:textColor="@color/NIGHT"
+    android:textSize="13sp"
+    tools:showIn="@layout/fragment_home_item_on_click_view" />

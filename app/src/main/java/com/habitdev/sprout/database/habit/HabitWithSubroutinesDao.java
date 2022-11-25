@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.habitdev.sprout.database.habit.model.HabitWithSubroutines;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 
@@ -46,11 +47,11 @@ public interface HabitWithSubroutinesDao {
     @Query("SELECT * FROM Subroutine WHERE fk_habit_uid=:uid")
     LiveData<List<Subroutines>> getAllSubroutinesOfHabitLiveData(long uid);
 
-    @Query("SELECT habit FROM Habits")
-    List<String> getAllHabitTitle();
+    @Query("SELECT * FROM Habits")
+    LiveData<List<Habits>> getAllHabitListLiveData();
 
     @Query("SELECT * FROM Habits")
-    List<Habits> getAllHabit();
+    List<Habits> getAllHabitList();
 
     @Query("SELECT COUNT(*) FROM Habits WHERE Habits.on_reform = 1")
     LiveData<Long> getHabitOnReformCount();

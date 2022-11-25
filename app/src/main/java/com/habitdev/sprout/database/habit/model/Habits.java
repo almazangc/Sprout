@@ -35,14 +35,8 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "date_started")
     private String date_started;
 
-    /**
-     * for fetching current day and time and formatting it
-     * new SimpleDateFormat("EEEE, dd MMMMM yyyy hh:mm a", Locale.getDefault());
-     */
-
     @ColumnInfo(name = "total_subroutine")
     private int total_subroutine;
-
 
     public Habits(String habit, String description) {
         this.habit = habit;

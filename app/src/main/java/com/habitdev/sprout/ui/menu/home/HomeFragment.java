@@ -2,7 +2,6 @@ package com.habitdev.sprout.ui.menu.home;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +11,17 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
-import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.AddNewHabitFragment;
-import com.habitdev.sprout.ui.menu.home.ui.HomeItemAdapterOnClickFragment;
-import com.habitdev.sprout.utill.NetworkStateManager;
+import com.habitdev.sprout.ui.menu.home.ui.HomeItemOnClickFragment;
 
 import java.util.List;
 
@@ -127,7 +123,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         Toast.makeText(requireContext(), "Recycler View on Item Click", Toast.LENGTH_SHORT).show();
         //Learn Passing Data through parcelable:
 
-        HomeItemAdapterOnClickFragment onClickFragment = new HomeItemAdapterOnClickFragment();
+        HomeItemOnClickFragment onClickFragment = new HomeItemOnClickFragment();
         getChildFragmentManager()
                 .beginTransaction()
                 .replace(binding.homeFrameLayout.getId(), onClickFragment)
