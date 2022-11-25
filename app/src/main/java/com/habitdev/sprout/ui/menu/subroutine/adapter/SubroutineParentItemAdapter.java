@@ -57,7 +57,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
         List<Subroutines> habitWithSubroutines;
 
-        habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabit(uid);
+        habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
 
         SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter(habitWithSubroutines);
         holder.childRecycleView.setAdapter(childAdapterItem);
@@ -102,7 +102,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
         long bindData(Habits habitOnReform) {
             //Setting Data
-            String buttonLabel = habitOnReform.getHabit() + " [ " + habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabit(habitOnReform.getPk_habit_uid()).size() + " ]";
+            String buttonLabel = habitOnReform.getHabit() + " [ " + habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habitOnReform.getPk_habit_uid()).size() + " ]";
 
             habitsOnReformTitle.setText(buttonLabel);
             habitsOnReformTitle.setOnClickListener(view -> {

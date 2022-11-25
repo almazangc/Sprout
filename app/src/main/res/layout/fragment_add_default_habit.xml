@@ -21,7 +21,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="200dp"
+            android:layout_marginBottom="10dp"
             app:boxBackgroundColor="@color/CLOUDS"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
@@ -36,51 +36,90 @@
                 android:hint="List of Predefined Habits"
                 android:inputType="none"
                 android:textColor="@color/NIGHT"
-
                 android:textSize="13sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/habit_description_lbl"
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/habit_list"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="-180dp"
-            android:layout_marginBottom="10dp"
-            android:text="Description"
-            android:textColor="@color/NIGHT"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/habit_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_below="@id/habit_description_lbl"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/sampleText"
-            android:maxLines="20"
-            android:ellipsize="end"
-            android:padding="10dp"
-            android:textColor="@color/NIGHT"
-            android:textSize="13sp" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/habit_subroutines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/habit_description"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:padding="10dp" />
+                <TextView
+                    android:id="@+id/habit_description_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Description"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/habit_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/habit_description_lbl"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="20"
+                    android:padding="10dp"
+                    android:text="@string/sampleText"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/subroutine_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/habit_description"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Subroutines"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subroutine_count_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/habit_description"
+                    android:layout_toEndOf="@id/subroutine_lbl"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="0"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/habit_subroutines_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@id/subroutine_lbl"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/adapter_home_add_default_parent_item" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_on_reform"
@@ -91,8 +130,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             app:backgroundTint="@color/CLOUDS"
-            app:fabCustomSize="45dp"
             app:borderWidth="5dp"
+            app:fabCustomSize="45dp"
             app:srcCompat="@drawable/ic_add" />
 
     </RelativeLayout>

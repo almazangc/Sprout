@@ -20,25 +20,12 @@
             <TextView
                 android:id="@+id/analytic_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="6dp"
+                android:layout_height="match_parent"
                 android:text="Your Progress Record"
-                android:textAlignment="center"
                 android:textColor="@color/NIGHT"
+                android:gravity="center"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/analytic_subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/analytic_title"
-                android:paddingTop="2dp"
-                android:paddingBottom="5dp"
-                android:text="Have a better understanding of your milestone!"
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="15sp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

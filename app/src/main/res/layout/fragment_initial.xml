@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/agreement"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/shape_rounded_waikawa_grey_btn"
+        android:background="@drawable/background_rounded_waikawa_grey_btn"
         android:text="@string/lets_do_it"
         android:textColor="@color/ClOUDS_"
         android:textStyle="bold"

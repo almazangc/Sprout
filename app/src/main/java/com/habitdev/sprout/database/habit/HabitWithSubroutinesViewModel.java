@@ -61,8 +61,8 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         return allHabitOnReformUID;
     }
 
-    public List<Subroutines> getAllSubroutinesOnReformHabit(long uid) {
-        return repository.getAllSubroutinesOnReformHabit(uid);
+    public List<Subroutines> getAllSubroutinesOfHabit(long uid) {
+        return repository.getAllSubroutinesOfHabit(uid);
     }
 
     public LiveData<List<Subroutines>> getAllSubroutinesOnReformHabitLiveData(long uid){

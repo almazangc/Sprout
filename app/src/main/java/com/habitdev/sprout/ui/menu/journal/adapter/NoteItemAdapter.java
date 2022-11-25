@@ -3,6 +3,7 @@ package com.habitdev.sprout.ui.menu.journal.adapter;
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

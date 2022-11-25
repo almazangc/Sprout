@@ -76,7 +76,7 @@ public class HabitWithSubroutinesRepository {
         return allHabitOnReformUID;
     }
 
-    public List<Subroutines> getAllSubroutinesOnReformHabit(long uid) {
+    public List<Subroutines> getAllSubroutinesOfHabit(long uid) {
         return habitWithSubroutinesDao.getAllSubroutinesOfHabit(uid);
     }
 

@@ -5,7 +5,7 @@
     android:id="@+id/custom_toast_layout"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_custom_toast_background">
+    android:background="@drawable/background_custom_toast">
 
 
     <com.airbnb.lottie.LottieAnimationView
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lottie_main"
-        android:background="@drawable/shape_rounded_waikawa_grey_btn"
+        android:background="@drawable/background_rounded_waikawa_grey_btn"
         android:padding="5dp"
         android:text="Custom Toast Message"
         android:textColor="@color/CLOUDS"

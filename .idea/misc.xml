@@ -139,6 +139,8 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable-v24/shape_rounded_lightbrown_btn.xml" value="0.335" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable-v24/shape_rounded_onselected_btn.xml" value="0.2665" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_bar.xml" value="0.347" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_comment_default.xml" value="0.1405" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_comment_on_pressed.xml" value="0.22" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_coral_blue.xml" value="0.335" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_item_alzarin.xml" value="0.159" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_item_amethyst.xml" value="0.159" />
@@ -212,10 +214,13 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_background_radiobtn.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_btn.xml" value="0.2665" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_btn_continue.xml" value="0.1995" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_comment_btn.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_radiobtn_text_color.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_setting_btn_tint.xml" value="0.199" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/shape_background_radiobtn_selected.xml" value="0.1655" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/shape_background_radiobtn_unselected.xml" value="0.335" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/shape_comment_default.xml" value="0.2" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/shape_comment_on_pressed.xml" value="0.12" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/shape_rounded_kimberly_btn.xml" value="0.1655" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/shape_rounded_scrollview_a15kimberly.xml" value="0.1655" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/shape_top_rounded_corners_waikawa_grey.xml" value="0.1655" />
@@ -250,19 +255,20 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/activity_startup_personalization.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_analysis_habit_item.xml" value="0.11990363232023721" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_analysis_parent_habit_item.xml" value="0.67" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_add_default_parent_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_add_default_habit_item.xml" value="0.17037037037037037" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_comment_item.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_item.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_journal_parent_note_item.xml" value="0.67" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_personalization_parent_choices_item.xml" value="0.5509259259259259" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_child_item.xml" value="0.33" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_parent_item.xml" value="0.22" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_parent_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/analysis_habit_adapter_item.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/analysis_habits_container.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/custom_bottom_navigation_bar.xml" value="0.2477238239757208" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/custom_toast.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_about_us.xml" value="0.33" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_default_habit.xml" value="0.5658012533572068" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_default_habit.xml" value="0.18" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_new_habit.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_new_note.xml" value="0.3146853146853147" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_new_subroutine.xml" value="0.1" />
@@ -279,7 +285,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_get_started.xml" value="0.28396739130434784" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_greetings.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_item_adapter_on_click_view.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_item_adapter_on_click_view.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_recycler_view_item_adapter_on_click_view.xml" value="0.67" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_initial.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_introduction.xml" value="0.21965579710144928" />
@@ -290,7 +296,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_on_boarding.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_personalization.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_setting.xml" value="0.5" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_setting.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_splash_screen.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_startup.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_subroutine.xml" value="0.3661573288058857" />
@@ -304,6 +310,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/note_layout_miscellaneous.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/onbording.xml" value="0.33697916666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/spinner_time_selector.xml" value="0.3411458333333333" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/test.xml" value="0.26934587430525864" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/menu/tabs.xml" value="0.32916666666666666" />
       </map>
     </option>

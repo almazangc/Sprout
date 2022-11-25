@@ -26,24 +26,12 @@
                 <TextView
                     android:id="@+id/journalTitle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="6dp"
+                    android:layout_height="match_parent"
                     android:text="Reflection Journal"
-                    android:textAlignment="center"
                     android:textColor="@color/NIGHT"
                     android:textSize="20sp"
+                    android:gravity="center"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/journalSubTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/journalTitle"
-                    android:paddingBottom="5dp"
-                    android:text="Write down your reflection about your progress"
-                    android:textAlignment="center"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="15sp" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>

@@ -19,7 +19,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_top_rounded_corners_waikawa_grey"
+        android:background="@drawable/background_top_rounded_corners_waikawa_grey"
         android:orientation="vertical">
 
         <RelativeLayout

@@ -47,9 +47,9 @@ public class JournalFragment extends Fragment implements IRecyclerView {
     private void setRecyclerViewAdapter() {
         NoteViewModel noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
         noteList = noteViewModel.getNoteList();
+
         noteItemAdapter = new NoteItemAdapter(noteList, this);
         binding.journalRecyclerView.setAdapter(noteItemAdapter);
-
 
         noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> {
             noteItemAdapter.updateNotes(notes);

@@ -81,9 +81,6 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:ellipsize="end"
-                    android:maxLength="25"
-                    android:maxLines="1"
                     android:text="Lorem Dolor"
                     android:textColor="@color/NIGHT"
                     android:textSize="16sp"
@@ -119,10 +116,9 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="40dp"
                     android:layout_marginBottom="4dp"
-                    android:ellipsize="end"
-                    android:maxLines="4"
                     android:textColor="@color/NIGHT"
                     android:textSize="12sp"
+                    android:justificationMode="inter_word"
                     tools:text="\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta pharetra magna, eu laoreet urna condimentum a. Vivamus dapibus ante eget nunc ultrices bibendum. Duis consectetur fermentum nibh nec porta. Ut in fringilla leo. Aenean quis tortor vel tortor finibus cursus vel vel tellus. Nullam tellus enim, viverra et imperdiet sed, egestas id ante. Fusce rhoncus odio molestie elit ornare vulputate." />
             </RelativeLayout>
         </LinearLayout>

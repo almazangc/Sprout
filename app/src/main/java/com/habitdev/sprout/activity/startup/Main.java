@@ -45,6 +45,7 @@ public class Main extends AppCompatActivity {
      */
     private ActivityMainBinding binding;
     private SharedPreferences sharedPreferences;
+    private NetworkStateManager networkStateManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,8 @@ public class Main extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
         //need to fetch quotes once only (need to fetch once every week for updates)
-            NetworkStateManager netStateMgr = NetworkStateManager.getInstance();
-            netStateMgr.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
+        networkStateManager = NetworkStateManager.getInstance();
+        networkStateManager.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean isConnected) {
                     if(isConnected){
@@ -70,7 +71,8 @@ public class Main extends AppCompatActivity {
                             Log.d("tag", "Main isConnected() called: data is fetch from server");
                         } else {
                             Log.d("tag", "Main isConnected() called: data already available on cache");
-                            netStateMgr.getNetworkConnectivityStatus().removeObserver(this);
+                            networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
+                            Log.d("tag", "Main isConnected() called: removed observe");
                         }
                     }
                     Log.d("tag", "onChanged() called: Main " + isConnected);
@@ -79,7 +81,7 @@ public class Main extends AppCompatActivity {
         setContentView(binding.getRoot());
     }
 
-    void loadFireStoreQuotesCollection(){
+    private void loadFireStoreQuotesCollection(){
         sharedPreferences.edit().putBoolean("isDB_loaded", FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER).isComplete()).apply();
     }
 
@@ -87,5 +89,6 @@ public class Main extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
+        networkStateManager = null;
     }
 }

@@ -73,6 +73,7 @@ public class SettingFragment extends Fragment {
                 .commit();
         binding.settingContainer.setVisibility(View.GONE);
         userViewModel.getUserNickname().removeObservers(getViewLifecycleOwner());
+        userViewModel = null;
     }
 
     private void onBackPress() {
@@ -89,7 +90,7 @@ public class SettingFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         fragmentManager = null;
-        userViewModel = null;
+        if (userViewModel != null) userViewModel = null;
         binding = null;
     }
 }
