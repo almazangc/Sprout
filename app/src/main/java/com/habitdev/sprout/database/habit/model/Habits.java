@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "Habits")
+@Entity()
 public class Habits implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pk_habit_uid")
@@ -38,6 +38,10 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "total_subroutine")
     private int total_subroutine;
 
+    @ColumnInfo(name = "completed_subroutines")
+    private int completed_subroutine;
+
+    @Ignore
     public Habits(String habit, String description) {
         this.habit = habit;
         this.description = description;
@@ -47,10 +51,10 @@ public class Habits implements Serializable {
         this.relapse = 0;
         this.date_started = null;
         this.total_subroutine = 0;
+        this.completed_subroutine = 0;
     }
 
-    @Ignore
-    public Habits(long pk_habit_uid, String habit, String description, boolean onReform, boolean modifiable, int abstinence, int relapse, String date_started, int total_subroutine) {
+    public Habits(long pk_habit_uid, String habit, String description, boolean onReform, boolean modifiable, int abstinence, int relapse, String date_started, int total_subroutine, int completed_subroutine) {
         this.pk_habit_uid = pk_habit_uid;
         this.habit = habit;
         this.description = description;
@@ -60,6 +64,7 @@ public class Habits implements Serializable {
         this.relapse = relapse;
         this.date_started = date_started;
         this.total_subroutine = total_subroutine;
+        this.completed_subroutine = completed_subroutine;
     }
 
     @NonNull
@@ -148,6 +153,14 @@ public class Habits implements Serializable {
 
     public void setTotal_subroutine(int total_subroutine) {
         this.total_subroutine = total_subroutine;
+    }
+
+    public int getCompleted_subroutine() {
+        return completed_subroutine;
+    }
+
+    public void setCompleted_subroutine(int completed_subroutine) {
+        this.completed_subroutine = completed_subroutine;
     }
 }
 

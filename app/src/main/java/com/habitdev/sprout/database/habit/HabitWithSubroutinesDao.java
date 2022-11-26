@@ -8,7 +8,6 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import com.habitdev.sprout.database.habit.model.HabitWithSubroutines;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 
@@ -31,20 +30,20 @@ public interface HabitWithSubroutinesDao {
     LiveData<List<Habits>> getAllHabitOnReformLiveData();
 
     @Transaction
-    @Query("SELECT * FROM Habits INNER JOIN Subroutine ON Habits.pk_habit_uid = Subroutine.fk_habit_uid WHERE Habits.on_reform = 1")
+    @Query("SELECT * FROM Habits INNER JOIN subroutines ON Habits.pk_habit_uid = subroutines.fk_habit_uid WHERE Habits.on_reform = 1")
     List<HabitWithSubroutines> getAllHabitsOnReformWithSubroutines();
 
     @Transaction
-    @Query("SELECT * FROM Habits INNER JOIN Subroutine ON Habits.pk_habit_uid = Subroutine.fk_habit_uid WHERE Habits.on_reform = 1")
+    @Query("SELECT * FROM Habits INNER JOIN subroutines ON Habits.pk_habit_uid = subroutines.fk_habit_uid WHERE Habits.on_reform = 1")
     LiveData<List<HabitWithSubroutines>> getAllHabitsOnReformWithSubroutinesLiveData();
 
     @Query("SELECT pk_habit_uid FROM Habits WHERE Habits.on_reform = 1")
     List<Long> getAllHabitsOnReformUID();
 
-    @Query("SELECT * FROM Subroutine WHERE fk_habit_uid=:uid")
+    @Query("SELECT * FROM subroutines WHERE fk_habit_uid=:uid")
     List<Subroutines> getAllSubroutinesOfHabit(long uid);
 
-    @Query("SELECT * FROM Subroutine WHERE fk_habit_uid=:uid")
+    @Query("SELECT * FROM subroutines WHERE fk_habit_uid=:uid")
     LiveData<List<Subroutines>> getAllSubroutinesOfHabitLiveData(long uid);
 
     @Query("SELECT * FROM Habits")

@@ -107,7 +107,7 @@
                     android:textSize="0sp" />
 
                 <TextView
-                    android:id="@+id/description"
+                    android:id="@+id/home_item_on_click_habit_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/subroutine"

@@ -11,6 +11,10 @@ import androidx.room.PrimaryKey;
  */
 @Entity
 public class User {
+
+    /**
+     * USER WITH HABITS(SUBROUTINE(Comments), Comments), Notes
+     */
     /**
      * Auto Generated ID
      */

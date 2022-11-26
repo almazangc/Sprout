@@ -64,10 +64,10 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         public HabitViewHolder(@NonNull View itemView, IRecyclerView IRecyclerView) {
             super(itemView);
             habitHeader = itemView.findViewById(R.id.header);
-            habitDescription = itemView.findViewById(R.id.description);
+            habitDescription = itemView.findViewById(R.id.home_item_on_click_habit_description);
             dateStarted = itemView.findViewById(R.id.date_started);
             completedSubroutine = itemView.findViewById(R.id.completed_subroutine);
-            daysOfAbstinence = itemView.findViewById(R.id.total_days_of_abstinence);
+            daysOfAbstinence = itemView.findViewById(R.id.home_item_on_click_habit_total_days_of_abstinence);
             totalReplase = itemView.findViewById(R.id.total_relapse);
 
             upvote = itemView.findViewById(R.id.home_upvote_btn);
@@ -89,6 +89,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                     }
                 }
             });
+
         }
 
         void bindHabit(Habits habit) {
@@ -113,6 +114,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             downvote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Downvote", Toast.LENGTH_SHORT).show();
             });
+
             if (habit.isModifiable()) {
                 modify.setOnClickListener(view -> {
                     Toast.makeText(itemView.getContext(), "Modify", Toast.LENGTH_SHORT).show();

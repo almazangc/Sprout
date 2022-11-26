@@ -26,6 +26,10 @@ public class SettingFragment extends Fragment {
     private FragmentManager fragmentManager;
     private UserViewModel userViewModel;
 
+    public SettingFragment() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSettingBinding.inflate(inflater, container, false);

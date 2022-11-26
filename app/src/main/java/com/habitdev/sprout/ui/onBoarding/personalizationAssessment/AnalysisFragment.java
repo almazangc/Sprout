@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -22,7 +21,6 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentAnalysisBinding;
 import com.habitdev.sprout.enums.BundleKeys;
-import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,22 +42,22 @@ public class AnalysisFragment extends Fragment {
         //Recommender Algorithm Here to display result according to the analysis
 
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+
+        List<String> habitTitles = new ArrayList<>();
+
         habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), new Observer<List<Habits>>() {
             @Override
             public void onChanged(List<Habits> habits) {
+                for (Habits habit : habits) {
+                    habitTitles.add(habit.getHabit());
+                }
                 habitsList = habits;
-                habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
+//                habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
             }
         });
 
-        List<String> habitTitles = new ArrayList<>();
-        for(Habits habits : habitsList){
-            habitTitles.add(habits.getHabit());
-        }
-
         ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_analysis_parent_habit_item, habitTitles);
         binding.dropItems.setAdapter(adapterItems);
-
 
         onBackPress();
         return binding.getRoot();
@@ -72,33 +70,32 @@ public class AnalysisFragment extends Fragment {
         AtomicInteger item_position = new AtomicInteger();
 
         binding.dropItems.setOnItemClickListener((adapterView, view, position, id) -> {
-            item_position.set(position+1);
+            item_position.set(position + 1);
         });
 
         binding.btnContinue.setOnClickListener(view -> {
-            Toast.makeText(requireContext(), "WHAT", Toast.LENGTH_SHORT).show();
-            for (Habits habits : habitsList){
-                    if (habits.getPk_habit_uid() == item_position.longValue()){
-                        habitWithSubroutinesViewModel.update(
-                                new Habits(
-                                        habits.getPk_habit_uid(),
-                                        habits.getHabit(),
-                                        habits.getDescription(),
-                                        true,
-                                        habits.isModifiable(),
-                                        habits.getAbstinence(),
-                                        habits.getRelapse(),
-                                        new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
-                                                .format(new Date()),
-                                        habits.getTotal_subroutine()
-                                ));
-                    }
+            for (Habits habits : habitsList) {
+                if (habits.getPk_habit_uid() == item_position.longValue()) {
+                    habitWithSubroutinesViewModel.update(
+                            new Habits(
+                                    habits.getPk_habit_uid(),
+                                    habits.getHabit(),
+                                    habits.getDescription(),
+                                    true,
+                                    habits.isModifiable(),
+                                    habits.getAbstinence(),
+                                    habits.getRelapse(),
+                                    new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
+                                            .format(new Date()),
+                                    habits.getTotal_subroutine(),
+                                    habits.getCompleted_subroutine()
+                            ));
                 }
-                Log.d("tag", "onClick: " + item_position.longValue());
-                setOnBoarding();
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(BundleKeys.ANALYSIS.getKEY(), true);
-                Navigation.findNavController(view).navigate(R.id.action_navigate_from_analysis_to_Home, bundle);
+            }
+            setOnBoarding();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(BundleKeys.ANALYSIS.getKEY(), true);
+            Navigation.findNavController(view).navigate(R.id.action_navigate_from_analysis_to_Home, bundle);
         });
     }
 
@@ -120,6 +117,7 @@ public class AnalysisFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
         habitWithSubroutinesViewModel = null;
         binding = null;
     }

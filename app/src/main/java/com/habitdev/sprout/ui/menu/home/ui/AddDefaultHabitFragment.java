@@ -103,7 +103,8 @@ public class AddDefaultHabitFragment extends Fragment {
                         habits.getRelapse(),
                         new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
                                 .format(new Date()),
-                        subroutinesList.size()
+                        subroutinesList.size(),
+                        habits.getCompleted_subroutine()
                 ));
                 habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
                 returnHomeFragment();

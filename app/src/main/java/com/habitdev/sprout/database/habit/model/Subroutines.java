@@ -8,8 +8,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "Subroutine",
-        foreignKeys = @ForeignKey(
+@Entity(foreignKeys = @ForeignKey(
                 entity = Habits.class,
                 parentColumns = "pk_habit_uid",
                 childColumns = "fk_habit_uid",

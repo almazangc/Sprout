@@ -15,6 +15,8 @@ import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.AssessmentDao;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
+import com.habitdev.sprout.database.comment.CommentDao;
+import com.habitdev.sprout.database.comment.model.Comment;
 import com.habitdev.sprout.database.converters.ArrayListConverter;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesDao;
 import com.habitdev.sprout.database.habit.model.Habits;
@@ -28,7 +30,7 @@ import com.habitdev.sprout.enums.NoteColor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Database(entities = {User.class, Question.class, Choices.class, Answer.class, Note.class, Habits.class, Subroutines.class}, version = 1)
+@Database(entities = {User.class, Question.class, Choices.class, Answer.class, Note.class, Habits.class, Subroutines.class, Comment.class}, version = 1)
 @TypeConverters({ArrayListConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -64,6 +66,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract NoteDao noteDao();
 
     public abstract HabitWithSubroutinesDao habitsDao();
+
+    public abstract CommentDao commentDao();
 
     private static class PopulateAssessmentAsyncTask extends AsyncTask<Void, Void, Void> {
 

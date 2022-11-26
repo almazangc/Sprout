@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
@@ -41,15 +42,6 @@ public class HomeFragment extends Fragment implements IRecyclerView {
             Toast.makeText(requireContext(), "Home Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
             binding.homeSwipeRefreshLayout.setRefreshing(false);
         });
-
-//        final Observer<Boolean> activeNetworkStateObserver = new Observer<Boolean>() {
-//            @Override
-//            public void onChanged(Boolean isConnected) {
-//                Log.d("tag", "onChanged: " + isConnected);
-//            }
-//        };
-//
-//        NetworkStateManager.getInstance().getNetworkConnectivityStatus().observe(requireActivity(), activeNetworkStateObserver);
 
         fabVisibility();
         onBackPress();
@@ -120,10 +112,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(requireContext(), "Recycler View on Item Click", Toast.LENGTH_SHORT).show();
-        //Learn Passing Data through parcelable:
-
-        HomeItemOnClickFragment onClickFragment = new HomeItemOnClickFragment();
+        HomeItemOnClickFragment onClickFragment = new HomeItemOnClickFragment(habitsOnReform.get(position));
         getChildFragmentManager()
                 .beginTransaction()
                 .replace(binding.homeFrameLayout.getId(), onClickFragment)

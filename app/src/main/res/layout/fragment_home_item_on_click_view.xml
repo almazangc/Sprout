@@ -15,7 +15,7 @@
         android:background="@color/TRANSPARENT">
 
         <TextView
-            android:id="@+id/habit_title"
+            android:id="@+id/home_item_on_click_habit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -29,10 +29,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/habit_up_votes"
+            android:id="@+id/home_item_on_click_habit_up_votes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/habit_title"
+            android:layout_below="@id/home_item_on_click_habit_title"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
@@ -45,12 +45,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/habit_down_votes"
+            android:id="@+id/home_item_on_click_habit_down_votes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/habit_title"
+            android:layout_below="@id/home_item_on_click_habit_title"
             android:layout_marginBottom="5dp"
-            android:layout_toEndOf="@id/habit_up_votes"
+            android:layout_toEndOf="@id/home_item_on_click_habit_up_votes"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="down_count"
@@ -60,10 +60,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/description_lbl"
+            android:id="@+id/home_item_on_click_habit_description_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/habit_up_votes"
+            android:layout_below="@id/home_item_on_click_habit_up_votes"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:text="Description"
@@ -73,10 +73,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/home_item_on_click_habit_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/description_lbl"
+            android:layout_below="@id/home_item_on_click_habit_description_lbl"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
@@ -87,10 +87,10 @@
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/status_lbl"
+            android:id="@+id/home_item_on_click_habit_status_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/description"
+            android:layout_below="@id/home_item_on_click_habit_description"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
@@ -101,14 +101,14 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/status"
+            android:id="@+id/home_item_on_click_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/description"
+            android:layout_below="@id/home_item_on_click_habit_description"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_toEndOf="@id/status_lbl"
+            android:layout_toEndOf="@id/home_item_on_click_habit_status_lbl"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="On Reform | Available"
@@ -116,10 +116,10 @@
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/date_started_on_reform_lbl"
+            android:id="@+id/home_item_on_click_habit_date_started_on_reform_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/status_lbl"
+            android:layout_below="@id/home_item_on_click_habit_status_lbl"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
@@ -130,25 +130,25 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/date_started_on_reform"
+            android:id="@+id/home_item_on_click_habit_date_started_on_reform"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/status"
+            android:layout_below="@id/home_item_on_click_status"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_toEndOf="@id/date_started_on_reform_lbl"
+            android:layout_toEndOf="@id/home_item_on_click_habit_date_started_on_reform_lbl"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="MM/DD/YYYY/HH/MM"
             android:textColor="@color/NIGHT"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/total_days_of_abstinence_lbl"
+            android:id="@+id/home_item_on_click_habit_total_days_of_abstinence_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/date_started_on_reform_lbl"
+            android:layout_below="@id/home_item_on_click_habit_date_started_on_reform_lbl"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
@@ -159,23 +159,23 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/total_days_of_abstinence"
+            android:id="@+id/home_item_on_click_habit_total_days_of_abstinence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/date_started_on_reform"
+            android:layout_below="@id/home_item_on_click_habit_date_started_on_reform"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_toEndOf="@id/total_days_of_abstinence_lbl"
+            android:layout_toEndOf="@id/home_item_on_click_habit_total_days_of_abstinence_lbl"
             android:text="Timer HERE"
             android:textColor="@color/NIGHT"
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/relapse_lbl"
+            android:id="@+id/home_item_on_click_habit_relapse_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/total_days_of_abstinence_lbl"
+            android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence_lbl"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
@@ -186,52 +186,52 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/relapse"
+            android:id="@+id/home_item_on_click_habit_relapse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/total_days_of_abstinence"
+            android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_toEndOf="@id/relapse_lbl"
+            android:layout_toEndOf="@id/home_item_on_click_habit_relapse_lbl"
             android:text="Relapse: 0"
             android:textColor="@color/NIGHT"
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/total_subroutine_lbl"
+            android:id="@+id/home_item_on_click_habit_total_subroutine_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/relapse_lbl"
+            android:layout_below="@id/home_item_on_click_habit_relapse_lbl"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
-            android:text="Subroutines"
+            android:text="Completed Subroutines"
             android:textAlignment="viewStart"
             android:textColor="@color/NIGHT"
             android:textSize="13sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/total_subroutine"
+            android:id="@+id/home_item_on_click_habit_total_subroutine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/relapse"
+            android:layout_below="@id/home_item_on_click_habit_relapse"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_toEndOf="@+id/total_subroutine_lbl"
+            android:layout_toEndOf="@+id/home_item_on_click_habit_total_subroutine_lbl"
             android:text="5"
             android:textColor="@color/NIGHT"
             android:textSize="13sp" />
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/comment_container"
+            android:id="@+id/home_item_on_click_habit_comment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/divider"
-            android:layout_below="@id/total_subroutine"
+            android:layout_below="@id/home_item_on_click_habit_total_subroutine"
             android:layout_margin="10dp"
             android:elevation="5dp"
             android:paddingLeft="3dp"
@@ -263,7 +263,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:listitem="@layout/adapter_home_parent_habit_comment_item"
+                        tools:listitem="@layout/adapter_home_parent_habit_on_item_click_comment_item"
                         android:id="@+id/home_comment_recycler_view"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="100"/>
@@ -281,16 +281,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_toStartOf="@id/add_comment_btn"
-                        android:textColorHint="@color/NIGHT"
-                        android:hint="Comment"
-                        android:textColor="@color/NIGHT"
-                        android:layout_centerVertical="true"
-                        android:textSize="13sp"
                         android:ellipsize="end"
-                        android:maxLines="5"/>
+                        android:hint="Comment"
+                        android:maxLines="5"
+                        android:textColor="@color/NIGHT"
+                        android:textColorHint="@color/NIGHT"
+                        android:id="@+id/add_comment_input_text"
+                        android:textSize="13sp" />
 
                     <Button
                         android:id="@+id/add_comment_btn"

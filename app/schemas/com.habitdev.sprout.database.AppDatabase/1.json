@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "606592aa09ce3fa2303b5b600c1ff9f5",
+    "identityHash": "3982ebba050022358d76fafa0e84e305",
     "entities": [
       {
         "tableName": "User",
@@ -288,7 +288,7 @@
       },
       {
         "tableName": "Habits",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_habit_uid",
@@ -343,6 +343,12 @@
             "columnName": "total_subroutine",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "completed_subroutine",
+            "columnName": "completed_subroutines",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -355,7 +361,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "Subroutine",
+        "tableName": "Subroutines",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `isMarkedDone` INTEGER NOT NULL, `streak` INTEGER NOT NULL, `total_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
@@ -415,13 +421,13 @@
         },
         "indices": [
           {
-            "name": "index_Subroutine_fk_habit_uid",
+            "name": "index_Subroutines_fk_habit_uid",
             "unique": false,
             "columnNames": [
               "fk_habit_uid"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_Subroutine_fk_habit_uid` ON `${TABLE_NAME}` (`fk_habit_uid`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Subroutines_fk_habit_uid` ON `${TABLE_NAME}` (`fk_habit_uid`)"
           }
         ],
         "foreignKeys": [
@@ -437,12 +443,62 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "Comment",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_comment_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `fk_subroutine_uid` INTEGER NOT NULL, `comment_type` TEXT, `commnent` TEXT, `date_commented` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "pk_comment_uid",
+            "columnName": "pk_comment_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fk_habit_uid",
+            "columnName": "fk_habit_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fk_subroutine_uid",
+            "columnName": "fk_subroutine_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "comment_type",
+            "columnName": "comment_type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "comment",
+            "columnName": "commnent",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_commented",
+            "columnName": "date_commented",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pk_comment_uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '606592aa09ce3fa2303b5b600c1ff9f5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3982ebba050022358d76fafa0e84e305')"
     ]
   }
 }

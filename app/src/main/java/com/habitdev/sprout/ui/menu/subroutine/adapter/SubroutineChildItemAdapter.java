@@ -58,7 +58,7 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
         public ChildItemViewHolder(@NonNull View itemView) {
             super(itemView);
             subroutine = itemView.findViewById(R.id.subroutine);
-            description = itemView.findViewById(R.id.description);
+            description = itemView.findViewById(R.id.home_item_on_click_habit_description);
 
             upvote = itemView.findViewById(R.id.btn_upvote_subroutine);
             downvote = itemView.findViewById(R.id.btn_downvote_subroutine);

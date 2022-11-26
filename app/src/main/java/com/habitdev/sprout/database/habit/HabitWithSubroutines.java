@@ -1,4 +1,4 @@
-package com.habitdev.sprout.database.habit.model;
+package com.habitdev.sprout.database.habit;
 
 import androidx.annotation.NonNull;
 import androidx.room.Embedded;

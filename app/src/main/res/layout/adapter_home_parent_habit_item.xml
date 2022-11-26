@@ -132,7 +132,7 @@
                 android:textSize="0sp" />
 
             <TextView
-                android:id="@+id/description"
+                android:id="@+id/home_item_on_click_habit_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/header"
@@ -151,7 +151,7 @@
                 android:id="@+id/details_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/description"
+                android:layout_below="@id/home_item_on_click_habit_description"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="15dp"
@@ -205,7 +205,7 @@
                     tools:text="7" />
 
                 <TextView
-                    android:id="@+id/total_days_of_abstinence_lbl"
+                    android:id="@+id/home_item_on_click_habit_total_days_of_abstinence_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/completed_subroutine_lbl"
@@ -216,11 +216,11 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/total_days_of_abstinence"
+                    android:id="@+id/home_item_on_click_habit_total_days_of_abstinence"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/completed_subroutine"
-                    android:layout_toEndOf="@id/total_days_of_abstinence_lbl"
+                    android:layout_toEndOf="@id/home_item_on_click_habit_total_days_of_abstinence_lbl"
                     android:minWidth="0dp"
                     android:textColor="@color/NIGHT"
                     android:textSize="11sp"
@@ -230,7 +230,7 @@
                     android:id="@+id/total_relapse_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/total_days_of_abstinence_lbl"
+                    android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence_lbl"
                     android:layout_marginEnd="5dp"
                     android:text="Relapse:"
                     android:textColor="@color/NIGHT"
@@ -241,7 +241,7 @@
                     android:id="@+id/total_relapse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/total_days_of_abstinence"
+                    android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence"
                     android:layout_toEndOf="@id/total_relapse_lbl"
                     android:minWidth="0dp"
                     android:textColor="@color/NIGHT"
