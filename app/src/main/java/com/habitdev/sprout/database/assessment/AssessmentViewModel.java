@@ -13,8 +13,8 @@ import com.habitdev.sprout.database.assessment.model.Question;
 import java.util.List;
 
 public class AssessmentViewModel extends AndroidViewModel {
-    private AssessmentRepository repository;
-    private LiveData<List<Assessment>> assessmentListLiveData;
+    private final AssessmentRepository repository;
+    private final LiveData<List<Assessment>> assessmentListLiveData;
     private final LiveData<List<Answer>> getAllAnswerListLiveData;
 
 

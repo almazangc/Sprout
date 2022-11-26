@@ -21,9 +21,7 @@ public class GetStartedFragment extends Fragment {
     // View Binding
     private FragmentGetStartedBinding binding;
 
-    public GetStartedFragment() {
-        // Required empty public constructor
-    }
+    public GetStartedFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,9 +34,8 @@ public class GetStartedFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        binding.btnContinue.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigate_from_getStarted_to_personalization);
-        });
+        binding.btnContinue.setOnClickListener(view ->
+                Navigation.findNavController(view).navigate(R.id.action_navigate_from_getStarted_to_personalization));
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override

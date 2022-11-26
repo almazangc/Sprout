@@ -1,25 +1,21 @@
 package com.habitdev.sprout.ui.menu.home.ui;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
-import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeItemOnClickViewBinding;
 import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
-import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,16 +30,20 @@ public class HomeItemOnClickFragment extends Fragment {
     private CommentViewModel commentViewModel;
     private List<Comment> habitComments;
 
+    public HomeItemOnClickFragment() {
+
+    }
+
     public HomeItemOnClickFragment(Habits habit) {
         this.habit = habit;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeItemOnClickViewBinding.inflate(inflater, container, false);
         commentViewModel = new ViewModelProvider(requireActivity()).get(CommentViewModel.class);
         updateUI();
-        addComment();
+        insertComment();
         onBackPress();
         return binding.getRoot();
     }
@@ -60,23 +60,26 @@ public class HomeItemOnClickFragment extends Fragment {
 
         //Logic for calculating days pass since started.
         //updates the lbl every second
+
         binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText("live time, info about habits");
+        binding.homeItemOnClickHabitRelapse.setText((String.format(Locale.getDefault(), "%d", habit.getRelapse())));
         binding.homeItemOnClickHabitTotalSubroutine.setText((String.format(Locale.getDefault(), "%d", habit.getCompleted_subroutine())));
         setCommentRecyclerView();
     }
 
-    private void addComment(){
-        binding.addCommentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                commentViewModel.insertComment(new Comment(
-                        habit.getPk_habit_uid(),
-                        0,
-                        "Habit",
-                        binding.addCommentInputText.getText().toString().trim(),
-                        new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
-                                .format(new Date())
-                ));
+    private void insertComment(){
+        binding.addCommentBtn.setOnClickListener(view -> {
+            if (!binding.addCommentInputText.getText().toString().trim().isEmpty()){
+                commentViewModel.insertComment(
+                        new Comment(
+                                habit.getPk_habit_uid(),
+                                0,
+                                "Habit",
+                                binding.addCommentInputText.getText().toString().trim(),
+                                new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
+                                        .format(new Date())
+                        )
+                );
             }
         });
     }
@@ -87,13 +90,10 @@ public class HomeItemOnClickFragment extends Fragment {
         HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(habitComments);
         binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
 
-        commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), new Observer<List<Comment>>() {
-            @Override
-            public void onChanged(List<Comment> comments) {
-                if (!comments.isEmpty()){
-                    homeParentItemAdapter.setComments(comments);
-                    habitComments = comments;
-                }
+        commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {
+            if (!comments.isEmpty()){
+                homeParentItemAdapter.setComments(comments);
+                habitComments = comments;
             }
         });
     }

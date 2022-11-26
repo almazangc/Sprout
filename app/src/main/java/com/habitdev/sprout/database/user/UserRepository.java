@@ -12,13 +12,13 @@ import com.habitdev.sprout.database.user.model.User;
 import java.util.List;
 
 public class UserRepository {
-    private UserDao userDao;
-    private List<User> userList;
-    private LiveData<List<User>> userListLiveData;
-    private int userCount;
-    private boolean isAssessment;
-    private boolean isOnBoarding;
-    private LiveData<String> userNickname;
+    private final UserDao userDao;
+    private final List<User> userList;
+    private final LiveData<List<User>> userListLiveData;
+    private final int userCount;
+    private final boolean isAssessment;
+    private final boolean isOnBoarding;
+    private final LiveData<String> userNickname;
 
     public UserRepository(@NonNull Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -51,23 +51,23 @@ public class UserRepository {
         return userListLiveData;
     }
 
-    public List<User> getUserList(){
+    public List<User> getUserList() {
         return userList;
     }
 
-    public int getUserCount(){
+    public int getUserCount() {
         return userCount;
     }
 
-    public void setAssessment(){
+    public void setAssessment() {
         userDao.setUserAssessmentTrue();
     }
 
-    public boolean getAssessment(){
+    public boolean getAssessment() {
         return isAssessment;
     }
 
-    public void setOnBoarding(){
+    public void setOnBoarding() {
         userDao.setUserOnBoardingTrue();
     }
 
@@ -81,7 +81,7 @@ public class UserRepository {
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {
 
-        private UserDao userDao;
+        private final UserDao userDao;
 
         private InsertUserAsyncTask(UserDao userDao) {
             this.userDao = userDao;
@@ -96,7 +96,7 @@ public class UserRepository {
 
     private static class UpdateUserAsyncTask extends AsyncTask<User, Void, Void> {
 
-        private UserDao userDao;
+        private final UserDao userDao;
 
         private UpdateUserAsyncTask(UserDao userDao) {
             this.userDao = userDao;
@@ -111,7 +111,7 @@ public class UserRepository {
 
     private static class DeleteUserAsyncTask extends AsyncTask<User, Void, Void> {
 
-        private UserDao userDao;
+        private final UserDao userDao;
 
         private DeleteUserAsyncTask(UserDao userDao) {
             this.userDao = userDao;
@@ -126,7 +126,7 @@ public class UserRepository {
 
     private static class DeleteAllUserAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private UserDao userDao;
+        private final UserDao userDao;
 
         private DeleteAllUserAsyncTask(UserDao userDao) {
             this.userDao = userDao;

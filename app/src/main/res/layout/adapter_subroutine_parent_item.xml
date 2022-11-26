@@ -19,6 +19,7 @@
             android:id="@+id/habitOnReform_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/modify_subroutine"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
@@ -37,6 +38,29 @@
             android:textSize="13sp"
             android:textStyle="normal"
             tools:text="Lorem Ipsum" />
+
+        <Button
+            android:id="@+id/modify_subroutine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/selector_btn_v2"
+            android:drawableStart="@drawable/ic_modify"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:maxLines="1"
+            android:minWidth="0dp"
+            android:minHeight="40dp"
+            android:paddingLeft="10dp"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textColor="@color/NIGHT"
+            android:textSize="0sp" />
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -265,7 +265,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_journal_parent_note_item.xml" value="0.67" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_personalization_parent_choices_item.xml" value="0.5509259259259259" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_child_item.xml" value="0.33" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_parent_item.xml" value="0.5" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_parent_item.xml" value="0.2" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/analysis_habit_adapter_item.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/analysis_habits_container.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/custom_bottom_navigation_bar.xml" value="0.2477238239757208" />
@@ -303,7 +303,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_setting.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_splash_screen.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_startup.xml" value="0.1" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_subroutine.xml" value="0.67" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_subroutine.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_tech_stack_info.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_terminal.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_theme.xml" value="0.32916666666666666" />

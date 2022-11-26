@@ -37,7 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
     private static Context AppContext;
 
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -71,7 +71,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static class PopulateAssessmentAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private AssessmentDao assessmentDao;
+        private final AssessmentDao assessmentDao;
 
         public PopulateAssessmentAsyncTask(AppDatabase instance) {
             assessmentDao = instance.assessmentDao();
@@ -151,7 +151,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static class PopulateNoteAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private NoteDao noteDao;
+        private final NoteDao noteDao;
 
         public PopulateNoteAsyncTask(AppDatabase instance) {
             noteDao = instance.noteDao();
@@ -172,7 +172,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static class PopulateHabitWithSubroutinesAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private HabitWithSubroutinesDao habitWithSubroutinesDao;
+        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
 
         public PopulateHabitWithSubroutinesAsyncTask(AppDatabase instance) {
             habitWithSubroutinesDao = instance.habitsDao();
@@ -181,8 +181,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             Subroutines sample = new Subroutines(getString(R.string.sample_subroutine_title), getString(R.string.sample_subroutine_description));
-            Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description));
-            habits.setModifiable(false);
+            Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description), false, false);
             long id = habitWithSubroutinesDao.insertHabit(habits);
             List<Subroutines> list = new ArrayList<>();
             list.add(sample);
@@ -219,8 +218,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
             list.clear();
             id = habitWithSubroutinesDao.insertHabit(habits);
-            habits.setOnReform(false);
-            id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);
             list.add(sample);
@@ -266,9 +263,7 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            habits = new Habits("Poor Sleep Management", "Not Sleeping on time daily");
-            habits.setOnReform(false);
-            habits.setModifiable(false);
+            habits = new Habits("Poor Sleep Management", "Not Sleeping on time daily", false, false);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(new Subroutines("Relax.", "Find calming, relaxing activities to do before bedtime."));
             list.add(new Subroutines("Adjust your bedtime, but be patient", "If you’re aiming to go to sleep earlier, try slowly scaling back your bedtime until you are at the desired hour."));
@@ -307,5 +302,4 @@ public abstract class AppDatabase extends RoomDatabase {
             return list;
         }
     }
-
 }

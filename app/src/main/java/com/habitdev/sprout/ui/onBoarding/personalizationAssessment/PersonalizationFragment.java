@@ -148,7 +148,7 @@ public class PersonalizationFragment extends Fragment {
      * Sets the progressbar size
      */
     private void setProgressBarMaxSize() {
-        binding.assessmentProgressBar.setMax(questionsList.size());
+        binding.assessmentProgressBar.setMax(questionsList.size()-1);
         updateProgressBar();
     }
 
@@ -156,7 +156,7 @@ public class PersonalizationFragment extends Fragment {
      * Updates Progress Bar
      */
     private void updateProgressBar() {
-        binding.assessmentProgressBar.setProgress(position, true);
+        binding.assessmentProgressBar.setProgress(position-1, true);
     }
 
     /**
@@ -208,9 +208,8 @@ public class PersonalizationFragment extends Fragment {
      *
      */
     private void saveSelection() {
-        assessmentViewModel.getGetAllAnswerListLiveData().observe(getViewLifecycleOwner(), answers -> {
-            answersList = answers;
-        });
+        assessmentViewModel.getGetAllAnswerListLiveData().observe(getViewLifecycleOwner(), answers ->
+                answersList = answers);
 
         long fk_question_uid = questionsList.get(position - 1).getPk_question_uid();
         String selected_answer = ((RadioButton)

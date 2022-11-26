@@ -1,7 +1,6 @@
 package com.habitdev.sprout.ui.onBoarding.personalizationAssessment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -35,6 +33,9 @@ public class AnalysisFragment extends Fragment {
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private List<Habits> habitsList;
 
+    public AnalysisFragment() {
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAnalysisBinding.inflate(inflater, container, false);
@@ -45,15 +46,12 @@ public class AnalysisFragment extends Fragment {
 
         List<String> habitTitles = new ArrayList<>();
 
-        habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), new Observer<List<Habits>>() {
-            @Override
-            public void onChanged(List<Habits> habits) {
-                for (Habits habit : habits) {
-                    habitTitles.add(habit.getHabit());
-                }
-                habitsList = habits;
-//                habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
+        habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
+            for (Habits habit : habits) {
+                habitTitles.add(habit.getHabit());
             }
+            habitsList = habits;
+//                habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
         });
 
         ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_analysis_parent_habit_item, habitTitles);
@@ -69,9 +67,7 @@ public class AnalysisFragment extends Fragment {
 
         AtomicInteger item_position = new AtomicInteger();
 
-        binding.dropItems.setOnItemClickListener((adapterView, view, position, id) -> {
-            item_position.set(position + 1);
-        });
+        binding.dropItems.setOnItemClickListener((adapterView, view, position, id) -> item_position.set(position + 1));
 
         binding.btnContinue.setOnClickListener(view -> {
             for (Habits habits : habitsList) {

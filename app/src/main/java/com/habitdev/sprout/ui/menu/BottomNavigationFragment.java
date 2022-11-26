@@ -29,6 +29,7 @@ public class BottomNavigationFragment extends Fragment {
     private FragmentBottomNavigationBinding binding;
     private FragmentManager fragmentManager;
     private int last_menu_selected, last_selected_index;
+    private SwipeListener swipeListener;
 
     public BottomNavigationFragment() {
         //Required Empty Constructor
@@ -37,8 +38,7 @@ public class BottomNavigationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBottomNavigationBinding.inflate(inflater, container, false);
-
-        SwipeListener swipeListener = new SwipeListener();
+        swipeListener = new SwipeListener();
 
         if (savedInstanceState == null) {
             binding.bottomBar.selectTabById(R.id.tab_home, true);
@@ -128,7 +128,7 @@ public class BottomNavigationFragment extends Fragment {
 
         private final int SWIPE_THRESHOLD = 100;
         private final int SWIPE_VELOCITY_THRESHOLD = 100;
-        private GestureDetector gestureDetector;
+        private final GestureDetector gestureDetector;
 
         public SwipeListener() {
             GestureDetector.SimpleOnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {

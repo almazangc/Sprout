@@ -60,9 +60,7 @@ public class JournalFragment extends Fragment implements IRecyclerView {
     }
 
     private void fabOnClick() {
-        binding.fabJournal.setOnClickListener(v -> {
-            changeFragment(new NoteFragment(fragmentManager));
-        });
+        binding.fabJournal.setOnClickListener(v -> changeFragment(new NoteFragment(fragmentManager)));
     }
 
     private void onSwipeRefresh() {

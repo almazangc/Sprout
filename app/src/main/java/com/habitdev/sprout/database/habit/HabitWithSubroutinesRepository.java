@@ -93,8 +93,4 @@ public class HabitWithSubroutinesRepository {
     public LiveData<Long> getGetHabitOnReformCount() {
         return getHabitOnReformCount;
     }
-
-    public void updateOnReformStatus(boolean bool, long uid){
-        habitWithSubroutinesDao.updateOnReformStatus(bool, uid);
-    }
 }

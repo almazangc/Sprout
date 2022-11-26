@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.habitdev.sprout.databinding.FragmentAnalyticBinding;
@@ -14,8 +15,12 @@ public class AnalyticFragment extends Fragment {
 
     private FragmentAnalyticBinding binding;
 
+    public AnalyticFragment() {
+
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAnalyticBinding.inflate(inflater, container, false);
 
         onBackPress();

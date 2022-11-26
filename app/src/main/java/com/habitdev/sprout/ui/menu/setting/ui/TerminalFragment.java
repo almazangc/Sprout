@@ -18,6 +18,10 @@ public class TerminalFragment extends Fragment {
 
     private FragmentTerminalBinding binding;
 
+    public TerminalFragment() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

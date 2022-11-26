@@ -17,9 +17,7 @@ public class IntroductionFragment extends Fragment {
     //View Binding
     FragmentIntroductionBinding binding;
 
-    public IntroductionFragment() {
-        // Required empty public constructor
-    }
+    public IntroductionFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,9 +28,8 @@ public class IntroductionFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        binding.btnContinue.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigate_from_introduction_to_greetings, getArguments());
-        });
+        binding.btnContinue.setOnClickListener(view ->
+                Navigation.findNavController(view).navigate(R.id.action_navigate_from_introduction_to_greetings, getArguments()));
     }
 
     @Override

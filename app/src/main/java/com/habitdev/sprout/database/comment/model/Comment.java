@@ -22,7 +22,7 @@ public class Comment implements Serializable {
     @ColumnInfo(name = "comment_type")
     private String comment_type;
 
-    @ColumnInfo(name = "commnent")
+    @ColumnInfo(name = "comment")
     private String comment;
 
     @ColumnInfo(name = "date_commented")
@@ -39,10 +39,10 @@ public class Comment implements Serializable {
 
     @Ignore
     public Comment(long fk_habit_uid, long fk_subroutine_uid, String comment_type, String comment, String date_commented) {
-        if (comment_type.toString().equals("Habit")){
+        if (comment_type.equals("Habit")){
             this.fk_habit_uid = fk_habit_uid;
             this.fk_subroutine_uid = 0;
-        } else if (comment_type.toString().equals("Subroutine")){
+        } else if (comment_type.equals("Subroutine")){
             this.fk_subroutine_uid = fk_subroutine_uid;
             this.fk_habit_uid = 0;
         }

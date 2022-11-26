@@ -23,9 +23,7 @@ public class GetNicknameFragment extends Fragment {
     private FragmentGetNicknameBinding binding;
     private String nickname;
 
-    public GetNicknameFragment() {
-        // Required empty public constructor
-    }
+    public GetNicknameFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,12 +60,6 @@ public class GetNicknameFragment extends Fragment {
             return "Invalid nickname*";
         }
         return null;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        onBackPress();
     }
 
     /**

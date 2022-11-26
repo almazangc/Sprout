@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
- * For parsing and unparsing Object(Type) on Room Database as String
+ * For parsing and unsparing Object(Type) on Room Database as String
  */
 public class ArrayListConverter {
 
@@ -24,7 +24,6 @@ public class ArrayListConverter {
     @TypeConverter
     public static String fromArrayList(ArrayList<Integer> list) {
         Gson gson = new Gson();
-        String json = gson.toJson(list);
-        return json;
+        return gson.toJson(list);
     }
 }

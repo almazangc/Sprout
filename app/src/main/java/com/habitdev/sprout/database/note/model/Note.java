@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity()
 public class Note implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    private int uid;
+    private int note_uid;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -39,8 +39,8 @@ public class Note implements Serializable {
     }
 
     @Ignore
-    public Note(int uid, String title, String dateTime, String subtitle, String noteContent, String color) {
-        this.uid = uid;
+    public Note(int note_uid, String title, String dateTime, String subtitle, String noteContent, String color) {
+        this.note_uid = note_uid;
         this.title = title;
         this.dateTime = dateTime;
         this.subtitle = subtitle;
@@ -49,8 +49,8 @@ public class Note implements Serializable {
     }
 
     @Ignore
-    public Note(int uid, String title, String dateTime, String noteContent, String color) {
-        this.uid = uid;
+    public Note(int note_uid, String title, String dateTime, String noteContent, String color) {
+        this.note_uid = note_uid;
         this.title = title;
         this.dateTime = dateTime;
         this.subtitle = "";
@@ -76,14 +76,12 @@ public class Note implements Serializable {
         this.color = color;
     }
 
-
-
-    public int getUid() {
-        return uid;
+    public int getNote_uid() {
+        return note_uid;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setNote_uid(int note_uid) {
+        this.note_uid = note_uid;
     }
 
     public String getTitle() {
@@ -146,7 +144,7 @@ public class Note implements Serializable {
     @Override
     public String toString() {
         return "Note{" +
-                "uid=" + uid +
+                "uid=" + note_uid +
                 ", title='" + title + '\'' +
                 ", dateTime='" + dateTime + '\'' +
                 ", subtitle='" + subtitle + '\'' +

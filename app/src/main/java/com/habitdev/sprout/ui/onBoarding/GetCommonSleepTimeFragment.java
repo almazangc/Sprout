@@ -21,9 +21,7 @@ public class GetCommonSleepTimeFragment extends Fragment {
     private FragmentGetCommonSleepTimeBinding binding;
     private TimePicker timePicker;
 
-    public GetCommonSleepTimeFragment() {
-        // Required empty public constructor
-    }
+    public GetCommonSleepTimeFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

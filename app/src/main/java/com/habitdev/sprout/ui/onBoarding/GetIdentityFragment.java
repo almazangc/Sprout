@@ -31,9 +31,7 @@ public class GetIdentityFragment extends Fragment {
     private int sleepMinute;
     private boolean eula;
 
-    public GetIdentityFragment() {
-        // Required empty public constructor
-    }
+    public GetIdentityFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

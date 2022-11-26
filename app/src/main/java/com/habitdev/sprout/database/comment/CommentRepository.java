@@ -11,7 +11,7 @@ import com.habitdev.sprout.database.comment.model.Comment;
 import java.util.List;
 
 public class CommentRepository {
-    private CommentDao commentDao;
+    private final CommentDao commentDao;
 
     public CommentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -28,7 +28,7 @@ public class CommentRepository {
 
     private static class InsertCommentAsyncTask extends AsyncTask<Comment, Void, Void> {
 
-        private CommentDao commentDao;
+        private final CommentDao commentDao;
 
         public InsertCommentAsyncTask(CommentDao commentDao) {
             this.commentDao = commentDao;
@@ -43,7 +43,7 @@ public class CommentRepository {
 
     private static class DeleteCommentAsyncTask extends AsyncTask<Comment, Void, Void> {
 
-        private CommentDao commentDao;
+        private final CommentDao commentDao;
 
         public DeleteCommentAsyncTask(CommentDao commentDao) {
             this.commentDao = commentDao;

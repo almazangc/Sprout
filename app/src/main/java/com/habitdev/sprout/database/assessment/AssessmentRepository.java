@@ -80,7 +80,7 @@ public class AssessmentRepository {
 
     public static class InsertAnswerAsyncTask extends AsyncTask<Answer, Void, Void> {
 
-        private AssessmentDao assessmentDao;
+        private final AssessmentDao assessmentDao;
 
         public InsertAnswerAsyncTask(AssessmentDao assessmentDao) {
             this.assessmentDao = assessmentDao;
@@ -95,7 +95,7 @@ public class AssessmentRepository {
 
     public static class UpdateAnswerAsyncTask extends AsyncTask<Answer, Void, Void> {
 
-        private AssessmentDao assessmentDao;
+        private final AssessmentDao assessmentDao;
 
         public UpdateAnswerAsyncTask(AssessmentDao assessmentDao) {
             this.assessmentDao = assessmentDao;

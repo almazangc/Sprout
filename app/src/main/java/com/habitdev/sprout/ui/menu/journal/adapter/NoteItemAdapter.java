@@ -3,7 +3,6 @@ package com.habitdev.sprout.ui.menu.journal.adapter;
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,15 +75,12 @@ public class NoteItemAdapter extends RecyclerView.Adapter<NoteItemAdapter.NoteVi
             noteDateTime = itemView.findViewById(R.id.noteDateTime);
             layout_note = itemView.findViewById(R.id.layout_note);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(IRecyclerView != null){
-                        int position = getBindingAdapterPosition();
+            itemView.setOnClickListener(v -> {
+                if(IRecyclerView != null){
+                    int position = getBindingAdapterPosition();
 
-                        if(position != RecyclerView.NO_POSITION){
-                            IRecyclerView.onItemClick(position);
-                        }
+                    if(position != RecyclerView.NO_POSITION){
+                        IRecyclerView.onItemClick(position);
                     }
                 }
             });

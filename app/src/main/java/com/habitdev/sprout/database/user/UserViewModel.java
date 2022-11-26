@@ -12,11 +12,11 @@ import java.util.List;
 
 public class UserViewModel extends AndroidViewModel {
 
-    private UserRepository repository;
-    private LiveData<List<User>> userListLiveData;
-    private List<User> userList;
-    private int userCount;
-    private LiveData<String> userNickname;
+    private final UserRepository repository;
+    private final LiveData<List<User>> userListLiveData;
+    private final List<User> userList;
+    private final int userCount;
+    private final LiveData<String> userNickname;
 
     public UserViewModel(@NonNull Application application) {
         super(application);

@@ -36,7 +36,7 @@ public class SplashScreenFragment extends Fragment {
      * Startup Fragment View Binding
      */
     private FragmentSplashScreenBinding binding;
-    private int splashDuration;
+    private final int splashDuration;
 
     public SplashScreenFragment() {
         this.splashDuration = 2000;
@@ -70,18 +70,18 @@ public class SplashScreenFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void changeQuotes(List<Quotes> qoutes) {
+    private void changeQuotes(List<Quotes> quotes) {
 
-        if (!qoutes.isEmpty()){
+        if (!quotes.isEmpty()){
 
             Random random = new Random();
 
             new CountDownTimer(splashDuration, 3000) {
                 public void onTick(long millisUntilFinished) {
                     requireActivity().runOnUiThread(() -> {
-                        int ran = random.nextInt(qoutes.size());
-                        Quotes qoute = qoutes.get(ran);
-                        String content = qoute.getQuoted() + "---" + qoute.getAuthor();
+                        int ran = random.nextInt(quotes.size());
+                        Quotes quote = quotes.get(ran);
+                        String content = quote.getQuoted() + "---" + quote.getAuthor();
                         binding.subLbl.setText(content);
                     });
                 }
@@ -123,7 +123,7 @@ public class SplashScreenFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                //Prevent Onback Press
+                //cannot back press
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

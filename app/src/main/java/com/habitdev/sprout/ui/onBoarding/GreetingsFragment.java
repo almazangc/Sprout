@@ -5,20 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentGreetingsBinding;
+import com.habitdev.sprout.enums.BundleKeys;
+
+import java.util.Objects;
 
 public class GreetingsFragment extends Fragment {
-    //View Binding
+
     private FragmentGreetingsBinding binding;
 
-    public GreetingsFragment() {
-        // Required empty public constructor
-    }
+    public GreetingsFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,9 +31,20 @@ public class GreetingsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        binding.btnContinue.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigate_from_greetings_to_getNickname, getArguments());
-        });
+        binding.btnContinue.setOnClickListener(view ->
+                Navigation.findNavController(view).navigate(R.id.action_navigate_from_greetings_to_getNickname, getArguments()));
+        onBackPress();
+    }
+
+
+    private void onBackPress() {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+               //Do nothing
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
     @Override

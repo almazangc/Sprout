@@ -8,8 +8,9 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,8 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
+import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
+import com.habitdev.sprout.ui.menu.subroutine.ui.AddNewSubroutineFragment;
 
 import java.util.List;
 
@@ -26,14 +29,16 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     private List<Habits> habitsOnReform;
     private LifecycleOwner lifecycleOwner;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private FragmentSubroutineBinding binding;
 
     //for continues scroll loop
-    private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+    private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-    public SubroutineParentItemAdapter(ViewModelStoreOwner viewModelStoreOwner, LifecycleOwner lifecycleOwner, List<Habits> habitsOnReform) {
+    public SubroutineParentItemAdapter(ViewModelStoreOwner viewModelStoreOwner, LifecycleOwner lifecycleOwner, List<Habits> habitsOnReform, FragmentSubroutineBinding binding) {
         this.lifecycleOwner = lifecycleOwner;
         this.habitsOnReform = habitsOnReform;
         this.habitWithSubroutinesViewModel = new ViewModelProvider(viewModelStoreOwner).get(HabitWithSubroutinesViewModel.class);
+        this.binding = binding;
     }
 
     @NonNull
@@ -48,9 +53,6 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     public void onBindViewHolder(@NonNull ParentItemViewHolder holder, int position) {
         long uid = holder.bindData(habitsOnReform.get(position));
 
-//        Done through xml
-//        holder.childRecycleView.setLayoutManager(new LinearLayoutManager(holder.childRecycleView.getContext(), LinearLayoutManager.VERTICAL, false));
-
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation);
         holder.childRecycleView.setLayoutAnimation(animationController);
         holder.childRecycleView.setVisibility(View.GONE);
@@ -61,16 +63,12 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
         SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter(habitWithSubroutines);
         holder.childRecycleView.setAdapter(childAdapterItem);
+
         //Can be removed: for continuous flow of recycler
         holder.childRecycleView.setRecycledViewPool(viewPool);
         childAdapterItem.setHabitWithSubroutines(habitWithSubroutines);
 
-        habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(lifecycleOwner, new Observer<List<Subroutines>>() {
-            @Override
-            public void onChanged(List<Subroutines> subroutines) {
-                childAdapterItem.setHabitWithSubroutines(subroutines);
-            }
-        });
+        habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(lifecycleOwner, childAdapterItem::setHabitWithSubroutines);
     }
 
     @Override
@@ -90,13 +88,13 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     public class ParentItemViewHolder extends RecyclerView.ViewHolder {
 
         //Components Here
-        Button habitsOnReformTitle;
+        Button habitsOnReformTitle, modifySubroutineBtn;
         RecyclerView childRecycleView;
 
         public ParentItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            //Connecting ID
             habitsOnReformTitle = itemView.findViewById(R.id.habitOnReform_title);
+            modifySubroutineBtn = itemView.findViewById(R.id.modify_subroutine);
             childRecycleView = itemView.findViewById(R.id.subroutine_child_recyclerview);
         }
 
@@ -107,16 +105,34 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             habitsOnReformTitle.setText(buttonLabel);
             habitsOnReformTitle.setOnClickListener(view -> {
                 childRecycleView.getVisibility();
-                switch (childRecycleView.getVisibility()) {
-                    case View.GONE:
-                        childRecycleView.setVisibility(View.VISIBLE);
-                        break;
-                    default:
-                        childRecycleView.setVisibility(View.GONE);
-                        break;
+                if (childRecycleView.getVisibility() == View.GONE) {
+                    childRecycleView.setVisibility(View.VISIBLE);
+                } else {
+                    childRecycleView.setVisibility(View.GONE);
                 }
             });
+
+            if (habitOnReform.isModifiable()){
+                modifySubroutineBtn.setOnClickListener(view -> {
+                    FragmentManager fragmentManager = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(binding.subroutineFrameLayout.getId(), new AddNewSubroutineFragment())
+                            .commit();
+                    binding.subroutineContainer.setVisibility(View.GONE);
+                    setOnDestroyAdapter();
+                });
+            } else {
+                modifySubroutineBtn.setVisibility(View.GONE);
+            }
+
             return habitOnReform.getPk_habit_uid();
+        }
+
+        void setOnDestroyAdapter(){
+            habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().removeObservers(lifecycleOwner);
+            habitWithSubroutinesViewModel = null;
+            lifecycleOwner = null;
+            binding = null;
         }
     }
 }

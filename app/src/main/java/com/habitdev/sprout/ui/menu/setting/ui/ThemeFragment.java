@@ -18,6 +18,8 @@ public class ThemeFragment extends Fragment {
 
     private FragmentThemeBinding binding;
 
+    public ThemeFragment() {}
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

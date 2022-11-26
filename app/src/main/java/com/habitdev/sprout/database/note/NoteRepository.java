@@ -12,9 +12,9 @@ import java.util.List;
 
 public class NoteRepository {
 
-    private NoteDao noteDao;
-    private LiveData<List<Note>> notesListLivedata;
-    private List<Note> notesList;
+    private final NoteDao noteDao;
+    private final LiveData<List<Note>> notesListLivedata;
+    private final List<Note> notesList;
 
     public NoteRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -42,7 +42,7 @@ public class NoteRepository {
 
     public static class InsertNoteAsyncTask extends AsyncTask<Note, Void, Void> {
 
-        private NoteDao noteDao;
+        private final NoteDao noteDao;
 
         public InsertNoteAsyncTask(NoteDao noteDao) {
             this.noteDao = noteDao;
@@ -57,7 +57,7 @@ public class NoteRepository {
 
     public static class UpdateNoteAsyncTask extends AsyncTask<Note, Void, Void> {
 
-        private NoteDao noteDao;
+        private final NoteDao noteDao;
 
         public UpdateNoteAsyncTask(NoteDao noteDao) {
             this.noteDao = noteDao;
@@ -72,7 +72,7 @@ public class NoteRepository {
 
     public static class DeleteNoteAsyncTask extends AsyncTask<Note, Void, Void> {
 
-        private NoteDao noteDao;
+        private final NoteDao noteDao;
 
         public DeleteNoteAsyncTask(NoteDao noteDao) {
             this.noteDao = noteDao;
@@ -87,7 +87,7 @@ public class NoteRepository {
 
     public static class DeleteAllNotesAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private NoteDao noteDao;
+        private final NoteDao noteDao;
 
         public DeleteAllNotesAsyncTask(NoteDao noteDao) {
             this.noteDao = noteDao;
@@ -98,10 +98,6 @@ public class NoteRepository {
             noteDao.deleteAllNotes();
             return null;
         }
-    }
-
-    public NoteDao getNoteDao() {
-        return noteDao;
     }
 
     public LiveData<List<Note>> getNotesListLivedata() {

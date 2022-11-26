@@ -1,6 +1,9 @@
 package com.habitdev.sprout.ui.menu.setting.ui;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -8,18 +11,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentAboutUsBinding;
-import com.habitdev.sprout.databinding.FragmentSettingBinding;
 import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 
 public class AboutUsFragment extends Fragment {
 
     private FragmentAboutUsBinding binding;
+
+    public AboutUsFragment() {
+
+    }
 
     @Nullable
     @Override

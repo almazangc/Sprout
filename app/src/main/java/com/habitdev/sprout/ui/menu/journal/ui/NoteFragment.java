@@ -257,13 +257,13 @@ public class NoteFragment extends Fragment {
                                     noteViewModel.update(
                                             binding.noteSubTitle.getText().toString().trim().isEmpty() ?
                                                     new Note(
-                                                            note.getUid(),
+                                                            note.getNote_uid(),
                                                             binding.noteTitle.getText().toString(),
                                                             note.getDateTime(),
                                                             binding.noteContent.getText().toString(),
                                                             color) :
                                                     new Note(
-                                                            note.getUid(),
+                                                            note.getNote_uid(),
                                                             binding.noteTitle.getText().toString(),
                                                             note.getDateTime(),
                                                             binding.noteSubTitle.getText().toString(),

@@ -1,5 +1,6 @@
 package com.habitdev.sprout.database.assessment.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -40,6 +41,7 @@ public class Answer {
         this.user_uid = user_uid;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Answer{" +

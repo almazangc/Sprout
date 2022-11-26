@@ -72,10 +72,11 @@ public class Main extends AppCompatActivity {
                         } else {
                             Log.d("tag", "Main isConnected() called: data already available on cache");
                             networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
-                            Log.d("tag", "Main isConnected() called: removed observe");
+                            Log.d("tag", "Main isConnected() called: removed observer");
                         }
+                    } else {
+                        Log.d("tag", "onChanged() called: Main no network connection");
                     }
-                    Log.d("tag", "onChanged() called: Main " + isConnected);
                 }
             });
         setContentView(binding.getRoot());
@@ -88,7 +89,7 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding = null;
         networkStateManager = null;
+        binding = null;
     }
 }

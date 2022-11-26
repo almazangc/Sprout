@@ -12,9 +12,9 @@ import java.util.List;
 
 public class NoteViewModel extends AndroidViewModel {
 
-    private NoteRepository repository;
-    private LiveData<List<Note>> noteListLiveData;
-    private List<Note> noteList;
+    private final NoteRepository repository;
+    private final LiveData<List<Note>> noteListLiveData;
+    private final List<Note> noteList;
 
     public NoteViewModel(@NonNull Application application) {
         super(application);

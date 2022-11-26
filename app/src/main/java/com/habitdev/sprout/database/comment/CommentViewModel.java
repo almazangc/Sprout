@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CommentViewModel extends AndroidViewModel {
 
-    private CommentRepository repository;
+    private final CommentRepository repository;
 
     public CommentViewModel(@NonNull Application application) {
         super(application);

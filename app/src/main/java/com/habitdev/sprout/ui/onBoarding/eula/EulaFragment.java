@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -18,11 +19,11 @@ public class EulaFragment extends Fragment {
     private FragmentEulaBinding binding;
 
     public EulaFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentEulaBinding.inflate(inflater, container, false);
         binding.lblEULA.setText(getString(R.string.sampleText));
         return binding.getRoot();

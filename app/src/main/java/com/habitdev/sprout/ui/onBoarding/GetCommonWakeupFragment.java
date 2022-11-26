@@ -21,9 +21,7 @@ public class GetCommonWakeupFragment extends Fragment {
     private FragmentGetCommonWakeupBinding binding;
     private TimePicker timePicker;
 
-    public GetCommonWakeupFragment() {
-        // Required empty public constructor
-    }
+    public GetCommonWakeupFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

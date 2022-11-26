@@ -33,6 +33,10 @@ public class HomeFragment extends Fragment implements IRecyclerView {
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private List<Habits> habitsOnReform;
 
+    public HomeFragment() {
+
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -76,8 +80,20 @@ public class HomeFragment extends Fragment implements IRecyclerView {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 switch (direction){
                     case ItemTouchHelper.END:
-                        long uid = habitsOnReform.get(viewHolder.getBindingAdapterPosition()).getPk_habit_uid();
-                        habitWithSubroutinesViewModel.updateOnReformStatus(false, uid);
+                        Habits habits = habitsOnReform.get(viewHolder.getBindingAdapterPosition());
+                        habitWithSubroutinesViewModel.update(
+                            new Habits(
+                                habits.getPk_habit_uid(),
+                                habits.getHabit(),
+                                habits.getDescription(),
+                                false,
+                                habits.isModifiable(),
+                                habits.getAbstinence(),
+                                habits.getRelapse(),
+                                habits.getDate_started(),
+                                habits.getTotal_subroutine(),
+                                habits.getCompleted_subroutine()
+                        ));
                         homeParentItemAdapter.notifyItemRemoved(viewHolder.getBindingAdapterPosition());
                         break;
                     case ItemTouchHelper.START:

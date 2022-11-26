@@ -30,9 +30,8 @@ public class InitialFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        binding.btnLetsDoIt.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigate_from_initial_to_eula);
-        });
+        binding.btnLetsDoIt.setOnClickListener(view ->
+                Navigation.findNavController(view).navigate(R.id.action_navigate_from_initial_to_eula));
     }
 
     @Override

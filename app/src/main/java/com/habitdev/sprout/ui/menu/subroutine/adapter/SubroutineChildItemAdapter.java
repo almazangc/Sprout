@@ -26,7 +26,7 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
     @NonNull
     @Override
     public SubroutineChildItemAdapter.ChildItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SubroutineChildItemAdapter.ChildItemViewHolder(
+        return new ChildItemViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_subroutine_child_item, parent, false)
         );
     }
@@ -50,7 +50,7 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
         this.subroutines = subroutines;
     }
 
-    public class ChildItemViewHolder extends RecyclerView.ViewHolder {
+    public static class ChildItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView subroutine, description;
         Button upvote, downvote, markAsDone;

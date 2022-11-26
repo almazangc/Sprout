@@ -1,20 +1,17 @@
 package com.habitdev.sprout.ui.menu.home.ui;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
@@ -34,7 +31,6 @@ public class AddDefaultHabitFragment extends Fragment {
 
     private FragmentAddDefaultHabitBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private HomeAddDefaultHabitParentItemAdapter subroutineItemAdapter;
     private List<Habits> habitsList;
     private List<Subroutines> subroutinesList;
     private int position;
@@ -70,58 +66,49 @@ public class AddDefaultHabitFragment extends Fragment {
         ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_add_default_habit_item, habitTitles);
         binding.dropItems.setAdapter(adapterItems);
 
-        binding.dropItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-                position = pos;
-                updateUI();
-            }
+        binding.dropItems.setOnItemClickListener((adapterView, view, pos, id) -> {
+            position = pos;
+            updateUI();
         });
     }
 
     private void updateUI(){
         binding.habitDescription.setText(habitsList.get(position).getDescription());
         subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habitsList.get(position).getPk_habit_uid());
-        subroutineItemAdapter = new HomeAddDefaultHabitParentItemAdapter(subroutinesList);
+        HomeAddDefaultHabitParentItemAdapter subroutineItemAdapter = new HomeAddDefaultHabitParentItemAdapter(subroutinesList);
         binding.habitSubroutinesRecyclerView.setAdapter(subroutineItemAdapter);
         subroutineItemAdapter.setSubroutines(subroutinesList);
         binding.subroutineCountLbl.setText(String.format(Locale.getDefault(), "%d", subroutinesList.size()));
     }
 
     private void addHabitOnReform(){
-        binding.addHabitOnReformBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Habits habits = habitsList.get(position);
-                habitWithSubroutinesViewModel.update(new Habits(
-                        habits.getPk_habit_uid(),
-                        habits.getHabit(),
-                        habits.getDescription(),
-                        true,
-                        habits.isModifiable(),
-                        habits.getAbstinence(),
-                        habits.getRelapse(),
-                        new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
-                                .format(new Date()),
-                        subroutinesList.size(),
-                        habits.getCompleted_subroutine()
-                ));
-                habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
-                returnHomeFragment();
-            }
+        binding.addHabitOnReformBtn.setOnClickListener(view -> {
+            Habits habits = habitsList.get(position);
+            habitWithSubroutinesViewModel.update(new Habits(
+                    habits.getPk_habit_uid(),
+                    habits.getHabit(),
+                    habits.getDescription(),
+                    true,
+                    habits.isModifiable(),
+                    habits.getAbstinence(),
+                    habits.getRelapse(),
+                    new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
+                            .format(new Date()),
+                    subroutinesList.size(),
+                    habits.getCompleted_subroutine()
+            ));
+            habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
+            returnHomeFragment();
         });
     }
 
     private void upDateHabitList(){
-        habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), new Observer<List<Habits>>() {
-            @Override
-            public void onChanged(List<Habits> habits) {
-                List<Habits> habitsLiveData = new ArrayList<>();
-                for(Habits habit : habits) if (!habit.isOnReform() && !habit.isModifiable()) habitsLiveData.add(habit);
-                habitsList = habitsLiveData;
-                updateUI();
-                setDropDownItem();
-            }
+        habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
+            List<Habits> habitsLiveData = new ArrayList<>();
+            for(Habits habit : habits) if (!habit.isOnReform() && !habit.isModifiable()) habitsLiveData.add(habit);
+            habitsList = habitsLiveData;
+            updateUI();
+            setDropDownItem();
         });
     }
 

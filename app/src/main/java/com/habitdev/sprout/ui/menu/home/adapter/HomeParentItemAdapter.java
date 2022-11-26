@@ -58,8 +58,8 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     static class HabitViewHolder extends RecyclerView.ViewHolder {
 
-        TextView habitHeader, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalReplase;
-        Button upvote, downvote, modify, relapse, drop;
+        TextView habitHeader, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalRelapse;
+        Button upVote, downVote, modify, relapse, drop;
 
         public HabitViewHolder(@NonNull View itemView, IRecyclerView IRecyclerView) {
             super(itemView);
@@ -68,24 +68,21 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             dateStarted = itemView.findViewById(R.id.date_started);
             completedSubroutine = itemView.findViewById(R.id.completed_subroutine);
             daysOfAbstinence = itemView.findViewById(R.id.home_item_on_click_habit_total_days_of_abstinence);
-            totalReplase = itemView.findViewById(R.id.total_relapse);
+            totalRelapse = itemView.findViewById(R.id.total_relapse);
 
-            upvote = itemView.findViewById(R.id.home_upvote_btn);
-            downvote = itemView.findViewById(R.id.home_downvote_btn);
+            upVote = itemView.findViewById(R.id.home_upvote_btn);
+            downVote = itemView.findViewById(R.id.home_downvote_btn);
 
             modify = itemView.findViewById(R.id.home_modify_btn);
             relapse = itemView.findViewById(R.id.home_relapse_btn);
             drop = itemView.findViewById(R.id.home_drop_btn);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(IRecyclerView != null){
-                        int position = getBindingAdapterPosition();
+            itemView.setOnClickListener(v -> {
+                if(IRecyclerView != null){
+                    int position = getBindingAdapterPosition();
 
-                        if(position != RecyclerView.NO_POSITION){
-                            IRecyclerView.onItemClick(position);
-                        }
+                    if(position != RecyclerView.NO_POSITION){
+                        IRecyclerView.onItemClick(position);
                     }
                 }
             });
@@ -105,14 +102,14 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
             completedSubroutine.setText(String.valueOf(habit.getTotal_subroutine()));
             daysOfAbstinence.setText(String.valueOf(habit.getAbstinence()));
-            totalReplase.setText(String.valueOf(habit.getRelapse()));
+            totalRelapse.setText(String.valueOf(habit.getRelapse()));
 
-            upvote.setOnClickListener(view -> {
+            upVote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Upvote", Toast.LENGTH_SHORT).show();
             });
 
-            downvote.setOnClickListener(view -> {
-                Toast.makeText(itemView.getContext(), "Downvote", Toast.LENGTH_SHORT).show();
+            downVote.setOnClickListener(view -> {
+                Toast.makeText(itemView.getContext(), "DownVote", Toast.LENGTH_SHORT).show();
             });
 
             if (habit.isModifiable()) {

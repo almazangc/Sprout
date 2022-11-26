@@ -23,20 +23,4 @@ public interface CommentDao {
 
     @Delete
     void deleteComment(Comment comment);
-
-//    public void insertCommentforHabit(Habits habits, Comment comment){
-//        comment.setFk_habit_uid(habits.getPk_habit_uid());
-//        comment.setComment_type("Habit");
-//        _insertHabitComment(comment);
-//    }
-
-
-//    public void insertCommentforSubroutine(Subroutines subroutines, Comment comment){
-//        comment.setFk_subroutine_uid(subroutines.getPk_subroutine_uid());
-//        comment.setComment_type("Subroutine");
-//        _insertSubroutineComment(comment);
-//    }
-//
-//    @Insert
-//    abstract void _insertSubroutineComment(Comment comments);
 }

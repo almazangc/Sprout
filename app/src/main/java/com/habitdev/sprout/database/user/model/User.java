@@ -13,9 +13,6 @@ import androidx.room.PrimaryKey;
 public class User {
 
     /**
-     * USER WITH HABITS(SUBROUTINE(Comments), Comments), Notes
-     */
-    /**
      * Auto Generated ID
      */
     @PrimaryKey(autoGenerate = true)
@@ -89,6 +86,20 @@ public class User {
 
     }
 
+    public User(int uid, String nickname, String identity, int streakCount, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement, boolean assessmentDone, boolean onBoardingDone) {
+        this.uid = uid;
+        this.nickname = nickname;
+        this.identity = identity;
+        this.streakCount = streakCount;
+        this.wakeHour = wakeHour;
+        this.wakeMinute = wakeMinute;
+        this.sleepHour = sleepHour;
+        this.sleepMinute = sleepMinute;
+        this.eulaAgreement = eulaAgreement;
+        this.assessmentDone = assessmentDone;
+        this.onBoardingDone = onBoardingDone;
+    }
+
     /**
      * New User Object Constructor
      * @param nickname user nickname
@@ -102,6 +113,7 @@ public class User {
      * @param assessmentDone boolean value for assessment completion checker
      * @param onBoardingDone boolean value for user onboarding completion
      */
+    @Ignore
     public User(String nickname, String identity, int streakCount, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement, boolean assessmentDone, boolean onBoardingDone) {
         this.nickname = nickname;
         this.identity = identity;
@@ -141,87 +153,43 @@ public class User {
         return uid;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
     public String getNickname() {
         return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getIdentity() {
         return identity;
     }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
-    }
-
     public int getStreakCount() {
         return streakCount;
-    }
-
-    public void setStreakCount(int streakCount) {
-        this.streakCount = streakCount;
     }
 
     public int getWakeHour() {
         return wakeHour;
     }
 
-    public void setWakeHour(int wakeHour) {
-        this.wakeHour = wakeHour;
-    }
-
     public int getWakeMinute() {
         return wakeMinute;
-    }
-
-    public void setWakeMinute(int wakeMinute) {
-        this.wakeMinute = wakeMinute;
     }
 
     public int getSleepHour() {
         return sleepHour;
     }
 
-    public void setSleepHour(int sleepHour) {
-        this.sleepHour = sleepHour;
-    }
-
     public int getSleepMinute() {
         return sleepMinute;
-    }
-
-    public void setSleepMinute(int sleepMinute) {
-        this.sleepMinute = sleepMinute;
     }
 
     public boolean isEulaAgreement() {
         return eulaAgreement;
     }
 
-    public void setEulaAgreement(boolean eulaAgreement) {
-        this.eulaAgreement = eulaAgreement;
-    }
-
     public boolean isAssessmentDone() {
         return assessmentDone;
     }
 
-    public void setAssessmentDone(boolean assessmentDone) {
-        this.assessmentDone = assessmentDone;
-    }
-
     public boolean isOnBoardingDone() {
         return onBoardingDone;
-    }
-
-    public void setOnBoardingDone(boolean onBoardingDone) {
-        this.onBoardingDone = onBoardingDone;
     }
 }

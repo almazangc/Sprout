@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3982ebba050022358d76fafa0e84e305",
+    "identityHash": "1704dc53b700af52d8cc3709dbf462ae",
     "entities": [
       {
         "tableName": "User",
@@ -226,11 +226,11 @@
       },
       {
         "tableName": "Note",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `date_time` TEXT, `subtitle` TEXT, `note_content` TEXT, `image_path` TEXT, `color` TEXT, `web_link` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`note_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `date_time` TEXT, `subtitle` TEXT, `note_content` TEXT, `image_path` TEXT, `color` TEXT, `web_link` TEXT)",
         "fields": [
           {
-            "fieldPath": "uid",
-            "columnName": "uid",
+            "fieldPath": "note_uid",
+            "columnName": "note_uid",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -279,7 +279,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "uid"
+            "note_uid"
           ],
           "autoGenerate": true
         },
@@ -446,7 +446,7 @@
       },
       {
         "tableName": "Comment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_comment_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `fk_subroutine_uid` INTEGER NOT NULL, `comment_type` TEXT, `commnent` TEXT, `date_commented` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_comment_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `fk_subroutine_uid` INTEGER NOT NULL, `comment_type` TEXT, `comment` TEXT, `date_commented` TEXT)",
         "fields": [
           {
             "fieldPath": "pk_comment_uid",
@@ -474,7 +474,7 @@
           },
           {
             "fieldPath": "comment",
-            "columnName": "commnent",
+            "columnName": "comment",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -498,7 +498,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3982ebba050022358d76fafa0e84e305')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1704dc53b700af52d8cc3709dbf462ae')"
     ]
   }
 }

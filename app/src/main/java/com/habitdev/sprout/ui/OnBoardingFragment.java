@@ -20,10 +20,7 @@ public class OnBoardingFragment extends Fragment {
     private boolean isAssessmentDone = false;
     private int userCount = 0;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    public OnBoardingFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
