@@ -1,6 +1,8 @@
 package com.habitdev.sprout.ui.menu.journal;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.database.note.NoteViewModel;
+import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentJournalBinding;
 import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.interfaces.IRecyclerView;
-import com.habitdev.sprout.ui.menu.journal.adapter.NoteItemAdapter;
+import com.habitdev.sprout.ui.menu.journal.adapter.JournalNoteItemAdapter;
 import com.habitdev.sprout.ui.menu.journal.ui.NoteFragment;
 
 import java.util.List;
@@ -25,7 +27,7 @@ import java.util.List;
 public class JournalFragment extends Fragment implements IRecyclerView {
 
     private FragmentJournalBinding binding;
-    private NoteItemAdapter noteItemAdapter;
+    private JournalNoteItemAdapter journalNoteItemAdapter;
     private List<Note> noteList;
     private FragmentManager fragmentManager;
 
@@ -48,11 +50,11 @@ public class JournalFragment extends Fragment implements IRecyclerView {
         NoteViewModel noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
         noteList = noteViewModel.getNoteList();
 
-        noteItemAdapter = new NoteItemAdapter(noteList, this);
-        binding.journalRecyclerView.setAdapter(noteItemAdapter);
+        journalNoteItemAdapter = new JournalNoteItemAdapter(noteList, this);
+        binding.journalRecyclerView.setAdapter(journalNoteItemAdapter);
 
         noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> {
-            noteItemAdapter.updateNotes(notes);
+            journalNoteItemAdapter.updateNotes(notes);
             noteList = notes;
             setEmptyJournalLbl();
         });
@@ -71,13 +73,28 @@ public class JournalFragment extends Fragment implements IRecyclerView {
     }
 
     private void onSearchNote() {
-        //Updates Notes based search query
+        binding.searchBarInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                journalNoteItemAdapter.cancelTimer();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (!noteList.isEmpty()) {
+                    journalNoteItemAdapter.searchNote(editable.toString());
+                }
+            }
+        });
     }
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(requireContext(), "Recycler View on Item Click", Toast.LENGTH_SHORT).show();
-
         Fragment fragment = new NoteFragment(fragmentManager);
         Bundle bundle = new Bundle();
         Note note = noteList.get(position);
@@ -86,8 +103,8 @@ public class JournalFragment extends Fragment implements IRecyclerView {
         changeFragment(fragment);
     }
 
-    private void setEmptyJournalLbl(){
-        if(noteList.isEmpty()){
+    private void setEmptyJournalLbl() {
+        if (noteList.isEmpty()) {
             binding.journalEmptyLbl.setVisibility(View.VISIBLE);
         } else {
             binding.journalEmptyLbl.setVisibility(View.GONE);
@@ -116,7 +133,7 @@ public class JournalFragment extends Fragment implements IRecyclerView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        noteItemAdapter = null;
+        journalNoteItemAdapter = null;
         noteList = null;
         binding = null;
     }

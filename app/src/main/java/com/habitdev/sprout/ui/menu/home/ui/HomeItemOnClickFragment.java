@@ -85,9 +85,8 @@ public class HomeItemOnClickFragment extends Fragment {
     }
 
     private void setCommentRecyclerView() {
-
         habitComments = new ArrayList<>();
-        HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(habitComments);
+        HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(habitComments, commentViewModel);
         binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
 
         commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {

@@ -14,58 +14,90 @@
         android:layout_height="match_parent"
         android:background="@color/TRANSPARENT">
 
-        <TextView
-            android:id="@+id/home_item_on_click_habit_title"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="10dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="HABIT TITLE"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_height="?android:attr/actionBarSize"
+            app:cardElevation="10dp">
 
-        <TextView
-            android:id="@+id/home_item_on_click_habit_up_votes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/home_item_on_click_habit_title"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="up_count"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/home_item_on_click_habit_down_votes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/home_item_on_click_habit_title"
-            android:layout_marginBottom="5dp"
-            android:layout_toEndOf="@id/home_item_on_click_habit_up_votes"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="down_count"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/weighted_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:padding="15dp"
+                    android:text="3.5"
+                    android:textAlignment="center"
+                    android:textColor="@color/ARTY_CLICK_RED"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/home_item_on_click_habit_up_votes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/weighted_rating"
+                    android:layout_marginBottom="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/home_item_on_click_habit_down_votes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toEndOf="@id/home_item_on_click_habit_up_votes"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/home_item_on_click_habit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/home_item_on_click_habit_down_votes"
+                    android:ellipsize="end"
+                    android:gravity="center|start"
+                    android:paddingStart="5dp"
+                    android:maxLines="1"
+                    android:text="HABIT TITLE"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/home_item_on_click_habit_description_lbl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/home_item_on_click_habit_up_votes"
+            android:layout_below="@id/card_view"
             android:layout_alignParentStart="true"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:text="Description"
             android:textAlignment="viewStart"
             android:textColor="@color/NIGHT"
@@ -239,34 +271,34 @@
             app:cardCornerRadius="15dp">
 
             <RelativeLayout
+                android:id="@+id/comment_relative_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/comment_relative_layout">
+                android:layout_height="match_parent">
 
                 <LinearLayout
+                    android:id="@+id/comment_linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/comment_linear_layout"
                     android:layout_above="@id/add_comment_relative_layout"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/comment_lbl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
-                        android:text="Comment"
                         android:layout_margin="5dp"
+                        android:text="Comment"
                         android:textAlignment="center"
-                        android:id="@+id/comment_lbl"/>
+                        android:textColor="@color/NIGHT"
+                        android:textSize="13sp" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/home_comment_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:listitem="@layout/adapter_home_parent_habit_on_item_click_comment_item"
-                        android:id="@+id/home_comment_recycler_view"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="100"/>
+                        tools:itemCount="100"
+                        tools:listitem="@layout/adapter_home_parent_habit_on_item_click_comment_item" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -278,6 +310,7 @@
                     android:paddingBottom="5dp">
 
                     <EditText
+                        android:id="@+id/add_comment_input_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
@@ -290,7 +323,6 @@
                         android:maxLines="5"
                         android:textColor="@color/NIGHT"
                         android:textColorHint="@color/NIGHT"
-                        android:id="@+id/add_comment_input_text"
                         android:textSize="13sp" />
 
                     <Button
@@ -300,7 +332,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="5dp"
-                        android:background="@drawable/selector_btn_v2"
+                        android:background="@drawable/selector_btn_normal"
                         android:drawableStart="@drawable/ic_enter"
                         android:minWidth="0dp"
                         android:minHeight="0dp"

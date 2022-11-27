@@ -426,6 +426,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="homeAddNewHabitParentAdapter">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-218" />
+                            <option name="y" value="164" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="homeFragment">
                     <value>
                       <LayoutPositions>

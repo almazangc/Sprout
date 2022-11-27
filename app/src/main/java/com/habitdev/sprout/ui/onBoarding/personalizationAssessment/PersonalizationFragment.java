@@ -112,7 +112,7 @@ public class PersonalizationFragment extends Fragment {
                                 }
                         ));
                 radioButton.setTextSize(20);
-                radioButton.setBackgroundResource(R.drawable.selector_background_radio_btn);
+                radioButton.setBackgroundResource(R.drawable.selector_background_radio_button);
                 RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                         RadioGroup.LayoutParams.MATCH_PARENT,
                         RadioGroup.LayoutParams.MATCH_PARENT

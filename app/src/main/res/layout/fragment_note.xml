@@ -60,7 +60,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_note_color_selection_cloud" />
+                            android:background="@drawable/background_color_selection_cloud" />
 
                         <ImageView
                             android:id="@+id/cloud_selected"
@@ -83,7 +83,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_note_color_selection_alzarin" />
+                            android:background="@drawable/background_color_selection_alzarin" />
 
                         <ImageView
                             android:id="@+id/alzarin_selected"
@@ -106,7 +106,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_note_color_selection_amethyst" />
+                            android:background="@drawable/background_color_selection_amethyst" />
 
                         <ImageView
                             android:id="@+id/amethyst_selected"
@@ -129,7 +129,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_note_color_selection_brightsky_blue" />
+                            android:background="@drawable/background_color_selection_brightsky_blue" />
 
                         <ImageView
                             android:id="@+id/brightsky_blue_selected"
@@ -152,7 +152,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_note_color_selection_nephritis" />
+                            android:background="@drawable/background_color_selection_nephritis" />
 
                         <ImageView
                             android:id="@+id/nephritis_selected"
@@ -175,7 +175,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_note_color_selection_sunflower" />
+                            android:background="@drawable/background_color_selection_sunflower" />
 
                         <ImageView
                             android:id="@+id/sunflower_selected"
@@ -239,7 +239,7 @@
                     android:layout_width="5dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:background="@drawable/background_note_indicator_clouds" />
+                    android:background="@drawable/background_color_indicator_clouds" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/note_sub_title_card_view"

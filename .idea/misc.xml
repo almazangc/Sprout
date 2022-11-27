@@ -139,8 +139,17 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable-v24/shape_rounded_lightbrown_btn.xml" value="0.335" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable-v24/shape_rounded_onselected_btn.xml" value="0.2665" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_bar.xml" value="0.347" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_circle_default.xml" value="0.5" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_circle_delete_default.xml" value="0.22" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_circle_delete_on_pressed.xml" value="0.2" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_circle_on_pressed.xml" value="0.2" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_delete_default.xml" value="0.2" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_delete_on_pressed.xml" value="0.2" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_normal_default.xml" value="0.2" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_color_selection_cloud.xml" value="0.2175" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_color_selection_sunflower.xml" value="0.2175" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_comment_default.xml" value="0.5" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_comment_on_pressed.xml" value="0.5" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_comment_on_pressed.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_coral_blue.xml" value="0.335" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_item_alzarin.xml" value="0.159" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_item_amethyst.xml" value="0.159" />
@@ -149,7 +158,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_item_neprithis.xml" value="0.159" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_item_sunflower.xml" value="0.159" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_item_underline.xml" value="0.25" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_note_color_selection_alzarin.xml" value="0.2875" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_note_color_selection_alzarin.xml" value="0.18" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_note_color_selection_amethyst.xml" value="0.2875" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_note_color_selection_brightsky_blue.xml" value="0.2875" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_note_color_selection_cloud.xml" value="0.25" />
@@ -161,6 +170,10 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_note_indicator_nephritis.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_note_indicator_sunflower.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_note_miscellaneous.xml" value="0.2875" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_radio_btn_checked.xml" value="0.33" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_radio_btn_default.xml" value="0.33" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_radio_btn_selected.xml" value="0.2455" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_radio_btn_unchecked.xml" value="0.22" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_wave_aesthetic.xml" value="0.343" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_wavy_2.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/backgroundbar.xml" value="0.3055" />
@@ -194,9 +207,9 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_theme.xml" value="0.199" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_upvote.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/identity_svg.xml" value="0.306" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/illus_identity.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/illus_identity.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/illus_welcome.xml" value="0.22" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/neko_happy_1.xml" value="0.2225" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/neko_happy_1.xml" value="0.22" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/neko_happy_2.xml" value="0.2225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/neko_happy_clean.xml" value="0.2225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/neko_love_1.xml" value="0.2225" />
@@ -215,8 +228,11 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/scroll_vertical_tint_shape.xml" value="0.143" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_background_radiobtn.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_btn.xml" value="0.2665" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_btn_circle_delete.xml" value="0.2" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_btn_continue.xml" value="0.1995" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_btn_v2.xml" value="0.2455" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_comment_btn.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_radio_btn_continue.xml" value="0.22" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_radiobtn_text_color.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/selector_setting_btn_tint.xml" value="0.199" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/shape_background_radiobtn_selected.xml" value="0.1655" />
@@ -258,10 +274,11 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_analysis_habit_item.xml" value="0.11990363232023721" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_analysis_parent_habit_item.xml" value="0.67" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_add_default_parent_item.xml" value="0.33" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_add_new_habit_parent_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_add_default_habit_item.xml" value="0.17037037037037037" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_comment_item.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_item.xml" value="0.5" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_on_item_click_comment_item.xml" value="0.5" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_on_item_click_comment_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_journal_parent_note_item.xml" value="0.67" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_personalization_parent_choices_item.xml" value="0.5509259259259259" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_child_item.xml" value="0.33" />
@@ -272,7 +289,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/custom_toast.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_about_us.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_default_habit.xml" value="0.18" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_new_habit.xml" value="0.32916666666666666" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_new_habit.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_new_note.xml" value="0.3146853146853147" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_new_subroutine.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_note.xml" value="0.32916666666666666" />
@@ -289,7 +306,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_greetings.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_item_adapter_on_click_view.xml" value="0.33" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_item_on_click_view.xml" value="0.33" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_item_on_click_view.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_recycler_view_item_adapter_on_click_view.xml" value="0.67" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_initial.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_introduction.xml" value="0.21965579710144928" />
@@ -304,9 +321,9 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_splash_screen.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_startup.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_subroutine.xml" value="0.33" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_tech_stack_info.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_tech_stack_info.xml" value="0.67" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_terminal.xml" value="0.5" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_theme.xml" value="0.32916666666666666" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_theme.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/get_started_custom_toast.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/home_parent_adapter_item.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/layout_animation.xml" value="0.2477238239757208" />
@@ -327,7 +344,7 @@
     <option name="OPTION_DOCUMENT_TAG_VERSION" value="true" />
     <option name="OTHER_OPTIONS" value="-sourcepath C:\Users\User\AppData\Local\Android\Sdk\platforms\android-32\android.jar" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

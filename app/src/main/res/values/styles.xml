@@ -52,7 +52,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginHorizontal">20dp</item>
         <item name="android:layout_marginBottom">@dimen/radio_margin_bottom</item>
-        <item name="android:background">@drawable/selector_background_radio_btn</item>
+        <item name="android:background">@drawable/selector_background_radio_button</item>
         <item name="android:button">@null</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
@@ -70,7 +70,7 @@
         <item name="android:layout_marginBottom">@dimen/radio_margin_bottom</item>
         <item name="android:layout_marginEnd">100dp</item>
         <item name="android:layout_marginStart">100dp</item>
-        <item name="android:background">@drawable/selector_background_radio_btn</item>
+        <item name="android:background">@drawable/selector_background_radio_button</item>
         <item name="android:button">@null</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>

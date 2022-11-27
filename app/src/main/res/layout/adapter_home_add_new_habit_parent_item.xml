@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/add_new_habit_subroutine_item"
+    android:orientation="horizontal"
+    tools:showIn="@layout/fragment_add_new_habit"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:paddingEnd="5dp"
+    tools:context=".ui.menu.home.adapter.HomeAddNewHabitParentAdapter">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/remove_subroutine"
+        android:layout_gravity="start"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_new_habit_subroutine_title"
+            tools:text="Subroutine Title"
+            android:textColor="@color/NIGHT"
+            android:textSize="16sp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:maxLines="2"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_new_habit_subroutine_description"
+            tools:text="Subroutine Description Here"
+            android:textColor="@color/NIGHT"
+            android:textSize="13sp"
+            android:layout_marginTop="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:maxLines="5"
+            android:ellipsize="end"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/remove_subroutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="end"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/selector_btn_delete"
+        android:drawableStart="@drawable/ic_delete"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:maxLines="1"
+        android:minWidth="0dp"
+        android:minHeight="40dp"
+        android:paddingLeft="10dp"
+        android:textAllCaps="false"
+        android:textColor="@color/NIGHT"
+        android:textSize="0sp" />
+
+</RelativeLayout>

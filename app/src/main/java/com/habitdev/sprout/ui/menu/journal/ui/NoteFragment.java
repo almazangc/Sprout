@@ -172,37 +172,37 @@ public class NoteFragment extends Fragment {
                 case 1:
                     //alzarin
                     binding.alzarinSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_note_indicator_alzarin));
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
                     color = NoteColor.ALZARIN.getColor();
                     break;
                 case 2:
                     //amethyst
                     binding.amethystSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_note_indicator_amethyst));
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
                     color = NoteColor.AMETHYST.getColor();
                     break;
                 case 3:
                     //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_note_indicator_brightsky_blue));
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
                     color = NoteColor.BRIGHT_SKY_BLUE.getColor();
                     break;
                 case 4:
                     //nephritis
                     binding.nephritisSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_note_indicator_nephritis));
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
                     color = NoteColor.NEPHRITIS.getColor();
                     break;
                 case 5:
                     //sunflower
                     binding.sunflowerSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_note_indicator_sunflower));
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = NoteColor.SUNFLOWER.getColor();
                     break;
                 default:
                     //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_note_indicator_clouds));
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
                     color = NoteColor.CLOUDS.getColor();
                     break;
             }
