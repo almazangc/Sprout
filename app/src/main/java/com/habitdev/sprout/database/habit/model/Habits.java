@@ -21,7 +21,7 @@ public class Habits implements Serializable {
     private final String description;
 
     @ColumnInfo(name = "on_reform")
-    private final boolean onReform;
+    private boolean onReform;
 
     @ColumnInfo(name = "modifiable")
     private final boolean modifiable;
@@ -97,6 +97,10 @@ public class Habits implements Serializable {
 
     public boolean isOnReform() {
         return onReform;
+    }
+
+    public void setOnReform(boolean onReform) {
+        this.onReform = onReform;
     }
 
     public boolean isModifiable() {

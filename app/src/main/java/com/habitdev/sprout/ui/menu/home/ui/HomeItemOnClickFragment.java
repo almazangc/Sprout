@@ -58,8 +58,8 @@ public class HomeItemOnClickFragment extends Fragment {
         binding.homeItemOnClickHabitTitle.setText(habit.getHabit());
         binding.homeItemOnClickHabitDescription.setText(habit.getDescription());
 
-        binding.homeItemOnClickHabitUpVotes.setText((String.format(Locale.getDefault(), "%d", 0)));
-        binding.homeItemOnClickHabitDownVotes.setText((String.format(Locale.getDefault(), "%d", 0)));
+//        binding.homeItemOnClickHabitUpVotes.setText((String.format(Locale.getDefault(), "%d", 0)));
+//        binding.homeItemOnClickHabitDownVotes.setText((String.format(Locale.getDefault(), "%d", 0)));
 
         binding.homeItemOnClickStatus.setText(habit.isOnReform() ? "ON REFORM" : "AVAILABLE");
         binding.homeItemOnClickHabitDateStartedOnReform.setText(habit.getDate_started());

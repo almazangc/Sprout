@@ -81,19 +81,8 @@ public class HomeFragment extends Fragment implements IRecyclerView {
                 switch (direction){
                     case ItemTouchHelper.END:
                         Habits habits = habitsOnReform.get(viewHolder.getBindingAdapterPosition());
-                        habitWithSubroutinesViewModel.update(
-                            new Habits(
-                                habits.getPk_habit_uid(),
-                                habits.getHabit(),
-                                habits.getDescription(),
-                                false,
-                                habits.isModifiable(),
-                                habits.getAbstinence(),
-                                habits.getRelapse(),
-                                habits.getDate_started(),
-                                habits.getTotal_subroutine(),
-                                habits.getCompleted_subroutine()
-                        ));
+                        habits.setOnReform(false);
+                        habitWithSubroutinesViewModel.update(habits);
                         homeParentItemAdapter.notifyItemRemoved(viewHolder.getBindingAdapterPosition());
                         break;
                     case ItemTouchHelper.START:

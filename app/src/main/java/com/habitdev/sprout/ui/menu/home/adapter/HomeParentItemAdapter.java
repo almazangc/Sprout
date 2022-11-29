@@ -159,7 +159,8 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             });
 
             drop.setOnClickListener(view -> {
-                Toast.makeText(itemView.getContext(), "Drop", Toast.LENGTH_SHORT).show();
+                habit.setOnReform(false);
+                habitWithSubroutinesViewModel.update(habit);
             });
         }
     }

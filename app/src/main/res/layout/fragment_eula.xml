@@ -58,32 +58,32 @@
 
         </ScrollView>
 
-        <Button
-            android:id="@+id/btn_Agree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_toStartOf="@id/btn_Disagree"
-            android:background="@drawable/background_rounded_waikawa_grey_btn"
-            android:text="@string/agree"
-            android:textColor="@color/ClOUDS_"
-            android:textStyle="bold"
-            tools:ignore="TextContrastCheck" />
+    <Button
+        android:id="@+id/btn_Agree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@id/btn_Disagree"
+        android:background="@drawable/background_rounded_waikawa_grey_btn"
+        android:text="@string/agree"
+        android:textColor="@color/ClOUDS_"
+        android:textStyle="bold"
+        tools:ignore="TextContrastCheck" />
 
-        <Button
-            android:id="@+id/btn_Disagree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/background_rounded_coral_red_btn"
-            android:paddingLeft="10sp"
-            android:paddingRight="10sp"
-            android:text="@string/disagree"
-            android:textColor="@color/ClOUDS_"
-            android:textStyle="bold"
-            tools:ignore="TextContrastCheck" />
+    <Button
+        android:id="@+id/btn_Disagree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/background_rounded_coral_red_btn"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="@string/disagree"
+        android:textColor="@color/ClOUDS_"
+        android:textStyle="bold"
+        tools:ignore="TextContrastCheck" />
 </RelativeLayout>

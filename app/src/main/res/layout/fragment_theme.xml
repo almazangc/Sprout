@@ -101,6 +101,7 @@
             </RadioGroup>
 
             <Button
+                android:id="@+id/set_selected_theme_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/theme_radio_group"
@@ -114,16 +115,5 @@
                 android:textSize="16sp"
                 android:textStyle="normal" />
         </RelativeLayout>
-
-        <!--        <TextView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_centerInParent="true"-->
-        <!--            android:layout_margin="20dp"-->
-        <!--            android:text="This is for selecting themes, light, dark or system(default). Others to be added"-->
-        <!--            android:textAlignment="center"-->
-        <!--            android:textColor="@color/NIGHT"-->
-        <!--            android:textSize="12dp" />-->
-
     </RelativeLayout>
 </FrameLayout>
