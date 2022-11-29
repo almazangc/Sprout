@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        homeParentItemAdapter = new HomeParentItemAdapter(habitsOnReform, this, getViewLifecycleOwner());
+        homeParentItemAdapter = new HomeParentItemAdapter(habitsOnReform, this, requireActivity());
         binding.homeRecyclerView.setAdapter(homeParentItemAdapter);
 
         recyclerViewObserver();
@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
     @Override
     public void onItemClick(int position) {
-        HomeItemOnClickFragment onClickFragment = new HomeItemOnClickFragment(habitsOnReform.get(position));
+        HomeItemOnClickFragment onClickFragment = new HomeItemOnClickFragment(habitsOnReform.get(position), requireActivity());
         getChildFragmentManager()
                 .beginTransaction()
                 .replace(binding.homeFrameLayout.getId(), onClickFragment)

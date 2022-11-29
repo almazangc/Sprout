@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.database.comment.CommentViewModel;
@@ -16,12 +17,15 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeItemOnClickViewBinding;
 import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
+import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeItemOnClickFragment extends Fragment {
 
@@ -29,13 +33,15 @@ public class HomeItemOnClickFragment extends Fragment {
     private Habits habit;
     private CommentViewModel commentViewModel;
     private List<Comment> habitComments;
+    private FragmentActivity homeActivity;
 
     public HomeItemOnClickFragment() {
 
     }
 
-    public HomeItemOnClickFragment(Habits habit) {
+    public HomeItemOnClickFragment(Habits habit, FragmentActivity fragmentActivity) {
         this.habit = habit;
+        this.homeActivity = fragmentActivity;
     }
 
     @Override
@@ -58,10 +64,25 @@ public class HomeItemOnClickFragment extends Fragment {
         binding.homeItemOnClickStatus.setText(habit.isOnReform() ? "ON REFORM" : "AVAILABLE");
         binding.homeItemOnClickHabitDateStartedOnReform.setText(habit.getDate_started());
 
-        //Logic for calculating days pass since started.
-        //updates the lbl every second
+        DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
+        dateTimeElapsedUtil.calculateElapsedDateTime();
 
-        binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText("live time, info about habits");
+
+        //TODO: Functional But Leaking
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                homeActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dateTimeElapsedUtil.calculateElapsedDateTime();
+                        if (binding != null)
+                        binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+                    }
+                });
+            }
+        },0,1000);
+
         binding.homeItemOnClickHabitRelapse.setText((String.format(Locale.getDefault(), "%d", habit.getRelapse())));
         binding.homeItemOnClickHabitTotalSubroutine.setText((String.format(Locale.getDefault(), "%d", habit.getCompleted_subroutine())));
         setCommentRecyclerView();
@@ -101,7 +122,7 @@ public class HomeItemOnClickFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                //Returns to Home
+                //TODO: Fix how to manage fragments
                 HomeFragment homeFragment = new HomeFragment();
                 getChildFragmentManager()
                         .beginTransaction()

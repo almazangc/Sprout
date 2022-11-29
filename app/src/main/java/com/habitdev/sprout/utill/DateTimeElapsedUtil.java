@@ -3,6 +3,7 @@ package com.habitdev.sprout.utill;
 import android.os.Looper;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.text.ParseException;
@@ -14,13 +15,13 @@ import java.util.concurrent.TimeUnit;
 public class DateTimeElapsedUtil {
 
     private String result;
-    private MutableLiveData<String> mutableLiveDataResult;
+    private String date_started;
 
     public DateTimeElapsedUtil(String date_started) {
-        calculateElapsedDateTime(date_started);
+        this.date_started = date_started;
     }
 
-    private void calculateElapsedDateTime(String date_started) {
+    public void calculateElapsedDateTime() {
 
         SimpleDateFormat simpleDateFormatPattern = new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault());
 
@@ -46,14 +47,10 @@ public class DateTimeElapsedUtil {
     private void formatResult(long y, long d, long h, long m, long s) {
         result = ((y == 0 ? "" : y + ((y > 1) ? y + " year's " : y + " year "))
                 + (d == 0 ? "" : (d > 1) ? d + " Days, " : d + " Day, ")
-                + (h == 0 ? "00:" : (h > 1) ? h + ":" : "0" + h + ":")
-                + (m == 0 ? "00:" : (m > 1) ? m + ":" : "0" + m + ":")
-                + (s == 0 ? "00" : (s > 1) ? s + "" : "0" + s + "")
+                + (h == 0 ? "00:" : (h > 9) ? h + ":" : "0" + h + ":")
+                + (m == 0 ? "00:" : (m > 9) ? m + ":" : "0" + m + ":")
+                + (s == 0 ? "00" : (s > 9) ? s + "" : "0" + s + "")
         ).trim();
-    }
-
-    public MutableLiveData<String> getMutableLiveDataResult() {
-        return mutableLiveDataResult;
     }
 
     public String getResult() {

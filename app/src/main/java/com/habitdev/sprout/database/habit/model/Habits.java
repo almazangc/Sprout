@@ -30,7 +30,7 @@ public class Habits implements Serializable {
     private final int abstinence;
 
     @ColumnInfo(name = "relapse")
-    private final int relapse;
+    private int relapse;
 
     @ColumnInfo(name = "date_started")
     private final String date_started;
@@ -109,6 +109,10 @@ public class Habits implements Serializable {
 
     public int getRelapse() {
         return relapse;
+    }
+
+    public void setRelapse(int relapse) {
+        this.relapse = relapse;
     }
 
     public String getDate_started() {

@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu.home.adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,29 +9,34 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAdapter.HabitViewHolder> {
 
     private List<Habits> habits;
     private final com.habitdev.sprout.interfaces.IRecyclerView IRecyclerView;
-    private final LifecycleOwner lifecycleOwner;
+    private FragmentActivity fragmentActivity;
 
-    public HomeParentItemAdapter(List<Habits> habits, IRecyclerView IRecyclerView, LifecycleOwner lifecycleOwner) {
+    public HomeParentItemAdapter(List<Habits> habits, IRecyclerView IRecyclerView, FragmentActivity fragmentActivity) {
         this.habits = habits;
         this.IRecyclerView = IRecyclerView;
-        this.lifecycleOwner = lifecycleOwner;
+        this.fragmentActivity = fragmentActivity;
     }
 
     @NonNull
@@ -43,7 +49,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     @Override
     public void onBindViewHolder(@NonNull HomeParentItemAdapter.HabitViewHolder holder, int position) {
-        holder.bindHabit(habits.get(position), lifecycleOwner);
+        holder.bindHabit(habits.get(position), fragmentActivity);
     }
 
     @Override
@@ -84,10 +90,10 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             drop = itemView.findViewById(R.id.home_drop_btn);
 
             itemView.setOnClickListener(v -> {
-                if(IRecyclerView != null){
+                if (IRecyclerView != null) {
                     int position = getBindingAdapterPosition();
 
-                    if(position != RecyclerView.NO_POSITION){
+                    if (position != RecyclerView.NO_POSITION) {
                         IRecyclerView.onItemClick(position);
                     }
                 }
@@ -95,7 +101,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
         }
 
-        void bindHabit(Habits habit, LifecycleOwner lifecycleOwner) {
+        void bindHabit(Habits habit, FragmentActivity fragmentActivity) {
             habitHeader.setText(habit.getHabit());
 
             if (habit.getDescription().trim().isEmpty()) {
@@ -106,18 +112,28 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
             dateStarted.setText(habit.getDate_started());
 
-            completedSubroutine.setText(String.valueOf(habit.getTotal_subroutine()));
+            completedSubroutine.setText(String.valueOf(habit.getCompleted_subroutine()));
+
+            totalRelapse.setText((String.format(Locale.getDefault(), "%d", habit.getRelapse())));
 
             DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
-//            dateTimeElapsedUtil.getMutableLiveDataResult().observe(lifecycleOwner, new Observer<String>() {
-//                @Override
-//                public void onChanged(String timeElapsed) {
-//                    daysOfAbstinence.setText(timeElapsed);
-//                }
-//            });
-            daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+            dateTimeElapsedUtil.calculateElapsedDateTime();
 
-            totalRelapse.setText(String.valueOf(habit.getRelapse()));
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    fragmentActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            dateTimeElapsedUtil.calculateElapsedDateTime();
+                            daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+                        }
+                    });
+                }
+            },0,1000);
+
+
+            HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(fragmentActivity).get(HabitWithSubroutinesViewModel.class);
 
             upVote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Upvote", Toast.LENGTH_SHORT).show();
@@ -137,6 +153,9 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
             relapse.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Relapse", Toast.LENGTH_SHORT).show();
+                habit.setRelapse(habit.getRelapse()+1);
+                habitWithSubroutinesViewModel.update(habit);
+                totalRelapse.setText(String.valueOf(habit.getRelapse()));
             });
 
             drop.setOnClickListener(view -> {
