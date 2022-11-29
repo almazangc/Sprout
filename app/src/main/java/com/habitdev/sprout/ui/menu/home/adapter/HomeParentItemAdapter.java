@@ -8,12 +8,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.interfaces.IRecyclerView;
+import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.util.List;
 
@@ -21,10 +25,12 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     private List<Habits> habits;
     private final com.habitdev.sprout.interfaces.IRecyclerView IRecyclerView;
+    private final LifecycleOwner lifecycleOwner;
 
-    public HomeParentItemAdapter(List<Habits> habits, IRecyclerView IRecyclerView) {
+    public HomeParentItemAdapter(List<Habits> habits, IRecyclerView IRecyclerView, LifecycleOwner lifecycleOwner) {
         this.habits = habits;
         this.IRecyclerView = IRecyclerView;
+        this.lifecycleOwner = lifecycleOwner;
     }
 
     @NonNull
@@ -37,7 +43,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     @Override
     public void onBindViewHolder(@NonNull HomeParentItemAdapter.HabitViewHolder holder, int position) {
-        holder.bindHabit(habits.get(position));
+        holder.bindHabit(habits.get(position), lifecycleOwner);
     }
 
     @Override
@@ -89,7 +95,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
         }
 
-        void bindHabit(Habits habit) {
+        void bindHabit(Habits habit, LifecycleOwner lifecycleOwner) {
             habitHeader.setText(habit.getHabit());
 
             if (habit.getDescription().trim().isEmpty()) {
@@ -101,7 +107,16 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             dateStarted.setText(habit.getDate_started());
 
             completedSubroutine.setText(String.valueOf(habit.getTotal_subroutine()));
-            daysOfAbstinence.setText(String.valueOf(habit.getAbstinence()));
+
+            DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
+//            dateTimeElapsedUtil.getMutableLiveDataResult().observe(lifecycleOwner, new Observer<String>() {
+//                @Override
+//                public void onChanged(String timeElapsed) {
+//                    daysOfAbstinence.setText(timeElapsed);
+//                }
+//            });
+            daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+
             totalRelapse.setText(String.valueOf(habit.getRelapse()));
 
             upVote.setOnClickListener(view -> {

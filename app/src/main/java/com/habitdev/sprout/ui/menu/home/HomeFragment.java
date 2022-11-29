@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        homeParentItemAdapter = new HomeParentItemAdapter(habitsOnReform, this);
+        homeParentItemAdapter = new HomeParentItemAdapter(habitsOnReform, this, getViewLifecycleOwner());
         binding.homeRecyclerView.setAdapter(homeParentItemAdapter);
 
         recyclerViewObserver();

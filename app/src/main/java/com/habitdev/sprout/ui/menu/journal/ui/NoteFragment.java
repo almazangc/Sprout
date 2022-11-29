@@ -115,7 +115,7 @@ public class NoteFragment extends Fragment {
 
     private void setCurrentDate() {
         binding.noteCurrentTime.setText(
-                new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
+                new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault())
                         .format(new Date())
         );
     }

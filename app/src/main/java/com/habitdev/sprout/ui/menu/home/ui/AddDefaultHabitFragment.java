@@ -92,7 +92,7 @@ public class AddDefaultHabitFragment extends Fragment {
                     habits.isModifiable(),
                     habits.getAbstinence(),
                     habits.getRelapse(),
-                    new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
+                    new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault())
                             .format(new Date()),
                     subroutinesList.size(),
                     habits.getCompleted_subroutine()
