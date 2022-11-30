@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/add_new_habit_frame_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.menu.journal.ui.NoteFragment">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/add_new_subroutine_frame_layout"
+    tools:context=".ui.menu.subroutine.ui.ModifySubroutineFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
-        android:id="@+id/add_new_habit_container"
+        android:id="@+id/add_new_subroutine_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -19,22 +18,22 @@
             android:fillViewport="true">
 
             <RelativeLayout
-                android:id="@+id/add_new_habit_layout"
+                android:id="@+id/add_new_subroutine_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:isScrollContainer="true"
                 android:padding="16dp">
 
                 <LinearLayout
-                    android:id="@+id/add_new_habit_layout_miscellaneous"
+                    android:id="@+id/add_new_subroutine_layout_miscellaneous"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <Button
-                        android:id="@+id/add_new_habit_layout_button"
+                        android:id="@+id/add_new_subroutine_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -196,10 +195,10 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/add_new_habit_current_time"
+                    android:id="@+id/add_new_subroutine_current_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/add_new_habit_layout_miscellaneous"
+                    android:layout_below="@id/add_new_subroutine_layout_miscellaneous"
                     android:padding="5dp"
                     android:textAlignment="center"
                     android:textAllCaps="true"
@@ -208,21 +207,21 @@
                     android:textStyle="italic" />
 
                 <LinearLayout
-                    android:id="@+id/add_new_habit_title_layout"
+                    android:id="@+id/add_new_subroutine_title_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/add_new_habit_current_time"
+                    android:layout_below="@id/add_new_subroutine_current_time"
                     android:orientation="horizontal">
 
                     <View
-                        android:id="@+id/add_new_habit_color_selector"
+                        android:id="@+id/add_new_subroutine_color_selector"
                         android:layout_width="5dp"
                         android:layout_height="match_parent"
                         android:layout_margin="5dp"
                         android:background="@drawable/background_color_indicator_clouds" />
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/add_new_habit_title_card_view"
+                        android:id="@+id/add_new_subroutine_title_card_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -232,7 +231,7 @@
                         app:cardCornerRadius="10dp">
 
                         <EditText
-                            android:id="@+id/add_new_habit_title"
+                            android:id="@+id/add_new_subroutine_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/TRANSPARENT"
@@ -248,20 +247,20 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/add_new_habit_hint"
+                    android:id="@+id/add_new_subroutine_hint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/add_new_habit_title_layout"
+                    android:layout_below="@id/add_new_subroutine_title_layout"
                     android:layout_marginStart="15dp"
                     android:text="Required*"
                     android:textColor="@color/CORAL_RED"
                     android:textSize="11sp" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/add_new_habit_description_card_view"
+                    android:id="@+id/add_new_subroutine_description_card_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/add_new_habit_hint"
+                    android:layout_below="@id/add_new_subroutine_hint"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
@@ -269,7 +268,7 @@
                     app:cardCornerRadius="15dp">
 
                     <EditText
-                        android:id="@+id/add_new_habit_description"
+                        android:id="@+id/add_new_subroutine_description"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/TRANSPARENT"
@@ -282,41 +281,16 @@
                         android:textSize="13sp" />
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/add_new_habit_subroutine_card_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/add_new_habit_description_card_view"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:visibility="visible"
-                    app:cardCornerRadius="15dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/add_new_habit_subroutine"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:paddingStart="13dp"
-                        android:paddingEnd="13dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="9"
-                        tools:listitem="@layout/adapter_home_add_new_habit_parent_item" />
-                </androidx.cardview.widget.CardView>
-
                 <Button
                     android:id="@+id/add_new_habit_subroutine_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/add_new_habit_subroutine_card_view"
+                    android:layout_below="@+id/add_new_subroutine_description_card_view"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="3dp"
                     android:background="@drawable/selector_btn_normal"
-                    android:drawableStart="@drawable/ic_add"
+                    android:drawableStart="@drawable/ic_save"
                     android:drawablePadding="10dp"
                     android:ellipsize="end"
                     android:insetTop="0dp"
@@ -325,29 +299,14 @@
                     android:minWidth="0dp"
                     android:minHeight="40dp"
                     android:paddingLeft="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="Insert Subroutine"
+                    android:paddingEnd="20dp"
+                    android:text="Save"
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textColor="@color/NIGHT"
                     android:textSize="13sp" />
-
             </RelativeLayout>
         </ScrollView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_new_habit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:contentDescription="Save New Habit"
-            app:backgroundTint="@color/CLOUDS"
-            app:borderWidth="5dp"
-            app:fabCustomSize="45dp"
-            app:srcCompat="@drawable/ic_save" />
-
     </RelativeLayout>
+
 </FrameLayout>

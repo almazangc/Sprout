@@ -351,16 +351,19 @@
     </fragment>
     <fragment
         android:id="@+id/addNewHabitFragment"
-        android:name="com.habitdev.sprout.ui.menu.home.ui.AddNewHabitFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment"
         android:label="fragment_add_new_habit"
         tools:layout="@layout/fragment_add_new_habit" >
         <action
             android:id="@+id/action_addNewHabitFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_addNewHabitFragment_to_homeAddNewInsertSubroutineFragment"
+            app:destination="@id/homeAddNewInsertSubroutineFragment" />
     </fragment>
     <fragment
         android:id="@+id/addDefaultHabitFragment"
-        android:name="com.habitdev.sprout.ui.menu.home.ui.AddDefaultHabitFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment"
         android:label="fragment_add_default_habit"
         tools:layout="@layout/fragment_add_default_habit" >
         <action
@@ -369,9 +372,9 @@
     </fragment>
     <fragment
         android:id="@+id/addNewSubroutineFragment"
-        android:name="com.habitdev.sprout.ui.menu.subroutine.ui.AddNewSubroutineFragment"
+        android:name="com.habitdev.sprout.ui.menu.subroutine.ui.ModifySubroutineFragment"
         android:label="fragment_add_new_subroutine"
-        tools:layout="@layout/fragment_add_new_subroutine" >
+        tools:layout="@layout/fragment_modify_subroutine" >
         <action
             android:id="@+id/action_addNewSubroutineFragment_to_subroutineFragment"
             app:destination="@id/subroutineFragment" />
@@ -438,5 +441,14 @@
         <action
             android:id="@+id/action_terminalFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeAddNewInsertSubroutineFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.HomeAddNewInsertSubroutineFragment"
+        android:label="fragment_home_add_new_insert_subroutine"
+        tools:layout="@layout/fragment_home_add_new_insert_subroutine" >
+        <action
+            android:id="@+id/action_homeAddNewInsertSubroutineFragment_to_addNewHabitFragment"
+            app:destination="@id/addNewHabitFragment" />
     </fragment>
 </navigation>

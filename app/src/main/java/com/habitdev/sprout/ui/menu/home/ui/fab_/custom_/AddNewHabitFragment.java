@@ -1,7 +1,8 @@
-package com.habitdev.sprout.ui.menu.home.ui;
+package com.habitdev.sprout.ui.menu.home.ui.fab_.custom_;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,13 +29,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class AddNewHabitFragment extends Fragment {
+public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSubroutineFragment.onAddSaveInput{
 
     private FragmentAddNewHabitBinding binding;
 
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private Habits habit;
     private List<Subroutines> subroutinesList;
+    private Subroutines subroutine;
     private final int ic_check;
     private int current_selected_color;
     private int old_selected_color;
@@ -56,6 +58,13 @@ public class AddNewHabitFragment extends Fragment {
         this.subroutinesList = new ArrayList<>();
     }
 
+    @Override
+    public void sendInput(Subroutines input) {
+        //Input Reciever
+        this.subroutine = input;
+        Log.d("tag", "sendInput: " + subroutine.toString());
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,6 +74,7 @@ public class AddNewHabitFragment extends Fragment {
         setCurrentTime();
         setHabitColor();
         colorSelect();
+        insertSubroutine();
         insertNewHabit();
         return binding.getRoot();
     }
@@ -237,6 +247,17 @@ public class AddNewHabitFragment extends Fragment {
                     habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
                 }
                 returnHomeFragment();
+            }
+        });
+    }
+
+    private void insertSubroutine(){
+        binding.addNewHabitSubroutineBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HomeAddNewInsertSubroutineFragment dialog = new HomeAddNewInsertSubroutineFragment();
+                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AddNewHabitFragment.this.getId()), 1);
+                dialog.show(getChildFragmentManager(), "TAG");
             }
         });
     }

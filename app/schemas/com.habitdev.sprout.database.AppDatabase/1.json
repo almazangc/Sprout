@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fd3592537478f798ac28f0d69f5cef57",
+    "identityHash": "83ee8984d357a0e5b24bde4493ac5af2",
     "entities": [
       {
         "tableName": "User",
@@ -368,7 +368,7 @@
       },
       {
         "tableName": "Subroutines",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `isMarkedDone` INTEGER NOT NULL, `streak` INTEGER NOT NULL, `total_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `isModifiable` INTEGER, `isMarkedDone` INTEGER NOT NULL, `streak` INTEGER NOT NULL, `total_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_subroutine_uid",
@@ -392,6 +392,18 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isModifiable",
+            "columnName": "isModifiable",
+            "affinity": "INTEGER",
             "notNull": false
           },
           {
@@ -504,7 +516,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fd3592537478f798ac28f0d69f5cef57')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '83ee8984d357a0e5b24bde4493ac5af2')"
     ]
   }
 }

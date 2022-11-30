@@ -20,7 +20,7 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
-import com.habitdev.sprout.ui.menu.subroutine.ui.AddNewSubroutineFragment;
+import com.habitdev.sprout.ui.menu.subroutine.ui.ModifySubroutineFragment;
 
 import java.util.List;
 
@@ -116,7 +116,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
                 modifySubroutineBtn.setOnClickListener(view -> {
                     FragmentManager fragmentManager = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
                     fragmentManager.beginTransaction()
-                            .replace(binding.subroutineFrameLayout.getId(), new AddNewSubroutineFragment())
+                            .replace(binding.subroutineFrameLayout.getId(), new ModifySubroutineFragment())
                             .commit();
                     binding.subroutineContainer.setVisibility(View.GONE);
                     setOnDestroyAdapter();

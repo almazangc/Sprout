@@ -11,17 +11,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.habitdev.sprout.databinding.FragmentAddNewSubroutineBinding;
+import com.habitdev.sprout.databinding.FragmentModifySubroutineBinding;
 import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
 
-public class AddNewSubroutineFragment extends Fragment {
+public class ModifySubroutineFragment extends Fragment {
 
-   private FragmentAddNewSubroutineBinding binding;
+    private FragmentModifySubroutineBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentAddNewSubroutineBinding.inflate(inflater, container, false);
+        binding = FragmentModifySubroutineBinding.inflate(inflater, container, false);
 
         onBackPress();
 

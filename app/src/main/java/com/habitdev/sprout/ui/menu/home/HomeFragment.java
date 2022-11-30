@@ -20,8 +20,8 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.interfaces.IRecyclerView;
-import com.habitdev.sprout.ui.menu.home.ui.AddDefaultHabitFragment;
-import com.habitdev.sprout.ui.menu.home.ui.AddNewHabitFragment;
+import com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment;
+import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.HomeItemOnClickFragment;
 
 import java.util.List;

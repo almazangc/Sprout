@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -29,6 +30,12 @@ public class Subroutines implements Serializable {
     @ColumnInfo(name = "description")
     private String description;
 
+    @ColumnInfo(name = "color")
+    private String color;
+
+    @ColumnInfo(name = "isModifiable")
+    private Boolean isModifiable;
+
     @ColumnInfo(name = "isMarkedDone")
     private boolean is_marked_done;
 
@@ -41,13 +48,29 @@ public class Subroutines implements Serializable {
     @ColumnInfo(name = "skips")
     private int skips;
 
-    public Subroutines(String subroutine, String description) {
+    @Ignore
+    public Subroutines(String subroutine, String description, String color, boolean isModifiable) {
         this.subroutine = subroutine;
         this.description = description;
+        this.color = color;
+        this.isModifiable = isModifiable;
         this.is_marked_done = false;
         this.streak = 0;
         this.total_streak = 0;
         this.skips = 0;
+    }
+
+    public Subroutines(long pk_subroutine_uid, long fk_habit_uid, String subroutine, String description, String color, Boolean isModifiable, boolean is_marked_done, int streak, int total_streak, int skips) {
+        this.pk_subroutine_uid = pk_subroutine_uid;
+        this.fk_habit_uid = fk_habit_uid;
+        this.subroutine = subroutine;
+        this.description = description;
+        this.color = color;
+        this.isModifiable = isModifiable;
+        this.is_marked_done = is_marked_done;
+        this.streak = streak;
+        this.total_streak = total_streak;
+        this.skips = skips;
     }
 
     @NonNull
@@ -58,6 +81,8 @@ public class Subroutines implements Serializable {
                 ", fk_habit_uid=" + fk_habit_uid +
                 ", subroutine='" + subroutine + '\'' +
                 ", description='" + description + '\'' +
+                ", color='" + color + '\'' +
+                ", isModifiable=" + isModifiable +
                 ", is_marked_done=" + is_marked_done +
                 ", streak=" + streak +
                 ", total_streak=" + total_streak +
@@ -95,6 +120,22 @@ public class Subroutines implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public Boolean getModifiable() {
+        return isModifiable;
+    }
+
+    public void setModifiable(Boolean modifiable) {
+        isModifiable = modifiable;
     }
 
     public boolean isIs_marked_done() {

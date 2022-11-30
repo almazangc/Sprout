@@ -108,31 +108,37 @@ public class HomeItemOnClickFragment extends Fragment {
         binding.cloudMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(0);
             setSelected_color();
+            update_habit_color();
         });
 
         binding.alzarinMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(1);
             setSelected_color();
+            update_habit_color();
         });
 
         binding.amethystMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(2);
             setSelected_color();
+            update_habit_color();
         });
 
         binding.brightskyBlueMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(3);
             setSelected_color();
+            update_habit_color();
         });
 
         binding.nephritisMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(4);
             setSelected_color();
+            update_habit_color();
         });
 
         binding.sunflowerMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(5);
             setSelected_color();
+            update_habit_color();
         });
     }
 
@@ -231,7 +237,6 @@ public class HomeItemOnClickFragment extends Fragment {
     private void updateSelectedColorIndex(int newSelected) {
         old_selected_color = current_selected_color;
         current_selected_color = newSelected;
-        update_habit_color();
     }
 
     private void setBackgroundColorIndicator(Drawable backgroundNoteIndicator) {

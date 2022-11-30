@@ -180,7 +180,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Subroutines sample = new Subroutines(getString(R.string.sample_subroutine_title), getString(R.string.sample_subroutine_description));
+            Subroutines sample = new Subroutines(getString(R.string.sample_subroutine_title), getString(R.string.sample_subroutine_description), AppColor.BRIGHT_SKY_BLUE.getColor(), false);
             Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description), AppColor.CLOUDS.getColor(),false, false);
             long id = habitWithSubroutinesDao.insertHabit(habits);
             List<Subroutines> list = new ArrayList<>();
@@ -265,9 +265,9 @@ public abstract class AppDatabase extends RoomDatabase {
             list.clear();
             habits = new Habits("Poor Sleep Management", "Not Sleeping on time daily", AppColor.SUNFLOWER.getColor(), false, false);
             id = habitWithSubroutinesDao.insertHabit(habits);
-            list.add(new Subroutines("Relax.", "Find calming, relaxing activities to do before bedtime."));
-            list.add(new Subroutines("Adjust your bedtime, but be patient", "If you’re aiming to go to sleep earlier, try slowly scaling back your bedtime until you are at the desired hour."));
-            list.add(new Subroutines("Do not nap, even if you feel tired", "Napping can interfere with going to sleep at night. Pelayo recommends scheduling exercise when you feel like napping. “The exercise will chase away the sleepiness. Then you can save up that drive to sleep for later,” he says."));
+            list.add(new Subroutines("Relax.", "Find calming, relaxing activities to do before bedtime.", AppColor.SUNFLOWER.getColor(), false));
+            list.add(new Subroutines("Adjust your bedtime, but be patient", "If you’re aiming to go to sleep earlier, try slowly scaling back your bedtime until you are at the desired hour.", AppColor.NEPHRITIS.getColor(),false));
+            list.add(new Subroutines("Do not nap, even if you feel tired", "Napping can interfere with going to sleep at night. Pelayo recommends scheduling exercise when you feel like napping. “The exercise will chase away the sleepiness. Then you can save up that drive to sleep for later,” he says.", AppColor.BRIGHT_SKY_BLUE.getColor(), false));
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
 //            habitDao.insert(new Habit(false, "Stress Eating", "Eating a lot due to stress", ArrayListConverter.fromString("[3,5,8]")));
