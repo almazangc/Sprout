@@ -15,10 +15,10 @@ public class Habits implements Serializable {
     private long pk_habit_uid;
 
     @ColumnInfo(name = "habit")
-    private final String habit;
+    private String habit;
 
     @ColumnInfo(name = "desc")
-    private final String description;
+    private String description;
 
     @ColumnInfo(name = "color")
     private String color;
@@ -36,10 +36,10 @@ public class Habits implements Serializable {
     private int relapse;
 
     @ColumnInfo(name = "date_started")
-    private final String date_started;
+    private String date_started;
 
     @ColumnInfo(name = "total_subroutine")
-    private final int total_subroutine;
+    private int total_subroutine;
 
     @ColumnInfo(name = "completed_subroutines")
     private final int completed_subroutine;
@@ -92,12 +92,24 @@ public class Habits implements Serializable {
         return pk_habit_uid;
     }
 
+    public void setPk_habit_uid(long pk_habit_uid) {
+        this.pk_habit_uid = pk_habit_uid;
+    }
+
     public String getHabit() {
         return habit;
     }
 
+    public void setHabit(String habit) {
+        this.habit = habit;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getColor() {
@@ -136,8 +148,16 @@ public class Habits implements Serializable {
         return date_started;
     }
 
+    public void setDate_started(String date_started) {
+        this.date_started = date_started;
+    }
+
     public int getTotal_subroutine() {
         return total_subroutine;
+    }
+
+    public void setTotal_subroutine(int total_subroutine) {
+        this.total_subroutine = total_subroutine;
     }
 
     public int getCompleted_subroutine() {

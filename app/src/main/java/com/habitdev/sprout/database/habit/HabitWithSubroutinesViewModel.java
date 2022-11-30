@@ -40,6 +40,14 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         repository.updateHabit(habit);
     }
 
+    public long insertHabit(Habits habits){
+        return repository.insertHabit(habits);
+    }
+
+    public void insertSubroutines(List<Subroutines> subroutinesList){
+        repository.insertSubroutines(subroutinesList);
+    }
+
     public List<Habits> getAllHabitOnReform() {
         return allHabitOnReform;
     }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -109,37 +108,31 @@ public class HomeItemOnClickFragment extends Fragment {
         binding.cloudMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(0);
             setSelected_color();
-
         });
 
         binding.alzarinMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(1);
             setSelected_color();
-
         });
 
         binding.amethystMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(2);
             setSelected_color();
-
         });
 
         binding.brightskyBlueMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(3);
             setSelected_color();
-
         });
 
         binding.nephritisMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(4);
             setSelected_color();
-
         });
 
         binding.sunflowerMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(5);
             setSelected_color();
-
         });
     }
 
@@ -171,37 +164,37 @@ public class HomeItemOnClickFragment extends Fragment {
                 case 1:
                     //alzarin
                     binding.alzarinSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
+                    setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
                     color = AppColor.ALZARIN.getColor();
                     break;
                 case 2:
                     //amethyst
                     binding.amethystSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
+                    setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
                     color = AppColor.AMETHYST.getColor();
                     break;
                 case 3:
                     //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
+                    setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
                     color = AppColor.BRIGHT_SKY_BLUE.getColor();
                     break;
                 case 4:
                     //nephritis
                     binding.nephritisSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
+                    setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
                     color = AppColor.NEPHRITIS.getColor();
                     break;
                 case 5:
                     //sunflower
                     binding.sunflowerSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
+                    setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = AppColor.SUNFLOWER.getColor();
                     break;
                 default:
                     //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
-                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
+                    setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
                     color = AppColor.CLOUDS.getColor();
                     break;
             }
@@ -241,31 +234,12 @@ public class HomeItemOnClickFragment extends Fragment {
         update_habit_color();
     }
 
-    private void setBackgroundNoteIndicator(Drawable backgroundNoteIndicator) {
+    private void setBackgroundColorIndicator(Drawable backgroundNoteIndicator) {
         binding.homeItemOnClickColorSelector.setBackground(backgroundNoteIndicator);
     }
 
     private void update_habit_color(){
-        switch (current_selected_color){
-            case 1:
-                habit.setColor(AppColor.ALZARIN.getColor());
-                break;
-            case 2:
-                habit.setColor(AppColor.AMETHYST.getColor());
-                break;
-            case 3:
-                habit.setColor(AppColor.BRIGHT_SKY_BLUE.getColor());
-                break;
-            case 4:
-                habit.setColor(AppColor.NEPHRITIS.getColor());
-                break;
-            case 5:
-                habit.setColor(AppColor.SUNFLOWER.getColor());
-                break;
-            default:
-                habit.setColor(AppColor.CLOUDS.getColor());
-                break;
-        }
+        habit.setColor(color);
         habitWithSubroutinesViewModel.update(habit);
     }
 
@@ -321,6 +295,7 @@ public class HomeItemOnClickFragment extends Fragment {
         commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).removeObservers(getViewLifecycleOwner());
         habit = null;
         commentViewModel = null;
+        habitWithSubroutinesViewModel = null;
         binding = null;
     }
 }

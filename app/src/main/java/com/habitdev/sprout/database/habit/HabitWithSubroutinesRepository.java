@@ -54,6 +54,14 @@ public class HabitWithSubroutinesRepository {
         }
     }
 
+    public long insertHabit(Habits habits){
+        return habitWithSubroutinesDao.insertHabit(habits);
+    }
+
+    public void insertSubroutines(List<Subroutines> subroutinesList){
+        habitWithSubroutinesDao.insertSubroutines(subroutinesList);
+    }
+
     public List<Habits> getAllHabitOnReform() {
         return allHabitOnReform;
     }
