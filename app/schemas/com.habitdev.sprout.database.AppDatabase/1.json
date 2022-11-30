@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "1704dc53b700af52d8cc3709dbf462ae",
+    "identityHash": "fd3592537478f798ac28f0d69f5cef57",
     "entities": [
       {
         "tableName": "User",
@@ -288,7 +288,7 @@
       },
       {
         "tableName": "Habits",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `color` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_habit_uid",
@@ -305,6 +305,12 @@
           {
             "fieldPath": "description",
             "columnName": "desc",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "color",
+            "columnName": "color",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -498,7 +504,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1704dc53b700af52d8cc3709dbf462ae')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fd3592537478f798ac28f0d69f5cef57')"
     ]
   }
 }

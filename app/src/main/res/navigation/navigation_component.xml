@@ -344,7 +344,7 @@
         android:id="@+id/addNoteFragment"
         android:name="com.habitdev.sprout.ui.menu.journal.ui.NoteFragment"
         android:label="fragment_journal_new"
-        tools:layout="@layout/fragment_note" >
+        tools:layout="@layout/fragment_add_note" >
         <action
             android:id="@+id/action_addNoteFragment_to_journalFragment"
             app:destination="@id/journalFragment" />

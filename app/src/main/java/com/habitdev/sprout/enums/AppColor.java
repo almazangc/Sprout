@@ -1,6 +1,6 @@
 package com.habitdev.sprout.enums;
 
-public enum NoteColor {
+public enum AppColor {
     CLOUDS("CLOUDS"),
     ALZARIN("ALZARIN"),
     AMETHYST("AMETHYST"),
@@ -10,7 +10,7 @@ public enum NoteColor {
 
     String color;
 
-    NoteColor(String color){
+    AppColor(String color){
         this.color = color;
     }
 

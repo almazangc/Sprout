@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu.home.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
@@ -19,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
@@ -70,11 +74,15 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     static class HabitViewHolder extends RecyclerView.ViewHolder {
 
+        CardView ItemCardView;
         TextView habitHeader, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalRelapse;
         Button upVote, downVote, modify, relapse, drop;
+        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
 
         public HabitViewHolder(@NonNull View itemView, IRecyclerView IRecyclerView) {
             super(itemView);
+
+            ItemCardView = itemView.findViewById(R.id.adapter_home_parent_item_container);
             habitHeader = itemView.findViewById(R.id.header);
             habitDescription = itemView.findViewById(R.id.home_item_on_click_habit_description);
             dateStarted = itemView.findViewById(R.id.date_started);
@@ -99,9 +107,31 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 }
             });
 
+            cs_cloud = ContextCompat.getColorStateList(itemView.getContext(), R.color.CLOUDS);
+            cs_amethyst = ContextCompat.getColorStateList(itemView.getContext(), R.color.AMETHYST);
+            cs_sunflower = ContextCompat.getColorStateList(itemView.getContext(), R.color.SUNFLOWER);
+            cs_nephritis = ContextCompat.getColorStateList(itemView.getContext(), R.color.NEPHRITIS);
+            cs_bright_sky_blue = ContextCompat.getColorStateList(itemView.getContext(), R.color.BRIGHT_SKY_BLUE);
+            cs_alzarin = ContextCompat.getColorStateList(itemView.getContext(), R.color.ALIZARIN);
+
         }
 
         void bindHabit(Habits habit, FragmentActivity fragmentActivity) {
+
+            if (habit.getColor().equals(AppColor.ALZARIN.getColor())){
+                ItemCardView.setBackgroundTintList(cs_alzarin);
+            } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())){
+                ItemCardView.setBackgroundTintList(cs_amethyst);
+            } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())){
+                ItemCardView.setBackgroundTintList(cs_bright_sky_blue);
+            } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())){
+                ItemCardView.setBackgroundTintList(cs_nephritis);
+            } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())){
+                ItemCardView.setBackgroundTintList(cs_sunflower);
+            } else {
+                ItemCardView.setBackgroundTintList(cs_cloud);
+            }
+
             habitHeader.setText(habit.getHabit());
 
             if (habit.getDescription().trim().isEmpty()) {

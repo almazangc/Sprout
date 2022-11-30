@@ -87,6 +87,7 @@ public class AddDefaultHabitFragment extends Fragment {
             habitWithSubroutinesViewModel.update(new Habits(
                     habits.getPk_habit_uid(),
                     habits.getHabit(),
+                    habits.getColor(),
                     habits.getDescription(),
                     true,
                     habits.isModifiable(),

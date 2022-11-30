@@ -1,20 +1,26 @@
 package com.habitdev.sprout.ui.menu.home.ui;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
+import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeItemOnClickViewBinding;
+import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
@@ -33,41 +39,45 @@ public class HomeItemOnClickFragment extends Fragment {
     private Habits habit;
     private CommentViewModel commentViewModel;
     private List<Comment> habitComments;
-    private FragmentActivity homeActivity;
+    private final FragmentActivity homeActivity;
 
-    public HomeItemOnClickFragment() {
-
-    }
+    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private final int ic_check;
+    private int current_selected_color;
+    private int old_selected_color;
+    private String color;
 
     public HomeItemOnClickFragment(Habits habit, FragmentActivity fragmentActivity) {
         this.habit = habit;
         this.homeActivity = fragmentActivity;
+        this.ic_check = R.drawable.ic_check;
+        this.current_selected_color = 0;
+        this.old_selected_color = 0;
+        this.color = AppColor.CLOUDS.getColor();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeItemOnClickViewBinding.inflate(inflater, container, false);
         commentViewModel = new ViewModelProvider(requireActivity()).get(CommentViewModel.class);
-        updateUI();
+        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+        setHabit();
+        colorSelect();
         insertComment();
+        setCommentRecyclerView();
         onBackPress();
         return binding.getRoot();
     }
 
-    private void updateUI(){
+    private void setHabit(){
+        setHabitColor();
         binding.homeItemOnClickHabitTitle.setText(habit.getHabit());
         binding.homeItemOnClickHabitDescription.setText(habit.getDescription());
-
-//        binding.homeItemOnClickHabitUpVotes.setText((String.format(Locale.getDefault(), "%d", 0)));
-//        binding.homeItemOnClickHabitDownVotes.setText((String.format(Locale.getDefault(), "%d", 0)));
-
         binding.homeItemOnClickStatus.setText(habit.isOnReform() ? "ON REFORM" : "AVAILABLE");
         binding.homeItemOnClickHabitDateStartedOnReform.setText(habit.getDate_started());
 
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
         dateTimeElapsedUtil.calculateElapsedDateTime();
-
-
         //TODO: Functional But Leaking
         new Timer().schedule(new TimerTask() {
             @Override
@@ -85,7 +95,178 @@ public class HomeItemOnClickFragment extends Fragment {
 
         binding.homeItemOnClickHabitRelapse.setText((String.format(Locale.getDefault(), "%d", habit.getRelapse())));
         binding.homeItemOnClickHabitTotalSubroutine.setText((String.format(Locale.getDefault(), "%d", habit.getCompleted_subroutine())));
-        setCommentRecyclerView();
+    }
+
+    private void colorSelect() {
+        binding.homeItemOnClickColorSelector.setOnClickListener(v -> {
+            if (binding.homeItemOnClickMiscellaneous.getVisibility() == View.GONE) {
+                binding.homeItemOnClickMiscellaneous.setVisibility(View.VISIBLE);
+            } else {
+                binding.homeItemOnClickMiscellaneous.setVisibility(View.GONE);
+            }
+        });
+
+        binding.cloudMisc.setOnClickListener(v -> {
+            updateSelectedColorIndex(0);
+            setSelected_color();
+
+        });
+
+        binding.alzarinMisc.setOnClickListener(v -> {
+            updateSelectedColorIndex(1);
+            setSelected_color();
+
+        });
+
+        binding.amethystMisc.setOnClickListener(v -> {
+            updateSelectedColorIndex(2);
+            setSelected_color();
+
+        });
+
+        binding.brightskyBlueMisc.setOnClickListener(v -> {
+            updateSelectedColorIndex(3);
+            setSelected_color();
+
+        });
+
+        binding.nephritisMisc.setOnClickListener(v -> {
+            updateSelectedColorIndex(4);
+            setSelected_color();
+
+        });
+
+        binding.sunflowerMisc.setOnClickListener(v -> {
+            updateSelectedColorIndex(5);
+            setSelected_color();
+
+        });
+    }
+
+    private void setHabitColor(){
+        if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
+            current_selected_color = 1;
+            setSelected_color();
+        } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
+            current_selected_color = 2;
+            setSelected_color();
+        } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
+            current_selected_color = 3;
+            setSelected_color();
+        } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
+            current_selected_color = 4;
+            setSelected_color();
+        } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
+            current_selected_color = 5;
+            setSelected_color();
+        } else {
+            old_selected_color = 1;
+            setSelected_color();
+        }
+    }
+
+    private void setSelected_color() {
+        if (old_selected_color != current_selected_color) {
+            switch (current_selected_color) {
+                case 1:
+                    //alzarin
+                    binding.alzarinSelected.setImageResource(ic_check);
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
+                    color = AppColor.ALZARIN.getColor();
+                    break;
+                case 2:
+                    //amethyst
+                    binding.amethystSelected.setImageResource(ic_check);
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
+                    color = AppColor.AMETHYST.getColor();
+                    break;
+                case 3:
+                    //bright_sky_blue
+                    binding.brightskyBlueSelected.setImageResource(ic_check);
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
+                    color = AppColor.BRIGHT_SKY_BLUE.getColor();
+                    break;
+                case 4:
+                    //nephritis
+                    binding.nephritisSelected.setImageResource(ic_check);
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
+                    color = AppColor.NEPHRITIS.getColor();
+                    break;
+                case 5:
+                    //sunflower
+                    binding.sunflowerSelected.setImageResource(ic_check);
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
+                    color = AppColor.SUNFLOWER.getColor();
+                    break;
+                default:
+                    //clouds night
+                    binding.cloudSelected.setImageResource(ic_check);
+                    setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
+                    color = AppColor.CLOUDS.getColor();
+                    break;
+            }
+
+            switch (old_selected_color) {
+                case 1:
+                    //alzarin
+                    binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
+                    break;
+                case 2:
+                    //amethyst
+                    binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
+                    break;
+                case 3:
+                    //bright_sky_blue
+                    binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);
+                    break;
+                case 4:
+                    //nephritis
+                    binding.nephritisSelected.setImageResource(R.color.TRANSPARENT);
+                    break;
+                case 5:
+                    //sunflower
+                    binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
+                    break;
+                default:
+                    //clouds night
+                    binding.cloudSelected.setImageResource(R.color.TRANSPARENT);
+                    break;
+            }
+        }
+    }
+
+    private void updateSelectedColorIndex(int newSelected) {
+        old_selected_color = current_selected_color;
+        current_selected_color = newSelected;
+        update_habit_color();
+    }
+
+    private void setBackgroundNoteIndicator(Drawable backgroundNoteIndicator) {
+        binding.homeItemOnClickColorSelector.setBackground(backgroundNoteIndicator);
+    }
+
+    private void update_habit_color(){
+        switch (current_selected_color){
+            case 1:
+                habit.setColor(AppColor.ALZARIN.getColor());
+                break;
+            case 2:
+                habit.setColor(AppColor.AMETHYST.getColor());
+                break;
+            case 3:
+                habit.setColor(AppColor.BRIGHT_SKY_BLUE.getColor());
+                break;
+            case 4:
+                habit.setColor(AppColor.NEPHRITIS.getColor());
+                break;
+            case 5:
+                habit.setColor(AppColor.SUNFLOWER.getColor());
+                break;
+            default:
+                habit.setColor(AppColor.CLOUDS.getColor());
+                break;
+        }
+        habitWithSubroutinesViewModel.update(habit);
     }
 
     private void insertComment(){

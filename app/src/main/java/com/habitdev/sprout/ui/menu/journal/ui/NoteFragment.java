@@ -17,11 +17,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.database.note.NoteViewModel;
-import com.habitdev.sprout.databinding.FragmentNoteBinding;
+import com.habitdev.sprout.database.note.model.Note;
+import com.habitdev.sprout.databinding.FragmentAddNoteBinding;
+import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
-import com.habitdev.sprout.enums.NoteColor;
 import com.habitdev.sprout.ui.menu.journal.JournalFragment;
 
 import java.text.SimpleDateFormat;
@@ -30,7 +30,7 @@ import java.util.Locale;
 
 public class NoteFragment extends Fragment {
 
-    private FragmentNoteBinding binding;
+    private FragmentAddNoteBinding binding;
     private NoteViewModel noteViewModel;
     private final FragmentManager fragmentManager;
     private final int ic_check;
@@ -45,7 +45,7 @@ public class NoteFragment extends Fragment {
         this.ic_check = R.drawable.ic_check;
         this.current_selected_color = 0;
         this.old_selected_color = 0;
-        this.color = NoteColor.CLOUDS.getColor();
+        this.color = AppColor.CLOUDS.getColor();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class NoteFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentNoteBinding.inflate(inflater, container, false);
+        binding = FragmentAddNoteBinding.inflate(inflater, container, false);
         noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
         setFabDisplay();
         setNotes();
@@ -67,8 +67,8 @@ public class NoteFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void setFabDisplay(){
-        if (bundle != null){
+    private void setFabDisplay() {
+        if (bundle != null) {
             binding.fabDeleteNote.setVisibility(View.VISIBLE);
             binding.fabSaveNote.setImageResource(R.drawable.ic_save);
         } else {
@@ -88,19 +88,19 @@ public class NoteFragment extends Fragment {
             binding.noteCurrentTime.setText(note.getDateTime());
             binding.noteContent.setText(note.getNoteContent());
 
-            if (note.getColor().equals(NoteColor.ALZARIN.getColor())) {
+            if (note.getColor().equals(AppColor.ALZARIN.getColor())) {
                 current_selected_color = 1;
                 setSelected_color();
-            } else if (note.getColor().equals(NoteColor.AMETHYST.getColor())) {
+            } else if (note.getColor().equals(AppColor.AMETHYST.getColor())) {
                 current_selected_color = 2;
                 setSelected_color();
-            } else if (note.getColor().equals(NoteColor.BRIGHT_SKY_BLUE.getColor())) {
+            } else if (note.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
                 current_selected_color = 3;
                 setSelected_color();
-            } else if (note.getColor().equals(NoteColor.NEPHRITIS.getColor())) {
+            } else if (note.getColor().equals(AppColor.NEPHRITIS.getColor())) {
                 current_selected_color = 4;
                 setSelected_color();
-            } else if (note.getColor().equals(NoteColor.SUNFLOWER.getColor())) {
+            } else if (note.getColor().equals(AppColor.SUNFLOWER.getColor())) {
                 current_selected_color = 5;
                 setSelected_color();
             } else {
@@ -110,6 +110,7 @@ public class NoteFragment extends Fragment {
             return;
         }
         setCurrentDate();
+
         binding.cloudSelected.setImageResource(ic_check);
     }
 
@@ -173,37 +174,37 @@ public class NoteFragment extends Fragment {
                     //alzarin
                     binding.alzarinSelected.setImageResource(ic_check);
                     setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
-                    color = NoteColor.ALZARIN.getColor();
+                    color = AppColor.ALZARIN.getColor();
                     break;
                 case 2:
                     //amethyst
                     binding.amethystSelected.setImageResource(ic_check);
                     setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
-                    color = NoteColor.AMETHYST.getColor();
+                    color = AppColor.AMETHYST.getColor();
                     break;
                 case 3:
                     //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(ic_check);
                     setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
-                    color = NoteColor.BRIGHT_SKY_BLUE.getColor();
+                    color = AppColor.BRIGHT_SKY_BLUE.getColor();
                     break;
                 case 4:
                     //nephritis
                     binding.nephritisSelected.setImageResource(ic_check);
                     setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
-                    color = NoteColor.NEPHRITIS.getColor();
+                    color = AppColor.NEPHRITIS.getColor();
                     break;
                 case 5:
                     //sunflower
                     binding.sunflowerSelected.setImageResource(ic_check);
                     setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
-                    color = NoteColor.SUNFLOWER.getColor();
+                    color = AppColor.SUNFLOWER.getColor();
                     break;
                 default:
                     //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
                     setBackgroundNoteIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
-                    color = NoteColor.CLOUDS.getColor();
+                    color = AppColor.CLOUDS.getColor();
                     break;
             }
 
@@ -272,7 +273,7 @@ public class NoteFragment extends Fragment {
                                     );
                                     gotoJournalFragment();
                                 })
-                                .setNegativeButton("No",(dialogInterface, i) -> {
+                                .setNegativeButton("No", (dialogInterface, i) -> {
 //                                    gotoJournalFragment();
                                 })
                                 .show();
@@ -300,8 +301,8 @@ public class NoteFragment extends Fragment {
         });
     }
 
-    private void onDeleteNote(){
-        if (binding.fabDeleteNote.getVisibility() == View.VISIBLE){
+    private void onDeleteNote() {
+        if (binding.fabDeleteNote.getVisibility() == View.VISIBLE) {
             binding.fabDeleteNote.setOnClickListener(v -> {
                 noteViewModel.delete(note);
                 gotoJournalFragment();

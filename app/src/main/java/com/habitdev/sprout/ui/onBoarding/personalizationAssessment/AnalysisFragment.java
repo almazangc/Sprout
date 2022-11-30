@@ -77,6 +77,7 @@ public class AnalysisFragment extends Fragment {
                                     habits.getPk_habit_uid(),
                                     habits.getHabit(),
                                     habits.getDescription(),
+                                    habits.getColor(),
                                     true,
                                     habits.isModifiable(),
                                     habits.getAbstinence(),

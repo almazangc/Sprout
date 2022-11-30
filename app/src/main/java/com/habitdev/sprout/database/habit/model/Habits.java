@@ -20,6 +20,9 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "desc")
     private final String description;
 
+    @ColumnInfo(name = "color")
+    private String color;
+
     @ColumnInfo(name = "on_reform")
     private boolean onReform;
 
@@ -42,9 +45,10 @@ public class Habits implements Serializable {
     private final int completed_subroutine;
 
     @Ignore
-    public Habits(String habit, String description, Boolean onReform, Boolean modifiable) {
+    public Habits(String habit, String description, String color, Boolean onReform, Boolean modifiable) {
         this.habit = habit;
         this.description = description;
+        this.color = color;
         this.onReform = onReform;
         this.modifiable = modifiable;
         this.abstinence = 0;
@@ -54,10 +58,11 @@ public class Habits implements Serializable {
         this.completed_subroutine = 0;
     }
 
-    public Habits(long pk_habit_uid, String habit, String description, boolean onReform, boolean modifiable, int abstinence, int relapse, String date_started, int total_subroutine, int completed_subroutine) {
+    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int abstinence, int relapse, String date_started, int total_subroutine, int completed_subroutine) {
         this.pk_habit_uid = pk_habit_uid;
         this.habit = habit;
         this.description = description;
+        this.color = color;
         this.onReform = onReform;
         this.modifiable = modifiable;
         this.abstinence = abstinence;
@@ -93,6 +98,14 @@ public class Habits implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public boolean isOnReform() {

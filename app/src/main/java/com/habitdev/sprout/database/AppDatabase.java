@@ -25,7 +25,7 @@ import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.database.note.NoteDao;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.database.user.UserDao;
-import com.habitdev.sprout.enums.NoteColor;
+import com.habitdev.sprout.enums.AppColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,13 +159,13 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new Note("Note 1", "", "Subtitle in a nutshell", NoteColor.CLOUDS.getColor()));
-            noteDao.insert(new Note("Test", "", "A very short sentence. Second part of the sentence", NoteColor.SUNFLOWER.getColor()));
-            noteDao.insert(new Note("What?", "", "SampleSubTitle, but no thought. You are baka!!!!!", NoteColor.BRIGHT_SKY_BLUE.getColor()));
-            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", NoteColor.NEPHRITIS.getColor()));
-            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", NoteColor.AMETHYST.getColor()));
-            noteDao.insert(new Note("No time to spend", "", "SampleSubTitle, you need to learn how to integrate the application", NoteColor.ALZARIN.getColor()));
-            noteDao.insert(new Note("Note Sample 6 Title", "date?", "SampleSubTitle", NoteColor.SUNFLOWER.getColor()));
+            noteDao.insert(new Note("Note 1", "", "Subtitle in a nutshell", AppColor.CLOUDS.getColor()));
+            noteDao.insert(new Note("Test", "", "A very short sentence. Second part of the sentence", AppColor.SUNFLOWER.getColor()));
+            noteDao.insert(new Note("What?", "", "SampleSubTitle, but no thought. You are baka!!!!!", AppColor.BRIGHT_SKY_BLUE.getColor()));
+            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", AppColor.NEPHRITIS.getColor()));
+            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", AppColor.AMETHYST.getColor()));
+            noteDao.insert(new Note("No time to spend", "", "SampleSubTitle, you need to learn how to integrate the application", AppColor.ALZARIN.getColor()));
+            noteDao.insert(new Note("Note Sample 6 Title", "date?", "SampleSubTitle", AppColor.SUNFLOWER.getColor()));
             return null;
         }
     }
@@ -181,7 +181,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             Subroutines sample = new Subroutines(getString(R.string.sample_subroutine_title), getString(R.string.sample_subroutine_description));
-            Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description), false, false);
+            Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description), AppColor.CLOUDS.getColor(),false, false);
             long id = habitWithSubroutinesDao.insertHabit(habits);
             List<Subroutines> list = new ArrayList<>();
             list.add(sample);
@@ -263,7 +263,7 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            habits = new Habits("Poor Sleep Management", "Not Sleeping on time daily", false, false);
+            habits = new Habits("Poor Sleep Management", "Not Sleeping on time daily", AppColor.SUNFLOWER.getColor(), false, false);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(new Subroutines("Relax.", "Find calming, relaxing activities to do before bedtime."));
             list.add(new Subroutines("Adjust your bedtime, but be patient", "If you’re aiming to go to sleep earlier, try slowly scaling back your bedtime until you are at the desired hour."));

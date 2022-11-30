@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.note.model.Note;
-import com.habitdev.sprout.enums.NoteColor;
+import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 
 import java.util.ArrayList;
@@ -123,19 +123,19 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
             noteContent.setText(note.getNoteContent());
             noteDateTime.setText(note.getDateTime());
 
-            if (note.getColor().equals(NoteColor.ALZARIN.getColor())){
+            if (note.getColor().equals(AppColor.ALZARIN.getColor())){
                 layout_note.setBackground(alzarin);
                 layout_note.setBackgroundTintList(cs_alzarin);
-            } else if (note.getColor().equals(NoteColor.AMETHYST.getColor())){
+            } else if (note.getColor().equals(AppColor.AMETHYST.getColor())){
                 layout_note.setBackground(amethyst);
                 layout_note.setBackgroundTintList(cs_amethyst);
-            } else if (note.getColor().equals(NoteColor.BRIGHT_SKY_BLUE.getColor())){
+            } else if (note.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())){
                 layout_note.setBackground(bright_sky_blue);
                 layout_note.setBackgroundTintList(cs_bright_sky_blue);
-            } else if (note.getColor().equals(NoteColor.NEPHRITIS.getColor())){
+            } else if (note.getColor().equals(AppColor.NEPHRITIS.getColor())){
                 layout_note.setBackground(nephritis);
                 layout_note.setBackgroundTintList(cs_nephritis);
-            } else if (note.getColor().equals(NoteColor.SUNFLOWER.getColor())){
+            } else if (note.getColor().equals(AppColor.SUNFLOWER.getColor())){
                 layout_note.setBackground(sunflower);
                 layout_note.setBackgroundTintList(cs_sunflower);
             } else {
