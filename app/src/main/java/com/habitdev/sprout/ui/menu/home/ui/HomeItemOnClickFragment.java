@@ -2,6 +2,8 @@ package com.habitdev.sprout.ui.menu.home.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,19 +80,32 @@ public class HomeItemOnClickFragment extends Fragment {
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
         dateTimeElapsedUtil.calculateElapsedDateTime();
         //TODO: Functional But Leaking
-        new Timer().schedule(new TimerTask() {
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                homeActivity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                    }
+//                });
+//            }
+//        },0,1000);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                homeActivity.runOnUiThread(new Runnable() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
                         dateTimeElapsedUtil.calculateElapsedDateTime();
                         if (binding != null)
-                        binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+                            binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
                     }
                 });
             }
-        },0,1000);
+        }, 0, 1000);
 
         binding.homeItemOnClickHabitRelapse.setText((String.format(Locale.getDefault(), "%d", habit.getRelapse())));
         binding.homeItemOnClickHabitTotalSubroutine.setText((String.format(Locale.getDefault(), "%d", habit.getCompleted_subroutine())));

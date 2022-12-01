@@ -2,6 +2,8 @@ package com.habitdev.sprout.ui.menu.home.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
@@ -150,10 +154,25 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
             dateTimeElapsedUtil.calculateElapsedDateTime();
 
-            new Timer().schedule(new TimerTask() {
+            //TODO: Functional But Leaking
+//            new Timer().schedule(new TimerTask() {
+//                @Override
+//                public void run() {
+//                    fragmentActivity.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            dateTimeElapsedUtil.calculateElapsedDateTime();
+//                            daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+//                        }
+//                    });
+//                }
+//            },0,1000);
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    fragmentActivity.runOnUiThread(new Runnable() {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
                             dateTimeElapsedUtil.calculateElapsedDateTime();
@@ -161,7 +180,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                         }
                     });
                 }
-            },0,1000);
+            }, 0, 1000);
 
 
             HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(fragmentActivity).get(HabitWithSubroutinesViewModel.class);

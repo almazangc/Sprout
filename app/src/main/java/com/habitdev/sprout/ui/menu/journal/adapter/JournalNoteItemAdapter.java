@@ -174,7 +174,6 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
            }
        }, 500);
     }
-
     public void cancelTimer(){
         if (timer != null) timer.cancel();
     }
