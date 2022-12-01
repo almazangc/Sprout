@@ -46,14 +46,9 @@ public class AddDefaultHabitFragment extends Fragment {
         binding = FragmentAddDefaultHabitBinding.inflate(inflater, container, false);
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         onBackPress();
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         upDateHabitList();
         addHabitOnReform();
+        return binding.getRoot();
     }
 
     private void setDropDownItem(){
@@ -63,7 +58,7 @@ public class AddDefaultHabitFragment extends Fragment {
             habitTitles.add(habits.getHabit());
         }
 
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_add_default_habit_item, habitTitles);
+        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);
         binding.dropItems.setAdapter(adapterItems);
 
         binding.dropItems.setOnItemClickListener((adapterView, view, pos, id) -> {
@@ -104,6 +99,7 @@ public class AddDefaultHabitFragment extends Fragment {
     }
 
     private void upDateHabitList(){
+        //change to sycnhronous and drop obeserver
         habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             List<Habits> habitsLiveData = new ArrayList<>();
             for(Habits habit : habits) if (!habit.isOnReform() && !habit.isModifiable()) habitsLiveData.add(habit);
@@ -112,6 +108,8 @@ public class AddDefaultHabitFragment extends Fragment {
             setDropDownItem();
         });
     }
+
+
 
     private void onBackPress() {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {

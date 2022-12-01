@@ -13,15 +13,16 @@ import java.util.List;
 
 public class HabitWithSubroutinesViewModel extends AndroidViewModel {
 
-    private HabitWithSubroutinesRepository repository;
-    private List<Habits> allHabitOnReform;
-    private LiveData<List<Habits>> allHabitOnReformLiveData;
-    private List<HabitWithSubroutines> allHabitOnReformWithSubroutines;
-    private LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
-    private List<Long> allHabitOnReformUID;
-    private LiveData<List<Habits>> allHabitListLiveData;
-    private List<Habits> allHabits;
-    private LiveData<Long> getHabitOnReformCount;
+    private final HabitWithSubroutinesRepository repository;
+    private final List<Habits> allHabitOnReform;
+    private final LiveData<List<Habits>> allHabitOnReformLiveData;
+    private final List<HabitWithSubroutines> allHabitOnReformWithSubroutines;
+    private final LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
+    private final List<Long> allHabitOnReformUID;
+    private final LiveData<List<Habits>> allHabitListLiveData;
+    private final List<Habits> allHabits;
+    private final LiveData<Long> getHabitOnReformCount;
+    private final LiveData<List<Habits>> allUserDefinedHabitListLiveData;
 
     public HabitWithSubroutinesViewModel(@NonNull Application application) {
         super(application);
@@ -33,7 +34,8 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         allHabitOnReformUID = repository.getAllHabitOnReformUID();
         allHabitListLiveData = repository.getAllHabitListLiveData();
         allHabits = repository.getAllHabits();
-        getHabitOnReformCount = repository.getGetHabitOnReformCount();
+        getHabitOnReformCount = repository.getHabitOnReformCount();
+        allUserDefinedHabitListLiveData = repository.getAllUserDefinedHabitListLiveData();
     }
 
     public void update(Habits habit) {
@@ -86,5 +88,9 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
 
     public LiveData<Long> getGetHabitOnReformCount() {
         return getHabitOnReformCount;
+    }
+
+    public LiveData<List<Habits>> getAllUserDefinedHabitListLiveData() {
+        return allUserDefinedHabitListLiveData;
     }
 }

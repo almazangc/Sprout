@@ -267,13 +267,12 @@ public class HomeItemOnClickFragment extends Fragment {
 
     private void setCommentRecyclerView() {
         habitComments = new ArrayList<>();
-        HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(habitComments, commentViewModel);
+        HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(commentViewModel);
         binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
 
         commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {
-            if (!comments.isEmpty()){
-                homeParentItemAdapter.setComments(comments);
-                habitComments = comments;
+            if (comments != null){
+                homeParentItemAdapter.submitList(comments);
             }
         });
     }

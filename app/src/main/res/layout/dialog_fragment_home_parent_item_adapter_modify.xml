@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="5dp"
+    app:cardCornerRadius="15dp"
+    android:id="@+id/home_parent_item_adapter_modify_card_view"
+    tools:context=".ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16sp"
+        android:id="@+id/home_parent_item_adapter_modify_container">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/home_parent_item_adapter_modify_title_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp">
+
+                <EditText
+                    android:id="@+id/home_parent_item_adapter_modify_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/TRANSPARENT"
+                    android:ellipsize="end"
+                    android:hint="Title"
+                    android:maxLines="1"
+                    android:padding="10dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+            </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/home_parent_item_adapter_modify_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_parent_item_adapter_modify_title_card_view"
+            android:layout_marginStart="15dp"
+            android:text="Required*"
+            android:textColor="@color/CORAL_RED"
+            android:textSize="11sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/home_parent_item_adapter_modify_description_card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_parent_item_adapter_modify_hint"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            app:cardCornerRadius="15dp">
+
+            <EditText
+                android:id="@+id/home_parent_item_adapter_modify_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/TRANSPARENT"
+                android:ellipsize="end"
+                android:gravity="top"
+                android:hint="Description"
+                android:maxLines="4"
+                android:padding="10dp"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp" />
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/home_parent_item_adapter_modify_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_parent_item_adapter_modify_description_card_view"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/selector_btn_normal"
+            android:drawableStart="@drawable/ic_cancel"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:maxLines="1"
+            android:minWidth="0dp"
+            android:minHeight="40dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="20dp"
+            android:text="Cancel"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textColor="@color/NIGHT"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/home_parent_item_adapter_modify_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/home_parent_item_adapter_modify_description_card_view"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/selector_btn_normal"
+            android:drawableStart="@drawable/ic_save"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:maxLines="1"
+            android:minWidth="0dp"
+            android:minHeight="40dp"
+            android:paddingLeft="10dp"
+            android:paddingEnd="20dp"
+            android:text="Update"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textColor="@color/NIGHT"
+            android:textSize="13sp" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

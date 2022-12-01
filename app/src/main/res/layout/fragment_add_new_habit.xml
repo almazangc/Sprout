@@ -195,11 +195,35 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/add_new_habit_textInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/add_new_habit_layout_miscellaneous"
+                    app:boxBackgroundColor="@color/LIGHT"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:hintTextColor="@color/NIGHT">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/add_new_habit_drop_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="List of User Defined Habits"
+                        android:inputType="none"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="13sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <TextView
                     android:id="@+id/add_new_habit_current_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/add_new_habit_layout_miscellaneous"
+                    android:layout_below="@id/add_new_habit_textInput"
                     android:padding="5dp"
                     android:textAlignment="center"
                     android:textAllCaps="true"

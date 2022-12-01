@@ -319,12 +319,6 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_addNewHabitFragment"
-            app:destination="@id/addNewHabitFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_addDefaultHabitFragment"
-            app:destination="@id/addDefaultHabitFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
@@ -339,6 +333,12 @@
         <action
             android:id="@+id/action_homeFragment_to_homeRecyclerViewItemAdapterOnClickView"
             app:destination="@id/homeRecyclerViewItemAdapterOnClickView" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeParentItemAdapterModifyFragment"
+            app:destination="@id/homeParentItemAdapterModifyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeOnFabClickDialogFragment"
+            app:destination="@id/homeOnFabClickDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNoteFragment"
@@ -355,11 +355,11 @@
         android:label="fragment_add_new_habit"
         tools:layout="@layout/fragment_add_new_habit" >
         <action
-            android:id="@+id/action_addNewHabitFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
             android:id="@+id/action_addNewHabitFragment_to_homeAddNewInsertSubroutineFragment"
             app:destination="@id/homeAddNewInsertSubroutineFragment" />
+        <action
+            android:id="@+id/action_addNewHabitFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/addDefaultHabitFragment"
@@ -444,11 +444,35 @@
     </fragment>
     <fragment
         android:id="@+id/homeAddNewInsertSubroutineFragment"
-        android:name="com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.HomeAddNewInsertSubroutineFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment"
         android:label="fragment_home_add_new_insert_subroutine"
-        tools:layout="@layout/fragment_home_add_new_insert_subroutine" >
+        tools:layout="@layout/dialog_fragment_home_add_new_insert_subroutine" >
         <action
             android:id="@+id/action_homeAddNewInsertSubroutineFragment_to_addNewHabitFragment"
             app:destination="@id/addNewHabitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeParentItemAdapterModifyFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment"
+        android:label="fragment_home_parent_item_adapter_modify"
+        tools:layout="@layout/dialog_fragment_home_parent_item_adapter_modify" >
+        <action
+            android:id="@+id/action_homeParentItemAdapterModifyFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeOnFabClickDialogFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.ui.dialog.HomeOnFabClickDialogFragment"
+        android:label="fragment_home_on_fab_click_dialog"
+        tools:layout="@layout/dialog_fragment_home_on_fab_click_dialog" >
+        <action
+            android:id="@+id/action_homeOnFabClickDialogFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeOnFabClickDialogFragment_to_addNewHabitFragment"
+            app:destination="@id/addNewHabitFragment" />
+        <action
+            android:id="@+id/action_homeOnFabClickDialogFragment_to_addDefaultHabitFragment"
+            app:destination="@id/addDefaultHabitFragment" />
     </fragment>
 </navigation>

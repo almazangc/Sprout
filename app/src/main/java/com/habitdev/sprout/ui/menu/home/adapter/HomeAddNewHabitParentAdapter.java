@@ -8,34 +8,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
-import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.HomeAddNewInsertSubroutineFragment;
 
 import java.util.List;
 
-public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNewHabitParentAdapter.AddNewHabitSubroutineViewHolder> {
+public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNewHabitParentAdapter.AddNewHabitSubroutineViewHolder>{
 
     private List<Subroutines> subroutinesList;
-    private final FragmentActivity fragmentActivity;
-    private final FragmentManager fragmentManager;
-    private final int addNewHabitFragmentID;
 
-    public HomeAddNewHabitParentAdapter(List<Subroutines> subroutinesList, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int addNewHabitFragmentID) {
+    private OnClickListener onClickListener;
+
+    public interface OnClickListener{
+        void onDelete(Subroutines subroutine);
+        void onModify(Subroutines subroutine);
+    }
+
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public HomeAddNewHabitParentAdapter(List<Subroutines> subroutinesList) {
         this.subroutinesList = subroutinesList;
-        this.fragmentActivity = fragmentActivity;
-        this.fragmentManager = fragmentManager;
-        this.addNewHabitFragmentID = addNewHabitFragmentID;
     }
 
     @NonNull
@@ -48,7 +49,7 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
 
     @Override
     public void onBindViewHolder(@NonNull HomeAddNewHabitParentAdapter.AddNewHabitSubroutineViewHolder holder, int position) {
-        holder.bindSubroutine(subroutinesList.get(position), fragmentActivity, fragmentManager, addNewHabitFragmentID);
+        holder.bindSubroutine(subroutinesList.get(position), onClickListener);
     }
 
     @Override
@@ -67,6 +68,8 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
         Log.d("tag", "setSubroutinesList: " + subroutinesList.toString());
         notifyDataSetChanged();
     }
+
+
 
     public static class AddNewHabitSubroutineViewHolder extends RecyclerView.ViewHolder {
 
@@ -92,7 +95,7 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
             sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_color_indicator_sunflower);
         }
 
-        void bindSubroutine(Subroutines subroutine, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int addNewHabitFragmentID) {
+        void bindSubroutine(Subroutines subroutine, OnClickListener onClickListener) {
             if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
                 color_indicator.setBackground(alzarin);
             } else if (subroutine.getColor().equals(AppColor.AMETHYST.getColor())) {
@@ -111,32 +114,15 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
             description.setText(subroutine.getDescription());
 
             if (subroutine.getModifiable()) {
-                modify.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //Show dialog pass the data
-                        Toast.makeText(fragmentActivity, "Modify", Toast.LENGTH_SHORT).show();
-                        HomeAddNewInsertSubroutineFragment dialog = new HomeAddNewInsertSubroutineFragment(subroutine);
-                        dialog.setTargetFragment(fragmentManager.findFragmentById(addNewHabitFragmentID), 1);
-                        dialog.show(fragmentManager, "TAG");
-                    }
+                modify.setOnClickListener(view -> {
+                    if (onClickListener != null) onClickListener.onModify(subroutine);
                 });
             } else {
                 modify.setVisibility(View.GONE);
             }
 
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    /**
-                     * Check db subroutine if exist (exist -> delete entry from table)
-                     * then fetch new list
-                     */
-                    Toast.makeText(fragmentActivity, "Remove", Toast.LENGTH_SHORT).show();
-                    HomeAddNewInsertSubroutineFragment dialog = new HomeAddNewInsertSubroutineFragment(subroutine, true);
-                    dialog.setTargetFragment(fragmentManager.findFragmentById(addNewHabitFragmentID), 1);
-                    dialog.show(fragmentManager, "TAG");
-                }
+            delete.setOnClickListener(view -> {
+                if (onClickListener != null) onClickListener.onDelete(subroutine);
             });
         }
     }

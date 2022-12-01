@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.interfaces.IRecyclerView;
+import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.util.List;
@@ -33,11 +35,15 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
     private List<Habits> habits;
     private final com.habitdev.sprout.interfaces.IRecyclerView IRecyclerView;
     private final FragmentActivity fragmentActivity;
+    private final FragmentManager fragmentManager;
+    private final int HomeID;
 
-    public HomeParentItemAdapter(List<Habits> habits, IRecyclerView IRecyclerView, FragmentActivity fragmentActivity) {
+    public HomeParentItemAdapter(List<Habits> habits, IRecyclerView IRecyclerView, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int HomeID) {
         this.habits = habits;
         this.IRecyclerView = IRecyclerView;
         this.fragmentActivity = fragmentActivity;
+        this.fragmentManager = fragmentManager;
+        this.HomeID = HomeID;
     }
 
     @NonNull
@@ -50,7 +56,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     @Override
     public void onBindViewHolder(@NonNull HomeParentItemAdapter.HabitViewHolder holder, int position) {
-        holder.bindHabit(habits.get(position), fragmentActivity);
+        holder.bindHabit(habits.get(position), fragmentActivity, fragmentManager, HomeID);
     }
 
     @Override
@@ -113,7 +119,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
         }
 
-        void bindHabit(Habits habit, FragmentActivity fragmentActivity) {
+        void bindHabit(Habits habit, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int HomeID) {
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())){
                 ItemCardView.setBackgroundTintList(cs_alzarin);
@@ -138,9 +144,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             }
 
             dateStarted.setText(habit.getDate_started());
-
             completedSubroutine.setText(String.valueOf(habit.getCompleted_subroutine()));
-
             totalRelapse.setText((String.format(Locale.getDefault(), "%d", habit.getRelapse())));
 
             DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
@@ -170,16 +174,18 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 Toast.makeText(itemView.getContext(), "DownVote", Toast.LENGTH_SHORT).show();
             });
 
+            //TODO: SET on CLick Interface for refactor
             if (habit.isModifiable()) {
                 modify.setOnClickListener(view -> {
-                    Toast.makeText(itemView.getContext(), "Modify", Toast.LENGTH_SHORT).show();
+                HomeParentItemAdapterModifyDialogFragment dialog = new HomeParentItemAdapterModifyDialogFragment(habitWithSubroutinesViewModel, habit);
+                    dialog.setTargetFragment(fragmentManager.findFragmentById(HomeID), 1);
+                    dialog.show(fragmentManager, "Modify Habit Dialog");
                 });
             } else {
                 modify.setVisibility(View.GONE);
             }
 
             relapse.setOnClickListener(view -> {
-                Toast.makeText(itemView.getContext(), "Relapse", Toast.LENGTH_SHORT).show();
                 habit.setRelapse(habit.getRelapse()+1);
                 habitWithSubroutinesViewModel.update(habit);
                 totalRelapse.setText(String.valueOf(habit.getRelapse()));

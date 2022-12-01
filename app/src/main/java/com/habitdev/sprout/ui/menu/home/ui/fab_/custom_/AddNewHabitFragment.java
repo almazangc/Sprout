@@ -2,9 +2,13 @@ package com.habitdev.sprout.ui.menu.home.ui.fab_.custom_;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -22,6 +26,7 @@ import com.habitdev.sprout.databinding.FragmentAddNewHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
+import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,12 +34,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSubroutineFragment.onDialoagChange {
+public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSubroutineDialogFragment.onDialoagChange {
 
     private FragmentAddNewHabitBinding binding;
 
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private Habits habit;
+    private List<Habits> habitsList;
     private List<Subroutines> subroutinesList;
     private Subroutines subroutine;
     private final int ic_check;
@@ -84,14 +90,80 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddNewHabitBinding.inflate(inflater, container, false);
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
-        onBackPress();
+        userDefinedHabit();
         setCurrentTime();
         setHabitColor();
         colorSelect();
         insertSubroutine();
         setRecyclerViewAdapter();
         insertNewHabit();
+        onBackPress();
         return binding.getRoot();
+    }
+
+    private void userDefinedHabit() {
+        List<String> habitTitles = new ArrayList<>();
+
+        habitWithSubroutinesViewModel.getAllUserDefinedHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
+            if (habits != null) {
+                if (!habits.isEmpty()) {
+                    if (binding.addNewHabitDropItems.getVisibility() == View.GONE)
+                        binding.addNewHabitDropItems.setVisibility(View.VISIBLE);
+                    habitsList = habits;
+                    habitTitles.clear();
+                    for (Habits habit : habits){
+                        habitTitles.add(habit.getHabit());
+                    }
+                } else {
+                    if (binding.addNewHabitDropItems.getVisibility() == View.VISIBLE)
+                        binding.addNewHabitDropItems.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);
+        binding.addNewHabitDropItems.setAdapter(adapterItems);
+
+        binding.addNewHabitDropItems.setOnItemClickListener((adapterView, view, pos, id) -> {
+            habit = habitsList.get(pos);
+            updateUI();
+        });
+
+        binding.addNewHabitDropItems.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.toString().trim().isEmpty()){
+                    binding.addNewHabitTitle.setText("");
+                    binding.addNewHabitDescription.setText("");
+                    color = AppColor.CLOUDS.getColor();
+                    setHabitColor();
+                    setSelected_color();
+                    subroutinesList.clear();
+                    setRecyclerViewAdapter();
+                }
+            }
+        });
+    }
+
+    private void updateUI(){
+        binding.addNewHabitTitle.setText(habit.getHabit());
+        binding.addNewHabitDescription.setText(habit.getDescription());
+        color = habit.getColor();
+        setHabitColor();
+        setSelected_color();
+        setSubroutinesList(habit.getPk_habit_uid());
+    }
+
+    private void setSubroutinesList(long uid){
+        subroutinesList.clear();
+        subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
+        setRecyclerViewAdapter();
     }
 
     private void setCurrentTime() {
@@ -242,38 +314,31 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     }
 
     private void insertNewHabit() {
-        binding.fabAddNewHabit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        binding.fabAddNewHabit.setOnClickListener(v -> {
+            habit.setHabit(binding.addNewHabitTitle.getText().toString());
+            habit.setDescription(binding.addNewHabitDescription.getText().toString());
+            habit.setOnReform(true);
+            habit.setDate_started(binding.addNewHabitCurrentTime.getText().toString());
+            habit.setColor(color);
 
-                habit.setHabit(binding.addNewHabitTitle.getText().toString());
-                habit.setDescription(binding.addNewHabitDescription.getText().toString());
-                habit.setOnReform(true);
-                habit.setDate_started(binding.addNewHabitCurrentTime.getText().toString());
-                habit.setColor(color);
+            long uid = habitWithSubroutinesViewModel.insertHabit(habit);
 
-                long uid = habitWithSubroutinesViewModel.insertHabit(habit);
-
-                //Insert List of Subroutines
-                if (!subroutinesList.isEmpty()) {
-                    for (Subroutines subroutine : subroutinesList) {
-                        subroutine.setFk_habit_uid(uid);
-                    }
-                    habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
+            if (!subroutinesList.isEmpty()) {
+                for (Subroutines subroutine : subroutinesList) {
+                    subroutine.setFk_habit_uid(uid);
                 }
-                returnHomeFragment();
+                habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
             }
+            returnHomeFragment();
         });
     }
 
     private void insertSubroutine() {
-        binding.addNewHabitSubroutineBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                HomeAddNewInsertSubroutineFragment dialog = new HomeAddNewInsertSubroutineFragment();
-                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AddNewHabitFragment.this.getId()), 1);
-                dialog.show(getChildFragmentManager(), "TAG");
-            }
+        binding.addNewHabitSubroutineBtn.setOnClickListener(view -> {
+            HomeAddNewInsertSubroutineDialogFragment dialog = new HomeAddNewInsertSubroutineDialogFragment();
+            dialog.setTargetFragment(getChildFragmentManager()
+                    .findFragmentById(AddNewHabitFragment.this.getId()), 1);
+            dialog.show(getChildFragmentManager(), "HomeAddNewInsertSubroutineDialog");
         });
     }
 
@@ -286,7 +351,25 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
             }
 
             if (homeAddNewHabitParentAdapter == null)
-                homeAddNewHabitParentAdapter = new HomeAddNewHabitParentAdapter(subroutinesList, requireActivity(), getChildFragmentManager(), AddNewHabitFragment.this.getId());
+                homeAddNewHabitParentAdapter = new HomeAddNewHabitParentAdapter(subroutinesList);
+
+            homeAddNewHabitParentAdapter.setOnClickListener(new HomeAddNewHabitParentAdapter.OnClickListener() {
+                @Override
+                public void onDelete(Subroutines subroutine) {
+                    Toast.makeText(requireActivity(), "Remove", Toast.LENGTH_SHORT).show();
+                    HomeAddNewInsertSubroutineDialogFragment dialog = new HomeAddNewInsertSubroutineDialogFragment(subroutine, true);
+                    dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AddNewHabitFragment.this.getId()), 1);
+                    dialog.show(getChildFragmentManager(), "TAG");
+                }
+
+                @Override
+                public void onModify(Subroutines subroutine) {
+                    Toast.makeText(requireActivity(), "Modify", Toast.LENGTH_SHORT).show();
+                    HomeAddNewInsertSubroutineDialogFragment dialog = new HomeAddNewInsertSubroutineDialogFragment(subroutine);
+                    dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AddNewHabitFragment.this.getId()), 1);
+                    dialog.show(getChildFragmentManager(), "TAG");
+                }
+            });
 
             if (binding.addNewHabitSubroutineRecyclerView.getAdapter() == null) {
                 binding.addNewHabitSubroutineRecyclerView.setAdapter(homeAddNewHabitParentAdapter);
@@ -308,7 +391,9 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
 
     private void returnHomeFragment() {
         FragmentManager fragmentManager = getChildFragmentManager();
-        fragmentManager.beginTransaction().replace(binding.addNewHabitFrameLayout.getId(), new HomeFragment())
+        fragmentManager
+                .beginTransaction()
+                .replace(binding.addNewHabitFrameLayout.getId(), new HomeFragment())
                 .commit();
         binding.addNewHabitContainer.setVisibility(View.GONE);
     }

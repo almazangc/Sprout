@@ -1,6 +1,5 @@
 package com.habitdev.sprout.ui.menu.home;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
-import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.interfaces.IRecyclerView;
-import com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment;
-import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
+import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.ui.HomeItemOnClickFragment;
+import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeOnFabClickDialogFragment;
+import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
+import com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment;
 
 import java.util.List;
 
@@ -33,9 +33,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private List<Habits> habitsOnReform;
 
-    public HomeFragment() {
-
-    }
+    public HomeFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,7 +54,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        homeParentItemAdapter = new HomeParentItemAdapter(habitsOnReform, this, requireActivity());
+        homeParentItemAdapter = new HomeParentItemAdapter(habitsOnReform, this, requireActivity(), getChildFragmentManager(), HomeFragment.this.getId());
         binding.homeRecyclerView.setAdapter(homeParentItemAdapter);
 
         recyclerViewObserver();
@@ -143,28 +141,50 @@ public class HomeFragment extends Fragment implements IRecyclerView {
             FragmentManager fragmentManager = getChildFragmentManager();
 
             //Store in xml string
-            String[] items = {"Choose from Predefined-list", "Add New Habit"};
+//            String[] items = {"Choose from Predefined-list", "Add New Habit"};
+//            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+//            builder.setTitle("Add Habit on Reform");
+//            builder.setItems(items, (dialog, which) -> {
+//                switch (which) {
+//                    case 0:
+//                        AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
+//                        fragmentManager.beginTransaction().replace(binding.homeFrameLayout.getId(), addDefaultHabitFragment)
+//                                .commit();
+//                        binding.homeContainer.setVisibility(View.GONE);
+//                        break;
+//                    case 1:
+//                        AddNewHabitFragment addHabitHomeFragment = new AddNewHabitFragment();
+//                        fragmentManager.beginTransaction().replace(binding.homeFrameLayout.getId(), addHabitHomeFragment)
+//                                .commit();
+//                        binding.homeContainer.setVisibility(View.GONE);
+//                        break;
+//                }
+//            });
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setTitle("Add Habit on Reform");
-            builder.setItems(items, (dialog, which) -> {
-                switch (which) {
-                    case 0:
-                        AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
+            HomeOnFabClickDialogFragment dialog = new HomeOnFabClickDialogFragment();
+            dialog.setTargetFragment(getChildFragmentManager()
+                    .findFragmentById(HomeFragment.this.getId()), 1);
+            dialog.show(getChildFragmentManager(), "HomeFabOnClickDialog");
+
+            dialog.setOnClickListener(new HomeOnFabClickDialogFragment.onClickListener() {
+                @Override
+                public void onPredefinedClick() {
+                    AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
                         fragmentManager.beginTransaction().replace(binding.homeFrameLayout.getId(), addDefaultHabitFragment)
                                 .commit();
                         binding.homeContainer.setVisibility(View.GONE);
-                        break;
-                    case 1:
-                        AddNewHabitFragment addHabitHomeFragment = new AddNewHabitFragment();
-                        fragmentManager.beginTransaction().replace(binding.homeFrameLayout.getId(), addHabitHomeFragment)
-                                .commit();
-                        binding.homeContainer.setVisibility(View.GONE);
-                        break;
+                }
+
+                @Override
+                public void onUserDefineClick() {
+                    AddNewHabitFragment addHabitHomeFragment = new AddNewHabitFragment();
+                    fragmentManager.beginTransaction().replace(binding.homeFrameLayout.getId(), addHabitHomeFragment)
+                            .commit();
+                    binding.homeContainer.setVisibility(View.GONE);
                 }
             });
-            AlertDialog dialog = builder.create();
-            dialog.show();
         });
     }
 

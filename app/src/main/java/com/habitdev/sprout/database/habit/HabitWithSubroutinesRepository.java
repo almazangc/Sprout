@@ -12,15 +12,16 @@ import com.habitdev.sprout.database.habit.model.Subroutines;
 import java.util.List;
 
 public class HabitWithSubroutinesRepository {
-    private HabitWithSubroutinesDao habitWithSubroutinesDao;
-    private List<Habits> allHabitOnReform;
-    private LiveData<List<Habits>> allHabitOnReformLiveData;
-    private List<HabitWithSubroutines> allHabitOnReformWithSubroutines;
-    private LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
-    private List<Long> allHabitOnReformUID;
-    private LiveData<List<Habits>> allHabitListLiveData;
-    private List<Habits> allHabits;
-    private LiveData<Long> getHabitOnReformCount;
+    private final HabitWithSubroutinesDao habitWithSubroutinesDao;
+    private final List<Habits> allHabitOnReform;
+    private final LiveData<List<Habits>> allHabitOnReformLiveData;
+    private final List<HabitWithSubroutines> allHabitOnReformWithSubroutines;
+    private final LiveData<List<HabitWithSubroutines>> allHabitOnReformWithSubroutinesLiveData;
+    private final List<Long> allHabitOnReformUID;
+    private final LiveData<List<Habits>> allHabitListLiveData;
+    private final List<Habits> allHabits;
+    private final LiveData<Long> habitOnReformCount;
+    private final LiveData<List<Habits>> allUserDefinedHabitListLiveData;
 
     public HabitWithSubroutinesRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -32,7 +33,8 @@ public class HabitWithSubroutinesRepository {
         this.allHabitOnReformUID = habitWithSubroutinesDao.getAllHabitsOnReformUID();
         this.allHabitListLiveData = habitWithSubroutinesDao.getAllHabitListLiveData();
         this.allHabits = habitWithSubroutinesDao.getAllHabitList();
-        this.getHabitOnReformCount = habitWithSubroutinesDao.getHabitOnReformCount();
+        this.habitOnReformCount = habitWithSubroutinesDao.getHabitOnReformCount();
+        this.allUserDefinedHabitListLiveData = habitWithSubroutinesDao.getAllUserDefinedHabitListLiveData();
     }
 
     public void updateHabit(Habits habit) {
@@ -98,7 +100,11 @@ public class HabitWithSubroutinesRepository {
         return allHabits;
     }
 
-    public LiveData<Long> getGetHabitOnReformCount() {
-        return getHabitOnReformCount;
+    public LiveData<Long> getHabitOnReformCount() {
+        return habitOnReformCount;
+    }
+
+    public LiveData<List<Habits>> getAllUserDefinedHabitListLiveData() {
+        return allUserDefinedHabitListLiveData;
     }
 }

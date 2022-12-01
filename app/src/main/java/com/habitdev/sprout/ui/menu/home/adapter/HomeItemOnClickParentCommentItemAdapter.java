@@ -10,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
@@ -18,15 +20,31 @@ import com.habitdev.sprout.database.comment.model.Comment;
 
 import java.util.List;
 
-public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapter<HomeItemOnClickParentCommentItemAdapter.CommentViewHolder> {
+public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment ,HomeItemOnClickParentCommentItemAdapter.CommentViewHolder> {
 
-    private List<Comment> comments;
+//    private List<Comment> comments; //NOTE
     private final CommentViewModel commentViewModel;
 
-    public HomeItemOnClickParentCommentItemAdapter(List<Comment> comments, CommentViewModel commentViewModel) {
-        this.comments = comments;
+
+    public HomeItemOnClickParentCommentItemAdapter(CommentViewModel commentViewModel) {
+        super(DIFF_CALLBACK);
+//        this.comments = comments;
         this.commentViewModel = commentViewModel;
     }
+
+    private static final DiffUtil.ItemCallback<Comment> DIFF_CALLBACK = new DiffUtil.ItemCallback<Comment>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Comment oldItem, @NonNull Comment newItem) {
+            return oldItem.getPk_comment_uid() == newItem.getPk_comment_uid();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Comment oldItem, @NonNull Comment newItem) {
+            return  oldItem.getComment().equals(newItem.getComment()) &&
+                    oldItem.getDate_commented().equals(newItem.getDate_commented()) &&
+                    oldItem.getComment_type().equals(newItem.getComment_type());
+        }
+    };
 
     @NonNull
     @Override
@@ -38,12 +56,7 @@ public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapte
 
     @Override
     public void onBindViewHolder(@NonNull HomeItemOnClickParentCommentItemAdapter.CommentViewHolder holder, int position) {
-        holder.bindComment(comments.get(position), commentViewModel);
-    }
-
-    @Override
-    public int getItemCount() {
-        return comments.size();
+        holder.bindComment(getItem(position), commentViewModel);
     }
 
     @Override
@@ -51,10 +64,8 @@ public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapte
         return position;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-        notifyDataSetChanged();
+    public Comment getComment(int position){
+        return getItem(position);
     }
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {
@@ -68,13 +79,10 @@ public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapte
             delete_comment = itemView.findViewById(R.id.habit_delete_comment);
         }
 
-        @SuppressLint("NotifyDataSetChanged")
         void bindComment(Comment comment, CommentViewModel commentViewModel) {
             comment_item.setText(comment.getComment());
             delete_comment.setOnClickListener(view -> {
-                comments.removeIf(listComment -> comment == listComment);
                 commentViewModel.deleteComment(comment);
-                notifyDataSetChanged();
             });
         }
     }

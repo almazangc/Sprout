@@ -31,9 +31,7 @@ public class JournalFragment extends Fragment implements IRecyclerView {
     private List<Note> noteList;
     private FragmentManager fragmentManager;
 
-    public JournalFragment() {
-
-    }
+    public JournalFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

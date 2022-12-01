@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="5dp"
+    app:cardCornerRadius="15dp"
+    android:id="@+id/home_on_fab_click_dialog_card_view"
+    tools:context=".ui.menu.home.ui.dialog.HomeOnFabClickDialogFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:id="@+id/home_on_fab_click_dialog_layout">
+
+        <TextView
+            android:id="@+id/home_on_fab_click_dialog_lbl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toStartOf="@id/home_on_fab_click_dialog_cancel"
+            android:text="Add Habit"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/home_on_fab_click_dialog_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/selector_btn_normal"
+            android:drawableStart="@drawable/ic_cancel"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:maxLines="1"
+            android:minWidth="0dp"
+            android:minHeight="40dp"
+            android:paddingLeft="10dp"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textColor="@color/NIGHT"
+            android:textSize="0sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_on_fab_click_dialog_cancel"
+            android:gravity="start"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/home_on_fab_click_dialog_predefined_habit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/selector_btn_normal"
+                android:drawableStart="@drawable/ic_add"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:maxLines="1"
+                android:minWidth="0dp"
+                android:minHeight="40dp"
+                android:paddingLeft="10dp"
+                android:paddingEnd="20dp"
+                android:text="Predefined"
+                android:textAllCaps="false"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/home_on_fab_click_dialog_user_defined_habit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/selector_btn_normal"
+                android:drawableStart="@drawable/ic_add"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:maxLines="1"
+                android:minWidth="0dp"
+                android:minHeight="40dp"
+                android:paddingLeft="10dp"
+                android:paddingEnd="20dp"
+                android:text="Custom"
+                android:textAllCaps="false"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
