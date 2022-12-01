@@ -2,7 +2,6 @@ package com.habitdev.sprout.ui.menu.home.ui.fab_.custom_;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +21,7 @@ import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAddNewHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.ui.menu.home.HomeFragment;
+import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSubroutineFragment.onAddSaveInput{
+public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSubroutineFragment.onDialoagChange {
 
     private FragmentAddNewHabitBinding binding;
 
@@ -42,6 +42,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     private int old_selected_color;
     private String color;
 
+    private HomeAddNewHabitParentAdapter homeAddNewHabitParentAdapter;
 
     public AddNewHabitFragment() {
         this.ic_check = R.drawable.ic_check;
@@ -59,10 +60,23 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     }
 
     @Override
-    public void sendInput(Subroutines input) {
-        //Input Reciever
-        this.subroutine = input;
-        Log.d("tag", "sendInput: " + subroutine.toString());
+    public void addSubroutine(Subroutines subroutines) {
+        this.subroutine = subroutines;
+        subroutinesList.add(subroutine);
+        setRecyclerViewAdapter();
+    }
+
+    @Override
+    public void modifySubroutine(Subroutines subroutines) {
+        this.subroutine = subroutines;
+        setRecyclerViewAdapter();
+    }
+
+    @Override
+    public void removeSubroutine(Subroutines subroutines) {
+        this.subroutine = subroutines;
+        subroutinesList.remove(subroutines);
+        setRecyclerViewAdapter();
     }
 
     @Nullable
@@ -75,11 +89,12 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         setHabitColor();
         colorSelect();
         insertSubroutine();
+        setRecyclerViewAdapter();
         insertNewHabit();
         return binding.getRoot();
     }
 
-    private void setCurrentTime(){
+    private void setCurrentTime() {
         binding.addNewHabitCurrentTime.setText(
                 new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault()).format(new Date())
         );
@@ -125,7 +140,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         });
     }
 
-    private void setHabitColor(){
+    private void setHabitColor() {
         if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
             current_selected_color = 1;
             setSelected_color();
@@ -226,7 +241,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         binding.addNewHabitColorSelector.setBackground(backgroundNoteIndicator);
     }
 
-    private void insertNewHabit(){
+    private void insertNewHabit() {
         binding.fabAddNewHabit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,8 +255,8 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                 long uid = habitWithSubroutinesViewModel.insertHabit(habit);
 
                 //Insert List of Subroutines
-                if (!subroutinesList.isEmpty()){
-                    for (Subroutines subroutine : subroutinesList){
+                if (!subroutinesList.isEmpty()) {
+                    for (Subroutines subroutine : subroutinesList) {
                         subroutine.setFk_habit_uid(uid);
                     }
                     habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
@@ -251,7 +266,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         });
     }
 
-    private void insertSubroutine(){
+    private void insertSubroutine() {
         binding.addNewHabitSubroutineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -260,6 +275,25 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                 dialog.show(getChildFragmentManager(), "TAG");
             }
         });
+    }
+
+    private void setRecyclerViewAdapter() {
+        if (subroutinesList != null) {
+            if (subroutinesList.isEmpty()) {
+                binding.addNewHabitSubroutineCardView.setVisibility(View.GONE);
+            } else {
+                binding.addNewHabitSubroutineCardView.setVisibility(View.VISIBLE);
+            }
+
+            if (homeAddNewHabitParentAdapter == null)
+                homeAddNewHabitParentAdapter = new HomeAddNewHabitParentAdapter(subroutinesList, requireActivity(), getChildFragmentManager(), AddNewHabitFragment.this.getId());
+
+            if (binding.addNewHabitSubroutineRecyclerView.getAdapter() == null) {
+                binding.addNewHabitSubroutineRecyclerView.setAdapter(homeAddNewHabitParentAdapter);
+            } else {
+                homeAddNewHabitParentAdapter.setSubroutinesList(subroutinesList);
+            }
+        }
     }
 
     private void onBackPress() {
@@ -272,7 +306,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
-    private void returnHomeFragment(){
+    private void returnHomeFragment() {
         FragmentManager fragmentManager = getChildFragmentManager();
         fragmentManager.beginTransaction().replace(binding.addNewHabitFrameLayout.getId(), new HomeFragment())
                 .commit();
