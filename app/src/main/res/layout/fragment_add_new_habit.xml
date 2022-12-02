@@ -196,7 +196,7 @@
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/add_new_habit_textInput"
+                    android:id="@+id/add_new_habit_text_input"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -223,7 +223,7 @@
                     android:id="@+id/add_new_habit_current_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/add_new_habit_textInput"
+                    android:layout_below="@id/add_new_habit_text_input"
                     android:padding="5dp"
                     android:textAlignment="center"
                     android:textAllCaps="true"
@@ -372,6 +372,21 @@
             app:borderWidth="5dp"
             app:fabCustomSize="45dp"
             app:srcCompat="@drawable/ic_save" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_delete_habit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toStartOf="@id/fab_add_new_habit"
+            android:contentDescription="Delete Habit"
+            app:backgroundTint="@color/CLOUDS"
+            app:borderWidth="5dp"
+            android:visibility="gone"
+            app:fabCustomSize="45dp"
+            app:srcCompat="@drawable/ic_delete" />
 
     </RelativeLayout>
 </FrameLayout>

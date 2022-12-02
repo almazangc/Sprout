@@ -3,6 +3,8 @@ package com.habitdev.sprout.ui.menu.home.ui.dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,11 +72,21 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogFragmentHomeAddNewInsertSubroutineBinding.inflate(inflater, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_dialog_transparent);
+        setAddBtnText();
+        setHint();
         onRemove();
         setSubroutine();
         onCancel();
         onClickSave();
         return binding.getRoot();
+    }
+
+    private void setAddBtnText() {
+        if (onModify) {
+            binding.addNewHabitSubroutineBtn.setText("Save Update");
+        } else {
+            binding.addNewHabitSubroutineBtn.setText("Insert New");
+        }
     }
 
     private void setSubroutine() {
@@ -96,16 +108,15 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     }
 
     private void onClickSave() {
-        binding.addNewHabitSubroutineBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (subroutine == null) {
-                    onAdd();
-                } else {
-                    onModify();
-                }
-                Objects.requireNonNull(getDialog()).dismiss();
-            }
+        binding.addNewHabitSubroutineBtn.setOnClickListener(view -> {
+           if (binding.addNewSubroutineHint.getText().toString().trim().isEmpty()){
+               if (subroutine == null) {
+                   onAdd();
+               } else {
+                   onModify();
+               }
+               Objects.requireNonNull(getDialog()).dismiss();
+           }
         });
     }
 
@@ -133,6 +144,54 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
             mOnDialoagChange.removeSubroutine(subroutine);
             dismiss();
         }
+    }
+
+    private void setHint(){
+        binding.addNewSubroutineTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText("Required*");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()){
+                        binding.addNewSubroutineHint.setText("Empty Title*");
+                } else {
+                    if (binding.addNewSubroutineDescription.getText().toString().trim().isEmpty()){
+                        binding.addNewSubroutineHint.setText("Empty Description*");
+                    } else {
+                        binding.addNewSubroutineHint.setText("");
+                    }
+                }
+            }
+        });
+
+        binding.addNewSubroutineDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText("Required*");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()){
+                        binding.addNewSubroutineHint.setText("Empty Description*");
+                } else {
+                    if (binding.addNewSubroutineTitle.getText().toString().trim().isEmpty()){
+                        binding.addNewSubroutineHint.setText("Empty Title*");
+                    } else {
+                        binding.addNewSubroutineHint.setText("");
+                    }
+                }
+            }
+        });
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.habitdev.sprout.database.habit;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -65,13 +65,10 @@ public interface HabitWithSubroutinesDao {
 
     @Update
     void updateHabit(Habits habit);
-//
-//    @Update
-//    void updateSubroutine(Subroutines subroutine);
-//
-//    @Delete
-//    long deleteHabit(Habits habit);
 
-//    @Delete
-//    void deleteSubroutine(Subroutines subroutine);
+    @Delete
+    void deleteHabit(Habits habit);
+
+    @Delete(entity = Subroutines.class)
+    void deleteSubroutineList(List<Subroutines> subroutine);
 }

@@ -2,6 +2,8 @@ package com.habitdev.sprout.ui.menu.home.ui.fab_.custom_;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -33,17 +35,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSubroutineDialogFragment.onDialoagChange {
 
+    private final int ic_check;
     private FragmentAddNewHabitBinding binding;
-
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private Habits habit;
+    private Habits habit_snapshot;
     private List<Habits> habitsList;
     private List<Subroutines> subroutinesList;
+    private List<Subroutines> subroutinesList_snapshot;
     private Subroutines subroutine;
-    private final int ic_check;
     private int current_selected_color;
     private int old_selected_color;
     private String color;
@@ -90,6 +95,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddNewHabitBinding.inflate(inflater, container, false);
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+        setHint();
         userDefinedHabit();
         setCurrentTime();
         setHabitColor();
@@ -101,44 +107,120 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         return binding.getRoot();
     }
 
-    private void userDefinedHabit() {
-        List<String> habitTitles = new ArrayList<>();
+    private void setHint() {
+        binding.addNewHabitTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().isEmpty())
+                    binding.addNewHabitHint.setText("Required*");
+            }
 
-        habitWithSubroutinesViewModel.getAllUserDefinedHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
-            if (habits != null) {
-                if (!habits.isEmpty()) {
-                    if (binding.addNewHabitDropItems.getVisibility() == View.GONE)
-                        binding.addNewHabitDropItems.setVisibility(View.VISIBLE);
-                    habitsList = habits;
-                    habitTitles.clear();
-                    for (Habits habit : habits){
-                        habitTitles.add(habit.getHabit());
-                    }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()) {
+                    binding.addNewHabitHint.setText("Empty Title*");
                 } else {
-                    if (binding.addNewHabitDropItems.getVisibility() == View.VISIBLE)
-                        binding.addNewHabitDropItems.setVisibility(View.GONE);
+                    if (binding.addNewHabitDescription.getText().toString().trim().isEmpty()) {
+                        binding.addNewHabitHint.setText("Empty Description*");
+                    } else {
+                        binding.addNewHabitHint.setText("");
+                    }
+                }
+            }
+        });
+        binding.addNewHabitDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().isEmpty())
+                    binding.addNewHabitHint.setText("Required*");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()) {
+                    binding.addNewHabitHint.setText("Empty Description*");
+                } else {
+                    if (binding.addNewHabitTitle.getText().toString().trim().isEmpty()) {
+                        binding.addNewHabitHint.setText("Empty Title*");
+                    } else {
+                        binding.addNewHabitHint.setText("");
+                    }
                 }
             }
         });
 
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (binding != null) {
+                            if (subroutinesList.isEmpty() || subroutinesList.size() < 2) {
+                                if (binding.addNewHabitHint.getText().toString().trim().isEmpty())
+                                    binding.addNewHabitHint.setText("Required Minimum of 2 Subroutine*");
+                            } else {
+                                binding.addNewHabitHint.setText("");
+                            }
+                        } else {
+                            timer.cancel();
+                        }
+                    }
+                });
+            }
+        }, 0, 1000);
+    }
+
+    private void userDefinedHabit() {
+        List<String> habitTitles = new ArrayList<>();
+        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);;
+        habitWithSubroutinesViewModel.getAllUserDefinedHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
+            if (habits != null) {
+                if (!habits.isEmpty()) {
+                    if (binding.addNewHabitTextInput.getVisibility() == View.GONE)
+                        binding.addNewHabitTextInput.setVisibility(View.VISIBLE);
+                    habitsList = habits;
+                    habitTitles.clear();
+                    for (Habits habit : habits) {
+                        habitTitles.add(habit.getHabit());
+                    }
+                } else {
+                    if (binding.addNewHabitTextInput.getVisibility() == View.VISIBLE)
+                        binding.addNewHabitTextInput.setVisibility(View.GONE);
+                }
+//                adapterItems.clear();
+//                adapterItems.addAll(habitTitles);
+            }
+        });
+
         binding.addNewHabitDropItems.setAdapter(adapterItems);
 
         binding.addNewHabitDropItems.setOnItemClickListener((adapterView, view, pos, id) -> {
             habit = habitsList.get(pos);
-            updateUI();
+            updateView();
         });
 
         binding.addNewHabitDropItems.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable.toString().trim().isEmpty()){
+                if (editable.toString().trim().isEmpty()) {
                     binding.addNewHabitTitle.setText("");
                     binding.addNewHabitDescription.setText("");
                     color = AppColor.CLOUDS.getColor();
@@ -146,12 +228,26 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     setSelected_color();
                     subroutinesList.clear();
                     setRecyclerViewAdapter();
+                } else {
+                    for (String title : habitTitles) {
+                        if (editable.toString().trim().equals(title.trim())) {
+                            binding.fabAddDeleteHabit.setVisibility(View.VISIBLE);
+
+                            habit_snapshot = habit;
+                            subroutinesList_snapshot = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit_snapshot.getPk_habit_uid());
+
+                            deleteHabit();
+                            break;
+                        } else {
+                            binding.fabAddDeleteHabit.setVisibility(View.GONE);
+                        }
+                    }
                 }
             }
         });
     }
 
-    private void updateUI(){
+    private void updateView() {
         binding.addNewHabitTitle.setText(habit.getHabit());
         binding.addNewHabitDescription.setText(habit.getDescription());
         color = habit.getColor();
@@ -160,7 +256,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         setSubroutinesList(habit.getPk_habit_uid());
     }
 
-    private void setSubroutinesList(long uid){
+    private void setSubroutinesList(long uid) {
         subroutinesList.clear();
         subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
         setRecyclerViewAdapter();
@@ -315,21 +411,23 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
 
     private void insertNewHabit() {
         binding.fabAddNewHabit.setOnClickListener(v -> {
-            habit.setHabit(binding.addNewHabitTitle.getText().toString());
-            habit.setDescription(binding.addNewHabitDescription.getText().toString());
-            habit.setOnReform(true);
-            habit.setDate_started(binding.addNewHabitCurrentTime.getText().toString());
-            habit.setColor(color);
+            if (binding.addNewHabitHint.getText().toString().trim().isEmpty()) {
+                habit.setHabit(binding.addNewHabitTitle.getText().toString().trim());
+                habit.setDescription(binding.addNewHabitDescription.getText().toString().trim());
+                habit.setOnReform(true);
+                habit.setDate_started(binding.addNewHabitCurrentTime.getText().toString().trim());
+                habit.setColor(color);
 
-            long uid = habitWithSubroutinesViewModel.insertHabit(habit);
+                long uid = habitWithSubroutinesViewModel.insertHabit(habit);
 
-            if (!subroutinesList.isEmpty()) {
-                for (Subroutines subroutine : subroutinesList) {
-                    subroutine.setFk_habit_uid(uid);
+                if (!subroutinesList.isEmpty()) {
+                    for (Subroutines subroutine : subroutinesList) {
+                        subroutine.setFk_habit_uid(uid);
+                    }
+                    habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
                 }
-                habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
+                returnHomeFragment();
             }
-            returnHomeFragment();
         });
     }
 
@@ -340,6 +438,18 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     .findFragmentById(AddNewHabitFragment.this.getId()), 1);
             dialog.show(getChildFragmentManager(), "HomeAddNewInsertSubroutineDialog");
         });
+    }
+
+    private void deleteHabit() {
+        if (binding.fabAddDeleteHabit.getVisibility() == View.VISIBLE) {
+            binding.fabAddDeleteHabit.setOnClickListener(view -> {
+                //Delete Habit and its subroutines and comments
+                habitWithSubroutinesViewModel.deleteHabit(habit_snapshot);
+                Toast.makeText(requireActivity(), habit_snapshot.getHabit() + "", Toast.LENGTH_SHORT).show();
+
+                habitWithSubroutinesViewModel.deleteSubroutineList(subroutinesList_snapshot);
+            });
+        }
     }
 
     private void setRecyclerViewAdapter() {
@@ -356,7 +466,6 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
             homeAddNewHabitParentAdapter.setOnClickListener(new HomeAddNewHabitParentAdapter.OnClickListener() {
                 @Override
                 public void onDelete(Subroutines subroutine) {
-                    Toast.makeText(requireActivity(), "Remove", Toast.LENGTH_SHORT).show();
                     HomeAddNewInsertSubroutineDialogFragment dialog = new HomeAddNewInsertSubroutineDialogFragment(subroutine, true);
                     dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AddNewHabitFragment.this.getId()), 1);
                     dialog.show(getChildFragmentManager(), "TAG");
@@ -364,7 +473,6 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
 
                 @Override
                 public void onModify(Subroutines subroutine) {
-                    Toast.makeText(requireActivity(), "Modify", Toast.LENGTH_SHORT).show();
                     HomeAddNewInsertSubroutineDialogFragment dialog = new HomeAddNewInsertSubroutineDialogFragment(subroutine);
                     dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AddNewHabitFragment.this.getId()), 1);
                     dialog.show(getChildFragmentManager(), "TAG");
@@ -401,6 +509,8 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        habitWithSubroutinesViewModel.getAllUserDefinedHabitListLiveData().removeObservers(getViewLifecycleOwner());
+        habitWithSubroutinesViewModel = null;
         binding = null;
     }
 }

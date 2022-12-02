@@ -56,6 +56,44 @@ public class HabitWithSubroutinesRepository {
         }
     }
 
+    public void deleteHabit(Habits habit) {
+        new DeleteHabitAsyncTask(habitWithSubroutinesDao).execute(habit);
+    }
+
+    public static class DeleteHabitAsyncTask extends AsyncTask<Habits, Void, Void> {
+
+        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
+
+        public DeleteHabitAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
+            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
+        }
+
+        @Override
+        protected Void doInBackground(Habits... habit) {
+            habitWithSubroutinesDao.deleteHabit(habit[0]);
+            return null;
+        }
+    }
+
+    public void deleteSubroutineList(List<Subroutines> subroutines) {
+        new DeleteSubroutineListAsyncTask(habitWithSubroutinesDao).execute(subroutines);
+    }
+
+    public static class DeleteSubroutineListAsyncTask extends AsyncTask<List<Subroutines>, Void, Void> {
+
+        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
+
+        public DeleteSubroutineListAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
+            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
+        }
+
+        @Override
+        protected Void doInBackground(List<Subroutines>... lists) {
+            habitWithSubroutinesDao.deleteSubroutineList(lists[0]);
+            return null;
+        }
+    }
+
     public long insertHabit(Habits habits){
         return habitWithSubroutinesDao.insertHabit(habits);
     }

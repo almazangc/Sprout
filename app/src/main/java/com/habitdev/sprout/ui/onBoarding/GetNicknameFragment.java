@@ -1,6 +1,8 @@
 package com.habitdev.sprout.ui.onBoarding;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +39,9 @@ public class GetNicknameFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        validate_nickname();
         binding.btnContinue.setOnClickListener(view -> {
             nickname = Objects.requireNonNull(binding.editNickname.getText()).toString();
-            binding.editNicknameContainer.setHelperText(validate_nickname(nickname));
             if (binding.editNicknameContainer.getHelperText() == null){
                 Bundle bundle = getArguments();
                 assert bundle != null;
@@ -50,16 +52,32 @@ public class GetNicknameFragment extends Fragment {
         onBackPress();
     }
 
-    private String validate_nickname(String nickname) {
-        if (nickname.trim().isEmpty()){
-            return "Required*";
-        } else if (nickname.length() > 15 || nickname.length() < 3 ) {
-            return "Minimum of 3, Maximum of 15 Characters*";
-        } else if (!Pattern.compile("^[a-zA-Z ]*$").matcher(nickname).matches()){
+    private void validate_nickname() {
+        binding.editNickname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().isEmpty()){
+                    binding.editNicknameContainer.setHelperText("Required*");
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()){
+                    binding.editNicknameContainer.setHelperText("Required*");
+                } else if (editable.toString().trim().length() > 15 || editable.toString().trim().length() < 3 ) {
+                    binding.editNicknameContainer.setHelperText("Minimum of 3, Maximum of 15 Characters*");
+                } else if (!Pattern.compile("^[a-zA-Z ]*$").matcher(editable.toString().trim()).matches()){
 //            Allowed Input a-zA-Z space
-            return "Invalid nickname*";
-        }
-        return null;
+                    binding.editNicknameContainer.setHelperText("Invalid nickname*");
+                } else {
+                    binding.editNicknameContainer.setHelperText("");
+                }
+            }
+        });
     }
 
     /**

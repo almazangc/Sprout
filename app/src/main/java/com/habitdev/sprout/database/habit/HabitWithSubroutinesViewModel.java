@@ -42,6 +42,14 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         repository.updateHabit(habit);
     }
 
+    public void deleteHabit(Habits habit) {
+        repository.deleteHabit(habit);
+    }
+
+    public void deleteSubroutineList(List<Subroutines>subroutines) {
+        repository.deleteSubroutineList(subroutines);
+    }
+
     public long insertHabit(Habits habits){
         return repository.insertHabit(habits);
     }
