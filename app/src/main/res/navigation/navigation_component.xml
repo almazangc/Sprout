@@ -312,6 +312,9 @@
         <action
             android:id="@+id/action_subroutineFragment_to_analyticsFragment"
             app:destination="@id/analyticsFragment" />
+        <action
+            android:id="@+id/action_subroutineFragment_to_modifySubroutinesFragment"
+            app:destination="@id/modifySubroutinesFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -372,9 +375,9 @@
     </fragment>
     <fragment
         android:id="@+id/addNewSubroutineFragment"
-        android:name="com.habitdev.sprout.ui.menu.subroutine.ui.ModifySubroutineFragment"
+        android:name="com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment"
         android:label="fragment_add_new_subroutine"
-        tools:layout="@layout/fragment_modify_subroutine" >
+        tools:layout="@layout/fragment_subroutine_modify" >
         <action
             android:id="@+id/action_addNewSubroutineFragment_to_subroutineFragment"
             app:destination="@id/subroutineFragment" />
@@ -474,5 +477,26 @@
         <action
             android:id="@+id/action_homeOnFabClickDialogFragment_to_addDefaultHabitFragment"
             app:destination="@id/addDefaultHabitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/modifySubroutineParentItemAdapterModifyDialogFragment"
+        android:name="com.habitdev.sprout.ui.menu.subroutine.ui.dialog.ModifySubroutineParentItemAdapterModifyDialogFragment"
+        android:label="fragment_modify_subroutine_parent_item_adapter_modify_dialog"
+        tools:layout="@layout/dialog_fragment_subroutine_modify_parent_item_adapter_modify" >
+        <action
+            android:id="@+id/action_modifySubroutineParentItemAdapterModifyDialogFragment_to_modifySubroutinesFragment"
+            app:destination="@id/modifySubroutinesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/modifySubroutinesFragment"
+        android:name="com.habitdev.sprout.ui.menu.subroutine.ui.ModifySubroutinesFragment"
+        android:label="fragment_modify_subroutines"
+        tools:layout="@layout/fragment_subroutine_modify" >
+        <action
+            android:id="@+id/action_modifySubroutinesFragment_to_subroutineFragment"
+            app:destination="@id/subroutineFragment" />
+        <action
+            android:id="@+id/action_modifySubroutinesFragment_to_modifySubroutineParentItemAdapterModifyDialogFragment"
+            app:destination="@id/modifySubroutineParentItemAdapterModifyDialogFragment" />
     </fragment>
 </navigation>

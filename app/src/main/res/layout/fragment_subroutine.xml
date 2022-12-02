@@ -42,6 +42,7 @@
             android:layout_height="match_parent"
             android:layout_below="@id/layout_top"
             android:layout_marginTop="2dp"
+            android:padding="5dp"
             tools:listitem="@layout/adapter_subroutine_parent_item" />
     </RelativeLayout>
 </FrameLayout>

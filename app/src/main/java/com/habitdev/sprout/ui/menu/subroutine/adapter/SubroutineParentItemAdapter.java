@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +9,9 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
@@ -20,26 +19,38 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
-import com.habitdev.sprout.ui.menu.subroutine.ui.ModifySubroutineFragment;
+import com.habitdev.sprout.enums.AppColor;
 
 import java.util.List;
 
-public class SubroutineParentItemAdapter extends RecyclerView.Adapter<SubroutineParentItemAdapter.ParentItemViewHolder> {
+public class SubroutineParentItemAdapter extends RecyclerView.Adapter<SubroutineParentItemAdapter.ParentItemViewHolder>{
 
     private List<Habits> habitsOnReform;
     private LifecycleOwner lifecycleOwner;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private FragmentSubroutineBinding binding;
+
+    public interface OnClickListener{
+        void onModifySubroutine(Habits habit);
+    }
+
+    private OnClickListener mOnClickListener;
+
+    public void setmOnClickListener(OnClickListener mOnClickListener) {
+        this.mOnClickListener = mOnClickListener;
+    }
+
+    public void setLifecycleOwner(LifecycleOwner lifecycleOwner) {
+        this.lifecycleOwner = lifecycleOwner;
+    }
+
+    public void setHabitWithSubroutinesViewModel(HabitWithSubroutinesViewModel habitWithSubroutinesViewModel) {
+        this.habitWithSubroutinesViewModel = habitWithSubroutinesViewModel;
+    }
 
     //for continues scroll loop
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-    public SubroutineParentItemAdapter(ViewModelStoreOwner viewModelStoreOwner, LifecycleOwner lifecycleOwner, List<Habits> habitsOnReform, FragmentSubroutineBinding binding) {
-        this.lifecycleOwner = lifecycleOwner;
-        this.habitsOnReform = habitsOnReform;
-        this.habitWithSubroutinesViewModel = new ViewModelProvider(viewModelStoreOwner).get(HabitWithSubroutinesViewModel.class);
-        this.binding = binding;
-    }
+    public SubroutineParentItemAdapter() {}
 
     @NonNull
     @Override
@@ -51,7 +62,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
     @Override
     public void onBindViewHolder(@NonNull ParentItemViewHolder holder, int position) {
-        long uid = holder.bindData(habitsOnReform.get(position));
+        long uid = holder.bindData(habitsOnReform.get(position), mOnClickListener);
 
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation);
         holder.childRecycleView.setLayoutAnimation(animationController);
@@ -88,22 +99,46 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     public class ParentItemViewHolder extends RecyclerView.ViewHolder {
 
         //Components Here
-        Button habitsOnReformTitle, modifySubroutineBtn;
+        CardView ItemCardView;
+        Button HabitsTitle, ModifySubroutine;
         RecyclerView childRecycleView;
+        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
 
         public ParentItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            habitsOnReformTitle = itemView.findViewById(R.id.habitOnReform_title);
-            modifySubroutineBtn = itemView.findViewById(R.id.modify_subroutine);
+            ItemCardView = itemView.findViewById(R.id.subroutine_parent_item_card_view);
+            HabitsTitle = itemView.findViewById(R.id.subroutine_parent_item_habit_title);
+            ModifySubroutine = itemView.findViewById(R.id.subroutine_parent_item_modify_subroutine);
             childRecycleView = itemView.findViewById(R.id.subroutine_child_recyclerview);
+
+            cs_cloud = ContextCompat.getColorStateList(itemView.getContext(), R.color.CLOUDS);
+            cs_amethyst = ContextCompat.getColorStateList(itemView.getContext(), R.color.AMETHYST);
+            cs_sunflower = ContextCompat.getColorStateList(itemView.getContext(), R.color.SUNFLOWER);
+            cs_nephritis = ContextCompat.getColorStateList(itemView.getContext(), R.color.NEPHRITIS);
+            cs_bright_sky_blue = ContextCompat.getColorStateList(itemView.getContext(), R.color.BRIGHT_SKY_BLUE);
+            cs_alzarin = ContextCompat.getColorStateList(itemView.getContext(), R.color.ALIZARIN);
         }
 
-        long bindData(Habits habitOnReform) {
-            //Setting Data
-            String buttonLabel = habitOnReform.getHabit() + " [ " + habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habitOnReform.getPk_habit_uid()).size() + " ]";
+        long bindData(Habits habit, OnClickListener onClickListener) {
 
-            habitsOnReformTitle.setText(buttonLabel);
-            habitsOnReformTitle.setOnClickListener(view -> {
+            if (habit.getColor().equals(AppColor.ALZARIN.getColor())){
+                ItemCardView.setBackgroundTintList(cs_alzarin);
+            } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())){
+                ItemCardView.setBackgroundTintList(cs_amethyst);
+            } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())){
+                ItemCardView.setBackgroundTintList(cs_bright_sky_blue);
+            } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())){
+                ItemCardView.setBackgroundTintList(cs_nephritis);
+            } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())){
+                ItemCardView.setBackgroundTintList(cs_sunflower);
+            } else {
+                ItemCardView.setBackgroundTintList(cs_cloud);
+            }
+
+            String buttonLabel = habit.getHabit() + " [ " + habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() + " ]";
+
+            HabitsTitle.setText(buttonLabel);
+            HabitsTitle.setOnClickListener(view -> {
                 childRecycleView.getVisibility();
                 if (childRecycleView.getVisibility() == View.GONE) {
                     childRecycleView.setVisibility(View.VISIBLE);
@@ -112,27 +147,22 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
                 }
             });
 
-            if (habitOnReform.isModifiable()){
-                modifySubroutineBtn.setOnClickListener(view -> {
-                    FragmentManager fragmentManager = ((AppCompatActivity) view.getContext()).getSupportFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(binding.subroutineFrameLayout.getId(), new ModifySubroutineFragment())
-                            .commit();
-                    binding.subroutineContainer.setVisibility(View.GONE);
+            if (habit.isModifiable()){
+                ModifySubroutine.setOnClickListener(view -> {
+                    onClickListener.onModifySubroutine(habit);
                     setOnDestroyAdapter();
                 });
             } else {
-                modifySubroutineBtn.setVisibility(View.GONE);
+                ModifySubroutine.setVisibility(View.GONE);
             }
 
-            return habitOnReform.getPk_habit_uid();
+            return habit.getPk_habit_uid();
         }
 
         void setOnDestroyAdapter(){
             habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().removeObservers(lifecycleOwner);
             habitWithSubroutinesViewModel = null;
             lifecycleOwner = null;
-            binding = null;
         }
     }
 }

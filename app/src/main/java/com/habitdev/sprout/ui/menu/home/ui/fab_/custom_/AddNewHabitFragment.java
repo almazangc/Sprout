@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -40,15 +39,14 @@ import java.util.TimerTask;
 
 public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSubroutineDialogFragment.onDialoagChange {
 
-    private final int ic_check;
     private FragmentAddNewHabitBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private Habits habit;
-    private Habits habit_snapshot;
     private List<Habits> habitsList;
     private List<Subroutines> subroutinesList;
-    private List<Subroutines> subroutinesList_snapshot;
     private Subroutines subroutine;
+
+    private final int ic_check;
     private int current_selected_color;
     private int old_selected_color;
     private String color;
@@ -182,7 +180,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
 
     private void userDefinedHabit() {
         List<String> habitTitles = new ArrayList<>();
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);;
+        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);
         habitWithSubroutinesViewModel.getAllUserDefinedHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             if (habits != null) {
                 if (!habits.isEmpty()) {
@@ -197,8 +195,6 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     if (binding.addNewHabitTextInput.getVisibility() == View.VISIBLE)
                         binding.addNewHabitTextInput.setVisibility(View.GONE);
                 }
-//                adapterItems.clear();
-//                adapterItems.addAll(habitTitles);
             }
         });
 
@@ -232,10 +228,6 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     for (String title : habitTitles) {
                         if (editable.toString().trim().equals(title.trim())) {
                             binding.fabAddDeleteHabit.setVisibility(View.VISIBLE);
-
-                            habit_snapshot = habit;
-                            subroutinesList_snapshot = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit_snapshot.getPk_habit_uid());
-
                             deleteHabit();
                             break;
                         } else {
@@ -248,12 +240,12 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     }
 
     private void updateView() {
-        binding.addNewHabitTitle.setText(habit.getHabit());
-        binding.addNewHabitDescription.setText(habit.getDescription());
-        color = habit.getColor();
-        setHabitColor();
-        setSelected_color();
-        setSubroutinesList(habit.getPk_habit_uid());
+            binding.addNewHabitTitle.setText(habit.getHabit());
+            binding.addNewHabitDescription.setText(habit.getDescription());
+            color = habit.getColor();
+            setHabitColor();
+            setSelected_color();
+            setSubroutinesList(habit.getPk_habit_uid());
     }
 
     private void setSubroutinesList(long uid) {
@@ -444,10 +436,12 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         if (binding.fabAddDeleteHabit.getVisibility() == View.VISIBLE) {
             binding.fabAddDeleteHabit.setOnClickListener(view -> {
                 //Delete Habit and its subroutines and comments
-                habitWithSubroutinesViewModel.deleteHabit(habit_snapshot);
-                Toast.makeText(requireActivity(), habit_snapshot.getHabit() + "", Toast.LENGTH_SHORT).show();
-
-                habitWithSubroutinesViewModel.deleteSubroutineList(subroutinesList_snapshot);
+                habitWithSubroutinesViewModel.deleteHabit(habit);
+                habitWithSubroutinesViewModel.deleteSubroutineList(subroutinesList);
+                binding.fabAddDeleteHabit.setVisibility(View.GONE);
+                habit = new Habits("", "", AppColor.CLOUDS.getColor(), true, true);
+                subroutinesList = new ArrayList<>();
+                updateView();
             });
         }
     }

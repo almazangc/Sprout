@@ -15,10 +15,11 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
+import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
 
 import java.util.List;
 
-public class SubroutineFragment extends Fragment {
+public class SubroutineFragment extends Fragment implements SubroutineParentItemAdapter.OnClickListener {
 
     private FragmentSubroutineBinding binding;
 
@@ -35,10 +36,23 @@ public class SubroutineFragment extends Fragment {
         binding.subroutineRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
         List<Habits> habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        SubroutineParentItemAdapter parentAdapterItem = new SubroutineParentItemAdapter(requireActivity(), getViewLifecycleOwner(), habitsOnReform, binding);
+        SubroutineParentItemAdapter parentAdapterItem = new SubroutineParentItemAdapter();
+        parentAdapterItem.setHabitsOnReform(habitsOnReform);
+        parentAdapterItem.setmOnClickListener(this);
+        parentAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+        parentAdapterItem.setLifecycleOwner(getViewLifecycleOwner());
+
         binding.subroutineRecyclerView.setAdapter(parentAdapterItem);
 
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), parentAdapterItem::setHabitsOnReform);
+    }
+
+    @Override
+    public void onModifySubroutine(Habits habit) {
+            getChildFragmentManager().beginTransaction()
+                    .replace(binding.subroutineFrameLayout.getId(), new SubroutineModifyFragment(habit))
+                    .commit();
+            binding.subroutineContainer.setVisibility(View.GONE);
     }
 
     private void onBackPress() {

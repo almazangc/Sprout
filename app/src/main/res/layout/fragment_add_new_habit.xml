@@ -31,21 +31,14 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
-                    <Button
-                        android:id="@+id/add_new_habit_layout_button"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:background="@color/TRANSPARENT"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:padding="3dp"
+                        android:textAlignment="center"
                         android:text="Pick Color"
-                        android:textAllCaps="false"
                         android:textColor="@color/NIGHT" />
 
                     <LinearLayout

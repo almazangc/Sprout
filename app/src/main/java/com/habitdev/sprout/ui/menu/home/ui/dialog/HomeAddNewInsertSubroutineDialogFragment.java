@@ -71,7 +71,7 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogFragmentHomeAddNewInsertSubroutineBinding.inflate(inflater, container, false);
-        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_dialog_transparent);
+        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
         setAddBtnText();
         setHint();
         onRemove();

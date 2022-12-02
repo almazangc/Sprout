@@ -34,7 +34,7 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogFragmentHomeParentItemAdapterModifyBinding.inflate(inflater, container, false);
-        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_dialog_transparent);
+        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
         binding.homeParentItemAdapterModifyTitle.setText(habitOnModify.getHabit());
         binding.homeParentItemAdapterModifyDescription.setText(habitOnModify.getDescription());
         onUpdate();

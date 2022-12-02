@@ -33,7 +33,7 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogFragmentHomeOnFabClickDialogBinding.inflate(inflater, container, false);
-        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_dialog_transparent);
+        Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
         setOnclickListener();
         return binding.getRoot();
     }
