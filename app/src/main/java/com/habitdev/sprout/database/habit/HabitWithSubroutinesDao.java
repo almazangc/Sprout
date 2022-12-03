@@ -24,6 +24,9 @@ public interface HabitWithSubroutinesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSubroutines(List<Subroutines> subroutines);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertSubroutine(Subroutines subroutine);
+
     @Query("SELECT * FROM Habits WHERE on_reform = 1")
     List<Habits> getAllHabitOnReform();
 
@@ -56,18 +59,20 @@ public interface HabitWithSubroutinesDao {
     @Query("SELECT COUNT(*) FROM Habits WHERE Habits.on_reform = 1")
     LiveData<Long> getHabitOnReformCount();
 
-//    @Transaction
-//    @Query("SELECT * FROM Habits INNER JOIN subroutines ON Habits.pk_habit_uid = subroutines.fk_habit_uid WHERE Habits.modifiable = 0")
-//    LiveData<List<HabitWithSubroutines>> getAllUserDefinedHabitsSubroutinesLiveData();
-
     @Query("SELECT * FROM Habits WHERE modifiable = 1")
     LiveData<List<Habits>> getAllUserDefinedHabitListLiveData();
 
     @Update
     void updateHabit(Habits habit);
 
+    @Update
+    void updateSubroutine(Subroutines subroutine);
+
     @Delete
     void deleteHabit(Habits habit);
+
+    @Delete
+    void deleteSubroutine(Subroutines subroutine);
 
     @Delete(entity = Subroutines.class)
     void deleteSubroutineList(List<Subroutines> subroutine);

@@ -107,7 +107,7 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
             if (binding.homeParentItemAdapterModifyHint.getText().toString().trim().isEmpty()) {
                 habitOnModify.setHabit(binding.homeParentItemAdapterModifyTitle.getText().toString().trim());
                 habitOnModify.setDescription(binding.homeParentItemAdapterModifyDescription.getText().toString().trim());
-                habitWithSubroutinesViewModel.update(habitOnModify);
+                habitWithSubroutinesViewModel.updateHabit(habitOnModify);
                 Objects.requireNonNull(getDialog()).dismiss();
             }
         });

@@ -93,7 +93,7 @@ public class AddDefaultHabitFragment extends Fragment {
 
     private void addHabitOnReform(){
         binding.addHabitOnReformBtn.setOnClickListener(view -> {
-            habitWithSubroutinesViewModel.update(new Habits(
+            habitWithSubroutinesViewModel.updateHabit(new Habits(
                     habit.getPk_habit_uid(),
                     habit.getHabit(),
                     habit.getDescription(),

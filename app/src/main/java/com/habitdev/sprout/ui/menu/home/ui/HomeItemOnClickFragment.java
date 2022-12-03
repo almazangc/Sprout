@@ -257,7 +257,7 @@ public class HomeItemOnClickFragment extends Fragment {
 
     private void update_habit_color(){
         habit.setColor(color);
-        habitWithSubroutinesViewModel.update(habit);
+        habitWithSubroutinesViewModel.updateHabit(habit);
     }
 
     private void insertComment(){

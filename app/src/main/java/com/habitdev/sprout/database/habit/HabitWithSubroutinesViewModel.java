@@ -38,13 +38,17 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         allUserDefinedHabitListLiveData = repository.getAllUserDefinedHabitListLiveData();
     }
 
-    public void update(Habits habit) {
+    public void updateHabit(Habits habit) {
         repository.updateHabit(habit);
     }
+
+    public void updateSubroutine(Subroutines subroutine) {repository.updateSubroutine(subroutine);}
 
     public void deleteHabit(Habits habit) {
         repository.deleteHabit(habit);
     }
+
+    public void deleteSubroutine(Subroutines subroutine) {repository.deleteSubroutine(subroutine);}
 
     public void deleteSubroutineList(List<Subroutines>subroutines) {
         repository.deleteSubroutineList(subroutines);
@@ -53,6 +57,8 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
     public long insertHabit(Habits habits){
         return repository.insertHabit(habits);
     }
+
+    public void insertSubroutine(Subroutines subroutine) {repository.insertSubroutine(subroutine);}
 
     public void insertSubroutines(List<Subroutines> subroutinesList){
         repository.insertSubroutines(subroutinesList);

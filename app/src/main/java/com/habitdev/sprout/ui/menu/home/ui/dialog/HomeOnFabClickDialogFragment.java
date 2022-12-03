@@ -17,13 +17,13 @@ import java.util.Objects;
 public class HomeOnFabClickDialogFragment extends DialogFragment implements View.OnClickListener {
 
     private DialogFragmentHomeOnFabClickDialogBinding binding;
-    private onClickListener onClickListener;
 
     public interface onClickListener {
         void onPredefinedClick();
-
         void onUserDefineClick();
     }
+
+    private onClickListener onClickListener;
 
     public void setOnClickListener(onClickListener onClickListener) {
         this.onClickListener = onClickListener;
@@ -45,15 +45,14 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
     }
 
     @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.home_on_fab_click_dialog_cancel) {
+    public void onClick(View view) {
+        if (view.getId() == R.id.home_on_fab_click_dialog_cancel) {
             dismiss();
-        } else if (v.getId() == R.id.home_on_fab_click_dialog_predefined_habit) {
+        } else if (view.getId() == R.id.home_on_fab_click_dialog_predefined_habit) {
             if (this.onClickListener != null) this.onClickListener.onPredefinedClick();
             Objects.requireNonNull(getDialog()).dismiss();
-
         }
-        if (v.getId() == R.id.home_on_fab_click_dialog_user_defined_habit) {
+        if (view.getId() == R.id.home_on_fab_click_dialog_user_defined_habit) {
             if (this.onClickListener != null) this.onClickListener.onUserDefineClick();
             Objects.requireNonNull(getDialog()).dismiss();
         }

@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
                     case ItemTouchHelper.END:
                         Habits habits = habitsOnReform.get(viewHolder.getBindingAdapterPosition());
                         habits.setOnReform(false);
-                        habitWithSubroutinesViewModel.update(habits);
+                        habitWithSubroutinesViewModel.updateHabit(habits);
                         homeParentItemAdapter.notifyItemRemoved(viewHolder.getBindingAdapterPosition());
                         break;
                     case ItemTouchHelper.START:
@@ -133,10 +133,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
-    /**
-     * Listens to the FAB Button Click
-     */
-    void FabButton() {
+    private void FabButton() {
         binding.homeFab.setOnClickListener(view -> {
             FragmentManager fragmentManager = getChildFragmentManager();
 

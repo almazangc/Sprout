@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_subroutine_modify_frame_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.menu.subroutine.ui.dialog.ModifySubroutineParentItemAdapterModifyDialogFragment">
+    android:layout_height="wrap_content"
+    android:elevation="5dp"
+    app:cardCornerRadius="15dp"
+    tools:context=".ui.menu.subroutine.ui.dialog.ModifySubroutineParentItemAdapterDialogFragment">
 
     <RelativeLayout
         android:id="@+id/dialog_subroutine_modify_container"
@@ -314,4 +316,4 @@
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>
-</FrameLayout>
+</androidx.cardview.widget.CardView>

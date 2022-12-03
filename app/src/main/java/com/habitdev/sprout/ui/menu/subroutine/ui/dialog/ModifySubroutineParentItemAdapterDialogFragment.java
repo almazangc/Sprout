@@ -1,15 +1,12 @@
-package com.habitdev.sprout.ui.menu.home.ui.dialog;
+package com.habitdev.sprout.ui.menu.subroutine.ui.dialog;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,194 +15,118 @@ import androidx.fragment.app.DialogFragment;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.Subroutines;
-import com.habitdev.sprout.databinding.DialogFragmentHomeAddNewInsertSubroutineBinding;
+import com.habitdev.sprout.databinding.DialogFragmentSubroutineModifyParentItemAdapterBinding;
 import com.habitdev.sprout.enums.AppColor;
 
 import java.util.Objects;
 
-public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
-
-    private DialogFragmentHomeAddNewInsertSubroutineBinding binding;
+public class ModifySubroutineParentItemAdapterDialogFragment extends DialogFragment implements View.OnClickListener {
+    private DialogFragmentSubroutineModifyParentItemAdapterBinding binding;
     private Subroutines subroutine;
-    private final boolean onModify;
-    private final boolean onRemove;
 
     private final int ic_check;
     private int current_selected_color;
     private int old_selected_color;
     private String color;
 
-    public interface onDialoagChange {
-        void addSubroutine(Subroutines subroutines);
-
-        void modifySubroutine(Subroutines subroutines);
-
-        void removeSubroutine(Subroutines subroutines);
+    public interface OnClickListener {
+        void onClickUpdate(Subroutines subroutine);
     }
 
-    public onDialoagChange mOnDialoagChange;
+    private OnClickListener mOnClickListener;
 
-    public HomeAddNewInsertSubroutineDialogFragment() {
-        this.onModify = false;
-        this.onRemove = false;
-        this.ic_check = R.drawable.ic_check;
+    public void setmOnClickListener(OnClickListener mOnClickListener) {
+        this.mOnClickListener = mOnClickListener;
     }
 
-    public HomeAddNewInsertSubroutineDialogFragment(Subroutines subroutine) {
+    public ModifySubroutineParentItemAdapterDialogFragment(Subroutines subroutine) {
         this.subroutine = subroutine;
-        this.onModify = true;
-        this.onRemove = false;
         this.ic_check = R.drawable.ic_check;
         this.current_selected_color = 0;
         this.old_selected_color = 0;
         this.color = AppColor.CLOUDS.getColor();
     }
 
-    public HomeAddNewInsertSubroutineDialogFragment(Subroutines subroutines, boolean onRemove) {
-        this.subroutine = subroutines;
-        this.onModify = false;
-        this.onRemove = onRemove;
-        this.ic_check = R.drawable.ic_check;
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DialogFragmentHomeAddNewInsertSubroutineBinding.inflate(inflater, container, false);
+        binding = DialogFragmentSubroutineModifyParentItemAdapterBinding.inflate(inflater, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
-        setAddBtnText();
-        setHint();
-        onRemove();
-        setSubroutine();
-        onCancel();
-        onClickSave();
+        setContentView();
         return binding.getRoot();
     }
 
-    private void setAddBtnText() {
-        if (onModify) {
-            binding.addNewHabitSubroutineBtn.setText("Save Update");
-        } else {
-            binding.addNewHabitSubroutineBtn.setText("Insert New");
-        }
-    }
-
-    private void setSubroutine() {
-        if (subroutine != null) {
-            binding.addNewSubroutineTitle.setText(subroutine.getSubroutine());
-            binding.addNewSubroutineDescription.setText(subroutine.getDescription());
-        }
+    private void setContentView() {
+        binding.dialogSubroutineModifyTitle.setText(subroutine.getSubroutine());
+        binding.dialogSubroutineModifyDescription.setText(subroutine.getDescription());
+        binding.dialogSubroutineModifyLayoutMiscellaneous.setVisibility(View.GONE);
+        setHint();
         setSubroutineColor();
         colorSelect();
+        setOnclickListener();
     }
 
-    private void onCancel() {
-        binding.addNewHabitCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Objects.requireNonNull(getDialog()).dismiss();
-            }
-        });
-    }
-
-    private void onClickSave() {
-        binding.addNewHabitSubroutineBtn.setOnClickListener(view -> {
-           if (binding.addNewSubroutineHint.getText().toString().trim().isEmpty()){
-               if (subroutine == null) {
-                   onAdd();
-               } else {
-                   onModify();
-               }
-               Objects.requireNonNull(getDialog()).dismiss();
-           }
-        });
-    }
-
-    private void onAdd() {
-        subroutine = new Subroutines(
-                binding.addNewSubroutineTitle.getText().toString(),
-                binding.addNewSubroutineDescription.getText().toString(),
-                color,
-                true
-        );
-        mOnDialoagChange.addSubroutine(subroutine);
-    }
-
-    private void onModify() {
-        if (onModify) {
-            subroutine.setSubroutine(binding.addNewSubroutineTitle.getText().toString());
-            subroutine.setDescription(binding.addNewSubroutineDescription.getText().toString());
-            subroutine.setColor(color);
-            mOnDialoagChange.modifySubroutine(subroutine);
-        }
-    }
-
-    private void onRemove() {
-        if (onRemove) {
-            mOnDialoagChange.removeSubroutine(subroutine);
-            dismiss();
-        }
-    }
-
-    private void setHint(){
-        binding.addNewSubroutineTitle.addTextChangedListener(new TextWatcher() {
+    private void setHint() {
+        binding.dialogSubroutineModifyHint.setText("");
+        binding.dialogSubroutineModifyTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText("Required*");
+                if (charSequence.toString().trim().isEmpty())
+                    binding.dialogSubroutineModifyHint.setText("Required*");
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText("Empty Title*");
+                if (editable.toString().trim().isEmpty()) {
+                    binding.dialogSubroutineModifyHint.setText("Title is empty*");
                 } else {
-                    if (binding.addNewSubroutineDescription.getText().toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText("Empty Description*");
+                    if (binding.dialogSubroutineModifyDescription.getText().toString().trim().isEmpty()) {
+                        binding.dialogSubroutineModifyHint.setText("Description is empty*");
                     } else {
-                        binding.addNewSubroutineHint.setText("");
+                        binding.dialogSubroutineModifyHint.setText("");
                     }
                 }
             }
         });
-
-        binding.addNewSubroutineDescription.addTextChangedListener(new TextWatcher() {
+        binding.dialogSubroutineModifyDescription.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText("Required*");
+                if (charSequence.toString().trim().isEmpty())
+                    binding.dialogSubroutineModifyHint.setText("Required*");
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText("Empty Description*");
+                if (editable.toString().trim().isEmpty()) {
+                    binding.dialogSubroutineModifyHint.setText("Description is empty*");
                 } else {
-                    if (binding.addNewSubroutineTitle.getText().toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText("Empty Title*");
+                    if (binding.dialogSubroutineModifyTitle.getText().toString().trim().isEmpty()) {
+                        binding.dialogSubroutineModifyHint.setText("Title is empty*");
                     } else {
-                        binding.addNewSubroutineHint.setText("");
+                        binding.dialogSubroutineModifyHint.setText("");
                     }
                 }
             }
         });
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            mOnDialoagChange = (onDialoagChange) getParentFragment();
-        } catch (ClassCastException e) {
-            Toast.makeText(requireActivity(), "onAttach: ClassException: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void colorSelect() {
+        binding.dialogSubroutineModifyColorSelector.setOnClickListener(v -> {
+            if (binding.dialogSubroutineModifyLayoutMiscellaneous.getVisibility() == View.GONE) {
+                binding.dialogSubroutineModifyLayoutMiscellaneous.setVisibility(View.VISIBLE);
+            } else {
+                binding.dialogSubroutineModifyLayoutMiscellaneous.setVisibility(View.GONE);
+            }
+        });
+
         binding.cloudMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(0);
             setSelected_color();
@@ -238,26 +159,21 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     }
 
     private void setSubroutineColor() {
-        if (subroutine != null) {
-            if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
-                current_selected_color = 1;
-                setSelected_color();
-            } else if (subroutine.getColor().equals(AppColor.AMETHYST.getColor())) {
-                current_selected_color = 2;
-                setSelected_color();
-            } else if (subroutine.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
-                current_selected_color = 3;
-                setSelected_color();
-            } else if (subroutine.getColor().equals(AppColor.NEPHRITIS.getColor())) {
-                current_selected_color = 4;
-                setSelected_color();
-            } else if (subroutine.getColor().equals(AppColor.SUNFLOWER.getColor())) {
-                current_selected_color = 5;
-                setSelected_color();
-            } else {
-                old_selected_color = 1;
-                setSelected_color();
-            }
+        if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
+            current_selected_color = 1;
+            setSelected_color();
+        } else if (subroutine.getColor().equals(AppColor.AMETHYST.getColor())) {
+            current_selected_color = 2;
+            setSelected_color();
+        } else if (subroutine.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
+            current_selected_color = 3;
+            setSelected_color();
+        } else if (subroutine.getColor().equals(AppColor.NEPHRITIS.getColor())) {
+            current_selected_color = 4;
+            setSelected_color();
+        } else if (subroutine.getColor().equals(AppColor.SUNFLOWER.getColor())) {
+            current_selected_color = 5;
+            setSelected_color();
         } else {
             old_selected_color = 1;
             setSelected_color();
@@ -340,7 +256,27 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     }
 
     private void setBackgroundColorIndicator(Drawable backgroundNoteIndicator) {
-        binding.addNewSubroutineColorSelector.setBackground(backgroundNoteIndicator);
+        binding.dialogSubroutineModifyColorSelector.setBackground(backgroundNoteIndicator);
+    }
+
+    private void setOnclickListener() {
+        binding.dialogSubroutineModifyCancel.setOnClickListener(this);
+        binding.dialogSubroutineModifyUpdateSubroutineBtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.dialog_subroutine_modify_cancel) {
+            Objects.requireNonNull(getDialog()).dismiss();
+        } else if (view.getId() == R.id.dialog_subroutine_modify_update_subroutine_btn) {
+            if (binding.dialogSubroutineModifyHint.getText().toString().trim().isEmpty()) {
+                subroutine.setSubroutine(binding.dialogSubroutineModifyTitle.getText().toString().trim());
+                subroutine.setDescription(binding.dialogSubroutineModifyDescription.getText().toString().trim());
+                subroutine.setColor(color);
+                if (this.mOnClickListener != null) this.mOnClickListener.onClickUpdate(subroutine);
+                Objects.requireNonNull(getDialog()).dismiss();
+            }
+        }
     }
 
     @Override

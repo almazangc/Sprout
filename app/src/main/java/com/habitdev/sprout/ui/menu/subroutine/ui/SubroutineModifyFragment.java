@@ -19,11 +19,13 @@ import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentSubroutineModifyBinding;
 import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentItemAdapter;
+import com.habitdev.sprout.ui.menu.subroutine.ui.dialog.ModifySubroutineParentItemAdapterDialogFragment;
 
 public class SubroutineModifyFragment extends Fragment implements SubroutineModifyParentItemAdapter.OnClickListener {
 
     private FragmentSubroutineModifyBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private SubroutineModifyParentItemAdapter subroutineModifyParentItemAdapter;
     private final Habits habit;
 
     public SubroutineModifyFragment(Habits habit) {
@@ -47,11 +49,11 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     }
 
     private void setSubroutineRecyclerView() {
-        SubroutineModifyParentItemAdapter subroutineModifyParentItemAdapter = new SubroutineModifyParentItemAdapter();
+        subroutineModifyParentItemAdapter = new SubroutineModifyParentItemAdapter();
         binding.subroutineModifyRecyclerView.setAdapter(subroutineModifyParentItemAdapter);
         subroutineModifyParentItemAdapter.setmOnClickListener(this);
         habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), subroutines -> {
-            if (subroutines != null){
+            if (subroutines != null) {
                 subroutineModifyParentItemAdapter.submitList(subroutines);
             }
         });
@@ -59,19 +61,32 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 
     @Override
     public void onClickModify(Subroutines subroutine) {
-        Toast.makeText(requireActivity(), "Hellow", Toast.LENGTH_SHORT).show();
+        ModifySubroutineParentItemAdapterDialogFragment dialog = new ModifySubroutineParentItemAdapterDialogFragment(subroutine);
+        dialog.setTargetFragment(getChildFragmentManager()
+                .findFragmentById(SubroutineModifyFragment.this.getId()), 1);
+        dialog.show(getChildFragmentManager(), "ModifySubroutineOnClickDialog");
+        dialog.setmOnClickListener(new ModifySubroutineParentItemAdapterDialogFragment.OnClickListener() {
+            @Override
+            public void onClickUpdate(Subroutines subroutine) {
+                habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+            }
+        });
     }
 
     @Override
     public void onClickDelete(Subroutines subroutine) {
-        Toast.makeText(requireActivity(), "Delete", Toast.LENGTH_SHORT).show();
+        if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
+            habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
+        } else {
+            Toast.makeText(requireActivity(), "Required Minimum of 2 Subroutines", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void onClickInsert(){
+    private void onClickInsert() {
         binding.subroutineModifyInsertSubroutineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Toast.makeText(requireActivity(), "Insert New", Toast.LENGTH_SHORT).show();
             }
         });
     }

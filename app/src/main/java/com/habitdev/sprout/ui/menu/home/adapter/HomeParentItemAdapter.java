@@ -204,13 +204,13 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
             relapse.setOnClickListener(view -> {
                 habit.setRelapse(habit.getRelapse() + 1);
-                habitWithSubroutinesViewModel.update(habit);
+                habitWithSubroutinesViewModel.updateHabit(habit);
                 totalRelapse.setText(String.valueOf(habit.getRelapse()));
             });
 
             drop.setOnClickListener(view -> {
                 habit.setOnReform(false);
-                habitWithSubroutinesViewModel.update(habit);
+                habitWithSubroutinesViewModel.updateHabit(habit);
             });
         }
     }

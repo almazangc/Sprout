@@ -480,9 +480,9 @@
     </fragment>
     <fragment
         android:id="@+id/modifySubroutineParentItemAdapterModifyDialogFragment"
-        android:name="com.habitdev.sprout.ui.menu.subroutine.ui.dialog.ModifySubroutineParentItemAdapterModifyDialogFragment"
+        android:name="com.habitdev.sprout.ui.menu.subroutine.ui.dialog.ModifySubroutineParentItemAdapterDialogFragment"
         android:label="fragment_modify_subroutine_parent_item_adapter_modify_dialog"
-        tools:layout="@layout/dialog_fragment_subroutine_modify_parent_item_adapter_modify" >
+        tools:layout="@layout/dialog_fragment_subroutine_modify_parent_item_adapter" >
         <action
             android:id="@+id/action_modifySubroutineParentItemAdapterModifyDialogFragment_to_modifySubroutinesFragment"
             app:destination="@id/modifySubroutinesFragment" />

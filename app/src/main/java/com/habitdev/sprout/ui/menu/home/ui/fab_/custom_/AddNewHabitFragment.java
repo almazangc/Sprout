@@ -189,7 +189,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     habitsList = habits;
                     habitTitles.clear();
                     for (Habits habit : habits) {
-                        habitTitles.add(habit.getHabit());
+                        if (!habit.isOnReform()) habitTitles.add(habit.getHabit());
                     }
                 } else {
                     if (binding.addNewHabitTextInput.getVisibility() == View.VISIBLE)

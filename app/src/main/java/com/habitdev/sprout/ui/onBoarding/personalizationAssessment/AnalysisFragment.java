@@ -72,7 +72,7 @@ public class AnalysisFragment extends Fragment {
         binding.btnContinue.setOnClickListener(view -> {
             for (Habits habits : habitsList) {
                 if (habits.getPk_habit_uid() == item_position.longValue()) {
-                    habitWithSubroutinesViewModel.update(
+                    habitWithSubroutinesViewModel.updateHabit(
                             new Habits(
                                     habits.getPk_habit_uid(),
                                     habits.getHabit(),

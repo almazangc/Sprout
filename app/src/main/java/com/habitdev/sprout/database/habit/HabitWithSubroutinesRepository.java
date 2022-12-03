@@ -56,6 +56,25 @@ public class HabitWithSubroutinesRepository {
         }
     }
 
+    public void updateSubroutine(Subroutines subroutine) {
+        new UpdateSubroutineAsyncTask(habitWithSubroutinesDao).execute(subroutine);
+    }
+
+    public static class UpdateSubroutineAsyncTask extends AsyncTask<Subroutines, Void, Void> {
+
+        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
+
+        public UpdateSubroutineAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
+            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
+        }
+
+        @Override
+        protected Void doInBackground(Subroutines... subroutine) {
+            habitWithSubroutinesDao.updateSubroutine(subroutine[0]);
+            return null;
+        }
+    }
+
     public void deleteHabit(Habits habit) {
         new DeleteHabitAsyncTask(habitWithSubroutinesDao).execute(habit);
     }
@@ -71,6 +90,25 @@ public class HabitWithSubroutinesRepository {
         @Override
         protected Void doInBackground(Habits... habit) {
             habitWithSubroutinesDao.deleteHabit(habit[0]);
+            return null;
+        }
+    }
+
+    public void deleteSubroutine(Subroutines subroutine) {
+        new DeleteSubroutineAsyncTask(habitWithSubroutinesDao).execute(subroutine);
+    }
+
+    public static class DeleteSubroutineAsyncTask extends AsyncTask<Subroutines, Void, Void> {
+
+        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
+
+        public DeleteSubroutineAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
+            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
+        }
+
+        @Override
+        protected Void doInBackground(Subroutines... subroutine) {
+            habitWithSubroutinesDao.deleteSubroutine(subroutine[0]);
             return null;
         }
     }
@@ -100,6 +138,10 @@ public class HabitWithSubroutinesRepository {
 
     public void insertSubroutines(List<Subroutines> subroutinesList){
         habitWithSubroutinesDao.insertSubroutines(subroutinesList);
+    }
+
+    public void insertSubroutine(Subroutines subroutine){
+        habitWithSubroutinesDao.insertSubroutine(subroutine);
     }
 
     public List<Habits> getAllHabitOnReform() {
