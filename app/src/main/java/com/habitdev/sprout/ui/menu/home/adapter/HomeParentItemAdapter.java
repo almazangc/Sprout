@@ -22,13 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
-import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
@@ -36,11 +34,11 @@ import java.util.TimerTask;
 
 public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAdapter.HabitViewHolder> {
 
-    private List<Habits> habits;
     private final com.habitdev.sprout.interfaces.IRecyclerView IRecyclerView;
     private final FragmentActivity fragmentActivity;
     private final FragmentManager fragmentManager;
     private final int HomeID;
+    private List<Habits> habits;
 
     public HomeParentItemAdapter(List<Habits> habits, IRecyclerView IRecyclerView, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int HomeID) {
         this.habits = habits;
@@ -125,15 +123,15 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
         void bindHabit(Habits habit, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int HomeID) {
 
-            if (habit.getColor().equals(AppColor.ALZARIN.getColor())){
+            if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
                 ItemCardView.setBackgroundTintList(cs_alzarin);
-            } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())){
+            } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
                 ItemCardView.setBackgroundTintList(cs_amethyst);
-            } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())){
+            } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
                 ItemCardView.setBackgroundTintList(cs_bright_sky_blue);
-            } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())){
+            } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
                 ItemCardView.setBackgroundTintList(cs_nephritis);
-            } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())){
+            } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
                 ItemCardView.setBackgroundTintList(cs_sunflower);
             } else {
                 ItemCardView.setBackgroundTintList(cs_cloud);
@@ -196,7 +194,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             //TODO: SET on CLick Interface for refactor
             if (habit.isModifiable()) {
                 modify.setOnClickListener(view -> {
-                HomeParentItemAdapterModifyDialogFragment dialog = new HomeParentItemAdapterModifyDialogFragment(habitWithSubroutinesViewModel, habit);
+                    HomeParentItemAdapterModifyDialogFragment dialog = new HomeParentItemAdapterModifyDialogFragment(habitWithSubroutinesViewModel, habit);
                     dialog.setTargetFragment(fragmentManager.findFragmentById(HomeID), 1);
                     dialog.show(fragmentManager, "Modify Habit Dialog");
                 });
@@ -205,7 +203,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             }
 
             relapse.setOnClickListener(view -> {
-                habit.setRelapse(habit.getRelapse()+1);
+                habit.setRelapse(habit.getRelapse() + 1);
                 habitWithSubroutinesViewModel.update(habit);
                 totalRelapse.setText(String.valueOf(habit.getRelapse()));
             });

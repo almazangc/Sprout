@@ -2,7 +2,8 @@ package com.habitdev.sprout.ui.menu.journal.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class NoteFragment extends Fragment {
         setFabDisplay();
         setNotes();
         colorSelect();
+        validateNote();
         onSaveNote();
         onDeleteNote();
         onBackPress();
@@ -248,55 +250,53 @@ public class NoteFragment extends Fragment {
 
     private void onSaveNote() {
         binding.fabSaveNote.setOnClickListener(v -> {
-            if (validateNote()) {
-                if (bundle != null) {
-                    if (showAlertDialog()) {
-                        new androidx.appcompat.app.AlertDialog.Builder(requireContext())
-                                .setMessage("Save Changes")
-                                .setCancelable(false)
-                                .setPositiveButton("YES", (dialogInterface, i) -> {
-                                    noteViewModel.update(
-                                            binding.noteSubTitle.getText().toString().trim().isEmpty() ?
-                                                    new Note(
-                                                            note.getNote_uid(),
-                                                            binding.noteTitle.getText().toString(),
-                                                            note.getDateTime(),
-                                                            binding.noteContent.getText().toString(),
-                                                            color) :
-                                                    new Note(
-                                                            note.getNote_uid(),
-                                                            binding.noteTitle.getText().toString(),
-                                                            note.getDateTime(),
-                                                            binding.noteSubTitle.getText().toString(),
-                                                            binding.noteContent.getText().toString(),
-                                                            color)
-                                    );
-                                    gotoJournalFragment();
-                                })
-                                .setNegativeButton("No", (dialogInterface, i) -> {
+            if (bundle != null) {
+                if (showAlertDialog()) {
+                    new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                            .setMessage("Save Changes")
+                            .setCancelable(false)
+                            .setPositiveButton("YES", (dialogInterface, i) -> {
+                                noteViewModel.update(
+                                        binding.noteSubTitle.getText().toString().trim().isEmpty() ?
+                                                new Note(
+                                                        note.getNote_uid(),
+                                                        binding.noteTitle.getText().toString(),
+                                                        note.getDateTime(),
+                                                        binding.noteContent.getText().toString(),
+                                                        color) :
+                                                new Note(
+                                                        note.getNote_uid(),
+                                                        binding.noteTitle.getText().toString(),
+                                                        note.getDateTime(),
+                                                        binding.noteSubTitle.getText().toString(),
+                                                        binding.noteContent.getText().toString(),
+                                                        color)
+                                );
+                                gotoJournalFragment();
+                            })
+                            .setNegativeButton("No", (dialogInterface, i) -> {
 //                                    gotoJournalFragment();
-                                })
-                                .show();
-                    } else {
-                        gotoJournalFragment();
-                    }
+                            })
+                            .show();
                 } else {
-                    noteViewModel.insert(
-                            binding.noteSubTitle.getText().toString().trim().isEmpty() ?
-                                    new Note(
-                                            binding.noteTitle.getText().toString(),
-                                            binding.noteCurrentTime.getText().toString(),
-                                            binding.noteContent.getText().toString(),
-                                            color) :
-                                    new Note(
-                                            binding.noteTitle.getText().toString(),
-                                            binding.noteCurrentTime.getText().toString(),
-                                            binding.noteSubTitle.getText().toString(),
-                                            binding.noteContent.getText().toString(),
-                                            color)
-                    );
                     gotoJournalFragment();
                 }
+            } else {
+                noteViewModel.insert(
+                        binding.noteSubTitle.getText().toString().trim().isEmpty() ?
+                                new Note(
+                                        binding.noteTitle.getText().toString(),
+                                        binding.noteCurrentTime.getText().toString(),
+                                        binding.noteContent.getText().toString(),
+                                        color) :
+                                new Note(
+                                        binding.noteTitle.getText().toString(),
+                                        binding.noteCurrentTime.getText().toString(),
+                                        binding.noteSubTitle.getText().toString(),
+                                        binding.noteContent.getText().toString(),
+                                        color)
+                );
+                gotoJournalFragment();
             }
         });
     }
@@ -318,19 +318,55 @@ public class NoteFragment extends Fragment {
         );
     }
 
-    private boolean validateNote() {
-        if (binding.noteTitle.getText().toString().trim().isEmpty() && binding.noteContent.getText().toString().trim().isEmpty()) {
-            binding.noteHint.setText((CharSequence) "Note title and content is required*");
-            return false;
-        } else if (binding.noteTitle.getText().toString().trim().isEmpty()) {
-            binding.noteHint.setText((CharSequence) "Note title is required*");
-            return false;
-        } else if (binding.noteContent.getText().toString().trim().isEmpty()) {
-            binding.noteHint.setText((CharSequence) "Note content is required*");
-            return false;
-        }
-        binding.noteHint.setText("");
-        return true;
+    private void validateNote() {
+        binding.noteTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().isEmpty()) {
+                    binding.noteHint.setText("Required*");
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()) {
+                    binding.noteHint.setText("Title is empty*");
+                } else {
+                    if (binding.noteContent.getText().toString().trim().isEmpty()) {
+                        binding.noteHint.setText("Note Content is empty*");
+                    } else {
+                        binding.noteHint.setText("");
+                    }
+                }
+            }
+        });
+        binding.noteContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().isEmpty()) {
+                    binding.noteHint.setText("Required*");
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()) {
+                    binding.noteHint.setText("Note Content is empty*");
+                } else {
+                    if (binding.noteTitle.getText().toString().trim().isEmpty()) {
+                        binding.noteHint.setText("Title is empty*");
+                    } else {
+                        binding.noteHint.setText("");
+                    }
+                }
+            }
+        });
     }
 
     private void onBackPress() {
@@ -344,12 +380,10 @@ public class NoteFragment extends Fragment {
     }
 
     private void gotoJournalFragment() {
-//        Fragment fragment = fragmentManager.findFragmentById(R.id.journalFragment);
         fragmentManager.beginTransaction()
                 .replace(binding.addNewNoteFrameLayout.getId(), new JournalFragment())
                 .commit();
         binding.addNewNoteContainer.setVisibility(View.GONE);
-        Log.d("tag", "gotoJournalFragment: " + fragmentManager.getFragments());
     }
 
     @Override

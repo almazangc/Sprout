@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
     @Override
     public void onItemClick(int position) {
-        HomeItemOnClickFragment onClickFragment = new HomeItemOnClickFragment(habitsOnReform.get(position), requireActivity());
+        HomeItemOnClickFragment onClickFragment = new HomeItemOnClickFragment(habitsOnReform.get(position));
         getChildFragmentManager()
                 .beginTransaction()
                 .replace(binding.homeFrameLayout.getId(), onClickFragment)

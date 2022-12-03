@@ -54,11 +54,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="1"
                     tools:listitem="@layout/adapter_subroutine_modify_parent_item" />
 
                 <Button
-                    android:id="@+id/subroutine_modify_add_subroutine_btn"
+                    android:id="@+id/subroutine_modify_insert_subroutine_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/subroutine_modify_recycler_view"
@@ -76,7 +75,7 @@
                     android:minHeight="40dp"
                     android:paddingLeft="10dp"
                     android:paddingEnd="10dp"
-                    android:text="Add Subroutine"
+                    android:text="Subroutine"
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textColor="@color/NIGHT"

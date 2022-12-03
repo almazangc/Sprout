@@ -39,8 +39,6 @@ public class HomeItemOnClickFragment extends Fragment {
     private FragmentHomeItemOnClickViewBinding binding;
     private Habits habit;
     private CommentViewModel commentViewModel;
-    private List<Comment> habitComments;
-    private final FragmentActivity homeActivity;
 
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private final int ic_check;
@@ -48,9 +46,8 @@ public class HomeItemOnClickFragment extends Fragment {
     private int old_selected_color;
     private String color;
 
-    public HomeItemOnClickFragment(Habits habit, FragmentActivity fragmentActivity) {
+    public HomeItemOnClickFragment(Habits habit) {
         this.habit = habit;
-        this.homeActivity = fragmentActivity;
         this.ic_check = R.drawable.ic_check;
         this.current_selected_color = 0;
         this.old_selected_color = 0;
@@ -281,7 +278,6 @@ public class HomeItemOnClickFragment extends Fragment {
     }
 
     private void setCommentRecyclerView() {
-        habitComments = new ArrayList<>();
         HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(commentViewModel);
         binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
 

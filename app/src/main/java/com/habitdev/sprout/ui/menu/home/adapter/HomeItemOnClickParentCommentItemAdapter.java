@@ -1,13 +1,10 @@
 package com.habitdev.sprout.ui.menu.home.adapter;
 
-import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -18,17 +15,12 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
 
-import java.util.List;
+public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment, HomeItemOnClickParentCommentItemAdapter.CommentViewHolder> {
 
-public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment ,HomeItemOnClickParentCommentItemAdapter.CommentViewHolder> {
-
-//    private List<Comment> comments; //NOTE
     private final CommentViewModel commentViewModel;
-
 
     public HomeItemOnClickParentCommentItemAdapter(CommentViewModel commentViewModel) {
         super(DIFF_CALLBACK);
-//        this.comments = comments;
         this.commentViewModel = commentViewModel;
     }
 
@@ -40,7 +32,7 @@ public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment
 
         @Override
         public boolean areContentsTheSame(@NonNull Comment oldItem, @NonNull Comment newItem) {
-            return  oldItem.getComment().equals(newItem.getComment()) &&
+            return oldItem.getComment().equals(newItem.getComment()) &&
                     oldItem.getDate_commented().equals(newItem.getDate_commented()) &&
                     oldItem.getComment_type().equals(newItem.getComment_type());
         }
@@ -56,7 +48,7 @@ public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment
 
     @Override
     public void onBindViewHolder(@NonNull HomeItemOnClickParentCommentItemAdapter.CommentViewHolder holder, int position) {
-        holder.bindComment(getItem(position), commentViewModel);
+        holder.bindComment(getComment(position), commentViewModel);
     }
 
     @Override
@@ -64,7 +56,7 @@ public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment
         return position;
     }
 
-    public Comment getComment(int position){
+    public Comment getComment(int position) {
         return getItem(position);
     }
 
