@@ -1,15 +1,15 @@
 package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
-import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,14 +56,14 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
 
     public static class ChildItemViewHolder extends RecyclerView.ViewHolder {
 
-        CardView ItemCardView;
+        RelativeLayout itemLayout;
         TextView Title, Description;
         Button Upvote, Downvote, MarkAsDone;
-        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
+        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public ChildItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            ItemCardView = itemView.findViewById(R.id.subroutine_child_item_card_view);
+            itemLayout = itemView.findViewById(R.id.subroutine_child_item_layout);
             Title = itemView.findViewById(R.id.subroutine);
             Description = itemView.findViewById(R.id.home_item_on_click_habit_description);
 
@@ -71,27 +71,27 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
             Downvote = itemView.findViewById(R.id.btn_downvote_subroutine);
             MarkAsDone = itemView.findViewById(R.id.mark_as_done);
 
-            cs_cloud = ContextCompat.getColorStateList(itemView.getContext(), R.color.CLOUDS);
-            cs_amethyst = ContextCompat.getColorStateList(itemView.getContext(), R.color.AMETHYST);
-            cs_sunflower = ContextCompat.getColorStateList(itemView.getContext(), R.color.SUNFLOWER);
-            cs_nephritis = ContextCompat.getColorStateList(itemView.getContext(), R.color.NEPHRITIS);
-            cs_bright_sky_blue = ContextCompat.getColorStateList(itemView.getContext(), R.color.BRIGHT_SKY_BLUE);
-            cs_alzarin = ContextCompat.getColorStateList(itemView.getContext(), R.color.ALIZARIN);
+            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_cloud);
+            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_amethyst);
+            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_sunflower);
+            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_nephritis);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_brightsky_blue);
+            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_alzarin);
         }
 
         void bindDate(Subroutines subroutine) {
-            if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())){
-                ItemCardView.setBackgroundTintList(cs_alzarin);
-            } else if (subroutine.getColor().equals(AppColor.AMETHYST.getColor())){
-                ItemCardView.setBackgroundTintList(cs_amethyst);
-            } else if (subroutine.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())){
-                ItemCardView.setBackgroundTintList(cs_bright_sky_blue);
-            } else if (subroutine.getColor().equals(AppColor.NEPHRITIS.getColor())){
-                ItemCardView.setBackgroundTintList(cs_nephritis);
-            } else if (subroutine.getColor().equals(AppColor.SUNFLOWER.getColor())){
-                ItemCardView.setBackgroundTintList(cs_sunflower);
+            if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
+                itemLayout.setBackground(alzarin);
+            } else if (subroutine.getColor().equals(AppColor.AMETHYST.getColor())) {
+                itemLayout.setBackground(amethyst);
+            } else if (subroutine.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
+                itemLayout.setBackground(bright_sky_blue);
+            } else if (subroutine.getColor().equals(AppColor.NEPHRITIS.getColor())) {
+                itemLayout.setBackground(nephritis);
+            } else if (subroutine.getColor().equals(AppColor.SUNFLOWER.getColor())) {
+                itemLayout.setBackground(sunflower);
             } else {
-                ItemCardView.setBackgroundTintList(cs_cloud);
+                itemLayout.setBackground(cloud);
             }
 
             Title.setText(subroutine.getSubroutine());

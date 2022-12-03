@@ -1,17 +1,16 @@
 package com.habitdev.sprout.ui.menu.journal.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,10 +72,9 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
     static class NoteViewHolder extends RecyclerView.ViewHolder {
 
         TextView noteTitle, noteSubtitle, noteContent, noteDateTime;
-        CardView layout_note;
+        RelativeLayout layout_note;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
-        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
-
+//        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
 
         public NoteViewHolder(@NonNull View itemView, IRecyclerView IRecyclerView) {
             super(itemView);
@@ -96,22 +94,37 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
                 }
             });
 
-            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_cloud);
-            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_amethyst);
-            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_sunflower);
-            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_nephritis);
-            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_brightsky_blue);
-            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_item_alzarin);
+            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_cloud);
+            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_amethyst);
+            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_sunflower);
+            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_nephritis);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_brightsky_blue);
+            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_alzarin);
 
-            cs_cloud = ContextCompat.getColorStateList(itemView.getContext(), R.color.CLOUDS);
-            cs_amethyst = ContextCompat.getColorStateList(itemView.getContext(), R.color.AMETHYST);
-            cs_sunflower = ContextCompat.getColorStateList(itemView.getContext(), R.color.SUNFLOWER);
-            cs_nephritis = ContextCompat.getColorStateList(itemView.getContext(), R.color.NEPHRITIS);
-            cs_bright_sky_blue = ContextCompat.getColorStateList(itemView.getContext(), R.color.BRIGHT_SKY_BLUE);
-            cs_alzarin = ContextCompat.getColorStateList(itemView.getContext(), R.color.ALIZARIN);
+//            cs_cloud = ContextCompat.getColorStateList(itemView.getContext(), R.color.CLOUDS);
+//            cs_amethyst = ContextCompat.getColorStateList(itemView.getContext(), R.color.AMETHYST);
+//            cs_sunflower = ContextCompat.getColorStateList(itemView.getContext(), R.color.SUNFLOWER);
+//            cs_nephritis = ContextCompat.getColorStateList(itemView.getContext(), R.color.NEPHRITIS);
+//            cs_bright_sky_blue = ContextCompat.getColorStateList(itemView.getContext(), R.color.BRIGHT_SKY_BLUE);
+//            cs_alzarin = ContextCompat.getColorStateList(itemView.getContext(), R.color.ALIZARIN);
         }
 
         void bindNote(Note note) {
+
+            if (note.getColor().equals(AppColor.ALZARIN.getColor())) {
+                layout_note.setBackground(alzarin);
+            } else if (note.getColor().equals(AppColor.AMETHYST.getColor())) {
+                layout_note.setBackground(amethyst);
+            } else if (note.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
+                layout_note.setBackground(bright_sky_blue);
+            } else if (note.getColor().equals(AppColor.NEPHRITIS.getColor())) {
+                layout_note.setBackground(nephritis);
+            } else if (note.getColor().equals(AppColor.SUNFLOWER.getColor())) {
+                layout_note.setBackground(sunflower);
+            } else {
+                layout_note.setBackground(cloud);
+            }
+
             noteTitle.setText(note.getTitle());
 
             if (note.getSubtitle().trim().isEmpty()) {
@@ -122,26 +135,6 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
 
             noteContent.setText(note.getNoteContent());
             noteDateTime.setText(note.getDateTime());
-
-            if (note.getColor().equals(AppColor.ALZARIN.getColor())){
-                layout_note.setBackground(alzarin);
-                layout_note.setBackgroundTintList(cs_alzarin);
-            } else if (note.getColor().equals(AppColor.AMETHYST.getColor())){
-                layout_note.setBackground(amethyst);
-                layout_note.setBackgroundTintList(cs_amethyst);
-            } else if (note.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())){
-                layout_note.setBackground(bright_sky_blue);
-                layout_note.setBackgroundTintList(cs_bright_sky_blue);
-            } else if (note.getColor().equals(AppColor.NEPHRITIS.getColor())){
-                layout_note.setBackground(nephritis);
-                layout_note.setBackgroundTintList(cs_nephritis);
-            } else if (note.getColor().equals(AppColor.SUNFLOWER.getColor())){
-                layout_note.setBackground(sunflower);
-                layout_note.setBackgroundTintList(cs_sunflower);
-            } else {
-                layout_note.setBackground(cloud);
-                layout_note.setBackgroundTintList(cs_cloud);
-            }
         }
     }
 

@@ -7,15 +7,17 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/subroutine_parent_item_card_view"
+        android:id="@+id/subroutine_parent_item_layout"
         android:elevation="5dp"
         app:cardCornerRadius="15dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="3dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_toStartOf="@id/subroutine_parent_item_modify_subroutine"
+        android:background="@drawable/background_child_item_view_cloud"
         android:layout_height="wrap_content">
 
         <RelativeLayout
@@ -30,10 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginBottom="3dp"
-                android:layout_toStartOf="@id/subroutine_parent_item_modify_subroutine"
                 android:background="@drawable/background_color_transparent"
                 android:ellipsize="end"
                 android:insetTop="0dp"
@@ -42,44 +41,44 @@
                 android:minWidth="0dp"
                 android:minHeight="40dp"
                 android:paddingLeft="10dp"
+                android:paddingBottom="5dp"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
                 android:textColor="@color/NIGHT"
                 android:textSize="13sp"
                 android:textStyle="normal"
                 tools:text="Lorem Ipsum" />
-
-            <Button
-                android:id="@+id/subroutine_parent_item_modify_subroutine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="3dp"
-                android:background="@drawable/background_color_transparent"
-                android:drawableStart="@drawable/ic_modify"
-                android:drawablePadding="10dp"
-                android:ellipsize="end"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:maxLines="1"
-                android:minWidth="0dp"
-                android:minHeight="40dp"
-                android:paddingLeft="10dp"
-                android:textAlignment="viewStart"
-                android:textAllCaps="false"
-                android:textColor="@color/NIGHT"
-                android:textSize="0sp" />
-
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/subroutine_parent_item_modify_subroutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/selector_btn_normal"
+        android:drawableStart="@drawable/ic_modify"
+        android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:maxLines="1"
+        android:minWidth="0dp"
+        android:minHeight="40dp"
+        android:paddingLeft="10dp"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/NIGHT"
+        android:textSize="0sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subroutine_child_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/subroutine_parent_item_card_view"
+        android:layout_below="@+id/subroutine_parent_item_layout"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

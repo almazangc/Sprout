@@ -11,7 +11,7 @@ public enum BundleKeys {
     ANALYSIS("ANALYSIS?KEY"),
     JOURNAL_NOTE("JOURNAL_NOTE?KEY");
 
-    String KEY;
+    private final String KEY;
 
     BundleKeys(String KEY){
         this.KEY = KEY;

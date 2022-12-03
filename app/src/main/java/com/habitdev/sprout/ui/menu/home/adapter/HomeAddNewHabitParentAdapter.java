@@ -62,14 +62,12 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
         return position;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged: Use ListAdapter")
     public void setSubroutinesList(List<Subroutines> subroutinesList) {
         this.subroutinesList = subroutinesList;
         Log.d("tag", "setSubroutinesList: " + subroutinesList.toString());
         notifyDataSetChanged();
     }
-
-
 
     public static class AddNewHabitSubroutineViewHolder extends RecyclerView.ViewHolder {
 

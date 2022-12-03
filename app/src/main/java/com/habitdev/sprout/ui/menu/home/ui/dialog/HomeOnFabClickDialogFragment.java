@@ -1,7 +1,10 @@
 package com.habitdev.sprout.ui.menu.home.ui.dialog;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -35,7 +38,16 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
         binding = DialogFragmentHomeOnFabClickDialogBinding.inflate(inflater, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
         setOnclickListener();
+//        setPadding();
         return binding.getRoot();
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setPadding(){
+        binding.homeOnFabClickDialogPredefinedHabit.setOnTouchListener((view, motionEvent) -> {
+            Log.d("tag", "onTouch: " + motionEvent.getAction());
+            return false;
+        });
     }
 
     private void setOnclickListener() {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -65,23 +66,40 @@ public class AddDefaultHabitFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void setDropDownItem(){
-        List<String> habitTitles = new ArrayList<>();
-
-        for (Habits habits : habitsList){
-            habitTitles.add(habits.getHabit());
-        }
-
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);
-        binding.dropItems.setAdapter(adapterItems);
-
-        binding.dropItems.setOnItemClickListener((adapterView, view, pos, id) -> {
-            habit = habitsList.get(pos);
-            updateUI();
+    private void upDateHabitList(){
+        //change to synchronous and drop observer
+        habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
+            List<Habits> habitsLiveData = new ArrayList<>();
+            for(Habits habit : habits)
+                if (!habit.isOnReform() && !habit.isModifiable())
+                    habitsLiveData.add(habit);
+            habitsList = habitsLiveData;
+            setDropDownItem();
         });
     }
 
-    private void updateUI(){
+    private void setDropDownItem(){
+        List<String> habitTitles = new ArrayList<>();
+        for (Habits habits : habitsList) habitTitles.add(habits.getHabit());
+
+        if (habitTitles.isEmpty()){
+            if (binding.addFromDefaultHabitTextInputLayout.getVisibility() == View.VISIBLE)
+                binding.addFromDefaultHabitTextInputLayout.setVisibility(View.GONE);
+        } else {
+            if (binding.addFromDefaultHabitTextInputLayout.getVisibility() == View.GONE)
+                binding.addFromDefaultHabitTextInputLayout.setVisibility(View.VISIBLE);
+            ArrayAdapter<String> adapterItem;
+            adapterItem = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);
+            binding.addFromDefaultHabitItems.setAdapter(adapterItem);
+
+            binding.addFromDefaultHabitItems.setOnItemClickListener((adapterView, view, pos, id) -> {
+                habit = habitsList.get(pos);
+                setContentView();
+            });
+        }
+    }
+
+    private void setContentView(){
         binding.habitDescription.setText(habit.getDescription());
         subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
 
@@ -109,23 +127,6 @@ public class AddDefaultHabitFragment extends Fragment {
             ));
             habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
             returnHomeFragment();
-        });
-    }
-
-    /**
-     * Filter List of Habits
-     */
-    private void upDateHabitList(){
-        //change to synchronous and drop observer
-        habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
-            List<Habits> habitsLiveData = new ArrayList<>();
-            for(Habits habit : habits)
-                if (!habit.isOnReform() && !habit.isModifiable())
-                    habitsLiveData.add(habit);
-
-            habitsList = habitsLiveData;
-//            updateUI();
-            setDropDownItem();
         });
     }
 

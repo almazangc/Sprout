@@ -75,6 +75,10 @@ public class HabitWithSubroutinesRepository {
         }
     }
 
+//    public void updateSubroutine(Subroutines subroutine) {
+//        habitWithSubroutinesDao.updateSubroutine(subroutine);
+//    }
+
     public void deleteHabit(Habits habit) {
         new DeleteHabitAsyncTask(habitWithSubroutinesDao).execute(habit);
     }

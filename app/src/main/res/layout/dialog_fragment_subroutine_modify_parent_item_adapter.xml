@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:elevation="5dp"
     app:cardCornerRadius="15dp"
-    tools:context=".ui.menu.subroutine.ui.dialog.ModifySubroutineParentItemAdapterDialogFragment">
+    tools:context=".ui.menu.subroutine.ui.dialog.SubroutineModifyParentItemAdapterDialogFragment">
 
     <RelativeLayout
         android:id="@+id/dialog_subroutine_modify_container"

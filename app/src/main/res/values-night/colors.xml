@@ -6,7 +6,7 @@
     <color name="LIGHT">#202124</color>
 
     <color name="NIGHT">#ecf0f1</color>
-    <color name="CLOUDS">#040000</color>
+    <color name="CLOUDS">#242528</color>
     <color name="WAIKAWA_GREY">#686da3</color>
 
     <color name="NIGHT_">#040000</color>
@@ -14,10 +14,10 @@
     <color name="BLUE_BELL">#3a4274</color>
 
     <color name="NEPHRITIS">#27ae60</color>
-    <color name="BRIGHT_SKY_BLUE">#ff02586b</color>
-    <color name="AMETHYST">#ff6a3d7d</color>
-    <color name="SUNFLOWER">#ff5c4b06</color> <!-- FF5C4B06 -->
-    <color name="ALIZARIN">#ff822c2c</color> <!-- #FF822C2C  #e74c3c-->
+    <color name="BRIGHT_SKY_BLUE">#05C7F2</color>
+    <color name="AMETHYST">#9b59b6</color>
+    <color name="SUNFLOWER">#f1c40f</color>
+    <color name="ALIZARIN">#ffff6151</color>
 
     <color name="TURQUOISE">#1abc9c</color>
     <color name="GREEN_SEA">#16a085</color>

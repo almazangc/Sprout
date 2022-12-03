@@ -184,16 +184,18 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         habitWithSubroutinesViewModel.getAllUserDefinedHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             if (habits != null) {
                 if (!habits.isEmpty()) {
-                    if (binding.addNewHabitTextInput.getVisibility() == View.GONE)
-                        binding.addNewHabitTextInput.setVisibility(View.VISIBLE);
                     habitsList = habits;
-                    habitTitles.clear();
+                    habitTitles.clear(); //clear contents
                     for (Habits habit : habits) {
                         if (!habit.isOnReform()) habitTitles.add(habit.getHabit());
                     }
-                } else {
+                }
+                if (habitTitles.isEmpty()){
                     if (binding.addNewHabitTextInput.getVisibility() == View.VISIBLE)
                         binding.addNewHabitTextInput.setVisibility(View.GONE);
+                } else {
+                    if (binding.addNewHabitTextInput.getVisibility() == View.GONE)
+                        binding.addNewHabitTextInput.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -202,7 +204,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
 
         binding.addNewHabitDropItems.setOnItemClickListener((adapterView, view, pos, id) -> {
             habit = habitsList.get(pos);
-            updateView();
+            setContentView();
         });
 
         binding.addNewHabitDropItems.addTextChangedListener(new TextWatcher() {
@@ -239,7 +241,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         });
     }
 
-    private void updateView() {
+    private void setContentView() {
             binding.addNewHabitTitle.setText(habit.getHabit());
             binding.addNewHabitDescription.setText(habit.getDescription());
             color = habit.getColor();
@@ -271,32 +273,26 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
 
         binding.cloudMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(0);
-            setSelected_color();
         });
 
         binding.alzarinMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(1);
-            setSelected_color();
         });
 
         binding.amethystMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(2);
-            setSelected_color();
         });
 
         binding.brightskyBlueMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(3);
-            setSelected_color();
         });
 
         binding.nephritisMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(4);
-            setSelected_color();
         });
 
         binding.sunflowerMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(5);
-            setSelected_color();
         });
     }
 
@@ -395,6 +391,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     private void updateSelectedColorIndex(int newSelected) {
         old_selected_color = current_selected_color;
         current_selected_color = newSelected;
+        setSelected_color();
     }
 
     private void setBackgroundColorIndicator(Drawable backgroundNoteIndicator) {
@@ -441,7 +438,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                 binding.fabAddDeleteHabit.setVisibility(View.GONE);
                 habit = new Habits("", "", AppColor.CLOUDS.getColor(), true, true);
                 subroutinesList = new ArrayList<>();
-                updateView();
+                setContentView();
             });
         }
     }

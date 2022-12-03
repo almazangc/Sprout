@@ -1,15 +1,15 @@
 package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
-import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,7 +18,6 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
-import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
 import com.habitdev.sprout.enums.AppColor;
 
 import java.util.List;
@@ -99,40 +98,40 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     public class ParentItemViewHolder extends RecyclerView.ViewHolder {
 
         //Components Here
-        CardView ItemCardView;
+        RelativeLayout itemLayout;
         Button HabitsTitle, ModifySubroutine;
         RecyclerView childRecycleView;
-        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
+        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public ParentItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            ItemCardView = itemView.findViewById(R.id.subroutine_parent_item_card_view);
+            itemLayout = itemView.findViewById(R.id.subroutine_parent_item_layout);
             HabitsTitle = itemView.findViewById(R.id.subroutine_parent_item_habit_title);
             ModifySubroutine = itemView.findViewById(R.id.subroutine_parent_item_modify_subroutine);
             childRecycleView = itemView.findViewById(R.id.subroutine_child_recyclerview);
 
-            cs_cloud = ContextCompat.getColorStateList(itemView.getContext(), R.color.CLOUDS);
-            cs_amethyst = ContextCompat.getColorStateList(itemView.getContext(), R.color.AMETHYST);
-            cs_sunflower = ContextCompat.getColorStateList(itemView.getContext(), R.color.SUNFLOWER);
-            cs_nephritis = ContextCompat.getColorStateList(itemView.getContext(), R.color.NEPHRITIS);
-            cs_bright_sky_blue = ContextCompat.getColorStateList(itemView.getContext(), R.color.BRIGHT_SKY_BLUE);
-            cs_alzarin = ContextCompat.getColorStateList(itemView.getContext(), R.color.ALIZARIN);
+            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_cloud);
+            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_amethyst);
+            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_sunflower);
+            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_nephritis);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_brightsky_blue);
+            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_alzarin);
         }
 
         long bindData(Habits habit, OnClickListener onClickListener) {
 
-            if (habit.getColor().equals(AppColor.ALZARIN.getColor())){
-                ItemCardView.setBackgroundTintList(cs_alzarin);
-            } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())){
-                ItemCardView.setBackgroundTintList(cs_amethyst);
-            } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())){
-                ItemCardView.setBackgroundTintList(cs_bright_sky_blue);
-            } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())){
-                ItemCardView.setBackgroundTintList(cs_nephritis);
-            } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())){
-                ItemCardView.setBackgroundTintList(cs_sunflower);
+            if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
+                itemLayout.setBackground(alzarin);
+            } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
+                itemLayout.setBackground(amethyst);
+            } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
+                itemLayout.setBackground(bright_sky_blue);
+            } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
+                itemLayout.setBackground(nephritis);
+            } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
+                itemLayout.setBackground(sunflower);
             } else {
-                ItemCardView.setBackgroundTintList(cs_cloud);
+                itemLayout.setBackground(cloud);
             }
 
             String buttonLabel = habit.getHabit() + " [ " + habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() + " ]";

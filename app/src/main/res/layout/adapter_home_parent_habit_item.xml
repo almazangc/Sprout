@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/adapter_home_parent_item_container"
     android:layout_width="match_parent"
@@ -8,9 +7,9 @@
     android:layout_marginStart="12dp"
     android:layout_marginTop="12dp"
     android:layout_marginEnd="12dp"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="3dp"
-    app:cardMaxElevation="5dp"
+    android:background="@drawable/background_parent_item_view_cloud"
+    android:paddingEnd="7dp"
+    android:paddingBottom="13dp"
     tools:showIn="@layout/fragment_home">
 
     <LinearLayout
@@ -19,25 +18,25 @@
         android:layout_margin="5dp"
         android:orientation="horizontal">
 
-<!--        upvote and downvote-->
+        <!--        upvote and downvote-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/home_upvote_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
                 android:background="@drawable/selector_btn_continue"
                 android:drawableStart="@drawable/ic_upvote"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:minWidth="0dp"
-                android:layout_marginBottom="3dp"
                 android:minHeight="0dp"
                 android:textColor="@color/NIGHT"
                 android:textSize="0sp" />
@@ -46,8 +45,8 @@
                 android:id="@+id/home_downvote_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginBottom="3dp"
                 android:background="@drawable/selector_btn_continue"
                 android:drawableStart="@drawable/ic_downvote"
                 android:insetTop="0dp"
@@ -59,7 +58,7 @@
 
         </LinearLayout>
 
-<!--        habit on reform basic info-->
+        <!--        habit on reform basic info-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -138,8 +137,8 @@
                 android:layout_below="@+id/header"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="8dp"
                 android:justificationMode="inter_word"
                 android:minHeight="0dp"
                 android:padding="3dp"
@@ -152,8 +151,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/home_item_on_click_habit_description"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="5dp">
@@ -174,11 +173,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/date_started_lbl"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:minWidth="0dp"
                     android:textColor="@color/NIGHT"
                     android:textSize="11sp"
-                    android:maxLines="1"
-                    android:ellipsize="end"
                     tools:text="Saturday, November 5, 2022: 12:25" />
 
                 <TextView
@@ -250,4 +249,4 @@
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</RelativeLayout>
