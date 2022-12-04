@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentBottomNavigationBinding;
 import com.habitdev.sprout.ui.menu.analytic.AnalyticFragment;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
+import com.habitdev.sprout.ui.menu.home.HomeParentItemFragment;
 import com.habitdev.sprout.ui.menu.journal.JournalFragment;
 import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
@@ -43,7 +43,7 @@ public class BottomNavigationFragment extends Fragment {
         if (savedInstanceState == null) {
             binding.bottomBar.selectTabById(R.id.tab_home, true);
             fragmentManager = getChildFragmentManager();
-            fragmentManager.beginTransaction().replace(binding.mainNavFragmentContainer.getId(), new HomeFragment())
+            fragmentManager.beginTransaction().replace(binding.mainNavFragmentContainer.getId(), new HomeParentItemFragment())
                     .commit();
             binding.bottomBar.selectTabAt(0, true);
         } else {
@@ -94,7 +94,7 @@ public class BottomNavigationFragment extends Fragment {
 
     private void setMenu(int id, int tabID) {
 
-        Fragment Home = new HomeFragment();
+        Fragment Home = new HomeParentItemFragment();
         Fragment Subroutine = new SubroutineFragment();
         Fragment Analytics = new AnalyticFragment();
         Fragment Journal = new JournalFragment();

@@ -12,7 +12,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
@@ -22,14 +21,12 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeItemOnClickViewBinding;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
+import com.habitdev.sprout.ui.menu.home.HomeParentItemFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -293,7 +290,7 @@ public class HomeItemOnClickFragment extends Fragment {
             @Override
             public void handleOnBackPressed() {
                 //TODO: Fix how to manage fragments
-                HomeFragment homeFragment = new HomeFragment();
+                HomeParentItemFragment homeFragment = new HomeParentItemFragment();
                 getChildFragmentManager()
                         .beginTransaction()
                         .replace(binding.homeItemOnClickFrameLayout.getId(), homeFragment)

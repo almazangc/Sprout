@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -22,7 +21,7 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAddDefaultHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
+import com.habitdev.sprout.ui.menu.home.HomeParentItemFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddDefaultHabitParentItemAdapter;
 
 import java.text.SimpleDateFormat;
@@ -288,7 +287,7 @@ public class AddDefaultHabitFragment extends Fragment {
 
     private void returnHomeFragment(){
         FragmentManager fragmentManager = getChildFragmentManager();
-        fragmentManager.beginTransaction().replace(binding.addFromDefaultHabitFrameLayout.getId(), new HomeFragment())
+        fragmentManager.beginTransaction().replace(binding.addFromDefaultHabitFrameLayout.getId(), new HomeParentItemFragment())
                 .commit();
         binding.addFromDefaultHabitContainer.setVisibility(View.GONE);
     }

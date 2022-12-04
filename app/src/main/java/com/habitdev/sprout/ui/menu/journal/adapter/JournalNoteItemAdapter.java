@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.interfaces.IRecyclerView;
+import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemOnclickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +27,15 @@ import java.util.TimerTask;
 public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItemAdapter.NoteViewHolder> {
 
     private List<Note> notes;
-    private final IRecyclerView IRecyclerView;
+    private final HomeParentItemOnclickListener HomeParentItemOnclickListener;
 
     //for searchnote
     private Timer timer;
     private List<Note> notesSource;
 
-    public JournalNoteItemAdapter(List<Note> notes, IRecyclerView IRecyclerView) {
+    public JournalNoteItemAdapter(List<Note> notes, HomeParentItemOnclickListener HomeParentItemOnclickListener) {
         this.notes = notes;
-        this.IRecyclerView = IRecyclerView;
+        this.HomeParentItemOnclickListener = HomeParentItemOnclickListener;
         notesSource = notes;
     }
 
@@ -43,7 +43,7 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new NoteViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_journal_parent_note_item, parent, false), IRecyclerView
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_journal_parent_note_item, parent, false), HomeParentItemOnclickListener
         );
     }
 
@@ -76,7 +76,7 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 //        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
 
-        public NoteViewHolder(@NonNull View itemView, IRecyclerView IRecyclerView) {
+        public NoteViewHolder(@NonNull View itemView, HomeParentItemOnclickListener HomeParentItemOnclickListener) {
             super(itemView);
             noteTitle = itemView.findViewById(R.id.noteTitle);
             noteSubtitle = itemView.findViewById(R.id.noteSubtitle);
@@ -85,11 +85,11 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
             layout_note = itemView.findViewById(R.id.layout_note);
 
             itemView.setOnClickListener(v -> {
-                if(IRecyclerView != null){
+                if(HomeParentItemOnclickListener != null){
                     int position = getBindingAdapterPosition();
 
                     if(position != RecyclerView.NO_POSITION){
-                        IRecyclerView.onItemClick(position);
+                        HomeParentItemOnclickListener.onItemClick(position);
                     }
                 }
             });

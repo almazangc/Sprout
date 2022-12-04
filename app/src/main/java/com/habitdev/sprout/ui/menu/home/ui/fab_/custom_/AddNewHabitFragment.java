@@ -25,7 +25,7 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAddNewHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
+import com.habitdev.sprout.ui.menu.home.HomeParentItemFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
 
@@ -492,7 +492,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         FragmentManager fragmentManager = getChildFragmentManager();
         fragmentManager
                 .beginTransaction()
-                .replace(binding.addNewHabitFrameLayout.getId(), new HomeFragment())
+                .replace(binding.addNewHabitFrameLayout.getId(), new HomeParentItemFragment())
                 .commit();
         binding.addNewHabitContainer.setVisibility(View.GONE);
     }

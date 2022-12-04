@@ -318,7 +318,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.habitdev.sprout.ui.menu.home.HomeFragment"
+        android:name="com.habitdev.sprout.ui.menu.home.HomeParentItemFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action

@@ -1,11 +1,11 @@
 package com.habitdev.sprout.ui.menu.subroutine.ui;
 
-import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -15,6 +15,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
@@ -23,10 +26,12 @@ import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentSubroutineModifyBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
+import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineChildItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentItemAdapter;
+import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentOnclickListener;
 import com.habitdev.sprout.ui.menu.subroutine.ui.dialog.SubroutineModifyParentItemAdapterDialogFragment;
 
-public class SubroutineModifyFragment extends Fragment implements SubroutineModifyParentItemAdapter.OnClickListener {
+public class SubroutineModifyFragment extends Fragment implements SubroutineModifyParentOnclickListener {
 
     private FragmentSubroutineModifyBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
@@ -57,15 +62,67 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     private void setSubroutineRecyclerView() {
         subroutineModifyParentItemAdapter = new SubroutineModifyParentItemAdapter();
         binding.subroutineModifyRecyclerView.setAdapter(subroutineModifyParentItemAdapter);
-        subroutineModifyParentItemAdapter.setmOnClickListener(this);
+        subroutineModifyParentItemAdapter.setmSubroutineModifyOnclickListener(this);
         habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), subroutines -> {
             subroutineModifyParentItemAdapter.submitList(subroutines);
             subroutineModifyParentItemAdapter.notifyDataSetChanged(); //solution for now, due to rv not updating
         });
 
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                return makeMovementFlags(0, ItemTouchHelper.END);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return false;
+            }
+
+            @Override
+            public boolean isItemViewSwipeEnabled() {
+                return true;
+            }
+
+            @Override
+            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                switch (direction) {
+                    case ItemTouchHelper.END:
+                        int num = viewHolder.getItemViewType();
+                        if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
+                            Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(viewHolder.getItemViewType());
+                            habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
+                        } else {
+                            Toast.makeText(requireActivity(), "Required Minimum of 2 Subroutines", Toast.LENGTH_SHORT).show();
+                        }
+                        //public static class SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder
+                        //extends RecyclerView.ViewHolder
+                        //ListAdapter
+                        SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder subroutineModifyViewHolder;
+                        subroutineModifyViewHolder = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
+                        //casted VH not working, not fetching the components initialized in adapter
+
+
+                        subroutineModifyParentItemAdapter.notifyDataSetChanged();
+                        break;
+                }
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(binding.subroutineModifyRecyclerView);
     }
 
-    private void setHabitTitleBackground(){
+    private void setHabitTitleBackground() {
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
         cloud = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_cloud);
         amethyst = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_amethyst);
@@ -73,7 +130,6 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         nephritis = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_nephritis);
         bright_sky_blue = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_brightsky_blue);
         alzarin = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_alzarin);
-
 
         if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
             binding.subroutineModifyTitle.setBackground(alzarin);
@@ -91,7 +147,8 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     }
 
     @Override
-    public void onClickModify(Subroutines subroutine) {
+    public void onItemClick(int position) {
+        Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
         SubroutineModifyParentItemAdapterDialogFragment dialog = new SubroutineModifyParentItemAdapterDialogFragment(subroutine);
         dialog.setTargetFragment(getChildFragmentManager()
                 .findFragmentById(SubroutineModifyFragment.this.getId()), 1);
@@ -102,15 +159,6 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
                 habitWithSubroutinesViewModel.updateSubroutine(subroutine);
             }
         });
-    }
-
-    @Override
-    public void onClickDelete(Subroutines subroutine) {
-        if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
-            habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
-        } else {
-            Toast.makeText(requireActivity(), "Required Minimum of 2 Subroutines", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void onClickInsert() {

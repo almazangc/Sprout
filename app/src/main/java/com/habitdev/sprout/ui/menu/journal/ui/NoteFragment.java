@@ -272,30 +272,32 @@ public class NoteFragment extends Fragment {
                                                         binding.noteContent.getText().toString(),
                                                         color)
                                 );
+                                //hide save button
                                 gotoJournalFragment();
                             })
                             .setNegativeButton("No", (dialogInterface, i) -> {
-//                                    gotoJournalFragment();
                             })
                             .show();
                 } else {
                     gotoJournalFragment();
                 }
             } else {
-                noteViewModel.insert(
-                        binding.noteSubTitle.getText().toString().trim().isEmpty() ?
-                                new Note(
-                                        binding.noteTitle.getText().toString(),
-                                        binding.noteCurrentTime.getText().toString(),
-                                        binding.noteContent.getText().toString(),
-                                        color) :
-                                new Note(
-                                        binding.noteTitle.getText().toString(),
-                                        binding.noteCurrentTime.getText().toString(),
-                                        binding.noteSubTitle.getText().toString(),
-                                        binding.noteContent.getText().toString(),
-                                        color)
-                );
+                if (binding.noteHint.getText().toString().trim().isEmpty()){
+                    noteViewModel.insert(
+                            binding.noteSubTitle.getText().toString().trim().isEmpty() ?
+                                    new Note(
+                                            binding.noteTitle.getText().toString(),
+                                            binding.noteCurrentTime.getText().toString(),
+                                            binding.noteContent.getText().toString(),
+                                            color) :
+                                    new Note(
+                                            binding.noteTitle.getText().toString(),
+                                            binding.noteCurrentTime.getText().toString(),
+                                            binding.noteSubTitle.getText().toString(),
+                                            binding.noteContent.getText().toString(),
+                                            color)
+                    );
+                }
                 gotoJournalFragment();
             }
         });

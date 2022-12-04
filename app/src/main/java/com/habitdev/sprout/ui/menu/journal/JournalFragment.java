@@ -18,13 +18,13 @@ import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentJournalBinding;
 import com.habitdev.sprout.enums.BundleKeys;
-import com.habitdev.sprout.interfaces.IRecyclerView;
+import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemOnclickListener;
 import com.habitdev.sprout.ui.menu.journal.adapter.JournalNoteItemAdapter;
 import com.habitdev.sprout.ui.menu.journal.ui.NoteFragment;
 
 import java.util.List;
 
-public class JournalFragment extends Fragment implements IRecyclerView {
+public class JournalFragment extends Fragment implements HomeParentItemOnclickListener {
 
     private FragmentJournalBinding binding;
     private JournalNoteItemAdapter journalNoteItemAdapter;

@@ -23,7 +23,6 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.interfaces.IRecyclerView;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
@@ -34,15 +33,15 @@ import java.util.TimerTask;
 
 public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAdapter.HabitViewHolder> {
 
-    private final com.habitdev.sprout.interfaces.IRecyclerView IRecyclerView;
+    private final HomeParentItemOnclickListener HomeParentItemOnclickListener;
     private final FragmentActivity fragmentActivity;
     private final FragmentManager fragmentManager;
     private final int HomeID;
     private List<Habits> habits;
 
-    public HomeParentItemAdapter(List<Habits> habits, IRecyclerView IRecyclerView, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int HomeID) {
+    public HomeParentItemAdapter(List<Habits> habits, HomeParentItemOnclickListener HomeParentItemOnclickListener, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int HomeID) {
         this.habits = habits;
-        this.IRecyclerView = IRecyclerView;
+        this.HomeParentItemOnclickListener = HomeParentItemOnclickListener;
         this.fragmentActivity = fragmentActivity;
         this.fragmentManager = fragmentManager;
         this.HomeID = HomeID;
@@ -52,7 +51,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
     @Override
     public HomeParentItemAdapter.HabitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new HomeParentItemAdapter.HabitViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_parent_habit_item, parent, false), IRecyclerView
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_parent_habit_item, parent, false), HomeParentItemOnclickListener
         );
     }
 
@@ -84,7 +83,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         Button upVote, downVote, modify, relapse, drop;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
-        public HabitViewHolder(@NonNull View itemView, IRecyclerView IRecyclerView) {
+        public HabitViewHolder(@NonNull View itemView, HomeParentItemOnclickListener HomeParentItemOnclickListener) {
             super(itemView);
 
             itemContainer = itemView.findViewById(R.id.adapter_home_parent_item_container);
@@ -103,11 +102,11 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             drop = itemView.findViewById(R.id.home_drop_btn);
 
             itemView.setOnClickListener(v -> {
-                if (IRecyclerView != null) {
+                if (HomeParentItemOnclickListener != null) {
                     int position = getBindingAdapterPosition();
 
                     if (position != RecyclerView.NO_POSITION) {
-                        IRecyclerView.onItemClick(position);
+                        HomeParentItemOnclickListener.onItemClick(position);
                     }
                 }
             });

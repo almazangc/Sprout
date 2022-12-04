@@ -64,7 +64,7 @@
                     android:minWidth="0dp"
                     android:minHeight="40dp"
                     android:paddingLeft="10dp"
-                    android:paddingEnd="10dp"
+                    android:paddingEnd="20dp"
                     android:text="Subroutine"
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"

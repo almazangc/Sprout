@@ -1,8 +1,10 @@
 package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
-import android.content.res.ColorStateList;
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -10,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -40,28 +41,23 @@ public class SubroutineModifyParentItemAdapter extends ListAdapter<Subroutines, 
         }
     };
 
-    public interface OnClickListener {
-        void onClickModify(Subroutines subroutine);
-        void onClickDelete(Subroutines subroutine);
-    }
+    private SubroutineModifyParentOnclickListener mSubroutineModifyParentOnclickListener;
 
-    private OnClickListener mOnClickListener;
-
-    public void setmOnClickListener(OnClickListener mOnClickListener) {
-        this.mOnClickListener = mOnClickListener;
+    public void setmSubroutineModifyOnclickListener(SubroutineModifyParentOnclickListener mSubroutineModifyParentOnclickListener) {
+        this.mSubroutineModifyParentOnclickListener = mSubroutineModifyParentOnclickListener;
     }
 
     @NonNull
     @Override
     public SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_subroutine_modify_parent_item, parent, false)
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_subroutine_modify_parent_item, parent, false), mSubroutineModifyParentOnclickListener
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder holder, int position) {
-        holder.bindSubroutine(getSubroutine(position), mOnClickListener);
+        holder.bindSubroutine(getSubroutine(position));
     }
 
     @Override
@@ -75,29 +71,33 @@ public class SubroutineModifyParentItemAdapter extends ListAdapter<Subroutines, 
 
     public static class SubroutineModifyViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout itemLayout;
+        RelativeLayout itemLayout, subroutineLayout, deleteLayout;
         TextView Title, Description;
-        Button Modify, Delete;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
-        public SubroutineModifyViewHolder(@NonNull View itemView) {
+        public SubroutineModifyViewHolder(@NonNull View itemView, SubroutineModifyParentOnclickListener mSubroutineModifyParentOnclickListener) {
             super(itemView);
 
             itemLayout = itemView.findViewById(R.id.modify_subroutine_parent_item_layout_subroutine);
+            subroutineLayout = itemLayout.findViewById(R.id.modify_subroutine_parent_item_layout_subroutine);
+            deleteLayout = itemLayout.findViewById(R.id.modify_subroutine_parent_item_layout_control);
             Title = itemView.findViewById(R.id.modify_subroutine_parent_item_card_view_title);
             Description = itemView.findViewById(R.id.modify_subroutine_parent_item_description);
-            Modify = itemView.findViewById(R.id.modify_subroutine_parent_item_modfiy_btn);
-            Delete = itemView.findViewById(R.id.modify_subroutine_parent_item_delete_btn);
 
-            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_cloud);
-            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_amethyst);
-            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_sunflower);
-            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_nephritis);
-            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_brightsky_blue);
-            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_alzarin);
+            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_cloud_selector);
+            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_amethyst_selector);
+            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_sunflower_selector);
+            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brigthsky_blue_selector);
+            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
+
+            itemLayout.setOnClickListener(view -> {
+                    mSubroutineModifyParentOnclickListener.onItemClick(getItemViewType());
+            });
         }
 
-        void bindSubroutine(Subroutines subroutine, OnClickListener mOnClickListener) {
+        @SuppressLint("ClickableViewAccessibility")
+        void bindSubroutine(Subroutines subroutine) {
 
             if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemLayout.setBackground(alzarin);
@@ -113,16 +113,27 @@ public class SubroutineModifyParentItemAdapter extends ListAdapter<Subroutines, 
                 itemLayout.setBackground(cloud);
             }
 
+            //changing component attributes with motion events
+            itemLayout.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                        subroutineLayout.setPadding(padding_inPx(10), padding_inPx(10), padding_inPx(5), padding_inPx(0));
+                    } else {
+                        subroutineLayout.setPadding(padding_inPx(5), padding_inPx(5), padding_inPx(5), padding_inPx(5));
+                    }
+                    return false;
+                }
+            });
+
             Title.setText(subroutine.getSubroutine());
             Description.setText(subroutine.getDescription());
+        }
 
-            Modify.setOnClickListener(view -> {
-                mOnClickListener.onClickModify(subroutine);
-            });
-
-            Delete.setOnClickListener(view -> {
-                mOnClickListener.onClickDelete(subroutine);
-            });
+        int padding_inPx (int dp){
+            int padding_in_dp = dp;
+            final float scale = itemLayout.getResources().getDisplayMetrics().density;
+            return (int) (padding_in_dp * scale + 0.5f);
         }
     }
 }

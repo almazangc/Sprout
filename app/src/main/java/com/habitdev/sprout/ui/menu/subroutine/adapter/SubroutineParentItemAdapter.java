@@ -27,6 +27,7 @@ import com.habitdev.sprout.enums.AppColor;
 
 import java.util.List;
 
+//User List Adapter
 public class SubroutineParentItemAdapter extends RecyclerView.Adapter<SubroutineParentItemAdapter.ParentItemViewHolder>{
 
     private List<Habits> habitsOnReform;
@@ -132,8 +133,8 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
                 switch (direction){
                     case ItemTouchHelper.END:
                     case ItemTouchHelper.START:
-                        //Remove id is same as on adapter but not working when changed visibility 2131231725
-                        childAdapterItem.notifyDataSetChanged();
+                        SubroutineChildItemAdapter.ChildItemViewHolder  childItemViewHolder;
+                        childItemViewHolder = (SubroutineChildItemAdapter.ChildItemViewHolder)  viewHolder;
                         break;
                 }
             }
@@ -215,9 +216,10 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
                         HabitsTitle.setPadding(padding_inPx(10), padding_inPx(5), padding_inPx(10), padding_inPx(0));
-                    } else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    } else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL){
                         HabitsTitle.setPadding(padding_inPx(10), padding_inPx(0), padding_inPx(10), padding_inPx(5));
                     }
+                    Log.d("tag", "onTouch: " + motionEvent.getAction());
                     return false;
                 }
             });
