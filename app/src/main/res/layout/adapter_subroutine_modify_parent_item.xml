@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/modify_subroutine_parent_item_card_view"
+    android:id="@+id/modify_subroutine_parent_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="5dp"
-    app:cardCornerRadius="15dp"
-    android:layout_marginStart="5dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginTop="3dp"
-    android:layout_marginBottom="5dp"
     tools:showIn="@layout/fragment_subroutine_modify">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:id="@+id/modify_subroutine_parent_item_layout_subroutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_toStartOf="@id/modify_subroutine_parent_item_layout_controls"
+        android:background="@drawable/background_child_item_view_amethyst"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/modify_subroutine_parent_item_card_view_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:layout_toStartOf="@id/modify_subroutine_parent_item_modfiy_btn"
             android:text="Lorem Dolor"
             android:textColor="@color/NIGHT"
+            android:layout_marginEnd="10dp"
             android:textSize="16sp"
             android:textStyle="normal" />
 
@@ -47,49 +48,59 @@
             android:textColor="@color/NIGHT"
             android:textSize="13sp"
             tools:text="\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta pharetra magna, eu laoreet urna condimentum a. Vivamus dapibus ante eget nunc ultrices bibendum. Duis consectetur fermentum nibh nec porta. Ut in fringilla leo. Aenean quis tortor vel tortor finibus cursus vel vel tellus. Nullam tellus enim, viverra et imperdiet sed, egestas id ante. Fusce rhoncus odio molestie elit ornare vulputate." />
-
-        <Button
-            android:id="@+id/modify_subroutine_parent_item_modfiy_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="3dp"
-            android:layout_toStartOf="@id/modify_subroutine_parent_item_delete_btn"
-            android:background="@drawable/selector_btn_normal"
-            android:drawableStart="@drawable/ic_modify"
-            android:drawablePadding="5dp"
-            android:ellipsize="end"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:maxLines="1"
-            android:minWidth="0dp"
-            android:minHeight="40dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="5dp"
-            android:textAllCaps="false"
-            android:textColor="@color/NIGHT"
-            android:textSize="0sp" />
-
-        <Button
-            android:id="@+id/modify_subroutine_parent_item_delete_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="3dp"
-            android:background="@drawable/selector_btn_normal"
-            android:drawableStart="@drawable/ic_delete"
-            android:drawablePadding="5dp"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:maxLines="1"
-            android:minWidth="0dp"
-            android:minHeight="40dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="5dp"
-            android:layout_marginEnd="5dp"
-            android:textAllCaps="false"
-            android:textColor="@color/NIGHT"
-            android:textSize="0sp" />
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/modify_subroutine_parent_item_layout_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/modify_subroutine_parent_item_modfiy_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/background_btn_normal_selector"
+                android:drawableStart="@drawable/ic_modify"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:maxLines="1"
+                android:minWidth="0dp"
+                android:minHeight="40dp"
+                android:paddingStart="10dp"
+                android:textAllCaps="false"
+                android:textSize="0sp"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/modify_subroutine_parent_item_delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/background_btn_normal_selector"
+                android:drawableStart="@drawable/ic_delete"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:maxLines="1"
+                android:minWidth="0dp"
+                android:minHeight="40dp"
+                android:paddingStart="10dp"
+                android:textAllCaps="false"
+                android:textSize="0sp"
+                android:visibility="visible" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

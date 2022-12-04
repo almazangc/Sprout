@@ -1,17 +1,22 @@
 package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
@@ -38,6 +43,16 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         this.mOnClickListener = mOnClickListener;
     }
 
+    public interface onSwipeLister{
+        void onSwipeStart();
+    }
+
+    private onSwipeLister mOnSwipeLister;
+
+    public void setmOnSwipeLister(onSwipeLister mOnSwipeLister) {
+        this.mOnSwipeLister = mOnSwipeLister;
+    }
+
     public void setLifecycleOwner(LifecycleOwner lifecycleOwner) {
         this.lifecycleOwner = lifecycleOwner;
     }
@@ -46,7 +61,6 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         this.habitWithSubroutinesViewModel = habitWithSubroutinesViewModel;
     }
 
-    //for continues scroll loop
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
     public SubroutineParentItemAdapter() {}
@@ -61,6 +75,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
     @Override
     public void onBindViewHolder(@NonNull ParentItemViewHolder holder, int position) {
+
         long uid = holder.bindData(habitsOnReform.get(position), mOnClickListener);
 
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation);
@@ -70,15 +85,60 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         List<Subroutines> habitWithSubroutines;
 
         habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
-
         SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter(habitWithSubroutines);
         holder.childRecycleView.setAdapter(childAdapterItem);
 
         //Can be removed: for continuous flow of recycler
-        holder.childRecycleView.setRecycledViewPool(viewPool);
+//        holder.childRecycleView.setRecycledViewPool(viewPool);
+
         childAdapterItem.setHabitWithSubroutines(habitWithSubroutines);
 
         habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(lifecycleOwner, childAdapterItem::setHabitWithSubroutines);
+
+        setItemTouchHelper(holder, childAdapterItem);
+    }
+
+    private void setItemTouchHelper(SubroutineParentItemAdapter.ParentItemViewHolder holder, SubroutineChildItemAdapter childAdapterItem){
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                return makeMovementFlags(0, ItemTouchHelper.END | ItemTouchHelper.START);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return false;
+            }
+
+            @Override
+            public boolean isItemViewSwipeEnabled() {
+                return true;
+            }
+
+            @Override
+            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                super.clearView(recyclerView, viewHolder);
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                switch (direction){
+                    case ItemTouchHelper.END:
+                    case ItemTouchHelper.START:
+                        //Remove id is same as on adapter but not working when changed visibility 2131231725
+                        childAdapterItem.notifyDataSetChanged();
+                        break;
+                }
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(holder.childRecycleView);
     }
 
     @Override
@@ -99,7 +159,8 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
         //Components Here
         RelativeLayout itemLayout;
-        Button HabitsTitle, ModifySubroutine;
+        TextView HabitsTitle;
+        Button ModifySubroutine;
         RecyclerView childRecycleView;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
@@ -110,14 +171,15 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             ModifySubroutine = itemView.findViewById(R.id.subroutine_parent_item_modify_subroutine);
             childRecycleView = itemView.findViewById(R.id.subroutine_child_recyclerview);
 
-            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_cloud);
-            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_amethyst);
-            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_sunflower);
-            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_nephritis);
-            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_brightsky_blue);
-            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_alzarin);
+            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_cloud_selector);
+            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_amethyst_selector);
+            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_sunflower_selector);
+            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brigthsky_blue_selector);
+            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         long bindData(Habits habit, OnClickListener onClickListener) {
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
@@ -137,12 +199,26 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             String buttonLabel = habit.getHabit() + " [ " + habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() + " ]";
 
             HabitsTitle.setText(buttonLabel);
-            HabitsTitle.setOnClickListener(view -> {
+            HabitsTitle.setPadding(padding_inPx(10), padding_inPx(0), padding_inPx(10), padding_inPx(5));
+
+            itemLayout.setOnClickListener(view -> {
                 childRecycleView.getVisibility();
                 if (childRecycleView.getVisibility() == View.GONE) {
                     childRecycleView.setVisibility(View.VISIBLE);
                 } else {
                     childRecycleView.setVisibility(View.GONE);
+                }
+            });
+
+            itemLayout.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                        HabitsTitle.setPadding(padding_inPx(10), padding_inPx(5), padding_inPx(10), padding_inPx(0));
+                    } else if (motionEvent.getAction() == MotionEvent.ACTION_UP){
+                        HabitsTitle.setPadding(padding_inPx(10), padding_inPx(0), padding_inPx(10), padding_inPx(5));
+                    }
+                    return false;
                 }
             });
 
@@ -163,5 +239,11 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             habitWithSubroutinesViewModel = null;
             lifecycleOwner = null;
         }
+
+         int padding_inPx (int dp){
+             int padding_in_dp = dp;
+             final float scale = itemLayout.getResources().getDisplayMetrics().density;
+             return (int) (padding_in_dp * scale + 0.5f);
+         }
     }
 }

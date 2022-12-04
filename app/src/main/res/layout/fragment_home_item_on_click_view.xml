@@ -487,7 +487,7 @@
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="5dp"
-                            android:background="@drawable/selector_btn_normal"
+                            android:background="@drawable/background_btn_normal_selector"
                             android:drawableStart="@drawable/ic_enter"
                             android:minWidth="0dp"
                             android:minHeight="0dp"

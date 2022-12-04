@@ -12,36 +12,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/layout_top"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            app:cardElevation="10dp">
-
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
+                android:layout_height="?android:attr/actionBarSize"
+                android:background="@drawable/background_topbar_view_nephritis"
+                android:id="@+id/journal_top_bar">
 
                 <TextView
                     android:id="@+id/journalTitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="Reflection Journal"
                     android:textColor="@color/NIGHT"
                     android:textSize="20sp"
-                    android:gravity="center"
                     android:textStyle="bold" />
             </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_top"
+            android:layout_below="@id/journal_top_bar"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:maxLines="1"

@@ -10,39 +10,29 @@
     <RelativeLayout
         android:id="@+id/subroutine_modify_container"
         android:layout_width="match_parent"
-        android:padding="11dp"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/subroutine_modify_title_card_view"
+        <TextView
+            android:id="@+id/subroutine_modify_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="10dp">
-
-            <TextView
-                android:id="@+id/subroutine_modify_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/TRANSPARENT"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:padding="10dp"
-                android:textColor="@color/NIGHT"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                tools:text="Habit Title" />
-
-        </androidx.cardview.widget.CardView>
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@drawable/background_topbar_view_cloud"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT"
+            android:textSize="16sp"
+            tools:text="Habit Title" />
 
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/subroutine_modify_title_card_view"
-            android:fillViewport="true">
+            android:layout_below="@id/subroutine_modify_title"
+            android:fillViewport="true"
+            android:paddingEnd="11dp"
+            android:paddingTop="2dp"
+            android:paddingStart="11dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -64,7 +54,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@drawable/selector_btn_normal"
+                    android:background="@drawable/background_btn_normal_selector"
                     android:drawableStart="@drawable/ic_add"
                     android:drawablePadding="10dp"
                     android:ellipsize="end"

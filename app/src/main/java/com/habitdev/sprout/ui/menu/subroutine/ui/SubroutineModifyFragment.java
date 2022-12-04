@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu.subroutine.ui;
 
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,26 +66,27 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     }
 
     private void setHabitTitleBackground(){
-        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
-        cs_cloud = ContextCompat.getColorStateList(requireContext(), R.color.CLOUDS);
-        cs_amethyst = ContextCompat.getColorStateList(requireContext(), R.color.AMETHYST);
-        cs_sunflower = ContextCompat.getColorStateList(requireContext(),R.color.SUNFLOWER);
-        cs_nephritis = ContextCompat.getColorStateList(requireContext(), R.color.NEPHRITIS);
-        cs_bright_sky_blue = ContextCompat.getColorStateList(requireContext(), R.color.BRIGHT_SKY_BLUE);
-        cs_alzarin = ContextCompat.getColorStateList(requireContext(), R.color.ALIZARIN);
+        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+        cloud = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_cloud);
+        amethyst = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_amethyst);
+        sunflower = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_sunflower);
+        nephritis = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_nephritis);
+        bright_sky_blue = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_brightsky_blue);
+        alzarin = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_alzarin);
+
 
         if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
-            binding.subroutineModifyTitleCardView.setBackgroundTintList(cs_alzarin);
+            binding.subroutineModifyTitle.setBackground(alzarin);
         } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
-            binding.subroutineModifyTitleCardView.setBackgroundTintList(cs_amethyst);
+            binding.subroutineModifyTitle.setBackground(amethyst);
         } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
-            binding.subroutineModifyTitleCardView.setBackgroundTintList(cs_bright_sky_blue);
+            binding.subroutineModifyTitle.setBackground(bright_sky_blue);
         } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
-            binding.subroutineModifyTitleCardView.setBackgroundTintList(cs_nephritis);
+            binding.subroutineModifyTitle.setBackground(nephritis);
         } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
-            binding.subroutineModifyTitleCardView.setBackgroundTintList(cs_sunflower);
+            binding.subroutineModifyTitle.setBackground(sunflower);
         } else {
-            binding.subroutineModifyTitleCardView.setBackgroundTintList(cs_cloud);
+            binding.subroutineModifyTitle.setBackground(cloud);
         }
     }
 

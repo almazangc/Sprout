@@ -12,35 +12,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+        <RelativeLayout
+            android:id="@+id/home_top_bar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            app:cardElevation="10dp">
+            android:background="@drawable/background_topbar_view_alzarin"
+            android:layout_height="?android:attr/actionBarSize">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/homeTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Habit on reform"
+                android:textColor="@color/NIGHT"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/homeTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Habit on reform"
-                    android:gravity="center"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
+        </RelativeLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/home_swipe_refresh_layout"
             android:layout_width="match_parent"
-            android:layout_below="@+id/cardView"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/home_top_bar">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_recycler_view"
@@ -60,8 +54,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             app:backgroundTint="@color/CLOUDS"
-            app:fabCustomSize="45dp"
             app:borderWidth="5dp"
+            app:fabCustomSize="45dp"
             app:srcCompat="@drawable/ic_add" />
     </RelativeLayout>
 

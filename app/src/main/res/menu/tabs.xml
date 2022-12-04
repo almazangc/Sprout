@@ -6,7 +6,7 @@
         android:title="@string/home" />
     <item
         android:id="@+id/tab_subroutine"
-        android:icon="@drawable/ic_table_chart"
+        android:icon="@drawable/ic_subroutine"
         android:title="@string/subroutine" />
     <item
         android:id="@+id/tab_analytic"

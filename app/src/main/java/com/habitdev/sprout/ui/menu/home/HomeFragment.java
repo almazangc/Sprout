@@ -66,7 +66,17 @@ public class HomeFragment extends Fragment implements IRecyclerView {
 
             @Override
             public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return makeMovementFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.END | ItemTouchHelper.START);
+                return makeMovementFlags(0, ItemTouchHelper.START);
+            }
+
+            @Override
+            public boolean isLongPressDragEnabled() {
+                return false;
+            }
+
+            @Override
+            public boolean isItemViewSwipeEnabled() {
+                return true;
             }
 
             @Override
@@ -77,14 +87,12 @@ public class HomeFragment extends Fragment implements IRecyclerView {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 switch (direction){
-                    case ItemTouchHelper.END:
+                    case ItemTouchHelper.START:
+                        //drops subroutine
                         Habits habits = habitsOnReform.get(viewHolder.getBindingAdapterPosition());
                         habits.setOnReform(false);
                         habitWithSubroutinesViewModel.updateHabit(habits);
                         homeParentItemAdapter.notifyItemRemoved(viewHolder.getBindingAdapterPosition());
-                        break;
-                    case ItemTouchHelper.START:
-                        //
                         break;
                 }
             }
