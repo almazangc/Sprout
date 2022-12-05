@@ -145,6 +145,7 @@ dependencies {
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 
-    //https://github.com/chthai64/SwipeRevealLayout
-    implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+    //https://github.com/FarhamHosseini/SwipeRevealLayout
+    implementation group: 'com.apachat', name: 'swipereveallayout-android', version: '1.1.2'
+
 }

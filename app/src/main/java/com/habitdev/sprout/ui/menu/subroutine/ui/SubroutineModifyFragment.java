@@ -16,8 +16,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
@@ -26,7 +24,6 @@ import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentSubroutineModifyBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
-import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineChildItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentOnclickListener;
 import com.habitdev.sprout.ui.menu.subroutine.ui.dialog.SubroutineModifyParentItemAdapterDialogFragment;
@@ -36,6 +33,7 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     private FragmentSubroutineModifyBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private final Habits habit;
+    private SubroutineModifyParentItemAdapter adapter;
 
     public interface onSwipeView{
         void itemOnSwipeView();
@@ -69,7 +67,7 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     }
 
     private void setSubroutineRecyclerView() {
-        SubroutineModifyParentItemAdapter adapter = new SubroutineModifyParentItemAdapter(habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()));
+        adapter = new SubroutineModifyParentItemAdapter(habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()));
         binding.subroutineModifyRecyclerView.setAdapter(adapter);
         adapter.setmSubroutineModifyOnclickListener(this);
 
@@ -84,33 +82,33 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 
     private void setItemTouchHelper(SubroutineModifyParentItemAdapter adapter) {
 
-        ItemTouchHelper itemTouchHelper_setup;
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder VH;
-                VH = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
-                if (direction == ItemTouchHelper.END) {
-                    if (mOnSwipeView != null) mOnSwipeView.itemOnSwipeView();
-
-                    if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
-                        Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(viewHolder.getItemViewType());
-                        habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
-                    } else {
-                        Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
-                    }
-                    adapter.notifyItemChanged(VH.getAbsoluteAdapterPosition());
-                }
-            }
-        };
-
-        itemTouchHelper_setup =  new ItemTouchHelper(simpleCallback);
-        itemTouchHelper_setup.attachToRecyclerView(binding.subroutineModifyRecyclerView);
+//        ItemTouchHelper itemTouchHelper_setup;
+//        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder VH;
+//                VH = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
+//                if (direction == ItemTouchHelper.END) {
+//                    if (mOnSwipeView != null) mOnSwipeView.itemOnSwipeView();
+//
+//                    if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
+//                        Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(viewHolder.getItemViewType());
+//                        habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
+//                    } else {
+//                        Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
+//                    }
+//                    adapter.notifyItemChanged(VH.getAbsoluteAdapterPosition());
+//                }
+//            }
+//        };
+//
+//        itemTouchHelper_setup =  new ItemTouchHelper(simpleCallback);
+//        itemTouchHelper_setup.attachToRecyclerView(binding.subroutineModifyRecyclerView);
 
 //        ItemTouchHelper.Callback itemTouchHelperCallback = new ItemTouchHelper.Callback() {
 //
@@ -193,6 +191,17 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
                 habitWithSubroutinesViewModel.updateSubroutine(subroutine);
             }
         });
+    }
+
+    @Override
+    public void onItemDelete(int position) {
+        if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
+            Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
+            habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
+        } else {
+            Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
+        }
+        adapter.notifyItemChanged(position);
     }
 
     private void onClickInsert() {

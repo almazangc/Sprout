@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.apachat:swipereveallayout-android:1.1.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/7582a0dcc03bc00362db6dad0b32c42c/transformed/jetified-swipereveallayout-android-1.1.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7582a0dcc03bc00362db6dad0b32c42c/transformed/jetified-swipereveallayout-android-1.1.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7582a0dcc03bc00362db6dad0b32c42c/transformed/jetified-swipereveallayout-android-1.1.2/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.apachat/swipereveallayout-android/1.1.2/298bc0969107f80c251e48a6d2b2d4ef7897ea4e/swipereveallayout-android-1.1.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

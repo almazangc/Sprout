@@ -3,24 +3,21 @@ package com.habitdev.sprout.ui.menu.subroutine.adapter;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.apachat.swipereveallayout.core.SwipeLayout;
+import com.apachat.swipereveallayout.core.ViewBinder;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
 import com.habitdev.sprout.utill.SubroutineDiffUtil;
 
 import java.util.List;
@@ -29,6 +26,8 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
 
     private List<Subroutines> oldSubroutineList;
     private SubroutineModifyParentOnclickListener mSubroutineModifyParentOnclickListener;
+
+    private final ViewBinder viewBinder = new ViewBinder();
 
     public SubroutineModifyParentItemAdapter(List<Subroutines> oldSubroutineList) {
         this.oldSubroutineList = oldSubroutineList;
@@ -48,6 +47,8 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
 
     @Override
     public void onBindViewHolder(@NonNull SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder holder, int position) {
+        viewBinder.setOpenOnlyOne(true);
+        viewBinder.bind(holder.swipeLayout, String.valueOf(oldSubroutineList.get(position).getPk_subroutine_uid()));
         holder.bindSubroutine(oldSubroutineList.get(position));
     }
 
@@ -61,7 +62,7 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
         return oldSubroutineList.size();
     }
 
-    public void setNewSubroutineList(List<Subroutines> newSubroutineList){
+    public void setNewSubroutineList(List<Subroutines> newSubroutineList) {
         DiffUtil.Callback DIFF_CALLBACK = new SubroutineDiffUtil(oldSubroutineList, newSubroutineList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
         oldSubroutineList = newSubroutineList;
@@ -69,8 +70,8 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
     }
 
     public static class SubroutineModifyViewHolder extends RecyclerView.ViewHolder {
-
-        RelativeLayout itemLayout, subroutineLayout, deleteLayout;
+        SwipeLayout swipeLayout;
+        RelativeLayout itemLayout, deleteLayout;
         TextView Title, Description;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
@@ -78,8 +79,8 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
             super(itemView);
 
             itemLayout = itemView.findViewById(R.id.modify_subroutine_parent_item_layout_subroutine);
-            subroutineLayout = itemLayout.findViewById(R.id.modify_subroutine_parent_item_layout_subroutine);
-            deleteLayout = itemLayout.findViewById(R.id.modify_subroutine_parent_item_layout_control);
+            swipeLayout = itemView.findViewById(R.id.modify_subroutine_parent_item_layout);
+            deleteLayout = itemView.findViewById(R.id.modify_subroutine_parent_item_layout_control);
             Title = itemView.findViewById(R.id.modify_subroutine_parent_item_card_view_title);
             Description = itemView.findViewById(R.id.modify_subroutine_parent_item_description);
 
@@ -90,7 +91,8 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
             bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
 
-            itemLayout.setOnClickListener(view -> mSubroutineModifyParentOnclickListener.onItemClick(getItemViewType()));
+            itemLayout.setOnClickListener(view -> mSubroutineModifyParentOnclickListener.onItemClick(getBindingAdapterPosition()));
+            deleteLayout.setOnClickListener(view -> mSubroutineModifyParentOnclickListener.onItemDelete(getBindingAdapterPosition()));
         }
 
         @SuppressLint("ClickableViewAccessibility")
@@ -110,20 +112,30 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
                 itemLayout.setBackground(cloud);
             }
 
-            itemLayout.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                        subroutineLayout.setPadding(padding_inPx(10), padding_inPx(10), padding_inPx(5), padding_inPx(0));
-                    } else {
-                        subroutineLayout.setPadding(padding_inPx(5), padding_inPx(5), padding_inPx(5), padding_inPx(5));
-                    }
-                    return false;
-                }
-            });
+//            itemLayout.setOnTouchListener(new View.OnTouchListener() {
+//                @Override
+//                public boolean onTouch(View view, MotionEvent motionEvent) {
+//                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+//                        itemLayout.setPadding(padding_inPx(10), padding_inPx(10), padding_inPx(5), padding_inPx(0));
+//                    } else {
+//                        itemLayout.setPadding(padding_inPx(5), padding_inPx(5), padding_inPx(5), padding_inPx(5));
+//                    }
+//                    return false;
+//                }
+//            });
+//
+//            itemLayout.setOnDragListener(new View.OnDragListener() {
+//                @Override
+//                public boolean onDrag(View view, DragEvent dragEvent) {
+//                    Log.d("tag", "onDrag: " + dragEvent.getAction());
+//                    return false;
+//                }
+//            });
 
             Title.setText(subroutine.getSubroutine());
             Description.setText(subroutine.getDescription());
+
+
         }
 
         int padding_inPx(int dp) {
