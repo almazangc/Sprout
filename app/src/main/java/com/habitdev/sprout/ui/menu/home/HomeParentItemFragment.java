@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -15,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
@@ -57,6 +60,8 @@ public class HomeParentItemFragment extends Fragment implements HomeParentItemOn
         habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
         homeParentItemAdapter = new HomeParentItemAdapter(habitsOnReform, this, requireActivity(), getChildFragmentManager(), HomeParentItemFragment.this.getId());
         binding.homeRecyclerView.setAdapter(homeParentItemAdapter);
+        LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation_fall);
+        binding.homeRecyclerView.setLayoutAnimation(animationController);
 
         recyclerViewObserver();
         recyclerViewItemTouchHelper();

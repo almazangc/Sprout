@@ -49,10 +49,10 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
 
     @Override
     public void onModifySubroutine(Habits habit) {
-            getChildFragmentManager().beginTransaction()
-                    .replace(binding.subroutineFrameLayout.getId(), new SubroutineModifyFragment(habit))
-                    .commit();
-            binding.subroutineContainer.setVisibility(View.GONE);
+        getChildFragmentManager().beginTransaction()
+                .replace(binding.subroutineFrameLayout.getId(), new SubroutineModifyFragment(habit))
+                .commit();
+        binding.subroutineContainer.setVisibility(View.GONE);
     }
 
     private void onBackPress() {

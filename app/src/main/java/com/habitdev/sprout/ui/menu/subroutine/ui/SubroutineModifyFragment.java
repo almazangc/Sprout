@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -16,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
@@ -35,8 +35,17 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 
     private FragmentSubroutineModifyBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private SubroutineModifyParentItemAdapter subroutineModifyParentItemAdapter;
     private final Habits habit;
+
+    public interface onSwipeView{
+        void itemOnSwipeView();
+    }
+
+    private onSwipeView mOnSwipeView;
+
+    public void setmOnSwipeView(onSwipeView mOnSwipeView) {
+        this.mOnSwipeView = mOnSwipeView;
+    }
 
     public SubroutineModifyFragment(Habits habit) {
         this.habit = habit;
@@ -60,66 +69,91 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     }
 
     private void setSubroutineRecyclerView() {
-        subroutineModifyParentItemAdapter = new SubroutineModifyParentItemAdapter();
-        binding.subroutineModifyRecyclerView.setAdapter(subroutineModifyParentItemAdapter);
-        subroutineModifyParentItemAdapter.setmSubroutineModifyOnclickListener(this);
-        habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), subroutines -> {
-            subroutineModifyParentItemAdapter.submitList(subroutines);
-            subroutineModifyParentItemAdapter.notifyDataSetChanged(); //solution for now, due to rv not updating
-        });
+        SubroutineModifyParentItemAdapter adapter = new SubroutineModifyParentItemAdapter(habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()));
+        binding.subroutineModifyRecyclerView.setAdapter(adapter);
+        adapter.setmSubroutineModifyOnclickListener(this);
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
+        LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation_fall);
+        binding.subroutineModifyRecyclerView.setLayoutAnimation(animationController);
 
-            @Override
-            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return makeMovementFlags(0, ItemTouchHelper.END);
-            }
+        habitWithSubroutinesViewModel
+                .getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid())
+                .observe(getViewLifecycleOwner(), adapter::setNewSubroutineList);
+        setItemTouchHelper(adapter);
+    }
 
+    private void setItemTouchHelper(SubroutineModifyParentItemAdapter adapter) {
+
+        ItemTouchHelper itemTouchHelper_setup;
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
             @Override
-            public boolean isLongPressDragEnabled() {
-                return false;
-            }
-
-            @Override
-            public boolean isItemViewSwipeEnabled() {
-                return true;
-            }
-
-            @Override
-            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                super.clearView(recyclerView, viewHolder);
-            }
-
-            @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                switch (direction) {
-                    case ItemTouchHelper.END:
-                        int num = viewHolder.getItemViewType();
-                        if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
-                            Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(viewHolder.getItemViewType());
-                            habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
-                        } else {
-                            Toast.makeText(requireActivity(), "Required Minimum of 2 Subroutines", Toast.LENGTH_SHORT).show();
-                        }
-                        //public static class SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder
-                        //extends RecyclerView.ViewHolder
-                        //ListAdapter
-                        SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder subroutineModifyViewHolder;
-                        subroutineModifyViewHolder = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
-                        //casted VH not working, not fetching the components initialized in adapter
+                SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder VH;
+                VH = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
+                if (direction == ItemTouchHelper.END) {
+                    if (mOnSwipeView != null) mOnSwipeView.itemOnSwipeView();
 
-
-                        subroutineModifyParentItemAdapter.notifyDataSetChanged();
-                        break;
+                    if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
+                        Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(viewHolder.getItemViewType());
+                        habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
+                    } else {
+                        Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
+                    }
+                    adapter.notifyItemChanged(VH.getAbsoluteAdapterPosition());
                 }
             }
-        });
-        itemTouchHelper.attachToRecyclerView(binding.subroutineModifyRecyclerView);
+        };
+
+        itemTouchHelper_setup =  new ItemTouchHelper(simpleCallback);
+        itemTouchHelper_setup.attachToRecyclerView(binding.subroutineModifyRecyclerView);
+
+//        ItemTouchHelper.Callback itemTouchHelperCallback = new ItemTouchHelper.Callback() {
+//
+//            @Override
+//            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+//                return makeMovementFlags(0, ItemTouchHelper.END | ItemTouchHelper.START);
+//            }
+//
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean isLongPressDragEnabled() {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean isItemViewSwipeEnabled() {
+//                return true;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder VH;
+//                VH = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
+//
+//                if (direction == ItemTouchHelper.END) {
+//                    if (mOnSwipeView != null) mOnSwipeView.itemOnSwipeView();
+//
+//                    if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
+//                        Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(viewHolder.getItemViewType());
+//                        habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
+//                    } else {
+//                        Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
+//                    }
+//                    adapter.notifyItemChanged(VH.getAbsoluteAdapterPosition());
+//                }
+//            }
+//        };
+//        itemTouchHelper_setup = new ItemTouchHelper(itemTouchHelperCallback);
+//        itemTouchHelper_setup.attachToRecyclerView(this.binding.subroutineModifyRecyclerView);
     }
 
     private void setHabitTitleBackground() {

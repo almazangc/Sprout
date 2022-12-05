@@ -2,46 +2,37 @@ package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
+import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
+import com.habitdev.sprout.utill.SubroutineDiffUtil;
 
-public class SubroutineModifyParentItemAdapter extends ListAdapter<Subroutines, SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder> {
+import java.util.List;
 
-    public SubroutineModifyParentItemAdapter() {
-        super(DIFF_CALLBACK);
-    }
+public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder> {
 
-    private static final DiffUtil.ItemCallback<Subroutines> DIFF_CALLBACK = new DiffUtil.ItemCallback<Subroutines>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull Subroutines oldItem, @NonNull Subroutines newItem) {
-            return oldItem.getPk_subroutine_uid() == newItem.getPk_subroutine_uid();
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Subroutines oldItem, @NonNull Subroutines newItem) {
-            return oldItem.getSubroutine().equals(newItem.getSubroutine()) &&
-                    oldItem.getDescription().equals(newItem.getDescription()) &&
-                    oldItem.getColor().equals(newItem.getColor());
-        }
-    };
-
+    private List<Subroutines> oldSubroutineList;
     private SubroutineModifyParentOnclickListener mSubroutineModifyParentOnclickListener;
+
+    public SubroutineModifyParentItemAdapter(List<Subroutines> oldSubroutineList) {
+        this.oldSubroutineList = oldSubroutineList;
+    }
 
     public void setmSubroutineModifyOnclickListener(SubroutineModifyParentOnclickListener mSubroutineModifyParentOnclickListener) {
         this.mSubroutineModifyParentOnclickListener = mSubroutineModifyParentOnclickListener;
@@ -50,14 +41,14 @@ public class SubroutineModifyParentItemAdapter extends ListAdapter<Subroutines, 
     @NonNull
     @Override
     public SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder(
+        return new SubroutineModifyViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_subroutine_modify_parent_item, parent, false), mSubroutineModifyParentOnclickListener
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder holder, int position) {
-        holder.bindSubroutine(getSubroutine(position));
+        holder.bindSubroutine(oldSubroutineList.get(position));
     }
 
     @Override
@@ -65,8 +56,16 @@ public class SubroutineModifyParentItemAdapter extends ListAdapter<Subroutines, 
         return position;
     }
 
-    public Subroutines getSubroutine(int position) {
-        return getItem(position);
+    @Override
+    public int getItemCount() {
+        return oldSubroutineList.size();
+    }
+
+    public void setNewSubroutineList(List<Subroutines> newSubroutineList){
+        DiffUtil.Callback DIFF_CALLBACK = new SubroutineDiffUtil(oldSubroutineList, newSubroutineList);
+        DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
+        oldSubroutineList = newSubroutineList;
+        DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 
     public static class SubroutineModifyViewHolder extends RecyclerView.ViewHolder {
@@ -88,12 +87,10 @@ public class SubroutineModifyParentItemAdapter extends ListAdapter<Subroutines, 
             amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_amethyst_selector);
             sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_sunflower_selector);
             nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
-            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brigthsky_blue_selector);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
 
-            itemLayout.setOnClickListener(view -> {
-                    mSubroutineModifyParentOnclickListener.onItemClick(getItemViewType());
-            });
+            itemLayout.setOnClickListener(view -> mSubroutineModifyParentOnclickListener.onItemClick(getItemViewType()));
         }
 
         @SuppressLint("ClickableViewAccessibility")
@@ -113,11 +110,10 @@ public class SubroutineModifyParentItemAdapter extends ListAdapter<Subroutines, 
                 itemLayout.setBackground(cloud);
             }
 
-            //changing component attributes with motion events
             itemLayout.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                         subroutineLayout.setPadding(padding_inPx(10), padding_inPx(10), padding_inPx(5), padding_inPx(0));
                     } else {
                         subroutineLayout.setPadding(padding_inPx(5), padding_inPx(5), padding_inPx(5), padding_inPx(5));
@@ -130,10 +126,9 @@ public class SubroutineModifyParentItemAdapter extends ListAdapter<Subroutines, 
             Description.setText(subroutine.getDescription());
         }
 
-        int padding_inPx (int dp){
-            int padding_in_dp = dp;
+        int padding_inPx(int dp) {
             final float scale = itemLayout.getResources().getDisplayMetrics().density;
-            return (int) (padding_in_dp * scale + 0.5f);
+            return (int) (dp * scale + 0.5f);
         }
     }
 }

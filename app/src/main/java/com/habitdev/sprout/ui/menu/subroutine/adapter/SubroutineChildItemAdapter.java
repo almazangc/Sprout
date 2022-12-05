@@ -1,7 +1,6 @@
 package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import java.util.List;
 public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineChildItemAdapter.ChildItemViewHolder> {
 
     List<Subroutines> subroutines;
-    private SubroutineChildItemAdapter.ChildItemViewHolder holder;
 
     public SubroutineChildItemAdapter(List<Subroutines> subroutines) {
         this.subroutines = subroutines;
@@ -40,7 +38,6 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
     @Override
     public void onBindViewHolder(@NonNull SubroutineChildItemAdapter.ChildItemViewHolder holder, int position) {
         holder.bindDate(subroutines.get(position));
-//        holder.setButtonVisibility(mOnSwipeLister);
     }
 
     @Override
@@ -78,7 +75,7 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
             amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_amethyst_selector);
             sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_sunflower_selector);
             nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
-            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brigthsky_blue_selector);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
         }
 

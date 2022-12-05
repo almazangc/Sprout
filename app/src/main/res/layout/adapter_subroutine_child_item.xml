@@ -12,6 +12,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="12dp"
+        android:clickable="true"
         android:layout_marginBottom="3dp"
         android:background="@drawable/background_child_item_view_cloud">
 

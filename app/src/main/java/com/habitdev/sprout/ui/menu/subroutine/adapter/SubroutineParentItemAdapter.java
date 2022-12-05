@@ -62,8 +62,6 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         this.habitWithSubroutinesViewModel = habitWithSubroutinesViewModel;
     }
 
-    private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-
     public SubroutineParentItemAdapter() {}
 
     @NonNull
@@ -77,20 +75,16 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     @Override
     public void onBindViewHolder(@NonNull ParentItemViewHolder holder, int position) {
 
-        long uid = holder.bindData(habitsOnReform.get(position), mOnClickListener);
+        long uid = holder.bindData(habitsOnReform.get(position), mOnClickListener, habitWithSubroutinesViewModel);
 
-        LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation);
+        LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation_fall);
         holder.childRecycleView.setLayoutAnimation(animationController);
-        holder.childRecycleView.setVisibility(View.GONE);
 
         List<Subroutines> habitWithSubroutines;
 
         habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
         SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter(habitWithSubroutines);
         holder.childRecycleView.setAdapter(childAdapterItem);
-
-        //Can be removed: for continuous flow of recycler
-//        holder.childRecycleView.setRecycledViewPool(viewPool);
 
         childAdapterItem.setHabitWithSubroutines(habitWithSubroutines);
 
@@ -101,8 +95,8 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
     private void setItemTouchHelper(SubroutineParentItemAdapter.ParentItemViewHolder holder, SubroutineChildItemAdapter childAdapterItem){
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
-
+        ItemTouchHelper itemTouchHelper;
+        ItemTouchHelper.Callback itemTouchHelperCallback = new ItemTouchHelper.Callback() {
             @Override
             public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
                 return makeMovementFlags(0, ItemTouchHelper.END | ItemTouchHelper.START);
@@ -124,23 +118,21 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             }
 
             @Override
-            public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                super.clearView(recyclerView, viewHolder);
-            }
-
-            @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 switch (direction){
                     case ItemTouchHelper.END:
                     case ItemTouchHelper.START:
                         SubroutineChildItemAdapter.ChildItemViewHolder  childItemViewHolder;
                         childItemViewHolder = (SubroutineChildItemAdapter.ChildItemViewHolder)  viewHolder;
+                        childAdapterItem.notifyItemChanged(childItemViewHolder.getAbsoluteAdapterPosition());
                         break;
                 }
             }
-        });
+        };
+        itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(holder.childRecycleView);
     }
+
 
     @Override
     public int getItemCount() {
@@ -156,7 +148,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         this.habitsOnReform = habitsOnReform;
     }
 
-    public class ParentItemViewHolder extends RecyclerView.ViewHolder {
+    public static class ParentItemViewHolder extends RecyclerView.ViewHolder {
 
         //Components Here
         RelativeLayout itemLayout;
@@ -176,12 +168,12 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_amethyst_selector);
             sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_sunflower_selector);
             nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
-            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brigthsky_blue_selector);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        long bindData(Habits habit, OnClickListener onClickListener) {
+        long bindData(Habits habit, OnClickListener onClickListener, HabitWithSubroutinesViewModel habitWithSubroutinesViewModel) {
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemLayout.setBackground(alzarin);
@@ -205,9 +197,13 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             itemLayout.setOnClickListener(view -> {
                 childRecycleView.getVisibility();
                 if (childRecycleView.getVisibility() == View.GONE) {
+                    LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(childRecycleView.getContext(), R.anim.layout_animation_fall);
+                    childRecycleView.setLayoutAnimation(animationController);
                     childRecycleView.setVisibility(View.VISIBLE);
                 } else {
-                    childRecycleView.setVisibility(View.GONE);
+                    LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(childRecycleView.getContext(), R.anim.layout_animation_up);
+                    childRecycleView.setLayoutAnimation(animationController);
+                    if (!childRecycleView.isAnimating())childRecycleView.setVisibility(View.GONE);
                 }
             });
 
@@ -219,7 +215,6 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL){
                         HabitsTitle.setPadding(padding_inPx(10), padding_inPx(0), padding_inPx(10), padding_inPx(5));
                     }
-                    Log.d("tag", "onTouch: " + motionEvent.getAction());
                     return false;
                 }
             });
@@ -227,7 +222,6 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             if (habit.isModifiable()){
                 ModifySubroutine.setOnClickListener(view -> {
                     onClickListener.onModifySubroutine(habit);
-                    setOnDestroyAdapter();
                 });
             } else {
                 ModifySubroutine.setVisibility(View.GONE);
@@ -236,16 +230,9 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             return habit.getPk_habit_uid();
         }
 
-        void setOnDestroyAdapter(){
-            habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().removeObservers(lifecycleOwner);
-            habitWithSubroutinesViewModel = null;
-            lifecycleOwner = null;
+        int padding_inPx (int dp){
+            final float scale = itemLayout.getResources().getDisplayMetrics().density;
+            return (int) (dp * scale + 0.5f);
         }
-
-         int padding_inPx (int dp){
-             int padding_in_dp = dp;
-             final float scale = itemLayout.getResources().getDisplayMetrics().density;
-             return (int) (padding_in_dp * scale + 0.5f);
-         }
     }
 }

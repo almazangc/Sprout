@@ -5,9 +5,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,9 +78,10 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         notifyDataSetChanged();
     }
 
-    static class HabitViewHolder extends RecyclerView.ViewHolder {
+    public static class HabitViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout itemContainer;
+        LinearLayout itemLayout;
         TextView habitHeader, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalRelapse;
         Button upVote, downVote, modify, relapse, drop;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
@@ -87,6 +90,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             super(itemView);
 
             itemContainer = itemView.findViewById(R.id.adapter_home_parent_item_container);
+            itemLayout = itemContainer.findViewById(R.id.adapter_home_parent_item_layout);
             habitHeader = itemView.findViewById(R.id.header);
             habitDescription = itemView.findViewById(R.id.home_item_on_click_habit_description);
             dateStarted = itemView.findViewById(R.id.date_started);
@@ -101,24 +105,24 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             relapse = itemView.findViewById(R.id.home_relapse_btn);
             drop = itemView.findViewById(R.id.home_drop_btn);
 
-            itemView.setOnClickListener(v -> {
+            itemContainer.setOnClickListener(v -> {
                 if (HomeParentItemOnclickListener != null) {
                     int position = getBindingAdapterPosition();
-
                     if (position != RecyclerView.NO_POSITION) {
                         HomeParentItemOnclickListener.onItemClick(position);
                     }
                 }
             });
 
-            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_parent_item_view_cloud);
-            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_parent_item_view_amethyst);
-            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_parent_item_view_sunflower);
-            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_parent_item_view_nephritis);
-            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_parent_item_view_brightsky_blue);
-            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_parent_item_view_alzarin);
+            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_cloud_selector);
+            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_amethyst_selector);
+            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_sunflower_selector);
+            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_nephritis_selector);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_brightsky_blue_selector);
+            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_alzarin_selector);
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         void bindHabit(Habits habit, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int HomeID) {
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
@@ -134,6 +138,18 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             } else {
                 itemContainer.setBackground(cloud);
             }
+
+            itemContainer.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                        itemContainer.setPadding(padding_inPx(10), padding_inPx(10), padding_inPx(0), padding_inPx(0));
+                    } else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL){
+                       itemContainer.setPadding(padding_inPx(0), padding_inPx(0), padding_inPx(0), padding_inPx(0));
+                    }
+                    return false;
+                }
+            });
 
             habitHeader.setText(habit.getHabit());
 
@@ -178,7 +194,6 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 }
             }, 0, 1000);
 
-
             HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(fragmentActivity).get(HabitWithSubroutinesViewModel.class);
 
             upVote.setOnClickListener(view -> {
@@ -210,6 +225,11 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 habit.setOnReform(false);
                 habitWithSubroutinesViewModel.updateHabit(habit);
             });
+        }
+
+        int padding_inPx (int dp){
+            final float scale = itemView.getResources().getDisplayMetrics().density;
+            return (int) (dp * scale + 0.5f);
         }
     }
 }

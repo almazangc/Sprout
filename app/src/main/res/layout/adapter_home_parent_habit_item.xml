@@ -1,252 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/adapter_home_parent_item_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
     android:layout_marginTop="12dp"
     android:layout_marginEnd="12dp"
-    android:background="@drawable/background_parent_item_view_cloud"
-    android:paddingEnd="7dp"
-    android:paddingBottom="13dp"
     tools:showIn="@layout/fragment_home">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:orientation="horizontal">
+        android:id="@+id/adapter_home_parent_item_container"
+        android:background="@drawable/background_btn_parent_item_view_cloud_default"
+        android:clickable="true"
+        android:layout_height="match_parent">
 
-        <!--        upvote and downvote-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="10dp"
+            android:id="@+id/adapter_home_parent_item_layout"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/home_upvote_btn"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="3dp"
-                android:background="@drawable/selector_btn_continue"
-                android:drawableStart="@drawable/ic_upvote"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:textColor="@color/NIGHT"
-                android:textSize="0sp" />
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/home_downvote_btn"
+                <Button
+                    android:id="@+id/home_upvote_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/selector_btn_continue"
+                    android:drawableStart="@drawable/ic_upvote"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="0sp" />
+
+                <Button
+                    android:id="@+id/home_downvote_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/selector_btn_continue"
+                    android:drawableStart="@drawable/ic_downvote"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="0sp" />
+
+            </LinearLayout>
+
+            <!--        habit on reform basic info-->
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginBottom="3dp"
-                android:background="@drawable/selector_btn_continue"
-                android:drawableStart="@drawable/ic_downvote"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:textColor="@color/NIGHT"
-                android:textSize="0sp" />
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toStartOf="@id/home_modify_btn"
+                    android:maxLines="3"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:text="Procrastinating" />
+
+                <Button
+                    android:id="@+id/home_modify_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toStartOf="@+id/home_relapse_btn"
+                    android:background="@color/TRANSPARENT"
+                    android:drawableStart="@drawable/ic_modify"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textSize="0sp" />
+
+                <Button
+                    android:id="@+id/home_relapse_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toStartOf="@+id/home_drop_btn"
+                    android:background="@color/TRANSPARENT"
+                    android:drawableStart="@drawable/ic_relapse"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textSize="0sp" />
+
+                <Button
+                    android:id="@+id/home_drop_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/TRANSPARENT"
+                    android:drawableStart="@drawable/ic_drop"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:textSize="0sp" />
+
+                <TextView
+                    android:id="@+id/home_item_on_click_habit_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/header"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="8dp"
+                    android:justificationMode="inter_word"
+                    android:minHeight="0dp"
+                    android:padding="3dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="11sp"
+                    tools:text="\t\tProcrastination is the action of unnecessarily and voluntarily delaying or postponing something despite knowing that there will be negative consequences for doing so." />
+
+                <RelativeLayout
+                    android:id="@+id/details_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/home_item_on_click_habit_description"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:id="@+id/date_started_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginEnd="5dp"
+                        android:text="Date Started:"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/date_started"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/date_started_lbl"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:minWidth="0dp"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="11sp"
+                        tools:text="Saturday, November 5, 2022: 12:25" />
+
+                    <TextView
+                        android:id="@+id/completed_subroutine_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/date_started_lbl"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginEnd="5dp"
+                        android:text="Completed Subroutine:"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/completed_subroutine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/date_started"
+                        android:layout_toEndOf="@+id/completed_subroutine_lbl"
+                        android:minWidth="0dp"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="11sp"
+                        tools:text="7" />
+
+                    <TextView
+                        android:id="@+id/home_item_on_click_habit_total_days_of_abstinence_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/completed_subroutine_lbl"
+                        android:layout_marginEnd="5dp"
+                        android:text="Elapsed Abstinence:"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/home_item_on_click_habit_total_days_of_abstinence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/completed_subroutine"
+                        android:layout_toEndOf="@id/home_item_on_click_habit_total_days_of_abstinence_lbl"
+                        android:minWidth="0dp"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="11sp"
+                        tools:text="1" />
+
+                    <TextView
+                        android:id="@+id/total_relapse_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence_lbl"
+                        android:layout_marginEnd="5dp"
+                        android:text="Relapse:"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/total_relapse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence"
+                        android:layout_toEndOf="@id/total_relapse_lbl"
+                        android:minWidth="0dp"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="11sp"
+                        tools:text="0" />
+                </RelativeLayout>
+            </RelativeLayout>
         </LinearLayout>
 
-        <!--        habit on reform basic info-->
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_toStartOf="@id/home_modify_btn"
-                android:maxLines="3"
-                android:textColor="@color/NIGHT"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:text="Procrastinating" />
 
-            <Button
-                android:id="@+id/home_modify_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_toStartOf="@+id/home_relapse_btn"
-                android:background="@color/TRANSPARENT"
-                android:drawableStart="@drawable/ic_modify"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:textSize="0sp" />
-
-            <Button
-                android:id="@+id/home_relapse_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_toStartOf="@+id/home_drop_btn"
-                android:background="@color/TRANSPARENT"
-                android:drawableStart="@drawable/ic_relapse"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:textSize="0sp" />
-
-            <Button
-                android:id="@+id/home_drop_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="5dp"
-                android:background="@color/TRANSPARENT"
-                android:drawableStart="@drawable/ic_drop"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:textSize="0sp" />
-
-            <TextView
-                android:id="@+id/home_item_on_click_habit_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/header"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="8dp"
-                android:justificationMode="inter_word"
-                android:minHeight="0dp"
-                android:padding="3dp"
-                android:textColor="@color/NIGHT"
-                android:textSize="11sp"
-                tools:text="\t\tProcrastination is the action of unnecessarily and voluntarily delaying or postponing something despite knowing that there will be negative consequences for doing so." />
-
-            <RelativeLayout
-                android:id="@+id/details_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/home_item_on_click_habit_description"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="5dp">
-
-                <TextView
-                    android:id="@+id/date_started_lbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginEnd="5dp"
-                    android:text="Date Started:"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/date_started"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/date_started_lbl"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:minWidth="0dp"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
-                    tools:text="Saturday, November 5, 2022: 12:25" />
-
-                <TextView
-                    android:id="@+id/completed_subroutine_lbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/date_started_lbl"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginEnd="5dp"
-                    android:text="Completed Subroutine:"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/completed_subroutine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/date_started"
-                    android:layout_toEndOf="@+id/completed_subroutine_lbl"
-                    android:minWidth="0dp"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
-                    tools:text="7" />
-
-                <TextView
-                    android:id="@+id/home_item_on_click_habit_total_days_of_abstinence_lbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/completed_subroutine_lbl"
-                    android:layout_marginEnd="5dp"
-                    android:text="Elapsed Abstinence:"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/home_item_on_click_habit_total_days_of_abstinence"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/completed_subroutine"
-                    android:layout_toEndOf="@id/home_item_on_click_habit_total_days_of_abstinence_lbl"
-                    android:minWidth="0dp"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
-                    tools:text="1" />
-
-                <TextView
-                    android:id="@+id/total_relapse_lbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence_lbl"
-                    android:layout_marginEnd="5dp"
-                    android:text="Relapse:"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/total_relapse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence"
-                    android:layout_toEndOf="@id/total_relapse_lbl"
-                    android:minWidth="0dp"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
-                    tools:text="0" />
-            </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
 </RelativeLayout>
