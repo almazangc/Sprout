@@ -94,12 +94,12 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
                 }
             });
 
-            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_cloud);
-            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_amethyst);
-            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_sunflower);
-            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_nephritis);
-            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_brightsky_blue);
-            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_child_item_view_alzarin);
+            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_cloud_selector);
+            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_amethyst_selector);
+            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_sunflower_selector);
+            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
+            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
 
 //            cs_cloud = ContextCompat.getColorStateList(itemView.getContext(), R.color.CLOUDS);
 //            cs_amethyst = ContextCompat.getColorStateList(itemView.getContext(), R.color.AMETHYST);

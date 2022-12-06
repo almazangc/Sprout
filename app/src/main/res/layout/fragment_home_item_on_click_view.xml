@@ -20,191 +20,193 @@
             android:isScrollContainer="true"
             android:background="@color/TRANSPARENT">
 
-            <LinearLayout
-                android:id="@+id/home_item_on_click_miscellaneous"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <Button
-                    android:id="@+id/home_item_on_click_layout_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/TRANSPARENT"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:padding="3dp"
-                    android:text="Pick Color"
-                    android:textAllCaps="false"
-                    android:textColor="@color/NIGHT" />
+                android:background="@drawable/background_topbar_view_waikawa_grey"
+                android:id="@+id/home_item_on_click_top_bar">
 
                 <LinearLayout
+                    android:id="@+id/home_item_on_click_miscellaneous"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_alignParentTop="true"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-                    <FrameLayout
-                        android:id="@+id/color_cloud"
-                        android:layout_width="0dp"
+                    <Button
+                        android:id="@+id/home_item_on_click_layout_button"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        android:layout_marginTop="5dp"
+                        android:background="@color/TRANSPARENT"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="3dp"
+                        android:text="Pick Color"
+                        android:textAllCaps="false"
+                        android:textColor="@color/NIGHT" />
 
-                        <View
-                            android:id="@+id/cloud_misc"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_color_selection_cloud" />
-
-                        <ImageView
-                            android:id="@+id/cloud_selected"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            app:tint="@color/NIGHT" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/color_alzarin"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        android:layout_margin="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                        <View
-                            android:id="@+id/alzarin_misc"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_color_selection_alzarin" />
+                        <FrameLayout
+                            android:id="@+id/color_cloud"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
 
-                        <ImageView
-                            android:id="@+id/alzarin_selected"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            app:tint="@color/NIGHT" />
+                            <View
+                                android:id="@+id/cloud_misc"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/background_color_selection_cloud" />
 
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/cloud_selected"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:padding="10dp"
+                                app:tint="@color/NIGHT" />
 
-                    <FrameLayout
-                        android:id="@+id/color_amethyst"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        </FrameLayout>
 
-                        <View
-                            android:id="@+id/amethyst_misc"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_color_selection_amethyst" />
+                        <FrameLayout
+                            android:id="@+id/color_alzarin"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
 
-                        <ImageView
-                            android:id="@+id/amethyst_selected"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            app:tint="@color/NIGHT" />
+                            <View
+                                android:id="@+id/alzarin_misc"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/background_color_selection_alzarin" />
 
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/alzarin_selected"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:padding="10dp"
+                                app:tint="@color/NIGHT" />
 
-                    <FrameLayout
-                        android:id="@+id/color_brightsky_blue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        </FrameLayout>
 
-                        <View
-                            android:id="@+id/brightsky_blue_misc"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_color_selection_brightsky_blue" />
+                        <FrameLayout
+                            android:id="@+id/color_amethyst"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
 
-                        <ImageView
-                            android:id="@+id/brightsky_blue_selected"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            app:tint="@color/NIGHT" />
+                            <View
+                                android:id="@+id/amethyst_misc"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/background_color_selection_amethyst" />
 
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/amethyst_selected"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:padding="10dp"
+                                app:tint="@color/NIGHT" />
 
-                    <FrameLayout
-                        android:id="@+id/color_nephritis"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        </FrameLayout>
 
-                        <View
-                            android:id="@+id/nephritis_misc"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_color_selection_nephritis" />
+                        <FrameLayout
+                            android:id="@+id/color_brightsky_blue"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
 
-                        <ImageView
-                            android:id="@+id/nephritis_selected"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            app:tint="@color/NIGHT" />
+                            <View
+                                android:id="@+id/brightsky_blue_misc"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/background_color_selection_brightsky_blue" />
 
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/brightsky_blue_selected"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:padding="10dp"
+                                app:tint="@color/NIGHT" />
 
-                    <FrameLayout
-                        android:id="@+id/color_sunflower"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        </FrameLayout>
 
-                        <View
-                            android:id="@+id/sunflower_misc"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/background_color_selection_sunflower" />
+                        <FrameLayout
+                            android:id="@+id/color_nephritis"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
 
-                        <ImageView
-                            android:id="@+id/sunflower_selected"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:padding="10dp"
-                            app:tint="@color/NIGHT" />
+                            <View
+                                android:id="@+id/nephritis_misc"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/background_color_selection_nephritis" />
 
-                    </FrameLayout>
+                            <ImageView
+                                android:id="@+id/nephritis_selected"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:padding="10dp"
+                                app:tint="@color/NIGHT" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/color_sunflower"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <View
+                                android:id="@+id/sunflower_misc"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/background_color_selection_sunflower" />
+
+                            <ImageView
+                                android:id="@+id/sunflower_selected"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center_horizontal"
+                                android:padding="10dp"
+                                app:tint="@color/NIGHT" />
+
+                        </FrameLayout>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_view"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                android:layout_below="@id/home_item_on_click_miscellaneous">
 
                 <RelativeLayout
+                    android:id="@+id/card_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="?android:attr/actionBarSize"
+                    android:layout_below="@id/home_item_on_click_miscellaneous">
 
                     <TextView
                         android:id="@+id/weighted_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
+                        android:layout_toEndOf="@id/home_item_on_click_color_selector"
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="1"
@@ -234,22 +236,24 @@
 
                     <View
                         android:id="@+id/home_item_on_click_color_selector"
-                        android:layout_width="5dp"
+                        android:layout_width="10dp"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="15dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@drawable/background_color_indicator_clouds" />
 
                 </RelativeLayout>
-            </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/home_item_on_click_habit_description_lbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/card_view"
+                android:layout_below="@id/home_item_on_click_top_bar"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
@@ -413,7 +417,7 @@
                 android:textSize="13sp" />
 
 
-            <androidx.cardview.widget.CardView
+            <RelativeLayout
                 android:id="@+id/home_item_on_click_habit_comment_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -423,79 +427,77 @@
                 android:elevation="5dp"
                 android:paddingLeft="3dp"
                 android:paddingRight="3dp"
+                android:background="@drawable/background_child_item_view_waikawa_grey"
+                android:paddingBottom="10dp"
+                android:paddingEnd="10dp"
                 app:cardCornerRadius="15dp">
 
-                <RelativeLayout
-                    android:id="@+id/comment_relative_layout"
+                <LinearLayout
+                    android:id="@+id/comment_linear_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/add_comment_relative_layout"
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp">
 
-                    <LinearLayout
-                        android:id="@+id/comment_linear_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_above="@id/add_comment_relative_layout"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/comment_lbl"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:text="Comment"
-                            android:textAlignment="center"
-                            android:textColor="@color/NIGHT"
-                            android:textSize="13sp" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/home_comment_recycler_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:itemCount="100"
-                            tools:listitem="@layout/adapter_home_parent_habit_on_item_click_comment_item" />
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/add_comment_relative_layout"
+                    <TextView
+                        android:id="@+id/comment_lbl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp">
+                        android:layout_margin="5dp"
+                        android:text="Comment"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="13sp" />
 
-                        <EditText
-                            android:id="@+id/add_comment_input_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_toStartOf="@id/add_comment_btn"
-                            android:ellipsize="end"
-                            android:hint="Comment"
-                            android:maxLines="5"
-                            android:textColor="@color/NIGHT"
-                            android:textColorHint="@color/NIGHT"
-                            android:textSize="13sp" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/home_comment_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="100"
+                        tools:listitem="@layout/adapter_home_parent_habit_on_item_click_comment_item" />
+                </LinearLayout>
 
-                        <Button
-                            android:id="@+id/add_comment_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="5dp"
-                            android:background="@drawable/background_btn_normal_selector"
-                            android:drawableStart="@drawable/ic_enter"
-                            android:minWidth="0dp"
-                            android:minHeight="0dp"
-                            android:padding="5dp"
-                            android:textSize="0sp" />
-                    </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/add_comment_relative_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <EditText
+                        android:id="@+id/add_comment_input_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_toStartOf="@id/add_comment_btn"
+                        android:ellipsize="end"
+                        android:hint="Comment"
+                        android:maxLines="5"
+                        android:textColor="@color/NIGHT"
+                        android:textColorHint="@color/NIGHT"
+                        android:textSize="13sp" />
+
+                    <Button
+                        android:id="@+id/add_comment_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/background_btn_normal_selector"
+                        android:drawableStart="@drawable/ic_enter"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="5dp"
+                        android:textSize="0sp" />
                 </RelativeLayout>
-            </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
             <View
                 android:id="@+id/divider"

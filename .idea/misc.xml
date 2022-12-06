@@ -175,6 +175,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_on_presss_alzarin.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_parent_item_view_alzarin_default.xml" value="0.294" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_parent_item_view_alzarin_on_pressed.xml" value="0.294" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_parent_item_view_alzarin_selector.xml" value="0.2915" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_parent_item_view_amethyst_default.xml" value="0.294" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_parent_item_view_amethyst_on_pressed.xml" value="0.294" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_parent_item_view_amethyst_selector.xml" value="0.294" />
@@ -195,6 +196,8 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_sunflower_selector.xml" value="0.225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_child_item_view_cloud.xml" value="0.294" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_child_item_view_nephritis.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_child_item_view_night.xml" value="0.201" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_child_item_view_waikawa_grey.xml" value="0.201" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_color_indicator_alzarin.xml" value="0.3245" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_color_indicator_amethyst.xml" value="0.3245" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_color_indicator_brightsky_blue.xml" value="0.3245" />
@@ -252,6 +255,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_topbar_view_cloud.xml" value="0.225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_topbar_view_nephritis.xml" value="0.225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_topbar_view_sunflower.xml" value="0.225" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_topbar_view_waikawa_grey.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_wave_aesthetic.xml" value="0.343" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_wavy_2.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_wavy_4.xml" value="0.144" />
@@ -401,7 +405,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_add_new_insert_subroutine.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_item_adapter_on_click_view.xml" value="0.33" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_item_on_click_view.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_item_on_click_view.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_on_fab_click_dialog.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_parent_item_adapter_modify.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_home_recycler_view_item_adapter_on_click_view.xml" value="0.67" />
