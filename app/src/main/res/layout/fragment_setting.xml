@@ -112,7 +112,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_margin="5dp"
-                                    android:src="@drawable/ic_edit_profile" />
+                                    android:src="@drawable/ic_profile" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -224,7 +224,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_margin="5dp"
-                                    android:src="@drawable/ic_learn_more" />
+                                    android:src="@drawable/ic_read_more" />
 
                                 <TextView
                                     android:layout_width="wrap_content"

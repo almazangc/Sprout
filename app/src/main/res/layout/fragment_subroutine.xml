@@ -30,6 +30,31 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="23sp"
+            android:id="@+id/subroutine_empty_lbl"
+            android:layout_below="@id/subroutine_top_bar"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="EMPTY HABIT ON REFORM"
+            android:layout_marginTop="-220dp"
+            android:textColor="@color/NIGHT"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/subroutine_empty_lottie_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/subroutine_top_bar"
+            android:layout_marginTop="5dp"
+            android:minWidth="150dp"
+            android:minHeight="150dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie_anim_empty_state_ghost.json"
+            app:lottie_loop="true"
+            android:visibility="visible"
+            app:lottie_speed="1" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/subroutineRecyclerView"
             android:layout_width="match_parent"

@@ -30,10 +30,9 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     private final boolean onModify;
     private final boolean onRemove;
 
-    private final int ic_check;
     private int current_selected_color;
     private int old_selected_color;
-    private String color;
+    private String color = AppColor.CLOUDS.getColor();
 
     public interface onDialoagChange {
         void addSubroutine(Subroutines subroutines);
@@ -48,24 +47,18 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     public HomeAddNewInsertSubroutineDialogFragment() {
         this.onModify = false;
         this.onRemove = false;
-        this.ic_check = R.drawable.ic_check;
     }
 
     public HomeAddNewInsertSubroutineDialogFragment(Subroutines subroutine) {
         this.subroutine = subroutine;
         this.onModify = true;
         this.onRemove = false;
-        this.ic_check = R.drawable.ic_check;
-        this.current_selected_color = 0;
-        this.old_selected_color = 0;
-        this.color = AppColor.CLOUDS.getColor();
     }
 
     public HomeAddNewInsertSubroutineDialogFragment(Subroutines subroutines, boolean onRemove) {
         this.subroutine = subroutines;
         this.onModify = false;
         this.onRemove = onRemove;
-        this.ic_check = R.drawable.ic_check;
     }
 
     @Nullable
@@ -266,6 +259,7 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
 
     private void setSelected_color() {
         if (old_selected_color != current_selected_color) {
+            int ic_check = R.drawable.ic_check;
             switch (current_selected_color) {
                 case 1:
                     //alzarin

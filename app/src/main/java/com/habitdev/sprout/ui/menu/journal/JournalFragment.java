@@ -13,18 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentJournalBinding;
 import com.habitdev.sprout.enums.BundleKeys;
-import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemOnclickListener;
 import com.habitdev.sprout.ui.menu.journal.adapter.JournalNoteItemAdapter;
 import com.habitdev.sprout.ui.menu.journal.ui.NoteFragment;
 
 import java.util.List;
 
-public class JournalFragment extends Fragment implements HomeParentItemOnclickListener {
+public class JournalFragment extends Fragment implements JournalOnClickListener {
 
     private FragmentJournalBinding binding;
     private JournalNoteItemAdapter journalNoteItemAdapter;
@@ -48,11 +48,12 @@ public class JournalFragment extends Fragment implements HomeParentItemOnclickLi
         NoteViewModel noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
         noteList = noteViewModel.getNoteList();
 
-        journalNoteItemAdapter = new JournalNoteItemAdapter(noteList, this);
+        journalNoteItemAdapter = new JournalNoteItemAdapter(noteList);
+        journalNoteItemAdapter.setJournalOnClickListener(this);
         binding.journalRecyclerView.setAdapter(journalNoteItemAdapter);
 
         noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> {
-            journalNoteItemAdapter.updateNotes(notes);
+            journalNoteItemAdapter.setNewNoteList(notes);
             noteList = notes;
             setEmptyJournalLbl();
         });
@@ -64,9 +65,12 @@ public class JournalFragment extends Fragment implements HomeParentItemOnclickLi
     }
 
     private void onSwipeRefresh() {
-        binding.journalSwipeRefresh.setOnRefreshListener(() -> {
-            Toast.makeText(requireContext(), "Journal Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
-            binding.journalSwipeRefresh.setRefreshing(false);
+        binding.journalSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(requireContext(), "Journal Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
+                binding.journalSwipeRefresh.setRefreshing(false);
+            }
         });
     }
 

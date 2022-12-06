@@ -1,6 +1,5 @@
 package com.habitdev.sprout.ui.menu.journal.adapter;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,12 +11,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemOnclickListener;
+import com.habitdev.sprout.ui.menu.journal.JournalOnClickListener;
+import com.habitdev.sprout.utill.NotesDiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,42 +27,44 @@ import java.util.TimerTask;
 
 public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItemAdapter.NoteViewHolder> {
 
-    private List<Note> notes;
-    private final HomeParentItemOnclickListener HomeParentItemOnclickListener;
+    private List<Note> oldNoteList;
+    private JournalOnClickListener journalOnClickListener;
 
-    //for searchnote
     private Timer timer;
-    private List<Note> notesSource;
+    private final List<Note> originalNoteList;
 
-    public JournalNoteItemAdapter(List<Note> notes, HomeParentItemOnclickListener HomeParentItemOnclickListener) {
-        this.notes = notes;
-        this.HomeParentItemOnclickListener = HomeParentItemOnclickListener;
-        notesSource = notes;
+    public JournalNoteItemAdapter(List<Note> oldNoteList) {
+        this.oldNoteList = oldNoteList;
+        originalNoteList = oldNoteList;
+    }
+
+    public void setJournalOnClickListener(JournalOnClickListener journalOnClickListener) {
+        this.journalOnClickListener = journalOnClickListener;
     }
 
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new NoteViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_journal_parent_note_item, parent, false), HomeParentItemOnclickListener
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_journal_parent_note_item, parent, false), journalOnClickListener
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        holder.bindNote(notes.get(position));
+        holder.bindNote(oldNoteList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return notes.size();
+        return oldNoteList.size();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateNotes(List<Note> notes) {
-        this.notes = notes;
-        this.notesSource = notes;
-        notifyDataSetChanged();
+    public void setNewNoteList(List<Note> newNoteList) {
+        DiffUtil.Callback DIFF_CALLBACK = new NotesDiffUtil(oldNoteList, newNoteList);
+        DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
+        oldNoteList = newNoteList;
+        DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 
     @Override
@@ -76,7 +79,7 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 //        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
 
-        public NoteViewHolder(@NonNull View itemView, HomeParentItemOnclickListener HomeParentItemOnclickListener) {
+        public NoteViewHolder(@NonNull View itemView, JournalOnClickListener journalOnClickListener) {
             super(itemView);
             noteTitle = itemView.findViewById(R.id.noteTitle);
             noteSubtitle = itemView.findViewById(R.id.noteSubtitle);
@@ -85,11 +88,11 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
             layout_note = itemView.findViewById(R.id.layout_note);
 
             itemView.setOnClickListener(v -> {
-                if(HomeParentItemOnclickListener != null){
+                if (journalOnClickListener != null) {
                     int position = getBindingAdapterPosition();
 
-                    if(position != RecyclerView.NO_POSITION){
-                        HomeParentItemOnclickListener.onItemClick(position);
+                    if (position != RecyclerView.NO_POSITION) {
+                        journalOnClickListener.onItemClick(position);
                     }
                 }
             });
@@ -138,36 +141,47 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
         }
     }
 
-    public void searchNote(final String keyword){
-       timer = new Timer();
-       timer.schedule(new TimerTask() {
-           @Override
-           public void run() {
-               if(keyword.trim().isEmpty()){
-                   notes = notesSource;
-               } else {
-                   ArrayList<Note> tempNote = new ArrayList<>();
-                   for (Note note: notesSource){
-                       String searchKeyword = keyword.toLowerCase();
-                       if (note.getTitle().toLowerCase().contains(searchKeyword) ||
-                           note.getSubtitle().toLowerCase().contains(searchKeyword) ||
-                           note.getNoteContent().toLowerCase().contains(searchKeyword) ||
-                           note.getDateTime().toLowerCase().contains(searchKeyword)){
+    public void searchNote(final String keyword) {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (keyword.trim().isEmpty()) {
+
+                    oldNoteList = originalNoteList;
+
+                } else {
+
+                    ArrayList<Note> tempNote = new ArrayList<>();
+
+                    for (Note note : originalNoteList) {
+
+                        String searchKeyword = keyword.toLowerCase();
+
+                        if (
+                                note.getTitle().toLowerCase().contains(searchKeyword) ||
+                                note.getSubtitle().toLowerCase().contains(searchKeyword) ||
+                                note.getNoteContent().toLowerCase().contains(searchKeyword) ||
+                                note.getDateTime().toLowerCase().contains(searchKeyword))
+                        {
                             tempNote.add(note);
-                       }
-                   }
-                   notes = tempNote;
-               }
-               new Handler(Looper.getMainLooper()).post(new Runnable() {
-                   @Override
-                   public void run() {
-                       notifyDataSetChanged();
-                   }
-               });
-           }
-       }, 500);
+                        }
+                    }
+                    oldNoteList = tempNote;
+                }
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        notifyDataSetChanged();
+
+                    }
+                });
+            }
+        }, 500);
     }
-    public void cancelTimer(){
+
+    public void cancelTimer() {
         if (timer != null) timer.cancel();
     }
 }

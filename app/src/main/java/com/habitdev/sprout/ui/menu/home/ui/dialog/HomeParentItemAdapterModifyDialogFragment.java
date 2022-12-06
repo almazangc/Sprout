@@ -20,7 +20,7 @@ import java.util.Objects;
 
 public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     private DialogFragmentHomeParentItemAdapterModifyBinding binding;
-    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private final HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private Habits habitOnModify;
     private final String habit_title_snapshot;
     private final String habit_description_snapshot;

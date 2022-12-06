@@ -1,0 +1,22 @@
+            //Store in xml string
+//            String[] items = {"Choose from Predefined-list", "Add New Habit"};
+//            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+//            builder.setTitle("Add Habit on Reform");
+//            builder.setItems(items, (dialog, which) -> {
+//                switch (which) {
+//                    case 0:
+//                        AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
+//                        fragmentManager.beginTransaction().replace(binding.homeFrameLayout.getId(), addDefaultHabitFragment)
+//                                .commit();
+//                        binding.homeContainer.setVisibility(View.GONE);
+//                        break;
+//                    case 1:
+//                        AddNewHabitFragment addHabitHomeFragment = new AddNewHabitFragment();
+//                        fragmentManager.beginTransaction().replace(binding.homeFrameLayout.getId(), addHabitHomeFragment)
+//                                .commit();
+//                        binding.homeContainer.setVisibility(View.GONE);
+//                        break;
+//                }
+//            });
+//            AlertDialog dialog = builder.create();
+//            dialog.show();

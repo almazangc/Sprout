@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity()
 public class Note implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    private int note_uid;
+    private int pk_note_uid;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -39,8 +39,8 @@ public class Note implements Serializable {
     }
 
     @Ignore
-    public Note(int note_uid, String title, String dateTime, String subtitle, String noteContent, String color) {
-        this.note_uid = note_uid;
+    public Note(int pk_note_uid, String title, String dateTime, String subtitle, String noteContent, String color) {
+        this.pk_note_uid = pk_note_uid;
         this.title = title;
         this.dateTime = dateTime;
         this.subtitle = subtitle;
@@ -49,8 +49,8 @@ public class Note implements Serializable {
     }
 
     @Ignore
-    public Note(int note_uid, String title, String dateTime, String noteContent, String color) {
-        this.note_uid = note_uid;
+    public Note(int pk_note_uid, String title, String dateTime, String noteContent, String color) {
+        this.pk_note_uid = pk_note_uid;
         this.title = title;
         this.dateTime = dateTime;
         this.subtitle = "";
@@ -76,12 +76,12 @@ public class Note implements Serializable {
         this.color = color;
     }
 
-    public int getNote_uid() {
-        return note_uid;
+    public int getPk_note_uid() {
+        return pk_note_uid;
     }
 
-    public void setNote_uid(int note_uid) {
-        this.note_uid = note_uid;
+    public void setPk_note_uid(int pk_note_uid) {
+        this.pk_note_uid = pk_note_uid;
     }
 
     public String getTitle() {
@@ -144,7 +144,7 @@ public class Note implements Serializable {
     @Override
     public String toString() {
         return "Note{" +
-                "uid=" + note_uid +
+                "uid=" + pk_note_uid +
                 ", title='" + title + '\'' +
                 ", dateTime='" + dateTime + '\'' +
                 ", subtitle='" + subtitle + '\'' +

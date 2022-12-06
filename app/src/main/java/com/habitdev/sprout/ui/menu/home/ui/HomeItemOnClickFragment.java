@@ -21,7 +21,6 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeItemOnClickViewBinding;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.HomeParentItemFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
@@ -34,21 +33,28 @@ import java.util.TimerTask;
 public class HomeItemOnClickFragment extends Fragment {
 
     private FragmentHomeItemOnClickViewBinding binding;
-    private Habits habit;
-    private CommentViewModel commentViewModel;
-
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private final int ic_check;
+    private CommentViewModel commentViewModel;
+    private Habits habit;
+
     private int current_selected_color;
     private int old_selected_color;
-    private String color;
+    private String color = AppColor.CLOUDS.getColor();
 
-    public HomeItemOnClickFragment(Habits habit) {
+    public interface onItemOnClickReturnHome {
+        void onHomeItemOnClickReturnHome();
+    }
+
+    private onItemOnClickReturnHome mOnItemOnClickReturnHome;
+
+    public void setmOnItemOnClickReturnHome(onItemOnClickReturnHome mOnItemOnClickReturnHome) {
+        this.mOnItemOnClickReturnHome = mOnItemOnClickReturnHome;
+    }
+
+    public HomeItemOnClickFragment() {}
+
+    public void setHabit(Habits habit) {
         this.habit = habit;
-        this.ic_check = R.drawable.ic_check;
-        this.current_selected_color = 0;
-        this.old_selected_color = 0;
-        this.color = AppColor.CLOUDS.getColor();
     }
 
     @Override
@@ -64,7 +70,7 @@ public class HomeItemOnClickFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void setHabit(){
+    private void setHabit() {
         setHabitColor();
         binding.homeItemOnClickHabitTitle.setText(habit.getHabit());
         binding.homeItemOnClickHabitDescription.setText(habit.getDescription());
@@ -73,18 +79,6 @@ public class HomeItemOnClickFragment extends Fragment {
 
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
         dateTimeElapsedUtil.calculateElapsedDateTime();
-        //TODO: Functional But Leaking
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                homeActivity.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                    }
-//                });
-//            }
-//        },0,1000);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -93,9 +87,14 @@ public class HomeItemOnClickFragment extends Fragment {
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-                        dateTimeElapsedUtil.calculateElapsedDateTime();
-                        if (binding != null)
-                            binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+                        if (binding != null) {
+                            dateTimeElapsedUtil.calculateElapsedDateTime();
+                            if (binding != null)
+                                binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+                        } else {
+                            timer.cancel();
+                            timer.purge();
+                        }
                     }
                 });
             }
@@ -151,7 +150,7 @@ public class HomeItemOnClickFragment extends Fragment {
         });
     }
 
-    private void setHabitColor(){
+    private void setHabitColor() {
         if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
             current_selected_color = 1;
             setSelected_color();
@@ -175,6 +174,7 @@ public class HomeItemOnClickFragment extends Fragment {
 
     private void setSelected_color() {
         if (old_selected_color != current_selected_color) {
+            final int ic_check = R.drawable.ic_check;
             switch (current_selected_color) {
                 case 1:
                     //alzarin
@@ -252,14 +252,14 @@ public class HomeItemOnClickFragment extends Fragment {
         binding.homeItemOnClickColorSelector.setBackground(backgroundNoteIndicator);
     }
 
-    private void update_habit_color(){
+    private void update_habit_color() {
         habit.setColor(color);
         habitWithSubroutinesViewModel.updateHabit(habit);
     }
 
-    private void insertComment(){
+    private void insertComment() {
         binding.addCommentBtn.setOnClickListener(view -> {
-            if (!binding.addCommentInputText.getText().toString().trim().isEmpty()){
+            if (!binding.addCommentInputText.getText().toString().trim().isEmpty()) {
                 commentViewModel.insertComment(
                         new Comment(
                                 habit.getPk_habit_uid(),
@@ -270,6 +270,7 @@ public class HomeItemOnClickFragment extends Fragment {
                                         .format(new Date())
                         )
                 );
+                binding.addCommentInputText.setText("");
             }
         });
     }
@@ -279,7 +280,7 @@ public class HomeItemOnClickFragment extends Fragment {
         binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
 
         commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {
-            if (comments != null){
+            if (comments != null) {
                 homeParentItemAdapter.submitList(comments);
             }
         });
@@ -289,13 +290,8 @@ public class HomeItemOnClickFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                //TODO: Fix how to manage fragments
-                HomeParentItemFragment homeFragment = new HomeParentItemFragment();
-                getChildFragmentManager()
-                        .beginTransaction()
-                        .replace(binding.homeItemOnClickFrameLayout.getId(), homeFragment)
-                        .commit();
-                binding.homeItemOnClickContainer.setVisibility(View.GONE);
+                if (mOnItemOnClickReturnHome != null)
+                    mOnItemOnClickReturnHome.onHomeItemOnClickReturnHome();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

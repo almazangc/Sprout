@@ -112,6 +112,9 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
                 itemLayout.setBackground(cloud);
             }
 
+            Title.setText(subroutine.getSubroutine());
+            Description.setText(subroutine.getDescription());
+
 //            itemLayout.setOnTouchListener(new View.OnTouchListener() {
 //                @Override
 //                public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -131,11 +134,6 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
 //                    return false;
 //                }
 //            });
-
-            Title.setText(subroutine.getSubroutine());
-            Description.setText(subroutine.getDescription());
-
-
         }
 
         int padding_inPx(int dp) {

@@ -44,7 +44,7 @@ public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment
     @NonNull
     @Override
     public HomeItemOnClickParentCommentItemAdapter.CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HomeItemOnClickParentCommentItemAdapter.CommentViewHolder(
+        return new CommentViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_parent_habit_on_item_click_comment_item, parent, false)
         );
     }
@@ -63,7 +63,7 @@ public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment
         return getItem(position);
     }
 
-    public class CommentViewHolder extends RecyclerView.ViewHolder {
+    public static class CommentViewHolder extends RecyclerView.ViewHolder {
 
         TextView comment_item;
         Button delete_comment;

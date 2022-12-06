@@ -36,6 +36,7 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
         binding.subroutineRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
         List<Habits> habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
+        setEmptyRVBackground(habitsOnReform);
         SubroutineParentItemAdapter parentAdapterItem = new SubroutineParentItemAdapter();
         parentAdapterItem.setHabitsOnReform(habitsOnReform);
         parentAdapterItem.setmOnClickListener(this);
@@ -45,6 +46,16 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
         binding.subroutineRecyclerView.setAdapter(parentAdapterItem);
 
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), parentAdapterItem::setHabitsOnReform);
+    }
+
+    private void setEmptyRVBackground(List<Habits> habitsList){
+        if (!habitsList.isEmpty()){
+            binding.subroutineEmptyLottieRecyclerView.setVisibility(View.GONE);
+            binding.subroutineEmptyLbl.setVisibility(View.GONE);
+        } else {
+            binding.subroutineEmptyLottieRecyclerView.setVisibility(View.VISIBLE);
+            binding.subroutineEmptyLbl.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

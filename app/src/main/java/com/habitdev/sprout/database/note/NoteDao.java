@@ -13,10 +13,10 @@ import java.util.List;
 
 @Dao
 public interface NoteDao {
-    @Query("SELECT * FROM Note ORDER BY note_uid DESC")
+    @Query("SELECT * FROM Note ORDER BY pk_note_uid DESC")
     LiveData<List<Note>> getAllNoteLiveData();
 
-    @Query("SELECT * FROM Note ORDER BY note_uid DESC")
+    @Query("SELECT * FROM Note ORDER BY pk_note_uid DESC")
     List<Note> getAllNoteList();
 
     @Insert

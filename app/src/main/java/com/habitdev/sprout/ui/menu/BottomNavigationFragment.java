@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentBottomNavigationBinding;
 import com.habitdev.sprout.ui.menu.analytic.AnalyticFragment;
-import com.habitdev.sprout.ui.menu.home.HomeParentItemFragment;
+import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.journal.JournalFragment;
 import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
@@ -29,21 +29,25 @@ public class BottomNavigationFragment extends Fragment {
     private FragmentBottomNavigationBinding binding;
     private FragmentManager fragmentManager;
     private int last_menu_selected, last_selected_index;
-    private SwipeListener swipeListener;
 
-    public BottomNavigationFragment() {
-        //Required Empty Constructor
-    }
+    private final Fragment Home = new HomeFragment();
+    private final Fragment Subroutine = new SubroutineFragment();
+    private final Fragment Analytics = new AnalyticFragment();
+    private final Fragment Journal = new JournalFragment();
+    private final Fragment Settings = new SettingFragment();
+
+    public BottomNavigationFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBottomNavigationBinding.inflate(inflater, container, false);
-        swipeListener = new SwipeListener();
+
+        SwipeListener swipeListener = new SwipeListener();
 
         if (savedInstanceState == null) {
             binding.bottomBar.selectTabById(R.id.tab_home, true);
             fragmentManager = getChildFragmentManager();
-            fragmentManager.beginTransaction().replace(binding.mainNavFragmentContainer.getId(), new HomeParentItemFragment())
+            fragmentManager.beginTransaction().replace(binding.mainNavFragmentContainer.getId(), Home)
                     .commit();
             binding.bottomBar.selectTabAt(0, true);
         } else {
@@ -94,12 +98,6 @@ public class BottomNavigationFragment extends Fragment {
 
     private void setMenu(int id, int tabID) {
 
-        Fragment Home = new HomeParentItemFragment();
-        Fragment Subroutine = new SubroutineFragment();
-        Fragment Analytics = new AnalyticFragment();
-        Fragment Journal = new JournalFragment();
-        Fragment Settings = new SettingFragment();
-
         Fragment fragment;
 
         if (id == R.id.tab_subroutine) {
@@ -113,7 +111,6 @@ public class BottomNavigationFragment extends Fragment {
         } else {
             fragment = Home;
         }
-
         fragmentManager = getChildFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(binding.mainNavFragmentContainer.getId(), fragment)
@@ -124,6 +121,7 @@ public class BottomNavigationFragment extends Fragment {
     /**
      * Listener on Touch Swipe Action Handle Navigation Through Swiping
      */
+    @SuppressLint("ClickableViewAccessibility")
     private class SwipeListener implements View.OnTouchListener {
 
         private final int SWIPE_THRESHOLD = 100;
@@ -174,7 +172,6 @@ public class BottomNavigationFragment extends Fragment {
 
             gestureDetector = new GestureDetector(listener);
             gestureDetector.setContextClickListener(listener);
-
             binding.mainNavFragmentContainer.setOnTouchListener(this);
         }
 
@@ -187,19 +184,19 @@ public class BottomNavigationFragment extends Fragment {
         void onSwipeRight() {
             switch (last_selected_index) {
                 case 0:
-                    updateFragment( 4);
+                    updateFragment(4);
                     break;
                 case 1:
-                    updateFragment( 0);
+                    updateFragment(0);
                     break;
                 case 2:
-                    updateFragment( 1);
+                    updateFragment(1);
                     break;
                 case 3:
-                    updateFragment( 2);
+                    updateFragment(2);
                     break;
                 case 4:
-                    updateFragment( 3);
+                    updateFragment(3);
                     break;
             }
         }
@@ -207,19 +204,19 @@ public class BottomNavigationFragment extends Fragment {
         void onSwipeLeft() {
             switch (last_selected_index) {
                 case 0:
-                    updateFragment( 1);
+                    updateFragment(1);
                     break;
                 case 1:
-                    updateFragment( 2);
+                    updateFragment(2);
                     break;
                 case 2:
-                    updateFragment( 3);
+                    updateFragment(3);
                     break;
                 case 3:
-                    updateFragment( 4);
+                    updateFragment(4);
                     break;
                 case 4:
-                    updateFragment( 0);
+                    updateFragment(0);
                     break;
             }
         }
@@ -232,7 +229,7 @@ public class BottomNavigationFragment extends Fragment {
             Toast.makeText(requireContext(), "Bottom Swipe", Toast.LENGTH_SHORT).show();
         }
 
-        void updateFragment(int newTab){
+        void updateFragment(int newTab) {
             binding.bottomBar.selectTabAt(newTab, true);
         }
     }

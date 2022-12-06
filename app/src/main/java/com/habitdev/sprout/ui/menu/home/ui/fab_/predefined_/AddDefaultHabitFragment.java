@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
@@ -21,7 +20,6 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAddDefaultHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.HomeParentItemFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddDefaultHabitParentItemAdapter;
 
 import java.text.SimpleDateFormat;
@@ -38,17 +36,22 @@ public class AddDefaultHabitFragment extends Fragment {
     private Habits habit;
     private List<Subroutines> subroutinesList;
 
-    private final int ic_check;
     private int current_selected_color;
     private int old_selected_color;
-    private String color;
+    private String color = AppColor.CLOUDS.getColor();
+
+    public interface onAddDefaultReturnHome {
+        void onAddDefaultHabitClickReturnHome();
+    }
+
+    private onAddDefaultReturnHome mOnAddDefaultReturnHome;
+
+    public void setmOnAddDefaultReturnHome(onAddDefaultReturnHome mOnAddDefaultReturnHome) {
+        this.mOnAddDefaultReturnHome = mOnAddDefaultReturnHome;
+    }
 
     public AddDefaultHabitFragment(){
         habitsList = new ArrayList<>();
-        this.ic_check = R.drawable.ic_check;
-        this.current_selected_color = 0;
-        this.old_selected_color = 0;
-        this.color = AppColor.CLOUDS.getColor();
     }
 
     @Nullable
@@ -60,7 +63,6 @@ public class AddDefaultHabitFragment extends Fragment {
         setHabitColor();
         upDateHabitList();
         addHabitOnReform();
-
         onBackPress();
         return binding.getRoot();
     }
@@ -125,7 +127,7 @@ public class AddDefaultHabitFragment extends Fragment {
                    0
             ));
             habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
-            returnHomeFragment();
+            if (mOnAddDefaultReturnHome != null) mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
         });
     }
 
@@ -198,6 +200,7 @@ public class AddDefaultHabitFragment extends Fragment {
 
     private void setSelected_color() {
         if (old_selected_color != current_selected_color) {
+            int ic_check = R.drawable.ic_check;
             switch (current_selected_color) {
                 case 1:
                     //alzarin
@@ -279,17 +282,10 @@ public class AddDefaultHabitFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                returnHomeFragment();
+                if (mOnAddDefaultReturnHome != null) mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
-    }
-
-    private void returnHomeFragment(){
-        FragmentManager fragmentManager = getChildFragmentManager();
-        fragmentManager.beginTransaction().replace(binding.addFromDefaultHabitFrameLayout.getId(), new HomeParentItemFragment())
-                .commit();
-        binding.addFromDefaultHabitContainer.setVisibility(View.GONE);
     }
 
     @Override

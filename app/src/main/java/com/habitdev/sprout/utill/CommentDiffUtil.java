@@ -33,8 +33,10 @@ public class CommentDiffUtil extends DiffUtil.Callback {
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        Comment oldSubroutine = oldCommentList.get(oldItemPosition);
-        Comment newSubroutine = newCommentList.get(newItemPosition);
-        return oldSubroutine.getComment().equals(newSubroutine.getComment());
+        Comment oldComment = oldCommentList.get(oldItemPosition);
+        Comment newComment = newCommentList.get(newItemPosition);
+        return oldComment.getComment().equals(newComment.getComment()) &&
+                oldComment.getDate_commented().equals(newComment.getDate_commented()) &&
+                oldComment.getComment_type().equals(newComment.getComment_type());
     }
 }

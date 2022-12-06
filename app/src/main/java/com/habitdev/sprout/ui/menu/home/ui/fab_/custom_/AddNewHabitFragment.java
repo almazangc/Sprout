@@ -25,7 +25,7 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAddNewHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.HomeParentItemFragment;
+import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
 
@@ -46,18 +46,23 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     private List<Subroutines> subroutinesList;
     private Subroutines subroutine;
 
-    private final int ic_check;
     private int current_selected_color;
     private int old_selected_color;
-    private String color;
+    private String color = AppColor.CLOUDS.getColor();
+
+    public interface onAddNewHabitReturnHome {
+        void onAddNewHabitClickReturnHome();
+    }
+
+    private onAddNewHabitReturnHome mOnAddNewHabitReturnHome;
+
+    public void setmOnReturnHome(onAddNewHabitReturnHome mOnAddNewHabitReturnHome) {
+        this.mOnAddNewHabitReturnHome = mOnAddNewHabitReturnHome;
+    }
 
     private HomeAddNewHabitParentAdapter homeAddNewHabitParentAdapter;
 
     public AddNewHabitFragment() {
-        this.ic_check = R.drawable.ic_check;
-        this.current_selected_color = 0;
-        this.old_selected_color = 0;
-        this.color = AppColor.CLOUDS.getColor();
         this.habit = new Habits(
                 null,
                 null,
@@ -94,7 +99,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         binding = FragmentAddNewHabitBinding.inflate(inflater, container, false);
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         setHint();
-        userDefinedHabit();
+        setDropDownHabits();
         setCurrentTime();
         setHabitColor();
         colorSelect();
@@ -106,11 +111,17 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     }
 
     private void setHint() {
+
+        final String REQUIRED = "Required*";
+        final String EMPTY_TITLE = "Empty Title*";
+        final String EMPTY_DESC = "Empty Description*";
+        final String MIN_SUBROUTINE = "Required Minimum of 2 Subroutine*";
+
         binding.addNewHabitTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty())
-                    binding.addNewHabitHint.setText("Required*");
+                    binding.addNewHabitHint.setText(REQUIRED);
             }
 
             @Override
@@ -120,12 +131,14 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()) {
-                    binding.addNewHabitHint.setText("Empty Title*");
+                    binding.addNewHabitHint.setText(EMPTY_TITLE);
                 } else {
                     if (binding.addNewHabitDescription.getText().toString().trim().isEmpty()) {
-                        binding.addNewHabitHint.setText("Empty Description*");
+                        binding.addNewHabitHint.setText(EMPTY_DESC);
                     } else {
-                        binding.addNewHabitHint.setText("");
+                        if (!binding.addNewHabitHint.getText().toString().trim().equals(MIN_SUBROUTINE)){
+                            binding.addNewHabitHint.setText("");
+                        }
                     }
                 }
             }
@@ -134,7 +147,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty())
-                    binding.addNewHabitHint.setText("Required*");
+                    binding.addNewHabitHint.setText(REQUIRED);
             }
 
             @Override
@@ -144,12 +157,14 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()) {
-                    binding.addNewHabitHint.setText("Empty Description*");
+                    binding.addNewHabitHint.setText(EMPTY_DESC);
                 } else {
                     if (binding.addNewHabitTitle.getText().toString().trim().isEmpty()) {
-                        binding.addNewHabitHint.setText("Empty Title*");
+                        binding.addNewHabitHint.setText(EMPTY_TITLE);
                     } else {
-                        binding.addNewHabitHint.setText("");
+                        if (!binding.addNewHabitHint.getText().toString().trim().equals(MIN_SUBROUTINE)){
+                            binding.addNewHabitHint.setText("");
+                        }
                     }
                 }
             }
@@ -164,13 +179,14 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     public void run() {
                         if (binding != null) {
                             if (subroutinesList.isEmpty() || subroutinesList.size() < 2) {
-                                if (binding.addNewHabitHint.getText().toString().trim().isEmpty())
-                                    binding.addNewHabitHint.setText("Required Minimum of 2 Subroutine*");
+                                if (binding.addNewHabitHint.getText().toString().trim().isEmpty() && !binding.addNewHabitHint.getText().toString().trim().equals(MIN_SUBROUTINE))
+                                    binding.addNewHabitHint.setText(MIN_SUBROUTINE);
                             } else {
                                 binding.addNewHabitHint.setText("");
                             }
                         } else {
                             timer.cancel();
+                            timer.purge();
                         }
                     }
                 });
@@ -178,17 +194,21 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         }, 0, 1000);
     }
 
-    private void userDefinedHabit() {
+    private void setDropDownHabits() {
         List<String> habitTitles = new ArrayList<>();
         ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);
         habitWithSubroutinesViewModel.getAllUserDefinedHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             if (habits != null) {
                 if (!habits.isEmpty()) {
-                    habitsList = habits;
+                    List<Habits> onDropDownHabits = new ArrayList<>();
                     habitTitles.clear(); //clear contents
                     for (Habits habit : habits) {
-                        if (!habit.isOnReform()) habitTitles.add(habit.getHabit());
+                        if (!habit.isOnReform()) {
+                            habitTitles.add(habit.getHabit());
+                            onDropDownHabits.add(habit);
+                        }
                     }
+                    habitsList = onDropDownHabits;
                 }
                 if (habitTitles.isEmpty()){
                     if (binding.addNewHabitTextInput.getVisibility() == View.VISIBLE)
@@ -320,6 +340,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
 
     private void setSelected_color() {
         if (old_selected_color != current_selected_color) {
+            int ic_check = R.drawable.ic_check;
             switch (current_selected_color) {
                 case 1:
                     //alzarin
@@ -415,7 +436,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     }
                     habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
                 }
-                returnHomeFragment();
+                if (mOnAddNewHabitReturnHome != null) mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
             }
         });
     }
@@ -439,6 +460,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                 habit = new Habits("", "", AppColor.CLOUDS.getColor(), true, true);
                 subroutinesList = new ArrayList<>();
                 setContentView();
+                setDropDownHabits();
             });
         }
     }
@@ -482,19 +504,10 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                returnHomeFragment();
+                if (mOnAddNewHabitReturnHome != null) mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
-    }
-
-    private void returnHomeFragment() {
-        FragmentManager fragmentManager = getChildFragmentManager();
-        fragmentManager
-                .beginTransaction()
-                .replace(binding.addNewHabitFrameLayout.getId(), new HomeParentItemFragment())
-                .commit();
-        binding.addNewHabitContainer.setVisibility(View.GONE);
     }
 
     @Override

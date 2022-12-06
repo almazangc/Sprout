@@ -18,15 +18,14 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
+import com.habitdev.sprout.utill.HabitDiffUtil;
 
 import java.util.List;
 import java.util.Locale;
@@ -35,36 +34,46 @@ import java.util.TimerTask;
 
 public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAdapter.HabitViewHolder> {
 
-    private final HomeParentItemOnclickListener HomeParentItemOnclickListener;
-    private final FragmentActivity fragmentActivity;
-    private final FragmentManager fragmentManager;
-    private final int HomeID;
-    private List<Habits> habits;
+    private List<Habits> oldHabitList;
+    private final Timer timer;
 
-    public HomeParentItemAdapter(List<Habits> habits, HomeParentItemOnclickListener HomeParentItemOnclickListener, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int HomeID) {
-        this.habits = habits;
-        this.HomeParentItemOnclickListener = HomeParentItemOnclickListener;
-        this.fragmentActivity = fragmentActivity;
-        this.fragmentManager = fragmentManager;
-        this.HomeID = HomeID;
+    public HomeParentItemAdapter() {
+        this.timer = new Timer();
+    }
+
+    public interface HomeParentItemOnClickListener {
+        void onItemClick(int position);
+        void onClickHabitModify(Habits habit);
+        void onClickHabitRelapse(Habits habit);
+        void onClickHabitDrop(Habits habit);
+    }
+
+    private HomeParentItemOnClickListener homeParentItemOnclickListener;
+
+    public void setHomeParentItemOnclickListener(HomeParentItemOnClickListener homeParentItemOnclickListener) {
+        this.homeParentItemOnclickListener = homeParentItemOnclickListener;
+    }
+
+    public void setOldHabitList(List<Habits> oldHabitList) {
+        this.oldHabitList = oldHabitList;
     }
 
     @NonNull
     @Override
     public HomeParentItemAdapter.HabitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new HomeParentItemAdapter.HabitViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_parent_habit_item, parent, false), HomeParentItemOnclickListener
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_home_parent_habit_item, parent, false), homeParentItemOnclickListener
         );
     }
 
     @Override
     public void onBindViewHolder(@NonNull HomeParentItemAdapter.HabitViewHolder holder, int position) {
-        holder.bindHabit(habits.get(position), fragmentActivity, fragmentManager, HomeID);
+        holder.bindHabit(oldHabitList.get(position), homeParentItemOnclickListener, timer);
     }
 
     @Override
     public int getItemCount() {
-        return habits.size();
+        return oldHabitList.size();
     }
 
     @Override
@@ -72,10 +81,11 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         return position;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void setHabits(List<Habits> habits) {
-        this.habits = habits;
-        notifyDataSetChanged();
+    public void setNewHabitList(List<Habits> newHabitList) {
+        DiffUtil.Callback DIFF_CALLBACK = new HabitDiffUtil(oldHabitList, newHabitList);
+        DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
+        oldHabitList = newHabitList;
+        DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 
     public static class HabitViewHolder extends RecyclerView.ViewHolder {
@@ -86,7 +96,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         Button upVote, downVote, modify, relapse, drop;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
-        public HabitViewHolder(@NonNull View itemView, HomeParentItemOnclickListener HomeParentItemOnclickListener) {
+        public HabitViewHolder(@NonNull View itemView, HomeParentItemOnClickListener HomeParentItemOnclickListener) {
             super(itemView);
 
             itemContainer = itemView.findViewById(R.id.adapter_home_parent_item_container);
@@ -123,7 +133,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        void bindHabit(Habits habit, FragmentActivity fragmentActivity, FragmentManager fragmentManager, int HomeID) {
+        void bindHabit(Habits habit, HomeParentItemOnClickListener homeParentItemOnClickListener, Timer timer) {
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemContainer.setBackground(alzarin);
@@ -166,21 +176,6 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
             dateTimeElapsedUtil.calculateElapsedDateTime();
 
-            //TODO: Functional But Leaking
-//            new Timer().schedule(new TimerTask() {
-//                @Override
-//                public void run() {
-//                    fragmentActivity.runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            dateTimeElapsedUtil.calculateElapsedDateTime();
-//                            daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
-//                        }
-//                    });
-//                }
-//            },0,1000);
-
-            Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -194,7 +189,6 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 }
             }, 0, 1000);
 
-            HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(fragmentActivity).get(HabitWithSubroutinesViewModel.class);
 
             upVote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Upvote", Toast.LENGTH_SHORT).show();
@@ -207,23 +201,19 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             //TODO: SET on CLick Interface for refactor
             if (habit.isModifiable()) {
                 modify.setOnClickListener(view -> {
-                    HomeParentItemAdapterModifyDialogFragment dialog = new HomeParentItemAdapterModifyDialogFragment(habitWithSubroutinesViewModel, habit);
-                    dialog.setTargetFragment(fragmentManager.findFragmentById(HomeID), 1);
-                    dialog.show(fragmentManager, "Modify Habit Dialog");
+                    homeParentItemOnClickListener.onClickHabitModify(habit);
                 });
             } else {
                 modify.setVisibility(View.GONE);
             }
 
             relapse.setOnClickListener(view -> {
-                habit.setRelapse(habit.getRelapse() + 1);
-                habitWithSubroutinesViewModel.updateHabit(habit);
+                homeParentItemOnClickListener.onClickHabitRelapse(habit);
                 totalRelapse.setText(String.valueOf(habit.getRelapse()));
             });
 
             drop.setOnClickListener(view -> {
-                habit.setOnReform(false);
-                habitWithSubroutinesViewModel.updateHabit(habit);
+                homeParentItemOnClickListener.onClickHabitDrop(habit);
             });
         }
 
