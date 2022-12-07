@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_add_default_subroutine_child_item"
@@ -12,6 +12,7 @@
     app:cardCornerRadius="15dp"
     app:cardElevation="3dp"
     app:cardMaxElevation="5dp"
+    android:background="@drawable/background_child_item_view_cloud"
     tools:showIn="@layout/fragment_add_default_habit">
 
     <RelativeLayout
@@ -45,4 +46,4 @@
             tools:text="\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta pharetra magna, eu laoreet urna condimentum a. Vivamus dapibus ante eget nunc ultrices bibendum. Duis consectetur fermentum nibh nec porta. Ut in fringilla leo. Aenean quis tortor vel tortor finibus cursus vel vel tellus. Nullam tellus enim, viverra et imperdiet sed, egestas id ante. Fusce rhoncus odio molestie elit ornare vulputate." />
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</RelativeLayout>

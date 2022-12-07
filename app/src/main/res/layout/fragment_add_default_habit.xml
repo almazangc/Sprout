@@ -13,218 +13,227 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/add_from_default_habit_miscellaneous"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical"
-            android:visibility="visible">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Pick Color"
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT" />
+            android:paddingBottom="10dp"
+            android:background="@drawable/background_top_bar_view_waikawa_grey"
+            android:id="@+id/add_from_default_habit_top_bar">
 
             <LinearLayout
+                android:id="@+id/add_from_default_habit_miscellaneous"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                android:visibility="visible">
 
-                <FrameLayout
-                    android:id="@+id/color_cloud"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <View
-                        android:id="@+id/cloud_misc"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/background_color_selection_cloud" />
-
-                    <ImageView
-                        android:id="@+id/cloud_selected"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="10dp"
-                        app:tint="@color/NIGHT" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/color_alzarin"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <View
-                        android:id="@+id/alzarin_misc"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/background_color_selection_alzarin" />
-
-                    <ImageView
-                        android:id="@+id/alzarin_selected"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="10dp"
-                        app:tint="@color/NIGHT" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/color_amethyst"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <View
-                        android:id="@+id/amethyst_misc"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/background_color_selection_amethyst" />
-
-                    <ImageView
-                        android:id="@+id/amethyst_selected"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="10dp"
-                        app:tint="@color/NIGHT" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/color_brightsky_blue"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <View
-                        android:id="@+id/brightsky_blue_misc"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/background_color_selection_brightsky_blue" />
-
-                    <ImageView
-                        android:id="@+id/brightsky_blue_selected"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="10dp"
-                        app:tint="@color/NIGHT" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/color_nephritis"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <View
-                        android:id="@+id/nephritis_misc"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/background_color_selection_nephritis" />
-
-                    <ImageView
-                        android:id="@+id/nephritis_selected"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="10dp"
-                        app:tint="@color/NIGHT" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/color_sunflower"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <View
-                        android:id="@+id/sunflower_misc"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/background_color_selection_sunflower" />
-
-                    <ImageView
-                        android:id="@+id/sunflower_selected"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_horizontal"
-                        android:padding="10dp"
-                        app:tint="@color/NIGHT" />
-
-                </FrameLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/add_from_default_habit_top_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/add_from_default_habit_miscellaneous">
-
-            <View
-                android:id="@+id/add_from_default_habit_color_selector"
-                android:layout_width="5dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/background_color_indicator_clouds" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/add_from_default_habit_text_input_layout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:boxBackgroundColor="@color/LIGHT"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                android:layout_marginEnd="5dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                app:hintTextColor="@color/NIGHT">
-
-                <AutoCompleteTextView
-                    android:id="@+id/add_from_default_habit_items"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="List of Predefined Habits"
-                    android:inputType="none"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:layout_marginTop="5dp"
+                    android:text="Pick Color"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/color_cloud"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/cloud_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_color_selection_cloud" />
+
+                        <ImageView
+                            android:id="@+id/cloud_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/color_alzarin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/alzarin_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_color_selection_alzarin" />
+
+                        <ImageView
+                            android:id="@+id/alzarin_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/color_amethyst"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/amethyst_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_color_selection_amethyst" />
+
+                        <ImageView
+                            android:id="@+id/amethyst_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/color_brightsky_blue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/brightsky_blue_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_color_selection_brightsky_blue" />
+
+                        <ImageView
+                            android:id="@+id/brightsky_blue_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/color_nephritis"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/nephritis_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_color_selection_nephritis" />
+
+                        <ImageView
+                            android:id="@+id/nephritis_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/color_sunflower"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <View
+                            android:id="@+id/sunflower_misc"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/background_color_selection_sunflower" />
+
+                        <ImageView
+                            android:id="@+id/sunflower_selected"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="10dp"
+                            app:tint="@color/NIGHT" />
+
+                    </FrameLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/add_from_default_habit_top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add_from_default_habit_miscellaneous">
+
+                <View
+                    android:id="@+id/add_from_default_habit_color_selector"
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/background_color_indicator_clouds" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/add_from_default_habit_text_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    app:boxBackgroundColor="@color/LIGHT"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:hintTextColor="@color/NIGHT">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/add_from_default_habit_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="List of Predefined Habits"
+                        android:inputType="none"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="13sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-        </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/add_from_default_habit_top_layout"
+            android:layout_below="@id/add_from_default_habit_top_bar"
             android:fillViewport="true">
 
             <RelativeLayout
@@ -258,9 +267,9 @@
                     android:ellipsize="end"
                     android:maxLines="20"
                     android:padding="10dp"
-                    android:text="@string/sampleText"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    tools:text="@string/sampleText" />
 
                 <TextView
                     android:id="@+id/subroutine_lbl"
@@ -283,7 +292,7 @@
                     android:layout_toEndOf="@id/subroutine_lbl"
                     android:layout_marginStart="5dp"
                     android:layout_marginBottom="10dp"
-                    android:text="0"
+                    tools:text="0"
                     android:textColor="@color/NIGHT"
                     android:textSize="13sp"
                     android:textStyle="bold" />

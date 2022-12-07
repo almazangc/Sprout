@@ -2,6 +2,8 @@ package com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +60,9 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddDefaultHabitBinding.inflate(inflater, container, false);
+        binding.habitDescriptionLbl.setVisibility(View.INVISIBLE);
+        binding.subroutineLbl.setVisibility(View.INVISIBLE);
+
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         colorSelect();
         setHabitColor();
@@ -68,18 +73,17 @@ public class AddDefaultHabitFragment extends Fragment {
     }
 
     private void upDateHabitList(){
-        //change to synchronous and drop observer
         habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             List<Habits> habitsLiveData = new ArrayList<>();
             for(Habits habit : habits)
                 if (!habit.isOnReform() && !habit.isModifiable())
                     habitsLiveData.add(habit);
             habitsList = habitsLiveData;
-            setDropDownItem();
+            setDropDown();
         });
     }
 
-    private void setDropDownItem(){
+    private void setDropDown(){
         List<String> habitTitles = new ArrayList<>();
         for (Habits habits : habitsList) habitTitles.add(habits.getHabit());
 
@@ -89,6 +93,7 @@ public class AddDefaultHabitFragment extends Fragment {
         } else {
             if (binding.addFromDefaultHabitTextInputLayout.getVisibility() == View.GONE)
                 binding.addFromDefaultHabitTextInputLayout.setVisibility(View.VISIBLE);
+
             ArrayAdapter<String> adapterItem;
             adapterItem = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);
             binding.addFromDefaultHabitItems.setAdapter(adapterItem);
@@ -98,15 +103,51 @@ public class AddDefaultHabitFragment extends Fragment {
                 setContentView();
             });
         }
+
+        binding.addFromDefaultHabitItems.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (s.toString().trim().isEmpty()){
+                    binding.habitDescriptionLbl.setVisibility(View.INVISIBLE);
+                    binding.subroutineLbl.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().isEmpty()){
+                    binding.habitDescriptionLbl.setVisibility(View.INVISIBLE);
+                    binding.subroutineCountLbl.setVisibility(View.INVISIBLE);
+                    binding.habitDescription.setVisibility(View.INVISIBLE);
+                    binding.subroutineLbl.setVisibility(View.INVISIBLE);
+                    binding.subroutineCountLbl.setVisibility(View.INVISIBLE);
+                    binding.habitSubroutinesRecyclerView.setVisibility(View.INVISIBLE);
+                } else {
+                    binding.habitDescriptionLbl.setVisibility(View.VISIBLE);
+                    binding.subroutineCountLbl.setVisibility(View.VISIBLE);
+                    binding.habitDescription.setVisibility(View.VISIBLE);
+                    binding.subroutineLbl.setVisibility(View.VISIBLE);
+                    binding.subroutineCountLbl.setVisibility(View.VISIBLE);
+                    binding.habitSubroutinesRecyclerView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void setContentView(){
         binding.habitDescription.setText(habit.getDescription());
         subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
 
-        HomeAddDefaultHabitParentItemAdapter subroutineItemAdapter = new HomeAddDefaultHabitParentItemAdapter(subroutinesList);
+        HomeAddDefaultHabitParentItemAdapter subroutineItemAdapter = new HomeAddDefaultHabitParentItemAdapter();
+        subroutineItemAdapter.setOldSubroutineList(subroutinesList);
+
         binding.habitSubroutinesRecyclerView.setAdapter(subroutineItemAdapter);
-        subroutineItemAdapter.setSubroutines(subroutinesList);
+        subroutineItemAdapter.setNewSubroutineList(subroutinesList);
         binding.subroutineCountLbl.setText(String.format(Locale.getDefault(), "%d", subroutinesList.size()));
     }
 

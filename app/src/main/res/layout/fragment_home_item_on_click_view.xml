@@ -23,7 +23,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_topbar_view_waikawa_grey"
+                android:background="@drawable/background_top_bar_view_waikawa_grey"
                 android:id="@+id/home_item_on_click_top_bar">
 
                 <LinearLayout

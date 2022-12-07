@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,12 +80,11 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         List<Subroutines> habitWithSubroutines;
 
         habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
-        SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter(habitWithSubroutines);
+        SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter();
+        childAdapterItem.setOldSubroutineList(habitWithSubroutines);
         holder.childRecycleView.setAdapter(childAdapterItem);
 
-        childAdapterItem.setHabitWithSubroutines(habitWithSubroutines);
-
-        habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(subroutineLifecycleOwner, childAdapterItem::setHabitWithSubroutines);
+        habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(subroutineLifecycleOwner, childAdapterItem::setNewSubroutineList);
 
         setItemTouchHelper(holder, childAdapterItem);
     }

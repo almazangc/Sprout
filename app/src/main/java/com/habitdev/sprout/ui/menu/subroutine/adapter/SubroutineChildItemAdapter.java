@@ -11,20 +11,26 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
+import com.habitdev.sprout.utill.SubroutineDiffUtil;
 
 import java.util.List;
 
 public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineChildItemAdapter.ChildItemViewHolder> {
 
-    List<Subroutines> subroutines;
+    List<Subroutines> oldSubroutineList;
 
-    public SubroutineChildItemAdapter(List<Subroutines> subroutines) {
-        this.subroutines = subroutines;
+    public SubroutineChildItemAdapter() {
+
+    }
+
+    public void setOldSubroutineList(List<Subroutines> oldSubroutineList) {
+        this.oldSubroutineList = oldSubroutineList;
     }
 
     @NonNull
@@ -37,12 +43,12 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
 
     @Override
     public void onBindViewHolder(@NonNull SubroutineChildItemAdapter.ChildItemViewHolder holder, int position) {
-        holder.bindDate(subroutines.get(position));
+        holder.bindDate(oldSubroutineList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return subroutines.size();
+        return oldSubroutineList.size();
     }
 
     @Override
@@ -50,15 +56,18 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
         return super.getItemViewType(position);
     }
 
-    public void setHabitWithSubroutines(List<Subroutines> subroutines) {
-        this.subroutines = subroutines;
+    public void setNewSubroutineList(List<Subroutines> newSubroutineList) {
+        DiffUtil.Callback DIFF_CALLBACK = new SubroutineDiffUtil(oldSubroutineList, newSubroutineList);
+        DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
+        this.oldSubroutineList = newSubroutineList;
+        DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 
     public static class ChildItemViewHolder extends RecyclerView.ViewHolder{
 
         RelativeLayout itemLayout;
         TextView Title, Description;
-        Button Upvote, Downvote, MarkAsDone;
+        Button UpVote, DownVote, MarkAsDone;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public ChildItemViewHolder(@NonNull View itemView) {
@@ -67,8 +76,8 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
             Title = itemView.findViewById(R.id.subroutine);
             Description = itemView.findViewById(R.id.home_item_on_click_habit_description);
 
-            Upvote = itemView.findViewById(R.id.btn_upvote_subroutine);
-            Downvote = itemView.findViewById(R.id.btn_downvote_subroutine);
+            UpVote = itemView.findViewById(R.id.btn_upvote_subroutine);
+            DownVote = itemView.findViewById(R.id.btn_downvote_subroutine);
             MarkAsDone = itemView.findViewById(R.id.mark_as_done);
 
             cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_cloud_selector);
@@ -97,11 +106,11 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
             Title.setText(subroutine.getSubroutine());
             Description.setText(subroutine.getDescription());
 
-            Upvote.setOnClickListener(view -> {
+            UpVote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "UpVote", Toast.LENGTH_SHORT).show();
             });
 
-            Downvote.setOnClickListener(view -> {
+            DownVote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "DownVote", Toast.LENGTH_SHORT).show();
             });
 

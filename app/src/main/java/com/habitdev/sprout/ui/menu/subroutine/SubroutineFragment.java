@@ -60,7 +60,6 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
 
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
             parentAdapterItem.setNewHabitList(habits);
-            Toast.makeText(requireActivity(), "newSubroutine", Toast.LENGTH_SHORT).show();
             setEmptyRVBackground(parentAdapterItem);
         });
     }

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelUuid;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,11 +37,8 @@ import java.util.TimerTask;
 public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAdapter.HabitViewHolder> {
 
     private List<Habits> oldHabitList;
-    private final Timer timer;
 
-    public HomeParentItemAdapter() {
-        this.timer = new Timer();
-    }
+    public HomeParentItemAdapter() {}
 
     public interface HomeParentItemOnClickListener {
         void onItemClick(int position);
@@ -69,7 +67,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     @Override
     public void onBindViewHolder(@NonNull HomeParentItemAdapter.HabitViewHolder holder, int position) {
-        holder.bindHabit(oldHabitList.get(position), homeParentItemOnclickListener, timer);
+        holder.bindHabit(oldHabitList.get(position), homeParentItemOnclickListener);
     }
 
     @Override
@@ -134,7 +132,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        void bindHabit(Habits habit, HomeParentItemOnClickListener homeParentItemOnClickListener, Timer timer) {
+        void bindHabit(Habits habit, HomeParentItemOnClickListener homeParentItemOnClickListener) {
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemContainer.setBackground(alzarin);
@@ -177,6 +175,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
             dateTimeElapsedUtil.calculateElapsedDateTime();
 
+            Timer timer = new Timer(); //create new instance of timer
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -213,20 +212,22 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             });
 
             drop.setOnClickListener(view -> {
-                homeParentItemOnClickListener.onClickHabitDrop(habit);
+
+            });
+
+            drop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    homeParentItemOnClickListener.onClickHabitDrop(habit);
+                    timer.cancel();
+                    timer.purge();
+                }
             });
         }
 
         int padding_inPx (int dp){
             final float scale = itemView.getResources().getDisplayMetrics().density;
             return (int) (dp * scale + 0.5f);
-        }
-    }
-
-    public void cancelTimer(){
-        if (timer != null) {
-            timer.cancel();
-            timer.purge();
         }
     }
 }
