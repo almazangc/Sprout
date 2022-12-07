@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.ParcelUuid;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -189,7 +190,6 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 }
             }, 0, 1000);
 
-
             upVote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Upvote", Toast.LENGTH_SHORT).show();
             });
@@ -220,6 +220,13 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         int padding_inPx (int dp){
             final float scale = itemView.getResources().getDisplayMetrics().density;
             return (int) (dp * scale + 0.5f);
+        }
+    }
+
+    public void cancelTimer(){
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
         }
     }
 }

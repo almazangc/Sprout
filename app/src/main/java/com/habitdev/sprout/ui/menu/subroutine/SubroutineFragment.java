@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -17,11 +19,17 @@ import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SubroutineFragment extends Fragment implements SubroutineParentItemAdapter.OnClickListener {
+public class SubroutineFragment extends Fragment implements SubroutineParentItemAdapter.OnClickListener, SubroutineModifyFragment.onClickBackPress {
 
     private FragmentSubroutineBinding binding;
+    protected SubroutineModifyFragment subroutineModifyFragment = new SubroutineModifyFragment();
+
+    public SubroutineFragment() {
+        subroutineModifyFragment.setmOnClickBackPress(this);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,41 +39,77 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
         return binding.getRoot();
     }
 
+    /**
+     * Initialized and sets adapter for recyclerView
+     */
     private void setRecyclerViewAdapter() {
         HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         binding.subroutineRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        List<Habits> habitsOnReform = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        setEmptyRVBackground(habitsOnReform);
         SubroutineParentItemAdapter parentAdapterItem = new SubroutineParentItemAdapter();
-        parentAdapterItem.setHabitsOnReform(habitsOnReform);
+        parentAdapterItem.setOldHabitList(habitWithSubroutinesViewModel.getAllHabitOnReform());
+
+        setEmptyRVBackground(parentAdapterItem);
+
         parentAdapterItem.setmOnClickListener(this);
+
+        parentAdapterItem.setSubroutineLifecycleOwner(getViewLifecycleOwner());
         parentAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
-        parentAdapterItem.setLifecycleOwner(getViewLifecycleOwner());
 
         binding.subroutineRecyclerView.setAdapter(parentAdapterItem);
 
-        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), parentAdapterItem::setHabitsOnReform);
+        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
+            parentAdapterItem.setNewHabitList(habits);
+            Toast.makeText(requireActivity(), "newSubroutine", Toast.LENGTH_SHORT).show();
+            setEmptyRVBackground(parentAdapterItem);
+        });
     }
 
-    private void setEmptyRVBackground(List<Habits> habitsList){
-        if (!habitsList.isEmpty()){
-            binding.subroutineEmptyLottieRecyclerView.setVisibility(View.GONE);
-            binding.subroutineEmptyLbl.setVisibility(View.GONE);
+    /**
+     * Displays No subroutine on reform
+     *
+     * @param adapter SubroutineParentItemAdapter
+     */
+    private void setEmptyRVBackground(SubroutineParentItemAdapter adapter) {
+        if (adapter.getItemCount() > 0) {
+            binding.subroutineEmptyLottieRecyclerView.setVisibility(View.INVISIBLE);
+            binding.subroutineEmptyLbl.setVisibility(View.INVISIBLE);
         } else {
             binding.subroutineEmptyLottieRecyclerView.setVisibility(View.VISIBLE);
             binding.subroutineEmptyLbl.setVisibility(View.VISIBLE);
         }
     }
 
+    /**
+     * Interface from SubroutineParentItemAdapter
+     *
+     * @param habit Habit on Modify
+     */
     @Override
     public void onModifySubroutine(Habits habit) {
+        subroutineModifyFragment.setHabit(habit);
         getChildFragmentManager().beginTransaction()
-                .replace(binding.subroutineFrameLayout.getId(), new SubroutineModifyFragment(habit))
+                .addToBackStack(SubroutineFragment.this.getTag())
+                .add(binding.subroutineFrameLayout.getId(), subroutineModifyFragment)
                 .commit();
         binding.subroutineContainer.setVisibility(View.GONE);
     }
 
+    /**
+     * Interface from SubroutineModify Fragment
+     */
+    @Override
+    public void returnSubroutineFragment() {
+        getChildFragmentManager()
+                .beginTransaction()
+                .remove(subroutineModifyFragment)
+                .commit();
+        binding.subroutineContainer.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Handle on BackPress
+     */
     private void onBackPress() {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -76,6 +120,9 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
+    /**
+     * On Fragment Destroy
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -18,6 +18,18 @@ public class TechStackInfoFragment extends Fragment {
 
     private FragmentTechStackInfoBinding binding;
 
+    public interface onReturnSetting{
+        void returnFromTechStackInfoToSetting();
+    }
+
+    private onReturnSetting mOnReturnSetting;
+
+    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+        this.mOnReturnSetting = mOnReturnSetting;
+    }
+
+    public TechStackInfoFragment() {}
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,11 +42,7 @@ public class TechStackInfoFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                FragmentManager fragmentManager = getChildFragmentManager();
-                SettingFragment settingFragment = new SettingFragment();
-                fragmentManager.beginTransaction().replace(binding.techStackInfoFrameLayout.getId(), settingFragment)
-                        .commit();
-                binding.techStackInfoContainer.setVisibility(View.GONE);
+                if (mOnReturnSetting != null) mOnReturnSetting.returnFromTechStackInfoToSetting();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

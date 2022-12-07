@@ -2,7 +2,6 @@ package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,17 +24,18 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
+import com.habitdev.sprout.utill.HabitDiffUtil;
 
 import java.util.List;
 
 //User List Adapter
-public class SubroutineParentItemAdapter extends RecyclerView.Adapter<SubroutineParentItemAdapter.ParentItemViewHolder>{
+public class SubroutineParentItemAdapter extends RecyclerView.Adapter<SubroutineParentItemAdapter.ParentItemViewHolder> {
 
-    private List<Habits> habitsOnReform;
-    private LifecycleOwner lifecycleOwner;
-    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private List<Habits> oldHabitList;
+    protected HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    protected LifecycleOwner subroutineLifecycleOwner;
 
-    public interface OnClickListener{
+    public interface OnClickListener {
         void onModifySubroutine(Habits habit);
     }
 
@@ -44,22 +45,17 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         this.mOnClickListener = mOnClickListener;
     }
 
-    public interface onSwipeLister{
-        void onSwipeStart();
-    }
 
-    private onSwipeLister mOnSwipeLister;
-
-    public void setmOnSwipeLister(onSwipeLister mOnSwipeLister) {
-        this.mOnSwipeLister = mOnSwipeLister;
-    }
-
-    public void setLifecycleOwner(LifecycleOwner lifecycleOwner) {
-        this.lifecycleOwner = lifecycleOwner;
+    public void setOldHabitList(List<Habits> oldHabitList) {
+        this.oldHabitList = oldHabitList;
     }
 
     public void setHabitWithSubroutinesViewModel(HabitWithSubroutinesViewModel habitWithSubroutinesViewModel) {
         this.habitWithSubroutinesViewModel = habitWithSubroutinesViewModel;
+    }
+
+    public void setSubroutineLifecycleOwner(LifecycleOwner subroutineLifecycleOwner) {
+        this.subroutineLifecycleOwner = subroutineLifecycleOwner;
     }
 
     public SubroutineParentItemAdapter() {}
@@ -75,7 +71,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     @Override
     public void onBindViewHolder(@NonNull ParentItemViewHolder holder, int position) {
 
-        long uid = holder.bindData(habitsOnReform.get(position), mOnClickListener, habitWithSubroutinesViewModel);
+        long uid = holder.bindData(oldHabitList.get(position), mOnClickListener);
 
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation_fall);
         holder.childRecycleView.setLayoutAnimation(animationController);
@@ -88,12 +84,12 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
         childAdapterItem.setHabitWithSubroutines(habitWithSubroutines);
 
-        habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(lifecycleOwner, childAdapterItem::setHabitWithSubroutines);
+        habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(subroutineLifecycleOwner, childAdapterItem::setHabitWithSubroutines);
 
         setItemTouchHelper(holder, childAdapterItem);
     }
 
-    private void setItemTouchHelper(SubroutineParentItemAdapter.ParentItemViewHolder holder, SubroutineChildItemAdapter childAdapterItem){
+    private void setItemTouchHelper(SubroutineParentItemAdapter.ParentItemViewHolder holder, SubroutineChildItemAdapter childAdapterItem) {
 
         ItemTouchHelper itemTouchHelper;
         ItemTouchHelper.Callback itemTouchHelperCallback = new ItemTouchHelper.Callback() {
@@ -119,11 +115,11 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                switch (direction){
+                switch (direction) {
                     case ItemTouchHelper.END:
                     case ItemTouchHelper.START:
-                        SubroutineChildItemAdapter.ChildItemViewHolder  childItemViewHolder;
-                        childItemViewHolder = (SubroutineChildItemAdapter.ChildItemViewHolder)  viewHolder;
+                        SubroutineChildItemAdapter.ChildItemViewHolder childItemViewHolder;
+                        childItemViewHolder = (SubroutineChildItemAdapter.ChildItemViewHolder) viewHolder;
                         childAdapterItem.notifyItemChanged(childItemViewHolder.getAbsoluteAdapterPosition());
                         break;
                 }
@@ -136,7 +132,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
     @Override
     public int getItemCount() {
-        return habitsOnReform.size();
+        return oldHabitList.size();
     }
 
     @Override
@@ -144,13 +140,15 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         return super.getItemViewType(position);
     }
 
-    public void setHabitsOnReform(List<Habits> habitsOnReform) {
-        this.habitsOnReform = habitsOnReform;
+    public void setNewHabitList(List<Habits> newHabitList) {
+        DiffUtil.Callback DIFF_CALLBACK = new HabitDiffUtil(oldHabitList, newHabitList);
+        DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
+        oldHabitList = newHabitList;
+        DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 
     public static class ParentItemViewHolder extends RecyclerView.ViewHolder {
 
-        //Components Here
         RelativeLayout itemLayout;
         TextView HabitsTitle;
         Button ModifySubroutine;
@@ -173,7 +171,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        long bindData(Habits habit, OnClickListener onClickListener, HabitWithSubroutinesViewModel habitWithSubroutinesViewModel) {
+        long bindData(Habits habit, OnClickListener mOnClickListener) {
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemLayout.setBackground(alzarin);
@@ -189,9 +187,8 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
                 itemLayout.setBackground(cloud);
             }
 
-            String buttonLabel = habit.getHabit() + " [ " + habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() + " ]";
+            HabitsTitle.setText(habit.getHabit());
 
-            HabitsTitle.setText(buttonLabel);
             HabitsTitle.setPadding(padding_inPx(10), padding_inPx(0), padding_inPx(10), padding_inPx(5));
 
             itemLayout.setOnClickListener(view -> {
@@ -203,25 +200,25 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
                 } else {
                     LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(childRecycleView.getContext(), R.anim.layout_animation_up);
                     childRecycleView.setLayoutAnimation(animationController);
-                    if (!childRecycleView.isAnimating())childRecycleView.setVisibility(View.GONE);
+                    if (!childRecycleView.isAnimating()) childRecycleView.setVisibility(View.GONE);
                 }
             });
 
             itemLayout.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                         HabitsTitle.setPadding(padding_inPx(10), padding_inPx(5), padding_inPx(10), padding_inPx(0));
-                    } else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL){
+                    } else if (motionEvent.getAction() == MotionEvent.ACTION_UP || motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
                         HabitsTitle.setPadding(padding_inPx(10), padding_inPx(0), padding_inPx(10), padding_inPx(5));
                     }
                     return false;
                 }
             });
 
-            if (habit.isModifiable()){
+            if (habit.isModifiable()) {
                 ModifySubroutine.setOnClickListener(view -> {
-                    onClickListener.onModifySubroutine(habit);
+                    mOnClickListener.onModifySubroutine(habit); //OnclickListener Here
                 });
             } else {
                 ModifySubroutine.setVisibility(View.GONE);
@@ -230,9 +227,10 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             return habit.getPk_habit_uid();
         }
 
-        int padding_inPx (int dp){
+        int padding_inPx(int dp) {
             final float scale = itemLayout.getResources().getDisplayMetrics().density;
             return (int) (dp * scale + 0.5f);
         }
     }
 }
+

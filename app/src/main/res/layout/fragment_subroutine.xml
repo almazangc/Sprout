@@ -39,6 +39,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="EMPTY HABIT ON REFORM"
             android:layout_marginTop="-220dp"
+            android:visibility="invisible"
             android:textColor="@color/NIGHT"/>
 
         <com.airbnb.lottie.LottieAnimationView
@@ -52,7 +53,7 @@
             app:lottie_autoPlay="true"
             app:lottie_fileName="lottie_anim_empty_state_ghost.json"
             app:lottie_loop="true"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:lottie_speed="1" />
 
         <androidx.recyclerview.widget.RecyclerView

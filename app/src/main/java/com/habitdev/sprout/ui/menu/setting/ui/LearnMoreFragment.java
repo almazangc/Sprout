@@ -18,9 +18,17 @@ public class LearnMoreFragment extends Fragment {
 
     private FragmentLearnMoreBinding binding;
 
-    public LearnMoreFragment() {
-
+    public interface onReturnSetting{
+        void returnFromLearnMoreToSetting();
     }
+
+    private onReturnSetting mOnReturnSetting;
+
+    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+        this.mOnReturnSetting = mOnReturnSetting;
+    }
+
+    public LearnMoreFragment() {}
 
     @Nullable
     @Override
@@ -34,11 +42,7 @@ public class LearnMoreFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                FragmentManager fragmentManager = getChildFragmentManager();
-                SettingFragment settingFragment = new SettingFragment();
-                fragmentManager.beginTransaction().replace(binding.learnMoreFrameLayout.getId(), settingFragment)
-                        .commit();
-                binding.learnMoreContainer.setVisibility(View.GONE);
+                if (mOnReturnSetting != null) mOnReturnSetting.returnFromLearnMoreToSetting();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

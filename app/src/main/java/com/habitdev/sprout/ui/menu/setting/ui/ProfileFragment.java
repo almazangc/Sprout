@@ -9,14 +9,22 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
-import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
+
+    public interface onReturnSetting {
+        void returnFromProfileToSetting();
+    }
+
+    private onReturnSetting mOnReturnSetting;
+
+    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+        this.mOnReturnSetting = mOnReturnSetting;
+    }
 
     public ProfileFragment() {
 
@@ -34,11 +42,7 @@ public class ProfileFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                FragmentManager fragmentManager = getChildFragmentManager();
-                SettingFragment settingFragment = new SettingFragment();
-                fragmentManager.beginTransaction().replace(binding.profileFrameLayout.getId(), settingFragment)
-                        .commit();
-                binding.profileContainer.setVisibility(View.GONE);
+                if (mOnReturnSetting != null) mOnReturnSetting.returnFromProfileToSetting();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

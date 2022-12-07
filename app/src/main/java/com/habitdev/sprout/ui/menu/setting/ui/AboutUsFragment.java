@@ -18,9 +18,17 @@ public class AboutUsFragment extends Fragment {
 
     private FragmentAboutUsBinding binding;
 
-    public AboutUsFragment() {
-
+    public interface onReturnSetting{
+        void returnFromAboutUsToSetting();
     }
+
+    private onReturnSetting mOnReturnSetting;
+
+    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+        this.mOnReturnSetting = mOnReturnSetting;
+    }
+
+    public AboutUsFragment() {}
 
     @Nullable
     @Override
@@ -34,12 +42,7 @@ public class AboutUsFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                FragmentManager fragmentManager = getChildFragmentManager();
-                SettingFragment settingFragment = new SettingFragment();
-                fragmentManager.beginTransaction()
-                        .replace(binding.aboutUsFrameLayout.getId(),settingFragment)
-                        .commit();
-                binding.aboutUsContainer.setVisibility(View.GONE);
+                if (mOnReturnSetting != null) mOnReturnSetting.returnFromAboutUsToSetting();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

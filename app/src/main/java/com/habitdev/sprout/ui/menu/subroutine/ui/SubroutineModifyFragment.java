@@ -32,21 +32,25 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 
     private FragmentSubroutineModifyBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private final Habits habit;
+    private Habits habit;
     private SubroutineModifyParentItemAdapter adapter;
 
-    public interface onSwipeView{
-        void itemOnSwipeView();
+    public interface onClickBackPress{
+        void returnSubroutineFragment();
     }
 
-    private onSwipeView mOnSwipeView;
+    private onClickBackPress mOnClickBackPress;
 
-    public void setmOnSwipeView(onSwipeView mOnSwipeView) {
-        this.mOnSwipeView = mOnSwipeView;
+    public void setmOnClickBackPress(onClickBackPress mOnClickBackPress) {
+        this.mOnClickBackPress = mOnClickBackPress;
     }
 
-    public SubroutineModifyFragment(Habits habit) {
+    public void setHabit(Habits habit) {
         this.habit = habit;
+    }
+
+    public SubroutineModifyFragment() {
+
     }
 
     @Nullable
@@ -228,12 +232,7 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                SubroutineFragment subroutineFragment = new SubroutineFragment();
-                FragmentManager fragmentManager = getChildFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(binding.subroutineModifyFrameLayout.getId(), subroutineFragment)
-                        .commit();
-                binding.subroutineModifyContainer.setVisibility(View.GONE);
+                if (mOnClickBackPress != null) mOnClickBackPress.returnSubroutineFragment();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -243,5 +242,7 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        habitWithSubroutinesViewModel = null;
+        adapter = null;
     }
 }

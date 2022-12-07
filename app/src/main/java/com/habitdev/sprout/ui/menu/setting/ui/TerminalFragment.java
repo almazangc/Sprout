@@ -9,17 +9,24 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.habitdev.sprout.databinding.FragmentTerminalBinding;
-import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 
 public class TerminalFragment extends Fragment {
 
     private FragmentTerminalBinding binding;
 
-    public TerminalFragment() {
+    public interface onReturnSetting {
+        void returnFromTerminalToSetting();
+    }
 
+    private onReturnSetting mOnReturnSetting;
+
+    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+        this.mOnReturnSetting = mOnReturnSetting;
+    }
+
+    public TerminalFragment() {
     }
 
     @Nullable
@@ -34,11 +41,9 @@ public class TerminalFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                FragmentManager fragmentManager = getChildFragmentManager();
-                SettingFragment settingFragment = new SettingFragment();
-                fragmentManager.beginTransaction().replace(binding.terminalFrameLayout.getId(), settingFragment)
-                        .commit();
-                binding.terminalContainer.setVisibility(View.GONE);
+                if (mOnReturnSetting != null) {
+                    mOnReturnSetting.returnFromTerminalToSetting();
+                }
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentBottomNavigationBinding;
@@ -27,16 +26,16 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 public class BottomNavigationFragment extends Fragment {
 
     private FragmentBottomNavigationBinding binding;
-    private FragmentManager fragmentManager;
     private int last_menu_selected, last_selected_index;
 
-    private final Fragment Home = new HomeFragment();
-    private final Fragment Subroutine = new SubroutineFragment();
-    private final Fragment Analytics = new AnalyticFragment();
-    private final Fragment Journal = new JournalFragment();
-    private final Fragment Settings = new SettingFragment();
+    protected HomeFragment Home = new HomeFragment();
+    protected SubroutineFragment Subroutine = new SubroutineFragment();
+    protected AnalyticFragment Analytics = new AnalyticFragment();
+    protected JournalFragment Journal = new JournalFragment();
+    protected SettingFragment Settings = new SettingFragment();
 
-    public BottomNavigationFragment() {}
+    public BottomNavigationFragment() {
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,8 +45,9 @@ public class BottomNavigationFragment extends Fragment {
 
         if (savedInstanceState == null) {
             binding.bottomBar.selectTabById(R.id.tab_home, true);
-            fragmentManager = getChildFragmentManager();
-            fragmentManager.beginTransaction().replace(binding.mainNavFragmentContainer.getId(), Home)
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(binding.mainNavFragmentContainer.getId(), Home)
                     .commit();
             binding.bottomBar.selectTabAt(0, true);
         } else {
@@ -111,8 +111,8 @@ public class BottomNavigationFragment extends Fragment {
         } else {
             fragment = Home;
         }
-        fragmentManager = getChildFragmentManager();
-        fragmentManager.beginTransaction()
+        getChildFragmentManager()
+                .beginTransaction()
                 .replace(binding.mainNavFragmentContainer.getId(), fragment)
                 .commit();
         binding.bottomBar.selectTabAt(tabID, true);
@@ -237,7 +237,6 @@ public class BottomNavigationFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fragmentManager = null;
         binding = null;
     }
 }

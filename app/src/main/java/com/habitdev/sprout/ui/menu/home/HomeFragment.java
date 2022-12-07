@@ -38,19 +38,16 @@ public class HomeFragment extends Fragment
     private FragmentHomeBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private List<Habits> habitsList;
-    private final AddDefaultHabitFragment addDefaultHabitFragment;
-    private final AddNewHabitFragment addHabitHomeFragment;
-    private final HomeItemOnClickFragment homeItemOnClickFragment;
-    private final HomeParentItemAdapter homeParentItemAdapter;
+
+    private AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
+    private AddNewHabitFragment addHabitHomeFragment = new AddNewHabitFragment();
+    private HomeItemOnClickFragment homeItemOnClickFragment = new HomeItemOnClickFragment();
+    private HomeParentItemAdapter homeParentItemAdapter = new HomeParentItemAdapter();
 
     public HomeFragment() {
-        addDefaultHabitFragment = new AddDefaultHabitFragment();
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
-        addHabitHomeFragment = new AddNewHabitFragment();
         addHabitHomeFragment.setmOnReturnHome(this);
-        homeItemOnClickFragment = new HomeItemOnClickFragment();
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
-        homeParentItemAdapter = new HomeParentItemAdapter();
         homeParentItemAdapter.setHomeParentItemOnclickListener(this);
     }
 
@@ -67,17 +64,17 @@ public class HomeFragment extends Fragment
 
         fabVisibility();
         onBackPress();
+
         return binding.getRoot();
     }
 
     private void setRecyclerViewAdapter() {
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
-
-        setEmptyRVBackground(habitsList);
-
         homeParentItemAdapter.setOldHabitList(habitsList);
+
         binding.homeRecyclerView.setAdapter(homeParentItemAdapter);
+        setEmptyRVBackground(homeParentItemAdapter);
 
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation_fall);
         binding.homeRecyclerView.setLayoutAnimation(animationController);
@@ -86,13 +83,13 @@ public class HomeFragment extends Fragment
         recyclerViewItemTouchHelper(homeParentItemAdapter);
     }
 
-    private void setEmptyRVBackground(List<Habits> habitsList){
-        if (!habitsList.isEmpty()){
-                binding.homeEmptyLottieRecyclerView.setVisibility(View.GONE);
-                binding.homeEmptyLbl.setVisibility(View.GONE);
+    private void setEmptyRVBackground(HomeParentItemAdapter adapter){
+        if (adapter.getItemCount() > 0){
+            binding.homeEmptyLottieRecyclerView.setVisibility(View.INVISIBLE);
+            binding.homeEmptyLbl.setVisibility(View.INVISIBLE);
         } else {
-                binding.homeEmptyLottieRecyclerView.setVisibility(View.VISIBLE);
-                binding.homeEmptyLbl.setVisibility(View.VISIBLE);
+            binding.homeEmptyLottieRecyclerView.setVisibility(View.VISIBLE);
+            binding.homeEmptyLbl.setVisibility(View.VISIBLE);
         }
     }
 
@@ -121,10 +118,11 @@ public class HomeFragment extends Fragment
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                if (direction == ItemTouchHelper.END) {//drops subroutine remove from onreform list
+                if (direction == ItemTouchHelper.END) {
                     Habits habits = habitsList.get(viewHolder.getBindingAdapterPosition());
                     habits.setOnReform(false);
                     habitWithSubroutinesViewModel.updateHabit(habits);
+                    homeParentItemAdapter.cancelTimer();
                     homeParentItemAdapter.notifyItemRemoved(viewHolder.getBindingAdapterPosition());
                     Toast.makeText(requireActivity(), "Habit not on reform anymore", Toast.LENGTH_SHORT).show();
                 }
@@ -151,7 +149,7 @@ public class HomeFragment extends Fragment
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
             homeParentItemAdapter.setNewHabitList(habits);
             habitsList = habits;
-            setEmptyRVBackground(habitsList);
+            setEmptyRVBackground(homeParentItemAdapter);
         });
     }
 
@@ -252,8 +250,13 @@ public class HomeFragment extends Fragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+//        addDefaultHabitFragment.setmOnAddDefaultReturnHome(null);
+//        addHabitHomeFragment.setmOnReturnHome(null);
+//        homeItemOnClickFragment.setmOnItemOnClickReturnHome(null);
+//        homeParentItemAdapter.setHomeParentItemOnclickListener(null);
         habitWithSubroutinesViewModel = null;
         habitsList = null;
         binding = null;
+
     }
 }

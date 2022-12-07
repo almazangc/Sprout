@@ -22,6 +22,16 @@ public class ThemeFragment extends Fragment {
 
     private FragmentThemeBinding binding;
 
+    public interface onReturnSetting{
+        void returnFromThemeToSetting();
+    }
+
+    private onReturnSetting mOnReturnSetting;
+
+    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+        this.mOnReturnSetting = mOnReturnSetting;
+    }
+
     public ThemeFragment() {}
 
     @Nullable
@@ -54,11 +64,7 @@ public class ThemeFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                FragmentManager fragmentManager = getChildFragmentManager();
-                SettingFragment settingFragment = new SettingFragment();
-                fragmentManager.beginTransaction().replace(binding.themeFrameLayout.getId(), settingFragment)
-                        .commit();
-                binding.themeContainer.setVisibility(View.GONE);
+                if (mOnReturnSetting != null) mOnReturnSetting.returnFromThemeToSetting();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
