@@ -126,7 +126,7 @@ public class JournalFragment extends Fragment implements JournalOnClickListener 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                //Do Something
+                requireActivity().moveTaskToBack(true);
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

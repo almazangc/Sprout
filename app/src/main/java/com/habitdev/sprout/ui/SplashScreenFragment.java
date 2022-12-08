@@ -1,6 +1,9 @@
 package com.habitdev.sprout.ui;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -11,6 +14,8 @@ import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -21,10 +26,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.activity.startup.Main;
 import com.habitdev.sprout.database.quotes.model.Quotes;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentSplashScreenBinding;
 import com.habitdev.sprout.enums.BundleKeys;
+
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.List;
 import java.util.Random;
@@ -45,7 +53,8 @@ public class SplashScreenFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false);
-        onBackPress();
+        setTheme();
+
 
         FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
         firestoreDB.collection("quotes")
@@ -67,7 +76,33 @@ public class SplashScreenFragment extends Fragment {
                     }
                 });
         checkStatus();
+        onBackPress();
         return binding.getRoot();
+    }
+
+    private void setTheme(){
+        final String SharedPreferences_KEY = "SP_DB";
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
+        Drawable light, dark;
+        int _light, _dark;
+
+        light = ContextCompat.getDrawable(requireContext(), R.color.LIGHT);
+        dark = ContextCompat.getDrawable(requireContext(), R.color.DARK);
+
+        _light = ContextCompat.getColor(requireContext(), R.color.LIGHT);
+        _dark = ContextCompat.getColor(requireContext(), R.color.DARK);
+
+        final String SHARED_PREF_KEY = "THEME";
+        int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
+        if (theme == 1){
+            binding.splashScreenBackground.setBackground(light);
+            binding.appName.setTextColor(_dark);
+            binding.subLbl.setTextColor(_dark);
+        } else if (theme == 2){
+            binding.splashScreenBackground.setBackground(dark);
+            binding.appName.setTextColor(_light);
+            binding.subLbl.setTextColor(_light);
+        }
     }
 
     private void changeQuotes(List<Quotes> quotes) {

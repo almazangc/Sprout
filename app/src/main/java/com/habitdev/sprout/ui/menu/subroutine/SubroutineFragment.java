@@ -113,7 +113,7 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                //Do something
+                requireActivity().moveTaskToBack(true);
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
@@ -12,10 +13,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.activity.startup.Main;
 import com.habitdev.sprout.databinding.FragmentBottomNavigationBinding;
 import com.habitdev.sprout.ui.menu.analytic.AnalyticFragment;
 import com.habitdev.sprout.ui.menu.home.HomeFragment;
@@ -28,6 +31,8 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 public class BottomNavigationFragment extends Fragment {
 
     private FragmentBottomNavigationBinding binding;
+    private SharedPreferences sharedPreferences;
+
     private int last_menu_selected, last_selected_index;
 
     private HomeFragment Home = new HomeFragment();
@@ -50,6 +55,8 @@ public class BottomNavigationFragment extends Fragment {
         nephritis = ContextCompat.getDrawable(requireContext(), R.drawable.background_bottom_bar_view_nephritis);
         bright_sky_blue = ContextCompat.getDrawable(requireContext(), R.drawable.background_bottom_bar_view_brightsky_blue);
         alzarin = ContextCompat.getDrawable(requireContext(), R.drawable.background_bottom_bar_view_alzarin);
+
+        setTheme();
 
         SwipeListener swipeListener = new SwipeListener();
 
@@ -80,6 +87,21 @@ public class BottomNavigationFragment extends Fragment {
             }
         });
         return binding.getRoot();
+    }
+
+    private void setTheme(){
+        final String SharedPreferences_KEY = "SP_DB";
+        sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
+
+        final String SHARED_PREF_KEY = "THEME";
+        int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
+        if (theme == 1){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (theme == 2){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }
     }
 
     @Override

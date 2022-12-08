@@ -84,7 +84,7 @@ public class HomeItemOnClickFragment extends Fragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                requireActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (binding != null) {

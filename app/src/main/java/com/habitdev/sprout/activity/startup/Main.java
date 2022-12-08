@@ -1,10 +1,13 @@
 package com.habitdev.sprout.activity.startup;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -52,13 +55,13 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
+        final String SharedPreferences_KEY = "SP_DB";
+        sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
+
         NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
         // Check the network state before registering for the 'networkCallbackEvents'
         mNetworkMonitoringUtil.checkNetworkState();
         mNetworkMonitoringUtil.registerNetworkCallbackEvents();
-
-        final String SharedPreferences_KEY = "SP_DB";
-        sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
         //need to fetch quotes once only (need to fetch once every week for updates)
         networkStateManager = NetworkStateManager.getInstance();
@@ -68,14 +71,14 @@ public class Main extends AppCompatActivity {
                     if(isConnected){
                         if(!sharedPreferences.contains("isDB_loaded") || (sharedPreferences.contains("isDB_loaded") && sharedPreferences.getBoolean("isDB_loaded", false))){
                             loadFireStoreQuotesCollection();
-                            Log.d("tag", "Main isConnected() called: data is fetch from server");
+//                            Log.d("tag", "Main isConnected() called: data is being fetch from server");
                         } else {
-                            Log.d("tag", "Main isConnected() called: data already available on cache");
+//                            Log.d("tag", "Main isConnected() called: data already available on cache");
                             networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
-                            Log.d("tag", "Main isConnected() called: removed observer");
+//                            Log.d("tag", "Main isConnected() called: removed observer");
                         }
                     } else {
-                        Log.d("tag", "onChanged() called: Main no network connection");
+//                        Log.d("tag", "onChanged() called: Main no network connection");
                     }
                 }
             });

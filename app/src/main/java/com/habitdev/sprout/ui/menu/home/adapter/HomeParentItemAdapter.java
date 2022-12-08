@@ -68,6 +68,32 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
     @Override
     public void onBindViewHolder(@NonNull HomeParentItemAdapter.HabitViewHolder holder, int position) {
         holder.bindHabit(oldHabitList.get(position), homeParentItemOnclickListener);
+
+        DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(oldHabitList.get(holder.getAbsoluteAdapterPosition()).getDate_started());
+        dateTimeElapsedUtil.calculateElapsedDateTime();
+
+        Timer timer = new Timer(); //create new instance of timer
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        dateTimeElapsedUtil.calculateElapsedDateTime();
+                        holder.daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+                    }
+                });
+            }
+        }, 0, 1000);
+
+        holder.drop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                homeParentItemOnclickListener.onClickHabitDrop(oldHabitList.get(holder.getAbsoluteAdapterPosition()));
+                timer.cancel();
+                timer.purge();
+            }
+        });
     }
 
     @Override
@@ -172,23 +198,6 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             completedSubroutine.setText(String.valueOf(habit.getCompleted_subroutine()));
             totalRelapse.setText((String.format(Locale.getDefault(), "%d", habit.getRelapse())));
 
-            DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
-            dateTimeElapsedUtil.calculateElapsedDateTime();
-
-            Timer timer = new Timer(); //create new instance of timer
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            dateTimeElapsedUtil.calculateElapsedDateTime();
-                            daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
-                        }
-                    });
-                }
-            }, 0, 1000);
-
             upVote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Upvote", Toast.LENGTH_SHORT).show();
             });
@@ -197,7 +206,6 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 Toast.makeText(itemView.getContext(), "DownVote", Toast.LENGTH_SHORT).show();
             });
 
-            //TODO: SET on CLick Interface for refactor
             if (habit.isModifiable()) {
                 modify.setOnClickListener(view -> {
                     homeParentItemOnClickListener.onClickHabitModify(habit);
@@ -209,19 +217,6 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             relapse.setOnClickListener(view -> {
                 homeParentItemOnClickListener.onClickHabitRelapse(habit);
                 totalRelapse.setText(String.valueOf(habit.getRelapse()));
-            });
-
-            drop.setOnClickListener(view -> {
-
-            });
-
-            drop.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    homeParentItemOnClickListener.onClickHabitDrop(habit);
-                    timer.cancel();
-                    timer.purge();
-                }
             });
         }
 
