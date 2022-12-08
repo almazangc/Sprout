@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -119,6 +120,7 @@ public class Main extends AppCompatActivity {
                         habitWithSubroutinesViewModel.updateSubroutine(subroutine);
                     }
                 }
+                Toast.makeText(this, dateTimeElapsedUtil.getElapsed_day() + " Day's, resets daily subroutines", Toast.LENGTH_SHORT).show();
             }
         } else {
             String date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
