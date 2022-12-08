@@ -13,21 +13,30 @@
         android:id="@+id/main_nav_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_bar"/>
+        android:layout_above="@id/bottom_bar_view" />
 
-    <nl.joery.animatedbottombar.AnimatedBottomBar
-        android:id="@+id/bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/bottom_bar_view"
+        android:paddingTop="5dp"
+        android:background="@drawable/background_bottom_bar_view_waikawa_grey"
         android:layout_alignParentBottom="true"
-        android:background="@color/A80_CLOUDS"
-        app:abb_indicatorAppearance="round"
-        app:abb_indicatorColor="@color/NIGHT"
-        app:abb_indicatorHeight="4dp"
-        app:abb_indicatorMargin="16dp"
-        app:abb_selectedIndex="0"
-        app:abb_selectedTabType="text"
-        app:abb_tabColor="@color/NIGHT"
-        app:abb_tabColorSelected="@color/NIGHT"
-        app:abb_tabs="@menu/tabs" />
+        android:layout_height="54dp">
+
+        <nl.joery.animatedbottombar.AnimatedBottomBar
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/TRANSPARENT"
+            app:abb_indicatorAppearance="round"
+            app:abb_indicatorColor="@color/NIGHT"
+            app:abb_indicatorHeight="4dp"
+            app:abb_indicatorMargin="16dp"
+            app:abb_selectedIndex="0"
+            app:abb_selectedTabType="text"
+            app:abb_tabColor="@color/NIGHT"
+            app:abb_tabColorSelected="@color/NIGHT"
+            app:abb_tabs="@menu/tabs" />
+    </RelativeLayout>
 </RelativeLayout>

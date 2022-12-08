@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.habitdev.sprout.R;
@@ -28,11 +30,13 @@ public class BottomNavigationFragment extends Fragment {
     private FragmentBottomNavigationBinding binding;
     private int last_menu_selected, last_selected_index;
 
-    protected HomeFragment Home = new HomeFragment();
-    protected SubroutineFragment Subroutine = new SubroutineFragment();
-    protected AnalyticFragment Analytics = new AnalyticFragment();
-    protected JournalFragment Journal = new JournalFragment();
-    protected SettingFragment Settings = new SettingFragment();
+    private HomeFragment Home = new HomeFragment();
+    private SubroutineFragment Subroutine = new SubroutineFragment();
+    private AnalyticFragment Analytics = new AnalyticFragment();
+    private JournalFragment Journal = new JournalFragment();
+    private SettingFragment Settings = new SettingFragment();
+
+    private Drawable amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
     public BottomNavigationFragment() {
     }
@@ -40,6 +44,12 @@ public class BottomNavigationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBottomNavigationBinding.inflate(inflater, container, false);
+
+        amethyst = ContextCompat.getDrawable(requireContext(), R.drawable.background_bottom_bar_view_amethyst);
+        sunflower = ContextCompat.getDrawable(requireContext(), R.drawable.background_bottom_bar_view_sunflower);
+        nephritis = ContextCompat.getDrawable(requireContext(), R.drawable.background_bottom_bar_view_nephritis);
+        bright_sky_blue = ContextCompat.getDrawable(requireContext(), R.drawable.background_bottom_bar_view_brightsky_blue);
+        alzarin = ContextCompat.getDrawable(requireContext(), R.drawable.background_bottom_bar_view_alzarin);
 
         SwipeListener swipeListener = new SwipeListener();
 
@@ -50,6 +60,8 @@ public class BottomNavigationFragment extends Fragment {
                     .replace(binding.mainNavFragmentContainer.getId(), Home)
                     .commit();
             binding.bottomBar.selectTabAt(0, true);
+            binding.bottomBarView.setBackground(alzarin);
+
         } else {
             setMenu(last_menu_selected, last_selected_index);
         }
@@ -98,23 +110,38 @@ public class BottomNavigationFragment extends Fragment {
 
     private void setMenu(int id, int tabID) {
 
-        Fragment fragment;
-
         if (id == R.id.tab_subroutine) {
-            fragment = Subroutine;
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(binding.mainNavFragmentContainer.getId(), Subroutine)
+                    .commit();
+            binding.bottomBarView.setBackground(amethyst);
         } else if (id == R.id.tab_analytic) {
-            fragment = Analytics;
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(binding.mainNavFragmentContainer.getId(), Analytics)
+                    .commit();
+            binding.bottomBarView.setBackground(bright_sky_blue);
         } else if (id == R.id.tab_journal) {
-            fragment = Journal;
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(binding.mainNavFragmentContainer.getId(), Journal)
+                    .commit();
+            binding.bottomBarView.setBackground(nephritis);
         } else if (id == R.id.tab_settings) {
-            fragment = Settings;
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(binding.mainNavFragmentContainer.getId(), Settings)
+                    .commit();
+            binding.bottomBarView.setBackground(sunflower);
         } else {
-            fragment = Home;
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .replace(binding.mainNavFragmentContainer.getId(), Home)
+                    .commit();
+            binding.bottomBarView.setBackground(alzarin);
         }
-        getChildFragmentManager()
-                .beginTransaction()
-                .replace(binding.mainNavFragmentContainer.getId(), fragment)
-                .commit();
+
         binding.bottomBar.selectTabAt(tabID, true);
     }
 
@@ -238,5 +265,15 @@ public class BottomNavigationFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Home = null;
+        Subroutine = null;
+        Analytics = null;
+        Journal = null;
+        Settings = null;
     }
 }
