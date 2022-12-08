@@ -27,6 +27,9 @@ public interface HabitWithSubroutinesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSubroutine(Subroutines subroutine);
 
+    @Query("SELECT * FROM HABITS WHERE pk_habit_uid=:uid")
+    Habits getHabitByUID(long uid);
+
     @Query("SELECT * FROM Habits WHERE on_reform = 1")
     List<Habits> getAllHabitOnReform();
 

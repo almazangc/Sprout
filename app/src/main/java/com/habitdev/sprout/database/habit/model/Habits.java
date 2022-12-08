@@ -42,7 +42,7 @@ public class Habits implements Serializable {
     private int total_subroutine;
 
     @ColumnInfo(name = "completed_subroutines")
-    private final int completed_subroutine;
+    private int completed_subroutine;
 
     @Ignore
     public Habits(String habit, String description, String color, Boolean onReform, Boolean modifiable) {
@@ -158,6 +158,10 @@ public class Habits implements Serializable {
 
     public void setTotal_subroutine(int total_subroutine) {
         this.total_subroutine = total_subroutine;
+    }
+
+    public void setCompleted_subroutine(int completed_subroutine) {
+        this.completed_subroutine = completed_subroutine;
     }
 
     public int getCompleted_subroutine() {

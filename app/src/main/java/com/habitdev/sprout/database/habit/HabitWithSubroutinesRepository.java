@@ -148,6 +148,10 @@ public class HabitWithSubroutinesRepository {
         habitWithSubroutinesDao.insertSubroutine(subroutine);
     }
 
+    public Habits getHabitByUID(long uid){
+        return habitWithSubroutinesDao.getHabitByUID(uid);
+    }
+
     public List<Habits> getAllHabitOnReform() {
         return allHabitOnReform;
     }

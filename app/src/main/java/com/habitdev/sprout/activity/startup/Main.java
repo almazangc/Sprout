@@ -9,12 +9,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
+import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
+import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.NetworkMonitoringUtil;
 import com.habitdev.sprout.utill.NetworkStateManager;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Sprout:  HABIT BUSTER REFORM WITH BITE-SIZE SUBROUTINES
@@ -70,7 +80,7 @@ public class Main extends AppCompatActivity {
                 public void onChanged(Boolean isConnected) {
                     if(isConnected){
                         if(!sharedPreferences.contains("isDB_loaded") || (sharedPreferences.contains("isDB_loaded") && sharedPreferences.getBoolean("isDB_loaded", false))){
-                            loadFireStoreQuotesCollection();
+                            sharedPreferences.edit().putBoolean("isDB_loaded", FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER).isComplete()).apply();
 //                            Log.d("tag", "Main isConnected() called: data is being fetch from server");
                         } else {
 //                            Log.d("tag", "Main isConnected() called: data already available on cache");
@@ -82,11 +92,38 @@ public class Main extends AppCompatActivity {
                     }
                 }
             });
+
+        setDailyDateTracker();
+
         setContentView(binding.getRoot());
     }
 
-    private void loadFireStoreQuotesCollection(){
-        sharedPreferences.edit().putBoolean("isDB_loaded", FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER).isComplete()).apply();
+    private void setDailyDateTracker(){
+        final String DATE_KEY = "DATE";
+        if (sharedPreferences.contains(DATE_KEY)){
+            String date = sharedPreferences.getString(DATE_KEY, "");
+            DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date, 1);
+            dateTimeElapsedUtil.calculateElapsedDateTime();
+
+            if (dateTimeElapsedUtil.getElapsed_day() >= 1){
+                date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
+                sharedPreferences.edit().putString(DATE_KEY, date).apply();
+
+                HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(this).get(HabitWithSubroutinesViewModel.class);
+                List<Habits> habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
+
+                for (Habits habit : habitsList){
+                    List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+                    for (Subroutines subroutine : subroutinesList){
+                        subroutine.setMarkDone(false);
+                        habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                    }
+                }
+            }
+        } else {
+            String date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
+            sharedPreferences.edit().putString(DATE_KEY, date).apply();
+        }
     }
 
     @Override

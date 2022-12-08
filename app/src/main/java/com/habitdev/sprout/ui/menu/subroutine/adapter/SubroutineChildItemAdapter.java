@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.utill.SubroutineDiffUtil;
@@ -29,8 +30,6 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
 
     private List<Subroutines> oldSubroutineList;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-
-
 
     public SubroutineChildItemAdapter() {
 
@@ -124,17 +123,25 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
             itemLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    Habits habit = habitWithSubroutinesViewModel.getHabitByUID(subroutine.getFk_habit_uid());
+
                     if (MarkAsDone.getBackground() == markedAsDone) {
                         isMarkedAsDone(false);
                         subroutine.setMarkDone(false);
-                        habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                        habit.setCompleted_subroutine(habit.getCompleted_subroutine()-1);
+
                     } else if (MarkAsDone.getBackground() == unMarkAsDone) {
                         isMarkedAsDone(true);
                         subroutine.setMarkDone(true);
-                        habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                        habit.setCompleted_subroutine(habit.getCompleted_subroutine()+1);
                     }
+
+                    habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                    habitWithSubroutinesViewModel.updateHabit(habit);
                 }
             });
+
             Title.setText(subroutine.getSubroutine());
             Description.setText(subroutine.getDescription());
 

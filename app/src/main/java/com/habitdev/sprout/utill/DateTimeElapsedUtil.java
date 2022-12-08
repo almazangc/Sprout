@@ -17,6 +17,7 @@ public class DateTimeElapsedUtil {
     private String result;
     private String date_started;
     private int patternType;
+    private long elapsed_day;
 
     public DateTimeElapsedUtil(String date_started) {
         this.date_started = date_started;
@@ -46,6 +47,8 @@ public class DateTimeElapsedUtil {
             long elapsed_days = TimeUnit.MILLISECONDS.toDays(elapsed_time) % 365;
             long elapsed_years = TimeUnit.MILLISECONDS.toDays(elapsed_time) / 365L;
 
+            this.elapsed_day = elapsed_days;
+
             formatResult(elapsed_years, elapsed_days, elapsed_hours, elapsed_minutes, elapsed_seconds);
 
         } catch (ParseException e) {
@@ -62,7 +65,9 @@ public class DateTimeElapsedUtil {
         ).trim();
     }
 
-
+    public long getElapsed_day() {
+        return elapsed_day;
+    }
 
     public String getResult() {
         return result;

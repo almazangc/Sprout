@@ -64,6 +64,10 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         repository.insertSubroutines(subroutinesList);
     }
 
+    public Habits getHabitByUID(long uid){
+        return repository.getHabitByUID(uid);
+    }
+
     public List<Habits> getAllHabitOnReform() {
         return allHabitOnReform;
     }
