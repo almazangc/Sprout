@@ -85,16 +85,19 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <TextView
-            android:id="@+id/journal_empty_lbl"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/journal_empty_lottie_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="italic"
-            android:text="Journal is Currently Empty"
-            android:textColor="@color/NIGHT"
-            android:layout_centerInParent="true"
-            android:textAlignment="center"
-            android:textSize="16sp"/>
+            android:layout_height="match_parent"
+            android:layout_below="@+id/outlinedTextField"
+            android:layout_marginTop="5dp"
+            android:minWidth="150dp"
+            android:minHeight="150dp"
+            android:visibility="invisible"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie_writing_note.json"
+            app:lottie_loop="true"
+            app:lottie_speed="1" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_journal"
@@ -104,10 +107,10 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:contentDescription="Add Note"
             app:backgroundTint="@color/CLOUDS"
             app:borderWidth="5dp"
             app:fabCustomSize="45dp"
-            app:srcCompat="@drawable/ic_add"
-            android:contentDescription="Add Note" />
+            app:srcCompat="@drawable/ic_add"/>
     </RelativeLayout>
 </FrameLayout>

@@ -78,6 +78,9 @@ public class User {
     @ColumnInfo(name = "onBoarding")
     private boolean onBoardingDone;
 
+    @ColumnInfo(name = "dateInstalled")
+    private String dateInstalled;
+
     /**
      * Default Empty Constructor
      */
@@ -86,7 +89,7 @@ public class User {
 
     }
 
-    public User(int uid, String nickname, String identity, int streakCount, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement, boolean assessmentDone, boolean onBoardingDone) {
+    public User(int uid, String nickname, String identity, int streakCount, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement, boolean assessmentDone, boolean onBoardingDone, String dateInstalled) {
         this.uid = uid;
         this.nickname = nickname;
         this.identity = identity;
@@ -98,6 +101,7 @@ public class User {
         this.eulaAgreement = eulaAgreement;
         this.assessmentDone = assessmentDone;
         this.onBoardingDone = onBoardingDone;
+        this.dateInstalled = dateInstalled;
     }
 
     /**
@@ -112,9 +116,10 @@ public class User {
      * @param eulaAgreement boolean value for user agreement to eula
      * @param assessmentDone boolean value for assessment completion checker
      * @param onBoardingDone boolean value for user onboarding completion
+     * @param dateInstalled installed date
      */
     @Ignore
-    public User(String nickname, String identity, int streakCount, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement, boolean assessmentDone, boolean onBoardingDone) {
+    public User(String nickname, String identity, int streakCount, int wakeHour, int wakeMinute, int sleepHour, int sleepMinute, boolean eulaAgreement, boolean assessmentDone, boolean onBoardingDone, String dateInstalled) {
         this.nickname = nickname;
         this.identity = identity;
         this.streakCount = streakCount;
@@ -125,6 +130,7 @@ public class User {
         this.eulaAgreement = eulaAgreement;
         this.assessmentDone = assessmentDone;
         this.onBoardingDone = onBoardingDone;
+        this.dateInstalled = dateInstalled;
     }
 
     /**
@@ -146,6 +152,7 @@ public class User {
                 ", eulaAgreement=" + eulaAgreement +
                 ", assessmentDone=" + assessmentDone +
                 ", onBoardingDone=" + onBoardingDone +
+                ", dateInstalled='" + dateInstalled + '\'' +
                 '}';
     }
 
@@ -191,5 +198,9 @@ public class User {
 
     public boolean isOnBoardingDone() {
         return onBoardingDone;
+    }
+
+    public String getDateInstalled() {
+        return dateInstalled;
     }
 }

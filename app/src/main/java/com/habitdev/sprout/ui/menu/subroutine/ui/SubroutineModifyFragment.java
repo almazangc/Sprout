@@ -14,8 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
@@ -23,7 +24,6 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentSubroutineModifyBinding;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentOnclickListener;
 import com.habitdev.sprout.ui.menu.subroutine.ui.dialog.SubroutineModifyParentItemAdapterDialogFragment;
@@ -81,39 +81,39 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         habitWithSubroutinesViewModel
                 .getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid())
                 .observe(getViewLifecycleOwner(), adapter::setNewSubroutineList);
-        setItemTouchHelper(adapter);
+//        setItemTouchHelper(adapter);
     }
 
-    private void setItemTouchHelper(SubroutineModifyParentItemAdapter adapter) {
-
-//        ItemTouchHelper itemTouchHelper_setup;
-//        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
+//    private void setItemTouchHelper(SubroutineModifyParentItemAdapter adapter) {
 //
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder VH;
-//                VH = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
-//                if (direction == ItemTouchHelper.END) {
-//                    if (mOnSwipeView != null) mOnSwipeView.itemOnSwipeView();
+////        ItemTouchHelper itemTouchHelper_setup;
+////        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
+////            @Override
+////            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+////                return false;
+////            }
+////
+////            @Override
+////            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+////                SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder VH;
+////                VH = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
+////                if (direction == ItemTouchHelper.END) {
+//////                    if (mOnSwipeView != null) mOnSwipeView.itemOnSwipeView();
+////
+////                    if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
+////                        Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(viewHolder.getItemViewType());
+////                        habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
+////                    } else {
+////                        Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
+////                    }
+////                    adapter.notifyItemChanged(VH.getAbsoluteAdapterPosition());
+////                }
+////            }
+////        };
 //
-//                    if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
-//                        Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(viewHolder.getItemViewType());
-//                        habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
-//                    } else {
-//                        Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
-//                    }
-//                    adapter.notifyItemChanged(VH.getAbsoluteAdapterPosition());
-//                }
-//            }
-//        };
+////        itemTouchHelper_setup =  new ItemTouchHelper(simpleCallback);
+////        itemTouchHelper_setup.attachToRecyclerView(binding.subroutineModifyRecyclerView);
 //
-//        itemTouchHelper_setup =  new ItemTouchHelper(simpleCallback);
-//        itemTouchHelper_setup.attachToRecyclerView(binding.subroutineModifyRecyclerView);
-
 //        ItemTouchHelper.Callback itemTouchHelperCallback = new ItemTouchHelper.Callback() {
 //
 //            @Override
@@ -138,11 +138,16 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 //
 //            @Override
 //            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//
 //                SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder VH;
-//                VH = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
+//
+//                if (viewHolder instanceof SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder){
+//                    VH = (SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder) viewHolder;
+//
+//                }
 //
 //                if (direction == ItemTouchHelper.END) {
-//                    if (mOnSwipeView != null) mOnSwipeView.itemOnSwipeView();
+////                    if (mOnSwipeView != null) mOnSwipeView.itemOnSwipeView();
 //
 //                    if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
 //                        Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(viewHolder.getItemViewType());
@@ -150,18 +155,18 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 //                    } else {
 //                        Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
 //                    }
-//                    adapter.notifyItemChanged(VH.getAbsoluteAdapterPosition());
+//                    adapter.notifyItemChanged(viewHolder.getAbsoluteAdapterPosition());
 //                }
 //            }
 //        };
-//        itemTouchHelper_setup = new ItemTouchHelper(itemTouchHelperCallback);
-//        itemTouchHelper_setup.attachToRecyclerView(this.binding.subroutineModifyRecyclerView);
-    }
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+//        itemTouchHelper.attachToRecyclerView(binding.subroutineModifyRecyclerView);
+//    }
 
     private void setHabitTitleBackground() {
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
         cloud = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_cloud);
-        amethyst = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_amethyst);
+        amethyst = ContextCompat.getDrawable(requireContext(), R.drawable.background_top_bar_view_amethyst);
         sunflower = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_sunflower);
         nephritis = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_nephritis);
         bright_sky_blue = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_brightsky_blue);

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3a3c3726bf597f7b59bde912a9a761d3",
+    "identityHash": "6fb4439f01a28a28516dffd08c9e1cb4",
     "entities": [
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT, `identity` TEXT, `streakCount` INTEGER NOT NULL, `wake_hour` INTEGER NOT NULL, `wake_minute` INTEGER NOT NULL, `sleep_hour` INTEGER NOT NULL, `sleep_minute` INTEGER NOT NULL, `eula` INTEGER NOT NULL, `assessment` INTEGER NOT NULL, `onBoarding` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT, `identity` TEXT, `streakCount` INTEGER NOT NULL, `wake_hour` INTEGER NOT NULL, `wake_minute` INTEGER NOT NULL, `sleep_hour` INTEGER NOT NULL, `sleep_minute` INTEGER NOT NULL, `eula` INTEGER NOT NULL, `assessment` INTEGER NOT NULL, `onBoarding` INTEGER NOT NULL, `dateInstalled` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -73,6 +73,12 @@
             "columnName": "onBoarding",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "dateInstalled",
+            "columnName": "dateInstalled",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -516,7 +522,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3a3c3726bf597f7b59bde912a9a761d3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6fb4439f01a28a28516dffd08c9e1cb4')"
     ]
   }
 }

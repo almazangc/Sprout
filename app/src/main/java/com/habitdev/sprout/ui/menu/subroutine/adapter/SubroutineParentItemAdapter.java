@@ -82,6 +82,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
         SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter();
         childAdapterItem.setOldSubroutineList(habitWithSubroutines);
+        childAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
         holder.childRecycleView.setAdapter(childAdapterItem);
 
         habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(subroutineLifecycleOwner, childAdapterItem::setNewSubroutineList);

@@ -16,7 +16,7 @@
         android:layout_above="@id/bottom_bar_view" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:id="@+id/bottom_bar_view"
         android:paddingTop="5dp"
         android:background="@drawable/background_bottom_bar_view_waikawa_grey"
@@ -28,10 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/TRANSPARENT"
             app:abb_indicatorAppearance="round"
             app:abb_indicatorColor="@color/NIGHT"
             app:abb_indicatorHeight="4dp"
+            android:background="@color/TRANSPARENT"
             app:abb_indicatorMargin="16dp"
             app:abb_selectedIndex="0"
             app:abb_selectedTabType="text"

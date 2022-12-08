@@ -55,7 +55,7 @@ public class JournalFragment extends Fragment implements JournalOnClickListener 
         noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> {
             journalNoteItemAdapter.setNewNoteList(notes);
             noteList = notes;
-            setEmptyJournalLbl();
+            setEmptyJournalView();
         });
         onSwipeRefresh();
     }
@@ -105,11 +105,11 @@ public class JournalFragment extends Fragment implements JournalOnClickListener 
         changeFragment(fragment);
     }
 
-    private void setEmptyJournalLbl() {
+    private void setEmptyJournalView() {
         if (noteList.isEmpty()) {
-            binding.journalEmptyLbl.setVisibility(View.VISIBLE);
+            binding.journalEmptyLottieRecyclerView.setVisibility(View.VISIBLE);
         } else {
-            binding.journalEmptyLbl.setVisibility(View.GONE);
+            binding.journalEmptyLottieRecyclerView.setVisibility(View.INVISIBLE);
         }
     }
 

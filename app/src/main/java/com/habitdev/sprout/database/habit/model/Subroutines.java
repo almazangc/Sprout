@@ -37,7 +37,7 @@ public class Subroutines implements Serializable {
     private Boolean isModifiable;
 
     @ColumnInfo(name = "isMarkedDone")
-    private boolean is_marked_done;
+    private boolean isMarkDone;
 
     @ColumnInfo(name = "streak")
     private int streak;
@@ -54,20 +54,20 @@ public class Subroutines implements Serializable {
         this.description = description;
         this.color = color;
         this.isModifiable = isModifiable;
-        this.is_marked_done = false;
+        this.isMarkDone = false;
         this.streak = 0;
         this.total_streak = 0;
         this.skips = 0;
     }
 
-    public Subroutines(long pk_subroutine_uid, long fk_habit_uid, String subroutine, String description, String color, Boolean isModifiable, boolean is_marked_done, int streak, int total_streak, int skips) {
+    public Subroutines(long pk_subroutine_uid, long fk_habit_uid, String subroutine, String description, String color, Boolean isModifiable, boolean isMarkDone, int streak, int total_streak, int skips) {
         this.pk_subroutine_uid = pk_subroutine_uid;
         this.fk_habit_uid = fk_habit_uid;
         this.subroutine = subroutine;
         this.description = description;
         this.color = color;
         this.isModifiable = isModifiable;
-        this.is_marked_done = is_marked_done;
+        this.isMarkDone = isMarkDone;
         this.streak = streak;
         this.total_streak = total_streak;
         this.skips = skips;
@@ -83,7 +83,7 @@ public class Subroutines implements Serializable {
                 ", description='" + description + '\'' +
                 ", color='" + color + '\'' +
                 ", isModifiable=" + isModifiable +
-                ", is_marked_done=" + is_marked_done +
+                ", is_marked_done=" + isMarkDone +
                 ", streak=" + streak +
                 ", total_streak=" + total_streak +
                 ", skips=" + skips +
@@ -138,12 +138,16 @@ public class Subroutines implements Serializable {
         isModifiable = modifiable;
     }
 
-    public boolean isIs_marked_done() {
-        return is_marked_done;
+    public boolean is_marked_done() {
+        return isMarkDone;
     }
 
-    public void setIs_marked_done(boolean is_marked_done) {
-        this.is_marked_done = is_marked_done;
+    public boolean isMarkDone() {
+        return isMarkDone;
+    }
+
+    public void setMarkDone(boolean markDone) {
+        isMarkDone = markDone;
     }
 
     public int getStreak() {

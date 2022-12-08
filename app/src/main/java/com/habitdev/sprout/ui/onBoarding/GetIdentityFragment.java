@@ -19,6 +19,10 @@ import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentGetIdentityBinding;
 import com.habitdev.sprout.enums.BundleKeys;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class GetIdentityFragment extends Fragment {
 
     // View Binding
@@ -85,7 +89,8 @@ public class GetIdentityFragment extends Fragment {
 
     private void addUser() {
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        userViewModel.insert(new User(nickname, identity, 0 , wakeHour, wakeMinute, sleepHour, sleepMinute, eula, false, false));
+        String  currentDate = new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault()).format(new Date());
+        userViewModel.insert(new User(nickname, identity, 0 , wakeHour, wakeMinute, sleepHour, sleepMinute, eula, false, false, currentDate));
     }
 
     @Override

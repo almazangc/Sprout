@@ -13,34 +13,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/theme_card_view"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            app:cardElevation="10dp">
+            android:id="@+id/theme_top_bar"
+            android:background="@drawable/background_topbar_view_alzarin"
+            android:layout_height="?android:attr/actionBarSize">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/settingTitle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/theme_setting"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="Setting"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Setting"
+                android:textColor="@color/NIGHT"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/theme_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/theme_card_view"
+            android:layout_below="@id/theme_top_bar"
             android:layout_centerInParent="true"
             android:gravity="center">
 
@@ -71,7 +66,7 @@
 
                 <RadioButton
                     android:id="@+id/systemTheme"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:button="@drawable/selector_radio_btn_checked_state"
@@ -81,7 +76,7 @@
 
                 <RadioButton
                     android:id="@+id/lightTheme"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:button="@drawable/selector_radio_btn_checked_state"
@@ -91,7 +86,7 @@
 
                 <RadioButton
                     android:id="@+id/DarkTheme"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:button="@drawable/selector_radio_btn_checked_state"

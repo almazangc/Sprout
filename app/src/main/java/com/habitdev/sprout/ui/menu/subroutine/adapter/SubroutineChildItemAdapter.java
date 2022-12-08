@@ -1,6 +1,9 @@
 package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
+import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.utill.SubroutineDiffUtil;
@@ -23,10 +27,17 @@ import java.util.List;
 
 public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineChildItemAdapter.ChildItemViewHolder> {
 
-    List<Subroutines> oldSubroutineList;
+    private List<Subroutines> oldSubroutineList;
+    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+
+
 
     public SubroutineChildItemAdapter() {
 
+    }
+
+    public void setHabitWithSubroutinesViewModel(HabitWithSubroutinesViewModel habitWithSubroutinesViewModel) {
+        this.habitWithSubroutinesViewModel = habitWithSubroutinesViewModel;
     }
 
     public void setOldSubroutineList(List<Subroutines> oldSubroutineList) {
@@ -43,7 +54,7 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
 
     @Override
     public void onBindViewHolder(@NonNull SubroutineChildItemAdapter.ChildItemViewHolder holder, int position) {
-        holder.bindDate(oldSubroutineList.get(position));
+        holder.bindDate(oldSubroutineList.get(position), habitWithSubroutinesViewModel);
     }
 
     @Override
@@ -69,6 +80,7 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
         TextView Title, Description;
         Button UpVote, DownVote, MarkAsDone;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+        Drawable markedAsDone, unMarkAsDone;
 
         public ChildItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,9 +98,13 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
             nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
             bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
+
+            markedAsDone = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_done);
+            unMarkAsDone = ContextCompat.getDrawable(itemView.getContext(), R.drawable.ic_not_done);
         }
 
-        void bindDate(Subroutines subroutine) {
+        void bindDate(Subroutines subroutine, HabitWithSubroutinesViewModel habitWithSubroutinesViewModel) {
+
             if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemLayout.setBackground(alzarin);
             } else if (subroutine.getColor().equals(AppColor.AMETHYST.getColor())) {
@@ -103,6 +119,22 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
                 itemLayout.setBackground(cloud);
             }
 
+            isMarkedAsDone(subroutine.is_marked_done());
+
+            itemLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (MarkAsDone.getBackground() == markedAsDone) {
+                        isMarkedAsDone(false);
+                        subroutine.setMarkDone(false);
+                        habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                    } else if (MarkAsDone.getBackground() == unMarkAsDone) {
+                        isMarkedAsDone(true);
+                        subroutine.setMarkDone(true);
+                        habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                    }
+                }
+            });
             Title.setText(subroutine.getSubroutine());
             Description.setText(subroutine.getDescription());
 
@@ -113,10 +145,18 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
             DownVote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "DownVote", Toast.LENGTH_SHORT).show();
             });
+        }
 
-            MarkAsDone.setOnClickListener(view -> {
-                Toast.makeText(itemView.getContext(), "Marked as Done", Toast.LENGTH_SHORT).show();
-            });
+        void isMarkedAsDone(boolean isMarkedAsDone){
+            if (isMarkedAsDone){
+                MarkAsDone.setBackground(markedAsDone);
+                Title.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                Description.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            } else {
+                MarkAsDone.setBackground(unMarkAsDone);
+                Title.setPaintFlags(Paint.ANTI_ALIAS_FLAG);
+                Description.setPaintFlags(Paint.ANTI_ALIAS_FLAG);
+            }
         }
     }
 }

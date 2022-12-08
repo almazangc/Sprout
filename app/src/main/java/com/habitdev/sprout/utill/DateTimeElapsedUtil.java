@@ -16,18 +16,27 @@ public class DateTimeElapsedUtil {
 
     private String result;
     private String date_started;
+    private int patternType;
 
     public DateTimeElapsedUtil(String date_started) {
         this.date_started = date_started;
+        this.patternType = 0;
+    }
+
+    public DateTimeElapsedUtil(String date_started, int patternType) {
+        this.date_started = date_started;
+        this.patternType = patternType;
     }
 
     public void calculateElapsedDateTime() {
 
-        SimpleDateFormat simpleDateFormatPattern = new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault());
+        SimpleDateFormat[] simpleDateFormatPattern = new SimpleDateFormat[2];
+        simpleDateFormatPattern [0] = new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault());
+        simpleDateFormatPattern [1] = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
 
         try {
-            Date start_date = simpleDateFormatPattern.parse(date_started);
-            Date current_date = simpleDateFormatPattern.parse((simpleDateFormatPattern.format(System.currentTimeMillis())));
+            Date start_date = simpleDateFormatPattern[patternType].parse(date_started);
+            Date current_date = simpleDateFormatPattern[patternType].parse((simpleDateFormatPattern[patternType].format(System.currentTimeMillis())));
 
             long elapsed_time = current_date.getTime() - start_date.getTime();
 
@@ -52,6 +61,8 @@ public class DateTimeElapsedUtil {
                 + (s == 0 ? "00" : (s > 9) ? s + "" : "0" + s + "")
         ).trim();
     }
+
+
 
     public String getResult() {
         return result;

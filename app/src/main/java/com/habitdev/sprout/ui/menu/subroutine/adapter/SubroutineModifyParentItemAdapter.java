@@ -40,7 +40,7 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
     @NonNull
     @Override
     public SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SubroutineModifyViewHolder(
+        return new SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_subroutine_modify_parent_item, parent, false), mSubroutineModifyParentOnclickListener
         );
     }

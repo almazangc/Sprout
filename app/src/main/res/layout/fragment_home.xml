@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Habit on reform"
+                android:text="Habit's on Reform"
                 android:textColor="@color/NIGHT"
                 android:textSize="20sp"
                 android:textStyle="bold" />
