@@ -16,6 +16,9 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     List<User> getAllUser();
 
+    @Query("SELECT * FROM User WHERE uid=:num")
+    User getUserByUID(long num);
+
     @Query("SELECT * FROM user")
     LiveData<List<User>> getAllUserLiveData();
 

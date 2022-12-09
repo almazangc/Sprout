@@ -47,6 +47,10 @@ public class UserViewModel extends AndroidViewModel {
         return userListLiveData;
     }
 
+    public User getUserByUID(long num){
+        return repository.getUserByUID(num);
+    }
+
     public List<User> getUserList() {
         return userList;
     }

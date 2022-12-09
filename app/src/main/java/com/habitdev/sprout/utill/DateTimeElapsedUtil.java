@@ -57,11 +57,11 @@ public class DateTimeElapsedUtil {
     }
 
     private void formatResult(long y, long d, long h, long m, long s) {
-        result = ((y == 0 ? "" : y + ((y > 1) ? y + " year's " : y + " year "))
-                + (d == 0 ? "" : (d > 1) ? d + " Days, " : d + " Day, ")
-                + (h == 0 ? "00:" : (h > 9) ? h + ":" : "0" + h + ":")
-                + (m == 0 ? "00:" : (m > 9) ? m + ":" : "0" + m + ":")
-                + (s == 0 ? "00" : (s > 9) ? s + "" : "0" + s + "")
+        result = ((y == 0 ? "" : y + ((y > 1) ? y + " Year's " : y + " Years "))
+                + (d == 0 ? "" : (d > 1) ? d + " Days " : d + " Day ")
+                + (h == 0 ? "" : (h > 9) ? h + " Hours " : "0" + h + " Hours ")
+                + (m == 0 ? "" : (m > 9) ? m + " Minutes " : "0" + m + " Minutes ")
+                + (s == 0 ? "" : (s > 9) ? s + " Seconds " : "0" + s + " Seconds")
         ).trim();
     }
 

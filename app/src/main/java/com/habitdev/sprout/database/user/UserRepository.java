@@ -51,6 +51,10 @@ public class UserRepository {
         return userListLiveData;
     }
 
+    public User getUserByUID(long num){
+        return userDao.getUserByUID(num);
+    }
+
     public List<User> getUserList() {
         return userList;
     }
