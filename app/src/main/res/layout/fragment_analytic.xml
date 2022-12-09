@@ -24,45 +24,37 @@
                 android:textStyle="bold" />
         </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_below="@id/analytic_top_bar"
-        android:layout_height="match_parent">
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barchart"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/analytic_top_bar"
+            android:fillViewport="true">
 
-        </com.github.mikephil.charting.charts.BarChart>
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/analysis_container">
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/analytic_content"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_below="@id/analytic_top_bar"-->
-<!--        android:layout_height="match_parent">-->
+                <TextView
+                    android:id="@+id/date_since_installed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    tools:text="Sample Text" />
 
-<!--        <com.airbnb.lottie.LottieAnimationView-->
-<!--            android:id="@+id/lottie_main"-->
-<!--            android:layout_width="300dp"-->
-<!--            android:layout_height="300dp"-->
-<!--            android:layout_centerInParent="true"-->
-<!--            app:lottie_autoPlay="true"-->
-<!--            app:lottie_fileName="lottie_anim_under-construction.json"-->
-<!--            app:lottie_loop="true"-->
-<!--            app:lottie_speed="1"-->
-<!--            tools:background="@color/WAIKAWA_GREY" />-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/date_since_installed"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    tools:listitem="@layout/adapter_analytic_parent_item"
+                    android:id="@+id/analytic_habit_on_reform_recycler_view"/>
+            </RelativeLayout>
 
-<!--        <TextView-->
-<!--            style="@style/textViewHeader"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/lottie_main"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginTop="-90dp"-->
-<!--            android:textColor="@color/NIGHT"-->
-<!--            android:text="ANALYTICS" />-->
-
-<!--    </RelativeLayout>-->
+        </ScrollView>
 </RelativeLayout>

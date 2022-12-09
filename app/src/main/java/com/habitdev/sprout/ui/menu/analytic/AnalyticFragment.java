@@ -41,10 +41,10 @@ public class AnalyticFragment extends Fragment {
 //        barEntries.add(2, new BarEntry(3,7));
 //        barEntries.add(2, new BarEntry(2,4));
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Testing MPL CHARTS");
-        BarData barData = new BarData(barDataSet);
-
-        binding.barchart.setData(barData);
+//        BarDataSet barDataSet = new BarDataSet(barEntries, "Testing MPL CHARTS");
+//        BarData barData = new BarData(barDataSet);
+//
+//        binding.barchart.setData(barData);
 //        barChart.invalidate();
 
         onBackPress();

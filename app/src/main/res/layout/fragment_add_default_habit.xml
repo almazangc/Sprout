@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:id="@+id/add_from_default_habit_container"
         android:layout_width="match_parent"

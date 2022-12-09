@@ -106,6 +106,9 @@ public class Main extends AppCompatActivity {
             DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date, 1);
             dateTimeElapsedUtil.calculateElapsedDateTime();
 
+            long num = dateTimeElapsedUtil.getElapsed_day();
+            System.out.println(num);
+
             if (dateTimeElapsedUtil.getElapsed_day() >= 1){
                 date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
                 sharedPreferences.edit().putString(DATE_KEY, date).apply();
