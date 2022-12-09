@@ -332,6 +332,7 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mOnAddDefaultReturnHome = null;
         habitWithSubroutinesViewModel = null;
         habitsList = null;
         binding = null;

@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -90,6 +91,7 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
         getChildFragmentManager().beginTransaction()
                 .addToBackStack(SubroutineFragment.this.getTag())
                 .add(binding.subroutineFrameLayout.getId(), subroutineModifyFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                 .commit();
         binding.subroutineContainer.setVisibility(View.GONE);
     }
@@ -102,6 +104,7 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
         getChildFragmentManager()
                 .beginTransaction()
                 .remove(subroutineModifyFragment)
+                .setTransition(FragmentTransaction.TRANSIT_NONE)
                 .commit();
         binding.subroutineContainer.setVisibility(View.VISIBLE);
     }

@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class DateTimeElapsedUtil {
 
     private String result;
-    private String date_started;
-    private int patternType;
+    private final String date_started;
+    private final int patternType;
     private long elapsed_day;
 
     public DateTimeElapsedUtil(String date_started) {
@@ -39,7 +39,7 @@ public class DateTimeElapsedUtil {
             Date start_date = simpleDateFormatPattern[patternType].parse(date_started);
             Date current_date = simpleDateFormatPattern[patternType].parse((simpleDateFormatPattern[patternType].format(System.currentTimeMillis())));
 
-            long elapsed_time = current_date.getTime() - start_date.getTime();
+            long elapsed_time = current_date.getTime() - start_date.getTime(); //assert null
 
             long elapsed_seconds = TimeUnit.MILLISECONDS.toSeconds(elapsed_time) % 60;
             long elapsed_minutes = TimeUnit.MILLISECONDS.toMinutes(elapsed_time) % 60;

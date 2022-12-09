@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.activity.startup.Main;
@@ -66,6 +67,7 @@ public class BottomNavigationFragment extends Fragment {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Home)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
             binding.bottomBar.selectTabAt(0, true);
             binding.bottomBarView.setBackground(alzarin);
@@ -137,30 +139,35 @@ public class BottomNavigationFragment extends Fragment {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Subroutine)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
             binding.bottomBarView.setBackground(amethyst);
         } else if (id == R.id.tab_analytic) {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Analytics)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
             binding.bottomBarView.setBackground(bright_sky_blue);
         } else if (id == R.id.tab_journal) {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Journal)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
             binding.bottomBarView.setBackground(nephritis);
         } else if (id == R.id.tab_settings) {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Settings)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
             binding.bottomBarView.setBackground(sunflower);
         } else {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Home)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
             binding.bottomBarView.setBackground(alzarin);
         }

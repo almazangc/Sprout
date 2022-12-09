@@ -27,8 +27,6 @@
             android:layout_marginEnd="8dp"
             android:text="Note_Title"
             android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:textColor="@color/NIGHT"
             android:textSize="16sp" />
 
@@ -41,8 +39,6 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
             android:textStyle="italic"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:text="noteSubTitle"
             android:textColor="@color/NIGHT"
             android:textSize="13sp" />
@@ -54,8 +50,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
-            android:maxLines="10"
-            android:ellipsize="end"
             android:text="Note Contents Goes here"
             android:textColor="@color/NIGHT"
             android:textSize="11sp" />

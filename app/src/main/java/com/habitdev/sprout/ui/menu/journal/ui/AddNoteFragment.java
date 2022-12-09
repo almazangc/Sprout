@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
@@ -22,6 +24,7 @@ import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentAddNoteBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
+import com.habitdev.sprout.ui.menu.journal.JournalFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,7 +41,9 @@ public class AddNoteFragment extends Fragment {
     private Note note;
     private Bundle bundle;
 
-    public AddNoteFragment() {}
+    public AddNoteFragment() {
+
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +69,7 @@ public class AddNoteFragment extends Fragment {
         if (bundle != null) {
             binding.fabDeleteNote.setVisibility(View.VISIBLE);
             binding.fabSaveNote.setImageResource(R.drawable.ic_save);
+            Log.d("tag", "setFabDisplay: ");
         } else {
             binding.fabDeleteNote.setVisibility(View.GONE);
             binding.fabSaveNote.setImageResource(R.drawable.ic_check);
@@ -126,37 +132,31 @@ public class AddNoteFragment extends Fragment {
         binding.cloudMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(0);
             setSelected_color();
-            Toast.makeText(requireActivity(), "Cloud", Toast.LENGTH_SHORT).show();
         });
 
         binding.alzarinMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(1);
             setSelected_color();
-            Toast.makeText(requireActivity(), "Alzarin", Toast.LENGTH_SHORT).show();
         });
 
         binding.amethystMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(2);
             setSelected_color();
-            Toast.makeText(requireActivity(), "Amethyst", Toast.LENGTH_SHORT).show();
         });
 
         binding.brightskyBlueMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(3);
             setSelected_color();
-            Toast.makeText(requireActivity(), "BrightSky Blue", Toast.LENGTH_SHORT).show();
         });
 
         binding.nephritisMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(4);
             setSelected_color();
-            Toast.makeText(requireActivity(), "Nephritis", Toast.LENGTH_SHORT).show();
         });
 
         binding.sunflowerMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(5);
             setSelected_color();
-            Toast.makeText(requireActivity(), "Sunflower", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -312,11 +312,14 @@ public class AddNoteFragment extends Fragment {
     }
 
     private void validateNote() {
+        final String REQUIRED = "Required*";
+        final String NO_TITLE = "Title is empty*";
+        final String NO_CONTENT = "Content description is empty*";
         binding.noteTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty()) {
-                    binding.noteHint.setText("Required*");
+                    binding.noteHint.setText(REQUIRED);
                 }
             }
 
@@ -326,10 +329,10 @@ public class AddNoteFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()) {
-                    binding.noteHint.setText("Title is empty*");
+                    binding.noteHint.setText(NO_TITLE);
                 } else {
                     if (binding.noteContent.getText().toString().trim().isEmpty()) {
-                        binding.noteHint.setText("Note Content is empty*");
+                        binding.noteHint.setText(NO_CONTENT);
                     } else {
                         binding.noteHint.setText("");
                     }
@@ -340,7 +343,7 @@ public class AddNoteFragment extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty()) {
-                    binding.noteHint.setText("Required*");
+                    binding.noteHint.setText(REQUIRED);
                 }
             }
 
@@ -350,10 +353,10 @@ public class AddNoteFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()) {
-                    binding.noteHint.setText("Note Content is empty*");
+                    binding.noteHint.setText(NO_CONTENT);
                 } else {
                     if (binding.noteTitle.getText().toString().trim().isEmpty()) {
-                        binding.noteHint.setText("Title is empty*");
+                        binding.noteHint.setText(NO_TITLE);
                     } else {
                         binding.noteHint.setText("");
                     }
@@ -374,7 +377,8 @@ public class AddNoteFragment extends Fragment {
 
     private void gotoJournalFragment() {
         getChildFragmentManager().beginTransaction()
-//                .replace(binding.addNewNoteFrameLayout.getId(), new JournalFragment())
+                .replace(binding.addNewNoteFrameLayout.getId(), new JournalFragment())
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
         binding.addNewNoteContainer.setVisibility(View.GONE);
     }

@@ -10,26 +10,34 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.DialogFragmentHomeParentItemAdapterModifyBinding;
+import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 
 import java.util.Objects;
 
 public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     private DialogFragmentHomeParentItemAdapterModifyBinding binding;
-    private final HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private Habits habitOnModify;
+    private final int position;
     private final String habit_title_snapshot;
     private final String habit_description_snapshot;
 
-    public HomeParentItemAdapterModifyDialogFragment(HabitWithSubroutinesViewModel habitWithSubroutinesViewModel, Habits habitOnModify) {
-        this.habitWithSubroutinesViewModel = habitWithSubroutinesViewModel;
+    private HomeParentItemAdapter adapter_ref;
+
+    public void setAdapter_ref(HomeParentItemAdapter adapter_ref) {
+        this.adapter_ref = adapter_ref;
+    }
+
+    public HomeParentItemAdapterModifyDialogFragment(Habits habitOnModify, int position) {
         this.habitOnModify = habitOnModify;
         this.habit_title_snapshot = habitOnModify.getHabit();
         this.habit_description_snapshot = habitOnModify.getDescription();
+        this.position = position;
     }
 
     @Nullable
@@ -48,11 +56,14 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     }
 
     private void validateHabit(){
+        final String REQUIRED = "Required*";
+        final String NO_TITLE = "Title is empty*";
+        final String NO_DESCRIPTION = "Description is empty*";
         binding.homeParentItemAdapterModifyTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty())
-                    binding.homeParentItemAdapterModifyHint.setText("Required*");
+                    binding.homeParentItemAdapterModifyHint.setText(REQUIRED);
             }
 
             @Override
@@ -61,10 +72,10 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()){
-                    binding.homeParentItemAdapterModifyHint.setText("Title is empty*");
+                    binding.homeParentItemAdapterModifyHint.setText(NO_TITLE);
                 } else {
                     if (binding.homeParentItemAdapterModifyDescription.getText().toString().trim().isEmpty()) {
-                        binding.homeParentItemAdapterModifyHint.setText("Description is empty*");
+                        binding.homeParentItemAdapterModifyHint.setText(NO_DESCRIPTION);
                     } else {
                         binding.homeParentItemAdapterModifyHint.setText("");
                     }
@@ -76,7 +87,7 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty())
-                    binding.homeParentItemAdapterModifyHint.setText("Required*");
+                    binding.homeParentItemAdapterModifyHint.setText(REQUIRED);
             }
 
             @Override
@@ -85,10 +96,10 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()){
-                    binding.homeParentItemAdapterModifyHint.setText("Description is empty*");
+                    binding.homeParentItemAdapterModifyHint.setText(NO_DESCRIPTION);
                 } else {
                     if (binding.homeParentItemAdapterModifyTitle.getText().toString().trim().isEmpty()) {
-                        binding.homeParentItemAdapterModifyHint.setText("Title is empty*");
+                        binding.homeParentItemAdapterModifyHint.setText(NO_TITLE);
                     } else {
                         binding.homeParentItemAdapterModifyHint.setText("");
                     }
@@ -107,7 +118,9 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
             if (binding.homeParentItemAdapterModifyHint.getText().toString().trim().isEmpty()) {
                 habitOnModify.setHabit(binding.homeParentItemAdapterModifyTitle.getText().toString().trim());
                 habitOnModify.setDescription(binding.homeParentItemAdapterModifyDescription.getText().toString().trim());
+                HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
                 habitWithSubroutinesViewModel.updateHabit(habitOnModify);
+                adapter_ref.notifyItemChanged(position);
                 Objects.requireNonNull(getDialog()).dismiss();
             }
         });

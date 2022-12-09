@@ -1,7 +1,6 @@
 package com.habitdev.sprout.ui.menu.home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -85,8 +85,8 @@ public class HomeFragment extends Fragment
 //        recyclerViewItemTouchHelper(homeParentItemAdapter);
     }
 
-    private void setEmptyRVBackground(HomeParentItemAdapter adapter){
-        if (adapter.getItemCount() > 0){
+    private void setEmptyRVBackground(HomeParentItemAdapter adapter) {
+        if (adapter.getItemCount() > 0) {
             binding.homeEmptyLottieRecyclerView.setVisibility(View.INVISIBLE);
             binding.homeEmptyLbl.setVisibility(View.INVISIBLE);
         } else {
@@ -164,13 +164,15 @@ public class HomeFragment extends Fragment
                 .beginTransaction()
                 .addToBackStack(HomeFragment.this.getTag())
                 .replace(binding.homeFrameLayout.getId(), homeItemOnClickFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                 .commit();
         binding.homeContainer.setVisibility(View.GONE);
     }
 
     @Override
-    public void onClickHabitModify(Habits habit) {
-        HomeParentItemAdapterModifyDialogFragment dialog = new HomeParentItemAdapterModifyDialogFragment(habitWithSubroutinesViewModel, habit);
+    public void onClickHabitModify(Habits habit, int position) {
+        HomeParentItemAdapterModifyDialogFragment dialog = new HomeParentItemAdapterModifyDialogFragment(habit, position);
+        dialog.setAdapter_ref(homeParentItemAdapter);
         dialog.setTargetFragment(getChildFragmentManager().findFragmentById(HomeFragment.this.getId()), 1);
         dialog.show(getChildFragmentManager(), "Modify Habit Dialog");
     }
@@ -211,6 +213,7 @@ public class HomeFragment extends Fragment
                             .beginTransaction()
                             .addToBackStack(HomeFragment.this.getTag())
                             .add(binding.homeFrameLayout.getId(), addDefaultHabitFragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                             .commit();
                     binding.homeContainer.setVisibility(View.GONE);
                 }
@@ -221,6 +224,7 @@ public class HomeFragment extends Fragment
                             .beginTransaction()
                             .addToBackStack(HomeFragment.this.getTag())
                             .add(binding.homeFrameLayout.getId(), addNewHabitHomeFragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                             .commit();
                     binding.homeContainer.setVisibility(View.GONE);
                 }
@@ -253,6 +257,7 @@ public class HomeFragment extends Fragment
         getChildFragmentManager()
                 .beginTransaction()
                 .remove(fragment)
+                .setTransition(FragmentTransaction.TRANSIT_NONE)
                 .commit();
         binding.homeContainer.setVisibility(View.VISIBLE);
     }

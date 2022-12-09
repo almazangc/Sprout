@@ -513,6 +513,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mOnAddNewHabitReturnHome = null;
         habitWithSubroutinesViewModel.getAllUserDefinedHabitListLiveData().removeObservers(getViewLifecycleOwner());
         habitWithSubroutinesViewModel = null;
         binding = null;

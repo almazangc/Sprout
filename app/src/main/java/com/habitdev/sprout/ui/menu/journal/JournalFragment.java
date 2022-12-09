@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -28,7 +29,6 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
     private FragmentJournalBinding binding;
     private JournalNoteItemAdapter journalNoteItemAdapter;
     private List<Note> noteList;
-    private AddNoteFragment addNoteFragment = new AddNoteFragment();
 
     public JournalFragment() {}
 
@@ -59,7 +59,7 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
     }
 
     private void fabOnClick() {
-        binding.fabJournal.setOnClickListener(v -> changeFragment());
+        binding.fabJournal.setOnClickListener(v -> changeFragment(new AddNoteFragment()));
     }
 
     private void onSwipeRefresh() {
@@ -100,7 +100,7 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
         Note note = noteList.get(position);
         bundle.putSerializable(BundleKeys.JOURNAL_NOTE.getKEY(), note);
         fragment.setArguments(bundle);
-        changeFragment();
+        changeFragment(fragment);
     }
 
     private void setEmptyJournalView() {
@@ -112,11 +112,11 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
     }
 
 
-    private void changeFragment() {
+    private void changeFragment(Fragment fragment) {
         getChildFragmentManager()
                 .beginTransaction()
-                .addToBackStack(JournalFragment.this.getTag())
-                .add(binding.journalFrameLayout.getId(), addNoteFragment)
+                .replace(binding.journalFrameLayout.getId(), fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                 .commit();
         binding.journalContainer.setVisibility(View.GONE);
     }

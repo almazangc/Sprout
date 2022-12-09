@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.ParcelUuid;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,8 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +38,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     public interface HomeParentItemOnClickListener {
         void onItemClick(int position);
-        void onClickHabitModify(Habits habit);
+        void onClickHabitModify(Habits habit, int position);
         void onClickHabitRelapse(Habits habit);
         void onClickHabitDrop(Habits habit);
     }
@@ -76,24 +72,27 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        dateTimeElapsedUtil.calculateElapsedDateTime();
-                        holder.daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
-                    }
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    dateTimeElapsedUtil.calculateElapsedDateTime();
+                    holder.daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
                 });
             }
         }, 0, 1000);
 
-        holder.drop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                homeParentItemOnclickListener.onClickHabitDrop(oldHabitList.get(holder.getAbsoluteAdapterPosition()));
-                timer.cancel();
-                timer.purge();
-            }
+        holder.drop.setOnClickListener(v -> {
+            homeParentItemOnclickListener.onClickHabitDrop(oldHabitList.get(holder.getAbsoluteAdapterPosition()));
+            timer.cancel();
+            timer.purge();
         });
+
+        //diplay upvote and downvote button
+        if (dateTimeElapsedUtil.getElapsed_day() >= 21) {
+            holder.upVote.setVisibility(View.VISIBLE);
+            holder.downVote.setVisibility(View.VISIBLE);
+        } else {
+            holder.upVote.setVisibility(View.GONE);
+            holder.downVote.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -208,7 +207,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
             if (habit.isModifiable()) {
                 modify.setOnClickListener(view -> {
-                    homeParentItemOnClickListener.onClickHabitModify(habit);
+                    homeParentItemOnClickListener.onClickHabitModify(habit, getAbsoluteAdapterPosition());
                 });
             } else {
                 modify.setVisibility(View.GONE);
