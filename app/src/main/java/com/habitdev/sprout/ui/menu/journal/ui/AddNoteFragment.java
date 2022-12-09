@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
@@ -23,31 +22,23 @@ import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentAddNoteBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
-import com.habitdev.sprout.ui.menu.journal.JournalFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class NoteFragment extends Fragment {
+public class AddNoteFragment extends Fragment {
 
     private FragmentAddNoteBinding binding;
     private NoteViewModel noteViewModel;
-    private final FragmentManager fragmentManager;
-    private final int ic_check;
+    private final int ic_check =  R.drawable.ic_check;
     private int current_selected_color;
     private int old_selected_color;
-    private String color;
+    private String color =  AppColor.CLOUDS.getColor();;
     private Note note;
     private Bundle bundle;
 
-    public NoteFragment(FragmentManager fragmentManager) {
-        this.fragmentManager = fragmentManager;
-        this.ic_check = R.drawable.ic_check;
-        this.current_selected_color = 0;
-        this.old_selected_color = 0;
-        this.color = AppColor.CLOUDS.getColor();
-    }
+    public AddNoteFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -382,8 +373,8 @@ public class NoteFragment extends Fragment {
     }
 
     private void gotoJournalFragment() {
-        fragmentManager.beginTransaction()
-                .replace(binding.addNewNoteFrameLayout.getId(), new JournalFragment())
+        getChildFragmentManager().beginTransaction()
+//                .replace(binding.addNewNoteFrameLayout.getId(), new JournalFragment())
                 .commit();
         binding.addNewNoteContainer.setVisibility(View.GONE);
     }

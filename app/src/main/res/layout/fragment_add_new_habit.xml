@@ -5,7 +5,7 @@
     android:id="@+id/add_new_habit_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.menu.journal.ui.NoteFragment">
+    tools:context=".ui.menu.journal.ui.AddNoteFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout

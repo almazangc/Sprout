@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.journal.JournalOnClickListener;
+import com.habitdev.sprout.ui.menu.journal.NoteItemOnClickListener;
 import com.habitdev.sprout.utill.NotesDiffUtil;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.TimerTask;
 public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItemAdapter.NoteViewHolder> {
 
     private List<Note> oldNoteList;
-    private JournalOnClickListener journalOnClickListener;
+    private NoteItemOnClickListener noteItemOnClickListener;
 
     private Timer timer;
     private final List<Note> originalNoteList;
@@ -38,15 +38,15 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
         originalNoteList = oldNoteList;
     }
 
-    public void setJournalOnClickListener(JournalOnClickListener journalOnClickListener) {
-        this.journalOnClickListener = journalOnClickListener;
+    public void setNoteItemOnClickListener(NoteItemOnClickListener noteItemOnClickListener) {
+        this.noteItemOnClickListener = noteItemOnClickListener;
     }
 
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new NoteViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_journal_parent_note_item, parent, false), journalOnClickListener
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_journal_parent_note_item, parent, false), noteItemOnClickListener
         );
     }
 
@@ -79,7 +79,7 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 //        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
 
-        public NoteViewHolder(@NonNull View itemView, JournalOnClickListener journalOnClickListener) {
+        public NoteViewHolder(@NonNull View itemView, NoteItemOnClickListener noteItemOnClickListener) {
             super(itemView);
             noteTitle = itemView.findViewById(R.id.noteTitle);
             noteSubtitle = itemView.findViewById(R.id.noteSubtitle);
@@ -88,11 +88,11 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
             layout_note = itemView.findViewById(R.id.layout_note);
 
             itemView.setOnClickListener(v -> {
-                if (journalOnClickListener != null) {
+                if (noteItemOnClickListener != null) {
                     int position = getBindingAdapterPosition();
 
                     if (position != RecyclerView.NO_POSITION) {
-                        journalOnClickListener.onItemClick(position);
+                        noteItemOnClickListener.onItemClick(position);
                     }
                 }
             });
@@ -160,10 +160,9 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
 
                         if (
                                 note.getTitle().toLowerCase().contains(searchKeyword) ||
-                                note.getSubtitle().toLowerCase().contains(searchKeyword) ||
-                                note.getNoteContent().toLowerCase().contains(searchKeyword) ||
-                                note.getDateTime().toLowerCase().contains(searchKeyword))
-                        {
+                                        note.getSubtitle().toLowerCase().contains(searchKeyword) ||
+                                        note.getNoteContent().toLowerCase().contains(searchKeyword) ||
+                                        note.getDateTime().toLowerCase().contains(searchKeyword)) {
                             tempNote.add(note);
                         }
                     }

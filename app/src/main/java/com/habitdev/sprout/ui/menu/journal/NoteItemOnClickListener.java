@@ -1,5 +1,5 @@
 package com.habitdev.sprout.ui.menu.journal;
 
-public interface JournalOnClickListener {
+public interface NoteItemOnClickListener {
     void onItemClick(int position);
 }

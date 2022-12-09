@@ -22,6 +22,7 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeItemOnClickViewBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
+import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.text.SimpleDateFormat;
@@ -36,6 +37,8 @@ public class HomeItemOnClickFragment extends Fragment {
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private CommentViewModel commentViewModel;
     private Habits habit;
+    private int position;
+    private HomeParentItemAdapter adapter_ref;
 
     private int current_selected_color;
     private int old_selected_color;
@@ -51,10 +54,19 @@ public class HomeItemOnClickFragment extends Fragment {
         this.mOnItemOnClickReturnHome = mOnItemOnClickReturnHome;
     }
 
-    public HomeItemOnClickFragment() {}
+    public HomeItemOnClickFragment() {
+    }
 
     public void setHabit(Habits habit) {
         this.habit = habit;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public void setAdapter_ref(HomeParentItemAdapter adapter_ref) {
+        this.adapter_ref = adapter_ref;
     }
 
     @Override
@@ -255,6 +267,7 @@ public class HomeItemOnClickFragment extends Fragment {
     private void update_habit_color() {
         habit.setColor(color);
         habitWithSubroutinesViewModel.updateHabit(habit);
+        adapter_ref.notifyItemChanged(position);
     }
 
     private void insertComment() {

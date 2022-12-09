@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -20,23 +19,22 @@ import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentJournalBinding;
 import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.ui.menu.journal.adapter.JournalNoteItemAdapter;
-import com.habitdev.sprout.ui.menu.journal.ui.NoteFragment;
+import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
 
 import java.util.List;
 
-public class JournalFragment extends Fragment implements JournalOnClickListener {
+public class JournalFragment extends Fragment implements NoteItemOnClickListener {
 
     private FragmentJournalBinding binding;
     private JournalNoteItemAdapter journalNoteItemAdapter;
     private List<Note> noteList;
-    private FragmentManager fragmentManager;
+    private AddNoteFragment addNoteFragment = new AddNoteFragment();
 
     public JournalFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentJournalBinding.inflate(inflater, container, false);
-        fragmentManager = getChildFragmentManager();
         setRecyclerViewAdapter();
         fabOnClick();
         onSearchNote();
@@ -49,7 +47,7 @@ public class JournalFragment extends Fragment implements JournalOnClickListener 
         noteList = noteViewModel.getNoteList();
 
         journalNoteItemAdapter = new JournalNoteItemAdapter(noteList);
-        journalNoteItemAdapter.setJournalOnClickListener(this);
+        journalNoteItemAdapter.setNoteItemOnClickListener(this);
         binding.journalRecyclerView.setAdapter(journalNoteItemAdapter);
 
         noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> {
@@ -61,7 +59,7 @@ public class JournalFragment extends Fragment implements JournalOnClickListener 
     }
 
     private void fabOnClick() {
-        binding.fabJournal.setOnClickListener(v -> changeFragment(new NoteFragment(fragmentManager)));
+        binding.fabJournal.setOnClickListener(v -> changeFragment());
     }
 
     private void onSwipeRefresh() {
@@ -97,12 +95,12 @@ public class JournalFragment extends Fragment implements JournalOnClickListener 
 
     @Override
     public void onItemClick(int position) {
-        Fragment fragment = new NoteFragment(fragmentManager);
+        Fragment fragment = new AddNoteFragment();
         Bundle bundle = new Bundle();
         Note note = noteList.get(position);
         bundle.putSerializable(BundleKeys.JOURNAL_NOTE.getKEY(), note);
         fragment.setArguments(bundle);
-        changeFragment(fragment);
+        changeFragment();
     }
 
     private void setEmptyJournalView() {
@@ -114,10 +112,11 @@ public class JournalFragment extends Fragment implements JournalOnClickListener 
     }
 
 
-    private void changeFragment(Fragment fragment) {
-        fragmentManager
+    private void changeFragment() {
+        getChildFragmentManager()
                 .beginTransaction()
-                .replace(binding.journalFrameLayout.getId(), fragment)
+                .addToBackStack(JournalFragment.this.getTag())
+                .add(binding.journalFrameLayout.getId(), addNoteFragment)
                 .commit();
         binding.journalContainer.setVisibility(View.GONE);
     }

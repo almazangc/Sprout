@@ -44,6 +44,7 @@ public class BottomNavigationFragment extends Fragment {
     private Drawable amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
     public BottomNavigationFragment() {
+
     }
 
     @Override
@@ -89,15 +90,15 @@ public class BottomNavigationFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void setTheme(){
+    private void setTheme() {
         final String SharedPreferences_KEY = "SP_DB";
         sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
         final String SHARED_PREF_KEY = "THEME";
         int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
-        if (theme == 1){
+        if (theme == 1) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else if (theme == 2){
+        } else if (theme == 2) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);

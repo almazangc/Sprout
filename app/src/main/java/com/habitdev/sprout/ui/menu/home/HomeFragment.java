@@ -158,6 +158,8 @@ public class HomeFragment extends Fragment
     @Override
     public void onItemClick(int position) {
         homeItemOnClickFragment.setHabit(habitsList.get(position));
+        homeItemOnClickFragment.setPosition(position);
+        homeItemOnClickFragment.setAdapter_ref(homeParentItemAdapter);
         getChildFragmentManager()
                 .beginTransaction()
                 .addToBackStack(HomeFragment.this.getTag())
