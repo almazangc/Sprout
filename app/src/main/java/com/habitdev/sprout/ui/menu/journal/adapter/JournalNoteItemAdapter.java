@@ -3,6 +3,7 @@ package com.habitdev.sprout.ui.menu.journal.adapter;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +32,11 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
     private NoteItemOnClickListener noteItemOnClickListener;
 
     private Timer timer;
-    private final List<Note> originalNoteList;
+    private List<Note> originalNoteList;
 
     public JournalNoteItemAdapter(List<Note> oldNoteList) {
         this.oldNoteList = oldNoteList;
-        originalNoteList = oldNoteList;
+        originalNoteList = new ArrayList<>();
     }
 
     public void setNoteItemOnClickListener(NoteItemOnClickListener noteItemOnClickListener) {
@@ -64,6 +65,7 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
         DiffUtil.Callback DIFF_CALLBACK = new NotesDiffUtil(oldNoteList, newNoteList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
         oldNoteList = newNoteList;
+        originalNoteList = newNoteList;
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 
@@ -77,7 +79,6 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
         TextView noteTitle, noteSubtitle, noteContent, noteDateTime;
         RelativeLayout layout_note;
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
-//        ColorStateList cs_cloud, cs_amethyst, cs_sunflower, cs_nephritis, cs_bright_sky_blue, cs_alzarin;
 
         public NoteViewHolder(@NonNull View itemView, NoteItemOnClickListener noteItemOnClickListener) {
             super(itemView);
@@ -103,13 +104,6 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
             nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
             bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
-
-//            cs_cloud = ContextCompat.getColorStateList(itemView.getContext(), R.color.CLOUDS);
-//            cs_amethyst = ContextCompat.getColorStateList(itemView.getContext(), R.color.AMETHYST);
-//            cs_sunflower = ContextCompat.getColorStateList(itemView.getContext(), R.color.SUNFLOWER);
-//            cs_nephritis = ContextCompat.getColorStateList(itemView.getContext(), R.color.NEPHRITIS);
-//            cs_bright_sky_blue = ContextCompat.getColorStateList(itemView.getContext(), R.color.BRIGHT_SKY_BLUE);
-//            cs_alzarin = ContextCompat.getColorStateList(itemView.getContext(), R.color.ALIZARIN);
         }
 
         void bindNote(Note note) {
@@ -147,19 +141,12 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
             @Override
             public void run() {
                 if (keyword.trim().isEmpty()) {
-
                     oldNoteList = originalNoteList;
-
                 } else {
-
                     ArrayList<Note> tempNote = new ArrayList<>();
-
                     for (Note note : originalNoteList) {
-
                         String searchKeyword = keyword.toLowerCase();
-
-                        if (
-                                note.getTitle().toLowerCase().contains(searchKeyword) ||
+                        if (note.getTitle().toLowerCase().contains(searchKeyword) ||
                                         note.getSubtitle().toLowerCase().contains(searchKeyword) ||
                                         note.getNoteContent().toLowerCase().contains(searchKeyword) ||
                                         note.getDateTime().toLowerCase().contains(searchKeyword)) {
@@ -171,15 +158,14 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
-
-                        notifyDataSetChanged();
-
+                        DiffUtil.Callback DIFF_CALLBACK = new NotesDiffUtil(originalNoteList, oldNoteList);
+                        DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
+                        DIFF_CALLBACK_RESULT.dispatchUpdatesTo(JournalNoteItemAdapter.this);
                     }
                 });
             }
         }, 500);
     }
-
     public void cancelTimer() {
         if (timer != null) timer.cancel();
     }
