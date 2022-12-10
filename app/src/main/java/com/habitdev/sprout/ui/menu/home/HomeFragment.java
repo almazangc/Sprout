@@ -249,7 +249,7 @@ public class HomeFragment extends Fragment
     @Override
     public void onHomeItemOnClickReturnHome() {
         removeChildFragment(homeItemOnClickFragment);
-        homeItemOnClickFragment = new HomeItemOnClickFragment();
+//        homeItemOnClickFragment = new HomeItemOnClickFragment();
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
     }
 

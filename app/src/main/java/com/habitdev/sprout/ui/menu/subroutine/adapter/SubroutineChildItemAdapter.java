@@ -22,6 +22,8 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
+import com.habitdev.sprout.enums.TimeMilestone;
+import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.SubroutineDiffUtil;
 
 import java.util.List;
@@ -54,6 +56,20 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
     @Override
     public void onBindViewHolder(@NonNull SubroutineChildItemAdapter.ChildItemViewHolder holder, int position) {
         holder.bindDate(oldSubroutineList.get(position), habitWithSubroutinesViewModel);
+
+        Subroutines subroutine = oldSubroutineList.get(position);
+        Habits habit = habitWithSubroutinesViewModel.getHabitByUID(subroutine.getFk_habit_uid());
+
+        DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
+        dateTimeElapsedUtil.calculateElapsedDateTime();
+
+        if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.AVG_HABIT_BREAK_DAY.getDays()) {
+            holder.UpVote.setVisibility(View.VISIBLE);
+            holder.DownVote.setVisibility(View.VISIBLE);
+        } else {
+            holder.UpVote.setVisibility(View.GONE);
+            holder.DownVote.setVisibility(View.GONE);
+        }
     }
 
     @Override

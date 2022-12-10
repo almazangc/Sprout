@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.enums.AppColor;
+import com.habitdev.sprout.enums.TimeMilestone;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.HabitDiffUtil;
 
@@ -85,8 +86,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             timer.purge();
         });
 
-        //diplay upvote and downvote button
-        if (dateTimeElapsedUtil.getElapsed_day() >= 21) {
+        if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.AVG_HABIT_BREAK_DAY.getDays()) {
             holder.upVote.setVisibility(View.VISIBLE);
             holder.downVote.setVisibility(View.VISIBLE);
         } else {

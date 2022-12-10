@@ -2,6 +2,9 @@ package com.habitdev.sprout.ui.menu.home.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,18 +97,14 @@ public class HomeItemOnClickFragment extends Fragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (binding != null) {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    if (binding != null) {
                             dateTimeElapsedUtil.calculateElapsedDateTime();
-                            if (binding != null)
-                                binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+                            binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
                         } else {
                             timer.cancel();
                             timer.purge();
                         }
-                    }
                 });
             }
         }, 0, 1000);
