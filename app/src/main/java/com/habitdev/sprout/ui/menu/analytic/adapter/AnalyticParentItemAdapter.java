@@ -1,8 +1,10 @@
 package com.habitdev.sprout.ui.menu.analytic.adapter;
 
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +13,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -27,8 +31,16 @@ import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.HabitDiffUtil;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
+import org.threeten.bp.DayOfWeek;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -86,24 +98,79 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
         int completed_subroutine = habit.getCompleted_subroutine();
         int total_subroutine = completed_subroutine + skip_subroutine;
 
-        String pieChartbl = completed_subroutine + "/" + total_subroutine;
-        holder.pieChartLbl.setText(pieChartbl);
-
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        pieEntries.add(new PieEntry(completed_subroutine, "completed"));
-        pieEntries.add(new PieEntry(skip_subroutine, "skips"));
+        if (completed_subroutine > 0){
+            pieEntries.add(new PieEntry(completed_subroutine, "Completed: " + completed_subroutine));
+        }
+        if (skip_subroutine > 0){
+            pieEntries.add(new PieEntry(skip_subroutine, "Skips: " + skip_subroutine));
+        }
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Habit");
-        //set color
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Total: " + total_subroutine);
+        pieDataSet.setSliceSpace(5f);
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.BRIGHT_SKY_BLUE));
+        colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.ALIZARIN));
+
+        pieDataSet.setColors(colors);
 
         PieData pieData = new PieData(pieDataSet);
         pieData.setDrawValues(true);
         pieData.setValueFormatter(new PercentFormatter(holder.pieChart));
-        pieData.setValueTextSize(5f);
+        pieData.setValueTextSize(15f);
+        pieData.setValueTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
+        pieData.setHighlightEnabled(true);
 
-        holder.pieChart.setData(pieData);
-        holder.pieChart.setDrawHoleEnabled(false);
-        holder.pieChart.setUsePercentValues(true);
+        holder.pieChart.setData(pieData); // set date entry
+        holder.pieChart.invalidate(); // refresh
+        holder.pieChart.setDrawHoleEnabled(true); // donut hole
+        holder.pieChart.setUsePercentValues(true); // convert to percentage
+//        holder.pieChart.setEntryLabelColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT)); //entry lbl color
+//        holder.pieChart.setDrawCenterText(true); // true by default
+//        holder.pieChart.setCenterText(completed_subroutine + "/" + total_subroutine); //center lbl content
+//        holder.pieChart.setCenterTextSize(15f); // center lbl text size
+        holder.pieChart.setDrawEntryLabels(false); //entry label hidden or not
+//        holder.pieChart.setEntryLabelColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
+        holder.pieChart.setDrawSlicesUnderHole(false); // dunno
+//        holder.pieChart.setHoleRadius(10f); // hole radius
+        holder.pieChart.setHoleColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.TRANSPARENT));
+
+        Description description = new Description();
+        description.setText("Pie Chart Label");
+        description.setTextAlign(Paint.Align.RIGHT);
+        description.setTextSize(15f);
+        description.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.CORAL_RED));
+        holder.pieChart.setDescription(description);
+        holder.pieChart.getDescription().setEnabled(false); // Hide description
+        holder.pieChart.animateY(1000, Easing.EaseInOutBack);
+
+        Legend legend = holder.pieChart.getLegend();
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setDrawInside(false); // set drawable false
+        legend.setEnabled(true); // enable by default
+
+        dateTimeElapsedUtil.setDate_started(habit.getDate_started());
+        dateTimeElapsedUtil.convertToDate();
+        Date date = dateTimeElapsedUtil.getStart_date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        int year = Integer.parseInt(simpleDateFormat.format(date));
+        simpleDateFormat.applyPattern("MM");
+        int month = Integer.parseInt(simpleDateFormat.format(date));
+        simpleDateFormat.applyPattern("d");
+        int day = Integer.parseInt(simpleDateFormat.format(date));
+
+        holder.calendarView.setDateSelected(CalendarDay.from(year, month, day), true);
+        holder.calendarView.setAllowClickDaysOutsideCurrentMonth(false);
+        holder.calendarView.state().edit()
+                .setFirstDayOfWeek(DayOfWeek.of(Calendar.SUNDAY))
+                .setMaximumDate(CalendarDay.today())
+                .setMinimumDate(CalendarDay.from(year, month, day))
+                .setCalendarDisplayMode(CalendarMode.WEEKS)
+                .setShowWeekDays(true)
+                .commit();
     }
 
     @Override
@@ -122,7 +189,8 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
 
         RelativeLayout itemContainer;
         PieChart pieChart;
-        TextView pieChartLbl, totalSubroutine, title, description, dateStarted, elapsedAbstinence, relapse;
+        MaterialCalendarView calendarView;
+        TextView totalSubroutine, title, description, dateStarted, elapsedAbstinence, relapse;
 
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
@@ -131,7 +199,8 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
             itemContainer = itemView.findViewById(R.id.adapter_home_parent_item_container);
 
             pieChart = itemView.findViewById(R.id.adapter_analytic_parent_item_pie_chart_total_completed_subroutine);
-            pieChartLbl = itemView.findViewById(R.id.adapter_analytic_parent_item_pie_chart_lbl);
+            calendarView = itemView.findViewById(R.id.adapter_analytic_parent_item_calendar);
+
             totalSubroutine = itemView.findViewById(R.id.adapter_analytic_parent_item_habit_total_subroutine);
             title = itemView.findViewById(R.id.adapter_analytic_parent_item_habit_title);
             description = itemView.findViewById(R.id.adapter_analytic_parent_item_habit_description);
@@ -139,17 +208,15 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
             elapsedAbstinence = itemView.findViewById(R.id.adapter_analytic_parent_item_elapsed_abstinence);
             relapse = itemView.findViewById(R.id.adapter_analytic_parent_item_total_relapse);
 
-            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_cloud_selector);
-            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_amethyst_selector);
-            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_sunflower_selector);
-            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_nephritis_selector);
-            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_brightsky_blue_selector);
-            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_alzarin_selector);
+            cloud = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_cloud_selector);
+            amethyst = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_amethyst_selector);
+            sunflower = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_sunflower_selector);
+            nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
+            bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
+            alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
         }
 
         void bindHabit(Habits habit) {
-
-
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemContainer.setBackground(alzarin);
@@ -168,11 +235,10 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
             totalSubroutine.setText("[ " + String.valueOf(habit.getTotal_subroutine()) + " ]");
             title.setText(habit.getHabit());
             description.setText(habit.getDescription());
+
             dateStarted.setText(habit.getDate_started());
 
             relapse.setText(String.valueOf(habit.getRelapse()));
-
-
         }
     }
 }

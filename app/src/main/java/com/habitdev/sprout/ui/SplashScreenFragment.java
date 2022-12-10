@@ -116,7 +116,7 @@ public class SplashScreenFragment extends Fragment {
                     requireActivity().runOnUiThread(() -> {
                         int ran = random.nextInt(quotes.size());
                         Quotes quote = quotes.get(ran);
-                        String content = quote.getQuoted() + "---" + quote.getAuthor();
+                        String content = quote.getQuoted() + " --> " + quote.getAuthor();
                         binding.subLbl.setText(content);
                     });
                 }

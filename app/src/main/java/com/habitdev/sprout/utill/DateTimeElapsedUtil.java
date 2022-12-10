@@ -15,9 +15,10 @@ import java.util.concurrent.TimeUnit;
 public class DateTimeElapsedUtil {
 
     private String result;
-    private final String date_started;
-    private final int patternType;
+    private String date_started;
+    private int patternType;
     private long elapsed_day;
+    private Date start_date, current_date;
 
     public DateTimeElapsedUtil(String date_started) {
         this.date_started = date_started;
@@ -29,6 +30,14 @@ public class DateTimeElapsedUtil {
         this.patternType = patternType;
     }
 
+    public void setDate_started(String date_started) {
+        this.date_started = date_started;
+    }
+
+    public void setPatternType(int patternType) {
+        this.patternType = patternType;
+    }
+
     public void calculateElapsedDateTime() {
 
         SimpleDateFormat[] simpleDateFormatPattern = new SimpleDateFormat[2];
@@ -36,8 +45,8 @@ public class DateTimeElapsedUtil {
         simpleDateFormatPattern [1] = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
 
         try {
-            Date start_date = simpleDateFormatPattern[patternType].parse(date_started);
-            Date current_date = simpleDateFormatPattern[patternType].parse((simpleDateFormatPattern[patternType].format(System.currentTimeMillis())));
+            start_date = simpleDateFormatPattern[patternType].parse(date_started);
+            current_date = simpleDateFormatPattern[patternType].parse((simpleDateFormatPattern[patternType].format(System.currentTimeMillis())));
 
             long elapsed_time = current_date.getTime() - start_date.getTime(); //assert null
 
@@ -56,12 +65,33 @@ public class DateTimeElapsedUtil {
         }
     }
 
+    public void convertToDate(){
+        SimpleDateFormat[] simpleDateFormatPattern = new SimpleDateFormat[2];
+        simpleDateFormatPattern [0] = new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault());
+        simpleDateFormatPattern [1] = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+
+        try {
+            start_date = simpleDateFormatPattern[patternType].parse(date_started);
+            current_date = simpleDateFormatPattern[patternType].parse((simpleDateFormatPattern[patternType].format(System.currentTimeMillis())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Date getStart_date() {
+        return start_date;
+    }
+
+    public Date getCurrent_date() {
+        return current_date;
+    }
+
     private void formatResult(long y, long d, long h, long m, long s) {
         result = ((y == 0 ? "" : y + ((y > 1) ? y + " Year's " : y + " Years "))
                 + (d == 0 ? "" : (d > 1) ? d + " Days " : d + " Day ")
-                + (h == 0 ? "" : (h > 9) ? h + " Hours " : "0" + h + " Hours ")
-                + (m == 0 ? "" : (m > 9) ? m + " Minutes " : "0" + m + " Minutes ")
-                + (s == 0 ? "" : (s > 9) ? s + " Seconds " : "0" + s + " Seconds")
+                + (h == 0 ? "" : (h > 1 )? h + " Hours " : h + "Hour ")
+                + (m == 0 ? "" : (m > 1) ? m + " Minutes " : m + " Minute ")
+                + (s == 0 ? "" : (s > 1) ? s + " Seconds" : s + " Second")
         ).trim();
     }
 
