@@ -97,15 +97,27 @@ public class HomeItemOnClickFragment extends Fragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    if (binding != null) {
+                if (binding != null){
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             dateTimeElapsedUtil.calculateElapsedDateTime();
                             binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
-                        } else {
-                            timer.cancel();
-                            timer.purge();
                         }
-                });
+                    });
+                } else {
+                    timer.cancel();
+                    timer.purge();
+                }
+//                new Handler(Looper.getMainLooper()).post(() -> {
+//                    if (binding != null) {
+//                            dateTimeElapsedUtil.calculateElapsedDateTime();
+//                            binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+//                        } else {
+//                            timer.cancel();
+//                            timer.purge();
+//                        }
+//                });
             }
         }, 0, 1000);
 

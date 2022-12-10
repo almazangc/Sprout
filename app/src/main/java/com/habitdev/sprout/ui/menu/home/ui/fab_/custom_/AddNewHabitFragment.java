@@ -427,6 +427,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                 habit.setOnReform(true);
                 habit.setDate_started(binding.addNewHabitCurrentTime.getText().toString().trim());
                 habit.setColor(color);
+                habit.setTotal_subroutine(subroutinesList.size());
 
                 long uid = habitWithSubroutinesViewModel.insertHabit(habit);
 

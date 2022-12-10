@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/adapter_analytic_parent_item"
     android:layout_width="match_parent"
-    android:background="@drawable/background_btn_cloud_selector"
-    tools:showIn="@layout/fragment_analytic"
+    android:layout_height="wrap_content"
     android:layout_marginTop="3dp"
     android:layout_marginBottom="3dp"
-    android:layout_height="wrap_content">
+    tools:showIn="@layout/fragment_analytic">
 
 
     <RelativeLayout
         android:id="@+id/adapter_home_parent_item_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_btn_parent_item_view_cloud_default"
+        android:background="@drawable/background_btn_parent_item_view_cloud_selector"
         android:clickable="true">
-
 
         <LinearLayout
             android:id="@+id/adapter_analytic_parent_item_left"
@@ -25,24 +22,30 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
             android:paddingBottom="20dp">
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/adapter_analytic_parent_item_pie_chart_total_completed_subroutine"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp" />
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp" />
 
             <TextView
-                android:id="@+id/completed_subroutine_lbl"
+                android:id="@+id/adapter_analytic_parent_item_pie_chart_lbl"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_marginTop="5dp"
                 android:text="100/50"
                 android:textColor="@color/NIGHT"
                 android:textSize="11sp" />
@@ -61,12 +64,12 @@
 
             <!--        habit on reform basic info-->
             <RelativeLayout
-                android:layout_width="wrap_content"
                 android:id="@+id/adapter_analytic_parent_item_right_container"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/adapter_analytic_parent_habit_subroutine_count"
+                    android:id="@+id/adapter_analytic_parent_item_habit_total_subroutine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -83,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginEnd="8dp"
-                    android:layout_toEndOf="@id/adapter_analytic_parent_habit_subroutine_count"
+                    android:layout_toEndOf="@id/adapter_analytic_parent_item_habit_total_subroutine"
                     android:textColor="@color/NIGHT"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -132,12 +135,13 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:minWidth="0dp"
+                        android:paddingStart="10dp"
                         android:textColor="@color/NIGHT"
                         android:textSize="11sp"
                         tools:text="Saturday, November 5, 2022: 12:25" />
 
                     <TextView
-                        android:id="@+id/home_item_on_click_habit_total_days_of_abstinence_lbl"
+                        android:id="@+id/adapter_analytic_parent_item_elapsed_abstinence_lbl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/adapter_analytic_parent_item_date_started"
@@ -148,21 +152,21 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/home_item_on_click_habit_total_days_of_abstinence"
+                        android:id="@+id/adapter_analytic_parent_item_elapsed_abstinence"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/adapter_analytic_parent_item_date_started"
-                        android:layout_toEndOf="@id/home_item_on_click_habit_total_days_of_abstinence_lbl"
+                        android:layout_below="@id/adapter_analytic_parent_item_elapsed_abstinence_lbl"
                         android:minWidth="0dp"
+                        android:paddingStart="10dp"
                         android:textColor="@color/NIGHT"
                         android:textSize="11sp"
                         tools:text="1" />
 
                     <TextView
-                        android:id="@+id/total_relapse_lbl"
+                        android:id="@+id/adapter_analytic_parent_item_total_relapse_lbl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence"
+                        android:layout_below="@id/adapter_analytic_parent_item_elapsed_abstinence"
                         android:layout_marginEnd="5dp"
                         android:text="Relapse:"
                         android:textColor="@color/NIGHT"
@@ -170,11 +174,11 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/total_relapse"
+                        android:id="@+id/adapter_analytic_parent_item_total_relapse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/home_item_on_click_habit_total_days_of_abstinence"
-                        android:layout_toEndOf="@id/total_relapse_lbl"
+                        android:layout_below="@id/adapter_analytic_parent_item_elapsed_abstinence"
+                        android:layout_toEndOf="@id/adapter_analytic_parent_item_total_relapse_lbl"
                         android:minWidth="0dp"
                         android:textColor="@color/NIGHT"
                         android:textSize="11sp"

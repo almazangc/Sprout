@@ -47,14 +47,14 @@
                     tools:text="Sample Text" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/analytic_habit_on_reform_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_below="@id/date_since_installed"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/date_since_installed"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    tools:listitem="@layout/adapter_analytic_parent_item"
-                    android:id="@+id/analytic_habit_on_reform_recycler_view"/>
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/adapter_analytic_parent_item" />
             </RelativeLayout>
-
         </ScrollView>
 </RelativeLayout>

@@ -39,14 +39,17 @@ public class Subroutines implements Serializable {
     @ColumnInfo(name = "isMarkedDone")
     private boolean isMarkDone;
 
-    @ColumnInfo(name = "streak")
-    private int streak;
+    @ColumnInfo(name = "total_completed")
+    private int total_completed;
 
-    @ColumnInfo(name = "total_streak")
-    private int total_streak;
+    @ColumnInfo(name = "max_streak")
+    private int max_streak;
+
+    @ColumnInfo(name = "longest_streak")
+    private int longest_streak;
 
     @ColumnInfo(name = "skips")
-    private int skips;
+    private int total_skips;
 
     @Ignore
     public Subroutines(String subroutine, String description, String color, boolean isModifiable) {
@@ -55,12 +58,14 @@ public class Subroutines implements Serializable {
         this.color = color;
         this.isModifiable = isModifiable;
         this.isMarkDone = false;
-        this.streak = 0;
-        this.total_streak = 0;
-        this.skips = 0;
+        this.total_completed = 0;
+        this.max_streak = 0;
+        this.longest_streak = 0;
+        this.total_skips = 0;
     }
 
-    public Subroutines(long pk_subroutine_uid, long fk_habit_uid, String subroutine, String description, String color, Boolean isModifiable, boolean isMarkDone, int streak, int total_streak, int skips) {
+    public Subroutines(long pk_subroutine_uid, long fk_habit_uid, String subroutine, String description, String color, Boolean isModifiable, boolean isMarkDone, int total_completed, int max_streak, int total_skips, int
+                       longest_streak) {
         this.pk_subroutine_uid = pk_subroutine_uid;
         this.fk_habit_uid = fk_habit_uid;
         this.subroutine = subroutine;
@@ -68,9 +73,10 @@ public class Subroutines implements Serializable {
         this.color = color;
         this.isModifiable = isModifiable;
         this.isMarkDone = isMarkDone;
-        this.streak = streak;
-        this.total_streak = total_streak;
-        this.skips = skips;
+        this.total_completed = total_completed;
+        this.max_streak = max_streak;
+        this.longest_streak = longest_streak;
+        this.total_skips = total_skips;
     }
 
     @NonNull
@@ -83,10 +89,11 @@ public class Subroutines implements Serializable {
                 ", description='" + description + '\'' +
                 ", color='" + color + '\'' +
                 ", isModifiable=" + isModifiable +
-                ", is_marked_done=" + isMarkDone +
-                ", streak=" + streak +
-                ", total_streak=" + total_streak +
-                ", skips=" + skips +
+                ", isMarkDone=" + isMarkDone +
+                ", total_completed=" + total_completed +
+                ", max_streak=" + max_streak +
+                ", longest_streak=" + longest_streak +
+                ", total_skips=" + total_skips +
                 '}';
     }
 
@@ -138,10 +145,6 @@ public class Subroutines implements Serializable {
         isModifiable = modifiable;
     }
 
-    public boolean is_marked_done() {
-        return isMarkDone;
-    }
-
     public boolean isMarkDone() {
         return isMarkDone;
     }
@@ -150,28 +153,36 @@ public class Subroutines implements Serializable {
         isMarkDone = markDone;
     }
 
-    public int getStreak() {
-        return streak;
+    public int getTotal_completed() {
+        return total_completed;
     }
 
-    public void setStreak(int streak) {
-        this.streak = streak;
+    public void setTotal_completed(int total_completed) {
+        this.total_completed = total_completed;
     }
 
-    public int getTotal_streak() {
-        return total_streak;
+    public int getMax_streak() {
+        return max_streak;
     }
 
-    public void setTotal_streak(int total_streak) {
-        this.total_streak = total_streak;
+    public void setMax_streak(int max_streak) {
+        this.max_streak = max_streak;
     }
 
-    public int getSkips() {
-        return skips;
+    public int getLongest_streak() {
+        return longest_streak;
     }
 
-    public void setSkips(int skips) {
-        this.skips = skips;
+    public void setLongest_streak(int longest_streak) {
+        this.longest_streak = longest_streak;
+    }
+
+    public int getTotal_skips() {
+        return total_skips;
+    }
+
+    public void setTotal_skips(int total_skips) {
+        this.total_skips = total_skips;
     }
 }
 

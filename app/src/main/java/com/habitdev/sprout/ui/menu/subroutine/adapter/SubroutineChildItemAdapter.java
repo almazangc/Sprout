@@ -134,7 +134,7 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
                 itemLayout.setBackground(cloud);
             }
 
-            isMarkedAsDone(subroutine.is_marked_done());
+            isMarkedAsDone(subroutine.isMarkDone());
 
             itemLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -145,11 +145,14 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
                     if (MarkAsDone.getBackground() == markedAsDone) {
                         isMarkedAsDone(false);
                         subroutine.setMarkDone(false);
-                        habit.setCompleted_subroutine(habit.getCompleted_subroutine()-1);
+                        subroutine.setTotal_completed(subroutine.getTotal_completed()-1);
 
+                        habit.setCompleted_subroutine(habit.getCompleted_subroutine()-1);
                     } else if (MarkAsDone.getBackground() == unMarkAsDone) {
                         isMarkedAsDone(true);
                         subroutine.setMarkDone(true);
+                        subroutine.setTotal_completed(subroutine.getTotal_completed()+1);
+
                         habit.setCompleted_subroutine(habit.getCompleted_subroutine()+1);
                     }
 

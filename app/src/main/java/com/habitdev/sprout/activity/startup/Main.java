@@ -1,14 +1,11 @@
 package com.habitdev.sprout.activity.startup;
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -82,14 +79,14 @@ public class Main extends AppCompatActivity {
                     if(isConnected){
                         if(!sharedPreferences.contains("isDB_loaded") || (sharedPreferences.contains("isDB_loaded") && sharedPreferences.getBoolean("isDB_loaded", false))){
                             sharedPreferences.edit().putBoolean("isDB_loaded", FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER).isComplete()).apply();
-//                            Log.d("tag", "Main isConnected() called: data is being fetch from server");
+                            Log.d("tag", "Main isConnected() called: data is being fetch from server");
                         } else {
-//                            Log.d("tag", "Main isConnected() called: data already available on cache");
+                            Log.d("tag", "Main isConnected() called: data already available on cache");
                             networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
-//                            Log.d("tag", "Main isConnected() called: removed observer");
+                            Log.d("tag", "Mainain isConnected() called: removed observer");
                         }
                     } else {
-//                        Log.d("tag", "onChanged() called: Main no network connection");
+                        Log.d("tag", "onChanged() called: Main no network connection");
                     }
                 }
             });
@@ -117,9 +114,22 @@ public class Main extends AppCompatActivity {
                 List<Habits> habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
 
                 for (Habits habit : habitsList){
+
                     List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+
                     for (Subroutines subroutine : subroutinesList){
-                        subroutine.setMarkDone(false);
+
+                        if (subroutine.getLongest_streak() < subroutine.getMax_streak()){
+                            subroutine.setLongest_streak(subroutine.getMax_streak());
+                        }
+
+                        if (subroutine.isMarkDone()){
+                            subroutine.setMarkDone(false);
+                            subroutine.setMax_streak(subroutine.getMax_streak()+1);
+                        } else {
+                            subroutine.setMax_streak(0);
+                            subroutine.setTotal_skips(subroutine.getTotal_skips()+1);
+                        }
                         habitWithSubroutinesViewModel.updateSubroutine(subroutine);
                     }
                 }

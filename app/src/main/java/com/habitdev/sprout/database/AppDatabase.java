@@ -42,7 +42,7 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             new PopulateAssessmentAsyncTask(INSTANCE).execute();
-//            new PopulateNoteAsyncTask(INSTANCE).execute();
+            new PopulateNoteAsyncTask(INSTANCE).execute();
             new PopulateHabitWithSubroutinesAsyncTask(INSTANCE).execute();
         }
     };
@@ -182,6 +182,7 @@ public abstract class AppDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
             Subroutines sample = new Subroutines(getString(R.string.sample_subroutine_title), getString(R.string.sample_subroutine_description), AppColor.BRIGHT_SKY_BLUE.getColor(), false);
             Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description), AppColor.CLOUDS.getColor(),false, false);
+            habits.setTotal_subroutine(5);
             long id = habitWithSubroutinesDao.insertHabit(habits);
             List<Subroutines> list = new ArrayList<>();
             list.add(sample);
@@ -192,6 +193,7 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
+            habits.setTotal_subroutine(3);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);
@@ -199,46 +201,14 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
+            habits.setTotal_subroutine(2);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
-            id = habitWithSubroutinesDao.insertHabit(habits);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
-
-            list.clear();
-            id = habitWithSubroutinesDao.insertHabit(habits);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
-
-            list.clear();
-            id = habitWithSubroutinesDao.insertHabit(habits);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            list.add(sample);
-            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
-
-            list.clear();
+            habits.setTotal_subroutine(8);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);
@@ -251,6 +221,44 @@ public abstract class AppDatabase extends RoomDatabase {
             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
 
             list.clear();
+            habits.setTotal_subroutine(10);
+            id = habitWithSubroutinesDao.insertHabit(habits);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
+
+            list.clear();
+            habits.setTotal_subroutine(4);
+            id = habitWithSubroutinesDao.insertHabit(habits);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
+
+            list.clear();
+            habits.setTotal_subroutine(8);
+            id = habitWithSubroutinesDao.insertHabit(habits);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            list.add(sample);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
+
+            list.clear();
+            habits.setTotal_subroutine(8);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(sample);
             list.add(sample);
@@ -264,6 +272,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
             list.clear();
             habits = new Habits("Poor Sleep Management", "Not Sleeping on time daily", AppColor.SUNFLOWER.getColor(), false, false);
+            habits.setTotal_subroutine(3);
             id = habitWithSubroutinesDao.insertHabit(habits);
             list.add(new Subroutines("Relax.", "Find calming, relaxing activities to do before bedtime.", AppColor.SUNFLOWER.getColor(), false));
             list.add(new Subroutines("Adjust your bedtime, but be patient", "If you’re aiming to go to sleep earlier, try slowly scaling back your bedtime until you are at the desired hour.", AppColor.NEPHRITIS.getColor(),false));

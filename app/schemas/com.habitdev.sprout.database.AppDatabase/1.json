@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6fb4439f01a28a28516dffd08c9e1cb4",
+    "identityHash": "f2aeff058dd623e8604b3ace733171b8",
     "entities": [
       {
         "tableName": "User",
@@ -374,7 +374,7 @@
       },
       {
         "tableName": "Subroutines",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `isModifiable` INTEGER, `isMarkedDone` INTEGER NOT NULL, `streak` INTEGER NOT NULL, `total_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `isModifiable` INTEGER, `isMarkedDone` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_subroutine_uid",
@@ -413,25 +413,31 @@
             "notNull": false
           },
           {
-            "fieldPath": "is_marked_done",
+            "fieldPath": "isMarkDone",
             "columnName": "isMarkedDone",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "streak",
-            "columnName": "streak",
+            "fieldPath": "total_completed",
+            "columnName": "total_completed",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "total_streak",
-            "columnName": "total_streak",
+            "fieldPath": "max_streak",
+            "columnName": "max_streak",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "skips",
+            "fieldPath": "longest_streak",
+            "columnName": "longest_streak",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "total_skips",
             "columnName": "skips",
             "affinity": "INTEGER",
             "notNull": true
@@ -522,7 +528,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6fb4439f01a28a28516dffd08c9e1cb4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f2aeff058dd623e8604b3ace733171b8')"
     ]
   }
 }

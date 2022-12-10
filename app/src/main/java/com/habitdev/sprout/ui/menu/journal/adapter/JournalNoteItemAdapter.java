@@ -155,6 +155,7 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
                     }
                     oldNoteList = tempNote;
                 }
+
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
                     public void run() {
@@ -166,6 +167,7 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
             }
         }, 500);
     }
+
     public void cancelTimer() {
         if (timer != null) timer.cancel();
     }

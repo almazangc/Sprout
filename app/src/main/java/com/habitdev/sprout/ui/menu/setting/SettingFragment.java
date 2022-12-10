@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.database.user.UserViewModel;
@@ -90,6 +91,7 @@ public class SettingFragment extends Fragment implements
                 .beginTransaction()
                 .addToBackStack(SettingFragment.this.getTag())
                 .add(binding.settingFrameLayout.getId(), fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                 .commit();
         binding.settingContainer.setVisibility(View.GONE);
         userViewModel = null;
@@ -129,6 +131,7 @@ public class SettingFragment extends Fragment implements
         getChildFragmentManager()
                 .beginTransaction()
                 .remove(fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
         binding.settingContainer.setVisibility(View.VISIBLE);
     }

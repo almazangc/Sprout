@@ -99,7 +99,8 @@ public class HabitWithSubroutinesRepository {
     }
 
     public void deleteSubroutine(Subroutines subroutine) {
-        new DeleteSubroutineAsyncTask(habitWithSubroutinesDao).execute(subroutine);
+        habitWithSubroutinesDao.deleteSubroutine(subroutine);
+//        new DeleteSubroutineAsyncTask(habitWithSubroutinesDao).execute(subroutine);
     }
 
     public static class DeleteSubroutineAsyncTask extends AsyncTask<Subroutines, Void, Void> {

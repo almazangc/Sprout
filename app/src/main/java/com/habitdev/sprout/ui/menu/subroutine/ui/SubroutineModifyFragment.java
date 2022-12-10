@@ -2,6 +2,7 @@ package com.habitdev.sprout.ui.menu.subroutine.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
@@ -28,6 +27,8 @@ import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentItem
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentOnclickListener;
 import com.habitdev.sprout.ui.menu.subroutine.ui.dialog.SubroutineModifyParentItemAdapterDialogFragment;
 
+import java.util.List;
+
 public class SubroutineModifyFragment extends Fragment implements SubroutineModifyParentOnclickListener {
 
     private FragmentSubroutineModifyBinding binding;
@@ -35,7 +36,7 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     private Habits habit;
     private SubroutineModifyParentItemAdapter adapter;
 
-    public interface onClickBackPress{
+    public interface onClickBackPress {
         void returnSubroutineFragment();
     }
 
@@ -194,12 +195,14 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         dialog.setTargetFragment(getChildFragmentManager()
                 .findFragmentById(SubroutineModifyFragment.this.getId()), 1);
         dialog.show(getChildFragmentManager(), "ModifySubroutineOnClickDialog");
+
         dialog.setmOnUpdateClickListener(new SubroutineModifyParentItemAdapterDialogFragment.OnUpdateClickListener() {
             @Override
             public void onClickUpdate(Subroutines subroutine) {
                 habitWithSubroutinesViewModel.updateSubroutine(subroutine);
             }
         });
+
     }
 
     @Override
@@ -207,6 +210,8 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
             Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
             habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
+            Log.d("tag", "onItemDelete: ");
+            updateTotalSubroutine();
         } else {
             Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
         }
@@ -227,10 +232,19 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
                     public void onClickInsert(Subroutines subroutines) {
                         subroutines.setFk_habit_uid(habit.getPk_habit_uid());
                         habitWithSubroutinesViewModel.insertSubroutine(subroutines);
+                        Log.d("tag", "onClickInsert: ");
+                        updateTotalSubroutine();
                     }
                 });
             }
         });
+    }
+
+    private void updateTotalSubroutine() {
+        List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+        Log.d("tag", "updateTotalSubroutine: " + subroutinesList.size());
+        habit.setTotal_subroutine(subroutinesList.size());
+        habitWithSubroutinesViewModel.updateHabit(habit);
     }
 
     private void onBackPress() {
