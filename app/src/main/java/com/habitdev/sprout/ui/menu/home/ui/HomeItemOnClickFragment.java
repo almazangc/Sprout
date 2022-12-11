@@ -2,9 +2,6 @@ package com.habitdev.sprout.ui.menu.home.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +17,7 @@ import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
-import com.habitdev.sprout.databinding.FragmentHomeItemOnClickViewBinding;
+import com.habitdev.sprout.databinding.FragmentHomeItemOnClickBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
@@ -34,7 +31,7 @@ import java.util.TimerTask;
 
 public class HomeItemOnClickFragment extends Fragment {
 
-    private FragmentHomeItemOnClickViewBinding binding;
+    private FragmentHomeItemOnClickBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private CommentViewModel commentViewModel;
     private Habits habit;
@@ -72,7 +69,7 @@ public class HomeItemOnClickFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeItemOnClickViewBinding.inflate(inflater, container, false);
+        binding = FragmentHomeItemOnClickBinding.inflate(inflater, container, false);
         commentViewModel = new ViewModelProvider(requireActivity()).get(CommentViewModel.class);
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         setHabit();
@@ -97,7 +94,7 @@ public class HomeItemOnClickFragment extends Fragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (binding != null){
+                if (binding != null) {
                     requireActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

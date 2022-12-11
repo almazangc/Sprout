@@ -231,6 +231,9 @@
         <action
             android:id="@+id/action_analyticsFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_analyticsFragment_to_analyticItemOnClickFragment"
+            app:destination="@id/analyticItemOnClickFragment" />
     </fragment>
     <fragment
         android:id="@+id/journalFragment"
@@ -413,7 +416,7 @@
         android:id="@+id/homeRecyclerViewItemAdapterOnClickView"
         android:name="com.habitdev.sprout.ui.menu.home.ui.HomeItemOnClickFragment"
         android:label="fragment_home_recycler_view_item_adapter_on_click_view"
-        tools:layout="@layout/fragment_home_item_on_click_view" >
+        tools:layout="@layout/fragment_home_item_on_click" >
         <action
             android:id="@+id/action_homeRecyclerViewItemAdapterOnClickView_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -498,5 +501,14 @@
         <action
             android:id="@+id/action_modifySubroutinesFragment_to_modifySubroutineParentItemAdapterModifyDialogFragment"
             app:destination="@id/modifySubroutineParentItemAdapterModifyDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/analyticItemOnClickFragment"
+        android:name="com.habitdev.sprout.ui.menu.analytic.ui.AnalyticItemOnClickFragment"
+        android:label="fragment_analytic_item_on_click"
+        tools:layout="@layout/fragment_analytic_item_on_click" >
+        <action
+            android:id="@+id/action_analyticItemOnClickFragment_to_analyticsFragment"
+            app:destination="@id/analyticsFragment" />
     </fragment>
 </navigation>

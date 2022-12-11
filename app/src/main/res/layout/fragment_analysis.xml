@@ -1,44 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.onBoarding.personalizationAssessment.AnalysisFragment">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/setting_topbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@drawable/background_top_bar_view_waikawa_grey">
 
         <TextView
-            android:id="@+id/textViewHeader"
-            style="@style/textViewHeader"
+            android:id="@+id/settingTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="RESULT"
+            android:textColor="@color/NIGHT"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting_topbar"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/relativeLayoutPadding"
-            android:text="Analysis Result"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT" />
+            android:isScrollContainer="true"
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textSubHeader"
                 style="@style/textViewSubHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="@dimen/relativeLayoutPadding"
-                android:layout_marginBottom="0dp"
-                android:justificationMode="inter_word"
+                android:layout_marginTop="10dp"
                 android:padding="10dp"
-                android:text="You scored 70 and it has been noted that your struggling with breaking from bad habit of your's we suggest you to choose on the list of habit you wanna break"
+                android:text="You scored 70 and it has been noted that your struggling with breaking from bad habit of yours we suggest you to choose on the list of habit you wanna break"
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 tools:text="Sample Text Goes Here: " />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -50,29 +60,41 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="200dp">
+                android:layout_marginBottom="10dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/dropItems"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Predefined Habits"
-                    android:textSize="13sp"
+                    android:inputType="none"
                     android:textColor="@color/NIGHT"
-                    android:inputType="none" />
+                    android:textSize="13sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/analysis_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/menu"
+                tools:itemCount="8"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/adapter_analysis_parent_item" />
 
             <Button
                 android:id="@+id/btn_continue"
                 style="@style/btn_continue_portrait"
-                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/relativeLayoutPadding"
                 android:layout_marginRight="@dimen/relativeLayoutPadding"
                 android:layout_marginBottom="@dimen/relativeLayoutPadding"
-                android:background="@drawable/selector_btn_continue"
+                android:background="@drawable/background_btn_cloud_selector"
                 android:textColor="@color/NIGHT" />
-        </RelativeLayout>
-    </LinearLayout>
+        </LinearLayout>
 
-</FrameLayout>
+    </ScrollView>
+
+</RelativeLayout>

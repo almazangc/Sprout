@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.menu.home.HomeFragment">
+
+    <RelativeLayout
+        android:id="@+id/home_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/home_top_bar"
+            android:layout_width="match_parent"
+            android:background="@drawable/background_topbar_view_alzarin"
+            android:layout_height="?android:attr/actionBarSize">
+
+            <TextView
+                android:id="@+id/homeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Habit's on Reform"
+                android:textColor="@color/NIGHT"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/home_empty_lbl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/home_top_bar"
+            android:layout_marginTop="-220dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="EMPTY HABIT ON REFORM"
+            android:textColor="@color/NIGHT"
+            android:textSize="23sp"
+            android:visibility="invisible" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/home_empty_lottie_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/home_top_bar"
+            android:layout_marginTop="5dp"
+            android:minWidth="150dp"
+            android:minHeight="150dp"
+            android:visibility="invisible"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie_anim_empty_state_ghost.json"
+            app:lottie_loop="true"
+            app:lottie_speed="1" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/home_swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/home_top_bar"
+            android:visibility="visible">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="2"
+                tools:itemCount="2"
+                tools:listitem="@layout/adapter_home_parent_habit_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/home_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            app:backgroundTint="@color/CLOUDS"
+            app:borderWidth="5dp"
+            app:fabCustomSize="45dp"
+            app:srcCompat="@drawable/ic_add" />
+    </RelativeLayout>
+
+</FrameLayout>
