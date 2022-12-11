@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_add_default_subroutine_child_item"
+    android:id="@+id/adapter_analysis_parent_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
@@ -18,10 +18,11 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:padding="16dp"
+        android:id="@+id/adapter_analysis_parent_item_container"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/home_add_default_subroutine_title"
+            android:id="@+id/adapter_analysis_parent_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -33,10 +34,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/home_add_default_subroutine_description"
+            android:id="@+id/adapter_analysis_parent_item_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/home_add_default_subroutine_title"
+            android:layout_below="@id/adapter_analysis_parent_item_title"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
@@ -45,5 +46,4 @@
             android:textSize="12sp"
             tools:text="\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta pharetra magna, eu laoreet urna condimentum a. Vivamus dapibus ante eget nunc ultrices bibendum. Duis consectetur fermentum nibh nec porta. Ut in fringilla leo. Aenean quis tortor vel tortor finibus cursus vel vel tellus. Nullam tellus enim, viverra et imperdiet sed, egestas id ante. Fusce rhoncus odio molestie elit ornare vulputate." />
     </RelativeLayout>
-
 </RelativeLayout>

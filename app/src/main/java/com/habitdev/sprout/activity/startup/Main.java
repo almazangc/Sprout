@@ -1,10 +1,12 @@
 package com.habitdev.sprout.activity.startup;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -62,18 +64,19 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        if (savedInstanceState == null) {
 
-        final String SharedPreferences_KEY = "SP_DB";
-        sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
+            final String SharedPreferences_KEY = "SP_DB";
+            sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
-        NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
-        // Check the network state before registering for the 'networkCallbackEvents'
-        mNetworkMonitoringUtil.checkNetworkState();
-        mNetworkMonitoringUtil.registerNetworkCallbackEvents();
+            NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
+            // Check the network state before registering for the 'networkCallbackEvents'
+            mNetworkMonitoringUtil.checkNetworkState();
+            mNetworkMonitoringUtil.registerNetworkCallbackEvents();
 
-        //need to fetch quotes once only (need to fetch once every week for updates)
-        networkStateManager = NetworkStateManager.getInstance();
-        networkStateManager.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
+            //need to fetch quotes once only (need to fetch once every week for updates)
+            networkStateManager = NetworkStateManager.getInstance();
+            networkStateManager.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean isConnected) {
                     if(isConnected){
@@ -83,18 +86,18 @@ public class Main extends AppCompatActivity {
                         } else {
                             Log.d("tag", "Main isConnected() called: data already available on cache");
                             networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
-                            Log.d("tag", "Mainain isConnected() called: removed observer");
+                            Log.d("tag", "Main isConnected() called: removed observer");
                         }
                     } else {
                         Log.d("tag", "onChanged() called: Main no network connection");
                     }
                 }
             });
-
-        setDailyDateTracker();
-
+            setDailyDateTracker();
+        }
         setContentView(binding.getRoot());
     }
+
 
     private void setDailyDateTracker(){
         final String DATE_KEY = "DATE";
@@ -141,6 +144,21 @@ public class Main extends AppCompatActivity {
             String date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
             sharedPreferences.edit().putString(DATE_KEY, date).apply();
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override

@@ -109,8 +109,8 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:paddingBottom="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="8"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="2"
                 tools:listitem="@layout/adapter_analysis_parent_item" />
         </LinearLayout>
     </ScrollView>

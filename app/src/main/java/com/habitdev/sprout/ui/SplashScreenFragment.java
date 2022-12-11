@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -49,31 +50,38 @@ public class SplashScreenFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false);
-        setTheme();
 
-
-        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
-        firestoreDB.collection("quotes")
-                .get(Source.CACHE)
-                .addOnSuccessListener(requireActivity(), new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot documents) {
-                        if (documents != null) {
-                            changeQuotes(documents.toObjects(Quotes.class));
-                        } else {
-                            Log.d("tag", "SplashScreen: onSuccess() called: null documents ");
+        if (savedInstanceState == null) {
+            setTheme();
+            FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
+            firestoreDB.collection("quotes")
+                    .get(Source.CACHE)
+                    .addOnSuccessListener(requireActivity(), new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot documents) {
+                            if (documents != null) {
+                                changeQuotes(documents.toObjects(Quotes.class));
+                            } else {
+                                Log.d("tag", "SplashScreen: onSuccess() called: null documents ");
+                            }
                         }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("tag", "SplashScreen: onFailure() called: Data is not available on CACHE");
-                    }
-                });
-        checkStatus();
-        onBackPress();
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("tag", "SplashScreen: onFailure() called: Data is not available on CACHE");
+                        }
+                    });
+            checkStatus();
+            onBackPress();
+        }
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     private void setTheme() {
