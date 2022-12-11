@@ -4,7 +4,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +32,8 @@ import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.HabitDiffUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.threeten.bp.DayOfWeek;
@@ -149,12 +150,15 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+        legend.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
+        legend.setTextSize(15f);
         legend.setDrawInside(false); // set drawable false
         legend.setEnabled(true); // enable by default
 
         dateTimeElapsedUtil.setDate_started(habit.getDate_started());
         dateTimeElapsedUtil.convertToDate();
         Date date = dateTimeElapsedUtil.getStart_date();
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
         int year = Integer.parseInt(simpleDateFormat.format(date));
         simpleDateFormat.applyPattern("MM");
@@ -162,9 +166,18 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
         simpleDateFormat.applyPattern("d");
         int day = Integer.parseInt(simpleDateFormat.format(date));
 
-        holder.calendarView.setDateSelected(CalendarDay.from(year, month, day), true);
-        holder.calendarView.setAllowClickDaysOutsideCurrentMonth(false);
-        holder.calendarView.state().edit()
+        holder.calendarView
+                .setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
+        holder.calendarView.
+                setDateSelected(CalendarDay.from(year, month, day), true);
+//        holder.calendarView.
+//                setDateSelected(CalendarDay.today(), true);
+        holder.calendarView
+                .setAllowClickDaysOutsideCurrentMonth(false);
+
+        holder.calendarView
+                .state()
+                .edit()
                 .setFirstDayOfWeek(DayOfWeek.of(Calendar.SUNDAY))
                 .setMaximumDate(CalendarDay.today())
                 .setMinimumDate(CalendarDay.from(year, month, day))
@@ -232,7 +245,7 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
                 itemContainer.setBackground(cloud);
             }
 
-            totalSubroutine.setText("[ " + String.valueOf(habit.getTotal_subroutine()) + " ]");
+            totalSubroutine.setText(String.valueOf(habit.getTotal_subroutine()));
             title.setText(habit.getHabit());
             description.setText(habit.getDescription());
 

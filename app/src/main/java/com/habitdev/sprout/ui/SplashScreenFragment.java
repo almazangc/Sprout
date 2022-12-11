@@ -2,7 +2,6 @@ package com.habitdev.sprout.ui;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -32,8 +30,6 @@ import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentSplashScreenBinding;
 import com.habitdev.sprout.enums.BundleKeys;
 
-import org.checkerframework.checker.units.qual.C;
-
 import java.util.List;
 import java.util.Random;
 
@@ -47,7 +43,7 @@ public class SplashScreenFragment extends Fragment {
     private final int splashDuration;
 
     public SplashScreenFragment() {
-        this.splashDuration = 2000;
+        this.splashDuration = 3000;
     }
 
     @Override
@@ -65,7 +61,7 @@ public class SplashScreenFragment extends Fragment {
                         if (documents != null) {
                             changeQuotes(documents.toObjects(Quotes.class));
                         } else {
-                            Log.d("tag", "SplashScreen: onSuccess() called: null documents " );
+                            Log.d("tag", "SplashScreen: onSuccess() called: null documents ");
                         }
                     }
                 })
@@ -80,7 +76,7 @@ public class SplashScreenFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void setTheme(){
+    private void setTheme() {
         final String SharedPreferences_KEY = "SP_DB";
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
         Drawable light, dark;
@@ -94,11 +90,11 @@ public class SplashScreenFragment extends Fragment {
 
         final String SHARED_PREF_KEY = "THEME";
         int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
-        if (theme == 1){
+        if (theme == 1) {
             binding.splashScreenBackground.setBackground(light);
             binding.appName.setTextColor(_dark);
             binding.subLbl.setTextColor(_dark);
-        } else if (theme == 2){
+        } else if (theme == 2) {
             binding.splashScreenBackground.setBackground(dark);
             binding.appName.setTextColor(_light);
             binding.subLbl.setTextColor(_light);
@@ -107,7 +103,7 @@ public class SplashScreenFragment extends Fragment {
 
     private void changeQuotes(List<Quotes> quotes) {
 
-        if (!quotes.isEmpty()){
+        if (!quotes.isEmpty()) {
 
             Random random = new Random();
 
@@ -126,7 +122,7 @@ public class SplashScreenFragment extends Fragment {
                 }
             }.start();
         } else {
-            binding.subLbl.setText("Yokoso");
+            binding.subLbl.setText("First Time Message for new installation");
         }
     }
 

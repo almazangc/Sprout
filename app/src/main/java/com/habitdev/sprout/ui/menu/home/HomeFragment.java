@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.ui.HomeItemOnClickFragment;
@@ -186,7 +187,19 @@ public class HomeFragment extends Fragment
     @Override
     public void onClickHabitDrop(Habits habit) {
         habit.setOnReform(false);
+        habit.setRelapse(0);
+        habit.setCompleted_subroutine(0);
         habitWithSubroutinesViewModel.updateHabit(habit);
+
+        List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+        for (Subroutines subroutine : subroutinesList) {
+            subroutine.setLongest_streak(0);
+            subroutine.setMax_streak(0);
+            subroutine.setMarkDone(false);
+            subroutine.setTotal_skips(0);
+            subroutine.setTotal_completed(0);
+            habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+        }
     }
 
     private void onBackPress() {
@@ -249,7 +262,7 @@ public class HomeFragment extends Fragment
     @Override
     public void onHomeItemOnClickReturnHome() {
         removeChildFragment(homeItemOnClickFragment);
-//        homeItemOnClickFragment = new HomeItemOnClickFragment();
+        homeItemOnClickFragment = new HomeItemOnClickFragment();
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
     }
 

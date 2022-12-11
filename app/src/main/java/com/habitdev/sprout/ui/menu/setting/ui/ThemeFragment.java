@@ -2,7 +2,6 @@ package com.habitdev.sprout.ui.menu.setting.ui;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.habitdev.sprout.activity.startup.Main;
 import com.habitdev.sprout.databinding.FragmentThemeBinding;
-import com.habitdev.sprout.ui.menu.setting.SettingFragment;
-
-import java.util.ArrayList;
 
 public class ThemeFragment extends Fragment {
 
     private FragmentThemeBinding binding;
     private SharedPreferences sharedPreferences;
-    private final String SHARED_PREF_KEY = "THEME";
+    private final String THEME_SHARED_PREF_KEY = "THEME";
 
     public interface onReturnSetting{
         void returnFromThemeToSetting();
@@ -47,6 +42,21 @@ public class ThemeFragment extends Fragment {
         final String SharedPreferences_KEY = "SP_DB";
         sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
+        if (sharedPreferences.contains(THEME_SHARED_PREF_KEY)) {
+            int theme = sharedPreferences.getInt(THEME_SHARED_PREF_KEY, 0);
+            switch (theme){
+                case 1:
+                    ((RadioButton) binding.themeRadioGroup.getChildAt(1)).setChecked(true);
+                    break;
+                case 2:
+                    ((RadioButton) binding.themeRadioGroup.getChildAt(2)).setChecked(true);
+                    break;
+                default:
+                    ((RadioButton) binding.themeRadioGroup.getChildAt(0)).setChecked(true);
+                    break;
+            }
+        }
+
         binding.setSelectedThemeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,13 +68,13 @@ public class ThemeFragment extends Fragment {
 
                 if (selectedTheme.equals("As in the system")){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    sharedPreferences.edit().putInt(SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).apply();
+                    sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).apply();
                 } else if (selectedTheme.equals("Light Theme")) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    sharedPreferences.edit().putInt(SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_NO).apply();
+                    sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_NO).apply();
                 } else if (selectedTheme.equals("Dark Theme")) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    sharedPreferences.edit().putInt(SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_YES).apply();
+                    sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_YES).apply();
                 }
             }
         });
