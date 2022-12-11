@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -44,7 +45,7 @@ public class SplashScreenFragment extends Fragment {
     private final int splashDuration;
 
     public SplashScreenFragment() {
-        this.splashDuration = 3000;
+        this.splashDuration = 5000;
     }
 
     @Override
@@ -130,7 +131,8 @@ public class SplashScreenFragment extends Fragment {
                 }
             }.start();
         } else {
-            binding.subLbl.setText("First Time Message for new installation");
+            final String MESSAGE = "First Time Message for new installation";
+            binding.subLbl.setText(MESSAGE);
         }
     }
 
@@ -140,20 +142,36 @@ public class SplashScreenFragment extends Fragment {
     private void checkStatus() {
         new Handler().postDelayed(() -> {
             //Loading intents of fragments
-            boolean isOnBoardingDone;
+            boolean isOnBoardingDone = false;
 
             Bundle bundle = SplashScreenFragment.this.getArguments();
             if (bundle != null) {
                 isOnBoardingDone = bundle.getBoolean(BundleKeys.ANALYSIS.getKEY());
             } else {
-                UserViewModel userViewModel = new ViewModelProvider(SplashScreenFragment.this.requireActivity()).get(UserViewModel.class);
-                isOnBoardingDone = userViewModel.getOnBoarding();
+                try {
+                    UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+                    isOnBoardingDone = userViewModel.getOnBoarding();
+                } catch (Exception e){
+                    Log.d("tag", "checkStatus: " + e.getMessage());
+//                    Fragment SplashScreenFragment not attached to an activity.
+                }
             }
 
             if (!isOnBoardingDone)
-                NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_onboarding);
+                try {
+                    NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_onboarding);
+                } catch (Exception e) {
+                    Log.d("tag", "checkStatus: " + e.getMessage());
+//                    Fragment SplashScreenFragment not associated with a fragment manager
+                }
+
             if (isOnBoardingDone)
-                NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_main);
+                try {
+                    NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_main);
+                } catch (Exception e) {
+                    Log.d("tag", "checkStatus: " + e.getMessage());
+//                    Fragment SplashScreenFragment not associated with a fragment manager
+                }
             onDestroyView();
         }, splashDuration);
     }
@@ -166,6 +184,23 @@ public class SplashScreenFragment extends Fragment {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        FragmentActivity fragmentActivity = requireActivity();
+
+    }
+
+    @Override
+    public void setInitialSavedState(@Nullable SavedState state) {
+        super.setInitialSavedState(state);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
