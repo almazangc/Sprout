@@ -106,15 +106,6 @@ public class HomeItemOnClickFragment extends Fragment {
                     timer.cancel();
                     timer.purge();
                 }
-//                new Handler(Looper.getMainLooper()).post(() -> {
-//                    if (binding != null) {
-//                            dateTimeElapsedUtil.calculateElapsedDateTime();
-//                            binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
-//                        } else {
-//                            timer.cancel();
-//                            timer.purge();
-//                        }
-//                });
             }
         }, 0, 1000);
 

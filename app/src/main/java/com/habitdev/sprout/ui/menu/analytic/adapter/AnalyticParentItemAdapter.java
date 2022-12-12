@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,16 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
     private List<Habits> oldHabitsList;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
 
+    public interface onItemClick{
+        void analyticOnItemClick(int position);
+    }
+
+    private onItemClick mOnItemClick;
+
+    public void setmOnItemClick(onItemClick mOnItemClick) {
+        this.mOnItemClick = mOnItemClick;
+    }
+
     public AnalyticParentItemAdapter() {
         oldHabitsList = new ArrayList<>();
     }
@@ -67,7 +78,8 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
     @Override
     public AnalyticParentItemAdapter.AnalyticParentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new AnalyticParentViewHolder(
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_analytic_parent_item, parent, false)
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_analytic_parent_item, parent, false),
+                mOnItemClick
         );
     }
 
@@ -207,7 +219,7 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
 
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
-        public AnalyticParentViewHolder(@NonNull View itemView) {
+        public AnalyticParentViewHolder(@NonNull View itemView, onItemClick mOnItemClick) {
             super(itemView);
             itemContainer = itemView.findViewById(R.id.adapter_home_parent_item_container);
 
@@ -227,6 +239,16 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
             nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_nephritis_selector);
             bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
+
+            itemContainer.setOnClickListener(view -> {
+                Log.d("tag", "AnalyticParentViewHolder: ");
+                if (mOnItemClick != null) {
+                    int position = getBindingAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        mOnItemClick.analyticOnItemClick(position);
+                    }
+                }
+            });
         }
 
         void bindHabit(Habits habit) {

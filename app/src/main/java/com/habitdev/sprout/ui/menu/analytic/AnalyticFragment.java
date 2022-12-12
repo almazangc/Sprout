@@ -10,20 +10,21 @@ import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
+import com.google.android.material.snackbar.Snackbar;
+import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentAnalyticBinding;
 import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticParentItemAdapter;
+import com.habitdev.sprout.ui.menu.analytic.ui.AnalyticItemOnClickFragment;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.util.ArrayList;
@@ -31,14 +32,49 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class AnalyticFragment extends Fragment {
+public class AnalyticFragment extends Fragment implements AnalyticParentItemAdapter.onItemClick {
 
     private FragmentAnalyticBinding binding;
     private UserViewModel userViewModel;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private AnalyticParentItemAdapter analyticParentItemAdapter = new AnalyticParentItemAdapter();
+    private List<Habits> habitsList;
+    private final AnalyticParentItemAdapter analyticParentItemAdapter = new AnalyticParentItemAdapter();
+    private final AnalyticItemOnClickFragment analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
 
-    public AnalyticFragment() {}
+    public AnalyticFragment() {
+        habitsList = new ArrayList<>();
+        analyticParentItemAdapter.setmOnItemClick(this);
+    }
+
+    @Override
+    public void analyticOnItemClick(int position) {
+        Log.d("tag", "analyticOnItemClick: " + habitsList.get(position).toString());
+        show(position);
+        analyticItemOnClickFragment.setHabit(habitsList.get(position));
+        analyticItemOnClickFragment.setPosition(position);
+        getChildFragmentManager()
+                .beginTransaction()
+                .addToBackStack(AnalyticFragment.this.getTag())
+                .replace(binding.analyticFrameLayout.getId(), analyticItemOnClickFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
+                .commit();
+        binding.analysisContainer.setVisibility(View.GONE);
+    }
+
+    private void show(int position){
+        Snackbar.make(binding.getRoot(), habitsList.get(position).getHabit() , Snackbar.LENGTH_INDEFINITE)
+                .setAction("Dismiss", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //auto dismiss when clicked
+
+                    }
+                })
+                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                .setTextColor(getResources().getColor(R.color.NIGHT))
+                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                .show();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,12 +83,11 @@ public class AnalyticFragment extends Fragment {
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         setDateSinceInstalledElapsedTime();
         setRecyclerViewAdapter();
-
         onBackPress();
         return binding.getRoot();
     }
 
-    private void setDateSinceInstalledElapsedTime(){
+    private void setDateSinceInstalledElapsedTime() {
         User user = userViewModel.getUserByUID(1);
         String date = user.getDateInstalled();
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date);
@@ -61,28 +96,29 @@ public class AnalyticFragment extends Fragment {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    if (binding != null){
+                if (binding != null) {
+                    new Handler(Looper.getMainLooper()).post(() -> {
                         dateTimeElapsedUtil.calculateElapsedDateTime();
                         binding.dateSinceInstalled.setText(dateTimeElapsedUtil.getResult());
-                    } else {
-                        timer.cancel();
-                        timer.purge();
-                    }
-                });
+                    });
+                } else {
+                    timer.cancel();
+                    timer.purge();
+                }
             }
         }, 0, 1000);
     }
 
-    private void setRecyclerViewAdapter(){
-        List<Habits> habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
+    private void setRecyclerViewAdapter() {
+        habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
         analyticParentItemAdapter.setOldHabitsList(habitsList);
         analyticParentItemAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+        analyticParentItemAdapter.setmOnItemClick(this);
         binding.analyticHabitOnReformRecyclerView.setAdapter(analyticParentItemAdapter);
         setRecyclerViewAdapterObserver();
     }
 
-    private void setRecyclerViewAdapterObserver(){
+    private void setRecyclerViewAdapterObserver() {
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), new Observer<List<Habits>>() {
             @Override
             public void onChanged(List<Habits> habits) {

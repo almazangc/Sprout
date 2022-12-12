@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu.home;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,14 @@ import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
@@ -186,6 +189,7 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onClickHabitDrop(Habits habit) {
+
         habit.setOnReform(false);
         habit.setRelapse(0);
         habit.setCompleted_subroutine(0);
@@ -200,6 +204,13 @@ public class HomeFragment extends Fragment
             subroutine.setTotal_completed(0);
             habitWithSubroutinesViewModel.updateSubroutine(subroutine);
         }
+
+        Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + habit.getHabit() + "</b>: all progress has been lost"), Snackbar.LENGTH_INDEFINITE)
+                .setAction("Dismiss", view -> {})
+                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                .setTextColor(getResources().getColor(R.color.NIGHT))
+                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                .show();
     }
 
     private void onBackPress() {
