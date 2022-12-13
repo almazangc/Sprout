@@ -111,61 +111,68 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
         int completed_subroutine = habit.getCompleted_subroutine();
         int total_subroutine = completed_subroutine + skip_subroutine;
 
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
-        if (completed_subroutine > 0){
-            pieEntries.add(new PieEntry(completed_subroutine, "Completed: " + completed_subroutine));
-        }
-        if (skip_subroutine > 0){
-            pieEntries.add(new PieEntry(skip_subroutine, "Skips: " + skip_subroutine));
-        }
+        if (total_subroutine > 0){
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, "Total: " + total_subroutine);
-        pieDataSet.setSliceSpace(5f);
+            holder.pieChart.setVisibility(View.VISIBLE);
 
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.BRIGHT_SKY_BLUE));
-        colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.ALIZARIN));
+            ArrayList<PieEntry> pieEntries = new ArrayList<>();
+            if (completed_subroutine > 0){
+                pieEntries.add(new PieEntry(completed_subroutine, "Completed: " + completed_subroutine));
+            }
+            if (skip_subroutine > 0){
+                pieEntries.add(new PieEntry(skip_subroutine, "Skips: " + skip_subroutine));
+            }
 
-        pieDataSet.setColors(colors);
+            PieDataSet pieDataSet = new PieDataSet(pieEntries, "Total: " + total_subroutine);
+            pieDataSet.setSliceSpace(5f);
 
-        PieData pieData = new PieData(pieDataSet);
-        pieData.setDrawValues(true);
-        pieData.setValueFormatter(new PercentFormatter(holder.pieChart));
-        pieData.setValueTextSize(15f);
-        pieData.setValueTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
-        pieData.setHighlightEnabled(true);
+            ArrayList<Integer> colors = new ArrayList<>();
+            colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.BRIGHT_SKY_BLUE));
+            colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.ALIZARIN));
 
-        holder.pieChart.setData(pieData); // set date entry
-        holder.pieChart.invalidate(); // refresh
-        holder.pieChart.setDrawHoleEnabled(true); // donut hole
-        holder.pieChart.setUsePercentValues(true); // convert to percentage
+            pieDataSet.setColors(colors);
+
+            PieData pieData = new PieData(pieDataSet);
+            pieData.setDrawValues(true);
+            pieData.setValueFormatter(new PercentFormatter(holder.pieChart));
+            pieData.setValueTextSize(15f);
+            pieData.setValueTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
+            pieData.setHighlightEnabled(true);
+
+            holder.pieChart.setData(pieData); // set date entry
+            holder.pieChart.invalidate(); // refresh
+            holder.pieChart.setDrawHoleEnabled(true); // donut hole
+            holder.pieChart.setUsePercentValues(true); // convert to percentage
 //        holder.pieChart.setEntryLabelColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT)); //entry lbl color
 //        holder.pieChart.setDrawCenterText(true); // true by default
 //        holder.pieChart.setCenterText(completed_subroutine + "/" + total_subroutine); //center lbl content
 //        holder.pieChart.setCenterTextSize(15f); // center lbl text size
-        holder.pieChart.setDrawEntryLabels(false); //entry label hidden or not
+            holder.pieChart.setDrawEntryLabels(false); //entry label hidden or not
 //        holder.pieChart.setEntryLabelColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
-        holder.pieChart.setDrawSlicesUnderHole(false); // dunno
+            holder.pieChart.setDrawSlicesUnderHole(false); // dunno
 //        holder.pieChart.setHoleRadius(10f); // hole radius
-        holder.pieChart.setHoleColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.TRANSPARENT));
+            holder.pieChart.setHoleColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.TRANSPARENT));
 
-        Description description = new Description();
-        description.setText("Pie Chart Label");
-        description.setTextAlign(Paint.Align.RIGHT);
-        description.setTextSize(15f);
-        description.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.CORAL_RED));
-        holder.pieChart.setDescription(description);
-        holder.pieChart.getDescription().setEnabled(false); // Hide description
-        holder.pieChart.animateY(1000, Easing.EaseInOutBack);
+            Description description = new Description();
+            description.setText("Pie Chart Label");
+            description.setTextAlign(Paint.Align.RIGHT);
+            description.setTextSize(15f);
+            description.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.CORAL_RED));
+            holder.pieChart.setDescription(description);
+            holder.pieChart.getDescription().setEnabled(false); // Hide description
+            holder.pieChart.animateY(1000, Easing.EaseInOutBack);
 
-        Legend legend = holder.pieChart.getLegend();
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-        legend.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
-        legend.setTextSize(15f);
-        legend.setDrawInside(false); // set drawable false
-        legend.setEnabled(true); // enable by default
+            Legend legend = holder.pieChart.getLegend();
+            legend.setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+            legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+            legend.setOrientation(Legend.LegendOrientation.VERTICAL);
+            legend.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
+            legend.setTextSize(15f);
+            legend.setDrawInside(false); // set drawable false
+            legend.setEnabled(true); // enable by default
+        } else {
+            holder.pieChart.setVisibility(View.GONE);
+        }
 
         dateTimeElapsedUtil.setDate_started(habit.getDate_started());
         dateTimeElapsedUtil.convertToDate();
@@ -216,7 +223,6 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
         PieChart pieChart;
         MaterialCalendarView calendarView;
         TextView totalSubroutine, title, description, dateStarted, elapsedAbstinence, relapse;
-
         Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public AnalyticParentViewHolder(@NonNull View itemView, onItemClick mOnItemClick) {
@@ -270,9 +276,7 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
             totalSubroutine.setText(String.valueOf(habit.getTotal_subroutine()));
             title.setText(habit.getHabit());
             description.setText(habit.getDescription());
-
             dateStarted.setText(habit.getDate_started());
-
             relapse.setText(String.valueOf(habit.getRelapse()));
         }
     }

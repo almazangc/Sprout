@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/adapter_analytic_item_on_click_frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:showIn="@layout/fragment_analytic_item_on_click">
+
+    <RelativeLayout
+        android:id="@+id/adapter_analytic_item_on_click_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="16dp"
+        android:background="@drawable/background_child_item_view_cloud">
+
+        <!-- Title-->
+        <TextView
+            android:id="@+id/adapter_analytic_item_on_click_subroutine_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/NIGHT"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="Subroutine Title" />
+
+        <!--description-->
+        <TextView
+            android:id="@+id/adapter_analytic_item_on_click_subroutine_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/adapter_analytic_item_on_click_subroutine_title"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:justificationMode="inter_word"
+            android:textColor="@color/NIGHT"
+            android:textSize="15sp"
+            tools:text="\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta pharetra magna, eu laoreet urna condimentum a. Vivamus dapibus ante eget nunc ultrices bibendum. Duis consectetur fermentum nibh nec porta. Ut in fringilla leo. Aenean quis tortor vel tortor finibus cursus vel vel tellus. Nullam tellus enim, viverra et imperdiet sed, egestas id ante. Fusce rhoncus odio molestie elit ornare vulputate." />
+
+        <!--Pie chart-->
+        <!--totol completed subroutine-->
+        <!--skips-->
+        <!--total sum-->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/adapter_analytic_item_on_click_subroutine_pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/adapter_analytic_item_on_click_subroutine_description"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:minWidth="150dp"
+            android:minHeight="150dp" />
+
+        <!--current max streak-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/adapter_analytic_item_on_click_subroutine_max_streak_layout"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/adapter_analytic_item_on_click_subroutine_pie_chart"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/adapter_analytic_item_on_click_subroutine_max_streak_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:text="\u2022 Current Streak: "
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/NIGHT"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/adapter_analytic_item_on_click_subroutine_max_streak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                tools:text="N Days"
+                android:textColor="@color/NIGHT"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!--longest streak-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/adapter_analytic_item_on_click_subroutine_longest_streak_layout"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/adapter_analytic_item_on_click_subroutine_max_streak_layout"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/adapter_analytic_item_on_click_subroutine_longest_streak_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:text="\u2022 Longest Steak: "
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/NIGHT"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/adapter_analytic_item_on_click_subroutine_longest_streak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                tools:text="N Days"
+                android:textColor="@color/NIGHT"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</FrameLayout>

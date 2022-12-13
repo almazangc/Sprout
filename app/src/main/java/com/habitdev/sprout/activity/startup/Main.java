@@ -124,10 +124,6 @@ public class Main extends AppCompatActivity {
 
                     for (Subroutines subroutine : subroutinesList){
 
-                        if (subroutine.getLongest_streak() < subroutine.getMax_streak()){
-                            subroutine.setLongest_streak(subroutine.getMax_streak());
-                        }
-
                         if (subroutine.isMarkDone()){
                             subroutine.setMarkDone(false);
                             subroutine.setMax_streak(subroutine.getMax_streak()+1);
@@ -135,6 +131,11 @@ public class Main extends AppCompatActivity {
                             subroutine.setMax_streak(0);
                             subroutine.setTotal_skips(subroutine.getTotal_skips()+1);
                         }
+
+                        if (subroutine.getLongest_streak() < subroutine.getMax_streak()){
+                            subroutine.setLongest_streak(subroutine.getMax_streak());
+                        }
+
                         habitWithSubroutinesViewModel.updateSubroutine(subroutine);
                     }
                 }

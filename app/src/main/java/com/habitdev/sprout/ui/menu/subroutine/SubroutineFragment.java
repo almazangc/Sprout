@@ -4,13 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -20,10 +18,10 @@ import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class SubroutineFragment extends Fragment implements SubroutineParentItemAdapter.OnClickListener, SubroutineModifyFragment.onClickBackPress {
+public class SubroutineFragment extends Fragment
+        implements
+        SubroutineParentItemAdapter.OnClickListener,
+        SubroutineModifyFragment.onClickBackPress {
 
     private FragmentSubroutineBinding binding;
     protected SubroutineModifyFragment subroutineModifyFragment = new SubroutineModifyFragment();
@@ -53,7 +51,6 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
         setEmptyRVBackground(parentAdapterItem);
 
         parentAdapterItem.setmOnClickListener(this);
-
         parentAdapterItem.setSubroutineLifecycleOwner(getViewLifecycleOwner());
         parentAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
 
@@ -106,6 +103,9 @@ public class SubroutineFragment extends Fragment implements SubroutineParentItem
                 .remove(subroutineModifyFragment)
                 .setTransition(FragmentTransaction.TRANSIT_NONE)
                 .commit();
+        subroutineModifyFragment.setmOnClickBackPress(null);
+        subroutineModifyFragment = new SubroutineModifyFragment();
+        subroutineModifyFragment.setmOnClickBackPress(this);
         binding.subroutineContainer.setVisibility(View.VISIBLE);
     }
 

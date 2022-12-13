@@ -45,6 +45,7 @@
                     android:textAllCaps="true"
                     android:textColor="@color/NIGHT"
                     android:textSize="13sp"
+                    android:textStyle="italic|bold"
                     tools:text="Sample Text" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -54,6 +55,7 @@
                     android:layout_below="@id/date_since_installed"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
+                    tools:itemCount="2"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/adapter_analytic_parent_item" />
             </RelativeLayout>

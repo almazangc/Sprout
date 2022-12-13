@@ -32,26 +32,28 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class AnalyticFragment extends Fragment implements AnalyticParentItemAdapter.onItemClick {
+public class AnalyticFragment extends Fragment
+        implements
+        AnalyticParentItemAdapter.onItemClick,
+        AnalyticItemOnClickFragment.OnclickListener{
 
     private FragmentAnalyticBinding binding;
-    private UserViewModel userViewModel;
-    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private List<Habits> habitsList;
-    private final AnalyticParentItemAdapter analyticParentItemAdapter = new AnalyticParentItemAdapter();
-    private final AnalyticItemOnClickFragment analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
+    private static UserViewModel userViewModel;
+    private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private static List<Habits> habitsList;
+    private static final AnalyticParentItemAdapter analyticParentItemAdapter = new AnalyticParentItemAdapter();
+    private static AnalyticItemOnClickFragment analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
 
     public AnalyticFragment() {
         habitsList = new ArrayList<>();
         analyticParentItemAdapter.setmOnItemClick(this);
+        analyticItemOnClickFragment.setmOclickListener(this);
     }
 
     @Override
     public void analyticOnItemClick(int position) {
-        Log.d("tag", "analyticOnItemClick: " + habitsList.get(position).toString());
-        show(position);
+//        show(position); Snackbar
         analyticItemOnClickFragment.setHabit(habitsList.get(position));
-        analyticItemOnClickFragment.setPosition(position);
         getChildFragmentManager()
                 .beginTransaction()
                 .addToBackStack(AnalyticFragment.this.getTag())
@@ -61,13 +63,25 @@ public class AnalyticFragment extends Fragment implements AnalyticParentItemAdap
         binding.analysisContainer.setVisibility(View.GONE);
     }
 
+
+    @Override
+    public void setAnalyticParentItemOnclickListener() {
+        getChildFragmentManager()
+                .beginTransaction()
+                .remove(analyticItemOnClickFragment)
+                .setTransition(FragmentTransaction.TRANSIT_NONE)
+                .commit();
+        binding.analysisContainer.setVisibility(View.VISIBLE);
+        analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
+        analyticItemOnClickFragment.setmOclickListener(this);
+    }
+
     private void show(int position){
         Snackbar.make(binding.getRoot(), habitsList.get(position).getHabit() , Snackbar.LENGTH_INDEFINITE)
                 .setAction("Dismiss", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //auto dismiss when clicked
-
+                        //auto dismiss when clicked, single action
                     }
                 })
                 .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))

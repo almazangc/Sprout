@@ -259,6 +259,7 @@ public class HomeFragment extends Fragment
     @Override
     public void onAddDefaultHabitClickReturnHome() {
         removeChildFragment(addDefaultHabitFragment);
+        addDefaultHabitFragment.setmOnAddDefaultReturnHome(null);
         addDefaultHabitFragment = new AddDefaultHabitFragment();
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
     }
@@ -266,6 +267,7 @@ public class HomeFragment extends Fragment
     @Override
     public void onAddNewHabitClickReturnHome() {
         removeChildFragment(addNewHabitHomeFragment);
+        addNewHabitHomeFragment.setmOnReturnHome(null);
         addNewHabitHomeFragment = new AddNewHabitFragment();
         addNewHabitHomeFragment.setmOnReturnHome(this);
     }
@@ -273,6 +275,7 @@ public class HomeFragment extends Fragment
     @Override
     public void onHomeItemOnClickReturnHome() {
         removeChildFragment(homeItemOnClickFragment);
+        homeItemOnClickFragment.setmOnItemOnClickReturnHome(null);
         homeItemOnClickFragment = new HomeItemOnClickFragment();
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
     }

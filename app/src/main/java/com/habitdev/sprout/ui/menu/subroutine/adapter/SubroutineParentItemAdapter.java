@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -150,7 +149,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
     public static class ParentItemViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout itemLayout;
+        RelativeLayout itemContainer;
         TextView HabitsTitle;
         Button ModifySubroutine;
         RecyclerView childRecycleView;
@@ -158,7 +157,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
         public ParentItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemLayout = itemView.findViewById(R.id.subroutine_parent_item_layout);
+            itemContainer = itemView.findViewById(R.id.subroutine_parent_item_layout);
             HabitsTitle = itemView.findViewById(R.id.subroutine_parent_item_habit_title);
             ModifySubroutine = itemView.findViewById(R.id.subroutine_parent_item_modify_subroutine);
             childRecycleView = itemView.findViewById(R.id.subroutine_child_recyclerview);
@@ -175,24 +174,24 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         long bindData(Habits habit, OnClickListener mOnClickListener) {
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
-                itemLayout.setBackground(alzarin);
+                itemContainer.setBackground(alzarin);
             } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
-                itemLayout.setBackground(amethyst);
+                itemContainer.setBackground(amethyst);
             } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
-                itemLayout.setBackground(bright_sky_blue);
+                itemContainer.setBackground(bright_sky_blue);
             } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
-                itemLayout.setBackground(nephritis);
+                itemContainer.setBackground(nephritis);
             } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
-                itemLayout.setBackground(sunflower);
+                itemContainer.setBackground(sunflower);
             } else {
-                itemLayout.setBackground(cloud);
+                itemContainer.setBackground(cloud);
             }
 
             HabitsTitle.setText(habit.getHabit());
 
             HabitsTitle.setPadding(padding_inPx(10), padding_inPx(0), padding_inPx(10), padding_inPx(5));
 
-            itemLayout.setOnClickListener(view -> {
+            itemContainer.setOnClickListener(view -> {
                 childRecycleView.getVisibility();
                 if (childRecycleView.getVisibility() == View.GONE) {
                     LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(childRecycleView.getContext(), R.anim.layout_animation_fall);
@@ -205,7 +204,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
                 }
             });
 
-            itemLayout.setOnTouchListener(new View.OnTouchListener() {
+            itemContainer.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -229,7 +228,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         }
 
         int padding_inPx(int dp) {
-            final float scale = itemLayout.getResources().getDisplayMetrics().density;
+            final float scale = itemContainer.getResources().getDisplayMetrics().density;
             return (int) (dp * scale + 0.5f);
         }
     }

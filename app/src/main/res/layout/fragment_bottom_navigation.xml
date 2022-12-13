@@ -19,12 +19,12 @@
         android:paddingTop="5dp"
         android:background="@drawable/background_bottom_bar_view_waikawa_grey"
         android:layout_alignParentBottom="true"
-        android:layout_height="54dp">
+        android:layout_height="?android:attr/actionBarSize">
 
         <nl.joery.animatedbottombar.AnimatedBottomBar
             android:id="@+id/bottom_bar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="?android:attr/actionBarSize"
             android:layout_alignParentBottom="true"
             app:abb_indicatorAppearance="round"
             app:abb_indicatorColor="@color/NIGHT"
