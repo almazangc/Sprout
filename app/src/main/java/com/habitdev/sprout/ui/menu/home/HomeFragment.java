@@ -138,17 +138,23 @@ public class HomeFragment extends Fragment
         itemTouchHelper.attachToRecyclerView(binding.homeRecyclerView);
     }
 
+    /**
+     * Control Number of habits can be added with a maximum of 2
+     */
     private void fabVisibility() {
-        habitWithSubroutinesViewModel.getGetHabitOnReformCount().observe(getViewLifecycleOwner(), count -> {
-            if (count <= 1) {
-                binding.homeFab.setVisibility(View.VISIBLE);
-                binding.homeFab.setClickable(true);
-                FabButton();
-            } else {
-                binding.homeFab.setVisibility(View.GONE);
-                binding.homeFab.setClickable(false);
-            }
-        });
+        binding.homeFab.setVisibility(View.VISIBLE);
+        binding.homeFab.setClickable(true);
+        FabButton();
+//        habitWithSubroutinesViewModel.getGetHabitOnReformCount().observe(getViewLifecycleOwner(), count -> {
+//            if (count <= 1) {
+//                binding.homeFab.setVisibility(View.VISIBLE);
+//                binding.homeFab.setClickable(true);
+//                FabButton();
+//            } else {
+//                binding.homeFab.setVisibility(View.GONE);
+//                binding.homeFab.setClickable(false);
+//            }
+//        });
     }
 
     private void recyclerViewObserver(HomeParentItemAdapter homeParentItemAdapter) {
