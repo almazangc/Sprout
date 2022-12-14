@@ -53,6 +53,9 @@ public class AnalyticFragment extends Fragment
     @Override
     public void analyticOnItemClick(int position) {
 //        show(position); Snackbar
+        // AnalyticFragment is not attached yet, on return
+        analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
+        analyticItemOnClickFragment.setmOclickListener(this);
         analyticItemOnClickFragment.setHabit(habitsList.get(position));
         getChildFragmentManager()
                 .beginTransaction()
@@ -66,11 +69,16 @@ public class AnalyticFragment extends Fragment
 
     @Override
     public void setAnalyticParentItemOnclickListener() {
-        getChildFragmentManager()
-                .beginTransaction()
-                .remove(analyticItemOnClickFragment)
-                .setTransition(FragmentTransaction.TRANSIT_NONE)
-                .commit();
+        try {
+            getChildFragmentManager()
+                    .beginTransaction()
+                    .remove(analyticItemOnClickFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_NONE)
+                    .commit();
+        }catch (Exception e){
+            Log.d("tag", "setAnalyticParentItemOnclickListener: " + e.getMessage());
+        }
+
         binding.analysisContainer.setVisibility(View.VISIBLE);
         analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
         analyticItemOnClickFragment.setmOclickListener(this);
@@ -113,7 +121,12 @@ public class AnalyticFragment extends Fragment
                 if (binding != null) {
                     new Handler(Looper.getMainLooper()).post(() -> {
                         dateTimeElapsedUtil.calculateElapsedDateTime();
-                        binding.dateSinceInstalled.setText(dateTimeElapsedUtil.getResult());
+                        try {
+                            binding.dateSinceInstalled.setText(dateTimeElapsedUtil.getResult());
+                        } catch (Exception e){
+
+                        }
+
                     });
                 } else {
                     timer.cancel();

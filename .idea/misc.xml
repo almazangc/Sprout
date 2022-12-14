@@ -355,9 +355,11 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/view_background.xml" value="0.3055" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/wavy_background.xml" value="0.3055" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/wavy_background_1.xml" value="0.3055" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/adapter_analytic_item_on_click_parent_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/adapter_subroutine_parent_item.xml" value="0.208955223880597" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_analysis.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_analytic.xml" value="0.33" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_analytic_item_on_click.xml" value="0.17" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_eula.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_get_identity.xml" value="0.28327495621716287" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_get_nickname.xml" value="0.25" />
@@ -472,7 +474,7 @@
     <option name="OPTION_DOCUMENT_TAG_VERSION" value="true" />
     <option name="OTHER_OPTIONS" value="-sourcepath C:\Users\User\AppData\Local\Android\Sdk\platforms\android-32\android.jar" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
