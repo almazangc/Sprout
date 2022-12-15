@@ -32,7 +32,6 @@ import nl.joery.animatedbottombar.AnimatedBottomBar;
 public class BottomNavigationFragment extends Fragment {
 
     private FragmentBottomNavigationBinding binding;
-    private SharedPreferences sharedPreferences;
 
     private int last_menu_selected, last_selected_index;
 
@@ -95,7 +94,7 @@ public class BottomNavigationFragment extends Fragment {
 
     private void setTheme() {
         final String SharedPreferences_KEY = "SP_DB";
-        sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
         final String SHARED_PREF_KEY = "THEME";
         int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);

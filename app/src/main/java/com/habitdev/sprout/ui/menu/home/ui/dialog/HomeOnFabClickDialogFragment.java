@@ -37,6 +37,7 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogFragmentHomeOnFabClickDialogBinding.inflate(inflater, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
+        getDialog().setCanceledOnTouchOutside(false);
         setOnclickListener();
 //        setPadding();
         return binding.getRoot();

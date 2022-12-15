@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAddDefaultHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddDefaultHabitParentItemAdapter;
+import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,14 +35,16 @@ import java.util.Locale;
 public class AddDefaultHabitFragment extends Fragment {
 
     private FragmentAddDefaultHabitBinding binding;
-    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private List<Habits> habitsList;
-    private Habits habit;
-    private List<Subroutines> subroutinesList;
+    private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private static List<Habits> habitsList;
+    private static Habits habit;
+    private static List<Subroutines> subroutinesList;
 
-    private int current_selected_color;
-    private int old_selected_color;
-    private String color = AppColor.CLOUDS.getColor();
+    private static int current_selected_color;
+    private static int old_selected_color;
+    private static String color = AppColor.CLOUDS.getColor();
+
+    private static Bundle savedInstanceState;
 
     public interface onAddDefaultReturnHome {
         void onAddDefaultHabitClickReturnHome();
@@ -52,7 +56,7 @@ public class AddDefaultHabitFragment extends Fragment {
         this.mOnAddDefaultReturnHome = mOnAddDefaultReturnHome;
     }
 
-    public AddDefaultHabitFragment(){
+    public AddDefaultHabitFragment() {
         habitsList = new ArrayList<>();
     }
 
@@ -60,10 +64,14 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddDefaultHabitBinding.inflate(inflater, container, false);
+        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+
+        if (savedInstanceState != null)
+            AddDefaultHabitFragment.savedInstanceState = savedInstanceState;
+
         binding.habitDescriptionLbl.setVisibility(View.INVISIBLE);
         binding.subroutineLbl.setVisibility(View.INVISIBLE);
 
-        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         colorSelect();
         setHabitColor();
         upDateHabitList();
@@ -72,10 +80,27 @@ public class AddDefaultHabitFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void upDateHabitList(){
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (savedInstanceState != null) {
+            current_selected_color = savedInstanceState.getInt(ConfigurationKeys.SELECTED_COLOR.getValue(), 0);
+            setHabitColor();
+
+            if (savedInstanceState.containsKey(ConfigurationKeys.SELECTED_HABIT.getValue())) {
+                habit = (Habits) savedInstanceState.getSerializable(ConfigurationKeys.SELECTED_HABIT.getValue());
+                binding.addFromDefaultHabitItems.setText(habit.getHabit());
+                setContentView();
+                binding.habitDescriptionLbl.setVisibility(View.VISIBLE);
+                binding.subroutineLbl.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    private void upDateHabitList() {
         habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             List<Habits> habitsLiveData = new ArrayList<>();
-            for(Habits habit : habits)
+            for (Habits habit : habits)
                 if (!habit.isOnReform() && !habit.isModifiable())
                     habitsLiveData.add(habit);
             habitsList = habitsLiveData;
@@ -83,11 +108,11 @@ public class AddDefaultHabitFragment extends Fragment {
         });
     }
 
-    private void setDropDown(){
+    private void setDropDown() {
         List<String> habitTitles = new ArrayList<>();
         for (Habits habits : habitsList) habitTitles.add(habits.getHabit());
 
-        if (habitTitles.isEmpty()){
+        if (habitTitles.isEmpty()) {
             if (binding.addFromDefaultHabitTextInputLayout.getVisibility() == View.VISIBLE)
                 binding.addFromDefaultHabitTextInputLayout.setVisibility(View.GONE);
         } else {
@@ -107,7 +132,7 @@ public class AddDefaultHabitFragment extends Fragment {
         binding.addFromDefaultHabitItems.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (s.toString().trim().isEmpty()){
+                if (s.toString().trim().isEmpty()) {
                     binding.habitDescriptionLbl.setVisibility(View.INVISIBLE);
                     binding.subroutineLbl.setVisibility(View.INVISIBLE);
                 }
@@ -120,7 +145,7 @@ public class AddDefaultHabitFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().isEmpty()){
+                if (s.toString().trim().isEmpty()) {
                     binding.habitDescriptionLbl.setVisibility(View.INVISIBLE);
                     binding.subroutineCountLbl.setVisibility(View.INVISIBLE);
                     binding.habitDescription.setVisibility(View.INVISIBLE);
@@ -130,16 +155,18 @@ public class AddDefaultHabitFragment extends Fragment {
                 } else {
                     binding.habitDescriptionLbl.setVisibility(View.VISIBLE);
                     binding.subroutineCountLbl.setVisibility(View.VISIBLE);
+
                     binding.habitDescription.setVisibility(View.VISIBLE);
                     binding.subroutineLbl.setVisibility(View.VISIBLE);
                     binding.subroutineCountLbl.setVisibility(View.VISIBLE);
+
                     binding.habitSubroutinesRecyclerView.setVisibility(View.VISIBLE);
                 }
             }
         });
     }
 
-    private void setContentView(){
+    private void setContentView() {
         binding.habitDescription.setText(habit.getDescription());
         subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
 
@@ -151,7 +178,7 @@ public class AddDefaultHabitFragment extends Fragment {
         binding.subroutineCountLbl.setText(String.format(Locale.getDefault(), "%d", subroutinesList.size()));
     }
 
-    private void addHabitOnReform(){
+    private void addHabitOnReform() {
         binding.addHabitOnReformBtn.setOnClickListener(view -> {
             habitWithSubroutinesViewModel.updateHabit(new Habits(
                     habit.getPk_habit_uid(),
@@ -165,10 +192,17 @@ public class AddDefaultHabitFragment extends Fragment {
                     new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault())
                             .format(new Date()),
                     subroutinesList.size(),
-                   0
+                    0
             ));
             habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
-            if (mOnAddDefaultReturnHome != null) mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
+
+            if (mOnAddDefaultReturnHome != null)
+                mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
+            if (savedInstanceState != null) savedInstanceState = null;
+            current_selected_color = 0;
+
+            if (mOnAddDefaultReturnHome != null)
+                mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
         });
     }
 
@@ -213,7 +247,7 @@ public class AddDefaultHabitFragment extends Fragment {
     }
 
     private void setHabitColor() {
-        if (habit != null){
+        if (habit != null) {
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
                 current_selected_color = 1;
                 setSelected_color();
@@ -323,17 +357,43 @@ public class AddDefaultHabitFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (mOnAddDefaultReturnHome != null) mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
+                if (mOnAddDefaultReturnHome != null)
+                    mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
+                if (savedInstanceState != null) savedInstanceState = null;
+                current_selected_color = 0;
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color);
+        if (habit != null) {
+            outState.putSerializable(ConfigurationKeys.SELECTED_HABIT.getValue(), habit);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        Log.d("tag", "onPause: ");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        Log.d("tag", "onResume: ");
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+//        Log.d("tag", "onDestroyView: ");
         mOnAddDefaultReturnHome = null;
         habitWithSubroutinesViewModel = null;
+        habit = null;
         habitsList = null;
         binding = null;
     }

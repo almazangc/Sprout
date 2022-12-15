@@ -45,7 +45,6 @@ public class HomeAddDefaultHabitParentItemAdapter extends RecyclerView.Adapter<H
 
     @Override
     public int getItemCount() {
-        Log.d("tag", "getItemCount: " + oldSubroutineList.size());
         return oldSubroutineList.size();
     }
 

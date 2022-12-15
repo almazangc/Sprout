@@ -2,6 +2,7 @@ package com.habitdev.sprout.ui.menu.home.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.habitdev.sprout.databinding.FragmentHomeItemOnClickBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
+import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.text.SimpleDateFormat;
@@ -72,12 +74,23 @@ public class HomeItemOnClickFragment extends Fragment {
         binding = FragmentHomeItemOnClickBinding.inflate(inflater, container, false);
         commentViewModel = new ViewModelProvider(requireActivity()).get(CommentViewModel.class);
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+
+        if (savedInstanceState != null) {
+            habit = (Habits) savedInstanceState.getSerializable(ConfigurationKeys.HABIT.getValue());
+        }
+
         setHabit();
         colorSelect();
         insertComment();
         setCommentRecyclerView();
         onBackPress();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     private void setHabit() {
@@ -99,7 +112,14 @@ public class HomeItemOnClickFragment extends Fragment {
                         @Override
                         public void run() {
                             dateTimeElapsedUtil.calculateElapsedDateTime();
-                            binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+
+                            /*
+                              Why double check nullable binding, it is because of configuration changes that makes
+                              binding null before the timer is cancelled
+                             */
+                            if (binding != null) {
+                                binding.homeItemOnClickHabitTotalDaysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+                            }
                         }
                     });
                 } else {
@@ -308,8 +328,16 @@ public class HomeItemOnClickFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+//        Log.d("tag", "onSaveInstanceState: ");
+        outState.putSerializable(ConfigurationKeys.HABIT.getValue(), habit);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+//        Log.d("tag", "onDestroyView: ");
         mOnItemOnClickReturnHome = null;
         commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).removeObservers(getViewLifecycleOwner());
         habit = null;

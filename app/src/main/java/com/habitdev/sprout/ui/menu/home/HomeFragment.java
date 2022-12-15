@@ -1,7 +1,10 @@
 package com.habitdev.sprout.ui.menu.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,16 +62,13 @@ public class HomeFragment extends Fragment
     private static Bundle savedInstanceState;
 
     public HomeFragment() {
-        addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
-        addNewHabitHomeFragment.setmOnReturnHome(this);
-        homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
-        homeParentItemAdapter.setHomeParentItemOnclickListener(this);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         if (savedInstanceState != null) HomeFragment.savedInstanceState = savedInstanceState;
+        attachListener();
         setRecyclerViewAdapter();
         fabVisibility();
         onBackPress();
@@ -85,15 +85,18 @@ public class HomeFragment extends Fragment
             isOnModify = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue());
 
             if (isOnAddDefault) {
-                //do something
+                addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
+                changeFragment(addDefaultHabitFragment);
             }
 
             if (isOnAddNew) {
-                //do something
+                addNewHabitHomeFragment.setmOnReturnHome(this);
+                changeFragment(addNewHabitHomeFragment);
             }
 
-            if (isOnItemClick) {
-                //do something
+            if (isOnItemClick){
+                position = savedInstanceState.getInt(ConfigurationKeys.POSITION.getValue());
+                onItemClick(position);
             }
 
             if (isOnModify) {
@@ -102,6 +105,13 @@ public class HomeFragment extends Fragment
                 onClickHabitModify(habitOnModify, position);
             }
         }
+    }
+
+    private void attachListener() {
+        addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
+        addNewHabitHomeFragment.setmOnReturnHome(this);
+        homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
+        homeParentItemAdapter.setHomeParentItemOnclickListener(this);
     }
 
     private void setRecyclerViewAdapter() {
@@ -168,6 +178,9 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onItemClick(int position) {
+        HomeFragment.position = position;
+        isOnItemClick = true;
+
         homeItemOnClickFragment.setHabit(habitsList.get(position));
         homeItemOnClickFragment.setPosition(position);
         homeItemOnClickFragment.setAdapter_ref(homeParentItemAdapter);
@@ -178,7 +191,6 @@ public class HomeFragment extends Fragment
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                 .commit();
         binding.homeContainer.setVisibility(View.GONE);
-        isOnItemClick = true;
     }
 
     @Override
@@ -254,25 +266,24 @@ public class HomeFragment extends Fragment
             dialog.setOnClickListener(new HomeOnFabClickDialogFragment.onClickListener() {
                 @Override
                 public void onPredefinedClick() {
-                    getChildFragmentManager()
-                            .beginTransaction()
-                            .addToBackStack(HomeFragment.this.getTag())
-                            .add(binding.homeFrameLayout.getId(), addDefaultHabitFragment)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
-                            .commit();
-                    binding.homeContainer.setVisibility(View.GONE);
+//                    List<Habits> habitsList = habitWithSubroutinesViewModel.getAllHabitListLiveData().getValue();
+//                    List<Habits> availableHabits = new ArrayList<>();
+//
+//                    for (Habits habits : habitsList){
+//                        if (!habits.isOnReform()) availableHabits.add(habits);
+//                    }
+//
+//                    if (!availableHabits.isEmpty()) {
+                    changeFragment(addDefaultHabitFragment);
                     isOnAddDefault = true;
+//                    } else {
+//                        Toast.makeText(requireActivity(), "No Available Habits", Toast.LENGTH_LONG).show();
+//                    }
                 }
 
                 @Override
                 public void onUserDefineClick() {
-                    getChildFragmentManager()
-                            .beginTransaction()
-                            .addToBackStack(HomeFragment.this.getTag())
-                            .add(binding.homeFrameLayout.getId(), addNewHabitHomeFragment)
-                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
-                            .commit();
-                    binding.homeContainer.setVisibility(View.GONE);
+                    changeFragment(addNewHabitHomeFragment);
                     isOnAddNew = true;
                 }
             });
@@ -283,8 +294,13 @@ public class HomeFragment extends Fragment
     public void onAddDefaultHabitClickReturnHome() {
         removeChildFragment(addDefaultHabitFragment);
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(null);
+
         addDefaultHabitFragment = new AddDefaultHabitFragment();
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
+
+        if (savedInstanceState != null)
+            savedInstanceState.putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), false);
+
         isOnAddDefault = false;
     }
 
@@ -294,6 +310,9 @@ public class HomeFragment extends Fragment
         addNewHabitHomeFragment.setmOnReturnHome(null);
         addNewHabitHomeFragment = new AddNewHabitFragment();
         addNewHabitHomeFragment.setmOnReturnHome(this);
+        if (savedInstanceState != null)
+            savedInstanceState.putBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), false);
+
         isOnAddNew = false;
     }
 
@@ -303,6 +322,9 @@ public class HomeFragment extends Fragment
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(null);
         homeItemOnClickFragment = new HomeItemOnClickFragment();
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
+        if (savedInstanceState != null)
+            savedInstanceState.putBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), false);
+
         isOnItemClick = false;
     }
 
@@ -315,6 +337,16 @@ public class HomeFragment extends Fragment
         binding.homeContainer.setVisibility(View.VISIBLE);
     }
 
+    private void changeFragment(Fragment fragment) {
+        getChildFragmentManager()
+                .beginTransaction()
+                .addToBackStack(HomeFragment.this.getTag())
+                .add(binding.homeFrameLayout.getId(), fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
+                .commit();
+        binding.homeContainer.setVisibility(View.GONE);
+    }
+
     /**
      * Handle Configuration Changes
      *
@@ -325,11 +357,76 @@ public class HomeFragment extends Fragment
         super.onSaveInstanceState(outState);
         outState.putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault);
         outState.putBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew);
-        outState.putBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick);
-        outState.putBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), isOnModify);
 
-        outState.putSerializable(ConfigurationKeys.HABIT.getValue(), habitOnModify);
-        outState.putInt(ConfigurationKeys.POSITION.getValue(), position);
+        outState.putBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick);
+        if (isOnItemClick) {
+            outState.putInt(ConfigurationKeys.POSITION.getValue(), position);
+        }
+
+        outState.putBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), isOnModify);
+        if (isOnModify) {
+            outState.putSerializable(ConfigurationKeys.HABIT.getValue(), habitOnModify);
+            outState.putInt(ConfigurationKeys.POSITION.getValue(), position);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        Log.d("tag", "onPause: Home");
+//        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+//        sharedPreferences.edit()
+//                .putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault)
+//                .putBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew)
+//                .putBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick)
+//                .putBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), isOnModify)
+//                .apply();
+
+//        if (isOnModify) {
+//            sharedPreferences.edit().putSerializable(ConfigurationKeys.HABIT.getValue(), habitOnModify);
+//            outState.putInt(ConfigurationKeys.POSITION.getValue(), position);
+//        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        Log.d("tag", "onResume: Home");
+//        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+//        isOnAddDefault = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault);
+//        isOnAddNew = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew);
+//        isOnItemClick = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick);
+//        isOnModify = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), isOnModify);
+//
+//
+//        if (isOnAddDefault) {
+//            try {
+//                addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
+//                changeFragment(addDefaultHabitFragment);
+//            } catch (Exception e){
+//                //do nothing
+//            }
+//
+//        }
+//
+//        if (isOnAddNew) {
+//           try {
+//               addNewHabitHomeFragment.setmOnReturnHome(this);
+//               changeFragment(addNewHabitHomeFragment);
+//           } catch (Exception e){
+//               //do nothing
+//           }
+//        }
+//
+//        if (isOnItemClick) {
+//            //do something
+//        }
+//
+//        if (isOnModify) {
+//            habitOnModify = (Habits) (savedInstanceState).getSerializable(ConfigurationKeys.HABIT.getValue());
+//            position = savedInstanceState.getInt(ConfigurationKeys.POSITION.getValue());
+//            onClickHabitModify(habitOnModify, position);
+//        }
     }
 
     @Override
