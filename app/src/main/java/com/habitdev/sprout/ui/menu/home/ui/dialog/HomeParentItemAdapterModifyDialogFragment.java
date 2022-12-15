@@ -1,8 +1,11 @@
 package com.habitdev.sprout.ui.menu.home.ui.dialog;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,21 +20,37 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.DialogFragmentHomeParentItemAdapterModifyBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
+import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 
 import java.util.Objects;
 
 public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     private DialogFragmentHomeParentItemAdapterModifyBinding binding;
     private Habits habitOnModify;
-    private final int position;
-    private final String habit_title_snapshot;
-    private final String habit_description_snapshot;
+    private int position;
+    private String habit_title_snapshot;
+    private String habit_description_snapshot;
 
     private HomeParentItemAdapter adapter_ref;
+
+    private static SharedPreferences sharedPreferences;
+    private static Bundle savedInstanceState;
 
     public void setAdapter_ref(HomeParentItemAdapter adapter_ref) {
         this.adapter_ref = adapter_ref;
     }
+
+    public interface onHabitModifyListener{
+        void onDialogDismiss();
+    }
+
+    private onHabitModifyListener mOnHabitModifyListener;
+
+    public void setmOnHabitModifyListener(onHabitModifyListener mOnHabitModifyListener) {
+        this.mOnHabitModifyListener = mOnHabitModifyListener;
+    }
+
+    public HomeParentItemAdapterModifyDialogFragment() {}
 
     public HomeParentItemAdapterModifyDialogFragment(Habits habitOnModify, int position) {
         this.habitOnModify = habitOnModify;
@@ -44,18 +63,47 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogFragmentHomeParentItemAdapterModifyBinding.inflate(inflater, container, false);
+
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
-        binding.homeParentItemAdapterModifyTitle.setText(habitOnModify.getHabit());
-        binding.homeParentItemAdapterModifyDescription.setText(habitOnModify.getDescription());
-        setUpdateVisibility();
-        validateHabit();
-        onUpdate();
-        onCancel();
+        getDialog().setCanceledOnTouchOutside(false);
+
+        if (savedInstanceState != null) {
+            HomeParentItemAdapterModifyDialogFragment.savedInstanceState = savedInstanceState;
+        }
 
         return binding.getRoot();
     }
 
-    private void validateHabit(){
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (savedInstanceState != null) {
+
+            habitOnModify = (Habits) savedInstanceState.getSerializable(ConfigurationKeys.HABIT.getValue());
+            position = savedInstanceState.getInt(ConfigurationKeys.POSITION.getValue());
+
+            sharedPreferences = requireActivity().getSharedPreferences(ConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), Context.MODE_PRIVATE);
+
+            if (sharedPreferences.contains(ConfigurationKeys.TITLE.getValue())
+                    && sharedPreferences.contains(ConfigurationKeys.DESCRIPTION.getValue())) {
+
+                habitOnModify.setHabit(sharedPreferences.getString(ConfigurationKeys.TITLE.getValue(), ""));
+                habitOnModify.setDescription(sharedPreferences.getString(ConfigurationKeys.DESCRIPTION.getValue(), ""));
+                binding.homeParentItemAdapterModifyHint.setText(sharedPreferences.getString(ConfigurationKeys.HINT_TEXT.getValue(), ""));
+            }
+        }
+
+        binding.homeParentItemAdapterModifyTitle.setText(habitOnModify.getHabit());
+        binding.homeParentItemAdapterModifyDescription.setText(habitOnModify.getDescription());
+
+        setUpdateVisibility();
+        validateHabit();
+        onUpdate();
+        onCancel();
+    }
+
+    private void validateHabit() {
         final String REQUIRED = "Required*";
         final String NO_TITLE = "Title is empty*";
         final String NO_DESCRIPTION = "Description is empty*";
@@ -67,11 +115,12 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().trim().isEmpty()){
+                if (editable.toString().trim().isEmpty()) {
                     binding.homeParentItemAdapterModifyHint.setText(NO_TITLE);
                 } else {
                     if (binding.homeParentItemAdapterModifyDescription.getText().toString().trim().isEmpty()) {
@@ -91,11 +140,12 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().trim().isEmpty()){
+                if (editable.toString().trim().isEmpty()) {
                     binding.homeParentItemAdapterModifyHint.setText(NO_DESCRIPTION);
                 } else {
                     if (binding.homeParentItemAdapterModifyTitle.getText().toString().trim().isEmpty()) {
@@ -110,7 +160,14 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     }
 
     private void onCancel() {
-        binding.homeParentItemAdapterModifyCancel.setOnClickListener(view -> dismiss());
+        binding.homeParentItemAdapterModifyCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearSharedPref();
+                if (mOnHabitModifyListener != null) mOnHabitModifyListener.onDialogDismiss();
+                dismiss();
+            }
+        });
     }
 
     private void onUpdate() {
@@ -121,6 +178,9 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
                 HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
                 habitWithSubroutinesViewModel.updateHabit(habitOnModify);
                 adapter_ref.notifyItemChanged(position);
+
+                clearSharedPref();
+                if (mOnHabitModifyListener != null) mOnHabitModifyListener.onDialogDismiss();
                 Objects.requireNonNull(getDialog()).dismiss();
             }
         });
@@ -128,7 +188,7 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
 
     private void setUpdateVisibility() {
         if (binding.homeParentItemAdapterModifyTitle.getText().toString().trim().equals(habit_title_snapshot) &&
-            binding.homeParentItemAdapterModifyDescription.getText().toString().trim().equals(habit_description_snapshot)){
+                binding.homeParentItemAdapterModifyDescription.getText().toString().trim().equals(habit_description_snapshot)) {
             if (binding.homeParentItemAdapterModifyUpdate.getVisibility() == View.VISIBLE)
                 binding.homeParentItemAdapterModifyUpdate.setVisibility(View.GONE);
         } else {
@@ -138,8 +198,30 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(ConfigurationKeys.HABIT.getValue(), habitOnModify);
+        outState.putInt(ConfigurationKeys.POSITION.getValue(), position);
+
+        sharedPreferences = requireActivity().getSharedPreferences(ConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), Context.MODE_PRIVATE);
+        sharedPreferences
+                .edit()
+                .putString(ConfigurationKeys.TITLE.getValue(), binding.homeParentItemAdapterModifyTitle.getText().toString().trim())
+                .putString(ConfigurationKeys.DESCRIPTION.getValue(), binding.homeParentItemAdapterModifyDescription.getText().toString().trim())
+                .putString(ConfigurationKeys.HINT_TEXT.getValue(), binding.homeParentItemAdapterModifyHint.getText().toString().trim())
+                .apply();
+    }
+
+    private void clearSharedPref(){
+        sharedPreferences = requireActivity().getSharedPreferences(ConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mOnHabitModifyListener = null;
         binding = null;
+        adapter_ref = null;
     }
 }

@@ -15,8 +15,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
@@ -25,6 +23,7 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
+import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.ui.HomeItemOnClickFragment;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeOnFabClickDialogFragment;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
@@ -38,16 +37,26 @@ public class HomeFragment extends Fragment
         HomeParentItemAdapter.HomeParentItemOnClickListener,
         AddDefaultHabitFragment.onAddDefaultReturnHome,
         AddNewHabitFragment.onAddNewHabitReturnHome,
-        HomeItemOnClickFragment.onItemOnClickReturnHome {
+        HomeItemOnClickFragment.onItemOnClickReturnHome,
+        HomeParentItemAdapterModifyDialogFragment.onHabitModifyListener {
 
     private FragmentHomeBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private List<Habits> habitsList;
 
-    private AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
-    private AddNewHabitFragment addNewHabitHomeFragment = new AddNewHabitFragment();
-    private HomeItemOnClickFragment homeItemOnClickFragment = new HomeItemOnClickFragment();
+    private static AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
+    private static AddNewHabitFragment addNewHabitHomeFragment = new AddNewHabitFragment();
+    private static HomeItemOnClickFragment homeItemOnClickFragment = new HomeItemOnClickFragment();
     private final HomeParentItemAdapter homeParentItemAdapter = new HomeParentItemAdapter();
+
+    private static boolean isOnAddDefault = false;
+    private static boolean isOnAddNew = false;
+    private static boolean isOnItemClick = false;
+    private static boolean isOnModify = false;
+
+    private static int position;
+    private static Habits habitOnModify;
+    private static Bundle savedInstanceState;
 
     public HomeFragment() {
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
@@ -59,18 +68,40 @@ public class HomeFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-
+        if (savedInstanceState != null) HomeFragment.savedInstanceState = savedInstanceState;
         setRecyclerViewAdapter();
-
-        binding.homeSwipeRefreshLayout.setOnRefreshListener(() -> {
-            Toast.makeText(requireContext(), "Home Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
-            binding.homeSwipeRefreshLayout.setRefreshing(false);
-        });
-
         fabVisibility();
         onBackPress();
-
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (savedInstanceState != null) {
+            isOnAddDefault = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue());
+            isOnAddNew = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue());
+            isOnItemClick = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue());
+            isOnModify = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue());
+
+            if (isOnAddDefault) {
+                //do something
+            }
+
+            if (isOnAddNew) {
+                //do something
+            }
+
+            if (isOnItemClick) {
+                //do something
+            }
+
+            if (isOnModify) {
+                habitOnModify = (Habits) (savedInstanceState).getSerializable(ConfigurationKeys.HABIT.getValue());
+                position = savedInstanceState.getInt(ConfigurationKeys.POSITION.getValue());
+                onClickHabitModify(habitOnModify, position);
+            }
+        }
     }
 
     private void setRecyclerViewAdapter() {
@@ -86,7 +117,15 @@ public class HomeFragment extends Fragment
         binding.homeRecyclerView.setLayoutAnimation(animationController);
 
         recyclerViewObserver(homeParentItemAdapter);
+        setRefreshListener();
 //        recyclerViewItemTouchHelper(homeParentItemAdapter);
+    }
+
+    private void setRefreshListener() {
+        binding.homeSwipeRefreshLayout.setOnRefreshListener(() -> {
+            Toast.makeText(requireContext(), "Home Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
+            binding.homeSwipeRefreshLayout.setRefreshing(false);
+        });
     }
 
     private void setEmptyRVBackground(HomeParentItemAdapter adapter) {
@@ -99,44 +138,6 @@ public class HomeFragment extends Fragment
         }
     }
 
-    private void recyclerViewItemTouchHelper(HomeParentItemAdapter homeParentItemAdapter) {
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.Callback() {
-
-            @Override
-            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return makeMovementFlags(0, ItemTouchHelper.END);
-            }
-
-            @Override
-            public boolean isLongPressDragEnabled() {
-                return false;
-            }
-
-            @Override
-            public boolean isItemViewSwipeEnabled() {
-                return true;
-            }
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                HomeParentItemAdapter.HabitViewHolder VH = (HomeParentItemAdapter.HabitViewHolder) viewHolder;
-                if (direction == ItemTouchHelper.END) {
-                    Habits habits = habitsList.get(viewHolder.getBindingAdapterPosition());
-                    habits.setOnReform(false);
-                    habitWithSubroutinesViewModel.updateHabit(habits);
-                    homeParentItemAdapter.notifyItemRemoved(viewHolder.getBindingAdapterPosition());
-                    Toast.makeText(requireActivity(), "Habit not on reform anymore", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        //Attach on Recycler View
-        itemTouchHelper.attachToRecyclerView(binding.homeRecyclerView);
-    }
 
     /**
      * Control Number of habits can be added with a maximum of 2
@@ -177,14 +178,27 @@ public class HomeFragment extends Fragment
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                 .commit();
         binding.homeContainer.setVisibility(View.GONE);
+        isOnItemClick = true;
     }
 
     @Override
     public void onClickHabitModify(Habits habit, int position) {
-        HomeParentItemAdapterModifyDialogFragment dialog = new HomeParentItemAdapterModifyDialogFragment(habit, position);
-        dialog.setAdapter_ref(homeParentItemAdapter);
-        dialog.setTargetFragment(getChildFragmentManager().findFragmentById(HomeFragment.this.getId()), 1);
-        dialog.show(getChildFragmentManager(), "Modify Habit Dialog");
+        isOnModify = true;
+        habitOnModify = habit;
+        HomeFragment.position = position;
+
+        HomeParentItemAdapterModifyDialogFragment onModifydialogFragment = new HomeParentItemAdapterModifyDialogFragment(habit, position);
+        onModifydialogFragment.setAdapter_ref(homeParentItemAdapter);
+        onModifydialogFragment.setmOnHabitModifyListener(this);
+
+        onModifydialogFragment.setTargetFragment(getChildFragmentManager().findFragmentById(HomeFragment.this.getId()), 1);
+        onModifydialogFragment.show(getChildFragmentManager(), "Modify Habit Dialog");
+    }
+
+    @Override
+    public void onDialogDismiss() {
+        if (savedInstanceState != null)
+            savedInstanceState.putBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), false);
     }
 
     @Override
@@ -212,7 +226,8 @@ public class HomeFragment extends Fragment
         }
 
         Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + habit.getHabit() + "</b>: all progress has been lost"), Snackbar.LENGTH_INDEFINITE)
-                .setAction("Dismiss", view -> {})
+                .setAction("Dismiss", view -> {
+                })
                 .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
                 .setTextColor(getResources().getColor(R.color.NIGHT))
                 .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
@@ -246,6 +261,7 @@ public class HomeFragment extends Fragment
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                             .commit();
                     binding.homeContainer.setVisibility(View.GONE);
+                    isOnAddDefault = true;
                 }
 
                 @Override
@@ -257,6 +273,7 @@ public class HomeFragment extends Fragment
                             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
                             .commit();
                     binding.homeContainer.setVisibility(View.GONE);
+                    isOnAddNew = true;
                 }
             });
         });
@@ -268,6 +285,7 @@ public class HomeFragment extends Fragment
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(null);
         addDefaultHabitFragment = new AddDefaultHabitFragment();
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
+        isOnAddDefault = false;
     }
 
     @Override
@@ -276,6 +294,7 @@ public class HomeFragment extends Fragment
         addNewHabitHomeFragment.setmOnReturnHome(null);
         addNewHabitHomeFragment = new AddNewHabitFragment();
         addNewHabitHomeFragment.setmOnReturnHome(this);
+        isOnAddNew = false;
     }
 
     @Override
@@ -284,6 +303,7 @@ public class HomeFragment extends Fragment
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(null);
         homeItemOnClickFragment = new HomeItemOnClickFragment();
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
+        isOnItemClick = false;
     }
 
     private void removeChildFragment(Fragment fragment) {
@@ -293,6 +313,23 @@ public class HomeFragment extends Fragment
                 .setTransition(FragmentTransaction.TRANSIT_NONE)
                 .commit();
         binding.homeContainer.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Handle Configuration Changes
+     *
+     * @param outState savedState
+     */
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault);
+        outState.putBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew);
+        outState.putBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick);
+        outState.putBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), isOnModify);
+
+        outState.putSerializable(ConfigurationKeys.HABIT.getValue(), habitOnModify);
+        outState.putInt(ConfigurationKeys.POSITION.getValue(), position);
     }
 
     @Override
