@@ -17,7 +17,6 @@ public class QuotesViewModel extends ViewModel {
     }
 
     public List<Quotes> getQuotesList() {
-        Log.d("tag", "View Model : getQuotesList => " + repository.getQuotesList().toString());
         return repository.getQuotesList();
     }
 }

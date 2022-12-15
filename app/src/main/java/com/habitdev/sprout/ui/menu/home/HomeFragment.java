@@ -1,7 +1,6 @@
 package com.habitdev.sprout.ui.menu.home;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -61,14 +61,30 @@ public class HomeFragment extends Fragment
     private static Habits habitOnModify;
     private static Bundle savedInstanceState;
 
+    private static final String TAG = "tag";
+    
     public HomeFragment() {
     }
 
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+//        Log.d(TAG, "onAttach: ");
+        addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
+        addNewHabitHomeFragment.setmOnReturnHome(this);
+        homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
+        homeParentItemAdapter.setHomeParentItemOnclickListener(this);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        Log.d(TAG, "onCreateView: Home");
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        if (savedInstanceState != null) HomeFragment.savedInstanceState = savedInstanceState;
-        attachListener();
+        
+        if (savedInstanceState != null) {
+            HomeFragment.savedInstanceState = savedInstanceState;
+        }
+
         setRecyclerViewAdapter();
         fabVisibility();
         onBackPress();
@@ -78,28 +94,34 @@ public class HomeFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
+//        Log.d(TAG, "onStart: Home");
         if (savedInstanceState != null) {
+//            Log.d(TAG, "onStart: savedInstanceState not null");
             isOnAddDefault = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue());
             isOnAddNew = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue());
             isOnItemClick = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue());
             isOnModify = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue());
 
             if (isOnAddDefault) {
+//                Log.d(TAG, "onStart: isOnAddDefault");
                 addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
                 changeFragment(addDefaultHabitFragment);
             }
 
             if (isOnAddNew) {
+//                Log.d(TAG, "onStart: isOnAddNew");
                 addNewHabitHomeFragment.setmOnReturnHome(this);
                 changeFragment(addNewHabitHomeFragment);
             }
 
-            if (isOnItemClick){
+            if (isOnItemClick) {
+//                Log.d(TAG, "onStart: isOnItemClick");
                 position = savedInstanceState.getInt(ConfigurationKeys.POSITION.getValue());
                 onItemClick(position);
             }
 
             if (isOnModify) {
+//                Log.d(TAG, "onStart: isOnModify");
                 habitOnModify = (Habits) (savedInstanceState).getSerializable(ConfigurationKeys.HABIT.getValue());
                 position = savedInstanceState.getInt(ConfigurationKeys.POSITION.getValue());
                 onClickHabitModify(habitOnModify, position);
@@ -107,21 +129,15 @@ public class HomeFragment extends Fragment
         }
     }
 
-    private void attachListener() {
-        addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
-        addNewHabitHomeFragment.setmOnReturnHome(this);
-        homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
-        homeParentItemAdapter.setHomeParentItemOnclickListener(this);
-    }
-
     private void setRecyclerViewAdapter() {
+//        Log.d(TAG, "setRecyclerViewAdapter: ");
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
 
         homeParentItemAdapter.setOldHabitList(habitsList);
         binding.homeRecyclerView.setAdapter(homeParentItemAdapter);
 
-        setEmptyRVBackground(homeParentItemAdapter);
+        setEmptyRVBackground(homeParentItemAdapter); // once
 
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation_fall);
         binding.homeRecyclerView.setLayoutAnimation(animationController);
@@ -132,6 +148,7 @@ public class HomeFragment extends Fragment
     }
 
     private void setRefreshListener() {
+//        Log.d(TAG, "setRefreshListener: ");
         binding.homeSwipeRefreshLayout.setOnRefreshListener(() -> {
             Toast.makeText(requireContext(), "Home Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
             binding.homeSwipeRefreshLayout.setRefreshing(false);
@@ -139,6 +156,7 @@ public class HomeFragment extends Fragment
     }
 
     private void setEmptyRVBackground(HomeParentItemAdapter adapter) {
+//        Log.d(TAG, "setEmptyRVBackground: ");
         if (adapter.getItemCount() > 0) {
             binding.homeEmptyLottieRecyclerView.setVisibility(View.INVISIBLE);
             binding.homeEmptyLbl.setVisibility(View.INVISIBLE);
@@ -153,6 +171,7 @@ public class HomeFragment extends Fragment
      * Control Number of habits can be added with a maximum of 2
      */
     private void fabVisibility() {
+//        Log.d(TAG, "fabVisibility: ");
         binding.homeFab.setVisibility(View.VISIBLE);
         binding.homeFab.setClickable(true);
         FabButton();
@@ -169,15 +188,17 @@ public class HomeFragment extends Fragment
     }
 
     private void recyclerViewObserver(HomeParentItemAdapter homeParentItemAdapter) {
+//        Log.d(TAG, "recyclerViewObserver: ");
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
             homeParentItemAdapter.setNewHabitList(habits);
             habitsList = habits;
-            setEmptyRVBackground(homeParentItemAdapter);
+            setEmptyRVBackground(homeParentItemAdapter); //adapts on ui changes
         });
     }
 
     @Override
     public void onItemClick(int position) {
+//        Log.d(TAG, "onItemClick: ");
         HomeFragment.position = position;
         isOnItemClick = true;
 
@@ -195,6 +216,7 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onClickHabitModify(Habits habit, int position) {
+//        Log.d(TAG, "onClickHabitModify: ");
         isOnModify = true;
         habitOnModify = habit;
         HomeFragment.position = position;
@@ -209,19 +231,22 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onDialogDismiss() {
+//        Log.d(TAG, "onDialogDismiss: ");
         if (savedInstanceState != null)
             savedInstanceState.putBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), false);
+        isOnModify = false;
     }
 
     @Override
     public void onClickHabitRelapse(Habits habit) {
+//        Log.d(TAG, "onClickHabitRelapse: ");
         habit.setRelapse(habit.getRelapse() + 1);
         habitWithSubroutinesViewModel.updateHabit(habit);
     }
 
     @Override
     public void onClickHabitDrop(Habits habit) {
-
+//        Log.d(TAG, "onClickHabitDrop: ");
         habit.setOnReform(false);
         habit.setRelapse(0);
         habit.setCompleted_subroutine(0);
@@ -247,9 +272,11 @@ public class HomeFragment extends Fragment
     }
 
     private void onBackPress() {
+        
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+//                Log.d(TAG, "onBackPress: ");
                 requireActivity().moveTaskToBack(true);
             }
         };
@@ -257,6 +284,7 @@ public class HomeFragment extends Fragment
     }
 
     private void FabButton() {
+//        Log.d(TAG, "FabButton: ");
         binding.homeFab.setOnClickListener(view -> {
             HomeOnFabClickDialogFragment dialog = new HomeOnFabClickDialogFragment();
             dialog.setTargetFragment(getChildFragmentManager()
@@ -274,6 +302,7 @@ public class HomeFragment extends Fragment
 //                    }
 //
 //                    if (!availableHabits.isEmpty()) {
+//                    Log.d(TAG, "onPredefinedClick: changeFragment addDefaultHabitFragment");
                     changeFragment(addDefaultHabitFragment);
                     isOnAddDefault = true;
 //                    } else {
@@ -283,6 +312,7 @@ public class HomeFragment extends Fragment
 
                 @Override
                 public void onUserDefineClick() {
+//                    Log.d(TAG, "onPredefinedClick: changeFragment addNewHabitHomeFragment");
                     changeFragment(addNewHabitHomeFragment);
                     isOnAddNew = true;
                 }
@@ -292,6 +322,7 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onAddDefaultHabitClickReturnHome() {
+//        Log.d(TAG, "onAddDefaultHabitClickReturnHome: ");
         removeChildFragment(addDefaultHabitFragment);
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(null);
 
@@ -306,6 +337,7 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onAddNewHabitClickReturnHome() {
+//        Log.d(TAG, "onAddNewHabitClickReturnHome: ");
         removeChildFragment(addNewHabitHomeFragment);
         addNewHabitHomeFragment.setmOnReturnHome(null);
         addNewHabitHomeFragment = new AddNewHabitFragment();
@@ -318,6 +350,7 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onHomeItemOnClickReturnHome() {
+//        Log.d(TAG, "onHomeItemOnClickReturnHome: ");
         removeChildFragment(homeItemOnClickFragment);
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(null);
         homeItemOnClickFragment = new HomeItemOnClickFragment();
@@ -329,6 +362,7 @@ public class HomeFragment extends Fragment
     }
 
     private void removeChildFragment(Fragment fragment) {
+//        Log.d(TAG, "removeChildFragment: called");
         getChildFragmentManager()
                 .beginTransaction()
                 .remove(fragment)
@@ -338,6 +372,7 @@ public class HomeFragment extends Fragment
     }
 
     private void changeFragment(Fragment fragment) {
+//        Log.d(TAG, "changeFragment: called");
         getChildFragmentManager()
                 .beginTransaction()
                 .addToBackStack(HomeFragment.this.getTag())
@@ -355,6 +390,7 @@ public class HomeFragment extends Fragment
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+//        Log.d(TAG, "onSaveInstanceState: ");
         outState.putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault);
         outState.putBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew);
 
@@ -373,7 +409,14 @@ public class HomeFragment extends Fragment
     @Override
     public void onPause() {
         super.onPause();
-//        Log.d("tag", "onPause: Home");
+//        Log.d(TAG, "onPause: Home");
+//        if (savedInstanceState != null) {
+//            savedInstanceState = null;
+////            isOnModify = false;
+////            isOnItemClick = false;
+////            isOnAddNew = false;
+////            isOnAddDefault = false;
+//        }
 //        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
 //        sharedPreferences.edit()
 //                .putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault)
@@ -389,9 +432,15 @@ public class HomeFragment extends Fragment
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+//        Log.d(TAG, "onStop: Home");
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
-//        Log.d("tag", "onResume: Home");
+//        Log.d(TAG, "onResume: Home");
 //        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
 //        isOnAddDefault = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault);
 //        isOnAddNew = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew);
@@ -432,8 +481,31 @@ public class HomeFragment extends Fragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+//        Log.d(TAG, "onDestroyView: Home");
         habitWithSubroutinesViewModel = null;
         habitsList = null;
         binding = null;
+    }
+
+    @Override
+    public void onDestroy() {
+//        Log.d(TAG, "onDestroy: ");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+//        Log.d(TAG, "onDetach: ");
+        addDefaultHabitFragment.setmOnAddDefaultReturnHome(null);
+        addNewHabitHomeFragment.setmOnReturnHome(null);
+        homeItemOnClickFragment.setmOnItemOnClickReturnHome(null);
+        homeParentItemAdapter.setHomeParentItemOnclickListener(null);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+//        Log.d(TAG, "onViewStateRestored: ");
     }
 }

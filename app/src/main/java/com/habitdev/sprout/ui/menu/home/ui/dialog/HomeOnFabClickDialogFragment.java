@@ -46,7 +46,7 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
     @SuppressLint("ClickableViewAccessibility")
     private void setPadding(){
         binding.homeOnFabClickDialogPredefinedHabit.setOnTouchListener((view, motionEvent) -> {
-            Log.d("tag", "onTouch: " + motionEvent.getAction());
+//            Log.d("tag", "onTouch: " + motionEvent.getAction());
             return false;
         });
     }

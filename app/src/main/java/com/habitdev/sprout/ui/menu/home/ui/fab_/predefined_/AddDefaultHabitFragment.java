@@ -198,22 +198,23 @@ public class AddDefaultHabitFragment extends Fragment {
 
             if (mOnAddDefaultReturnHome != null)
                 mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
+
             if (savedInstanceState != null) savedInstanceState = null;
             current_selected_color = 0;
-
-            if (mOnAddDefaultReturnHome != null)
-                mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
         });
     }
 
     private void colorSelect() {
-        binding.addFromDefaultHabitColorSelector.setOnClickListener(v -> {
-            if (binding.addFromDefaultHabitMiscellaneous.getVisibility() == View.GONE) {
-                binding.addFromDefaultHabitMiscellaneous.setVisibility(View.VISIBLE);
-            } else {
-                binding.addFromDefaultHabitMiscellaneous.setVisibility(View.GONE);
-            }
-        });
+        /*
+            No need to toggle hide because on edit mode, gotta disable
+         */
+//        binding.addFromDefaultHabitColorSelector.setOnClickListener(v -> {
+//            if (binding.addFromDefaultHabitMiscellaneous.getVisibility() == View.GONE) {
+//                binding.addFromDefaultHabitMiscellaneous.setVisibility(View.VISIBLE);
+//            } else {
+//                binding.addFromDefaultHabitMiscellaneous.setVisibility(View.GONE);
+//            }
+//        });
 
         binding.cloudMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(0);

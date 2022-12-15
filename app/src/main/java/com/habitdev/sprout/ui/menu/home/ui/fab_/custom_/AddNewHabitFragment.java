@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.home.ui.fab_.custom_;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
@@ -25,8 +25,8 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAddNewHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
+import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
 
 import java.text.SimpleDateFormat;
@@ -37,7 +37,8 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSubroutineDialogFragment.onDialoagChange {
+public class AddNewHabitFragment extends Fragment
+        implements HomeAddNewInsertSubroutineDialogFragment.onDialoagChange {
 
     private FragmentAddNewHabitBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
@@ -46,9 +47,9 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     private List<Subroutines> subroutinesList;
     private Subroutines subroutine;
 
-    private int current_selected_color;
-    private int old_selected_color;
-    private String color = AppColor.CLOUDS.getColor();
+    private static int current_selected_color;
+    private static int old_selected_color;
+    private static String color = AppColor.CLOUDS.getColor();
 
     public interface onAddNewHabitReturnHome {
         void onAddNewHabitClickReturnHome();
@@ -61,6 +62,8 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     }
 
     private HomeAddNewHabitParentAdapter homeAddNewHabitParentAdapter;
+
+    private static Bundle savedInstanceState;
 
     public AddNewHabitFragment() {
         this.habit = new Habits(
@@ -93,11 +96,22 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         setRecyclerViewAdapter();
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddNewHabitBinding.inflate(inflater, container, false);
+
+        if (savedInstanceState != null)
+            AddNewHabitFragment.savedInstanceState = savedInstanceState;
+
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+
         setHint();
         setDropDownHabits();
         setCurrentTime();
@@ -110,8 +124,34 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         return binding.getRoot();
     }
 
-    private void setHint() {
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (savedInstanceState != null) {
 
+            current_selected_color = savedInstanceState.getInt(ConfigurationKeys.SELECTED_COLOR.getValue());
+            setSelected_color();
+            binding.addNewHabitHint.setText(
+                    savedInstanceState.getString(ConfigurationKeys.HINT_TEXT.getValue())
+            );
+            binding.addNewHabitTitle.setText(
+                    savedInstanceState.getString(ConfigurationKeys.TITLE.getValue())
+            );
+            binding.addNewHabitDescription.setText(
+                    savedInstanceState.getString(ConfigurationKeys.DESCRIPTION.getValue())
+            );
+
+            int size = savedInstanceState.getInt(ConfigurationKeys.LIST_SIZE.getValue(), 0);
+            subroutinesList.clear();
+            for (int i = 0; i < size; i++) {
+                subroutinesList.add((Subroutines) savedInstanceState.getSerializable(ConfigurationKeys.SUBROUTINE.getValue() + i));
+            }
+            setRecyclerViewAdapter();
+            setDropDownHabits();
+        }
+    }
+
+    private void setHint() {
         final String REQUIRED = "Required*";
         final String EMPTY_TITLE = "Empty Title*";
         final String EMPTY_DESC = "Empty Description*";
@@ -136,7 +176,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     if (binding.addNewHabitDescription.getText().toString().trim().isEmpty()) {
                         binding.addNewHabitHint.setText(EMPTY_DESC);
                     } else {
-                        if (!binding.addNewHabitHint.getText().toString().trim().equals(MIN_SUBROUTINE)){
+                        if (!binding.addNewHabitHint.getText().toString().trim().equals(MIN_SUBROUTINE)) {
                             binding.addNewHabitHint.setText("");
                         }
                     }
@@ -162,7 +202,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     if (binding.addNewHabitTitle.getText().toString().trim().isEmpty()) {
                         binding.addNewHabitHint.setText(EMPTY_TITLE);
                     } else {
-                        if (!binding.addNewHabitHint.getText().toString().trim().equals(MIN_SUBROUTINE)){
+                        if (!binding.addNewHabitHint.getText().toString().trim().equals(MIN_SUBROUTINE)) {
                             binding.addNewHabitHint.setText("");
                         }
                     }
@@ -210,7 +250,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     }
                     habitsList = onDropDownHabits;
                 }
-                if (habitTitles.isEmpty()){
+                if (habitTitles.isEmpty()) {
                     if (binding.addNewHabitTextInput.getVisibility() == View.VISIBLE)
                         binding.addNewHabitTextInput.setVisibility(View.GONE);
                 } else {
@@ -224,16 +264,18 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
 
         binding.addNewHabitDropItems.setOnItemClickListener((adapterView, view, pos, id) -> {
             habit = habitsList.get(pos);
-            setContentView();
+            setDropDownContentView();
         });
 
         binding.addNewHabitDropItems.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -260,13 +302,13 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         });
     }
 
-    private void setContentView() {
-            binding.addNewHabitTitle.setText(habit.getHabit());
-            binding.addNewHabitDescription.setText(habit.getDescription());
-            color = habit.getColor();
-            setHabitColor();
-            setSelected_color();
-            setSubroutinesList(habit.getPk_habit_uid());
+    private void setDropDownContentView() {
+        binding.addNewHabitTitle.setText(habit.getHabit());
+        binding.addNewHabitDescription.setText(habit.getDescription());
+        color = habit.getColor();
+        setHabitColor();
+        setSelected_color();
+        setSubroutinesList(habit.getPk_habit_uid());
     }
 
     private void setSubroutinesList(long uid) {
@@ -282,37 +324,28 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
     }
 
     private void colorSelect() {
-        binding.addNewHabitColorSelector.setOnClickListener(v -> {
-            if (binding.addNewHabitLayoutMiscellaneous.getVisibility() == View.GONE) {
-                binding.addNewHabitLayoutMiscellaneous.setVisibility(View.VISIBLE);
-            } else {
-                binding.addNewHabitLayoutMiscellaneous.setVisibility(View.GONE);
-            }
-        });
+        /*
+            No need to toggle hide because on edit mode, gotta disable
+         */
+//        binding.addNewHabitColorSelector.setOnClickListener(v -> {
+//            if (binding.addNewHabitLayoutMiscellaneous.getVisibility() == View.GONE) {
+//                binding.addNewHabitLayoutMiscellaneous.setVisibility(View.VISIBLE);
+//            } else {
+//                binding.addNewHabitLayoutMiscellaneous.setVisibility(View.GONE);
+//            }
+//        });
 
-        binding.cloudMisc.setOnClickListener(v -> {
-            updateSelectedColorIndex(0);
-        });
+        binding.cloudMisc.setOnClickListener(v -> updateSelectedColorIndex(0));
 
-        binding.alzarinMisc.setOnClickListener(v -> {
-            updateSelectedColorIndex(1);
-        });
+        binding.alzarinMisc.setOnClickListener(v -> updateSelectedColorIndex(1));
 
-        binding.amethystMisc.setOnClickListener(v -> {
-            updateSelectedColorIndex(2);
-        });
+        binding.amethystMisc.setOnClickListener(v -> updateSelectedColorIndex(2));
 
-        binding.brightskyBlueMisc.setOnClickListener(v -> {
-            updateSelectedColorIndex(3);
-        });
+        binding.brightskyBlueMisc.setOnClickListener(v -> updateSelectedColorIndex(3));
 
-        binding.nephritisMisc.setOnClickListener(v -> {
-            updateSelectedColorIndex(4);
-        });
+        binding.nephritisMisc.setOnClickListener(v -> updateSelectedColorIndex(4));
 
-        binding.sunflowerMisc.setOnClickListener(v -> {
-            updateSelectedColorIndex(5);
-        });
+        binding.sunflowerMisc.setOnClickListener(v -> updateSelectedColorIndex(5));
     }
 
     private void setHabitColor() {
@@ -331,8 +364,8 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
             current_selected_color = 5;
             setSelected_color();
-        } else {
-            old_selected_color = 1;
+        } else if (habit.getColor().equals(AppColor.CLOUDS.getColor())) {
+            current_selected_color = 0;
             setSelected_color();
         }
     }
@@ -436,7 +469,10 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                     }
                     habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
                 }
-                if (mOnAddNewHabitReturnHome != null) mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
+                if (mOnAddNewHabitReturnHome != null)
+                    mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
+
+                if (savedInstanceState != null) savedInstanceState = null;
             }
         });
     }
@@ -459,7 +495,7 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
                 binding.fabAddDeleteHabit.setVisibility(View.GONE);
                 habit = new Habits("", "", AppColor.CLOUDS.getColor(), true, true);
                 subroutinesList = new ArrayList<>();
-                setContentView();
+                setDropDownContentView();
                 setDropDownHabits();
             });
         }
@@ -504,10 +540,34 @@ public class AddNewHabitFragment extends Fragment implements HomeAddNewInsertSub
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (mOnAddNewHabitReturnHome != null) mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
+                if (mOnAddNewHabitReturnHome != null)
+                    mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
+                if (savedInstanceState != null) savedInstanceState = null;
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color);
+
+        if (binding != null) {
+            outState.putString(ConfigurationKeys.HINT_TEXT.getValue(), binding.addNewHabitHint.getText().toString().trim());
+            outState.putString(ConfigurationKeys.TITLE.getValue(), binding.addNewHabitTitle.getText().toString().trim());
+            outState.putString(ConfigurationKeys.DESCRIPTION.getValue(), binding.addNewHabitDescription.getText().toString().trim());
+        }
+
+        //another way was parcelable list, no need for iteration
+        if (!subroutinesList.isEmpty()) {
+            int counter = 0;
+            outState.putInt(ConfigurationKeys.LIST_SIZE.getValue(), subroutinesList.size());
+            for (Subroutines subroutine : subroutinesList) {
+                outState.putSerializable(ConfigurationKeys.SUBROUTINE.getValue() + counter, subroutine);
+                counter++;
+            }
+        }
     }
 
     @Override

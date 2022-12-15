@@ -109,7 +109,6 @@ public class Main extends AppCompatActivity {
             dateTimeElapsedUtil.calculateElapsedDateTime();
 
             long num = dateTimeElapsedUtil.getElapsed_day();
-            Log.d("tag", "setDailyDateTracker: " + num);
 
             if (dateTimeElapsedUtil.getElapsed_day() >= 1){
                 date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());

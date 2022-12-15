@@ -65,7 +65,6 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
     @SuppressLint("NotifyDataSetChanged: Use ListAdapter")
     public void setSubroutinesList(List<Subroutines> subroutinesList) {
         this.subroutinesList = subroutinesList;
-        Log.d("tag", "setSubroutinesList: " + subroutinesList.toString());
         notifyDataSetChanged();
     }
 

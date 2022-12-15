@@ -69,7 +69,6 @@ public class AddNoteFragment extends Fragment {
         if (bundle != null) {
             binding.fabDeleteNote.setVisibility(View.VISIBLE);
             binding.fabSaveNote.setImageResource(R.drawable.ic_save);
-            Log.d("tag", "setFabDisplay: ");
         } else {
             binding.fabDeleteNote.setVisibility(View.GONE);
             binding.fabSaveNote.setImageResource(R.drawable.ic_check);

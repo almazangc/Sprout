@@ -224,7 +224,7 @@ public class PersonalizationFragment extends Fragment {
         } else {
             //check if question answer exist
             if (assessmentViewModel.doesAnswerExist(fk_question_uid) > 1) {
-                Log.d("tag", "onChanged: duplicate found");
+//                Log.d("tag", "onChanged: duplicate found");
                 //In case of error for duplicate
             } else if (assessmentViewModel.doesAnswerExist(fk_question_uid) == 1) {
                 // update

@@ -30,9 +30,9 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     private final boolean onModify;
     private final boolean onRemove;
 
-    private int current_selected_color;
-    private int old_selected_color;
-    private String color = AppColor.CLOUDS.getColor();
+    private static int current_selected_color;
+    private static int old_selected_color;
+    private static String color = AppColor.CLOUDS.getColor();
 
     public interface onDialoagChange {
         void addSubroutine(Subroutines subroutines);

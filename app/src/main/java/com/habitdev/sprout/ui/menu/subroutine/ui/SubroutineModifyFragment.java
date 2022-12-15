@@ -210,7 +210,6 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
             Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
             habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
-            Log.d("tag", "onItemDelete: ");
             updateTotalSubroutine();
         } else {
             Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
@@ -232,7 +231,6 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
                     public void onClickInsert(Subroutines subroutines) {
                         subroutines.setFk_habit_uid(habit.getPk_habit_uid());
                         habitWithSubroutinesViewModel.insertSubroutine(subroutines);
-                        Log.d("tag", "onClickInsert: ");
                         updateTotalSubroutine();
                     }
                 });
@@ -242,7 +240,6 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 
     private void updateTotalSubroutine() {
         List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
-        Log.d("tag", "updateTotalSubroutine: " + subroutinesList.size());
         habit.setTotal_subroutine(subroutinesList.size());
         habitWithSubroutinesViewModel.updateHabit(habit);
     }

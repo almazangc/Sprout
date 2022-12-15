@@ -247,7 +247,6 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
 
             itemContainer.setOnClickListener(view -> {
-                Log.d("tag", "AnalyticParentViewHolder: ");
                 if (mOnItemClick != null) {
                     int position = getBindingAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
