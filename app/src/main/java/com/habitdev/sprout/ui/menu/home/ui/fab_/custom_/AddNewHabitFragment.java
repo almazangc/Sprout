@@ -130,7 +130,9 @@ public class AddNewHabitFragment extends Fragment
         if (savedInstanceState != null) {
 
             current_selected_color = savedInstanceState.getInt(ConfigurationKeys.SELECTED_COLOR.getValue());
+
             setSelected_color();
+
             binding.addNewHabitHint.setText(
                     savedInstanceState.getString(ConfigurationKeys.HINT_TEXT.getValue())
             );
@@ -324,9 +326,8 @@ public class AddNewHabitFragment extends Fragment
     }
 
     private void colorSelect() {
-        /*
-            No need to toggle hide because on edit mode, gotta disable
-         */
+//            No need to toggle hide because on edit mode, gotta disable
+
 //        binding.addNewHabitColorSelector.setOnClickListener(v -> {
 //            if (binding.addNewHabitLayoutMiscellaneous.getVisibility() == View.GONE) {
 //                binding.addNewHabitLayoutMiscellaneous.setVisibility(View.VISIBLE);
@@ -404,6 +405,7 @@ public class AddNewHabitFragment extends Fragment
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = AppColor.SUNFLOWER.getColor();
                     break;
+                case 0:
                 default:
                     //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
@@ -433,6 +435,7 @@ public class AddNewHabitFragment extends Fragment
                     //sunflower
                     binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
                     break;
+                case 0:
                 default:
                     //clouds night
                     binding.cloudSelected.setImageResource(R.color.TRANSPARENT);

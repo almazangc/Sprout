@@ -1,5 +1,7 @@
 package com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -17,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.gson.Gson;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
@@ -45,6 +49,7 @@ public class AddDefaultHabitFragment extends Fragment {
     private static String color = AppColor.CLOUDS.getColor();
 
     private static Bundle savedInstanceState;
+    private static boolean isOnRemoved;
 
     public interface onAddDefaultReturnHome {
         void onAddDefaultHabitClickReturnHome();
@@ -85,7 +90,8 @@ public class AddDefaultHabitFragment extends Fragment {
         super.onStart();
         if (savedInstanceState != null) {
             current_selected_color = savedInstanceState.getInt(ConfigurationKeys.SELECTED_COLOR.getValue(), 0);
-            setHabitColor();
+            old_selected_color = savedInstanceState.getInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+            setSelected_color();
 
             if (savedInstanceState.containsKey(ConfigurationKeys.SELECTED_HABIT.getValue())) {
                 habit = (Habits) savedInstanceState.getSerializable(ConfigurationKeys.SELECTED_HABIT.getValue());
@@ -180,27 +186,33 @@ public class AddDefaultHabitFragment extends Fragment {
 
     private void addHabitOnReform() {
         binding.addHabitOnReformBtn.setOnClickListener(view -> {
-            habitWithSubroutinesViewModel.updateHabit(new Habits(
-                    habit.getPk_habit_uid(),
-                    habit.getHabit(),
-                    habit.getDescription(),
-                    color,
-                    true,
-                    habit.isModifiable(),
-                    habit.getAbstinence(),
-                    0,
-                    new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault())
-                            .format(new Date()),
-                    subroutinesList.size(),
-                    0
-            ));
-            habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
+            if (habit != null) {
+                habitWithSubroutinesViewModel.updateHabit(new Habits(
+                        habit.getPk_habit_uid(),
+                        habit.getHabit(),
+                        habit.getDescription(),
+                        color,
+                        true,
+                        habit.isModifiable(),
+                        habit.getAbstinence(),
+                        0,
+                        new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault())
+                                .format(new Date()),
+                        subroutinesList.size(),
+                        0
+                ));
+                habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
 
-            if (mOnAddDefaultReturnHome != null)
-                mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
+                if (savedInstanceState != null) savedInstanceState = null;
+                current_selected_color = 0;
 
-            if (savedInstanceState != null) savedInstanceState = null;
-            current_selected_color = 0;
+                isOnRemoved = true;
+
+                if (mOnAddDefaultReturnHome != null)
+                    mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
+            } else {
+                Toast.makeText(requireActivity(), "There is no habit selected", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -308,7 +320,7 @@ public class AddDefaultHabitFragment extends Fragment {
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = AppColor.SUNFLOWER.getColor();
                     break;
-                default:
+                case 0:
                     //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
@@ -318,27 +330,21 @@ public class AddDefaultHabitFragment extends Fragment {
 
             switch (old_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
                     break;
-                default:
-                    //clouds night
+                case 0:
                     binding.cloudSelected.setImageResource(R.color.TRANSPARENT);
                     break;
             }
@@ -354,15 +360,28 @@ public class AddDefaultHabitFragment extends Fragment {
         binding.addFromDefaultHabitColorSelector.setBackground(backgroundNoteIndicator);
     }
 
+    private void clearSelected() {
+        binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
+        binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
+        binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);
+        binding.nephritisSelected.setImageResource(R.color.TRANSPARENT);
+        binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
+        binding.cloudSelected.setImageResource(R.color.TRANSPARENT);
+    }
+
     private void onBackPress() {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (mOnAddDefaultReturnHome != null)
-                    mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
                 if (savedInstanceState != null) savedInstanceState = null;
                 current_selected_color = 0;
+
+                isOnRemoved = true;
+
+                if (mOnAddDefaultReturnHome != null)
+                    mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
             }
+
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
@@ -371,6 +390,8 @@ public class AddDefaultHabitFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(ConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color);
+        outState.putInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color);
+
         if (habit != null) {
             outState.putSerializable(ConfigurationKeys.SELECTED_HABIT.getValue(), habit);
         }
@@ -379,19 +400,52 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-//        Log.d("tag", "onPause: ");
+        if (!isOnRemoved) {
+//            Log.d("tag", "onPause: added shared pref");
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(ConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+            sharedPreferences.edit()
+                    .putInt(ConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color)
+                    .putInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
+                    .apply();
+
+            Log.d("tag", "onPause: " + current_selected_color + ":" + old_selected_color);
+
+            if (habit != null) {
+                String json_habit = new Gson().toJson(habit);
+                sharedPreferences.edit().
+                        putString(ConfigurationKeys.SELECTED_HABIT.getValue(), json_habit)
+                        .apply();
+            }
+        } else {
+//            Log.d("tag", "onAddDefaultHabitClickReturnHome: Onclear");
+            SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+            sharedPreferences.edit().clear().apply();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        Log.d("tag", "onResume: ");
+//        Log.d("tag", "onResume: loaded shared pref");
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        if (sharedPreferences.contains(ConfigurationKeys.SELECTED_COLOR.getValue()) && sharedPreferences.contains(ConfigurationKeys.OLD_SELECTED_COLOR.getValue())) {
+            current_selected_color = sharedPreferences.getInt(ConfigurationKeys.SELECTED_COLOR.getValue(), 0);
+            old_selected_color = sharedPreferences.getInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+            setSelected_color();
+
+            if (sharedPreferences.contains(ConfigurationKeys.SELECTED_HABIT.getValue())) {
+                String json_habit = sharedPreferences.getString(ConfigurationKeys.SELECTED_HABIT.getValue(), "");
+                habit = new Gson().fromJson(json_habit, Habits.class);
+                setContentView();
+                binding.habitDescriptionLbl.setVisibility(View.VISIBLE);
+                binding.subroutineLbl.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        Log.d("tag", "onDestroyView: ");
         mOnAddDefaultReturnHome = null;
         habitWithSubroutinesViewModel = null;
         habit = null;

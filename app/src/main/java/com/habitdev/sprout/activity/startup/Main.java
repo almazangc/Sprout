@@ -1,5 +1,6 @@
 package com.habitdev.sprout.activity.startup;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
+import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.NetworkMonitoringUtil;
 import com.habitdev.sprout.utill.NetworkStateManager;
@@ -166,5 +168,12 @@ public class Main extends AppCompatActivity {
         super.onDestroy();
         networkStateManager = null;
         binding = null;
+
+        SharedPreferences sharedPreferences = getSharedPreferences(ConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
+
+        sharedPreferences = getSharedPreferences(ConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
     }
+
 }

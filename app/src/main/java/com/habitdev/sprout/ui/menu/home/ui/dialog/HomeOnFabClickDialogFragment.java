@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu.home.ui.dialog;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -24,6 +26,7 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
     public interface onClickListener {
         void onPredefinedClick();
         void onUserDefineClick();
+        void onDismissDialog();
     }
 
     private onClickListener onClickListener;
@@ -38,7 +41,7 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
         binding = DialogFragmentHomeOnFabClickDialogBinding.inflate(inflater, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
         getDialog().setCanceledOnTouchOutside(false);
-        setOnclickListener();
+        setOnclickListener();;
 //        setPadding();
         return binding.getRoot();
     }
@@ -60,6 +63,7 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.home_on_fab_click_dialog_cancel) {
+            if (this.onClickListener != null) this.onClickListener.onDismissDialog();
             dismiss();
         } else if (view.getId() == R.id.home_on_fab_click_dialog_predefined_habit) {
             if (this.onClickListener != null) this.onClickListener.onPredefinedClick();
@@ -69,6 +73,13 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
             if (this.onClickListener != null) this.onClickListener.onUserDefineClick();
             Objects.requireNonNull(getDialog()).dismiss();
         }
+    }
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        if (this.onClickListener != null) this.onClickListener.onDismissDialog();
+        dismiss();
     }
 
     @Override
