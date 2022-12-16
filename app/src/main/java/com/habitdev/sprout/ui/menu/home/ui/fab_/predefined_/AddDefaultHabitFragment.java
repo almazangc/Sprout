@@ -91,6 +91,7 @@ public class AddDefaultHabitFragment extends Fragment {
         if (savedInstanceState != null) {
             current_selected_color = savedInstanceState.getInt(ConfigurationKeys.SELECTED_COLOR.getValue(), 0);
             old_selected_color = savedInstanceState.getInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+            clearSelected();
             setSelected_color();
 
             if (savedInstanceState.containsKey(ConfigurationKeys.SELECTED_HABIT.getValue())) {
@@ -158,14 +159,13 @@ public class AddDefaultHabitFragment extends Fragment {
                     binding.subroutineLbl.setVisibility(View.INVISIBLE);
                     binding.subroutineCountLbl.setVisibility(View.INVISIBLE);
                     binding.habitSubroutinesRecyclerView.setVisibility(View.INVISIBLE);
+                    habit = null; //hmmmm not null
                 } else {
                     binding.habitDescriptionLbl.setVisibility(View.VISIBLE);
                     binding.subroutineCountLbl.setVisibility(View.VISIBLE);
-
                     binding.habitDescription.setVisibility(View.VISIBLE);
                     binding.subroutineLbl.setVisibility(View.VISIBLE);
                     binding.subroutineCountLbl.setVisibility(View.VISIBLE);
-
                     binding.habitSubroutinesRecyclerView.setVisibility(View.VISIBLE);
                 }
             }
@@ -361,6 +361,7 @@ public class AddDefaultHabitFragment extends Fragment {
     }
 
     private void clearSelected() {
+//        Log.d("tag", "clearSelected: ");
         binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
         binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
         binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);
@@ -408,9 +409,11 @@ public class AddDefaultHabitFragment extends Fragment {
                     .putInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
                     .apply();
 
-            Log.d("tag", "onPause: " + current_selected_color + ":" + old_selected_color);
+//            Log.d("tag", "onPause: " + current_selected_color + ":" + old_selected_color);
 
             if (habit != null) {
+                Log.d("tag", "onPause: " + binding.addFromDefaultHabitItems.getText().toString().trim());
+
                 String json_habit = new Gson().toJson(habit);
                 sharedPreferences.edit().
                         putString(ConfigurationKeys.SELECTED_HABIT.getValue(), json_habit)
@@ -431,6 +434,7 @@ public class AddDefaultHabitFragment extends Fragment {
         if (sharedPreferences.contains(ConfigurationKeys.SELECTED_COLOR.getValue()) && sharedPreferences.contains(ConfigurationKeys.OLD_SELECTED_COLOR.getValue())) {
             current_selected_color = sharedPreferences.getInt(ConfigurationKeys.SELECTED_COLOR.getValue(), 0);
             old_selected_color = sharedPreferences.getInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+            clearSelected();
             setSelected_color();
 
             if (sharedPreferences.contains(ConfigurationKeys.SELECTED_HABIT.getValue())) {

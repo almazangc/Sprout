@@ -185,9 +185,7 @@ public class HomeFragment extends Fragment
 //        Log.d(TAG, "fabVisibility: ");
         binding.homeFab.setVisibility(View.VISIBLE);
         binding.homeFab.setClickable(true);
-        binding.homeFab.setOnClickListener(view -> {
-            displayFabDialog();
-        });
+        binding.homeFab.setOnClickListener(view -> displayFabDialog());
 //        habitWithSubroutinesViewModel.getGetHabitOnReformCount().observe(getViewLifecycleOwner(), count -> {
 //            if (count <= 1) {
 //                binding.homeFab.setVisibility(View.VISIBLE);
@@ -345,7 +343,7 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onAddDefaultHabitClickReturnHome() {
-        Log.d(TAG, "onAddDefaultHabitClickReturnHome: ");
+//        Log.d(TAG, "onAddDefaultHabitClickReturnHome: ");
 
         removeChildFragment(addDefaultHabitFragment);
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(null);
@@ -436,14 +434,6 @@ public class HomeFragment extends Fragment
     @Override
     public void onPause() {
         super.onPause();
-//        Log.d(TAG, "onPause: Home");
-//        if (savedInstanceState != null) {
-//            savedInstanceState = null;
-////            isOnModify = false;
-////            isOnItemClick = false;
-////            isOnAddNew = false;
-////            isOnAddDefault = false;
-//        }
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
         sharedPreferences.edit()
                 .putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault)
