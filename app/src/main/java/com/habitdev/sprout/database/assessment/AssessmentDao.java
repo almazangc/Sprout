@@ -38,6 +38,9 @@ public interface AssessmentDao {
     @Query("SELECT * FROM Answer")
     LiveData<List<Answer>> getAllAnswerListLiveData();
 
+    @Query("SELECT * FROM Answer")
+    List<Answer> getAllAnswerList();
+
     @Query("SELECT COUNT(fk_question_uid) FROM Answer WHERE fk_question_uid=:uid")
     long doesAnswerExist(long uid);
 

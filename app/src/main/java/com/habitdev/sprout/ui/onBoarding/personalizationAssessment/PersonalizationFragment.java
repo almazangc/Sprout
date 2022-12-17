@@ -32,12 +32,15 @@ import java.util.List;
 
 public class PersonalizationFragment extends Fragment {
 
+    private static final String TAG = "tag";
     private FragmentPersonalizationBinding binding;
     private AssessmentViewModel assessmentViewModel;
-    private List<Question> questionsList;
-    private List<Choices> choicesList;
-    private List<Answer> answersList;
-    private int position;
+    private static List<Question> questionsList;
+    private static List<Choices> choicesList;
+    private static List<Answer> answersList;
+    private static int position;
+
+    private static Bundle savedInstanceState;
 
     public PersonalizationFragment() {
         position = 0;
@@ -50,8 +53,15 @@ public class PersonalizationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPersonalizationBinding.inflate(inflater, container, false);
 
+        if (savedInstanceState != null)
+            PersonalizationFragment.savedInstanceState = savedInstanceState;
+
         assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
+
         questionsList = assessmentViewModel.getQuestionList();
+        answersList = assessmentViewModel.getGetAllAnswerList();
+
+        onBackPress(); // set on back press listener
 
         return binding.getRoot();
     }
@@ -59,19 +69,33 @@ public class PersonalizationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setAssessment(binding.getRoot());// once on start
+        setAssessment();// once on start
         setContinueListener();// continue button listener
         setProgressBarMaxSize(); // set max progress bar
-        onBackPress(); // set on back press listener
+        observeAnswerList();
     }
+
+    /**
+     * Restore Saved Instance State Due to Configurigation Changes
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (savedInstanceState != null) {
+            position = savedInstanceState.getInt(PersonalizationConfigurationEnums.POSITION.getValue());
+            setAssessment();
+            upCheckedRadioButtons();
+        }
+    }
+
 
     private void setContinueListener() {
         binding.btnContinue.setOnClickListener(v -> {
             if (isAllRadioButtonUnchecked()) {
-                Toast.makeText(requireContext(), "Please Answer the Question before proceeding", Toast.LENGTH_LONG).show();
+                Toast.makeText(requireContext(), "Please Select Answer!", Toast.LENGTH_LONG).show();
             } else {
                 saveSelection();
-                setAssessment(v);
+                setAssessment();
                 upCheckedRadioButtons();
             }
         });
@@ -79,9 +103,8 @@ public class PersonalizationFragment extends Fragment {
 
     /**
      * Create Instance of Radiobuttons on RadioGroup and set attributes
-     * @param view reference
      */
-    private void setAssessment(View view) {
+    private void setAssessment() {
         if (position < questionsList.size()) {
 
             binding.choicesRadioGroup.removeAllViews();
@@ -115,21 +138,23 @@ public class PersonalizationFragment extends Fragment {
                 radioButton.setBackgroundResource(R.drawable.selector_background_radio_button);
                 RadioGroup.LayoutParams params = new RadioGroup.LayoutParams(
                         RadioGroup.LayoutParams.MATCH_PARENT,
-                        RadioGroup.LayoutParams.MATCH_PARENT
+                        RadioGroup.LayoutParams.WRAP_CONTENT
                 );
                 params.setMargins(0, 15, 0, 15);
                 radioButton.setLayoutParams(params);
                 binding.choicesRadioGroup.addView(radioButton);
             }
+
             updateProgressBar();
+
         } else {
-            // max question
+            // End of Questions
             new AlertDialog.Builder(requireContext())
                     .setMessage("Are you done answering all?")
                     .setCancelable(false)
                     .setPositiveButton("YES", (dialogInterface, i) -> {
                         setUserAssessmentTrue();
-                        Navigation.findNavController(view).navigate(R.id.action_navigate_from_personalization_to_analysis);
+                        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_personalization_to_analysis);
                     })
                     .setNegativeButton("No", null)
                     .show();
@@ -168,8 +193,11 @@ public class PersonalizationFragment extends Fragment {
             public void handleOnBackPressed() {
                 if (position > 1) {
                     position = position - 2;
-                    setAssessment(binding.getRoot());
+                    setAssessment();
                     upCheckedRadioButtons();
+                } else {
+                    requireActivity().moveTaskToBack(true);
+                    // dialog close app?
                 }
             }
         };
@@ -208,9 +236,6 @@ public class PersonalizationFragment extends Fragment {
      *
      */
     private void saveSelection() {
-        assessmentViewModel.getGetAllAnswerListLiveData().observe(getViewLifecycleOwner(), answers ->
-                answersList = answers);
-
         long fk_question_uid = questionsList.get(position - 1).getPk_question_uid();
         String selected_answer = ((RadioButton)
                 (binding.getRoot().findViewById(binding.choicesRadioGroup.getCheckedRadioButtonId())))
@@ -221,6 +246,7 @@ public class PersonalizationFragment extends Fragment {
         if (answersList.isEmpty()) {
             //insert new
             assessmentViewModel.insert(new Answer(fk_question_uid, selected_answer, fk_user_uid));
+            Log.d(TAG, "saveSelection: empty list: insert");
         } else {
             //check if question answer exist
             if (assessmentViewModel.doesAnswerExist(fk_question_uid) > 1) {
@@ -228,13 +254,20 @@ public class PersonalizationFragment extends Fragment {
                 //In case of error for duplicate
             } else if (assessmentViewModel.doesAnswerExist(fk_question_uid) == 1) {
                 // update
+                Log.d(TAG, "saveSelection: update");
                 Answer answer = assessmentViewModel.getAnswerByFkQuestionUID(fk_question_uid);
                 assessmentViewModel.update(new Answer(answer.getPk_answer_uid(), fk_question_uid, selected_answer, fk_user_uid));
             } else {
                 // new insert
+                Log.d(TAG, "saveSelection: insert");
                 assessmentViewModel.insert(new Answer(fk_question_uid, selected_answer, fk_user_uid));
             }
         }
+    }
+
+    private void observeAnswerList() {
+        assessmentViewModel.getGetAllAnswerListLiveData().observe(getViewLifecycleOwner(), answers ->
+                answersList = answers);
     }
 
     /**
@@ -256,6 +289,13 @@ public class PersonalizationFragment extends Fragment {
     private void setUserAssessmentTrue() {
         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         userViewModel.setAssessment();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (binding != null) saveSelection();
+        outState.putInt(PersonalizationConfigurationEnums.POSITION.getValue(), position-1);
     }
 
     @Override

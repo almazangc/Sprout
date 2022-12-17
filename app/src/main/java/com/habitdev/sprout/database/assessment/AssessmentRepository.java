@@ -10,18 +10,22 @@ import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.List;
 
 public class AssessmentRepository {
     private final AssessmentDao assessmentDao;
     private final LiveData<List<Assessment>> AssessmentsListLiveData;
     private final LiveData<List<Answer>> getAllAnswerListLiveData;
+    private final List<Answer> getAllAnswerList;
 
     public AssessmentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         this.assessmentDao = appDatabase.assessmentDao();
         AssessmentsListLiveData = assessmentDao.getAssessmentsListLiveData();
         getAllAnswerListLiveData = assessmentDao.getAllAnswerListLiveData();
+        getAllAnswerList = assessmentDao.getAllAnswerList();
     }
 
     public void updateQuestion(Question question) {
@@ -33,11 +37,13 @@ public class AssessmentRepository {
     }
 
     public void insertAnswer(Answer answer) {
-        new AssessmentRepository.InsertAnswerAsyncTask(assessmentDao).execute(answer);
+        assessmentDao.insertAnswer(answer); //snychrounous
+//        new AssessmentRepository.InsertAnswerAsyncTask(assessmentDao).execute(answer);
     }
 
     public void updateAnswer(Answer answer) {
-        new AssessmentRepository.UpdateAnswerAsyncTask(assessmentDao).execute(answer);
+        assessmentDao.updateAnswer(answer); //snychrounous
+//        new AssessmentRepository.UpdateAnswerAsyncTask(assessmentDao).execute(answer);
     }
 
     public void deleteQuestion(Question question) {
@@ -144,6 +150,10 @@ public class AssessmentRepository {
 
     public LiveData<List<Answer>> getGetAllAnswerListLiveData() {
         return getAllAnswerListLiveData;
+    }
+
+    public List<Answer> getGetAllAnswerList() {
+        return getAllAnswerList;
     }
 
     public List<Question> getQuestionList() {

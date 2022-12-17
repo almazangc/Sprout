@@ -55,102 +55,67 @@
         android:textStyle="bold"
         tools:text="Question: How would you like your text be seen" />
 
-
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/choices_recycler_View"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_above="@id/btn_continue"-->
-    <!--        android:layout_below="@id/lbl_question"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        tools:listitem="@layout/adapter_personalization_parent_choices_item"-->
-    <!--        tools:itemCount="5"-->
-    <!--        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
-    <!--        android:layout_marginBottom="10dp" />-->
-
-    <ScrollView
-        android:id="@+id/choices_scroll_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/btn_continue"
         android:layout_below="@id/lbl_question">
 
-        <RadioGroup
-            android:id="@+id/choices_radio_group"
+        <ScrollView
+            android:id="@+id/choices_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
-        </RadioGroup>
-    </ScrollView>
+            android:layout_marginBottom="10dp"
+            android:fillViewport="false"
+            android:scrollbars="none">
+
+            <RadioGroup
+                android:id="@+id/choices_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_background_radio_button"
+                    android:padding="10dp"
+                    tools:text="Sample Choices"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="15dp" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_background_radio_button"
+                    android:padding="10dp"
+                    tools:text="Sample Choices"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="15dp" />
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/selector_background_radio_button"
+                    android:padding="10dp"
+                    tools:text="Sample Choices"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="15dp" />
+
+            </RadioGroup>
+        </ScrollView>
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btn_continue"
         style="@style/btn_continue_portrait"
         android:layout_alignParentBottom="true"
         android:textColor="@color/ClOUDS_" />
-
-
-    <!--        For long questions-->
-    <!--    <ScrollView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:layout_weight="7"-->
-    <!--        android:fillViewport="true"-->
-    <!--        android:scrollbars="none">-->
-
-    <!--        <RelativeLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content">-->
-
-    <!--            <TextView-->
-    <!--                android:id="@+id/lbl_question"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:layout_alignParentTop="true"-->
-    <!--                android:layout_marginBottom="10dp"-->
-    <!--                android:text="@{question}"-->
-    <!--                android:textColor="@color/NIGHT"-->
-    <!--                android:textSize="25sp"-->
-    <!--                android:textStyle="bold"-->
-    <!--                tools:text="Question: How would you like your text be seen" />-->
-
-    <!--&lt;!&ndash;            <RadioGroup&ndash;&gt;-->
-    <!--&lt;!&ndash;                android:id="@+id/radioGroupSelect"&ndash;&gt;-->
-    <!--&lt;!&ndash;                android:layout_width="match_parent"&ndash;&gt;-->
-    <!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
-    <!--&lt;!&ndash;                android:layout_below="@id/lbl_question"&ndash;&gt;-->
-    <!--&lt;!&ndash;                android:layout_alignParentBottom="true"&ndash;&gt;-->
-    <!--&lt;!&ndash;                android:layout_marginBottom="@dimen/radio_margin_bottom"&ndash;&gt;-->
-    <!--&lt;!&ndash;                android:gravity="bottom"&ndash;&gt;-->
-    <!--&lt;!&ndash;                android:orientation="vertical">&ndash;&gt;-->
-
-    <!--&lt;!&ndash;                <RadioButton&ndash;&gt;-->
-    <!--&lt;!&ndash;                    android:id="@+id/radio_aSelect"&ndash;&gt;-->
-    <!--&lt;!&ndash;                    style="@style/radioButtonPortrait"&ndash;&gt;-->
-    <!--&lt;!&ndash;                    android:checked="true"&ndash;&gt;-->
-    <!--&lt;!&ndash;                    android:text="@{aSelect}"&ndash;&gt;-->
-    <!--&lt;!&ndash;                    tools:text="Yes Good Day" />&ndash;&gt;-->
-
-    <!--&lt;!&ndash;                <RadioButton&ndash;&gt;-->
-    <!--&lt;!&ndash;                    android:id="@+id/radio_bSelect"&ndash;&gt;-->
-    <!--&lt;!&ndash;                    style="@style/radioButtonPortrait"&ndash;&gt;-->
-
-    <!--&lt;!&ndash;                    tools:text="Very Nice Day to work on something so cool" />&ndash;&gt;-->
-
-    <!--&lt;!&ndash;                <RadioButton&ndash;&gt;-->
-    <!--&lt;!&ndash;                    android:id="@+id/radio_cSelect"&ndash;&gt;-->
-    <!--&lt;!&ndash;                    style="@style/radioButtonPortrait"&ndash;&gt;-->
-    <!--&lt;!&ndash;                    tools:text="third selection" />&ndash;&gt;-->
-
-    <!--&lt;!&ndash;                <RadioButton&ndash;&gt;-->
-    <!--&lt;!&ndash;                    android:id="@+id/radio_dSelect"&ndash;&gt;-->
-    <!--&lt;!&ndash;                    style="@style/radioButtonPortrait"&ndash;&gt;-->
-    <!--&lt;!&ndash;                    tools:text="Last Radio Button Container DA FAK" />&ndash;&gt;-->
-    <!--&lt;!&ndash;            </RadioGroup>&ndash;&gt;-->
-
-    <!--        </RelativeLayout>-->
-    <!--    </ScrollView>-->
 </RelativeLayout>

@@ -61,7 +61,6 @@ public class AnalysisFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAnalysisBinding.inflate(inflater, container, false);
 
-
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         toggleHabitDesciptionVisibility(false);
         setDropDownItems();
@@ -162,10 +161,18 @@ public class AnalysisFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-//                Toast.makeText(requireContext(), "You shall not amend", Toast.LENGTH_SHORT).show();
+                //Block on back press
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //save selected
+        //reinitialized dropdown items
+        //display recyclerview items
     }
 
     @Override

@@ -120,12 +120,9 @@ public class SplashScreenFragment extends Fragment {
 
             Random random = new Random();
 
-            CountDownTimer timer;
-
-            timer = new CountDownTimer(splashDuration, 1500) {
+            new CountDownTimer(splashDuration, 1500) {
                 public void onTick(long millisUntilFinished) {
                     fragment.runOnUiThread(() -> {
-                        Log.d(TAG, "onTick: Countdown");
                         int ran = random.nextInt(quotes.size());
                         Quotes quote = quotes.get(ran);
                         String content = quote.getQuoted() + " - " + quote.getAuthor();
@@ -134,7 +131,6 @@ public class SplashScreenFragment extends Fragment {
                 }
 
                 public void onFinish() {
-                    Log.d(TAG, "onFinish: Coundown");
                     this.cancel();
                 }
             }.start();
