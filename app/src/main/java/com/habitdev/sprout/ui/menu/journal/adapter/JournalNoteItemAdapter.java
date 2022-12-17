@@ -3,7 +3,6 @@ package com.habitdev.sprout.ui.menu.journal.adapter;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,9 +75,9 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
 
     static class NoteViewHolder extends RecyclerView.ViewHolder {
 
-        TextView noteTitle, noteSubtitle, noteContent, noteDateTime;
-        RelativeLayout layout_note;
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+        final TextView noteTitle, noteSubtitle, noteContent, noteDateTime;
+        final RelativeLayout layout_note;
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public NoteViewHolder(@NonNull View itemView, NoteItemOnClickListener noteItemOnClickListener) {
             super(itemView);

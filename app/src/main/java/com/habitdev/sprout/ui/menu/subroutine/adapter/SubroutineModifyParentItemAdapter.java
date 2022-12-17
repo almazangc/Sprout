@@ -1,6 +1,5 @@
 package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,10 +69,11 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
     }
 
     public static class SubroutineModifyViewHolder extends RecyclerView.ViewHolder {
-        SwipeLayout swipeLayout;
-        RelativeLayout itemLayout, deleteLayout;
-        TextView Title, Description;
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+
+        final SwipeLayout swipeLayout;
+        final RelativeLayout itemLayout, deleteLayout;
+        final TextView Title, Description;
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public SubroutineModifyViewHolder(@NonNull View itemView, SubroutineModifyParentOnclickListener mSubroutineModifyParentOnclickListener) {
             super(itemView);
@@ -95,7 +95,6 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
             deleteLayout.setOnClickListener(view -> mSubroutineModifyParentOnclickListener.onItemDelete(getBindingAdapterPosition()));
         }
 
-        @SuppressLint("ClickableViewAccessibility")
         void bindSubroutine(Subroutines subroutine) {
 
             if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
@@ -114,31 +113,6 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
 
             Title.setText(subroutine.getSubroutine());
             Description.setText(subroutine.getDescription());
-
-//            itemLayout.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View view, MotionEvent motionEvent) {
-//                    if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-//                        itemLayout.setPadding(padding_inPx(10), padding_inPx(10), padding_inPx(5), padding_inPx(0));
-//                    } else {
-//                        itemLayout.setPadding(padding_inPx(5), padding_inPx(5), padding_inPx(5), padding_inPx(5));
-//                    }
-//                    return false;
-//                }
-//            });
-//
-//            itemLayout.setOnDragListener(new View.OnDragListener() {
-//                @Override
-//                public boolean onDrag(View view, DragEvent dragEvent) {
-//                    Log.d("tag", "onDrag: " + dragEvent.getAction());
-//                    return false;
-//                }
-//            });
-        }
-
-        int padding_inPx(int dp) {
-            final float scale = itemLayout.getResources().getDisplayMetrics().density;
-            return (int) (dp * scale + 0.5f);
         }
     }
 }

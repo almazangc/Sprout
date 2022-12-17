@@ -114,11 +114,11 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     public static class HabitViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout itemContainer;
-        LinearLayout itemLayout;
-        TextView habitHeader, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalRelapse;
-        Button upVote, downVote, modify, relapse, drop;
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+        final RelativeLayout itemContainer;
+        final LinearLayout itemLayout;
+        final TextView habitHeader, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalRelapse;
+        final Button upVote, downVote, modify, relapse, drop;
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public HabitViewHolder(@NonNull View itemView, HomeParentItemOnClickListener HomeParentItemOnclickListener) {
             super(itemView);

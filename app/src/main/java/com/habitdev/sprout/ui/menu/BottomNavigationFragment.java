@@ -4,12 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -188,52 +188,68 @@ public class BottomNavigationFragment extends Fragment {
 
         private final int SWIPE_THRESHOLD = 100;
         private final int SWIPE_VELOCITY_THRESHOLD = 100;
-        private final GestureDetector gestureDetector;
+        private final GestureDetector gestureDetector = new GestureDetector(new GestureDetector.OnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent motionEvent) {
+                return true;
+            }
 
-        public SwipeListener() {
-            GestureDetector.SimpleOnGestureListener listener = new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public void onShowPress(MotionEvent motionEvent) {}
 
-                @Override
-                public boolean onDown(MotionEvent e) {
-                    return true;
-                }
+            @Override
+            public boolean onSingleTapUp(MotionEvent motionEvent) {
+                return false;
+            }
 
-                @Override
-                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                return false;
+            }
 
-                    boolean result = false;
+            @Override
+            public void onLongPress(MotionEvent motionEvent) {
 
-                    try {
-                        float diffY = e2.getY() - e1.getY();
-                        float diffX = e2.getX() - e1.getX();
-                        if (Math.abs(diffX) > Math.abs(diffY)) {
-                            if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                                if (diffX > 0) {
-                                    onSwipeRight();
-                                } else {
-                                    onSwipeLeft();
-                                }
-                            }
-                            result = true;
-                        } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                            if (diffY > 0) {
-                                onSwipeBottom();
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                onSwipeRight();
                             } else {
-                                onSwipeTop();
+                                onSwipeLeft();
                             }
                         }
                         result = true;
 
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
+//                      Listens on Fling up and down
+
+//                    } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+//                        if (diffY > 0) {
+//                            onSwipeBottom();
+//                        } else {
+//                            onSwipeTop();
+//                        }
+
                     }
+                    result = true;
 
-                    return result;
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    Log.d("tag", "onFling: Bottom Swipe --> " + exception.getMessage());
                 }
-            };
+                return result;
+            }
+        });
 
-            gestureDetector = new GestureDetector(listener);
-            gestureDetector.setContextClickListener(listener);
+        public SwipeListener() {
             binding.mainNavFragmentContainer.setOnTouchListener(this);
         }
 
@@ -283,13 +299,13 @@ public class BottomNavigationFragment extends Fragment {
             }
         }
 
-        void onSwipeTop() {
-            Toast.makeText(requireContext(), "Top Swipe", Toast.LENGTH_SHORT).show();
-        }
-
-        void onSwipeBottom() {
-            Toast.makeText(requireContext(), "Bottom Swipe", Toast.LENGTH_SHORT).show();
-        }
+//        void onSwipeTop() {
+////            Toast.makeText(requireContext(), "Top Swipe", Toast.LENGTH_SHORT).show();
+//        }
+//
+//        void onSwipeBottom() {
+////            Toast.makeText(requireContext(), "Bottom Swipe", Toast.LENGTH_SHORT).show();
+//        }
 
         void updateFragment(int newTab) {
             binding.bottomBar.selectTabAt(newTab, true);

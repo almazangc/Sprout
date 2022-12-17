@@ -51,10 +51,11 @@ public class GetStartedFragment extends Fragment {
      * Example of custom toast
      */
     private void showToast() {
+//        TODO: REMOVE THIS REPLACE WTIH SNACKBAR
         CharSequence message = "DATA IS ALREADY SAVED";
         int duration = Toast.LENGTH_LONG;
 
-        View layout = getLayoutInflater().inflate(R.layout.get_started_custom_toast, (ViewGroup) binding.getRoot().findViewById(R.id.custom_toast_layout));
+        View layout = getLayoutInflater().inflate(R.layout.get_started_custom_toast, binding.getRoot().findViewById(R.id.custom_toast_layout));
         TextView text = layout.findViewById(R.id.custom_toast_lbl);
         text.setText(message);
 

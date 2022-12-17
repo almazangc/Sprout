@@ -2,7 +2,6 @@ package com.habitdev.sprout.ui.menu.home.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +19,9 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeItemOnClickBinding;
 import com.habitdev.sprout.enums.AppColor;
+import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
-import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.text.SimpleDateFormat;
@@ -76,7 +75,7 @@ public class HomeItemOnClickFragment extends Fragment {
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         if (savedInstanceState != null) {
-            habit = (Habits) savedInstanceState.getSerializable(ConfigurationKeys.HABIT.getValue());
+            habit = (Habits) savedInstanceState.getSerializable(HomeConfigurationKeys.HABIT.getValue());
         }
 
         setHabit();
@@ -112,7 +111,6 @@ public class HomeItemOnClickFragment extends Fragment {
                         @Override
                         public void run() {
                             dateTimeElapsedUtil.calculateElapsedDateTime();
-
                             /*
                               Why double check nullable binding, it is because of configuration changes that makes
                               binding null before the timer is cancelled
@@ -307,12 +305,11 @@ public class HomeItemOnClickFragment extends Fragment {
 
     private void setCommentRecyclerView() {
         HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(commentViewModel);
+
         binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
 
         commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {
-            if (comments != null) {
-                homeParentItemAdapter.submitList(comments);
-            }
+            if (comments != null) homeParentItemAdapter.setNewCommentList(comments);
         });
     }
 
@@ -331,7 +328,7 @@ public class HomeItemOnClickFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 //        Log.d("tag", "onSaveInstanceState: ");
-        outState.putSerializable(ConfigurationKeys.HABIT.getValue(), habit);
+        outState.putSerializable(HomeConfigurationKeys.HABIT.getValue(), habit);
     }
 
     @Override

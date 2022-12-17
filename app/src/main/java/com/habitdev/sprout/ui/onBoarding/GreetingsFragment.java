@@ -12,9 +12,6 @@ import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentGreetingsBinding;
-import com.habitdev.sprout.enums.BundleKeys;
-
-import java.util.Objects;
 
 public class GreetingsFragment extends Fragment {
 

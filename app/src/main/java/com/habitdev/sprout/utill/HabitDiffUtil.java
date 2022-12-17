@@ -3,7 +3,6 @@ package com.habitdev.sprout.utill;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.habitdev.sprout.database.habit.model.Habits;
-import com.habitdev.sprout.database.habit.model.Subroutines;
 
 import java.util.List;
 

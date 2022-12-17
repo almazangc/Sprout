@@ -1,7 +1,6 @@
 package com.habitdev.sprout.ui.menu.home.adapter;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +61,9 @@ public class HomeAddDefaultHabitParentItemAdapter extends RecyclerView.Adapter<H
 
     static class SubroutinesViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout itemContainer;
-        TextView subroutine_title, subroutine_description;
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+        final RelativeLayout itemContainer;
+        final TextView subroutine_title, subroutine_description;
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public SubroutinesViewHolder(@NonNull View itemView) {
             super(itemView);

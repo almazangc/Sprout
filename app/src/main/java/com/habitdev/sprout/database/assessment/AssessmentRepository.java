@@ -10,8 +10,6 @@ import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.List;
 
 public class AssessmentRepository {

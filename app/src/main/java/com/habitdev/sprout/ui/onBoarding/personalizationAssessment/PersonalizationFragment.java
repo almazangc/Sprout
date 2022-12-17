@@ -26,6 +26,7 @@ import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentPersonalizationBinding;
+import com.habitdev.sprout.enums.PersonalizationConfigurationKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class PersonalizationFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (savedInstanceState != null) {
-            position = savedInstanceState.getInt(PersonalizationConfigurationEnums.POSITION.getValue());
+            position = savedInstanceState.getInt(PersonalizationConfigurationKeys.POSITION.getValue());
             setAssessment();
             upCheckedRadioButtons();
         }
@@ -295,7 +296,7 @@ public class PersonalizationFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (binding != null) saveSelection();
-        outState.putInt(PersonalizationConfigurationEnums.POSITION.getValue(), position-1);
+        outState.putInt(PersonalizationConfigurationKeys.POSITION.getValue(), position-1);
     }
 
     @Override

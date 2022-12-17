@@ -9,10 +9,8 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.habitdev.sprout.databinding.FragmentTechStackInfoBinding;
-import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 
 public class TechStackInfoFragment extends Fragment {
 

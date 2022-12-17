@@ -27,8 +27,8 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAddDefaultHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
+import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddDefaultHabitParentItemAdapter;
-import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,13 +89,13 @@ public class AddDefaultHabitFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (savedInstanceState != null) {
-            current_selected_color = savedInstanceState.getInt(ConfigurationKeys.SELECTED_COLOR.getValue(), 0);
-            old_selected_color = savedInstanceState.getInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), 0);
+            old_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
             clearSelected();
             setSelected_color();
 
-            if (savedInstanceState.containsKey(ConfigurationKeys.SELECTED_HABIT.getValue())) {
-                habit = (Habits) savedInstanceState.getSerializable(ConfigurationKeys.SELECTED_HABIT.getValue());
+            if (savedInstanceState.containsKey(HomeConfigurationKeys.SELECTED_HABIT.getValue())) {
+                habit = (Habits) savedInstanceState.getSerializable(HomeConfigurationKeys.SELECTED_HABIT.getValue());
                 binding.addFromDefaultHabitItems.setText(habit.getHabit());
                 setContentView();
                 binding.habitDescriptionLbl.setVisibility(View.VISIBLE);
@@ -390,11 +390,11 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(ConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color);
-        outState.putInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color);
+        outState.putInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color);
+        outState.putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color);
 
         if (habit != null) {
-            outState.putSerializable(ConfigurationKeys.SELECTED_HABIT.getValue(), habit);
+            outState.putSerializable(HomeConfigurationKeys.SELECTED_HABIT.getValue(), habit);
         }
     }
 
@@ -403,10 +403,10 @@ public class AddDefaultHabitFragment extends Fragment {
         super.onPause();
         if (!isOnRemoved) {
 //            Log.d("tag", "onPause: added shared pref");
-            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(ConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
             sharedPreferences.edit()
-                    .putInt(ConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color)
-                    .putInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
+                    .putInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color)
+                    .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
                     .apply();
 
 //            Log.d("tag", "onPause: " + current_selected_color + ":" + old_selected_color);
@@ -416,12 +416,12 @@ public class AddDefaultHabitFragment extends Fragment {
 
                 String json_habit = new Gson().toJson(habit);
                 sharedPreferences.edit().
-                        putString(ConfigurationKeys.SELECTED_HABIT.getValue(), json_habit)
+                        putString(HomeConfigurationKeys.SELECTED_HABIT.getValue(), json_habit)
                         .apply();
             }
         } else {
 //            Log.d("tag", "onAddDefaultHabitClickReturnHome: Onclear");
-            SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
             sharedPreferences.edit().clear().apply();
         }
     }
@@ -430,15 +430,15 @@ public class AddDefaultHabitFragment extends Fragment {
     public void onResume() {
         super.onResume();
 //        Log.d("tag", "onResume: loaded shared pref");
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(ConfigurationKeys.SELECTED_COLOR.getValue()) && sharedPreferences.contains(ConfigurationKeys.OLD_SELECTED_COLOR.getValue())) {
-            current_selected_color = sharedPreferences.getInt(ConfigurationKeys.SELECTED_COLOR.getValue(), 0);
-            old_selected_color = sharedPreferences.getInt(ConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        if (sharedPreferences.contains(HomeConfigurationKeys.SELECTED_COLOR.getValue()) && sharedPreferences.contains(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue())) {
+            current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), 0);
+            old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
             clearSelected();
             setSelected_color();
 
-            if (sharedPreferences.contains(ConfigurationKeys.SELECTED_HABIT.getValue())) {
-                String json_habit = sharedPreferences.getString(ConfigurationKeys.SELECTED_HABIT.getValue(), "");
+            if (sharedPreferences.contains(HomeConfigurationKeys.SELECTED_HABIT.getValue())) {
+                String json_habit = sharedPreferences.getString(HomeConfigurationKeys.SELECTED_HABIT.getValue(), "");
                 habit = new Gson().fromJson(json_habit, Habits.class);
                 setContentView();
                 binding.habitDescriptionLbl.setVisibility(View.VISIBLE);

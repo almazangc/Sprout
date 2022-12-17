@@ -2,12 +2,12 @@ package com.habitdev.sprout.enums;
 
 public enum TimeMilestone {
 
-    AVG_HABIT_BREAK_DAY(21);
+    AVG_HABIT_BREAK_DAY();
 
-    int days;
+    private final int days;
 
-    TimeMilestone(int days) {
-        this.days = days;
+    TimeMilestone() {
+        this.days = 21;
     }
 
     public int getDays() {

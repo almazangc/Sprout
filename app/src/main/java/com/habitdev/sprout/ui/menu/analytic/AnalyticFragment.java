@@ -1,9 +1,9 @@
 package com.habitdev.sprout.ui.menu.analytic;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -42,10 +41,16 @@ public class AnalyticFragment extends Fragment
     private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private static List<Habits> habitsList;
     private static final AnalyticParentItemAdapter analyticParentItemAdapter = new AnalyticParentItemAdapter();
-    private static AnalyticItemOnClickFragment analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
+    private static final AnalyticItemOnClickFragment analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
 
     public AnalyticFragment() {
         habitsList = new ArrayList<>();
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         analyticParentItemAdapter.setmOnItemClick(this);
         analyticItemOnClickFragment.setmOclickListener(this);
     }
@@ -53,9 +58,6 @@ public class AnalyticFragment extends Fragment
     @Override
     public void analyticOnItemClick(int position) {
 //        show(position); Snackbar
-        // AnalyticFragment is not attached yet, on return
-        analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
-        analyticItemOnClickFragment.setmOclickListener(this);
         analyticItemOnClickFragment.setHabit(habitsList.get(position));
         getChildFragmentManager()
                 .beginTransaction()
@@ -66,7 +68,6 @@ public class AnalyticFragment extends Fragment
         binding.analysisContainer.setVisibility(View.GONE);
     }
 
-
     @Override
     public void setAnalyticParentItemOnclickListener() {
         try {
@@ -76,12 +77,9 @@ public class AnalyticFragment extends Fragment
                     .setTransition(FragmentTransaction.TRANSIT_NONE)
                     .commit();
         }catch (Exception e){
-            Log.d("tag", "setAnalyticParentItemOnclickListener: " + e.getMessage());
+            e.printStackTrace();
         }
-
         binding.analysisContainer.setVisibility(View.VISIBLE);
-        analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
-        analyticItemOnClickFragment.setmOclickListener(this);
     }
 
     private void show(int position){
@@ -93,8 +91,8 @@ public class AnalyticFragment extends Fragment
                     }
                 })
                 .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                .setTextColor(getResources().getColor(R.color.NIGHT))
-                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
                 .show();
     }
 
@@ -123,10 +121,9 @@ public class AnalyticFragment extends Fragment
                         dateTimeElapsedUtil.calculateElapsedDateTime();
                         try {
                             binding.dateSinceInstalled.setText(dateTimeElapsedUtil.getResult());
-                        } catch (Exception e){
-
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-
                     });
                 } else {
                     timer.cancel();
@@ -146,12 +143,7 @@ public class AnalyticFragment extends Fragment
     }
 
     private void setRecyclerViewAdapterObserver() {
-        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), new Observer<List<Habits>>() {
-            @Override
-            public void onChanged(List<Habits> habits) {
-                analyticParentItemAdapter.setNewHabitList(habits);
-            }
-        });
+        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), analyticParentItemAdapter::setNewHabitList);
     }
 
     private void onBackPress() {
@@ -171,5 +163,12 @@ public class AnalyticFragment extends Fragment
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().removeObservers(getViewLifecycleOwner());
         habitWithSubroutinesViewModel = null;
         binding = null;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        analyticParentItemAdapter.setmOnItemClick(null);
+        analyticItemOnClickFragment.setmOclickListener(null);
     }
 }

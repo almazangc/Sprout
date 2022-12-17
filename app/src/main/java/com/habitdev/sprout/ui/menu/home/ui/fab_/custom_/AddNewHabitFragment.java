@@ -25,8 +25,8 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAddNewHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
+import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
-import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
 
 import java.text.SimpleDateFormat;
@@ -37,15 +37,16 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 public class AddNewHabitFragment extends Fragment
         implements HomeAddNewInsertSubroutineDialogFragment.onDialoagChange {
 
     private FragmentAddNewHabitBinding binding;
-    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private Habits habit;
-    private List<Habits> habitsList;
-    private List<Subroutines> subroutinesList;
-    private Subroutines subroutine;
+    private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private static Habits habit;
+    private static List<Habits> habitsList;
+    private static List<Subroutines> subroutinesList;
+    private static Subroutines subroutine;
 
     private static int current_selected_color;
     private static int old_selected_color;
@@ -66,32 +67,32 @@ public class AddNewHabitFragment extends Fragment
     private static Bundle savedInstanceState;
 
     public AddNewHabitFragment() {
-        this.habit = new Habits(
+        habit = new Habits(
                 null,
                 null,
                 AppColor.CLOUDS.getColor(),
                 false,
                 true
         );
-        this.subroutinesList = new ArrayList<>();
+        subroutinesList = new ArrayList<>();
     }
 
     @Override
     public void addSubroutine(Subroutines subroutines) {
-        this.subroutine = subroutines;
+        subroutine = subroutines;
         subroutinesList.add(subroutine);
         setRecyclerViewAdapter();
     }
 
     @Override
     public void modifySubroutine(Subroutines subroutines) {
-        this.subroutine = subroutines;
+        subroutine = subroutines;
         setRecyclerViewAdapter();
     }
 
     @Override
     public void removeSubroutine(Subroutines subroutines) {
-        this.subroutine = subroutines;
+        subroutine = subroutines;
         subroutinesList.remove(subroutines);
         setRecyclerViewAdapter();
     }
@@ -129,24 +130,24 @@ public class AddNewHabitFragment extends Fragment
         super.onStart();
         if (savedInstanceState != null) {
 
-            current_selected_color = savedInstanceState.getInt(ConfigurationKeys.SELECTED_COLOR.getValue());
+            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.SELECTED_COLOR.getValue());
 
             setSelected_color();
 
             binding.addNewHabitHint.setText(
-                    savedInstanceState.getString(ConfigurationKeys.HINT_TEXT.getValue())
+                    savedInstanceState.getString(HomeConfigurationKeys.HINT_TEXT.getValue())
             );
             binding.addNewHabitTitle.setText(
-                    savedInstanceState.getString(ConfigurationKeys.TITLE.getValue())
+                    savedInstanceState.getString(HomeConfigurationKeys.TITLE.getValue())
             );
             binding.addNewHabitDescription.setText(
-                    savedInstanceState.getString(ConfigurationKeys.DESCRIPTION.getValue())
+                    savedInstanceState.getString(HomeConfigurationKeys.DESCRIPTION.getValue())
             );
 
-            int size = savedInstanceState.getInt(ConfigurationKeys.LIST_SIZE.getValue(), 0);
+            int size = savedInstanceState.getInt(HomeConfigurationKeys.LIST_SIZE.getValue(), 0);
             subroutinesList.clear();
             for (int i = 0; i < size; i++) {
-                subroutinesList.add((Subroutines) savedInstanceState.getSerializable(ConfigurationKeys.SUBROUTINE.getValue() + i));
+                subroutinesList.add((Subroutines) savedInstanceState.getSerializable(HomeConfigurationKeys.SUBROUTINE.getValue() + i));
             }
             setRecyclerViewAdapter();
             setDropDownHabits();
@@ -489,10 +490,12 @@ public class AddNewHabitFragment extends Fragment
         });
     }
 
+    /**
+     * Delete Habit and its subroutines and comments in room database
+     */
     private void deleteHabit() {
         if (binding.fabAddDeleteHabit.getVisibility() == View.VISIBLE) {
             binding.fabAddDeleteHabit.setOnClickListener(view -> {
-                //Delete Habit and its subroutines and comments
                 habitWithSubroutinesViewModel.deleteHabit(habit);
                 habitWithSubroutinesViewModel.deleteSubroutineList(subroutinesList);
                 binding.fabAddDeleteHabit.setVisibility(View.GONE);
@@ -513,28 +516,28 @@ public class AddNewHabitFragment extends Fragment
             }
 
             if (homeAddNewHabitParentAdapter == null)
-                homeAddNewHabitParentAdapter = new HomeAddNewHabitParentAdapter(subroutinesList);
+                homeAddNewHabitParentAdapter = new HomeAddNewHabitParentAdapter();
 
             homeAddNewHabitParentAdapter.setOnClickListener(new HomeAddNewHabitParentAdapter.OnClickListener() {
                 @Override
                 public void onDelete(Subroutines subroutine) {
                     HomeAddNewInsertSubroutineDialogFragment dialog = new HomeAddNewInsertSubroutineDialogFragment(subroutine, true);
                     dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AddNewHabitFragment.this.getId()), 1);
-                    dialog.show(getChildFragmentManager(), "TAG");
+                    dialog.show(getChildFragmentManager(), "AddNewHabitDialog.onDelete");
                 }
 
                 @Override
                 public void onModify(Subroutines subroutine) {
                     HomeAddNewInsertSubroutineDialogFragment dialog = new HomeAddNewInsertSubroutineDialogFragment(subroutine);
                     dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AddNewHabitFragment.this.getId()), 1);
-                    dialog.show(getChildFragmentManager(), "TAG");
+                    dialog.show(getChildFragmentManager(), "AddNewHabitDialog.onModify");
                 }
             });
 
             if (binding.addNewHabitSubroutineRecyclerView.getAdapter() == null) {
                 binding.addNewHabitSubroutineRecyclerView.setAdapter(homeAddNewHabitParentAdapter);
             } else {
-                homeAddNewHabitParentAdapter.setSubroutinesList(subroutinesList);
+                homeAddNewHabitParentAdapter.setNewSubroutinesList(subroutinesList);
             }
         }
     }
@@ -554,20 +557,20 @@ public class AddNewHabitFragment extends Fragment
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(ConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color);
+        outState.putInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color);
 
         if (binding != null) {
-            outState.putString(ConfigurationKeys.HINT_TEXT.getValue(), binding.addNewHabitHint.getText().toString().trim());
-            outState.putString(ConfigurationKeys.TITLE.getValue(), binding.addNewHabitTitle.getText().toString().trim());
-            outState.putString(ConfigurationKeys.DESCRIPTION.getValue(), binding.addNewHabitDescription.getText().toString().trim());
+            outState.putString(HomeConfigurationKeys.HINT_TEXT.getValue(), binding.addNewHabitHint.getText().toString().trim());
+            outState.putString(HomeConfigurationKeys.TITLE.getValue(), binding.addNewHabitTitle.getText().toString().trim());
+            outState.putString(HomeConfigurationKeys.DESCRIPTION.getValue(), binding.addNewHabitDescription.getText().toString().trim());
         }
 
         //another way was parcelable list, no need for iteration
         if (!subroutinesList.isEmpty()) {
             int counter = 0;
-            outState.putInt(ConfigurationKeys.LIST_SIZE.getValue(), subroutinesList.size());
+            outState.putInt(HomeConfigurationKeys.LIST_SIZE.getValue(), subroutinesList.size());
             for (Subroutines subroutine : subroutinesList) {
-                outState.putSerializable(ConfigurationKeys.SUBROUTINE.getValue() + counter, subroutine);
+                outState.putSerializable(HomeConfigurationKeys.SUBROUTINE.getValue() + counter, subroutine);
                 counter++;
             }
         }

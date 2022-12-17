@@ -1,5 +1,7 @@
 package com.habitdev.sprout.database.quotes.model;
 
+import androidx.annotation.NonNull;
+
 public class Quotes {
     String author;
     String quoted;
@@ -29,6 +31,7 @@ public class Quotes {
         this.quoted = quoted;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Quotes{" +

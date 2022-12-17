@@ -1,11 +1,5 @@
 package com.habitdev.sprout.utill;
 
-import android.os.Looper;
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,13 +10,13 @@ public class DateTimeElapsedUtil {
 
     private String result;
     private String date_started;
-    private int patternType;
+    private  int patternType;
     private long elapsed_day;
     private Date start_date, current_date;
 
     public DateTimeElapsedUtil(String date_started) {
         this.date_started = date_started;
-        this.patternType = 0;
+        patternType = 0;
     }
 
     public DateTimeElapsedUtil(String date_started, int patternType) {
@@ -56,7 +50,7 @@ public class DateTimeElapsedUtil {
             long elapsed_days = TimeUnit.MILLISECONDS.toDays(elapsed_time) % 365;
             long elapsed_years = TimeUnit.MILLISECONDS.toDays(elapsed_time) / 365L;
 
-            this.elapsed_day = elapsed_days;
+            elapsed_day = elapsed_days;
 
             formatResult(elapsed_years, elapsed_days, elapsed_hours, elapsed_minutes, elapsed_seconds);
 
@@ -66,7 +60,7 @@ public class DateTimeElapsedUtil {
     }
 
     public void convertToDate(){
-        SimpleDateFormat[] simpleDateFormatPattern = new SimpleDateFormat[2];
+        final SimpleDateFormat[] simpleDateFormatPattern = new SimpleDateFormat[2];
         simpleDateFormatPattern [0] = new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault());
         simpleDateFormatPattern [1] = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
 
@@ -78,14 +72,6 @@ public class DateTimeElapsedUtil {
         }
     }
 
-    public Date getStart_date() {
-        return start_date;
-    }
-
-    public Date getCurrent_date() {
-        return current_date;
-    }
-
     private void formatResult(long y, long d, long h, long m, long s) {
         result = ((y == 0 ? "" : y + ((y > 1) ? y + " Year's " : y + " Years "))
                 + (d == 0 ? "" : (d > 1) ? d + " Days " : d + " Day ")
@@ -93,6 +79,14 @@ public class DateTimeElapsedUtil {
                 + (m == 0 ? "" : (m > 1) ? m + " Minutes " : m + " Minute ")
                 + (s == 0 ? "" : (s > 1) ? s + " Seconds" : s + " Second")
         ).trim();
+    }
+
+    public Date getStart_date() {
+        return start_date;
+    }
+
+    public Date getCurrent_date() {
+        return current_date;
     }
 
     public long getElapsed_day() {

@@ -66,15 +66,19 @@ public class ThemeFragment extends Fragment {
                         .getText()
                         .toString();
 
-                if (selectedTheme.equals("As in the system")){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).apply();
-                } else if (selectedTheme.equals("Light Theme")) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_NO).apply();
-                } else if (selectedTheme.equals("Dark Theme")) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_YES).apply();
+                switch (selectedTheme) {
+                    case "As in the system":
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                        sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).apply();
+                        break;
+                    case "Light Theme":
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_NO).apply();
+                        break;
+                    case "Dark Theme":
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_YES).apply();
+                        break;
                 }
             }
         });

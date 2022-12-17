@@ -8,7 +8,8 @@ import java.util.List;
 
 public class SubroutineDiffUtil extends DiffUtil.Callback {
 
-    private List<Subroutines> oldSubroutineList, newSubroutineList;
+    private final List<Subroutines> oldSubroutineList;
+    private final List<Subroutines> newSubroutineList;
 
     public SubroutineDiffUtil(List<Subroutines> oldSubroutineList, List<Subroutines> newSubroutineList) {
         this.oldSubroutineList = oldSubroutineList;
@@ -17,7 +18,7 @@ public class SubroutineDiffUtil extends DiffUtil.Callback {
 
     @Override
     public int getOldListSize() {
-        return oldSubroutineList.size();
+        return oldSubroutineList == null ? 0 : oldSubroutineList.size();
     }
 
     @Override

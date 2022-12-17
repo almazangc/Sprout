@@ -1,6 +1,6 @@
-package com.habitdev.sprout.ui.menu.home.enums;
+package com.habitdev.sprout.enums;
 
-public enum ConfigurationKeys {
+public enum HomeConfigurationKeys {
 
     HOME_SHAREDPREF("HOME_SHARED.PREF"),
     HOME_ADD_DEFAULT_SHAREDPREF("HOME_ADD_DEFAULT_SHARED.PREF"),
@@ -22,9 +22,9 @@ public enum ConfigurationKeys {
     POSITION("POSITION.INT"),
     HINT_TEXT("HINT.STRING");
 
-    final String value;
+    private final String value;
 
-    ConfigurationKeys(String value) {
+    HomeConfigurationKeys(String value) {
         this.value = value;
     }
 

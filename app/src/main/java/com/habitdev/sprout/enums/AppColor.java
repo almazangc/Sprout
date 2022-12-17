@@ -8,7 +8,7 @@ public enum AppColor {
     NEPHRITIS("NEPHRITIS"),
     SUNFLOWER("SUNFLOWER");
 
-    String color;
+    private final String color;
 
     AppColor(String color){
         this.color = color;

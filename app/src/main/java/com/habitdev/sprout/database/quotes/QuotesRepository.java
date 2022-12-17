@@ -14,8 +14,8 @@ import java.util.List;
 
 public class QuotesRepository {
 
-    FirebaseFirestore firestoreDB;
-    List<Quotes> quotesList;
+    final FirebaseFirestore firestoreDB;
+    final List<Quotes> quotesList;
     private final String QUOTES_COLLECTION;
 
     public QuotesRepository() {

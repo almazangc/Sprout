@@ -59,10 +59,9 @@ public class AnalysisParentItemAdapter extends RecyclerView.Adapter<AnalysisPare
 
     public static class AnalysisParentViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout itemLayout;
-        TextView title, description;
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
-
+        final RelativeLayout itemLayout;
+        final TextView title, description;
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public AnalysisParentViewHolder(@NonNull View itemView) {
             super(itemView);

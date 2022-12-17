@@ -1,13 +1,13 @@
-package com.habitdev.sprout.ui.onBoarding.personalizationAssessment;
+package com.habitdev.sprout.enums;
 
-public enum PersonalizationConfigurationEnums {
+public enum PersonalizationConfigurationKeys {
 
     POSITION("POSITION.INT"),
     SELECTED("SELECTED.STRING");
 
     private final String value;
 
-    PersonalizationConfigurationEnums(String value) {
+    PersonalizationConfigurationKeys(String value) {
         this.value = value;
     }
 

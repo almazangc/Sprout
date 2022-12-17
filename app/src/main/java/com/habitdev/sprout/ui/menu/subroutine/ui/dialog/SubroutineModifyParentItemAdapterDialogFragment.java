@@ -22,12 +22,12 @@ import java.util.Objects;
 
 public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragment implements View.OnClickListener {
     private DialogFragmentSubroutineModifyParentItemAdapterBinding binding;
-    private Subroutines subroutine;
+    private final Subroutines subroutine;
 
-    private final int ic_check;
-    private int current_selected_color;
-    private int old_selected_color;
-    private String color;
+    private static final int ic_check = R.drawable.ic_check;
+    private static int current_selected_color;
+    private static int old_selected_color;
+    private static String color;
 
     public interface OnUpdateClickListener {
         void onClickUpdate(Subroutines subroutine);
@@ -51,18 +51,16 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
 
     public SubroutineModifyParentItemAdapterDialogFragment(Subroutines subroutine) {
         this.subroutine = subroutine;
-        this.ic_check = R.drawable.ic_check;
-        this.current_selected_color = 0;
-        this.old_selected_color = 0;
-        this.color = AppColor.CLOUDS.getColor();
+        current_selected_color = 0;
+        old_selected_color = 0;
+        color = AppColor.CLOUDS.getColor();
     }
 
     public SubroutineModifyParentItemAdapterDialogFragment() {
         this.subroutine = new Subroutines("", "", AppColor.CLOUDS.getColor(), true);
-        this.ic_check = R.drawable.ic_check;
-        this.current_selected_color = 0;
-        this.old_selected_color = 0;
-        this.color = AppColor.CLOUDS.getColor();
+        current_selected_color = 0;
+        old_selected_color = 0;
+        color = AppColor.CLOUDS.getColor();
     }
 
     @Nullable
@@ -85,12 +83,17 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     }
 
     private void setHint() {
+
+        final String REQUIRED = "Required*";
+        final String EMPTY_TITLE = "Title is empty*";
+        final String EMPTY_DESCRIPTION = "Description is empty*";
+
         binding.dialogSubroutineModifyHint.setText("");
         binding.dialogSubroutineModifyTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty())
-                    binding.dialogSubroutineModifyHint.setText("Required*");
+                    binding.dialogSubroutineModifyHint.setText(REQUIRED);
             }
 
             @Override
@@ -100,10 +103,10 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()) {
-                    binding.dialogSubroutineModifyHint.setText("Title is empty*");
+                    binding.dialogSubroutineModifyHint.setText(EMPTY_TITLE);
                 } else {
                     if (binding.dialogSubroutineModifyDescription.getText().toString().trim().isEmpty()) {
-                        binding.dialogSubroutineModifyHint.setText("Description is empty*");
+                        binding.dialogSubroutineModifyHint.setText(EMPTY_DESCRIPTION);
                     } else {
                         binding.dialogSubroutineModifyHint.setText("");
                     }
@@ -114,7 +117,7 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty())
-                    binding.dialogSubroutineModifyHint.setText("Required*");
+                    binding.dialogSubroutineModifyHint.setText(REQUIRED);
             }
 
             @Override
@@ -124,10 +127,10 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()) {
-                    binding.dialogSubroutineModifyHint.setText("Description is empty*");
+                    binding.dialogSubroutineModifyHint.setText(EMPTY_DESCRIPTION);
                 } else {
                     if (binding.dialogSubroutineModifyTitle.getText().toString().trim().isEmpty()) {
-                        binding.dialogSubroutineModifyHint.setText("Title is empty*");
+                        binding.dialogSubroutineModifyHint.setText(EMPTY_TITLE);
                     } else {
                         binding.dialogSubroutineModifyHint.setText("");
                     }

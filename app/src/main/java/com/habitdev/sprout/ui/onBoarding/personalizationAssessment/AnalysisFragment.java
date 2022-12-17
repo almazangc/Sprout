@@ -3,13 +3,11 @@ package com.habitdev.sprout.ui.onBoarding.personalizationAssessment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -25,9 +23,6 @@ import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentAnalysisBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
-import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
-import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
-import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
 import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.AnalysisParentItemAdapter;
 
 import java.text.SimpleDateFormat;
@@ -35,86 +30,48 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class AnalysisFragment extends Fragment {
 
     private FragmentAnalysisBinding binding;
-    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private List<Habits> habitsList;
-    private Habits habit;
-    private AnalysisParentItemAdapter analysisParentItemAdapter;
-    private List<Subroutines> subroutinesList;
+    private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private static List<Habits> habitsList;
+    private static Habits habit;
+    private static AnalysisParentItemAdapter analysisParentItemAdapter;
+    private static List<Subroutines> subroutinesList;
 
     public AnalysisFragment() {
-        this.habit = new Habits(
+        habit = new Habits(
                 null,
                 null,
                 AppColor.CLOUDS.getColor(),
                 false,
                 false
         );
-        this.subroutinesList = new ArrayList<>();
+        subroutinesList = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAnalysisBinding.inflate(inflater, container, false);
-
-        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
-        toggleHabitDesciptionVisibility(false);
-        setDropDownItems();
-        setRecyclerViewAdapter();
-
-        binding.analysisDropItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                habit = habitsList.get(position);
-                subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
-                toggleHabitDesciptionVisibility(true);
-                binding.analysisHabitDescrition.setText(habit.getDescription());
-                setRecyclerViewAdapter();
-            }
-        });
-
-        binding.analysisDropItem.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.toString().trim().isEmpty()) {
-                    subroutinesList.clear();
-                    toggleHabitDesciptionVisibility(false);
-                    setRecyclerViewAdapter();
-                }
-            }
-        });
-
-        binding.analysisContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                habit.setOnReform(true);
-                habit.setDate_started(new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault()).format(new Date()));
-                habitWithSubroutinesViewModel.updateHabit(habit);
-
-                setOnBoarding();
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(BundleKeys.ANALYSIS.getKEY(), true);
-                Navigation.findNavController(view).navigate(R.id.action_navigate_from_analysis_to_Home, bundle);
-            }
-        });
-
         onBackPress();
         return binding.getRoot();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+        toggleHabitDescriptionVisibility(false);
+        setDropDownItems();
+        setRecyclerViewAdapter();
+        setDropDownItemListener();
+        setContinueListener();
+    }
+
     private void setDropDownItems(){
         //Recommender Algorithm Here to display result according to the analysis
-        // the habits suggested should adjust depending on what user score or ansers on assessment
+        // the habits suggested should adjust depending on what user score or answers on assessment
         List<String> habitTitles = new ArrayList<>();
         habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             habitsList = habits;
@@ -122,11 +79,12 @@ public class AnalysisFragment extends Fragment {
                 habitTitles.add(habit.getHabit());
             }
         });
+
         ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_analysis_parent_habit_item, habitTitles);
         binding.analysisDropItem.setAdapter(adapterItems);
     }
 
-    private void toggleHabitDesciptionVisibility(boolean visibility){
+    private void toggleHabitDescriptionVisibility(boolean visibility){
         if (!visibility) {
             binding.analysisHabitDescrition.setVisibility(View.GONE);
             binding.analysisHabitDescritionLbl.setVisibility(View.GONE);
@@ -152,9 +110,50 @@ public class AnalysisFragment extends Fragment {
         }
     }
 
-    private void setOnBoarding() {
-        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        userViewModel.setOnBoarding();
+    private void setDropDownItemListener() {
+        binding.analysisDropItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                habit = habitsList.get(position);
+                subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+                toggleHabitDescriptionVisibility(true);
+                binding.analysisHabitDescrition.setText(habit.getDescription());
+                setRecyclerViewAdapter();
+            }
+        });
+
+        binding.analysisDropItem.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()) {
+                    subroutinesList.clear();
+                    toggleHabitDescriptionVisibility(false);
+                    setRecyclerViewAdapter();
+                }
+            }
+        });
+    }
+
+    private void setContinueListener() {
+        binding.analysisContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                habit.setOnReform(true);
+                habit.setDate_started(new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault()).format(new Date()));
+                habitWithSubroutinesViewModel.updateHabit(habit);
+
+                setOnBoarding();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(BundleKeys.ANALYSIS.getKEY(), true);
+                Navigation.findNavController(view).navigate(R.id.action_navigate_from_analysis_to_Home, bundle);
+            }
+        });
     }
 
     private void onBackPress() {
@@ -167,12 +166,9 @@ public class AnalysisFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //save selected
-        //reinitialized dropdown items
-        //display recyclerview items
+    private void setOnBoarding() {
+        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel.setOnBoarding();
     }
 
     @Override

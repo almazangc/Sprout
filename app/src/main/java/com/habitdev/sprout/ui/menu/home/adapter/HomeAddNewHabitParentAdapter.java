@@ -2,7 +2,6 @@ package com.habitdev.sprout.ui.menu.home.adapter;
 
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
@@ -22,7 +20,7 @@ import java.util.List;
 
 public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNewHabitParentAdapter.AddNewHabitSubroutineViewHolder>{
 
-    private List<Subroutines> subroutinesList;
+    private List<Subroutines> oldSubroutinesList;
 
     private OnClickListener onClickListener;
 
@@ -35,8 +33,10 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
         this.onClickListener = onClickListener;
     }
 
-    public HomeAddNewHabitParentAdapter(List<Subroutines> subroutinesList) {
-        this.subroutinesList = subroutinesList;
+    public HomeAddNewHabitParentAdapter() {}
+
+    public void setOldSubroutinesList(List<Subroutines> oldSubroutinesList) {
+        this.oldSubroutinesList = oldSubroutinesList;
     }
 
     @NonNull
@@ -49,12 +49,12 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
 
     @Override
     public void onBindViewHolder(@NonNull HomeAddNewHabitParentAdapter.AddNewHabitSubroutineViewHolder holder, int position) {
-        holder.bindSubroutine(subroutinesList.get(position), onClickListener);
+        holder.bindSubroutine(oldSubroutinesList.get(position), onClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return subroutinesList.size();
+        return oldSubroutinesList.size();
     }
 
     @Override
@@ -62,18 +62,18 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
         return position;
     }
 
-    @SuppressLint("NotifyDataSetChanged: Use ListAdapter")
-    public void setSubroutinesList(List<Subroutines> subroutinesList) {
-        this.subroutinesList = subroutinesList;
+    @SuppressLint({"DiffCallBack Does not work without observer to update UI", "NotifyDataSetChanged"})
+    public void setNewSubroutinesList(List<Subroutines> newSubroutineList) {
+        oldSubroutinesList = newSubroutineList;
         notifyDataSetChanged();
     }
 
     public static class AddNewHabitSubroutineViewHolder extends RecyclerView.ViewHolder {
 
-        View color_indicator;
-        TextView title, description;
-        Button modify, delete;
-        Drawable cloud, alzarin, amethyst, bright_sky_blue, nephritis, sunflower;
+        final View color_indicator;
+        final TextView title, description;
+        final Button modify, delete;
+        final Drawable cloud, alzarin, amethyst, bright_sky_blue, nephritis, sunflower;
 
         public AddNewHabitSubroutineViewHolder(@NonNull View itemView) {
             super(itemView);

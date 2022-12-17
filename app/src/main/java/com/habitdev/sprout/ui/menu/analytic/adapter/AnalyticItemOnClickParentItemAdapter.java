@@ -68,10 +68,10 @@ public class AnalyticItemOnClickParentItemAdapter extends RecyclerView.Adapter<A
 
     public static class AnalyticItemOnClickParentViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout itemContainer;
-        PieChart pieChart;
-        TextView title, description, longestStreak, maxStreak;
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+        final RelativeLayout itemContainer;
+        final PieChart pieChart;
+        final TextView title, description, longestStreak, maxStreak;
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public AnalyticItemOnClickParentViewHolder(@NonNull View itemView) {
             super(itemView);

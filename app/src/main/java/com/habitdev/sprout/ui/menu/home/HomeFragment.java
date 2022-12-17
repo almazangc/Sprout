@@ -26,8 +26,8 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
+import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
-import com.habitdev.sprout.ui.menu.home.enums.ConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.ui.HomeItemOnClickFragment;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeOnFabClickDialogFragment;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
@@ -48,9 +48,9 @@ public class HomeFragment extends Fragment
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private List<Habits> habitsList;
 
-    private static AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
-    private static AddNewHabitFragment addNewHabitHomeFragment = new AddNewHabitFragment();
-    private static HomeItemOnClickFragment homeItemOnClickFragment = new HomeItemOnClickFragment();
+    private static final AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
+    private static final AddNewHabitFragment addNewHabitHomeFragment = new AddNewHabitFragment();
+    private static final HomeItemOnClickFragment homeItemOnClickFragment = new HomeItemOnClickFragment();
     private final HomeParentItemAdapter homeParentItemAdapter = new HomeParentItemAdapter();
 
     private static boolean isOnAddDefault = false;
@@ -99,15 +99,15 @@ public class HomeFragment extends Fragment
 //        Log.d(TAG, "onStart: Home");
         if (savedInstanceState != null) {
 //            Log.d(TAG, "onStart: savedInstanceState not null");
-            isOnAddDefault = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue());
-            isOnAddNew = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue());
-            isOnItemClick = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue());
-            isOnModify = savedInstanceState.getBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue());
+            isOnAddDefault = savedInstanceState.getBoolean(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue());
+            isOnAddNew = savedInstanceState.getBoolean(HomeConfigurationKeys.IS_ON_ADD_NEW.getValue());
+            isOnItemClick = savedInstanceState.getBoolean(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue());
+            isOnModify = savedInstanceState.getBoolean(HomeConfigurationKeys.IS_ON_MODIFY.getValue());
 
             if (isOnAddDefault) {
 //                Log.d(TAG, "onStart: isOnAddDefault");
                 addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
-                if (!addDefaultHabitFragment.isAdded()){
+                if (!addDefaultHabitFragment.isAdded()) {
                     changeFragment(addDefaultHabitFragment);
                 }
             }
@@ -115,21 +115,21 @@ public class HomeFragment extends Fragment
             if (isOnAddNew) {
 //                Log.d(TAG, "onStart: isOnAddNew");
                 addNewHabitHomeFragment.setmOnReturnHome(this);
-                if (!addNewHabitHomeFragment.isAdded()){
+                if (!addNewHabitHomeFragment.isAdded()) {
                     changeFragment(addNewHabitHomeFragment);
                 }
             }
 
             if (isOnItemClick) {
 //                Log.d(TAG, "onStart: isOnItemClick");
-                position = savedInstanceState.getInt(ConfigurationKeys.POSITION.getValue());
+                position = savedInstanceState.getInt(HomeConfigurationKeys.POSITION.getValue());
                 onItemClick(position);
             }
 
             if (isOnModify) {
 //                Log.d(TAG, "onStart: isOnModify");
-                habitOnModify = (Habits) (savedInstanceState).getSerializable(ConfigurationKeys.HABIT.getValue());
-                position = savedInstanceState.getInt(ConfigurationKeys.POSITION.getValue());
+                habitOnModify = (Habits) (savedInstanceState).getSerializable(HomeConfigurationKeys.HABIT.getValue());
+                position = savedInstanceState.getInt(HomeConfigurationKeys.POSITION.getValue());
                 onClickHabitModify(habitOnModify, position);
             }
 
@@ -216,7 +216,7 @@ public class HomeFragment extends Fragment
         homeItemOnClickFragment.setPosition(position);
         homeItemOnClickFragment.setAdapter_ref(homeParentItemAdapter);
 
-        if (!homeItemOnClickFragment.isAdded()){
+        if (!homeItemOnClickFragment.isAdded()) {
             getChildFragmentManager()
                     .beginTransaction()
                     .addToBackStack(HomeFragment.this.getTag())
@@ -246,7 +246,7 @@ public class HomeFragment extends Fragment
     public void onDialogDismiss() {
 //        Log.d(TAG, "onDialogDismiss: ");
         if (savedInstanceState != null)
-            savedInstanceState.putBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), false);
+            savedInstanceState.putBoolean(HomeConfigurationKeys.IS_ON_MODIFY.getValue(), false);
         isOnModify = false;
     }
 
@@ -315,7 +315,7 @@ public class HomeFragment extends Fragment
 //                    }
 //
 //                    if (!availableHabits.isEmpty()) {
-                if (!addDefaultHabitFragment.isAdded()){
+                if (!addDefaultHabitFragment.isAdded()) {
                     changeFragment(addDefaultHabitFragment);
                 }
                 isOnAddDefault = true;
@@ -324,9 +324,10 @@ public class HomeFragment extends Fragment
 //                        Toast.makeText(requireActivity(), "No Available Habits", Toast.LENGTH_LONG).show();
 //                    }
             }
+
             @Override
             public void onUserDefineClick() {
-                if (!addNewHabitHomeFragment.isAdded()){
+                if (!addNewHabitHomeFragment.isAdded()) {
                     changeFragment(addNewHabitHomeFragment);
                 }
                 isOnAddNew = true;
@@ -345,13 +346,12 @@ public class HomeFragment extends Fragment
 //        Log.d(TAG, "onAddDefaultHabitClickReturnHome: ");
 
         removeChildFragment(addDefaultHabitFragment);
-        addDefaultHabitFragment.setmOnAddDefaultReturnHome(null);
-
-        addDefaultHabitFragment = new AddDefaultHabitFragment();
+//        addDefaultHabitFragment.setmOnAddDefaultReturnHome(null);
+//        addDefaultHabitFragment = new AddDefaultHabitFragment();
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
 
         if (savedInstanceState != null)
-            savedInstanceState.putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), false);
+            savedInstanceState.putBoolean(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), false);
 
         isOnAddDefault = false;
     }
@@ -360,11 +360,11 @@ public class HomeFragment extends Fragment
     public void onAddNewHabitClickReturnHome() {
 //        Log.d(TAG, "onAddNewHabitClickReturnHome: ");
         removeChildFragment(addNewHabitHomeFragment);
-        addNewHabitHomeFragment.setmOnReturnHome(null);
-        addNewHabitHomeFragment = new AddNewHabitFragment();
+//        addNewHabitHomeFragment.setmOnReturnHome(null);
+//        addNewHabitHomeFragment = new AddNewHabitFragment();
         addNewHabitHomeFragment.setmOnReturnHome(this);
         if (savedInstanceState != null)
-            savedInstanceState.putBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), false);
+            savedInstanceState.putBoolean(HomeConfigurationKeys.IS_ON_ADD_NEW.getValue(), false);
 
         isOnAddNew = false;
     }
@@ -373,11 +373,11 @@ public class HomeFragment extends Fragment
     public void onHomeItemOnClickReturnHome() {
 //        Log.d(TAG, "onHomeItemOnClickReturnHome: ");
         removeChildFragment(homeItemOnClickFragment);
-        homeItemOnClickFragment.setmOnItemOnClickReturnHome(null);
-        homeItemOnClickFragment = new HomeItemOnClickFragment();
+//        homeItemOnClickFragment.setmOnItemOnClickReturnHome(null);
+//        homeItemOnClickFragment = new HomeItemOnClickFragment();
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
         if (savedInstanceState != null)
-            savedInstanceState.putBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), false);
+            savedInstanceState.putBoolean(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), false);
 
         isOnItemClick = false;
     }
@@ -415,42 +415,42 @@ public class HomeFragment extends Fragment
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 //        Log.d(TAG, "onSaveInstanceState: ");
-        outState.putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault);
-        outState.putBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew);
+        outState.putBoolean(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault);
+        outState.putBoolean(HomeConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew);
 
-        outState.putBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick);
+        outState.putBoolean(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick);
         if (isOnItemClick) {
-            outState.putInt(ConfigurationKeys.POSITION.getValue(), position);
+            outState.putInt(HomeConfigurationKeys.POSITION.getValue(), position);
         }
 
-        outState.putBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), isOnModify);
+        outState.putBoolean(HomeConfigurationKeys.IS_ON_MODIFY.getValue(), isOnModify);
         if (isOnModify) {
-            outState.putSerializable(ConfigurationKeys.HABIT.getValue(), habitOnModify);
-            outState.putInt(ConfigurationKeys.POSITION.getValue(), position);
+            outState.putSerializable(HomeConfigurationKeys.HABIT.getValue(), habitOnModify);
+            outState.putInt(HomeConfigurationKeys.POSITION.getValue(), position);
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
         sharedPreferences.edit()
-                .putBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault)
-                .putBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew)
-                .putBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick)
-                .putBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), isOnModify)
+                .putBoolean(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), isOnAddDefault)
+                .putBoolean(HomeConfigurationKeys.IS_ON_ADD_NEW.getValue(), isOnAddNew)
+                .putBoolean(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick)
+                .putBoolean(HomeConfigurationKeys.IS_ON_MODIFY.getValue(), isOnModify)
                 .apply();
 
         if (isOnItemClick) {
-            sharedPreferences.edit().putInt(ConfigurationKeys.POSITION.getValue(), position).apply();
+            sharedPreferences.edit().putInt(HomeConfigurationKeys.POSITION.getValue(), position).apply();
         }
 
         if (isOnModify) {
             String json = new Gson().toJson(habitOnModify);
             sharedPreferences
                     .edit()
-                    .putString(ConfigurationKeys.HABIT.getValue(), json)
-                    .putInt(ConfigurationKeys.POSITION.getValue(), position).apply();
+                    .putString(HomeConfigurationKeys.HABIT.getValue(), json)
+                    .putInt(HomeConfigurationKeys.POSITION.getValue(), position).apply();
         }
     }
 
@@ -463,21 +463,21 @@ public class HomeFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(ConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue()) ||
-                sharedPreferences.contains(ConfigurationKeys.IS_ON_ADD_NEW.getValue()) ||
-                sharedPreferences.contains(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue()) ||
-                sharedPreferences.contains(ConfigurationKeys.IS_ON_MODIFY.getValue())) {
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        if (sharedPreferences.contains(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue()) ||
+                sharedPreferences.contains(HomeConfigurationKeys.IS_ON_ADD_NEW.getValue()) ||
+                sharedPreferences.contains(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue()) ||
+                sharedPreferences.contains(HomeConfigurationKeys.IS_ON_MODIFY.getValue())) {
 
-            isOnAddDefault = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), false);
-            isOnAddNew = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_ADD_NEW.getValue(), false);
-            isOnItemClick = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), false);
-            isOnModify = sharedPreferences.getBoolean(ConfigurationKeys.IS_ON_MODIFY.getValue(), false);
+            isOnAddDefault = sharedPreferences.getBoolean(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), false);
+            isOnAddNew = sharedPreferences.getBoolean(HomeConfigurationKeys.IS_ON_ADD_NEW.getValue(), false);
+            isOnItemClick = sharedPreferences.getBoolean(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), false);
+            isOnModify = sharedPreferences.getBoolean(HomeConfigurationKeys.IS_ON_MODIFY.getValue(), false);
 
             if (isOnAddDefault) {
 //                Log.d(TAG, "onStart: isOnAddDefault");
                 addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
-                if (!addDefaultHabitFragment.isAdded()){
+                if (!addDefaultHabitFragment.isAdded()) {
                     changeFragment(addDefaultHabitFragment);
                 }
             }
@@ -485,22 +485,22 @@ public class HomeFragment extends Fragment
             if (isOnAddNew) {
 //                Log.d(TAG, "onStart: isOnAddNew");
                 addNewHabitHomeFragment.setmOnReturnHome(this);
-                if (!addNewHabitHomeFragment.isAdded()){
+                if (!addNewHabitHomeFragment.isAdded()) {
                     changeFragment(addNewHabitHomeFragment);
                 }
             }
 
             if (isOnItemClick) {
 //                Log.d(TAG, "onStart: isOnItemClick");
-                position = sharedPreferences.getInt(ConfigurationKeys.POSITION.getValue(), 0);
+                position = sharedPreferences.getInt(HomeConfigurationKeys.POSITION.getValue(), 0);
                 onItemClick(position);
             }
 
             if (isOnModify) {
 //                Log.d(TAG, "onStart: isOnModify");
-                String json = sharedPreferences.getString(ConfigurationKeys.HABIT.getValue(), "");
+                String json = sharedPreferences.getString(HomeConfigurationKeys.HABIT.getValue(), "");
                 habitOnModify = new Gson().fromJson(json, Habits.class);
-                position = sharedPreferences.getInt(ConfigurationKeys.POSITION.getValue(), 0);
+                position = sharedPreferences.getInt(HomeConfigurationKeys.POSITION.getValue(), 0);
                 onClickHabitModify(habitOnModify, position);
             }
 

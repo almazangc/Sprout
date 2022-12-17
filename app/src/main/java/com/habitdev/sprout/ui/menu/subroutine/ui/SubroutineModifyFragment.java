@@ -2,7 +2,6 @@ package com.habitdev.sprout.ui.menu.subroutine.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,7 +164,9 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 //    }
 
     private void setHabitTitleBackground() {
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+
         cloud = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_cloud);
         amethyst = ContextCompat.getDrawable(requireContext(), R.drawable.background_top_bar_view_amethyst);
         sunflower = ContextCompat.getDrawable(requireContext(), R.drawable.background_topbar_view_sunflower);
@@ -190,8 +191,11 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 
     @Override
     public void onItemClick(int position) {
-        Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
+
+        final Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
+
         SubroutineModifyParentItemAdapterDialogFragment dialog = new SubroutineModifyParentItemAdapterDialogFragment(subroutine);
+
         dialog.setTargetFragment(getChildFragmentManager()
                 .findFragmentById(SubroutineModifyFragment.this.getId()), 1);
         dialog.show(getChildFragmentManager(), "ModifySubroutineOnClickDialog");
@@ -202,13 +206,12 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
                 habitWithSubroutinesViewModel.updateSubroutine(subroutine);
             }
         });
-
     }
 
     @Override
     public void onItemDelete(int position) {
         if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
-            Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
+            final Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
             habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
             updateTotalSubroutine();
         } else {
@@ -239,7 +242,7 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     }
 
     private void updateTotalSubroutine() {
-        List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+        final List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
         habit.setTotal_subroutine(subroutinesList.size());
         habitWithSubroutinesViewModel.updateHabit(habit);
     }

@@ -2,14 +2,14 @@ package com.habitdev.sprout.utill;
 
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.habitdev.sprout.database.comment.model.Comment;
 import com.habitdev.sprout.database.note.model.Note;
 
 import java.util.List;
 
 public class NotesDiffUtil extends DiffUtil.Callback {
 
-    private List<Note> oldNoteList, newNoteList;
+    private final List<Note> oldNoteList;
+    private final List<Note> newNoteList;
 
     public NotesDiffUtil(List<Note> oldNoteList, List<Note> newNoteList) {
         this.oldNoteList = oldNoteList;
@@ -18,7 +18,7 @@ public class NotesDiffUtil extends DiffUtil.Callback {
 
     @Override
     public int getOldListSize() {
-        return oldNoteList.size();
+        return oldNoteList == null ? 0 : oldNoteList.size();
     }
 
     @Override

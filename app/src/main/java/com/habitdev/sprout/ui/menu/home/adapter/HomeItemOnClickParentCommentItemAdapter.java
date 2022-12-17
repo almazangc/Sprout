@@ -3,27 +3,26 @@ package com.habitdev.sprout.ui.menu.home.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
+import com.habitdev.sprout.utill.CommentDiffUtil;
 
-public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment, HomeItemOnClickParentCommentItemAdapter.CommentViewHolder> {
+import java.util.List;
+
+public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapter<HomeItemOnClickParentCommentItemAdapter.CommentViewHolder> {
 
     private final CommentViewModel commentViewModel;
+    private List<Comment> oldCommentList;
 
     public HomeItemOnClickParentCommentItemAdapter(CommentViewModel commentViewModel) {
-        super(DIFF_CALLBACK);
         this.commentViewModel = commentViewModel;
     }
 
@@ -51,7 +50,11 @@ public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment
 
     @Override
     public void onBindViewHolder(@NonNull HomeItemOnClickParentCommentItemAdapter.CommentViewHolder holder, int position) {
-        holder.bindComment(getComment(position), commentViewModel);
+        holder.bindComment(oldCommentList.get(position));
+
+        holder.delete_comment.setOnClickListener(view -> {
+            commentViewModel.deleteComment(oldCommentList.get(position));
+        });
     }
 
     @Override
@@ -59,14 +62,22 @@ public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment
         return position;
     }
 
-    public Comment getComment(int position) {
-        return getItem(position);
+    @Override
+    public int getItemCount() {
+        return (oldCommentList == null ? 0 : oldCommentList.size());
+    }
+
+    public void setNewCommentList(List<Comment> newCommentList){
+        DiffUtil.Callback DIFF_CALLBACK = new CommentDiffUtil(oldCommentList, newCommentList);
+        DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
+        oldCommentList = newCommentList;
+        DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
 
-        TextView comment_item;
-        Button delete_comment;
+        final TextView comment_item;
+        final Button delete_comment;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,11 +85,8 @@ public class HomeItemOnClickParentCommentItemAdapter extends ListAdapter<Comment
             delete_comment = itemView.findViewById(R.id.habit_delete_comment);
         }
 
-        void bindComment(Comment comment, CommentViewModel commentViewModel) {
+        void bindComment(Comment comment) {
             comment_item.setText(comment.getComment());
-            delete_comment.setOnClickListener(view -> {
-                commentViewModel.deleteComment(comment);
-            });
         }
     }
 }

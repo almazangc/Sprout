@@ -3,13 +3,13 @@ package com.habitdev.sprout.utill;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.habitdev.sprout.database.comment.model.Comment;
-import com.habitdev.sprout.database.habit.model.Subroutines;
 
 import java.util.List;
 
 public class CommentDiffUtil extends DiffUtil.Callback {
 
-    private List<Comment> oldCommentList, newCommentList;
+    private final List<Comment> oldCommentList;
+    private final List<Comment> newCommentList;
 
     public CommentDiffUtil(List<Comment> oldCommentList, List<Comment> newCommentList) {
         this.oldCommentList = oldCommentList;
@@ -18,7 +18,7 @@ public class CommentDiffUtil extends DiffUtil.Callback {
 
     @Override
     public int getOldListSize() {
-        return oldCommentList.size();
+        return (oldCommentList == null ? 0 : oldCommentList.size());
     }
 
     @Override

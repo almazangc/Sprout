@@ -24,7 +24,7 @@ public class SubroutineFragment extends Fragment
         SubroutineModifyFragment.onClickBackPress {
 
     private FragmentSubroutineBinding binding;
-    protected SubroutineModifyFragment subroutineModifyFragment = new SubroutineModifyFragment();
+    private static final SubroutineModifyFragment subroutineModifyFragment = new SubroutineModifyFragment();
 
     public SubroutineFragment() {
         subroutineModifyFragment.setmOnClickBackPress(this);
@@ -103,8 +103,8 @@ public class SubroutineFragment extends Fragment
                 .remove(subroutineModifyFragment)
                 .setTransition(FragmentTransaction.TRANSIT_NONE)
                 .commit();
-        subroutineModifyFragment.setmOnClickBackPress(null);
-        subroutineModifyFragment = new SubroutineModifyFragment();
+//        subroutineModifyFragment.setmOnClickBackPress(null);
+//        subroutineModifyFragment = new SubroutineModifyFragment();
         subroutineModifyFragment.setmOnClickBackPress(this);
         binding.subroutineContainer.setVisibility(View.VISIBLE);
     }

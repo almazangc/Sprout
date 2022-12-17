@@ -1,9 +1,7 @@
 package com.habitdev.sprout.ui.menu.subroutine.adapter;
 
-import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,11 +89,10 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
 
     public static class ChildItemViewHolder extends RecyclerView.ViewHolder{
 
-        RelativeLayout itemLayout;
-        TextView Title, Description;
-        Button UpVote, DownVote, MarkAsDone;
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
-        Drawable markedAsDone, unMarkAsDone;
+        final RelativeLayout itemLayout;
+        final TextView Title, Description;
+        final Button UpVote, DownVote, MarkAsDone;
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin, markedAsDone, unMarkAsDone;
 
         public ChildItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -136,29 +133,25 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
 
             isMarkedAsDone(subroutine.isMarkDone());
 
-            itemLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            itemLayout.setOnClickListener(view -> {
+                Habits habit = habitWithSubroutinesViewModel.getHabitByUID(subroutine.getFk_habit_uid());
 
-                    Habits habit = habitWithSubroutinesViewModel.getHabitByUID(subroutine.getFk_habit_uid());
+                if (MarkAsDone.getBackground() == markedAsDone) {
+                    isMarkedAsDone(false);
+                    subroutine.setMarkDone(false);
+                    subroutine.setTotal_completed(subroutine.getTotal_completed()-1);
 
-                    if (MarkAsDone.getBackground() == markedAsDone) {
-                        isMarkedAsDone(false);
-                        subroutine.setMarkDone(false);
-                        subroutine.setTotal_completed(subroutine.getTotal_completed()-1);
+                    habit.setCompleted_subroutine(habit.getCompleted_subroutine()-1);
+                } else if (MarkAsDone.getBackground() == unMarkAsDone) {
+                    isMarkedAsDone(true);
+                    subroutine.setMarkDone(true);
+                    subroutine.setTotal_completed(subroutine.getTotal_completed()+1);
 
-                        habit.setCompleted_subroutine(habit.getCompleted_subroutine()-1);
-                    } else if (MarkAsDone.getBackground() == unMarkAsDone) {
-                        isMarkedAsDone(true);
-                        subroutine.setMarkDone(true);
-                        subroutine.setTotal_completed(subroutine.getTotal_completed()+1);
-
-                        habit.setCompleted_subroutine(habit.getCompleted_subroutine()+1);
-                    }
-
-                    habitWithSubroutinesViewModel.updateSubroutine(subroutine);
-                    habitWithSubroutinesViewModel.updateHabit(habit);
+                    habit.setCompleted_subroutine(habit.getCompleted_subroutine()+1);
                 }
+
+                habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                habitWithSubroutinesViewModel.updateHabit(habit);
             });
 
             Title.setText(subroutine.getSubroutine());

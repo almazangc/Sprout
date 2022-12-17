@@ -75,10 +75,6 @@ public class HabitWithSubroutinesRepository {
         }
     }
 
-//    public void updateSubroutine(Subroutines subroutine) {
-//        habitWithSubroutinesDao.updateSubroutine(subroutine);
-//    }
-
     public void deleteHabit(Habits habit) {
         new DeleteHabitAsyncTask(habitWithSubroutinesDao).execute(habit);
     }
@@ -130,8 +126,9 @@ public class HabitWithSubroutinesRepository {
             this.habitWithSubroutinesDao = habitWithSubroutinesDao;
         }
 
+        @SafeVarargs
         @Override
-        protected Void doInBackground(List<Subroutines>... lists) {
+        protected final Void doInBackground(List<Subroutines>... lists) {
             habitWithSubroutinesDao.deleteSubroutineList(lists[0]);
             return null;
         }

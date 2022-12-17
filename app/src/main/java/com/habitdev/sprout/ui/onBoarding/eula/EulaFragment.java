@@ -15,12 +15,9 @@ import com.habitdev.sprout.enums.BundleKeys;
 
 public class EulaFragment extends Fragment {
 
-    //View Binding
     private FragmentEulaBinding binding;
 
-    public EulaFragment() {
-
-    }
+    public EulaFragment() {}
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,14 +29,14 @@ public class EulaFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
         binding.btnAgree.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean(BundleKeys.EULA.getKEY(), true);
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_getCommonWakeup, bundle);
         });
-        binding.btnDisagree.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_initial);
-        });
+
+        binding.btnDisagree.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_initial));
     }
 
     @Override

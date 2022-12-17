@@ -149,11 +149,11 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
     public static class ParentItemViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout itemContainer;
-        TextView HabitsTitle;
-        Button ModifySubroutine;
-        RecyclerView childRecycleView;
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+        final RelativeLayout itemContainer;
+        final TextView HabitsTitle;
+        final Button ModifySubroutine;
+        final RecyclerView childRecycleView;
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public ParentItemViewHolder(@NonNull View itemView) {
             super(itemView);

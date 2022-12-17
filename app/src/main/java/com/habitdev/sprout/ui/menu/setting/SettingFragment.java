@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.setting;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,14 +32,18 @@ public class SettingFragment extends Fragment implements
     private FragmentSettingBinding binding;
     private UserViewModel userViewModel;
 
-    protected ProfileFragment profileFragment = new ProfileFragment();
-    protected ThemeFragment themeFragment = new ThemeFragment();
-    protected AboutUsFragment aboutUsFragment = new AboutUsFragment();
-    protected LearnMoreFragment learnMoreFragment = new LearnMoreFragment();
-    protected TechStackInfoFragment techStackInfoFragment = new TechStackInfoFragment();
-    protected TerminalFragment terminalFragment = new TerminalFragment();
+    private static final ProfileFragment profileFragment = new ProfileFragment();
+    private static final ThemeFragment themeFragment = new ThemeFragment();
+    private static final AboutUsFragment aboutUsFragment = new AboutUsFragment();
+    private static final LearnMoreFragment learnMoreFragment = new LearnMoreFragment();
+    private static final TechStackInfoFragment techStackInfoFragment = new TechStackInfoFragment();
+    private static final TerminalFragment terminalFragment = new TerminalFragment();
 
-    public SettingFragment() {
+    public SettingFragment() {}
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         profileFragment.setmOnReturnSetting(this);
         themeFragment.setmOnReturnSetting(this);
         aboutUsFragment.setmOnReturnSetting(this);
@@ -57,24 +62,24 @@ public class SettingFragment extends Fragment implements
             binding.nickname.setText(nickname);
         });
 
-        binding.editProfile.setOnClickListener(v -> {
+        binding.editProfile.setOnClickListener(view -> {
             changeFragment(profileFragment);
         });
 
-        binding.selectThemeBtn.setOnClickListener(v -> {
+        binding.selectThemeBtn.setOnClickListener(view -> {
             changeFragment(themeFragment);
         });
 
-        binding.aboutUsBtn.setOnClickListener(v -> {
+        binding.aboutUsBtn.setOnClickListener(view -> {
             changeFragment(aboutUsFragment);
         });
 
-        binding.learnMoreBtn.setOnClickListener(v -> {
+        binding.learnMoreBtn.setOnClickListener(view -> {
             changeFragment(learnMoreFragment);
 
         });
 
-        binding.techStackInfoBtn.setOnClickListener(v -> {
+        binding.techStackInfoBtn.setOnClickListener(view -> {
             changeFragment(techStackInfoFragment);
         });
 
@@ -154,5 +159,16 @@ public class SettingFragment extends Fragment implements
             userViewModel = null;
         }
         binding = null;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        profileFragment.setmOnReturnSetting(null);
+        themeFragment.setmOnReturnSetting(null);
+        aboutUsFragment.setmOnReturnSetting(null);
+        learnMoreFragment.setmOnReturnSetting(null);
+        techStackInfoFragment.setmOnReturnSetting(null);
+        terminalFragment.setmOnReturnSetting(null);
     }
 }

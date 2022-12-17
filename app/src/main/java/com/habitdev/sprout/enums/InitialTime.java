@@ -7,7 +7,8 @@ public enum InitialTime {
     SLEEP_HOUR(20),
     SLEEP_MINUTE(30);
 
-    int value;
+    private final int value;
+
     InitialTime(int value){
         this.value = value;
     }

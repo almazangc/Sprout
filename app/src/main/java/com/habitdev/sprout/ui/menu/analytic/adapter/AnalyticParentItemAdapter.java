@@ -4,7 +4,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +32,6 @@ import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.HabitDiffUtil;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.threeten.bp.DayOfWeek;
@@ -219,11 +216,11 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
 
     public static class AnalyticParentViewHolder extends RecyclerView.ViewHolder {
 
-        RelativeLayout itemContainer;
-        PieChart pieChart;
-        MaterialCalendarView calendarView;
-        TextView totalSubroutine, title, description, dateStarted, elapsedAbstinence, relapse;
-        Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+        final RelativeLayout itemContainer;
+        final PieChart pieChart;
+        final MaterialCalendarView calendarView;
+        final TextView totalSubroutine, title, description, dateStarted, elapsedAbstinence, relapse;
+        final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
 
         public AnalyticParentViewHolder(@NonNull View itemView, onItemClick mOnItemClick) {
             super(itemView);
