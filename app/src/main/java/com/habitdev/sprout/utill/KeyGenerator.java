@@ -4,7 +4,7 @@ import java.security.SecureRandom;
 
 public class KeyGenerator {
 
-    private final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     SecureRandom rnd = new SecureRandom();
 
     public String randomString(int len){

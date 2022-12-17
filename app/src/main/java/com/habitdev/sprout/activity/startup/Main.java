@@ -2,12 +2,10 @@ package com.habitdev.sprout.activity.startup;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -60,8 +58,9 @@ public class Main extends AppCompatActivity {
      * Main Activity View Binding
      */
     private ActivityMainBinding binding;
-    private SharedPreferences sharedPreferences;
-    private NetworkStateManager networkStateManager;
+
+    private static SharedPreferences sharedPreferences;
+    private static NetworkStateManager networkStateManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,62 +69,67 @@ public class Main extends AppCompatActivity {
 
         clearSharedPref();
 
-        if (savedInstanceState == null) {
+        final String SharedPreferences_KEY = "SP_DB";
+        sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
-            final String SharedPreferences_KEY = "SP_DB";
-            sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
+        NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
+        // Check the network state before registering for the 'networkCallbackEvents'
+        mNetworkMonitoringUtil.checkNetworkState();
+        mNetworkMonitoringUtil.registerNetworkCallbackEvents();
 
-            NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
-            // Check the network state before registering for the 'networkCallbackEvents'
-            mNetworkMonitoringUtil.checkNetworkState();
-            mNetworkMonitoringUtil.registerNetworkCallbackEvents();
-
-            //need to fetch quotes once only (need to fetch once every week for updates)
-            networkStateManager = NetworkStateManager.getInstance();
-            networkStateManager.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
-                @Override
-                public void onChanged(Boolean isConnected) {
-                    if (isConnected) {
-                        if (!sharedPreferences.contains("isDB_loaded") || (sharedPreferences.contains("isDB_loaded") && sharedPreferences.getBoolean("isDB_loaded", false))) {
-                            sharedPreferences.edit().putBoolean("isDB_loaded", FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER).isComplete()).apply();
-                            Log.d("tag", "Main isConnected() called: data is being fetch from server");
-                        } else {
-                            Log.d("tag", "Main isConnected() called: data already available on cache");
-                            networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
-                            Log.d("tag", "Main isConnected() called: removed observer");
-                        }
+        //need to fetch quotes once only (need to fetch once every week for updates)
+        networkStateManager = NetworkStateManager.getInstance();
+        networkStateManager.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean isConnected) {
+                if (isConnected) {
+                    if (!sharedPreferences.contains("isDB_loaded") || (sharedPreferences.contains("isDB_loaded") && sharedPreferences.getBoolean("isDB_loaded", false))) {
+                        sharedPreferences.edit().putBoolean("isDB_loaded", FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER).isComplete()).apply();
+                        Log.d("tag", "Main isConnected() called: data is being fetch from server");
                     } else {
-                        Log.d("tag", "onChanged() called: Main no network connection");
+                        Log.d("tag", "Main isConnected() called: data already available on cache");
+                        networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
+                        Log.d("tag", "Main isConnected() called: removed observer");
                     }
+                } else {
+                    Log.d("tag", "onChanged() called: Main no network connection");
                 }
-            });
-            setDailyDateTracker();
-        }
+            }
+        });
+
+        setDailyDateTracker();
+
         setContentView(binding.getRoot());
     }
 
 
+    /**
+     * Updates Subroutine Max Streak, Longest Streak, Total Skip and Resets MarkAsDone Status
+     * Daily after 12:00 AM on user first launch of app on the current day.
+     *
+     * This can also be used to notify user how long since the app was last opened and visited.
+     */
     private void setDailyDateTracker() {
+
         final String DATE_KEY = "DATE";
 
         if (sharedPreferences.contains(DATE_KEY)) {
 
-            String date = sharedPreferences.getString(DATE_KEY, "");
-            DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date, 1);
+            String date = sharedPreferences.getString(DATE_KEY, null);
+            final DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date, 1);
             dateTimeElapsedUtil.calculateElapsedDateTime();
 
-            long num = dateTimeElapsedUtil.getElapsed_day();
+            if (dateTimeElapsedUtil.getElapsed_day() >= 1 && date != null) {
 
-            if (dateTimeElapsedUtil.getElapsed_day() >= 1) {
                 date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
                 sharedPreferences.edit().putString(DATE_KEY, date).apply();
 
-                HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(this).get(HabitWithSubroutinesViewModel.class);
-                List<Habits> habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
+                final HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(this).get(HabitWithSubroutinesViewModel.class);
+                final List<Habits> habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
 
                 for (Habits habit : habitsList) {
 
-                    List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+                    final List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
 
                     for (Subroutines subroutine : subroutinesList) {
 
@@ -142,29 +146,27 @@ public class Main extends AppCompatActivity {
                         }
 
                         habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+
                     }
                 }
+
                 Toast.makeText(this, dateTimeElapsedUtil.getElapsed_day() + " Day's, resets daily subroutines", Toast.LENGTH_SHORT).show();
+
             }
+
         } else {
             String date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
             sharedPreferences.edit().putString(DATE_KEY, date).apply();
         }
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    /**
+     * Clears Recent Shared Pref when Main Class lifecycle end and starts
+     */
+    private void clearSharedPref() {
+        getSharedPreferences(HomeConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), MODE_PRIVATE).edit().clear().apply();
     }
 
     @Override
@@ -175,15 +177,5 @@ public class Main extends AppCompatActivity {
         clearSharedPref();
     }
 
-    private void clearSharedPref() {
-        SharedPreferences sharedPreferences = getSharedPreferences(HomeConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
-        sharedPreferences.edit().clear().apply();
-
-        sharedPreferences = getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), MODE_PRIVATE);
-        sharedPreferences.edit().clear().apply();
-
-        sharedPreferences = getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), MODE_PRIVATE);
-        sharedPreferences.edit().clear().apply();
-    }
 
 }

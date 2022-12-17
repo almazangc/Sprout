@@ -35,7 +35,7 @@ public class AddNoteFragment extends Fragment {
     private final int ic_check =  R.drawable.ic_check;
     private int current_selected_color;
     private int old_selected_color;
-    private String color =  AppColor.CLOUDS.getColor();;
+    private String color =  AppColor.CLOUDS.getColor();
     private Note note;
     private Bundle bundle;
 

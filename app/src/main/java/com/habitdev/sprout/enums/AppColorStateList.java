@@ -14,7 +14,7 @@ public class AppColorStateList {
         CS_CLOUD = ContextCompat.getColorStateList(context, R.color.CLOUDS);
         CS_AMETHYST = ContextCompat.getColorStateList(context, R.color.AMETHYST);
         CS_SUNFLOWER = ContextCompat.getColorStateList(context, R.color.SUNFLOWER);
-        CS_NEPHRITIS = ContextCompat.getColorStateList(context, R.color.NEPHRITIS);;
+        CS_NEPHRITIS = ContextCompat.getColorStateList(context, R.color.NEPHRITIS);
         CS_BRIGHT_BLUE_SKY = ContextCompat.getColorStateList(context, R.color.BRIGHT_SKY_BLUE);
         CS_ALZARIN = ContextCompat.getColorStateList(context, R.color.ALIZARIN);
     }

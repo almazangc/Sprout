@@ -8,7 +8,8 @@ import java.util.List;
 
 public class HabitDiffUtil extends DiffUtil.Callback {
 
-    private List<Habits> oldHabitsList, newHabitsList;
+    private final List<Habits> oldHabitsList;
+    private final List<Habits> newHabitsList;
 
     public HabitDiffUtil(List<Habits> oldHabitsList, List<Habits> newHabitsList) {
         this.oldHabitsList = oldHabitsList;
