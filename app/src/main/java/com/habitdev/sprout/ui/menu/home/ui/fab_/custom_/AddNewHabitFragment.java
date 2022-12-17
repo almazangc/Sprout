@@ -39,7 +39,7 @@ import java.util.TimerTask;
 
 
 public class AddNewHabitFragment extends Fragment
-        implements HomeAddNewInsertSubroutineDialogFragment.onDialoagChange {
+        implements HomeAddNewInsertSubroutineDialogFragment.OnDialogChange {
 
     private FragmentAddNewHabitBinding binding;
     private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
@@ -52,13 +52,13 @@ public class AddNewHabitFragment extends Fragment
     private static int old_selected_color;
     private static String color = AppColor.CLOUDS.getColor();
 
-    public interface onAddNewHabitReturnHome {
+    public interface OnAddNewHabitReturnHome {
         void onAddNewHabitClickReturnHome();
     }
 
-    private onAddNewHabitReturnHome mOnAddNewHabitReturnHome;
+    private OnAddNewHabitReturnHome mOnAddNewHabitReturnHome;
 
-    public void setmOnReturnHome(onAddNewHabitReturnHome mOnAddNewHabitReturnHome) {
+    public void setmOnReturnHome(OnAddNewHabitReturnHome mOnAddNewHabitReturnHome) {
         this.mOnAddNewHabitReturnHome = mOnAddNewHabitReturnHome;
     }
 

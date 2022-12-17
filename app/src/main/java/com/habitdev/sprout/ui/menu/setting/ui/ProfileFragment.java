@@ -16,13 +16,13 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
 
-    public interface onReturnSetting {
+    public interface OnReturnSetting {
         void returnFromProfileToSetting();
     }
 
-    private onReturnSetting mOnReturnSetting;
+    private OnReturnSetting mOnReturnSetting;
 
-    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+    public void setmOnReturnSetting(OnReturnSetting mOnReturnSetting) {
         this.mOnReturnSetting = mOnReturnSetting;
     }
 

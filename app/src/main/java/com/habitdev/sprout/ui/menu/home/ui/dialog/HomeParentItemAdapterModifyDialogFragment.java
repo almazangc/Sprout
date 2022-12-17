@@ -18,17 +18,17 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.DialogFragmentHomeParentItemAdapterModifyBinding;
-import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
+import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 
 import java.util.Objects;
 
 public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     private DialogFragmentHomeParentItemAdapterModifyBinding binding;
-    private Habits habitOnModify;
-    private int position;
-    private String habit_title_snapshot;
-    private String habit_description_snapshot;
+    private static Habits habitOnModify;
+    private static int position;
+    private static String habit_title_snapshot;
+    private static String habit_description_snapshot;
 
     private HomeParentItemAdapter adapter_ref;
 
@@ -39,23 +39,23 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
         this.adapter_ref = adapter_ref;
     }
 
-    public interface onHabitModifyListener{
+    public interface OnHabitModifyListener {
         void onDialogDismiss();
     }
 
-    private onHabitModifyListener mOnHabitModifyListener;
+    private OnHabitModifyListener mOnHabitModifyListener;
 
-    public void setmOnHabitModifyListener(onHabitModifyListener mOnHabitModifyListener) {
+    public void setmOnHabitModifyListener(OnHabitModifyListener mOnHabitModifyListener) {
         this.mOnHabitModifyListener = mOnHabitModifyListener;
     }
 
     public HomeParentItemAdapterModifyDialogFragment() {}
 
     public HomeParentItemAdapterModifyDialogFragment(Habits habitOnModify, int position) {
-        this.habitOnModify = habitOnModify;
-        this.habit_title_snapshot = habitOnModify.getHabit();
-        this.habit_description_snapshot = habitOnModify.getDescription();
-        this.position = position;
+        HomeParentItemAdapterModifyDialogFragment.habitOnModify = habitOnModify;
+        habit_title_snapshot = habitOnModify.getHabit();
+        habit_description_snapshot = habitOnModify.getDescription();
+        HomeParentItemAdapterModifyDialogFragment.position = position;
     }
 
     @Nullable
@@ -211,7 +211,7 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
                 .apply();
     }
 
-    private void clearSharedPref(){
+    private void clearSharedPref() {
         sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();
     }

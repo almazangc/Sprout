@@ -22,13 +22,13 @@ public class ThemeFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private final String THEME_SHARED_PREF_KEY = "THEME";
 
-    public interface onReturnSetting{
+    public interface OnReturnSetting {
         void returnFromThemeToSetting();
     }
 
-    private onReturnSetting mOnReturnSetting;
+    private OnReturnSetting mOnReturnSetting;
 
-    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+    public void setmOnReturnSetting(OnReturnSetting mOnReturnSetting) {
         this.mOnReturnSetting = mOnReturnSetting;
     }
 

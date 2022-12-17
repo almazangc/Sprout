@@ -31,13 +31,10 @@ import java.util.Locale;
  * <p>
  * The study was conducted to design and develop an android mobile-based habit bite-size routine recommender to assist in monitoring, breaking, or reforming bad habits.
  * </p>
- * <p>
  * The proposed system is expected to solve and experiment with a fresh   concept by integrating bite-size subroutines as support for breaking and habilitating bad habits.
  * </p>
- * <p>
  * The researchers used the general Agile software process model to develop the proposed Sprout.
  * </p>
- * <p>
  * The acceptability of the developed system will be determined using the ISO 25010 software quality standard tool along with:
  * a. functional suitability
  * b. performance efficiency
@@ -46,7 +43,6 @@ import java.util.Locale;
  * e. reliability
  * f. security
  * g. portability.
- * </p>
  *
  * @author Almazan, Gilbert C.
  * @version 1.0
@@ -54,13 +50,13 @@ import java.util.Locale;
  */
 public class Main extends AppCompatActivity {
 
+    private static SharedPreferences sharedPreferences;
+    private static NetworkStateManager networkStateManager;
+
     /**
      * Main Activity View Binding
      */
     private ActivityMainBinding binding;
-
-    private static SharedPreferences sharedPreferences;
-    private static NetworkStateManager networkStateManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +100,9 @@ public class Main extends AppCompatActivity {
 
 
     /**
-     * Updates Subroutine Max Streak, Longest Streak, Total Skip and Resets MarkAsDone Status
-     * Daily after 12:00 AM on user first launch of app on the current day.
-     *
-     * This can also be used to notify user how long since the app was last opened and visited.
+     * <p>Updates Subroutine Max Streak, Longest Streak, Total Skip and Resets MarkAsDone Status
+     * <p>Daily after 12:00 AM on user first launch of app on the current day.
+     * <p>This can also be used to notify user how long since the app was last opened and visited.
      */
     private void setDailyDateTracker() {
 
@@ -176,6 +171,4 @@ public class Main extends AppCompatActivity {
         binding = null;
         clearSharedPref();
     }
-
-
 }

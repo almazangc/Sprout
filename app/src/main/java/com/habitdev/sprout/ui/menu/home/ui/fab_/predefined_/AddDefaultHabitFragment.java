@@ -51,13 +51,13 @@ public class AddDefaultHabitFragment extends Fragment {
     private static Bundle savedInstanceState;
     private static boolean isOnRemoved;
 
-    public interface onAddDefaultReturnHome {
+    public interface OnAddDefaultReturnHome {
         void onAddDefaultHabitClickReturnHome();
     }
 
-    private onAddDefaultReturnHome mOnAddDefaultReturnHome;
+    private OnAddDefaultReturnHome mOnAddDefaultReturnHome;
 
-    public void setmOnAddDefaultReturnHome(onAddDefaultReturnHome mOnAddDefaultReturnHome) {
+    public void setmOnAddDefaultReturnHome(OnAddDefaultReturnHome mOnAddDefaultReturnHome) {
         this.mOnAddDefaultReturnHome = mOnAddDefaultReturnHome;
     }
 
@@ -159,7 +159,7 @@ public class AddDefaultHabitFragment extends Fragment {
                     binding.subroutineLbl.setVisibility(View.INVISIBLE);
                     binding.subroutineCountLbl.setVisibility(View.INVISIBLE);
                     binding.habitSubroutinesRecyclerView.setVisibility(View.INVISIBLE);
-                    habit = null; //hmmmm not null
+                    habit = null;
                 } else {
                     binding.habitDescriptionLbl.setVisibility(View.VISIBLE);
                     binding.subroutineCountLbl.setVisibility(View.VISIBLE);
@@ -291,37 +291,31 @@ public class AddDefaultHabitFragment extends Fragment {
             int ic_check = R.drawable.ic_check;
             switch (current_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
                     color = AppColor.ALZARIN.getColor();
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
                     color = AppColor.AMETHYST.getColor();
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
                     color = AppColor.BRIGHT_SKY_BLUE.getColor();
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
                     color = AppColor.NEPHRITIS.getColor();
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = AppColor.SUNFLOWER.getColor();
                     break;
                 case 0:
-                    //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
                     color = AppColor.CLOUDS.getColor();
@@ -361,7 +355,6 @@ public class AddDefaultHabitFragment extends Fragment {
     }
 
     private void clearSelected() {
-//        Log.d("tag", "clearSelected: ");
         binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
         binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
         binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);

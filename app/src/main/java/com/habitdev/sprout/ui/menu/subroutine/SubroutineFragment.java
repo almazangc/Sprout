@@ -21,7 +21,7 @@ import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
 public class SubroutineFragment extends Fragment
         implements
         SubroutineParentItemAdapter.OnClickListener,
-        SubroutineModifyFragment.onClickBackPress {
+        SubroutineModifyFragment.OnReturnSubroutine {
 
     private FragmentSubroutineBinding binding;
     private static final SubroutineModifyFragment subroutineModifyFragment = new SubroutineModifyFragment();

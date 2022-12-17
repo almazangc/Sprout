@@ -1,5 +1,8 @@
 package com.habitdev.sprout.enums;
 
+/**
+ * Contains defined keys for passing and receiving arguments
+ */
 public enum BundleKeys {
 
     EULA("EULA?KEY"),
@@ -9,6 +12,7 @@ public enum BundleKeys {
     SLEEP_MINUTE("SLEEP_MINUTE?KEY"),
     NICKNAME("NICKNAME?KEY"),
     ANALYSIS("ANALYSIS?KEY"),
+
     JOURNAL_NOTE("JOURNAL_NOTE?KEY");
 
     private final String KEY;

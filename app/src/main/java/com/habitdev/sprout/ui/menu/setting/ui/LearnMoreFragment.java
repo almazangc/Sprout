@@ -16,13 +16,13 @@ public class LearnMoreFragment extends Fragment {
 
     private FragmentLearnMoreBinding binding;
 
-    public interface onReturnSetting{
+    public interface OnReturnSetting {
         void returnFromLearnMoreToSetting();
     }
 
-    private onReturnSetting mOnReturnSetting;
+    private OnReturnSetting mOnReturnSetting;
 
-    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+    public void setmOnReturnSetting(OnReturnSetting mOnReturnSetting) {
         this.mOnReturnSetting = mOnReturnSetting;
     }
 

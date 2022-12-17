@@ -1,5 +1,8 @@
 package com.habitdev.sprout.enums;
 
+/**
+ * <p> Contains defined keys for shared preference, and savedInstances in handling configuration changes for Home Menu
+ */
 public enum HomeConfigurationKeys {
 
     HOME_SHAREDPREF("HOME_SHARED.PREF"),

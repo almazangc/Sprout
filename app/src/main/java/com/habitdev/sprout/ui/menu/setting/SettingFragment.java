@@ -21,13 +21,16 @@ import com.habitdev.sprout.ui.menu.setting.ui.TechStackInfoFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.TerminalFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ThemeFragment;
 
+/**
+ *
+ */
 public class SettingFragment extends Fragment implements
-        ProfileFragment.onReturnSetting,
-        ThemeFragment.onReturnSetting,
-        AboutUsFragment.onReturnSetting,
-        LearnMoreFragment.onReturnSetting,
-        TechStackInfoFragment.onReturnSetting,
-        TerminalFragment.onReturnSetting{
+        ProfileFragment.OnReturnSetting,
+        ThemeFragment.OnReturnSetting,
+        AboutUsFragment.OnReturnSetting,
+        LearnMoreFragment.OnReturnSetting,
+        TechStackInfoFragment.OnReturnSetting,
+        TerminalFragment.OnReturnSetting {
 
     private FragmentSettingBinding binding;
     private UserViewModel userViewModel;
@@ -39,7 +42,8 @@ public class SettingFragment extends Fragment implements
     private static final TechStackInfoFragment techStackInfoFragment = new TechStackInfoFragment();
     private static final TerminalFragment terminalFragment = new TerminalFragment();
 
-    public SettingFragment() {}
+    public SettingFragment() {
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -132,7 +136,7 @@ public class SettingFragment extends Fragment implements
         returnFromFragmentToSetting(terminalFragment);
     }
 
-    private void returnFromFragmentToSetting(Fragment fragment){
+    private void returnFromFragmentToSetting(Fragment fragment) {
         getChildFragmentManager()
                 .beginTransaction()
                 .remove(fragment)

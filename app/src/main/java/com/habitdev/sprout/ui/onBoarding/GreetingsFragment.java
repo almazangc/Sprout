@@ -33,7 +33,6 @@ public class GreetingsFragment extends Fragment {
         onBackPress();
     }
 
-
     private void onBackPress() {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override

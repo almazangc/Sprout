@@ -16,13 +16,13 @@ public class TerminalFragment extends Fragment {
 
     private FragmentTerminalBinding binding;
 
-    public interface onReturnSetting {
+    public interface OnReturnSetting {
         void returnFromTerminalToSetting();
     }
 
-    private onReturnSetting mOnReturnSetting;
+    private OnReturnSetting mOnReturnSetting;
 
-    public void setmOnReturnSetting(onReturnSetting mOnReturnSetting) {
+    public void setmOnReturnSetting(OnReturnSetting mOnReturnSetting) {
         this.mOnReturnSetting = mOnReturnSetting;
     }
 

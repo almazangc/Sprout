@@ -39,22 +39,21 @@ public class HomeItemOnClickFragment extends Fragment {
     private int position;
     private HomeParentItemAdapter adapter_ref;
 
-    private int current_selected_color;
-    private int old_selected_color;
-    private String color = AppColor.CLOUDS.getColor();
+    private static int current_selected_color;
+    private static int old_selected_color;
+    private static String color = AppColor.CLOUDS.getColor();
 
-    public interface onItemOnClickReturnHome {
+    public interface OnItemOnClickReturnHome {
         void onHomeItemOnClickReturnHome();
     }
 
-    private onItemOnClickReturnHome mOnItemOnClickReturnHome;
+    private OnItemOnClickReturnHome mOnItemOnClickReturnHome;
 
-    public void setmOnItemOnClickReturnHome(onItemOnClickReturnHome mOnItemOnClickReturnHome) {
+    public void setmOnItemOnClickReturnHome(OnItemOnClickReturnHome mOnItemOnClickReturnHome) {
         this.mOnItemOnClickReturnHome = mOnItemOnClickReturnHome;
     }
 
-    public HomeItemOnClickFragment() {
-    }
+    public HomeItemOnClickFragment() {}
 
     public void setHabit(Habits habit) {
         this.habit = habit;
@@ -84,12 +83,6 @@ public class HomeItemOnClickFragment extends Fragment {
         setCommentRecyclerView();
         onBackPress();
         return binding.getRoot();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
     }
 
     private void setHabit() {
@@ -204,37 +197,31 @@ public class HomeItemOnClickFragment extends Fragment {
             final int ic_check = R.drawable.ic_check;
             switch (current_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
                     color = AppColor.ALZARIN.getColor();
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
                     color = AppColor.AMETHYST.getColor();
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
                     color = AppColor.BRIGHT_SKY_BLUE.getColor();
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
                     color = AppColor.NEPHRITIS.getColor();
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = AppColor.SUNFLOWER.getColor();
                     break;
                 default:
-                    //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
                     color = AppColor.CLOUDS.getColor();
@@ -243,27 +230,21 @@ public class HomeItemOnClickFragment extends Fragment {
 
             switch (old_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 default:
-                    //clouds night
                     binding.cloudSelected.setImageResource(R.color.TRANSPARENT);
                     break;
             }
@@ -327,14 +308,12 @@ public class HomeItemOnClickFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-//        Log.d("tag", "onSaveInstanceState: ");
         outState.putSerializable(HomeConfigurationKeys.HABIT.getValue(), habit);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        Log.d("tag", "onDestroyView: ");
         mOnItemOnClickReturnHome = null;
         commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).removeObservers(getViewLifecycleOwner());
         habit = null;

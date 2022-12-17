@@ -1,5 +1,8 @@
 package com.habitdev.sprout.enums;
 
+/**
+ * Contains Initial Time for Wake and Sleep Time
+ */
 public enum InitialTime {
 
     WAKE_HOUR(8),

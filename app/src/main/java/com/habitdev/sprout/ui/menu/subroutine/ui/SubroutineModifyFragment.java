@@ -35,14 +35,14 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     private Habits habit;
     private SubroutineModifyParentItemAdapter adapter;
 
-    public interface onClickBackPress {
+    public interface OnReturnSubroutine {
         void returnSubroutineFragment();
     }
 
-    private onClickBackPress mOnClickBackPress;
+    private OnReturnSubroutine mOnReturnSubroutine;
 
-    public void setmOnClickBackPress(onClickBackPress mOnClickBackPress) {
-        this.mOnClickBackPress = mOnClickBackPress;
+    public void setmOnClickBackPress(OnReturnSubroutine mOnReturnSubroutine) {
+        this.mOnReturnSubroutine = mOnReturnSubroutine;
     }
 
     public void setHabit(Habits habit) {
@@ -251,7 +251,7 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (mOnClickBackPress != null) mOnClickBackPress.returnSubroutineFragment();
+                if (mOnReturnSubroutine != null) mOnReturnSubroutine.returnSubroutineFragment();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

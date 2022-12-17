@@ -33,7 +33,7 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     private static int old_selected_color;
     private static String color = AppColor.CLOUDS.getColor();
 
-    public interface onDialoagChange {
+    public interface OnDialogChange {
         void addSubroutine(Subroutines subroutines);
 
         void modifySubroutine(Subroutines subroutines);
@@ -41,7 +41,7 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
         void removeSubroutine(Subroutines subroutines);
     }
 
-    public onDialoagChange mOnDialoagChange;
+    public OnDialogChange mOnDialogChange;
 
     public HomeAddNewInsertSubroutineDialogFragment() {
         this.onModify = false;
@@ -92,12 +92,7 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     }
 
     private void onCancel() {
-        binding.addNewHabitCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Objects.requireNonNull(getDialog()).dismiss();
-            }
-        });
+        binding.addNewHabitCancel.setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
     }
 
     private void onClickSave() {
@@ -120,7 +115,7 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
                 color,
                 true
         );
-        mOnDialoagChange.addSubroutine(subroutine);
+        mOnDialogChange.addSubroutine(subroutine);
     }
 
     private void onModify() {
@@ -128,22 +123,27 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
             subroutine.setSubroutine(binding.addNewSubroutineTitle.getText().toString());
             subroutine.setDescription(binding.addNewSubroutineDescription.getText().toString());
             subroutine.setColor(color);
-            mOnDialoagChange.modifySubroutine(subroutine);
+            mOnDialogChange.modifySubroutine(subroutine);
         }
     }
 
     private void onRemove() {
         if (onRemove) {
-            mOnDialoagChange.removeSubroutine(subroutine);
+            mOnDialogChange.removeSubroutine(subroutine);
             dismiss();
         }
     }
 
     private void setHint(){
+
+        final String REQUIRED = "Required*";
+        final String EMPTY_TITLE = "Empty Title*";
+        final String EMPTY_DESC = "Empty Description*";
+
         binding.addNewSubroutineTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText("Required*");
+                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText(REQUIRED);
             }
 
             @Override
@@ -152,10 +152,10 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText("Empty Title*");
+                        binding.addNewSubroutineHint.setText(EMPTY_TITLE);
                 } else {
                     if (binding.addNewSubroutineDescription.getText().toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText("Empty Description*");
+                        binding.addNewSubroutineHint.setText(EMPTY_DESC);
                     } else {
                         binding.addNewSubroutineHint.setText("");
                     }
@@ -166,7 +166,7 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
         binding.addNewSubroutineDescription.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText("Required*");
+                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText(REQUIRED);
             }
 
             @Override
@@ -175,10 +175,10 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText("Empty Description*");
+                        binding.addNewSubroutineHint.setText(EMPTY_DESC);
                 } else {
                     if (binding.addNewSubroutineTitle.getText().toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText("Empty Title*");
+                        binding.addNewSubroutineHint.setText(EMPTY_TITLE);
                     } else {
                         binding.addNewSubroutineHint.setText("");
                     }
@@ -191,7 +191,7 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            mOnDialoagChange = (onDialoagChange) getParentFragment();
+            mOnDialogChange = (OnDialogChange) getParentFragment();
         } catch (ClassCastException e) {
             Toast.makeText(requireActivity(), "onAttach: ClassException: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -261,37 +261,31 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
             int ic_check = R.drawable.ic_check;
             switch (current_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
                     color = AppColor.ALZARIN.getColor();
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
                     color = AppColor.AMETHYST.getColor();
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
                     color = AppColor.BRIGHT_SKY_BLUE.getColor();
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
                     color = AppColor.NEPHRITIS.getColor();
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = AppColor.SUNFLOWER.getColor();
                     break;
                 default:
-                    //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
                     color = AppColor.CLOUDS.getColor();
@@ -300,27 +294,21 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
 
             switch (old_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 default:
-                    //clouds night
                     binding.cloudSelected.setImageResource(R.color.TRANSPARENT);
                     break;
             }

@@ -25,7 +25,6 @@ import java.util.Locale;
 
 public class GetIdentityFragment extends Fragment {
 
-    // View Binding
     private FragmentGetIdentityBinding binding;
     private String nickname;
     private String identity;

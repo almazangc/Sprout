@@ -1,5 +1,8 @@
 package com.habitdev.sprout.enums;
 
+/**
+ * Contains defined colors for Habit, Subroutine, and Notes
+ */
 public enum AppColor {
     CLOUDS("CLOUDS"),
     ALZARIN("ALZARIN"),

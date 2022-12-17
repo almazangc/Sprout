@@ -20,15 +20,15 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
 
     private DialogFragmentHomeOnFabClickDialogBinding binding;
 
-    public interface onClickListener {
+    public interface OnClickListener {
         void onPredefinedClick();
         void onUserDefineClick();
         void onDismissDialog();
     }
 
-    private onClickListener onClickListener;
+    private OnClickListener onClickListener;
 
-    public void setOnClickListener(onClickListener onClickListener) {
+    public void setOnClickListener(OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
     }
 
