@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -38,51 +38,55 @@ import java.util.Random;
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenFragment extends Fragment {
 
+    private static final String TAG = "tag";
     /**
      * Startup Fragment View Binding
      */
     private FragmentSplashScreenBinding binding;
     private final int splashDuration;
+    private FragmentActivity fragment;
 
     public SplashScreenFragment() {
-        this.splashDuration = 5000;
+        this.splashDuration = 3000;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        fragment = requireActivity();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSplashScreenBinding.inflate(inflater, container, false);
-
-        if (savedInstanceState == null) {
-            setTheme();
-            FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
-            firestoreDB.collection("quotes")
-                    .get(Source.CACHE)
-                    .addOnSuccessListener(requireActivity(), new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot documents) {
-                            if (documents != null) {
-                                changeQuotes(documents.toObjects(Quotes.class));
-                            } else {
-                                Log.d("tag", "SplashScreen: onSuccess() called: null documents ");
-                            }
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("tag", "SplashScreen: onFailure() called: Data is not available on CACHE");
-                        }
-                    });
-            checkStatus();
-            onBackPress();
-        }
+        onBackPress();
         return binding.getRoot();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
+        setTheme();
+        FirebaseFirestore firestoreDB = FirebaseFirestore.getInstance();
+        firestoreDB.collection("quotes")
+                .get(Source.CACHE)
+                .addOnSuccessListener(requireActivity(), new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot documents) {
+                        if (documents != null) {
+                            changeQuotes(documents.toObjects(Quotes.class));
+                        } else {
+                            Log.d("tag", "SplashScreen: onSuccess() called: null documents ");
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("tag", "SplashScreen: onFailure() called: Data is not available on CACHE");
+                    }
+                });
+        checkStatus();
     }
 
     private void setTheme() {
@@ -102,11 +106,11 @@ public class SplashScreenFragment extends Fragment {
         if (theme == 1) {
             binding.splashScreenBackground.setBackground(light);
             binding.appName.setTextColor(_dark);
-            binding.subLbl.setTextColor(_dark);
+            binding.qouteLbl.setTextColor(_dark);
         } else if (theme == 2) {
             binding.splashScreenBackground.setBackground(dark);
             binding.appName.setTextColor(_light);
-            binding.subLbl.setTextColor(_light);
+            binding.qouteLbl.setTextColor(_light);
         }
     }
 
@@ -116,23 +120,27 @@ public class SplashScreenFragment extends Fragment {
 
             Random random = new Random();
 
-            new CountDownTimer(splashDuration, 3000) {
+            CountDownTimer timer;
+
+            timer = new CountDownTimer(splashDuration, 1500) {
                 public void onTick(long millisUntilFinished) {
-                    requireActivity().runOnUiThread(() -> {
+                    fragment.runOnUiThread(() -> {
+                        Log.d(TAG, "onTick: Countdown");
                         int ran = random.nextInt(quotes.size());
                         Quotes quote = quotes.get(ran);
-                        String content = quote.getQuoted() + " --> " + quote.getAuthor();
-                        binding.subLbl.setText(content);
+                        String content = quote.getQuoted() + " - " + quote.getAuthor();
+                        if (binding != null) binding.qouteLbl.setText(content);
                     });
                 }
 
                 public void onFinish() {
-                    // Do on finish timer
+                    Log.d(TAG, "onFinish: Coundown");
+                    this.cancel();
                 }
             }.start();
         } else {
             final String MESSAGE = "First Time Message for new installation";
-            binding.subLbl.setText(MESSAGE);
+            binding.qouteLbl.setText(MESSAGE);
         }
     }
 
@@ -140,40 +148,43 @@ public class SplashScreenFragment extends Fragment {
      * Check Status of User (Handles Display what part to display)
      */
     private void checkStatus() {
-        new Handler().postDelayed(() -> {
-            //Loading intents of fragments
-            boolean isOnBoardingDone = false;
+        if (binding != null) {
+            new Handler().postDelayed(() -> {
+                //Loading intents of fragments
+                boolean isOnBoardingDone = false;
 
-            Bundle bundle = SplashScreenFragment.this.getArguments();
-            if (bundle != null) {
-                isOnBoardingDone = bundle.getBoolean(BundleKeys.ANALYSIS.getKEY());
-            } else {
-                try {
-                    UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-                    isOnBoardingDone = userViewModel.getOnBoarding();
-                } catch (Exception e){
-                    Log.d("tag", "checkStatus: " + e.getMessage());
+                Bundle bundle = SplashScreenFragment.this.getArguments();
+                if (bundle != null) {
+                    isOnBoardingDone = bundle.getBoolean(BundleKeys.ANALYSIS.getKEY());
+                } else {
+                    try {
+                        UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+                        isOnBoardingDone = userViewModel.getOnBoarding();
+                    } catch (Exception e) {
+//                        Log.d("tag", "checkStatus: " + e.getMessage());
 //                    Fragment SplashScreenFragment not attached to an activity.
-                }
-            }
-
-            if (!isOnBoardingDone)
-                try {
-                    NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_onboarding);
-                } catch (Exception e) {
-                    Log.d("tag", "checkStatus: " + e.getMessage());
-//                    Fragment SplashScreenFragment not associated with a fragment manager
+                    }
                 }
 
-            if (isOnBoardingDone)
-                try {
-                    NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_main);
-                } catch (Exception e) {
-                    Log.d("tag", "checkStatus: " + e.getMessage());
+                if (!isOnBoardingDone) {
+                    try {
+                        NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_onboarding);
+                    } catch (Exception e) {
+//                        Log.d("tag", "checkStatus: " + e.getMessage());
 //                    Fragment SplashScreenFragment not associated with a fragment manager
+                    }
+                } else {
+                    try {
+                        NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_main);
+                    } catch (Exception e) {
+//                        Log.d("tag", "checkStatus: " + e.getMessage());
+//                    Fragment SplashScreenFragment not associated with a fragment manager
+                    }
                 }
-            onDestroyView();
-        }, splashDuration);
+
+                onDestroyView();
+            }, splashDuration);
+        }
     }
 
     private void onBackPress() {
@@ -184,23 +195,6 @@ public class SplashScreenFragment extends Fragment {
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        FragmentActivity fragmentActivity = requireActivity();
-
-    }
-
-    @Override
-    public void setInitialSavedState(@Nullable SavedState state) {
-        super.setInitialSavedState(state);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
     }
 
     @Override
