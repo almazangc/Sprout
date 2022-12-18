@@ -1,22 +1,29 @@
 package com.habitdev.sprout.activity.startup;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
+import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
+import com.habitdev.sprout.enums.TimeMilestone;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.NetworkMonitoringUtil;
 import com.habitdev.sprout.utill.NetworkStateManager;
@@ -50,54 +57,124 @@ import java.util.Locale;
  */
 public class Main extends AppCompatActivity {
 
-    private static SharedPreferences sharedPreferences;
-    private static NetworkStateManager networkStateManager;
-
-    /**
-     * Main Activity View Binding
-     */
     private ActivityMainBinding binding;
+    private static SharedPreferences sharedPreferences;
+
+    private enum MAIN_ENUMS {
+
+        SHARED_PREF_KEY("MAINSHARED.PREF"),
+        DAILY_DATE_KEY("DAILY_DATE_KEY.STRING"),
+        WEEKLY_DATE_KEY("WEEKLY_DATE_KEY.STRING"),
+        SDF_PATTERN("dd MMMM yyyy"),
+        DB_LOADED("DB_LOADED.BOOL"),
+        NOTIFICATION_CHANNEL_1("NOTIF.CHANNEL_1"),
+        NOTIFICATION_CHANNEL_2("NOTIF.CHANNEL_2");
+
+        final String value;
+
+        MAIN_ENUMS(String value) {
+            this.value = value;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-
         clearSharedPref();
-
-        final String SharedPreferences_KEY = "SP_DB";
-        sharedPreferences = getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
-
-        NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
-        // Check the network state before registering for the 'networkCallbackEvents'
-        mNetworkMonitoringUtil.checkNetworkState();
-        mNetworkMonitoringUtil.registerNetworkCallbackEvents();
-
-        //need to fetch quotes once only (need to fetch once every week for updates)
-        networkStateManager = NetworkStateManager.getInstance();
-        networkStateManager.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isConnected) {
-                if (isConnected) {
-                    if (!sharedPreferences.contains("isDB_loaded") || (sharedPreferences.contains("isDB_loaded") && sharedPreferences.getBoolean("isDB_loaded", false))) {
-                        sharedPreferences.edit().putBoolean("isDB_loaded", FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER).isComplete()).apply();
-                        Log.d("tag", "Main isConnected() called: data is being fetch from server");
-                    } else {
-                        Log.d("tag", "Main isConnected() called: data already available on cache");
-                        networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
-                        Log.d("tag", "Main isConnected() called: removed observer");
-                    }
-                } else {
-                    Log.d("tag", "onChanged() called: Main no network connection");
-                }
-            }
-        });
-
+        fetchFirestoreDB();
         setDailyDateTracker();
-
         setContentView(binding.getRoot());
     }
 
+    /**
+     * <p>Checks for available network connection and fetch latest data from firestore database</p>
+     */
+    private void fetchFirestoreDB() {
+        sharedPreferences = getSharedPreferences(MAIN_ENUMS.SHARED_PREF_KEY.value, Main.MODE_PRIVATE);
+
+        NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
+        mNetworkMonitoringUtil.checkNetworkState();
+        mNetworkMonitoringUtil.registerNetworkCallbackEvents();
+
+        NetworkStateManager networkStateManager = NetworkStateManager.getInstance();
+
+        if (sharedPreferences.contains(MAIN_ENUMS.WEEKLY_DATE_KEY.value)) {
+            String date = sharedPreferences.getString(MAIN_ENUMS.WEEKLY_DATE_KEY.value, null);
+            final DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date, 1);
+            dateTimeElapsedUtil.calculateElapsedDateTime();
+
+            if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.WEEKLY.getDays() && date != null) {
+                networkStateManager.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean isConnected) {
+                        if (isConnected) {
+                            FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER);
+                            updateNewWeeklyDay();
+                            networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
+                        } else {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                NotificationChannel notificationChannel = new NotificationChannel(
+                                        MAIN_ENUMS.NOTIFICATION_CHANNEL_1.value,
+                                        "No Network Available",
+                                        NotificationManager.IMPORTANCE_HIGH
+                                );
+
+                                notificationChannel.setDescription("No Network Connection Available To Fetch or Update Data From FireStore");
+                                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                                notificationManager.createNotificationChannel(notificationChannel);
+
+                                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(Main.this);
+
+                                Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_1.value)
+                                        .setSmallIcon(R.drawable.ic_no_network)
+                                        .setContentTitle("No Network Available")
+                                        .setContentText("Please Connect to the Internet")
+                                        .setSubText("Internet Connection")
+                                        .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_1.value)
+                                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                                        .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
+                                        .build();
+                                notificationManagerCompat.notify(1, notification);
+
+                            }
+                        }
+                    }
+                });
+            } else {
+                firstInstallDataFetch();
+            }
+        } else {
+            updateNewWeeklyDay();
+        }
+    }
+
+    /**
+     * Logic for fetching only once from tha server
+     */
+    private void firstInstallDataFetch() {
+        if (!sharedPreferences.contains(MAIN_ENUMS.DB_LOADED.value) ||
+                (sharedPreferences.contains(MAIN_ENUMS.DB_LOADED.value) && sharedPreferences.getBoolean(MAIN_ENUMS.DB_LOADED.value, false))) {
+
+            if (!sharedPreferences.getBoolean(MAIN_ENUMS.DB_LOADED.value, false)) {
+                FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER); //limits fetching of data
+                Log.d("tag", "Main isConnected() called: data is being fetch from server");
+            }
+
+            boolean isFetched = FirebaseFirestore.getInstance().collection("quotes").get(Source.CACHE).isSuccessful();
+            sharedPreferences.edit().putBoolean(MAIN_ENUMS.DB_LOADED.value, isFetched).apply();
+        } else {
+            Log.d("tag", "Main isConnected() called: data already available on cache");
+        }
+    }
+
+    /**
+     * Updates Shared Preference Weekly Date
+     */
+    private void updateNewWeeklyDay() {
+        String date = new SimpleDateFormat(MAIN_ENUMS.SDF_PATTERN.value, Locale.getDefault()).format(new Date());
+        sharedPreferences.edit().putString(MAIN_ENUMS.WEEKLY_DATE_KEY.value, date).apply();
+    }
 
     /**
      * <p>Updates Subroutine Max Streak, Longest Streak, Total Skip and Resets MarkAsDone Status
@@ -106,28 +183,22 @@ public class Main extends AppCompatActivity {
      */
     private void setDailyDateTracker() {
 
-        final String DATE_KEY = "DATE";
+        if (sharedPreferences.contains(MAIN_ENUMS.DAILY_DATE_KEY.value)) {
 
-        if (sharedPreferences.contains(DATE_KEY)) {
-
-            String date = sharedPreferences.getString(DATE_KEY, null);
+            String date = sharedPreferences.getString(MAIN_ENUMS.DAILY_DATE_KEY.value, null);
             final DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date, 1);
             dateTimeElapsedUtil.calculateElapsedDateTime();
 
-            if (dateTimeElapsedUtil.getElapsed_day() >= 1 && date != null) {
+            if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.DAILY.getDays() && date != null) {
 
-                date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
-                sharedPreferences.edit().putString(DATE_KEY, date).apply();
+                updateNewDailyDate();
 
                 final HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(this).get(HabitWithSubroutinesViewModel.class);
                 final List<Habits> habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
 
                 for (Habits habit : habitsList) {
-
                     final List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
-
                     for (Subroutines subroutine : subroutinesList) {
-
                         if (subroutine.isMarkDone()) {
                             subroutine.setMarkDone(false);
                             subroutine.setMax_streak(subroutine.getMax_streak() + 1);
@@ -135,24 +206,48 @@ public class Main extends AppCompatActivity {
                             subroutine.setMax_streak(0);
                             subroutine.setTotal_skips(subroutine.getTotal_skips() + 1);
                         }
-
                         if (subroutine.getLongest_streak() < subroutine.getMax_streak()) {
                             subroutine.setLongest_streak(subroutine.getMax_streak());
                         }
-
                         habitWithSubroutinesViewModel.updateSubroutine(subroutine);
-
                     }
                 }
 
-                Toast.makeText(this, dateTimeElapsedUtil.getElapsed_day() + " Day's, resets daily subroutines", Toast.LENGTH_SHORT).show();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    NotificationChannel notificationChannel = new NotificationChannel(
+                            MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value,
+                            "Daily Reset Notifier",
+                            NotificationManager.IMPORTANCE_HIGH
+                    );
 
+                    notificationChannel.setDescription("Updates Daily Reset");
+                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                    notificationManager.createNotificationChannel(notificationChannel);
+
+                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(Main.this);
+
+                    Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
+                            .setSmallIcon(R.drawable.ic_no_network)
+                            .setContentText("Another day has passed, continue on your journey")
+                            .setSubText("Good Day, another {user}")
+                            .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
+                            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                            .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
+                            .build();
+                    notificationManagerCompat.notify(2, notification);
+                }
             }
-
         } else {
-            String date = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault()).format(new Date());
-            sharedPreferences.edit().putString(DATE_KEY, date).apply();
+            updateNewDailyDate();
         }
+    }
+
+    /**
+     * Updates Shared Preference Daily Date
+     */
+    private void updateNewDailyDate() {
+        final String date = new SimpleDateFormat(MAIN_ENUMS.SDF_PATTERN.value, Locale.getDefault()).format(new Date());
+        sharedPreferences.edit().putString(MAIN_ENUMS.DAILY_DATE_KEY.value, date).apply();
     }
 
     /**
@@ -167,7 +262,6 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        networkStateManager = null;
         binding = null;
         clearSharedPref();
     }
