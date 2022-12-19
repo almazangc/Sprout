@@ -171,25 +171,24 @@ public class HomeItemOnClickFragment extends Fragment {
     }
 
     private void setHabitColor() {
-        if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
-            current_selected_color = 1;
-            setSelected_color();
-        } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
-            current_selected_color = 2;
-            setSelected_color();
-        } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
-            current_selected_color = 3;
-            setSelected_color();
-        } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
-            current_selected_color = 4;
-            setSelected_color();
-        } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
-            current_selected_color = 5;
-            setSelected_color();
+        if (habit != null) {
+            if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
+                current_selected_color = 1;
+            } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
+                current_selected_color = 2;
+            } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
+                current_selected_color = 3;
+            } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
+                current_selected_color = 4;
+            } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
+                current_selected_color = 5;
+            } else {
+                old_selected_color = 1;
+            }
         } else {
             old_selected_color = 1;
-            setSelected_color();
         }
+        setSelected_color();
     }
 
     private void setSelected_color() {

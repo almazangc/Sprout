@@ -65,14 +65,14 @@ Glide - not used by implemented
 
 * [X]  Default
 * [X]  Rotation
-* [ ]  Change Tab {Red Color, Habit Recycler View Not Restored}
+* [X]  Change Tab
 * [X]  Restart
 
 **On Add New**
 
-* [ ]  Default {Cloud Check Mark Not Visible or not set}
-* [ ]  Rotation {Selecting Amethyst, Nephritis, Sunflower  then rotate: check cloud and last color selected.}
-* [ ]  Change Tab {List was not Saved And Restored, Color Also}
+* [X]  Default
+* [X]  Rotation
+* [X]  Change Tab
 * [X]  Restart
 * [ ]  Dialog Defualt {No Cloud Check, Red Was Current Selected Color}
 

@@ -1,12 +1,14 @@
 package com.habitdev.sprout.ui.menu.home.ui.fab_.custom_;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
@@ -29,6 +33,7 @@ import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +56,11 @@ public class AddNewHabitFragment extends Fragment
     private static int current_selected_color;
     private static int old_selected_color;
     private static String color = AppColor.CLOUDS.getColor();
+
+    /**
+     * <p>Identifier when fragment will removed for clearing shared pref</p>
+     */
+    private static boolean isFragmentOnRemoved = false;
 
     public interface OnAddNewHabitReturnHome {
         void onAddNewHabitClickReturnHome();
@@ -108,7 +118,7 @@ public class AddNewHabitFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddNewHabitBinding.inflate(inflater, container, false);
 
-        if (savedInstanceState != null)
+        if (savedInstanceState != null && !savedInstanceState.isEmpty())
             AddNewHabitFragment.savedInstanceState = savedInstanceState;
 
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
@@ -122,16 +132,19 @@ public class AddNewHabitFragment extends Fragment
         setRecyclerViewAdapter();
         insertNewHabit();
         onBackPress();
+
         return binding.getRoot();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
 
-            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.SELECTED_COLOR.getValue());
+            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue());
+            old_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue());
 
+            clearSelected();
             setSelected_color();
 
             binding.addNewHabitHint.setText(
@@ -143,13 +156,20 @@ public class AddNewHabitFragment extends Fragment
             binding.addNewHabitDescription.setText(
                     savedInstanceState.getString(HomeConfigurationKeys.DESCRIPTION.getValue())
             );
+            binding.fabAddDeleteHabit.setVisibility(
+                    savedInstanceState.getInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), View.GONE)
+            );
 
-            int size = savedInstanceState.getInt(HomeConfigurationKeys.LIST_SIZE.getValue(), 0);
-            subroutinesList.clear();
-            for (int i = 0; i < size; i++) {
-                subroutinesList.add((Subroutines) savedInstanceState.getSerializable(HomeConfigurationKeys.SUBROUTINE.getValue() + i));
+            if (savedInstanceState.containsKey(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue())) {
+                String gson_subroutine_list = savedInstanceState.getString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), null);
+
+                Type listType = new TypeToken<ArrayList<Subroutines>>() {}.getType();
+                subroutinesList = new Gson().fromJson(gson_subroutine_list, listType);
+
+                setRecyclerViewAdapter();
+
             }
-            setRecyclerViewAdapter();
+
             setDropDownHabits();
         }
     }
@@ -351,64 +371,60 @@ public class AddNewHabitFragment extends Fragment
     }
 
     private void setHabitColor() {
-        if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
-            current_selected_color = 1;
-            setSelected_color();
-        } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
-            current_selected_color = 2;
-            setSelected_color();
-        } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
-            current_selected_color = 3;
-            setSelected_color();
-        } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
-            current_selected_color = 4;
-            setSelected_color();
-        } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
-            current_selected_color = 5;
-            setSelected_color();
-        } else if (habit.getColor().equals(AppColor.CLOUDS.getColor())) {
-            current_selected_color = 0;
-            setSelected_color();
+        if (habit != null) {
+            if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
+                current_selected_color = 1;
+            } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
+                current_selected_color = 2;
+            } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
+                current_selected_color = 3;
+            } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
+                current_selected_color = 4;
+            } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
+                current_selected_color = 5;
+            } else {
+                old_selected_color = 1;
+            }
+        } else {
+            old_selected_color = 1;
         }
+        setSelected_color();
     }
 
     private void setSelected_color() {
+        Log.d("tag", "current_selected_color: " + current_selected_color);
+        Log.d("tag", "old_selected_color: " + old_selected_color);
+
         if (old_selected_color != current_selected_color) {
             int ic_check = R.drawable.ic_check;
+
             switch (current_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
                     color = AppColor.ALZARIN.getColor();
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
                     color = AppColor.AMETHYST.getColor();
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
                     color = AppColor.BRIGHT_SKY_BLUE.getColor();
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
                     color = AppColor.NEPHRITIS.getColor();
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = AppColor.SUNFLOWER.getColor();
                     break;
-                case 0:
                 default:
-                    //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
                     color = AppColor.CLOUDS.getColor();
@@ -417,28 +433,21 @@ public class AddNewHabitFragment extends Fragment
 
             switch (old_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
                     break;
-                case 0:
                 default:
-                    //clouds night
                     binding.cloudSelected.setImageResource(R.color.TRANSPARENT);
                     break;
             }
@@ -477,10 +486,14 @@ public class AddNewHabitFragment extends Fragment
                     mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
 
                 if (savedInstanceState != null) savedInstanceState = null;
+                isFragmentOnRemoved = true;
             }
         });
     }
 
+    /**
+     * Display Insert Subroutine Dialog for new Subroutine
+     */
     private void insertSubroutine() {
         binding.addNewHabitSubroutineBtn.setOnClickListener(view -> {
             HomeAddNewInsertSubroutineDialogFragment dialog = new HomeAddNewInsertSubroutineDialogFragment();
@@ -542,13 +555,26 @@ public class AddNewHabitFragment extends Fragment
         }
     }
 
+    private void clearSelected() {
+        binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
+        binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
+        binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);
+        binding.nephritisSelected.setImageResource(R.color.TRANSPARENT);
+        binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
+        binding.cloudSelected.setImageResource(R.color.TRANSPARENT);
+    }
+
     private void onBackPress() {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                if (savedInstanceState != null) savedInstanceState = null;
+                current_selected_color = 0;
+
+                isFragmentOnRemoved = true;
+
                 if (mOnAddNewHabitReturnHome != null)
                     mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
-                if (savedInstanceState != null) savedInstanceState = null;
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -557,24 +583,95 @@ public class AddNewHabitFragment extends Fragment
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color);
+        outState.putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color);
+        outState.putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color);
 
         if (binding != null) {
             outState.putString(HomeConfigurationKeys.HINT_TEXT.getValue(), binding.addNewHabitHint.getText().toString().trim());
             outState.putString(HomeConfigurationKeys.TITLE.getValue(), binding.addNewHabitTitle.getText().toString().trim());
             outState.putString(HomeConfigurationKeys.DESCRIPTION.getValue(), binding.addNewHabitDescription.getText().toString().trim());
+            outState.putInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), binding.fabAddDeleteHabit.getVisibility());
         }
 
-        //another way was parcelable list, no need for iteration
         if (!subroutinesList.isEmpty()) {
-            int counter = 0;
-            outState.putInt(HomeConfigurationKeys.LIST_SIZE.getValue(), subroutinesList.size());
-            for (Subroutines subroutine : subroutinesList) {
-                outState.putSerializable(HomeConfigurationKeys.SUBROUTINE.getValue() + counter, subroutine);
-                counter++;
-            }
+            String gson_subroutine_list = new Gson().toJson(subroutinesList);
+            outState.putString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), gson_subroutine_list);
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+
+        sharedPreferences.edit()
+                .putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color)
+                .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
+                .apply();
+
+        if (binding != null) {
+            sharedPreferences.edit()
+                    .putString(HomeConfigurationKeys.HINT_TEXT.getValue(), binding.addNewHabitHint.getText().toString().trim())
+                    .putString(HomeConfigurationKeys.TITLE.getValue(), binding.addNewHabitTitle.getText().toString().trim())
+                    .putString(HomeConfigurationKeys.DESCRIPTION.getValue(), binding.addNewHabitDescription.getText().toString().trim())
+                    .putInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), binding.fabAddDeleteHabit.getVisibility())
+                    .apply();
+        }
+
+        if (!subroutinesList.isEmpty()) {
+            String gson_subroutine_list = new Gson().toJson(subroutinesList);
+            sharedPreferences.edit().
+                    putString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), gson_subroutine_list)
+                    .apply();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+
+        if (!isFragmentOnRemoved) {
+
+            current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
+            old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+
+            clearSelected();
+            setSelected_color();
+
+            binding.addNewHabitHint.setText(
+                    sharedPreferences.getString(HomeConfigurationKeys.HINT_TEXT.getValue(), null)
+            );
+            binding.addNewHabitTitle.setText(
+                    sharedPreferences.getString(HomeConfigurationKeys.TITLE.getValue(), null)
+            );
+            binding.addNewHabitDescription.setText(
+                    sharedPreferences.getString(HomeConfigurationKeys.DESCRIPTION.getValue(), null)
+            );
+            binding.fabAddDeleteHabit.setVisibility(
+                    sharedPreferences.getInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), View.GONE)
+            );
+
+            if (sharedPreferences.contains(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue())) {
+                String gson_subroutine_list = sharedPreferences.getString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), null);
+
+                Type listType = new TypeToken<ArrayList<Subroutines>>() {}.getType();
+                subroutinesList = new Gson().fromJson(gson_subroutine_list, listType);
+
+                setRecyclerViewAdapter();
+            }
+
+            setDropDownHabits();
+
+        } else {
+            sharedPreferences.edit().clear().apply();
+            isFragmentOnRemoved = false;
+        }
+    }
+
+
 
     @Override
     public void onDestroyView() {

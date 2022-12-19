@@ -319,7 +319,7 @@
                         android:paddingStart="13dp"
                         android:paddingEnd="13dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="9"
+                        tools:itemCount="8"
                         tools:listitem="@layout/adapter_home_add_new_habit_parent_item" />
                 </androidx.cardview.widget.CardView>
 

@@ -50,13 +50,13 @@ public class HomeFragment extends Fragment
     private static boolean isOnItemClick = false;
     private static boolean isOnModify = false;
     private static boolean isOnFabDialog = false;
-    private static int position;
-    private static Habits habitOnModify;
-    private static Bundle savedInstanceState;
+    private static int position = 0;
+    private static Habits habitOnModify = null;
+    private static Bundle savedInstanceState = null;
     private final HomeParentItemAdapter homeParentItemAdapter = new HomeParentItemAdapter();
-    private FragmentHomeBinding binding;
+    private FragmentHomeBinding binding = null;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private List<Habits> habitsList;
+    private List<Habits> habitsList = null;
 
     public HomeFragment() {}
 
@@ -73,7 +73,7 @@ public class HomeFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
             HomeFragment.savedInstanceState = savedInstanceState;
         }
 
@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
             isOnAddDefault = savedInstanceState.getBoolean(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue());
             isOnAddNew = savedInstanceState.getBoolean(HomeConfigurationKeys.IS_ON_ADD_NEW.getValue());
             isOnItemClick = savedInstanceState.getBoolean(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue());
@@ -225,7 +225,7 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onDialogDismiss() {
-        if (savedInstanceState != null)
+        if (savedInstanceState != null && !savedInstanceState.isEmpty())
             savedInstanceState.putBoolean(HomeConfigurationKeys.IS_ON_MODIFY.getValue(), false);
         isOnModify = false;
     }
@@ -327,8 +327,9 @@ public class HomeFragment extends Fragment
         addDefaultHabitFragment = new AddDefaultHabitFragment();
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
 
-        if (savedInstanceState != null)
+        if (savedInstanceState != null ) {
             savedInstanceState.putBoolean(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), false);
+        }
 
         isOnAddDefault = false;
     }
@@ -353,7 +354,7 @@ public class HomeFragment extends Fragment
         homeItemOnClickFragment = new HomeItemOnClickFragment();
         homeItemOnClickFragment.setmOnItemOnClickReturnHome(this);
 
-        if (savedInstanceState != null)
+        if (savedInstanceState != null && !savedInstanceState.isEmpty())
             savedInstanceState.putBoolean(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), false);
 
         isOnItemClick = false;

@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -59,6 +60,7 @@ public class Main extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private static SharedPreferences sharedPreferences;
+    private static boolean isDataAvailableOnLocal;
 
     private enum MAIN_ENUMS {
 
@@ -67,6 +69,7 @@ public class Main extends AppCompatActivity {
         WEEKLY_DATE_KEY("WEEKLY_DATE_KEY.STRING"),
         SDF_PATTERN("dd MMMM yyyy"),
         DB_LOADED("DB_LOADED.BOOL"),
+        IS_DATA_AVAILALBLE_ON_LOCAL("IS_DATA_AVAILALBLE_ON_LOCAL.BOOL"),
         NOTIFICATION_CHANNEL_1("NOTIFY.CHANNEL_1"),
         NOTIFICATION_CHANNEL_2("NOTIFY.CHANNEL_2");
 
@@ -81,6 +84,11 @@ public class Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
+            isDataAvailableOnLocal = savedInstanceState.getBoolean(MAIN_ENUMS.IS_DATA_AVAILALBLE_ON_LOCAL.value);
+        }
+
         clearSharedPref();
         fetchFirestoreDB();
         setDailyDateTracker();
@@ -91,6 +99,7 @@ public class Main extends AppCompatActivity {
      * <p>Checks for available network connection and fetch latest data from firestore database</p>
      */
     private void fetchFirestoreDB() {
+
         sharedPreferences = getSharedPreferences(MAIN_ENUMS.SHARED_PREF_KEY.value, Main.MODE_PRIVATE);
 
         NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
@@ -153,18 +162,20 @@ public class Main extends AppCompatActivity {
      * Logic for fetching only once from tha server
      */
     private void firstInstallDataFetch() {
-        if (!sharedPreferences.contains(MAIN_ENUMS.DB_LOADED.value) ||
-                (sharedPreferences.contains(MAIN_ENUMS.DB_LOADED.value) && sharedPreferences.getBoolean(MAIN_ENUMS.DB_LOADED.value, false))) {
+        if (!isDataAvailableOnLocal) {
+            if (!sharedPreferences.contains(MAIN_ENUMS.DB_LOADED.value) ||
+                    (sharedPreferences.contains(MAIN_ENUMS.DB_LOADED.value) && sharedPreferences.getBoolean(MAIN_ENUMS.DB_LOADED.value, false))) {
 
-            if (!sharedPreferences.getBoolean(MAIN_ENUMS.DB_LOADED.value, false)) {
-                FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER); //limits fetching of data
-                Log.d("tag", "Main isConnected() called: data is being fetch from server");
+                if (!sharedPreferences.getBoolean(MAIN_ENUMS.DB_LOADED.value, false)) {
+                    FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER); //limits fetching of data
+                    Log.d("tag", "Main isConnected() called: data is being fetch from server");
+                }
+
+                boolean isFetched = FirebaseFirestore.getInstance().collection("quotes").get(Source.CACHE).isSuccessful();
+                sharedPreferences.edit().putBoolean(MAIN_ENUMS.DB_LOADED.value, isFetched).apply();
+            } else {
+                isDataAvailableOnLocal = true;
             }
-
-            boolean isFetched = FirebaseFirestore.getInstance().collection("quotes").get(Source.CACHE).isSuccessful();
-            sharedPreferences.edit().putBoolean(MAIN_ENUMS.DB_LOADED.value, isFetched).apply();
-        } else {
-            Log.d("tag", "Main isConnected() called: data already available on cache");
         }
     }
 
@@ -257,9 +268,19 @@ public class Main extends AppCompatActivity {
     private void clearSharedPref() {
         getSharedPreferences(HomeConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
         getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
         getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), MODE_PRIVATE).edit().clear().apply();
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(MAIN_ENUMS.IS_DATA_AVAILALBLE_ON_LOCAL.value, isDataAvailableOnLocal);
+    }
+
+    /**
+     * <p>Freing binding and clearing binding</p>
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

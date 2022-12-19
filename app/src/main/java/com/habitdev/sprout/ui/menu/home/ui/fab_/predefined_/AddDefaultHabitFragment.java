@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,41 +37,102 @@ import java.util.Locale;
 
 public class AddDefaultHabitFragment extends Fragment {
 
+    /**
+     * FragmentAddDefaultHabitBinding View Binding
+     */
     private FragmentAddDefaultHabitBinding binding;
+
+    /**
+     * HabitWithSubroutinesViewModel View Model
+     */
     private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private static List<Habits> habitsList;
+
+    /**
+     * List of Habits Live Data for drop down habit selection
+     */
+    private static List<Habits> habitsList = new ArrayList<>();
+
+    /**
+     * Selected Habit from Drop Down List
+     */
     private static Habits habit;
+
+    /**
+     * Subroutines of habit
+     */
     private static List<Subroutines> subroutinesList;
 
+    /**
+     * <P>Current Selected Color</P>
+     * <p>0: cloud</p>
+     * <p>1: alzarin</p>
+     * <p>2: amethyst</p>
+     * <p>3: bright sky blue</p>
+     * <p>4: nephritis</p>
+     * <p>5: sunflower</p>
+     */
     private static int current_selected_color;
+
+    /**
+     * Keeps track of last selected color for view updates
+     */
     private static int old_selected_color;
+
+    /**
+     * <p>Default Color: Cloud</p>
+     * <p>Changes: with new selected color</p>
+     */
     private static String color = AppColor.CLOUDS.getColor();
 
+    /**
+     * <p>Bundle Contaiting from stored savedInstanceState</p>
+     * <p>Use restoring views changes made by user from sudden configuration changes</p>
+     */
     private static Bundle savedInstanceState;
-    private static boolean isOnRemoved;
 
+    /**
+     * <p>Identifier when fragment will removed for clearing shared pref</p>
+     */
+    private static boolean isFragmentOnRemoved = false;
+
+    /**
+     * Interface for removing Frogment from stack in fragment manager
+     */
     public interface OnAddDefaultReturnHome {
+        /**
+         * Removes Fragment Instance and Displays Home Fragment
+         */
         void onAddDefaultHabitClickReturnHome();
     }
 
+    /**
+     * OnAddDefaultReturnHome variable
+     */
     private OnAddDefaultReturnHome mOnAddDefaultReturnHome;
 
+    /**
+     * Intializing mOnAddDefaultReturnHome wherein interface is implemented
+     * @param mOnAddDefaultReturnHome Home Fragment
+     */
     public void setmOnAddDefaultReturnHome(OnAddDefaultReturnHome mOnAddDefaultReturnHome) {
         this.mOnAddDefaultReturnHome = mOnAddDefaultReturnHome;
     }
 
-    public AddDefaultHabitFragment() {
-        habitsList = new ArrayList<>();
-    }
+    /**
+     * Empty Params: AddDefaultHabitFragment
+     */
+    public AddDefaultHabitFragment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddDefaultHabitBinding.inflate(inflater, container, false);
-        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
-        if (savedInstanceState != null)
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
             AddDefaultHabitFragment.savedInstanceState = savedInstanceState;
+        }
+
+        habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         binding.habitDescriptionLbl.setVisibility(View.INVISIBLE);
         binding.subroutineLbl.setVisibility(View.INVISIBLE);
@@ -88,9 +148,11 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (savedInstanceState != null) {
-            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), 0);
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
+
+            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
             old_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+
             clearSelected();
             setSelected_color();
 
@@ -104,6 +166,9 @@ public class AddDefaultHabitFragment extends Fragment {
         }
     }
 
+    /**
+     * Subscribes to Habit List Live Data and Check Available Habit and Predefined Habits
+     */
     private void upDateHabitList() {
         habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             List<Habits> habitsLiveData = new ArrayList<>();
@@ -115,6 +180,9 @@ public class AddDefaultHabitFragment extends Fragment {
         });
     }
 
+    /**
+     * Populates Drop Down Items and Attach Listener to Components
+     */
     private void setDropDown() {
         List<String> habitTitles = new ArrayList<>();
         for (Habits habits : habitsList) habitTitles.add(habits.getHabit());
@@ -146,9 +214,7 @@ public class AddDefaultHabitFragment extends Fragment {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -172,6 +238,9 @@ public class AddDefaultHabitFragment extends Fragment {
         });
     }
 
+    /**
+     * Displays Selected Habit Details
+     */
     private void setContentView() {
         binding.habitDescription.setText(habit.getDescription());
         subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
@@ -184,6 +253,9 @@ public class AddDefaultHabitFragment extends Fragment {
         binding.subroutineCountLbl.setText(String.format(Locale.getDefault(), "%d", subroutinesList.size()));
     }
 
+    /**
+     * Adds the selected habit on reform status
+     */
     private void addHabitOnReform() {
         binding.addHabitOnReformBtn.setOnClickListener(view -> {
             if (habit != null) {
@@ -204,9 +276,10 @@ public class AddDefaultHabitFragment extends Fragment {
                 habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
 
                 if (savedInstanceState != null) savedInstanceState = null;
+
                 current_selected_color = 0;
 
-                isOnRemoved = true;
+                isFragmentOnRemoved = true;
 
                 if (mOnAddDefaultReturnHome != null)
                     mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
@@ -216,9 +289,12 @@ public class AddDefaultHabitFragment extends Fragment {
         });
     }
 
+    /**
+     * Set color On Click Listener and updates color selected
+     */
     private void colorSelect() {
         /*
-            No need to toggle hide because on edit mode, gotta disable
+            To Toggle hide because on edit mode, gotta disable
          */
 //        binding.addFromDefaultHabitColorSelector.setOnClickListener(v -> {
 //            if (binding.addFromDefaultHabitMiscellaneous.getVisibility() == View.GONE) {
@@ -259,33 +335,33 @@ public class AddDefaultHabitFragment extends Fragment {
         });
     }
 
+    /**
+     * Set Color Selected Based on Habit Color
+     */
     private void setHabitColor() {
         if (habit != null) {
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
                 current_selected_color = 1;
-                setSelected_color();
             } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
                 current_selected_color = 2;
-                setSelected_color();
             } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
                 current_selected_color = 3;
-                setSelected_color();
             } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
                 current_selected_color = 4;
-                setSelected_color();
             } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
                 current_selected_color = 5;
-                setSelected_color();
             } else {
                 old_selected_color = 1;
-                setSelected_color();
             }
         } else {
             old_selected_color = 1;
-            setSelected_color();
         }
+        setSelected_color();
     }
 
+    /**
+     * Updates View of Selected Color and Keeps Track of Color
+     */
     private void setSelected_color() {
         if (old_selected_color != current_selected_color) {
             int ic_check = R.drawable.ic_check;
@@ -315,7 +391,7 @@ public class AddDefaultHabitFragment extends Fragment {
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = AppColor.SUNFLOWER.getColor();
                     break;
-                case 0:
+                default:
                     binding.cloudSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
                     color = AppColor.CLOUDS.getColor();
@@ -338,22 +414,33 @@ public class AddDefaultHabitFragment extends Fragment {
                 case 5:
                     binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
                     break;
-                case 0:
+                default:
                     binding.cloudSelected.setImageResource(R.color.TRANSPARENT);
                     break;
             }
         }
     }
 
+    /**
+     * Updates current selected color with new selected color
+     * @param newSelected color selected by user
+     */
     private void updateSelectedColorIndex(int newSelected) {
         old_selected_color = current_selected_color;
         current_selected_color = newSelected;
     }
 
+    /**
+     * Sets background depending on what color is selected
+     * @param backgroundNoteIndicator Drawable
+     */
     private void setBackgroundColorIndicator(Drawable backgroundNoteIndicator) {
         binding.addFromDefaultHabitColorSelector.setBackground(backgroundNoteIndicator);
     }
 
+    /**
+     * Uncheck any selected color and set default
+     */
     private void clearSelected() {
         binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
         binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
@@ -370,12 +457,11 @@ public class AddDefaultHabitFragment extends Fragment {
                 if (savedInstanceState != null) savedInstanceState = null;
                 current_selected_color = 0;
 
-                isOnRemoved = true;
+                isFragmentOnRemoved = true;
 
                 if (mOnAddDefaultReturnHome != null)
                     mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
             }
-
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
@@ -383,7 +469,7 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color);
+        outState.putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color);
         outState.putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color);
 
         if (habit != null) {
@@ -394,46 +480,46 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (!isOnRemoved) {
-//            Log.d("tag", "onPause: added shared pref");
-            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+
+        if (!isFragmentOnRemoved) {
             sharedPreferences.edit()
-                    .putInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), current_selected_color)
+                    .putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color)
                     .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
                     .apply();
 
-//            Log.d("tag", "onPause: " + current_selected_color + ":" + old_selected_color);
-
             if (habit != null) {
-                Log.d("tag", "onPause: " + binding.addFromDefaultHabitItems.getText().toString().trim());
-
-                String json_habit = new Gson().toJson(habit);
+                String gson_habit = new Gson().toJson(habit);
                 sharedPreferences.edit().
-                        putString(HomeConfigurationKeys.SELECTED_HABIT.getValue(), json_habit)
+                        putString(HomeConfigurationKeys.SELECTED_HABIT.getValue(), gson_habit)
                         .apply();
             }
         } else {
-//            Log.d("tag", "onAddDefaultHabitClickReturnHome: Onclear");
-            SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
             sharedPreferences.edit().clear().apply();
+            isFragmentOnRemoved = false;
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        Log.d("tag", "onResume: loaded shared pref");
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(HomeConfigurationKeys.SELECTED_COLOR.getValue()) && sharedPreferences.contains(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue())) {
-            current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.SELECTED_COLOR.getValue(), 0);
+        if (sharedPreferences.contains(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue()) && sharedPreferences.contains(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue())) {
+
+            current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
             old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+
             clearSelected();
             setSelected_color();
 
             if (sharedPreferences.contains(HomeConfigurationKeys.SELECTED_HABIT.getValue())) {
-                String json_habit = sharedPreferences.getString(HomeConfigurationKeys.SELECTED_HABIT.getValue(), "");
+                String json_habit = sharedPreferences.getString(HomeConfigurationKeys.SELECTED_HABIT.getValue(), null);
+
                 habit = new Gson().fromJson(json_habit, Habits.class);
+
                 setContentView();
+
                 binding.habitDescriptionLbl.setVisibility(View.VISIBLE);
                 binding.subroutineLbl.setVisibility(View.VISIBLE);
             }
