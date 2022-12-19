@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -118,8 +120,9 @@ public class AddNewHabitFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAddNewHabitBinding.inflate(inflater, container, false);
 
-        if (savedInstanceState != null && !savedInstanceState.isEmpty())
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
             AddNewHabitFragment.savedInstanceState = savedInstanceState;
+        }
 
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
@@ -131,6 +134,7 @@ public class AddNewHabitFragment extends Fragment
         insertSubroutine();
         setRecyclerViewAdapter();
         insertNewHabit();
+        deleteHabit();
         onBackPress();
 
         return binding.getRoot();
@@ -163,13 +167,13 @@ public class AddNewHabitFragment extends Fragment
             if (savedInstanceState.containsKey(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue())) {
                 String gson_subroutine_list = savedInstanceState.getString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), null);
 
-                Type listType = new TypeToken<ArrayList<Subroutines>>() {}.getType();
+                Type listType = new TypeToken<ArrayList<Subroutines>>() {
+                }.getType();
                 subroutinesList = new Gson().fromJson(gson_subroutine_list, listType);
 
                 setRecyclerViewAdapter();
 
             }
-
             setDropDownHabits();
         }
     }
@@ -314,7 +318,6 @@ public class AddNewHabitFragment extends Fragment
                     for (String title : habitTitles) {
                         if (editable.toString().trim().equals(title.trim())) {
                             binding.fabAddDeleteHabit.setVisibility(View.VISIBLE);
-                            deleteHabit();
                             break;
                         } else {
                             binding.fabAddDeleteHabit.setVisibility(View.GONE);
@@ -329,6 +332,7 @@ public class AddNewHabitFragment extends Fragment
         binding.addNewHabitTitle.setText(habit.getHabit());
         binding.addNewHabitDescription.setText(habit.getDescription());
         color = habit.getColor();
+        clearSelected();
         setHabitColor();
         setSelected_color();
         setSubroutinesList(habit.getPk_habit_uid());
@@ -392,8 +396,6 @@ public class AddNewHabitFragment extends Fragment
     }
 
     private void setSelected_color() {
-        Log.d("tag", "current_selected_color: " + current_selected_color);
-        Log.d("tag", "old_selected_color: " + old_selected_color);
 
         if (old_selected_color != current_selected_color) {
             int ic_check = R.drawable.ic_check;
@@ -507,17 +509,15 @@ public class AddNewHabitFragment extends Fragment
      * Delete Habit and its subroutines and comments in room database
      */
     private void deleteHabit() {
-        if (binding.fabAddDeleteHabit.getVisibility() == View.VISIBLE) {
-            binding.fabAddDeleteHabit.setOnClickListener(view -> {
-                habitWithSubroutinesViewModel.deleteHabit(habit);
-                habitWithSubroutinesViewModel.deleteSubroutineList(subroutinesList);
-                binding.fabAddDeleteHabit.setVisibility(View.GONE);
-                habit = new Habits("", "", AppColor.CLOUDS.getColor(), true, true);
-                subroutinesList = new ArrayList<>();
-                setDropDownContentView();
-                setDropDownHabits();
-            });
-        }
+        binding.fabAddDeleteHabit.setOnClickListener(view -> {
+            habitWithSubroutinesViewModel.deleteHabit(habit);
+            habitWithSubroutinesViewModel.deleteSubroutineList(subroutinesList);
+            binding.fabAddDeleteHabit.setVisibility(View.GONE);
+            habit = new Habits("", "", AppColor.CLOUDS.getColor(), true, true);
+            subroutinesList = new ArrayList<>();
+            setDropDownContentView();
+            setDropDownHabits();
+        });
     }
 
     private void setRecyclerViewAdapter() {
@@ -602,28 +602,33 @@ public class AddNewHabitFragment extends Fragment
     @Override
     public void onPause() {
         super.onPause();
-
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
 
-        sharedPreferences.edit()
-                .putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color)
-                .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
-                .apply();
-
-        if (binding != null) {
+        if (!isFragmentOnRemoved) {
+            savedInstanceState = null;
             sharedPreferences.edit()
-                    .putString(HomeConfigurationKeys.HINT_TEXT.getValue(), binding.addNewHabitHint.getText().toString().trim())
-                    .putString(HomeConfigurationKeys.TITLE.getValue(), binding.addNewHabitTitle.getText().toString().trim())
-                    .putString(HomeConfigurationKeys.DESCRIPTION.getValue(), binding.addNewHabitDescription.getText().toString().trim())
-                    .putInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), binding.fabAddDeleteHabit.getVisibility())
+                    .putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color)
+                    .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
                     .apply();
-        }
 
-        if (!subroutinesList.isEmpty()) {
-            String gson_subroutine_list = new Gson().toJson(subroutinesList);
-            sharedPreferences.edit().
-                    putString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), gson_subroutine_list)
-                    .apply();
+            if (binding != null) {
+                sharedPreferences.edit()
+                        .putString(HomeConfigurationKeys.HINT_TEXT.getValue(), binding.addNewHabitHint.getText().toString().trim())
+                        .putString(HomeConfigurationKeys.TITLE.getValue(), binding.addNewHabitTitle.getText().toString().trim())
+                        .putString(HomeConfigurationKeys.DESCRIPTION.getValue(), binding.addNewHabitDescription.getText().toString().trim())
+                        .putInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), binding.fabAddDeleteHabit.getVisibility())
+                        .apply();
+            }
+
+            if (!subroutinesList.isEmpty()) {
+                String gson_subroutine_list = new Gson().toJson(subroutinesList);
+                sharedPreferences.edit().
+                        putString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), gson_subroutine_list)
+                        .apply();
+            }
+        } else {
+            sharedPreferences.edit().clear().apply();
+            isFragmentOnRemoved = false;
         }
     }
 
@@ -633,8 +638,10 @@ public class AddNewHabitFragment extends Fragment
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
 
-        if (!isFragmentOnRemoved) {
+        Map<String, ?> entries = sharedPreferences.getAll();
+        Set<String> keys = entries.keySet();
 
+        if (!keys.isEmpty()) {
             current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
             old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
 
@@ -657,20 +664,15 @@ public class AddNewHabitFragment extends Fragment
             if (sharedPreferences.contains(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue())) {
                 String gson_subroutine_list = sharedPreferences.getString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), null);
 
-                Type listType = new TypeToken<ArrayList<Subroutines>>() {}.getType();
+                Type listType = new TypeToken<ArrayList<Subroutines>>() {
+                }.getType();
                 subroutinesList = new Gson().fromJson(gson_subroutine_list, listType);
 
                 setRecyclerViewAdapter();
             }
-
             setDropDownHabits();
-
-        } else {
-            sharedPreferences.edit().clear().apply();
-            isFragmentOnRemoved = false;
         }
     }
-
 
 
     @Override

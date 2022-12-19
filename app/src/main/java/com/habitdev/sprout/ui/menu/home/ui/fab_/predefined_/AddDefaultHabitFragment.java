@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 public class AddDefaultHabitFragment extends Fragment {
 
@@ -484,6 +486,7 @@ public class AddDefaultHabitFragment extends Fragment {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
 
         if (!isFragmentOnRemoved) {
+            savedInstanceState = null; // set to null to clear bundle and not trigger on start restore but trigger on resume
             sharedPreferences.edit()
                     .putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color)
                     .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
@@ -505,8 +508,11 @@ public class AddDefaultHabitFragment extends Fragment {
     public void onResume() {
         super.onResume();
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue()) && sharedPreferences.contains(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue())) {
 
+        Map<String, ?> entries = sharedPreferences.getAll();
+        Set<String> keys = entries.keySet();
+
+        if (!keys.isEmpty()) {
             current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
             old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
 
@@ -515,7 +521,6 @@ public class AddDefaultHabitFragment extends Fragment {
 
             if (sharedPreferences.contains(HomeConfigurationKeys.SELECTED_HABIT.getValue())) {
                 String json_habit = sharedPreferences.getString(HomeConfigurationKeys.SELECTED_HABIT.getValue(), null);
-
                 habit = new Gson().fromJson(json_habit, Habits.class);
 
                 setContentView();
