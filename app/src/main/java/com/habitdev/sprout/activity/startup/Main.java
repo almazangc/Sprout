@@ -67,8 +67,8 @@ public class Main extends AppCompatActivity {
         WEEKLY_DATE_KEY("WEEKLY_DATE_KEY.STRING"),
         SDF_PATTERN("dd MMMM yyyy"),
         DB_LOADED("DB_LOADED.BOOL"),
-        NOTIFICATION_CHANNEL_1("NOTIF.CHANNEL_1"),
-        NOTIFICATION_CHANNEL_2("NOTIF.CHANNEL_2");
+        NOTIFICATION_CHANNEL_1("NOTIFY.CHANNEL_1"),
+        NOTIFICATION_CHANNEL_2("NOTIFY.CHANNEL_2");
 
         final String value;
 
@@ -243,7 +243,7 @@ public class Main extends AppCompatActivity {
     }
 
     /**
-     * Updates Shared Preference Daily Date
+     * <p>Updates Shared Preference Daily Date</p>
      */
     private void updateNewDailyDate() {
         final String date = new SimpleDateFormat(MAIN_ENUMS.SDF_PATTERN.value, Locale.getDefault()).format(new Date());
@@ -251,7 +251,8 @@ public class Main extends AppCompatActivity {
     }
 
     /**
-     * Clears Recent Shared Pref when Main Class lifecycle end and starts
+     * <p>Clears Recent Shared Pref when Main Class lifecycle end and starts</p>
+     * <p>By Clearing Stored Shared, Restore App on Default State on Restart</p>
      */
     private void clearSharedPref() {
         getSharedPreferences(HomeConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
