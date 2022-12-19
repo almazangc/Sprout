@@ -139,7 +139,6 @@ public class BottomNavigationFragment extends Fragment {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Subroutine)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
 //            binding.bottomBar.setIndicatorColor(getResources().getColor(R.color.AMETHYST));
             binding.bottomBarView.setBackground(amethyst);
@@ -147,7 +146,6 @@ public class BottomNavigationFragment extends Fragment {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Analytics)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
 //            binding.bottomBar.setIndicatorColor(getResources().getColor(R.color.BRIGHT_SKY_BLUE));
             binding.bottomBarView.setBackground(bright_sky_blue);
@@ -155,7 +153,6 @@ public class BottomNavigationFragment extends Fragment {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Journal)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
 //            binding.bottomBar.setIndicatorColor(getResources().getColor(R.color.NEPHRITIS));
             binding.bottomBarView.setBackground(nephritis);
@@ -163,7 +160,6 @@ public class BottomNavigationFragment extends Fragment {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Settings)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
 //            binding.bottomBar.setIndicatorColor(getResources().getColor(R.color.SUNFLOWER));
             binding.bottomBarView.setBackground(sunflower);
@@ -171,7 +167,6 @@ public class BottomNavigationFragment extends Fragment {
             getChildFragmentManager()
                     .beginTransaction()
                     .replace(binding.mainNavFragmentContainer.getId(), Home)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .commit();
 //            binding.bottomBar.setIndicatorColor(getResources().getColor(R.color.ALIZARIN));
             binding.bottomBarView.setBackground(alzarin);

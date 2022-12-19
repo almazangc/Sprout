@@ -638,10 +638,7 @@ public class AddNewHabitFragment extends Fragment
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
 
-        Map<String, ?> entries = sharedPreferences.getAll();
-        Set<String> keys = entries.keySet();
-
-        if (!keys.isEmpty()) {
+        if (!sharedPreferences.getAll().isEmpty()) {
             current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
             old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
 

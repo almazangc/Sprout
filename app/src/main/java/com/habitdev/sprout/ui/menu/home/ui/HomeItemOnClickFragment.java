@@ -73,7 +73,7 @@ public class HomeItemOnClickFragment extends Fragment {
         commentViewModel = new ViewModelProvider(requireActivity()).get(CommentViewModel.class);
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
             habit = (Habits) savedInstanceState.getSerializable(HomeConfigurationKeys.HABIT.getValue());
         }
 
