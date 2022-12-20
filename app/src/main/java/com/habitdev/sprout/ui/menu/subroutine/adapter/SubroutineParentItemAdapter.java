@@ -32,8 +32,8 @@ import java.util.List;
 public class SubroutineParentItemAdapter extends RecyclerView.Adapter<SubroutineParentItemAdapter.ParentItemViewHolder> {
 
     private List<Habits> oldHabitList;
-    protected HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    protected LifecycleOwner subroutineLifecycleOwner;
+    private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private LifecycleOwner subroutineLifecycleOwner;
 
     public interface OnClickListener {
         void onModifySubroutine(Habits habit);
@@ -44,7 +44,6 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     public void setmOnClickListener(OnClickListener mOnClickListener) {
         this.mOnClickListener = mOnClickListener;
     }
-
 
     public void setOldHabitList(List<Habits> oldHabitList) {
         this.oldHabitList = oldHabitList;
@@ -73,6 +72,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
         long uid = holder.bindData(oldHabitList.get(position), mOnClickListener);
 
+        //TODO: KEEP TRACK OF WHICH IS HIDDEN AND SHOWN
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation_fall);
         holder.childRecycleView.setLayoutAnimation(animationController);
 
@@ -128,7 +128,6 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(holder.childRecycleView);
     }
-
 
     @Override
     public int getItemCount() {

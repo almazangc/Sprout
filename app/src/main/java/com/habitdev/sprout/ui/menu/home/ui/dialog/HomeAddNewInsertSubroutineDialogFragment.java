@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.home.ui.dialog;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -35,9 +36,7 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
 
     public interface OnDialogChange {
         void addSubroutine(Subroutines subroutines);
-
         void modifySubroutine(Subroutines subroutines);
-
         void removeSubroutine(Subroutines subroutines);
     }
 
@@ -233,27 +232,21 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
         if (subroutine != null) {
             if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
                 current_selected_color = 1;
-                setSelected_color();
             } else if (subroutine.getColor().equals(AppColor.AMETHYST.getColor())) {
                 current_selected_color = 2;
-                setSelected_color();
             } else if (subroutine.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
                 current_selected_color = 3;
-                setSelected_color();
             } else if (subroutine.getColor().equals(AppColor.NEPHRITIS.getColor())) {
                 current_selected_color = 4;
-                setSelected_color();
             } else if (subroutine.getColor().equals(AppColor.SUNFLOWER.getColor())) {
                 current_selected_color = 5;
-                setSelected_color();
             } else {
                 old_selected_color = 1;
-                setSelected_color();
             }
         } else {
             old_selected_color = 1;
-            setSelected_color();
         }
+        setSelected_color();
     }
 
     private void setSelected_color() {

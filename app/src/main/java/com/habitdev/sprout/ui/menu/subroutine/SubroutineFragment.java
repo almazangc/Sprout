@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.subroutine;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
+import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
 
@@ -24,18 +26,35 @@ public class SubroutineFragment extends Fragment
         SubroutineModifyFragment.OnReturnSubroutine {
 
     private FragmentSubroutineBinding binding;
-    private static final SubroutineModifyFragment subroutineModifyFragment = new SubroutineModifyFragment();
+    private static SubroutineModifyFragment subroutineModifyFragment = new SubroutineModifyFragment();
+    private static boolean isOnSubroutineModify;
 
-    public SubroutineFragment() {
+    public SubroutineFragment() {}
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
         subroutineModifyFragment.setmOnClickBackPress(this);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSubroutineBinding.inflate(inflater, container, false);
-        setRecyclerViewAdapter();
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()){
+            isOnSubroutineModify = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_MODIFY.getValue());
+        }
         onBackPress();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setRecyclerViewAdapter();
+
+        if (isOnSubroutineModify) {
+            setSubroutineModifyFragment();
+        }
     }
 
     /**
@@ -84,11 +103,17 @@ public class SubroutineFragment extends Fragment
      */
     @Override
     public void onModifySubroutine(Habits habit) {
+        isOnSubroutineModify = true;
         subroutineModifyFragment.setHabit(habit);
+        setSubroutineModifyFragment();
+    }
+
+    private void setSubroutineModifyFragment() {
+        final int TRANSITION = isOnSubroutineModify ? FragmentTransaction.TRANSIT_NONE : FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN;
         getChildFragmentManager().beginTransaction()
                 .addToBackStack(SubroutineFragment.this.getTag())
                 .add(binding.subroutineFrameLayout.getId(), subroutineModifyFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
+                .setTransition(TRANSITION)
                 .commit();
         binding.subroutineContainer.setVisibility(View.GONE);
     }
@@ -98,13 +123,13 @@ public class SubroutineFragment extends Fragment
      */
     @Override
     public void returnSubroutineFragment() {
+        isOnSubroutineModify = false;
         getChildFragmentManager()
                 .beginTransaction()
                 .remove(subroutineModifyFragment)
                 .setTransition(FragmentTransaction.TRANSIT_NONE)
                 .commit();
-//        subroutineModifyFragment.setmOnClickBackPress(null);
-//        subroutineModifyFragment = new SubroutineModifyFragment();
+        subroutineModifyFragment = new SubroutineModifyFragment();
         subroutineModifyFragment.setmOnClickBackPress(this);
         binding.subroutineContainer.setVisibility(View.VISIBLE);
     }
@@ -120,6 +145,28 @@ public class SubroutineFragment extends Fragment
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_MODIFY.getValue(), isOnSubroutineModify);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        subroutineModifyFragment.setmOnClickBackPress(null);
     }
 
     /**

@@ -87,7 +87,7 @@ public class AddDefaultHabitFragment extends Fragment {
     private static String color = AppColor.CLOUDS.getColor();
 
     /**
-     * <p>Bundle Contaiting from stored savedInstanceState</p>
+     * <p>Bundle Containing from stored savedInstanceState</p>
      * <p>Use restoring views changes made by user from sudden configuration changes</p>
      */
     private static Bundle savedInstanceState;
@@ -98,7 +98,7 @@ public class AddDefaultHabitFragment extends Fragment {
     private static boolean isFragmentOnRemoved = false;
 
     /**
-     * Interface for removing Frogment from stack in fragment manager
+     * Interface for removing Fragment from stack in fragment manager
      */
     public interface OnAddDefaultReturnHome {
         /**
@@ -113,7 +113,7 @@ public class AddDefaultHabitFragment extends Fragment {
     private OnAddDefaultReturnHome mOnAddDefaultReturnHome;
 
     /**
-     * Intializing mOnAddDefaultReturnHome wherein interface is implemented
+     * Initializing mOnAddDefaultReturnHome wherein interface is implemented
      * @param mOnAddDefaultReturnHome Home Fragment
      */
     public void setmOnAddDefaultReturnHome(OnAddDefaultReturnHome mOnAddDefaultReturnHome) {

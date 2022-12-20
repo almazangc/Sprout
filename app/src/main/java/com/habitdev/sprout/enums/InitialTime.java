@@ -1,7 +1,7 @@
 package com.habitdev.sprout.enums;
 
 /**
- * Contains Initial Time for Wake and Sleep Time
+ * Contains Initial Time for Wake and Sleep Time for Onboarding
  */
 public enum InitialTime {
 

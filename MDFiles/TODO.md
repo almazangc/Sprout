@@ -77,3 +77,11 @@ Glide - not used by implemented
 * [ ]  Dialog Defualt {No Cloud Check, Red Was Current Selected Color}
 
 #### Subroutine Configuration
+
+* [ ]  Subroutine animation (save what is select and not selected)
+* [X]  Subroutine Modfiy
+
+  * [X]  Default
+  * [X]  Rotation
+  * [X]  Change Tab
+  * [X]  Restart

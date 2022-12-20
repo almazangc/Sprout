@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.subroutine.ui.dialog;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -29,21 +30,21 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     private static int old_selected_color;
     private static String color;
 
-    public interface OnUpdateClickListener {
-        void onClickUpdate(Subroutines subroutine);
-    }
-
     private OnUpdateClickListener mOnUpdateClickListener;
 
-    public void setmOnUpdateClickListener(OnUpdateClickListener mOnUpdateClickListener) {
-        this.mOnUpdateClickListener = mOnUpdateClickListener;
+    private OnInsertClickListener mOnInsertClickListener;
+
+    public interface OnUpdateClickListener {
+        void onClickUpdate(Subroutines subroutine);
     }
 
     public interface OnInsertClickListener {
         void onClickInsert(Subroutines subroutines);
     }
 
-    private OnInsertClickListener mOnInsertClickListener;
+    public void setmOnUpdateClickListener(OnUpdateClickListener mOnUpdateClickListener) {
+        this.mOnUpdateClickListener = mOnUpdateClickListener;
+    }
 
     public void setmOnInsertClickListener(OnInsertClickListener mOnInsertClickListener) {
         this.mOnInsertClickListener = mOnInsertClickListener;
@@ -63,13 +64,30 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
         color = AppColor.CLOUDS.getColor();
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            if (mOnUpdateClickListener == null) mOnUpdateClickListener = (OnUpdateClickListener) getParentFragment();
+            if (mOnInsertClickListener == null) mOnInsertClickListener = (OnInsertClickListener) getParentFragment();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogFragmentSubroutineModifyParentItemAdapterBinding.inflate(inflater, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
-        setContentView();
+        getDialog().setCanceledOnTouchOutside(false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setContentView();
     }
 
     private void setContentView() {
@@ -83,7 +101,6 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     }
 
     private void setHint() {
-
         final String REQUIRED = "Required*";
         final String EMPTY_TITLE = "Title is empty*";
         final String EMPTY_DESCRIPTION = "Description is empty*";
@@ -182,60 +199,49 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     private void setSubroutineColor() {
         if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
             current_selected_color = 1;
-            setSelected_color();
         } else if (subroutine.getColor().equals(AppColor.AMETHYST.getColor())) {
             current_selected_color = 2;
-            setSelected_color();
         } else if (subroutine.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
             current_selected_color = 3;
-            setSelected_color();
         } else if (subroutine.getColor().equals(AppColor.NEPHRITIS.getColor())) {
             current_selected_color = 4;
-            setSelected_color();
         } else if (subroutine.getColor().equals(AppColor.SUNFLOWER.getColor())) {
             current_selected_color = 5;
-            setSelected_color();
         } else {
             old_selected_color = 1;
-            setSelected_color();
         }
+        setSelected_color();
     }
 
     private void setSelected_color() {
         if (old_selected_color != current_selected_color) {
             switch (current_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_alzarin));
                     color = AppColor.ALZARIN.getColor();
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_amethyst));
                     color = AppColor.AMETHYST.getColor();
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_brightsky_blue));
                     color = AppColor.BRIGHT_SKY_BLUE.getColor();
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_nephritis));
                     color = AppColor.NEPHRITIS.getColor();
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_sunflower));
                     color = AppColor.SUNFLOWER.getColor();
                     break;
                 default:
-                    //clouds night
                     binding.cloudSelected.setImageResource(ic_check);
                     setBackgroundColorIndicator(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_indicator_clouds));
                     color = AppColor.CLOUDS.getColor();
@@ -244,27 +250,21 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
 
             switch (old_selected_color) {
                 case 1:
-                    //alzarin
                     binding.alzarinSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 2:
-                    //amethyst
                     binding.amethystSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 3:
-                    //bright_sky_blue
                     binding.brightskyBlueSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 4:
-                    //nephritis
                     binding.nephritisSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 case 5:
-                    //sunflower
                     binding.sunflowerSelected.setImageResource(R.color.TRANSPARENT);
                     break;
                 default:
-                    //clouds night
                     binding.cloudSelected.setImageResource(R.color.TRANSPARENT);
                     break;
             }
@@ -299,6 +299,13 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
                 Objects.requireNonNull(getDialog()).dismiss();
             }
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mOnUpdateClickListener != null) mOnUpdateClickListener = null;
+        if (mOnInsertClickListener != null) mOnInsertClickListener = null;
     }
 
     @Override
