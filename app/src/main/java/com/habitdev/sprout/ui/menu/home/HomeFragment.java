@@ -425,11 +425,8 @@ public class HomeFragment extends Fragment
     public void onResume() {
         super.onResume();
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue()) ||
-                sharedPreferences.contains(HomeConfigurationKeys.IS_ON_ADD_NEW.getValue()) ||
-                sharedPreferences.contains(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue()) ||
-                sharedPreferences.contains(HomeConfigurationKeys.IS_ON_MODIFY.getValue())) {
 
+        if (!sharedPreferences.getAll().isEmpty()) {
             isOnAddDefault = sharedPreferences.getBoolean(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), false);
             isOnAddNew = sharedPreferences.getBoolean(HomeConfigurationKeys.IS_ON_ADD_NEW.getValue(), false);
             isOnItemClick = sharedPreferences.getBoolean(HomeConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), false);

@@ -193,7 +193,9 @@ public class HomeItemOnClickFragment extends Fragment {
 
     private void setSelected_color() {
         if (old_selected_color != current_selected_color) {
+
             final int ic_check = R.drawable.ic_check;
+
             switch (current_selected_color) {
                 case 1:
                     binding.alzarinSelected.setImageResource(ic_check);
@@ -311,9 +313,14 @@ public class HomeItemOnClickFragment extends Fragment {
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        mOnItemOnClickReturnHome = null;
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mOnItemOnClickReturnHome = null;
         commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).removeObservers(getViewLifecycleOwner());
         habit = null;
         commentViewModel = null;
