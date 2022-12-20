@@ -3,6 +3,7 @@ package com.habitdev.sprout.ui.menu.subroutine.ui;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +31,15 @@ import com.habitdev.sprout.ui.menu.subroutine.ui.dialog.SubroutineModifyParentIt
 
 import java.util.List;
 
-public class SubroutineModifyFragment extends Fragment implements SubroutineModifyParentOnclickListener {
+public class SubroutineModifyFragment extends Fragment implements SubroutineModifyParentOnclickListener{
 
     private FragmentSubroutineModifyBinding binding;
     private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private Habits habit;
     private static SubroutineModifyParentItemAdapter adapter;
+    private static boolean isOnInsertSubroutine;
+    private static boolean isOnUpdateSubroutine;
+    private static int item_position;
 
     public interface OnReturnSubroutine {
         void returnSubroutineFragment();
@@ -51,8 +55,7 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         this.habit = habit;
     }
 
-    public SubroutineModifyFragment() {
-    }
+    public SubroutineModifyFragment() {}
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -74,13 +77,26 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
 
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
             habit = (Habits) savedInstanceState.getSerializable(SubroutineConfigurationKeys.HABIT.getValue());
+            isOnUpdateSubroutine = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_UPDATE.getValue());
+            isOnInsertSubroutine = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_INSERT.getValue());
+            item_position  = savedInstanceState.getInt(SubroutineConfigurationKeys.ITEM_POSITION.getValue());
         }
 
         setViewContent();
+        setOnClickInsert();
 
-        onClickInsert();
         onBackPress();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (isOnUpdateSubroutine) {
+            onItemUpdate(item_position);
+        } else if (isOnInsertSubroutine) {
+            onItemInsert();
+        }
     }
 
     private void setViewContent() {
@@ -128,8 +144,15 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         }
     }
 
+    /**
+     * Modify a subroutine
+     * @param position of selected subroutine
+     */
     @Override
-    public void onItemClick(int position) {
+    public void onItemUpdate(int position) {
+
+        isOnUpdateSubroutine = true;
+        item_position = position;
 
         final Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
 
@@ -142,10 +165,21 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
             @Override
             public void onClickUpdate(Subroutines subroutine) {
                 habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                adapter.notifyItemChanged(position);
+                isOnUpdateSubroutine = false;
+            }
+
+            @Override
+            public void onDialogDismiss() {
+                isOnUpdateSubroutine = false;
             }
         });
     }
 
+    /**
+     * Removes a subroutine
+     * @param position of selected subroutine
+     */
     @Override
     public void onItemDelete(int position) {
         if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
@@ -158,22 +192,39 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         adapter.notifyItemChanged(position);
     }
 
-    private void onClickInsert() {
+    /**
+     * Insert new subroutine on current habit that is on modify
+     */
+    private void setOnClickInsert() {
         binding.subroutineModifyInsertSubroutineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SubroutineModifyParentItemAdapterDialogFragment dialog = new SubroutineModifyParentItemAdapterDialogFragment();
+                onItemInsert();
+            }
+        });
+    }
 
-                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(SubroutineModifyFragment.this.getId()), 1);
-                dialog.show(getChildFragmentManager(), "ModifySubroutineOnClickDialog");
-                dialog.setmOnInsertClickListener(new SubroutineModifyParentItemAdapterDialogFragment.OnInsertClickListener() {
-                    @Override
-                    public void onClickInsert(Subroutines subroutines) {
-                        subroutines.setFk_habit_uid(habit.getPk_habit_uid());
-                        habitWithSubroutinesViewModel.insertSubroutine(subroutines);
-                        updateTotalSubroutine();
-                    }
-                });
+    private void onItemInsert() {
+
+        isOnInsertSubroutine = true;
+
+        SubroutineModifyParentItemAdapterDialogFragment dialog = new SubroutineModifyParentItemAdapterDialogFragment();
+
+        dialog.setTargetFragment(getChildFragmentManager().findFragmentById(SubroutineModifyFragment.this.getId()), 1);
+        dialog.show(getChildFragmentManager(), "ModifySubroutineOnClickDialog");
+
+        dialog.setmOnInsertClickListener(new SubroutineModifyParentItemAdapterDialogFragment.OnInsertClickListener() {
+            @Override
+            public void onClickInsert(Subroutines subroutines) {
+                subroutines.setFk_habit_uid(habit.getPk_habit_uid());
+                habitWithSubroutinesViewModel.insertSubroutine(subroutines);
+                updateTotalSubroutine();
+                isOnInsertSubroutine = false;
+            }
+
+            @Override
+            public void onDialogDismiss() {
+                isOnInsertSubroutine = false;
             }
         });
     }
@@ -198,16 +249,9 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(SubroutineConfigurationKeys.HABIT.getValue(), habit);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+        outState.putBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_UPDATE.getValue(), isOnUpdateSubroutine);
+        outState.putInt(SubroutineConfigurationKeys.ITEM_POSITION.getValue(), item_position);
+        outState.putBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_INSERT.getValue(), isOnInsertSubroutine);
     }
 
     @Override

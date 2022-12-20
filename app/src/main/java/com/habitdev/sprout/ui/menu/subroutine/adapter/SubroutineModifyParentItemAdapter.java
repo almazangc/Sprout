@@ -91,7 +91,7 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
             bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_brightsky_blue_selector);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_alzarin_selector);
 
-            itemLayout.setOnClickListener(view -> mSubroutineModifyParentOnclickListener.onItemClick(getBindingAdapterPosition()));
+            itemLayout.setOnClickListener(view -> mSubroutineModifyParentOnclickListener.onItemUpdate(getBindingAdapterPosition()));
             deleteLayout.setOnClickListener(view -> mSubroutineModifyParentOnclickListener.onItemDelete(getBindingAdapterPosition()));
         }
 

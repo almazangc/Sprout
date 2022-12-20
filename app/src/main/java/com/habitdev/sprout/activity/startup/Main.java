@@ -24,6 +24,7 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
+import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 import com.habitdev.sprout.enums.TimeMilestone;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.NetworkMonitoringUtil;
@@ -35,23 +36,26 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Sprout:  HABIT BUSTER REFORM WITH BITE-SIZE SUBROUTINES
- * <p>
- * The study was conducted to design and develop an android mobile-based habit bite-size routine recommender to assist in monitoring, breaking, or reforming bad habits.
- * </p>
- * The proposed system is expected to solve and experiment with a fresh   concept by integrating bite-size subroutines as support for breaking and habilitating bad habits.
- * </p>
- * The researchers used the general Agile software process model to develop the proposed Sprout.
- * </p>
- * The acceptability of the developed system will be determined using the ISO 25010 software quality standard tool along with:
- * a. functional suitability
- * b. performance efficiency
- * c. compatibility
- * d. usability
- * e. reliability
- * f. security
- * g. portability.
- *
+ * <p><b>Sprout:  HABIT BUSTER REFORM WITH BITE-SIZE SUBROUTINES</b></p>
+ * <br>
+ * <p>The study was conducted to design and develop an android mobile-based habit bite-size routine recommender to assist in monitoring, breaking, or reforming bad habits.</p>
+ * <p>The proposed system is expected to solve and experiment with a fresh concept by integrating bite-size subroutines as support for breaking and habilitating bad habits.</p>
+ * <p>The researchers used the general Agile software process model to develop the proposed Sprout.</p>
+ * <p>The acceptability of the developed system will be determined using the ISO 25010 software quality standard tool along with:</p>
+ * <br>
+ * <p>a. functional suitability</p>
+ * <p>b. performance efficiency</p>
+ * <p>c. compatibility</p>
+ * <p>d. usability</p>
+ * <p>e. reliability</p>
+ * <p>f. security</p>
+ * <p>g. portability.</p>
+ * <br>
+ * <p><b>Development Started:</b> August 27</p>
+ * <p><b>Min SDK:</b> 28 Android 9 Pie 98% Comulative Usage</p>
+ * <p><b>Target SDK:</b> 32 Android 12L Snowcone</p>
+ * <p>Status: 72% Complete</p>
+ * <br>
  * @author Almazan, Gilbert C.
  * @version 1.0
  * @since 07-27-2022
@@ -69,7 +73,7 @@ public class Main extends AppCompatActivity {
         WEEKLY_DATE_KEY("WEEKLY_DATE_KEY.STRING"),
         SDF_PATTERN("dd MMMM yyyy"),
         DB_LOADED("DB_LOADED.BOOL"),
-        IS_DATA_AVAILALBLE_ON_LOCAL("IS_DATA_AVAILALBLE_ON_LOCAL.BOOL"),
+        IS_DATA_AVAILABLE_ON_LOCAL("IS_DATA_AVAILABLE_ON_LOCAL.BOOL"),
         NOTIFICATION_CHANNEL_1("NOTIFY.CHANNEL_1"),
         NOTIFICATION_CHANNEL_2("NOTIFY.CHANNEL_2");
 
@@ -86,7 +90,7 @@ public class Main extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
-            isDataAvailableOnLocal = savedInstanceState.getBoolean(MAIN_ENUMS.IS_DATA_AVAILALBLE_ON_LOCAL.value);
+            isDataAvailableOnLocal = savedInstanceState.getBoolean(MAIN_ENUMS.IS_DATA_AVAILABLE_ON_LOCAL.value);
         }
 
         clearSharedPref();
@@ -122,31 +126,29 @@ public class Main extends AppCompatActivity {
                             updateNewWeeklyDay();
                             networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
                         } else {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                NotificationChannel notificationChannel = new NotificationChannel(
-                                        MAIN_ENUMS.NOTIFICATION_CHANNEL_1.value,
-                                        "No Network Available",
-                                        NotificationManager.IMPORTANCE_HIGH
-                                );
+                            NotificationChannel notificationChannel = new NotificationChannel(
+                                    MAIN_ENUMS.NOTIFICATION_CHANNEL_1.value,
+                                    "No Network Available",
+                                    NotificationManager.IMPORTANCE_HIGH
+                            );
 
-                                notificationChannel.setDescription("No Network Connection Available To Fetch or Update Data From FireStore");
-                                NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                                notificationManager.createNotificationChannel(notificationChannel);
+                            notificationChannel.setDescription("No Network Connection Available To Fetch or Update Data From FireStore");
+                            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                            notificationManager.createNotificationChannel(notificationChannel);
 
-                                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(Main.this);
+                            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(Main.this);
 
-                                Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_1.value)
-                                        .setSmallIcon(R.drawable.ic_no_network)
-                                        .setContentTitle("No Network Available")
-                                        .setContentText("Please Connect to the Internet")
-                                        .setSubText("Internet Connection")
-                                        .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_1.value)
-                                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                                        .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
-                                        .build();
-                                notificationManagerCompat.notify(1, notification);
+                            Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_1.value)
+                                    .setSmallIcon(R.drawable.ic_no_network)
+                                    .setContentTitle("No Network Available")
+                                    .setContentText("Please Connect to the Internet")
+                                    .setSubText("Internet Connection")
+                                    .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_1.value)
+                                    .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                                    .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
+                                    .build();
+                            notificationManagerCompat.notify(1, notification);
 
-                            }
                         }
                     }
                 });
@@ -224,29 +226,27 @@ public class Main extends AppCompatActivity {
                     }
                 }
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    NotificationChannel notificationChannel = new NotificationChannel(
-                            MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value,
-                            "Daily Reset Notifier",
-                            NotificationManager.IMPORTANCE_HIGH
-                    );
+                NotificationChannel notificationChannel = new NotificationChannel(
+                        MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value,
+                        "Daily Reset Notifier",
+                        NotificationManager.IMPORTANCE_HIGH
+                );
 
-                    notificationChannel.setDescription("Updates Daily Reset");
-                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                    notificationManager.createNotificationChannel(notificationChannel);
+                notificationChannel.setDescription("Updates Daily Reset");
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(notificationChannel);
 
-                    NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(Main.this);
+                NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(Main.this);
 
-                    Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
-                            .setSmallIcon(R.drawable.ic_no_network)
-                            .setContentText("Another day has passed, continue on your journey")
-                            .setSubText("Good Day, another {user}")
-                            .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
-                            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                            .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
-                            .build();
-                    notificationManagerCompat.notify(2, notification);
-                }
+                Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
+                        .setSmallIcon(R.drawable.ic_no_network)
+                        .setContentText("Another day has passed, continue on your journey")
+                        .setSubText("Good Day, another {user}")
+                        .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
+                        .build();
+                notificationManagerCompat.notify(2, notification);
             }
         } else {
             updateNewDailyDate();
@@ -275,11 +275,11 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(MAIN_ENUMS.IS_DATA_AVAILALBLE_ON_LOCAL.value, isDataAvailableOnLocal);
+        outState.putBoolean(MAIN_ENUMS.IS_DATA_AVAILABLE_ON_LOCAL.value, isDataAvailableOnLocal);
     }
 
     /**
-     * <p>Freing binding and clearing binding</p>
+     * <p>Freeing binding and clearing binding</p>
      */
     @Override
     protected void onDestroy() {

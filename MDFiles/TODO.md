@@ -74,11 +74,11 @@ Glide - not used by implemented
 * [X]  Rotation
 * [X]  Change Tab
 * [X]  Restart
-* [ ]  Dialog Defualt {No Cloud Check, Red Was Current Selected Color}
+* [ ]  Dialog Defualt {No Cloud Check, Red Was Current Selected Color} is not on new instance of diag is dislayed
 
 #### Subroutine Configuration
 
-* [ ]  Subroutine animation (save what is select and not selected)
+* [ ]  Subroutine animation (keep track of expanded child adapter and not expanded)
 * [X]  Subroutine Modfiy
 
   * [X]  Default

@@ -1,10 +1,13 @@
 package com.habitdev.sprout.ui.menu.subroutine.ui.dialog;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,28 +21,31 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.DialogFragmentSubroutineModifyParentItemAdapterBinding;
 import com.habitdev.sprout.enums.AppColor;
+import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 
 import java.util.Objects;
 
 public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragment implements View.OnClickListener {
     private DialogFragmentSubroutineModifyParentItemAdapterBinding binding;
+
     private final Subroutines subroutine;
 
-    private static final int ic_check = R.drawable.ic_check;
     private static int current_selected_color;
     private static int old_selected_color;
     private static String color;
+    private static boolean isOnDismissDialog;
 
     private OnUpdateClickListener mOnUpdateClickListener;
-
     private OnInsertClickListener mOnInsertClickListener;
 
     public interface OnUpdateClickListener {
         void onClickUpdate(Subroutines subroutine);
+        void onDialogDismiss();
     }
 
     public interface OnInsertClickListener {
         void onClickInsert(Subroutines subroutines);
+        void onDialogDismiss();
     }
 
     public void setmOnUpdateClickListener(OnUpdateClickListener mOnUpdateClickListener) {
@@ -64,17 +70,6 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
         color = AppColor.CLOUDS.getColor();
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            if (mOnUpdateClickListener == null) mOnUpdateClickListener = (OnUpdateClickListener) getParentFragment();
-            if (mOnInsertClickListener == null) mOnInsertClickListener = (OnInsertClickListener) getParentFragment();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,25 +82,51 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     @Override
     public void onStart() {
         super.onStart();
-        setContentView();
+
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SubroutineConfigurationKeys.SUBROUTINE_MODIFY_DIALOG_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+
+        if (!sharedPreferences.getAll().isEmpty()) {
+            current_selected_color = sharedPreferences.getInt(SubroutineConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
+            old_selected_color = sharedPreferences.getInt(SubroutineConfigurationKeys.OLD_SELECTED_COLOR.getValue(), -1);
+            setContentView(
+                    sharedPreferences.getString(SubroutineConfigurationKeys.TITLE.getValue(), null),
+                    sharedPreferences.getString(SubroutineConfigurationKeys.DESCRIPTION.getValue(), null),
+                    sharedPreferences.getString(SubroutineConfigurationKeys.HINT_TEXT.getValue(), null)
+                    ,true
+            );
+
+        } else {
+            setContentView(
+                    subroutine.getSubroutine()
+                    , subroutine.getDescription(),
+                    null,
+                    false
+            );
+            setSubroutineColor();
+        }
     }
 
-    private void setContentView() {
-        binding.dialogSubroutineModifyTitle.setText(subroutine.getSubroutine());
-        binding.dialogSubroutineModifyDescription.setText(subroutine.getDescription());
+    private void setContentView(@Nullable String title, @Nullable String description, @Nullable String hint, boolean isOnViewRestore) {
+        binding.dialogSubroutineModifyTitle.setText(title != null ? title : "");
+        binding.dialogSubroutineModifyDescription.setText(description != null ? description : "");
         binding.dialogSubroutineModifyLayoutMiscellaneous.setVisibility(View.GONE);
-        setHint();
-        setSubroutineColor();
+        setHint(hint);
+        if (!isOnViewRestore) {
+            setSubroutineColor();
+        } else {
+            setSelected_color();
+        }
         colorSelect();
         setOnclickListener();
     }
 
-    private void setHint() {
+    private void setHint(@Nullable String hint) {
         final String REQUIRED = "Required*";
         final String EMPTY_TITLE = "Title is empty*";
         final String EMPTY_DESCRIPTION = "Description is empty*";
 
-        binding.dialogSubroutineModifyHint.setText("");
+        binding.dialogSubroutineModifyHint.setText(hint != null ? hint : REQUIRED);
+
         binding.dialogSubroutineModifyTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -215,6 +236,9 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
 
     private void setSelected_color() {
         if (old_selected_color != current_selected_color) {
+
+            final int ic_check = R.drawable.ic_check;
+
             switch (current_selected_color) {
                 case 1:
                     binding.alzarinSelected.setImageResource(ic_check);
@@ -288,16 +312,51 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.dialog_subroutine_modify_cancel) {
-            Objects.requireNonNull(getDialog()).dismiss();
+
+            attachOnDialogDismissCallback();
+
         } else if (view.getId() == R.id.dialog_subroutine_modify_update_subroutine_btn) {
             if (binding.dialogSubroutineModifyHint.getText().toString().trim().isEmpty()) {
+
                 subroutine.setSubroutine(binding.dialogSubroutineModifyTitle.getText().toString().trim());
                 subroutine.setDescription(binding.dialogSubroutineModifyDescription.getText().toString().trim());
                 subroutine.setColor(color);
-                if (this.mOnUpdateClickListener != null) this.mOnUpdateClickListener.onClickUpdate(subroutine);
-                if (this.mOnInsertClickListener != null) this.mOnInsertClickListener.onClickInsert(subroutine);
-                Objects.requireNonNull(getDialog()).dismiss();
+
+                if (mOnUpdateClickListener != null) mOnUpdateClickListener.onClickUpdate(subroutine);
+                if (mOnInsertClickListener != null) mOnInsertClickListener.onClickInsert(subroutine);
             }
+        }
+        isOnDismissDialog = true;
+        Objects.requireNonNull(getDialog()).dismiss();
+    }
+
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+        isOnDismissDialog = true;
+        attachOnDialogDismissCallback();
+    }
+
+    private void attachOnDialogDismissCallback() {
+        if (mOnUpdateClickListener != null) mOnUpdateClickListener.onDialogDismiss();
+        if (mOnInsertClickListener != null) mOnInsertClickListener.onDialogDismiss();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SubroutineConfigurationKeys.SUBROUTINE_MODIFY_DIALOG_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        if (!isOnDismissDialog) {
+            sharedPreferences.edit()
+                    .putString(SubroutineConfigurationKeys.TITLE.getValue(), binding.dialogSubroutineModifyTitle.getText().toString())
+                    .putString(SubroutineConfigurationKeys.DESCRIPTION.getValue(), binding.dialogSubroutineModifyDescription.getText().toString())
+                    .putInt(SubroutineConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color)
+                    .putInt(SubroutineConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
+                    .putString(SubroutineConfigurationKeys.HINT_TEXT.getValue(), binding.dialogSubroutineModifyHint.getText().toString())
+                    .apply();
+        } else {
+            isOnDismissDialog = false;
+            sharedPreferences.edit().clear().apply();
         }
     }
 
