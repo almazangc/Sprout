@@ -80,8 +80,9 @@ Glide - not used by implemented
 
 * [ ]  Subroutine animation (keep track of expanded child adapter and not expanded)
 * [X]  Subroutine Modfiy
-
   * [X]  Default
   * [X]  Rotation
   * [X]  Change Tab
   * [X]  Restart
+
+#### Analytics Configuration

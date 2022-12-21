@@ -58,6 +58,16 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
         this.onRemove = onRemove;
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            mOnDialogChange = (OnDialogChange) getParentFragment();
+        } catch (ClassCastException e) {
+            Toast.makeText(requireActivity(), "onAttach: ClassException: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -183,16 +193,6 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
                 }
             }
         });
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            mOnDialogChange = (OnDialogChange) getParentFragment();
-        } catch (ClassCastException e) {
-            Toast.makeText(requireActivity(), "onAttach: ClassException: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void colorSelect() {

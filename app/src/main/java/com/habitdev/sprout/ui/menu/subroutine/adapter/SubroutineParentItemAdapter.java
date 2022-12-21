@@ -26,6 +26,7 @@ import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.utill.HabitDiffUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //User List Adapter
@@ -34,9 +35,12 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     private List<Habits> oldHabitList;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private LifecycleOwner subroutineLifecycleOwner;
+    private ArrayList<Integer> arrayList = new ArrayList<>();
 
     public interface OnClickListener {
         void onModifySubroutine(Habits habit);
+        void isExapanded(int position);
+        void isHidden(int position);
     }
 
     private OnClickListener mOnClickListener;
@@ -57,6 +61,10 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         this.subroutineLifecycleOwner = subroutineLifecycleOwner;
     }
 
+    public void setArrayList(ArrayList<Integer> arrayList) {
+        this.arrayList = arrayList;
+    }
+
     public SubroutineParentItemAdapter() {}
 
     @NonNull
@@ -70,24 +78,51 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     @Override
     public void onBindViewHolder(@NonNull ParentItemViewHolder holder, int position) {
 
-        long uid = holder.bindData(oldHabitList.get(position), mOnClickListener);
+        holder.bindData(oldHabitList.get(position), mOnClickListener);
 
-        //TODO: KEEP TRACK OF WHICH IS HIDDEN AND SHOWN
-        LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation_fall);
-        holder.childRecycleView.setLayoutAnimation(animationController);
+        long uid = oldHabitList.get(position).getPk_habit_uid();
 
-        List<Subroutines> habitWithSubroutines;
+        holder.itemContainer.setOnClickListener(view -> {
+            if (holder.childRecycleView.getVisibility() == View.GONE) {
+                LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation_fall);
+                holder.childRecycleView.setLayoutAnimation(animationController);
+                holder.childRecycleView.setVisibility(View.VISIBLE);
 
-        habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
-        SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter();
-        childAdapterItem.setOldSubroutineList(habitWithSubroutines);
-        childAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
-        holder.childRecycleView.setAdapter(childAdapterItem);
+                if (mOnClickListener != null) {
+                    mOnClickListener.isExapanded(holder.getAbsoluteAdapterPosition());
+                }
+            } else {
+                LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation_up);
+                holder.childRecycleView.setLayoutAnimation(animationController);
+                if (!holder.childRecycleView.isAnimating()) {
+                    holder.childRecycleView.setVisibility(View.GONE);
+                }
 
-        habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(subroutineLifecycleOwner, childAdapterItem::setNewSubroutineList);
+                if (mOnClickListener != null) {
+                    mOnClickListener.isHidden(holder.getAbsoluteAdapterPosition());
+                }
+            }
+        });
 
-        setItemTouchHelper(holder, childAdapterItem);
+        if (holder.childRecycleView.getAdapter() == null) {
+            List<Subroutines> habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
+            SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter();
+            childAdapterItem.setOldSubroutineList(habitWithSubroutines);
+            childAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+            holder.childRecycleView.setAdapter(childAdapterItem);
+
+            if (arrayList.contains(holder.getAbsoluteAdapterPosition())) {
+                holder.childRecycleView.setVisibility(View.VISIBLE);
+            } else {
+                holder.childRecycleView.setVisibility(View.GONE);
+            }
+
+            habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(subroutineLifecycleOwner, childAdapterItem::setNewSubroutineList);
+
+            setItemTouchHelper(holder, childAdapterItem);
+        }
     }
+
 
     private void setItemTouchHelper(SubroutineParentItemAdapter.ParentItemViewHolder holder, SubroutineChildItemAdapter childAdapterItem) {
 
@@ -170,7 +205,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        long bindData(Habits habit, OnClickListener mOnClickListener) {
+        void bindData(Habits habit, OnClickListener mOnClickListener) {
 
             if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemContainer.setBackground(alzarin);
@@ -189,19 +224,6 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             HabitsTitle.setText(habit.getHabit());
 
             HabitsTitle.setPadding(padding_inPx(10), padding_inPx(0), padding_inPx(10), padding_inPx(5));
-
-            itemContainer.setOnClickListener(view -> {
-                childRecycleView.getVisibility();
-                if (childRecycleView.getVisibility() == View.GONE) {
-                    LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(childRecycleView.getContext(), R.anim.layout_animation_fall);
-                    childRecycleView.setLayoutAnimation(animationController);
-                    childRecycleView.setVisibility(View.VISIBLE);
-                } else {
-                    LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(childRecycleView.getContext(), R.anim.layout_animation_up);
-                    childRecycleView.setLayoutAnimation(animationController);
-                    if (!childRecycleView.isAnimating()) childRecycleView.setVisibility(View.GONE);
-                }
-            });
 
             itemContainer.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -222,8 +244,6 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             } else {
                 ModifySubroutine.setVisibility(View.GONE);
             }
-
-            return habit.getPk_habit_uid();
         }
 
         int padding_inPx(int dp) {

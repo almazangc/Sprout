@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu.subroutine;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +14,16 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
 import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
+
+import java.util.ArrayList;
 
 public class SubroutineFragment extends Fragment
         implements
@@ -28,6 +33,7 @@ public class SubroutineFragment extends Fragment
     private FragmentSubroutineBinding binding;
     private static SubroutineModifyFragment subroutineModifyFragment = new SubroutineModifyFragment();
     private static boolean isOnSubroutineModify;
+    private static ArrayList<Integer> arrayList = new ArrayList<>();
 
     public SubroutineFragment() {}
 
@@ -40,9 +46,17 @@ public class SubroutineFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentSubroutineBinding.inflate(inflater, container, false);
-        if (savedInstanceState != null && !savedInstanceState.isEmpty()){
+
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
             isOnSubroutineModify = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_MODIFY.getValue());
         }
+
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SubroutineConfigurationKeys.SUBROUTINE_ADAPTER_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        if (!sharedPreferences.getAll().isEmpty()) {
+            setArrayList();
+        }
+
+        setRecyclerViewAdapter();
         onBackPress();
         return binding.getRoot();
     }
@@ -50,8 +64,6 @@ public class SubroutineFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
-        setRecyclerViewAdapter();
-
         if (isOnSubroutineModify) {
             setSubroutineModifyFragment();
         }
@@ -61,24 +73,28 @@ public class SubroutineFragment extends Fragment
      * Initialized and sets adapter for recyclerView
      */
     private void setRecyclerViewAdapter() {
-        HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
-        binding.subroutineRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
+        if (binding.subroutineRecyclerView.getAdapter() == null) {
+            HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+            binding.subroutineRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
-        SubroutineParentItemAdapter parentAdapterItem = new SubroutineParentItemAdapter();
-        parentAdapterItem.setOldHabitList(habitWithSubroutinesViewModel.getAllHabitOnReform());
+            SubroutineParentItemAdapter parentAdapterItem = new SubroutineParentItemAdapter();
+            parentAdapterItem.setOldHabitList(habitWithSubroutinesViewModel.getAllHabitOnReform());
 
-        setEmptyRVBackground(parentAdapterItem);
-
-        parentAdapterItem.setmOnClickListener(this);
-        parentAdapterItem.setSubroutineLifecycleOwner(getViewLifecycleOwner());
-        parentAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
-
-        binding.subroutineRecyclerView.setAdapter(parentAdapterItem);
-
-        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
-            parentAdapterItem.setNewHabitList(habits);
             setEmptyRVBackground(parentAdapterItem);
-        });
+
+            parentAdapterItem.setmOnClickListener(this);
+            parentAdapterItem.setSubroutineLifecycleOwner(getViewLifecycleOwner());
+            parentAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+            parentAdapterItem.setArrayList(arrayList);
+
+            binding.subroutineRecyclerView.setAdapter(parentAdapterItem);
+
+
+            habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
+                parentAdapterItem.setNewHabitList(habits);
+                setEmptyRVBackground(parentAdapterItem);
+            });
+        }
     }
 
     /**
@@ -106,6 +122,27 @@ public class SubroutineFragment extends Fragment
         isOnSubroutineModify = true;
         subroutineModifyFragment.setHabit(habit);
         setSubroutineModifyFragment();
+    }
+
+    @Override
+    public void isExapanded(int position) {
+        if (arrayList == null) {
+            arrayList = new ArrayList<>();
+        }
+        if (!arrayList.contains(position)) {
+            arrayList.add(position);
+        }
+    }
+
+    @Override
+    public void isHidden(int position) {
+        if (!arrayList.isEmpty()) {
+            try {
+                arrayList.remove((Integer) position); //Remove by Object not by index
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setSubroutineModifyFragment() {
@@ -144,23 +181,58 @@ public class SubroutineFragment extends Fragment
                 requireActivity().moveTaskToBack(true);
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+        requireActivity()
+                .getOnBackPressedDispatcher()
+                .addCallback(
+                        getViewLifecycleOwner(),
+                        callback
+                );
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_MODIFY.getValue(), isOnSubroutineModify);
+        outState.putBoolean(
+                SubroutineConfigurationKeys.IS_ON_SUBROUTINE_MODIFY.getValue(),
+                isOnSubroutineModify
+        );
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        requireActivity().getSharedPreferences(
+                        SubroutineConfigurationKeys.SUBROUTINE_ADAPTER_SHAREDPREF.getValue(),
+                        Context.MODE_PRIVATE
+                )
+                .edit()
+                .putString(
+                        SubroutineConfigurationKeys.ITEM_POSITION_GSON.getValue(),
+                        new Gson().toJson(arrayList)
+                )
+                .apply();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        setArrayList();
+    }
+
+    private void setArrayList() {
+        arrayList = new Gson()
+                .fromJson(
+                        requireActivity()
+                                .getSharedPreferences(
+                                        SubroutineConfigurationKeys.SUBROUTINE_ADAPTER_SHAREDPREF.getValue(),
+                                        Context.MODE_PRIVATE
+                                )
+                                .getString(
+                                        SubroutineConfigurationKeys.ITEM_POSITION_GSON.getValue(),
+                                        null
+                                ), new TypeToken<ArrayList<Integer>>() {
+                        }.getType()
+                );
     }
 
     @Override
