@@ -136,6 +136,9 @@ public class SubroutineFragment extends Fragment
 
     @Override
     public void isHidden(int position) {
+        if (arrayList == null) {
+            arrayList = new ArrayList<>();
+        }
         if (!arrayList.isEmpty()) {
             try {
                 arrayList.remove((Integer) position); //Remove by Object not by index

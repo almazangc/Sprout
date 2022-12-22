@@ -102,3 +102,7 @@ Glide - not used by implemented
 * [X]  Restart
 
 #### Journal Configuration
+
+
+
+#### Habit display check if still on reform before restoring at on pause and resume state for change tab

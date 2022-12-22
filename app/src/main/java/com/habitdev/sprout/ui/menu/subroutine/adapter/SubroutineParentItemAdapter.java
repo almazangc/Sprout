@@ -111,10 +111,14 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             childAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
             holder.childRecycleView.setAdapter(childAdapterItem);
 
-            if (arrayList.contains(holder.getAbsoluteAdapterPosition())) {
-                holder.childRecycleView.setVisibility(View.VISIBLE);
+            if (arrayList != null) {
+                if (arrayList.contains(holder.getAbsoluteAdapterPosition())) {
+                    holder.childRecycleView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.childRecycleView.setVisibility(View.GONE);
+                }
             } else {
-                holder.childRecycleView.setVisibility(View.GONE);
+                holder.childRecycleView.setVisibility(View.VISIBLE);
             }
 
             habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(subroutineLifecycleOwner, childAdapterItem::setNewSubroutineList);

@@ -245,9 +245,7 @@ public class PersonalizationFragment extends Fragment {
         long fk_user_uid = 1;
 
         if (answersList.isEmpty()) {
-            //insert new
             assessmentViewModel.insert(new Answer(fk_question_uid, selected_answer, fk_user_uid));
-            Log.d(TAG, "saveSelection: empty list: insert");
         } else {
             //check if question answer exist
             if (assessmentViewModel.doesAnswerExist(fk_question_uid) > 1) {
@@ -255,12 +253,10 @@ public class PersonalizationFragment extends Fragment {
                 //In case of error for duplicate
             } else if (assessmentViewModel.doesAnswerExist(fk_question_uid) == 1) {
                 // update
-                Log.d(TAG, "saveSelection: update");
                 Answer answer = assessmentViewModel.getAnswerByFkQuestionUID(fk_question_uid);
                 assessmentViewModel.update(new Answer(answer.getPk_answer_uid(), fk_question_uid, selected_answer, fk_user_uid));
             } else {
                 // new insert
-                Log.d(TAG, "saveSelection: insert");
                 assessmentViewModel.insert(new Answer(fk_question_uid, selected_answer, fk_user_uid));
             }
         }
@@ -295,7 +291,9 @@ public class PersonalizationFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (binding != null) saveSelection();
+        if (binding != null) {
+            saveSelection();
+        }
         outState.putInt(OnBoardingConfigurationKeys.POSITION.getValue(), position-1);
     }
 
