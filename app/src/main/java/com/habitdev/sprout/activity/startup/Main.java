@@ -5,7 +5,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -23,8 +22,8 @@ import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
+import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
-import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 import com.habitdev.sprout.enums.TimeMilestone;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.NetworkMonitoringUtil;
@@ -270,6 +269,7 @@ public class Main extends AppCompatActivity {
         getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), MODE_PRIVATE).edit().clear().apply();
         getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
         getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
     }
 
     @Override

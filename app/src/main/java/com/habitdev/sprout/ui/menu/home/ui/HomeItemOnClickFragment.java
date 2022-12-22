@@ -286,13 +286,13 @@ public class HomeItemOnClickFragment extends Fragment {
     }
 
     private void setCommentRecyclerView() {
-        HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(commentViewModel);
-
-        binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
-
-        commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {
-            if (comments != null) homeParentItemAdapter.setNewCommentList(comments);
-        });
+        if (binding.homeCommentRecyclerView.getAdapter() == null) {
+            HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(commentViewModel);
+            binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
+            commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {
+                if (comments != null) homeParentItemAdapter.setNewCommentList(comments);
+            });
+        }
     }
 
     private void onBackPress() {

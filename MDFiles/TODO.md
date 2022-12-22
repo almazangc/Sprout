@@ -91,14 +91,14 @@ Glide - not used by implemented
 
 * [X]  Default
 * [X]  Rotation
-* [ ]  Change Tab {Not restoring on last viewed part}
+* [X]  Change Tab
 * [X]  Restart
 
 **On Item Click**
 
 * [X]  Default
-* [ ]  Rotation {Not restoring on selected}
-* [ ]  Change Tab {Not restoring what is selected}
-* [ ]  Restart
+* [X]  Rotation
+* [X]  Change Tab
+* [X]  Restart
 
 #### Journal Configuration

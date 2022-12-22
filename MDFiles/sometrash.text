@@ -22,3 +22,19 @@
 //            dialog.show();
 
 
+private void show(int position) {
+        Snackbar.make(binding.getRoot(), habitsList.get(position).getHabit(), Snackbar.LENGTH_INDEFINITE)
+                .setAction("Dismiss", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //auto dismiss when clicked, single action
+                    }
+                })
+                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
+                .show();
+    }
+
+    snackbar
+

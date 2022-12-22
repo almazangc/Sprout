@@ -1,27 +1,28 @@
 package com.habitdev.sprout.ui.menu.analytic;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.habitdev.sprout.R;
+import com.google.gson.Gson;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentAnalyticBinding;
+import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticParentItemAdapter;
 import com.habitdev.sprout.ui.menu.analytic.ui.AnalyticItemOnClickFragment;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
@@ -42,9 +43,11 @@ public class AnalyticFragment extends Fragment
     private static List<Habits> habitsList = new ArrayList<>();
     private static final AnalyticParentItemAdapter analyticParentItemAdapter = new AnalyticParentItemAdapter();
     private static final AnalyticItemOnClickFragment analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
+    private static boolean isOnItemClick;
+    private static Habits habitOnClick;
+    private static Bundle savedInstanceState;
 
-    public AnalyticFragment() {
-    }
+    public AnalyticFragment() {}
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -55,8 +58,9 @@ public class AnalyticFragment extends Fragment
 
     @Override
     public void analyticOnItemClick(int position) {
-//        show(position); Snackbar
-        analyticItemOnClickFragment.setHabit(habitsList.get(position));
+        isOnItemClick = true;
+        habitOnClick = habitsList.get(position);
+        analyticItemOnClickFragment.setHabit(habitOnClick);
         getChildFragmentManager()
                 .beginTransaction()
                 .addToBackStack(AnalyticFragment.this.getTag())
@@ -67,7 +71,7 @@ public class AnalyticFragment extends Fragment
     }
 
     @Override
-    public void setAnalyticParentItemOnclickListener() {
+    public void returnOnAnalytic() {
         try {
             getChildFragmentManager()
                     .beginTransaction()
@@ -77,21 +81,10 @@ public class AnalyticFragment extends Fragment
         } catch (Exception e) {
             e.printStackTrace();
         }
+        isOnItemClick = false;
+        savedInstanceState = null;
+        requireActivity().getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
         binding.analysisContainer.setVisibility(View.VISIBLE);
-    }
-
-    private void show(int position) {
-        Snackbar.make(binding.getRoot(), habitsList.get(position).getHabit(), Snackbar.LENGTH_INDEFINITE)
-                .setAction("Dismiss", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //auto dismiss when clicked, single action
-                    }
-                })
-                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
-                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
-                .show();
     }
 
     @Override
@@ -102,7 +95,30 @@ public class AnalyticFragment extends Fragment
         setDateSinceInstalledElapsedTime();
         setRecyclerViewAdapter();
         onBackPress();
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
+            AnalyticFragment.savedInstanceState = savedInstanceState;
+        }
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
+            isOnItemClick = savedInstanceState.getBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getValue());
+            habitOnClick = (Habits) savedInstanceState.getSerializable(AnalyticConfigurationKeys.HABIT.getValue());
+
+            analyticItemOnClickFragment.setHabit(habitOnClick);
+            if (isOnItemClick) {
+                getChildFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(AnalyticFragment.this.getTag())
+                        .replace(binding.analyticFrameLayout.getId(), analyticItemOnClickFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_NONE)
+                        .commit();
+                binding.analysisContainer.setVisibility(View.GONE);
+            }
+        }
     }
 
     private void setDateSinceInstalledElapsedTime() {
@@ -150,6 +166,46 @@ public class AnalyticFragment extends Fragment
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d("tag", "onSaveInstanceState: " + isOnItemClick);
+        outState.putBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick);
+        outState.putSerializable(AnalyticConfigurationKeys.HABIT.getValue(), habitOnClick);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        sharedPreferences.edit()
+                .putBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick)
+                .putString(AnalyticConfigurationKeys.HABIT.getValue(), new Gson().toJson(habitOnClick))
+                .apply();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        if (!sharedPreferences.getAll().isEmpty()) {
+            isOnItemClick = sharedPreferences.getBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), false);
+            habitOnClick = new Gson().fromJson(sharedPreferences.getString(AnalyticConfigurationKeys.HABIT.getValue(), null), Habits.class);
+            analyticItemOnClickFragment.setHabit(habitOnClick);
+            if (isOnItemClick) {
+                getChildFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(AnalyticFragment.this.getTag())
+                        .replace(binding.analyticFrameLayout.getId(), analyticItemOnClickFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_NONE)
+                        .commit();
+                binding.analysisContainer.setVisibility(View.GONE);
+            } else {
+                sharedPreferences.edit().clear().apply();
+            }
+        }
     }
 
     @Override
