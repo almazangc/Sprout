@@ -86,3 +86,19 @@ Glide - not used by implemented
   * [X]  Restart
 
 #### Analytics Configuration
+
+**Analtyic**
+
+* [X]  Default
+* [X]  Rotation
+* [ ]  Change Tab {Not restoring on last viewed part}
+* [X]  Restart
+
+**On Item Click**
+
+* [X]  Default
+* [ ]  Rotation {Not restoring on selected}
+* [ ]  Change Tab {Not restoring what is selected}
+* [ ]  Restart
+
+#### Journal Configuration

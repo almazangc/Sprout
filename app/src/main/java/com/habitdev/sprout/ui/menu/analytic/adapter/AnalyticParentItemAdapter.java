@@ -113,20 +113,18 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
             holder.pieChart.setVisibility(View.VISIBLE);
 
             ArrayList<PieEntry> pieEntries = new ArrayList<>();
+            ArrayList<Integer> colors = new ArrayList<>();
             if (completed_subroutine > 0){
                 pieEntries.add(new PieEntry(completed_subroutine, "Completed: " + completed_subroutine));
+                colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.BRIGHT_SKY_BLUE));
             }
             if (skip_subroutine > 0){
                 pieEntries.add(new PieEntry(skip_subroutine, "Skips: " + skip_subroutine));
+                colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.ALIZARIN));
             }
 
             PieDataSet pieDataSet = new PieDataSet(pieEntries, "Total: " + total_subroutine);
             pieDataSet.setSliceSpace(5f);
-
-            ArrayList<Integer> colors = new ArrayList<>();
-            colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.BRIGHT_SKY_BLUE));
-            colors.add(ContextCompat.getColor(holder.itemView.getContext(), R.color.ALIZARIN));
-
             pieDataSet.setColors(colors);
 
             PieData pieData = new PieData(pieDataSet);

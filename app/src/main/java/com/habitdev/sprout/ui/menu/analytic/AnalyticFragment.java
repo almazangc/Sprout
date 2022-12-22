@@ -34,18 +34,16 @@ import java.util.TimerTask;
 public class AnalyticFragment extends Fragment
         implements
         AnalyticParentItemAdapter.onItemClick,
-        AnalyticItemOnClickFragment.OnclickListener{
+        AnalyticItemOnClickFragment.OnclickListener {
 
     private FragmentAnalyticBinding binding;
     private static UserViewModel userViewModel;
     private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
-    private static List<Habits> habitsList;
+    private static List<Habits> habitsList = new ArrayList<>();
     private static final AnalyticParentItemAdapter analyticParentItemAdapter = new AnalyticParentItemAdapter();
     private static final AnalyticItemOnClickFragment analyticItemOnClickFragment = new AnalyticItemOnClickFragment();
 
     public AnalyticFragment() {
-        habitsList = new ArrayList<>();
-
     }
 
     @Override
@@ -76,14 +74,14 @@ public class AnalyticFragment extends Fragment
                     .remove(analyticItemOnClickFragment)
                     .setTransition(FragmentTransaction.TRANSIT_NONE)
                     .commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         binding.analysisContainer.setVisibility(View.VISIBLE);
     }
 
-    private void show(int position){
-        Snackbar.make(binding.getRoot(), habitsList.get(position).getHabit() , Snackbar.LENGTH_INDEFINITE)
+    private void show(int position) {
+        Snackbar.make(binding.getRoot(), habitsList.get(position).getHabit(), Snackbar.LENGTH_INDEFINITE)
                 .setAction("Dismiss", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -134,16 +132,14 @@ public class AnalyticFragment extends Fragment
     }
 
     private void setRecyclerViewAdapter() {
-        habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
-        analyticParentItemAdapter.setOldHabitsList(habitsList);
-        analyticParentItemAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
-        analyticParentItemAdapter.setmOnItemClick(this);
-        binding.analyticHabitOnReformRecyclerView.setAdapter(analyticParentItemAdapter);
-        setRecyclerViewAdapterObserver();
-    }
-
-    private void setRecyclerViewAdapterObserver() {
-        habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), analyticParentItemAdapter::setNewHabitList);
+        if (binding.analyticHabitOnReformRecyclerView.getAdapter() == null) {
+            habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
+            analyticParentItemAdapter.setOldHabitsList(habitsList);
+            analyticParentItemAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+            analyticParentItemAdapter.setmOnItemClick(this);
+            binding.analyticHabitOnReformRecyclerView.setAdapter(analyticParentItemAdapter);
+            habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), analyticParentItemAdapter::setNewHabitList);
+        }
     }
 
     private void onBackPress() {

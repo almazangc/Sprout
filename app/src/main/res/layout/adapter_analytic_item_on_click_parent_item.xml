@@ -10,8 +10,7 @@
         android:id="@+id/adapter_analytic_item_on_click_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_margin="5dp"
         android:padding="16dp"
         android:background="@drawable/background_child_item_view_cloud">
 
