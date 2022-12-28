@@ -281,9 +281,9 @@ public class Main extends AppCompatActivity {
                 notificationChannel.setDescription(
                         dateTimeElapsedUtil.getElapsed_day() == TimeMilestone.DAILY.getDays() ?
                                 "Updates Daily Reset" :
-                                dateTimeElapsedUtil.getElapsed_day() + " days has passed, welcome back."
+                                dateTimeElapsedUtil.getElapsed_day() + " days has passed since then"
                 );
-                
+
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 notificationManager.createNotificationChannel(notificationChannel);
 
@@ -291,7 +291,7 @@ public class Main extends AppCompatActivity {
 
                 Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
                         .setSmallIcon(R.drawable.ic_smile)
-                        .setContentText("Another day has passed, continue on your journey")
+                        .setContentText("Welcome back")
                         .setSubText(msg_greet[rand] + (new Random().nextBoolean() ? username : null))
                         .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)

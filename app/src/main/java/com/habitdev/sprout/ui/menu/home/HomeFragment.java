@@ -3,7 +3,9 @@ package com.habitdev.sprout.ui.menu.home;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.base.Stopwatch;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
@@ -33,6 +36,8 @@ import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeFragment extends Fragment
         implements
@@ -58,7 +63,8 @@ public class HomeFragment extends Fragment
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private List<Habits> habitsList = null;
 
-    public HomeFragment() {}
+    public HomeFragment() {
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -265,10 +271,31 @@ public class HomeFragment extends Fragment
     }
 
     private void onBackPress() {
+        final int[] keypress_count = {0};
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                requireActivity().moveTaskToBack(true);
+
+                keypress_count[0]++;
+
+                //toast msg double backpress to close app not minimize
+
+                new CountDownTimer(200, 200) {
+                    @Override
+                    public void onTick(long l) {}
+
+                    @Override
+                    public void onFinish() {
+                        if (keypress_count[0] > 1) {
+                            requireActivity().finishAndRemoveTask();
+                        } else {
+                            requireActivity().moveTaskToBack(true);
+                            keypress_count[0] = 0;
+                        }
+                        this.cancel();
+                    }
+                }.start();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
@@ -327,7 +354,7 @@ public class HomeFragment extends Fragment
         addDefaultHabitFragment = new AddDefaultHabitFragment();
         addDefaultHabitFragment.setmOnAddDefaultReturnHome(this);
 
-        if (savedInstanceState != null ) {
+        if (savedInstanceState != null) {
             savedInstanceState.putBoolean(HomeConfigurationKeys.IS_ON_ADD_DEFAULT.getValue(), false);
         }
 

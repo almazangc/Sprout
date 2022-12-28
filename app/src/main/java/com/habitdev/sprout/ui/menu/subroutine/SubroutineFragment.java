@@ -3,6 +3,7 @@ package com.habitdev.sprout.ui.menu.subroutine;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -178,18 +179,34 @@ public class SubroutineFragment extends Fragment
      * Handle on BackPress
      */
     private void onBackPress() {
+        final int[] keypress_count = {0};
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                requireActivity().moveTaskToBack(true);
+
+                keypress_count[0]++;
+
+                //toast msg double backpress to close app not minimize
+
+                new CountDownTimer(200, 200) {
+                    @Override
+                    public void onTick(long l) {}
+
+                    @Override
+                    public void onFinish() {
+                        if (keypress_count[0] > 1) {
+                            requireActivity().finishAndRemoveTask();
+                        } else {
+                            requireActivity().moveTaskToBack(true);
+                            keypress_count[0] = 0;
+                        }
+                        this.cancel();
+                    }
+                }.start();
             }
         };
-        requireActivity()
-                .getOnBackPressedDispatcher()
-                .addCallback(
-                        getViewLifecycleOwner(),
-                        callback
-                );
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
     }
 
     @Override

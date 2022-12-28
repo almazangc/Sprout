@@ -3,6 +3,7 @@ package com.habitdev.sprout.ui.menu.analytic;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -159,10 +160,31 @@ public class AnalyticFragment extends Fragment
     }
 
     private void onBackPress() {
+        final int[] keypress_count = {0};
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                requireActivity().moveTaskToBack(true);
+
+                keypress_count[0]++;
+
+                //toast msg double backpress to close app not minimize
+
+                new CountDownTimer(200, 200) {
+                    @Override
+                    public void onTick(long l) {}
+
+                    @Override
+                    public void onFinish() {
+                        if (keypress_count[0] > 1) {
+                            requireActivity().finishAndRemoveTask();
+                        } else {
+                            requireActivity().moveTaskToBack(true);
+                            keypress_count[0] = 0;
+                        }
+                        this.cancel();
+                    }
+                }.start();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

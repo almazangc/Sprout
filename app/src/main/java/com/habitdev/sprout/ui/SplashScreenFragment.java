@@ -129,7 +129,6 @@ public class SplashScreenFragment extends Fragment {
                         if (binding != null) binding.qouteLbl.setText(content);
                     });
                 }
-
                 public void onFinish() {
                     this.cancel();
                 }
