@@ -124,7 +124,7 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
 
     private void onBackPress() {
         final int[] keypress_count = {0};
-        
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.common.base.Stopwatch;
+
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
@@ -36,8 +35,6 @@ import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class HomeFragment extends Fragment
         implements
@@ -283,7 +280,8 @@ public class HomeFragment extends Fragment
 
                 new CountDownTimer(200, 200) {
                     @Override
-                    public void onTick(long l) {}
+                    public void onTick(long l) {
+                    }
 
                     @Override
                     public void onFinish() {
