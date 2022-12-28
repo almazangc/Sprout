@@ -21,6 +21,7 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
+import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
@@ -33,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * <p><b>Sprout:  HABIT BUSTER REFORM WITH BITE-SIZE SUBROUTINES</b></p>
@@ -55,6 +57,7 @@ import java.util.Locale;
  * <p><b>Target SDK:</b> 32 Android 12L Snowcone</p>
  * <p>Status: 72% Complete</p>
  * <br>
+ *
  * @author Almazan, Gilbert C.
  * @version 1.0
  * @since 07-27-2022
@@ -208,6 +211,8 @@ public class Main extends AppCompatActivity {
                 final HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(this).get(HabitWithSubroutinesViewModel.class);
                 final List<Habits> habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
 
+                long days = dateTimeElapsedUtil.getElapsed_day();
+
                 for (Habits habit : habitsList) {
                     final List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
                     for (Subroutines subroutine : subroutinesList) {
@@ -224,6 +229,48 @@ public class Main extends AppCompatActivity {
                         habitWithSubroutinesViewModel.updateSubroutine(subroutine);
                     }
                 }
+                days -= 1;
+
+                if (days > 0) {
+                    for (long i = 0; i <= days; days--) {
+                        for (Habits habit : habitsList) {
+                            final List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+                            for (Subroutines subroutine : subroutinesList) {
+                                    subroutine.setMax_streak(0);
+                                    subroutine.setTotal_skips(subroutine.getTotal_skips() + 1);
+                                habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                            }
+                        }
+                    }
+                }
+
+                UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+                String username = userViewModel.getUserByUID(0).getNickname();
+
+                //source:: https://thoughtcatalog.com/january-nelson/2020/11/have-a-great-day/
+                String[] msg_greet =
+                        {
+                                "Today is a new day.",
+                                "Life is beautiful right?",
+                                "Today is the perfect day for another progress.",
+                                "Don’t forget to show gratitude today.",
+                                "Today is going to be a lovely day.",
+                                "Stay positive.",
+                                "Dont let bad memories get you.",
+                                "I hope you have a blessed day.",
+                                "Life is blissful",
+                                "Take a break once in a while",
+                                "Have a good day and face life with courage!",
+                                "There are so many ways to make today special!",
+                                "It’s time to face the day with a smile on your face and hope in your heart.",
+                                "A bright new day is here.",
+                                "Stop worrying about tomorrow.",
+                                "Focus on your blessings today.",
+                                "Every single day is like a blank canvas. You can paint it however you wish.",
+                                "Today is whatever you make it. You get to decide whether it’s a good day or a bad day."
+                        };
+
+                int rand = new Random(msg_greet.length - 1).nextInt();
 
                 NotificationChannel notificationChannel = new NotificationChannel(
                         MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value,
@@ -231,16 +278,16 @@ public class Main extends AppCompatActivity {
                         NotificationManager.IMPORTANCE_HIGH
                 );
 
-                notificationChannel.setDescription("Updates Daily Reset");
+                notificationChannel.setDescription(dateTimeElapsedUtil.getElapsed_day() == TimeMilestone.DAILY.getDays() ? "Updates Daily Reset" : dateTimeElapsedUtil.getElapsed_day() + " days has passed, welcome back.");
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 notificationManager.createNotificationChannel(notificationChannel);
 
                 NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(Main.this);
 
                 Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
-                        .setSmallIcon(R.drawable.ic_no_network)
+                        .setSmallIcon(R.drawable.ic_smile)
                         .setContentText("Another day has passed, continue on your journey")
-                        .setSubText("Good Day, another {user}")
+                        .setSubText(msg_greet[rand] + (new Random().nextBoolean() ? username : null))
                         .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                         .setPriority(NotificationManager.IMPORTANCE_DEFAULT)

@@ -16,6 +16,7 @@
 * [ ]  FIX APP CONFIGURATION CHANGES PROBLEM
 * [ ]  APPLICATION FOR MUTIPLE SCREEN SIZE LAYOUT, HDPI, DPI, MDPI, XHDPI, XXHDPI
 * [X]  Custom Fragment Dialog
+* [ ]  Do the logic for keeping track of skip if the app is not open for over 1 day
 
 ## DEPENDENCIES
 
@@ -74,11 +75,11 @@ Glide - not used by implemented
 * [X]  Rotation
 * [X]  Change Tab
 * [X]  Restart
-* [ ]  Dialog Defualt {No Cloud Check, Red Was Current Selected Color} is not on new instance of diag is dislayed
+* [X]  Dialog Defualt {No Cloud Check, Red Was Current Selected Color} is not on new instance of diag is dislayed
 
 #### Subroutine Configuration
 
-* [ ]  Subroutine animation (keep track of expanded child adapter and not expanded)
+* [X]  Subroutine animation (keep track of expanded child adapter and not expanded)
 * [X]  Subroutine Modfiy
   * [X]  Default
   * [X]  Rotation
@@ -102,7 +103,6 @@ Glide - not used by implemented
 * [X]  Restart
 
 #### Journal Configuration
-
 
 
 #### Habit display check if still on reform before restoring at on pause and resume state for change tab
