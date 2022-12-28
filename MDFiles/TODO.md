@@ -16,7 +16,8 @@
 * [ ]  FIX APP CONFIGURATION CHANGES PROBLEM
 * [ ]  APPLICATION FOR MUTIPLE SCREEN SIZE LAYOUT, HDPI, DPI, MDPI, XHDPI, XXHDPI
 * [X]  Custom Fragment Dialog
-* [ ]  Do the logic for keeping track of skip if the app is not open for over 1 day
+* [X]  Do the logic for keeping track of skip if the app is not open for over 1 day
+* [ ]  Check job scheduler or foregound service android
 
 ## DEPENDENCIES
 

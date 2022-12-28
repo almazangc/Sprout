@@ -278,7 +278,12 @@ public class Main extends AppCompatActivity {
                         NotificationManager.IMPORTANCE_HIGH
                 );
 
-                notificationChannel.setDescription(dateTimeElapsedUtil.getElapsed_day() == TimeMilestone.DAILY.getDays() ? "Updates Daily Reset" : dateTimeElapsedUtil.getElapsed_day() + " days has passed, welcome back.");
+                notificationChannel.setDescription(
+                        dateTimeElapsedUtil.getElapsed_day() == TimeMilestone.DAILY.getDays() ?
+                                "Updates Daily Reset" :
+                                dateTimeElapsedUtil.getElapsed_day() + " days has passed, welcome back."
+                );
+                
                 NotificationManager notificationManager = getSystemService(NotificationManager.class);
                 notificationManager.createNotificationChannel(notificationChannel);
 
