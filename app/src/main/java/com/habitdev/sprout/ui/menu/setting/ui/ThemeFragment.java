@@ -55,17 +55,17 @@ public class ThemeFragment extends Fragment {
                     ((RadioButton) binding.themeRadioGroup.getChildAt(0)).setChecked(true);
                     break;
             }
+        } else {
+            ((RadioButton) binding.themeRadioGroup.getChildAt(0)).setChecked(true);
         }
 
         binding.setSelectedThemeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String selectedTheme = ((RadioButton)
                         (binding.getRoot().findViewById(binding.themeRadioGroup.getCheckedRadioButtonId())))
                         .getText()
                         .toString();
-
                 switch (selectedTheme) {
                     case "As in the system":
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
