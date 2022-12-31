@@ -3,7 +3,6 @@ package com.habitdev.sprout.ui.menu.subroutine.ui;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,10 +75,10 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
-            habit = (Habits) savedInstanceState.getSerializable(SubroutineConfigurationKeys.HABIT.getValue());
-            isOnUpdateSubroutine = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_UPDATE.getValue());
-            isOnInsertSubroutine = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_INSERT.getValue());
-            item_position  = savedInstanceState.getInt(SubroutineConfigurationKeys.ITEM_POSITION.getValue());
+            habit = (Habits) savedInstanceState.getSerializable(SubroutineConfigurationKeys.HABIT.getKey());
+            isOnUpdateSubroutine = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_UPDATE.getKey());
+            isOnInsertSubroutine = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_INSERT.getKey());
+            item_position  = savedInstanceState.getInt(SubroutineConfigurationKeys.ITEM_POSITION.getKey());
         }
 
         setViewContent();
@@ -248,10 +247,10 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(SubroutineConfigurationKeys.HABIT.getValue(), habit);
-        outState.putBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_UPDATE.getValue(), isOnUpdateSubroutine);
-        outState.putInt(SubroutineConfigurationKeys.ITEM_POSITION.getValue(), item_position);
-        outState.putBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_INSERT.getValue(), isOnInsertSubroutine);
+        outState.putSerializable(SubroutineConfigurationKeys.HABIT.getKey(), habit);
+        outState.putBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_UPDATE.getKey(), isOnUpdateSubroutine);
+        outState.putInt(SubroutineConfigurationKeys.ITEM_POSITION.getKey(), item_position);
+        outState.putBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_INSERT.getKey(), isOnInsertSubroutine);
     }
 
     @Override

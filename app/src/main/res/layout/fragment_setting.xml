@@ -44,26 +44,44 @@
                 android:layout_marginEnd="12dp"
                 android:isScrollContainer="true">
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottie_avatar"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/setting_img_card_view"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:minWidth="50dp"
-                    android:minHeight="50dp"
-                    app:lottie_autoPlay="true"
-                    app:lottie_fileName="profile-avatar-setting.json"
-                    app:lottie_loop="true"
-                    app:lottie_speed="1" />
+                    android:layout_marginTop="20dp"
+                    android:elevation="12dp"
+                    app:cardCornerRadius="100dp">
+
+                    <ImageView
+                        android:id="@+id/setting_img_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"/>
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/setting_lottie_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:minWidth="50dp"
+                        android:minHeight="50dp"
+                        app:lottie_autoPlay="true"
+                        android:layout_gravity="center"
+                        app:lottie_fileName="profile-avatar-setting.json"
+                        app:lottie_loop="true"
+                        app:lottie_speed="1" />
+                </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/nickname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/lottie_avatar"
+                    android:layout_below="@+id/setting_img_card_view"
                     android:layout_centerHorizontal="true"
+                    android:paddingTop="10dp"
                     android:text="Nickname"
                     android:textColor="@color/NIGHT"
                     android:textSize="18sp"

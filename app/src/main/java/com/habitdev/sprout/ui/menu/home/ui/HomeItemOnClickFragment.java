@@ -74,7 +74,7 @@ public class HomeItemOnClickFragment extends Fragment {
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
 
         if (savedInstanceState != null) {
-            habit = (Habits) savedInstanceState.getSerializable(HomeConfigurationKeys.HABIT.getValue());
+            habit = (Habits) savedInstanceState.getSerializable(HomeConfigurationKeys.HABIT.getKey());
         }
 
         setHabit();
@@ -309,7 +309,7 @@ public class HomeItemOnClickFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(HomeConfigurationKeys.HABIT.getValue(), habit);
+        outState.putSerializable(HomeConfigurationKeys.HABIT.getKey(), habit);
     }
 
     @Override

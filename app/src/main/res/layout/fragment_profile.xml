@@ -1,38 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/profile_frame_layout"
+    android:id="@+id/setting_profile_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.menu.setting.ui.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
-        android:id="@+id/profile_container"
+        android:id="@+id/setting_profile_top_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/img_src"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:alpha="0.5"
-            android:src="@drawable/neko_wave_4" />
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@drawable/background_topbar_view_cloud">
 
         <TextView
-            android:id="@+id/lbl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/img_src"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="-110dp"
-            android:layout_marginBottom="20dp"
-            android:text="This will serve for profile edits such as nickname, profile photo(overrides defaule avatars), or retake assessment ig"
-            android:textAlignment="center"
+            android:id="@+id/settingTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Profile"
             android:textColor="@color/NIGHT"
-            android:textSize="12dp" />
-
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </RelativeLayout>
-</FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/setting_profile_img_card_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/setting_profile_top_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:elevation="12dp"
+        app:cardCornerRadius="100dp">
+
+        <ImageView
+            android:id="@+id/setting_profile_img_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/neko_happy_1"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:minWidth="50dp"
+            android:minHeight="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_speed="1" />
+    </androidx.cardview.widget.CardView>
+
+
+
+    <Button
+        android:id="@+id/setting_change_profile_photo_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting_profile_img_card_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/background_btn_normal_selector"
+        android:drawableStart="@drawable/ic_upload"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:text="  Change Photo"
+        android:textAllCaps="false"
+        android:textColor="@color/NIGHT"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+
+    <EditText
+        android:id="@+id/setting_profile_change_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting_change_profile_photo_btn"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:hint="Edit Profile"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT"
+        android:textColorHint="@color/WAIKAWA_GREY"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/setting_profile_save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background_btn_normal_selector"
+        android:text="Save Profile"
+        android:textAllCaps="false"
+        android:textColor="@color/NIGHT"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+</RelativeLayout>

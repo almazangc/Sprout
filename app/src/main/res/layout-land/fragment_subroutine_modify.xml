@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/subroutine_modify_title"
             android:fillViewport="true"
+            android:scrollbars="none"
             android:paddingEnd="11dp"
             android:paddingTop="2dp"
             android:paddingStart="11dp">

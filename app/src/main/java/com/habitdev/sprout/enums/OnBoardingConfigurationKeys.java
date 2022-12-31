@@ -13,13 +13,13 @@ public enum OnBoardingConfigurationKeys {
     POSITION("POSITION.INT"),
     SELECTED("SELECTED.STRING");
 
-    private final String value;
+    private final String key;
 
-    OnBoardingConfigurationKeys(String value) {
-        this.value = value;
+    OnBoardingConfigurationKeys(String key) {
+        this.key = key;
     }
 
-    public String getValue() {
-        return value;
+    public String getKey() {
+        return key;
     }
 }

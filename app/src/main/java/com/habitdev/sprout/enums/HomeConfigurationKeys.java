@@ -25,13 +25,13 @@ public enum HomeConfigurationKeys {
     POSITION("POSITION.INT"),
     HINT_TEXT("HINT.STRING");
 
-    private final String value;
+    private final String key;
 
-    HomeConfigurationKeys(String value) {
-        this.value = value;
+    HomeConfigurationKeys(String key) {
+        this.key = key;
     }
 
-    public String getValue() {
-        return value;
+    public String getKey() {
+        return key;
     }
 }

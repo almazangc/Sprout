@@ -320,7 +320,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsround/sentiment_very_satisfied/round_sentiment_very_satisfied_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/upload_file/baseline_upload_file_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -331,7 +331,7 @@
                         <option name="values">
                           <map>
                             <entry key="autoMirrored" value="true" />
-                            <entry key="outputName" value="ic_smile" />
+                            <entry key="outputName" value="ic_upload" />
                             <entry key="sourceFile" value="C:\Users\User\Documents\GitHub\Sprout" />
                           </map>
                         </option>

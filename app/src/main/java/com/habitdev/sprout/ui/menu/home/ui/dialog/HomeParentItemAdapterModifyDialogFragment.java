@@ -79,17 +79,17 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
 
         if (savedInstanceState != null) {
 
-            habitOnModify = (Habits) savedInstanceState.getSerializable(HomeConfigurationKeys.HABIT.getValue());
-            position = savedInstanceState.getInt(HomeConfigurationKeys.POSITION.getValue());
+            habitOnModify = (Habits) savedInstanceState.getSerializable(HomeConfigurationKeys.HABIT.getKey());
+            position = savedInstanceState.getInt(HomeConfigurationKeys.POSITION.getKey());
 
-            sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), Context.MODE_PRIVATE);
+            sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getKey(), Context.MODE_PRIVATE);
 
-            if (sharedPreferences.contains(HomeConfigurationKeys.TITLE.getValue())
-                    && sharedPreferences.contains(HomeConfigurationKeys.DESCRIPTION.getValue())) {
+            if (sharedPreferences.contains(HomeConfigurationKeys.TITLE.getKey())
+                    && sharedPreferences.contains(HomeConfigurationKeys.DESCRIPTION.getKey())) {
 
-                habitOnModify.setHabit(sharedPreferences.getString(HomeConfigurationKeys.TITLE.getValue(), ""));
-                habitOnModify.setDescription(sharedPreferences.getString(HomeConfigurationKeys.DESCRIPTION.getValue(), ""));
-                binding.homeParentItemAdapterModifyHint.setText(sharedPreferences.getString(HomeConfigurationKeys.HINT_TEXT.getValue(), ""));
+                habitOnModify.setHabit(sharedPreferences.getString(HomeConfigurationKeys.TITLE.getKey(), ""));
+                habitOnModify.setDescription(sharedPreferences.getString(HomeConfigurationKeys.DESCRIPTION.getKey(), ""));
+                binding.homeParentItemAdapterModifyHint.setText(sharedPreferences.getString(HomeConfigurationKeys.HINT_TEXT.getKey(), ""));
             }
         }
 
@@ -199,20 +199,20 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(HomeConfigurationKeys.HABIT.getValue(), habitOnModify);
-        outState.putInt(HomeConfigurationKeys.POSITION.getValue(), position);
+        outState.putSerializable(HomeConfigurationKeys.HABIT.getKey(), habitOnModify);
+        outState.putInt(HomeConfigurationKeys.POSITION.getKey(), position);
 
-        sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getKey(), Context.MODE_PRIVATE);
         sharedPreferences
                 .edit()
-                .putString(HomeConfigurationKeys.TITLE.getValue(), binding.homeParentItemAdapterModifyTitle.getText().toString().trim())
-                .putString(HomeConfigurationKeys.DESCRIPTION.getValue(), binding.homeParentItemAdapterModifyDescription.getText().toString().trim())
-                .putString(HomeConfigurationKeys.HINT_TEXT.getValue(), binding.homeParentItemAdapterModifyHint.getText().toString().trim())
+                .putString(HomeConfigurationKeys.TITLE.getKey(), binding.homeParentItemAdapterModifyTitle.getText().toString().trim())
+                .putString(HomeConfigurationKeys.DESCRIPTION.getKey(), binding.homeParentItemAdapterModifyDescription.getText().toString().trim())
+                .putString(HomeConfigurationKeys.HINT_TEXT.getKey(), binding.homeParentItemAdapterModifyHint.getText().toString().trim())
                 .apply();
     }
 
     private void clearSharedPref() {
-        sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), Context.MODE_PRIVATE);
+        sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getKey(), Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().apply();
     }
 

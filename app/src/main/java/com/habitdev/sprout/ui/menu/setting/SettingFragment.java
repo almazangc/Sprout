@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.database.user.UserViewModel;
+import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentSettingBinding;
 import com.habitdev.sprout.ui.menu.setting.ui.AboutUsFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.LearnMoreFragment;
@@ -21,6 +22,10 @@ import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.TechStackInfoFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.TerminalFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ThemeFragment;
+
+import java.util.Arrays;
+import java.util.Random;
+import java.util.stream.Stream;
 
 /**
  *
@@ -66,6 +71,50 @@ public class SettingFragment extends Fragment implements
         userViewModel.getUserNickname().observe(getViewLifecycleOwner(), nickname -> {
             binding.nickname.setText(nickname);
         });
+
+        User user = userViewModel.getUserByUID(1);
+
+        final String[] default_male_profiles = {
+                "default_user_profile_male-avatar.json",
+                "default_user_profile_male-avatar-v1.json",
+                "default_user_profile_male-avatar-v2.json",
+                "default_user_profile_male-avatar-v3.json",
+                "default_user_profile_male-avatar-v4.json"
+        };
+
+        final String[] default_female_profiles = {
+                "default_user_profile_female-avatar.json",
+                "default_user_profile_female-avatar-v1.json",
+                "default_user_profile_female-avatar-v2.json",
+                "default_user_profile_female-avatar-v3.json",
+                "default_user_profile_female-avatar-v4.json",
+                "default_user_profile_female-avatar-v5.json"
+        };
+
+        final String[] default_non_binary_profiles = Stream.concat(Arrays.stream(default_male_profiles), Arrays.stream(default_female_profiles)).toArray(String[]::new);
+
+        String identity = user.getIdentity();
+
+        if (true) {
+            binding.settingLottieAvatar.setVisibility(View.VISIBLE);
+            binding.settingImgView.setVisibility(View.GONE);
+            switch (identity != null ? identity: "Default") {
+                case "Male":
+                    binding.settingLottieAvatar.setAnimation(default_male_profiles[new Random().nextInt(default_male_profiles.length)]);
+                    break;
+                case "Female":
+                    binding.settingLottieAvatar.setAnimation(default_female_profiles[new Random().nextInt(default_female_profiles.length)]);
+                    break;
+                default:
+                    binding.settingLottieAvatar.setAnimation(default_non_binary_profiles[new Random().nextInt(default_non_binary_profiles.length)]);
+                    break;
+            }
+        } else {
+            binding.settingImgView.setVisibility(View.VISIBLE);
+            binding.settingLottieAvatar.setVisibility(View.GONE);
+            //check if lottie is modifed
+
+        }
 
         binding.editProfile.setOnClickListener(view -> {
             changeFragment(profileFragment);
@@ -159,7 +208,8 @@ public class SettingFragment extends Fragment implements
 
                 new CountDownTimer(200, 200) {
                     @Override
-                    public void onTick(long l) {}
+                    public void onTick(long l) {
+                    }
 
                     @Override
                     public void onFinish() {

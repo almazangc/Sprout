@@ -32,6 +32,7 @@
             android:fillViewport="true"
             android:paddingEnd="11dp"
             android:paddingTop="2dp"
+            android:scrollbars="none"
             android:paddingStart="11dp">
 
             <RelativeLayout

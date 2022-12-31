@@ -34,7 +34,7 @@ public class User {
      * User App Streak Count
      */
     @ColumnInfo(name = "streakCount")
-    private int streakCount;
+    private int streakCount; //unused right now, can be updated for keeping track of how many straight days the app was used.
 
     /**
      * User Wake Time Hour
@@ -162,6 +162,10 @@ public class User {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getIdentity() {

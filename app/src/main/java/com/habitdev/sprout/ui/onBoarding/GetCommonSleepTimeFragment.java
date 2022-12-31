@@ -34,8 +34,8 @@ public class GetCommonSleepTimeFragment extends Fragment {
         timePicker = binding.SleepTimePicker.getRoot();
 
 
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.SLEEP_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(OnBoardingConfigurationKeys.HOUR.getValue()) || sharedPreferences.contains(OnBoardingConfigurationKeys.MINUTE.getValue())) {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.SLEEP_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
+        if (sharedPreferences.contains(OnBoardingConfigurationKeys.HOUR.getKey()) || sharedPreferences.contains(OnBoardingConfigurationKeys.MINUTE.getKey())) {
             updateFromSharedPref();
         } else {
             if (savedInstanceState == null) {
@@ -87,10 +87,10 @@ public class GetCommonSleepTimeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.SLEEP_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.SLEEP_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
         sharedPreferences.edit()
-                .putInt(OnBoardingConfigurationKeys.HOUR.getValue(), hour)
-                .putInt(OnBoardingConfigurationKeys.MINUTE.getValue(), minute)
+                .putInt(OnBoardingConfigurationKeys.HOUR.getKey(), hour)
+                .putInt(OnBoardingConfigurationKeys.MINUTE.getKey(), minute)
                 .apply();
     }
 
@@ -101,9 +101,9 @@ public class GetCommonSleepTimeFragment extends Fragment {
     }
 
     private void updateFromSharedPref() {
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.SLEEP_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
-        setHour(sharedPreferences.getInt(OnBoardingConfigurationKeys.HOUR.getValue(), InitialTime.SLEEP_HOUR.getValue()));
-        setMinute(sharedPreferences.getInt(OnBoardingConfigurationKeys.MINUTE.getValue(), InitialTime.SLEEP_MINUTE.getValue()));
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.SLEEP_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
+        setHour(sharedPreferences.getInt(OnBoardingConfigurationKeys.HOUR.getKey(), InitialTime.SLEEP_HOUR.getValue()));
+        setMinute(sharedPreferences.getInt(OnBoardingConfigurationKeys.MINUTE.getKey(), InitialTime.SLEEP_MINUTE.getValue()));
         timePicker.setHour(hour);
         timePicker.setMinute(minute);
     }

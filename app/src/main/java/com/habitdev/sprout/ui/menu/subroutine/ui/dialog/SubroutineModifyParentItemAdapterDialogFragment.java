@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,15 +82,15 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     public void onStart() {
         super.onStart();
 
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SubroutineConfigurationKeys.SUBROUTINE_MODIFY_DIALOG_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SubroutineConfigurationKeys.SUBROUTINE_MODIFY_DIALOG_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
 
         if (!sharedPreferences.getAll().isEmpty()) {
-            current_selected_color = sharedPreferences.getInt(SubroutineConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
-            old_selected_color = sharedPreferences.getInt(SubroutineConfigurationKeys.OLD_SELECTED_COLOR.getValue(), -1);
+            current_selected_color = sharedPreferences.getInt(SubroutineConfigurationKeys.CURRENT_SELECTED_COLOR.getKey(), 0);
+            old_selected_color = sharedPreferences.getInt(SubroutineConfigurationKeys.OLD_SELECTED_COLOR.getKey(), -1);
             setContentView(
-                    sharedPreferences.getString(SubroutineConfigurationKeys.TITLE.getValue(), null),
-                    sharedPreferences.getString(SubroutineConfigurationKeys.DESCRIPTION.getValue(), null),
-                    sharedPreferences.getString(SubroutineConfigurationKeys.HINT_TEXT.getValue(), null)
+                    sharedPreferences.getString(SubroutineConfigurationKeys.TITLE.getKey(), null),
+                    sharedPreferences.getString(SubroutineConfigurationKeys.DESCRIPTION.getKey(), null),
+                    sharedPreferences.getString(SubroutineConfigurationKeys.HINT_TEXT.getKey(), null)
                     ,true
             );
 
@@ -345,14 +344,14 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SubroutineConfigurationKeys.SUBROUTINE_MODIFY_DIALOG_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(SubroutineConfigurationKeys.SUBROUTINE_MODIFY_DIALOG_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
         if (!isOnDismissDialog) {
             sharedPreferences.edit()
-                    .putString(SubroutineConfigurationKeys.TITLE.getValue(), binding.dialogSubroutineModifyTitle.getText().toString())
-                    .putString(SubroutineConfigurationKeys.DESCRIPTION.getValue(), binding.dialogSubroutineModifyDescription.getText().toString())
-                    .putInt(SubroutineConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color)
-                    .putInt(SubroutineConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
-                    .putString(SubroutineConfigurationKeys.HINT_TEXT.getValue(), binding.dialogSubroutineModifyHint.getText().toString())
+                    .putString(SubroutineConfigurationKeys.TITLE.getKey(), binding.dialogSubroutineModifyTitle.getText().toString())
+                    .putString(SubroutineConfigurationKeys.DESCRIPTION.getKey(), binding.dialogSubroutineModifyDescription.getText().toString())
+                    .putInt(SubroutineConfigurationKeys.CURRENT_SELECTED_COLOR.getKey(), current_selected_color)
+                    .putInt(SubroutineConfigurationKeys.OLD_SELECTED_COLOR.getKey(), old_selected_color)
+                    .putString(SubroutineConfigurationKeys.HINT_TEXT.getKey(), binding.dialogSubroutineModifyHint.getText().toString())
                     .apply();
         } else {
             isOnDismissDialog = false;

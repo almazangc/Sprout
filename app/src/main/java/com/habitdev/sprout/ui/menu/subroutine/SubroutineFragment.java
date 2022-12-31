@@ -49,10 +49,10 @@ public class SubroutineFragment extends Fragment
         binding = FragmentSubroutineBinding.inflate(inflater, container, false);
 
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
-            isOnSubroutineModify = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_MODIFY.getValue());
+            isOnSubroutineModify = savedInstanceState.getBoolean(SubroutineConfigurationKeys.IS_ON_SUBROUTINE_MODIFY.getKey());
         }
 
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SubroutineConfigurationKeys.SUBROUTINE_ADAPTER_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SubroutineConfigurationKeys.SUBROUTINE_ADAPTER_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
         if (!sharedPreferences.getAll().isEmpty()) {
             setArrayList();
         }
@@ -213,7 +213,7 @@ public class SubroutineFragment extends Fragment
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(
-                SubroutineConfigurationKeys.IS_ON_SUBROUTINE_MODIFY.getValue(),
+                SubroutineConfigurationKeys.IS_ON_SUBROUTINE_MODIFY.getKey(),
                 isOnSubroutineModify
         );
     }
@@ -222,12 +222,12 @@ public class SubroutineFragment extends Fragment
     public void onPause() {
         super.onPause();
         requireActivity().getSharedPreferences(
-                        SubroutineConfigurationKeys.SUBROUTINE_ADAPTER_SHAREDPREF.getValue(),
+                        SubroutineConfigurationKeys.SUBROUTINE_ADAPTER_SHAREDPREF.getKey(),
                         Context.MODE_PRIVATE
                 )
                 .edit()
                 .putString(
-                        SubroutineConfigurationKeys.ITEM_POSITION_GSON.getValue(),
+                        SubroutineConfigurationKeys.ITEM_POSITION_GSON.getKey(),
                         new Gson().toJson(arrayList)
                 )
                 .apply();
@@ -244,11 +244,11 @@ public class SubroutineFragment extends Fragment
                 .fromJson(
                         requireActivity()
                                 .getSharedPreferences(
-                                        SubroutineConfigurationKeys.SUBROUTINE_ADAPTER_SHAREDPREF.getValue(),
+                                        SubroutineConfigurationKeys.SUBROUTINE_ADAPTER_SHAREDPREF.getKey(),
                                         Context.MODE_PRIVATE
                                 )
                                 .getString(
-                                        SubroutineConfigurationKeys.ITEM_POSITION_GSON.getValue(),
+                                        SubroutineConfigurationKeys.ITEM_POSITION_GSON.getKey(),
                                         null
                                 ), new TypeToken<ArrayList<Integer>>() {
                         }.getType()

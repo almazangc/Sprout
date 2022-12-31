@@ -78,8 +78,8 @@ public class GetStartedFragment extends Fragment {
     }
 
     private void clearWakeAndSleepSharedPref(){
-        requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.WAKEUP_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
-        requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.SLEEP_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
+        requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.WAKEUP_SHAREDPREF.getKey(), Context.MODE_PRIVATE).edit().clear().apply();
+        requireActivity().getSharedPreferences(OnBoardingConfigurationKeys.SLEEP_SHAREDPREF.getKey(), Context.MODE_PRIVATE).edit().clear().apply();
     }
 
     @Override

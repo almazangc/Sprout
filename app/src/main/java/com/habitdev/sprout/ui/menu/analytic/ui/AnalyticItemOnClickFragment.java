@@ -56,7 +56,7 @@ public class AnalyticItemOnClickFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAnalyticItemOnClickBinding.inflate(inflater, container, false);
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
-            habit = (Habits) savedInstanceState.getSerializable(AnalyticConfigurationKeys.HABIT.getValue());
+            habit = (Habits) savedInstanceState.getSerializable(AnalyticConfigurationKeys.HABIT.getKey());
         }
         binding.analyticItemOnClickHabitTitle.setText(habit.getHabit());
         setRecyclerViewAdapter();
@@ -95,7 +95,7 @@ public class AnalyticItemOnClickFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable(AnalyticConfigurationKeys.HABIT.getValue(), habit);
+        outState.putSerializable(AnalyticConfigurationKeys.HABIT.getKey(), habit);
     }
 
     @Override

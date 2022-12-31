@@ -21,7 +21,6 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
-import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
@@ -244,9 +243,6 @@ public class Main extends AppCompatActivity {
                     }
                 }
 
-                UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-                String username = userViewModel.getUserByUID(0).getNickname();
-
                 //source:: https://thoughtcatalog.com/january-nelson/2020/11/have-a-great-day/
                 String[] msg_greet =
                         {
@@ -292,7 +288,7 @@ public class Main extends AppCompatActivity {
                 Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
                         .setSmallIcon(R.drawable.ic_smile)
                         .setContentText("Welcome back")
-                        .setSubText(msg_greet[rand] + (new Random().nextBoolean() ? username : null))
+                        .setSubText(msg_greet[rand])
                         .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                         .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
@@ -317,11 +313,11 @@ public class Main extends AppCompatActivity {
      * <p>By Clearing Stored Shared, Restore App on Default State on Restart</p>
      */
     private void clearSharedPref() {
-        getSharedPreferences(HomeConfigurationKeys.HOME_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
-        getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), MODE_PRIVATE).edit().clear().apply();
-        getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
-        getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getValue(), MODE_PRIVATE).edit().clear().apply();
-        getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(HomeConfigurationKeys.HOME_SHAREDPREF.getKey(), Context.MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getKey(), MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getKey(), Context.MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(HomeConfigurationKeys.HOME_HABIT_ON_MODIFY_SHARED_PREF.getKey(), MODE_PRIVATE).edit().clear().apply();
+        getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getKey(), Context.MODE_PRIVATE).edit().clear().apply();
     }
 
     @Override

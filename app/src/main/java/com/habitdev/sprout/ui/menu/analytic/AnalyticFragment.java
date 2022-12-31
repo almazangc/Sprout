@@ -84,7 +84,7 @@ public class AnalyticFragment extends Fragment
         }
         isOnItemClick = false;
         savedInstanceState = null;
-        requireActivity().getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getValue(), Context.MODE_PRIVATE).edit().clear().apply();
+        requireActivity().getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getKey(), Context.MODE_PRIVATE).edit().clear().apply();
         binding.analysisContainer.setVisibility(View.VISIBLE);
     }
 
@@ -106,8 +106,8 @@ public class AnalyticFragment extends Fragment
     public void onStart() {
         super.onStart();
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
-            isOnItemClick = savedInstanceState.getBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getValue());
-            habitOnClick = (Habits) savedInstanceState.getSerializable(AnalyticConfigurationKeys.HABIT.getValue());
+            isOnItemClick = savedInstanceState.getBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getKey());
+            habitOnClick = (Habits) savedInstanceState.getSerializable(AnalyticConfigurationKeys.HABIT.getKey());
 
             analyticItemOnClickFragment.setHabit(habitOnClick);
             if (isOnItemClick) {
@@ -194,27 +194,27 @@ public class AnalyticFragment extends Fragment
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.d("tag", "onSaveInstanceState: " + isOnItemClick);
-        outState.putBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick);
-        outState.putSerializable(AnalyticConfigurationKeys.HABIT.getValue(), habitOnClick);
+        outState.putBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getKey(), isOnItemClick);
+        outState.putSerializable(AnalyticConfigurationKeys.HABIT.getKey(), habitOnClick);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
         sharedPreferences.edit()
-                .putBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), isOnItemClick)
-                .putString(AnalyticConfigurationKeys.HABIT.getValue(), new Gson().toJson(habitOnClick))
+                .putBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getKey(), isOnItemClick)
+                .putString(AnalyticConfigurationKeys.HABIT.getKey(), new Gson().toJson(habitOnClick))
                 .apply();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(AnalyticConfigurationKeys.ANALYTIC_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
         if (!sharedPreferences.getAll().isEmpty()) {
-            isOnItemClick = sharedPreferences.getBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getValue(), false);
-            habitOnClick = new Gson().fromJson(sharedPreferences.getString(AnalyticConfigurationKeys.HABIT.getValue(), null), Habits.class);
+            isOnItemClick = sharedPreferences.getBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getKey(), false);
+            habitOnClick = new Gson().fromJson(sharedPreferences.getString(AnalyticConfigurationKeys.HABIT.getKey(), null), Habits.class);
             analyticItemOnClickFragment.setHabit(habitOnClick);
             if (isOnItemClick) {
                 getChildFragmentManager()

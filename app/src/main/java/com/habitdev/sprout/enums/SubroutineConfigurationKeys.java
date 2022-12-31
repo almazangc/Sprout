@@ -20,13 +20,13 @@ public enum SubroutineConfigurationKeys {
     HINT_TEXT("HINT.STRING"),
     HABIT("HABIT.HABIT");
 
-    private final String value;
+    private final String key;
 
-    SubroutineConfigurationKeys(String value) {
-        this.value = value;
+    SubroutineConfigurationKeys(String key) {
+        this.key = key;
     }
 
-    public String getValue() {
-        return value;
+    public String getKey() {
+        return key;
     }
 }

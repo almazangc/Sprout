@@ -38,8 +38,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -144,27 +142,27 @@ public class AddNewHabitFragment extends Fragment
         super.onStart();
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
 
-            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue());
-            old_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue());
+            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getKey());
+            old_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getKey());
 
             clearSelected();
             setSelected_color();
 
             binding.addNewHabitHint.setText(
-                    savedInstanceState.getString(HomeConfigurationKeys.HINT_TEXT.getValue())
+                    savedInstanceState.getString(HomeConfigurationKeys.HINT_TEXT.getKey())
             );
             binding.addNewHabitTitle.setText(
-                    savedInstanceState.getString(HomeConfigurationKeys.TITLE.getValue())
+                    savedInstanceState.getString(HomeConfigurationKeys.TITLE.getKey())
             );
             binding.addNewHabitDescription.setText(
-                    savedInstanceState.getString(HomeConfigurationKeys.DESCRIPTION.getValue())
+                    savedInstanceState.getString(HomeConfigurationKeys.DESCRIPTION.getKey())
             );
             binding.fabAddDeleteHabit.setVisibility(
-                    savedInstanceState.getInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), View.GONE)
+                    savedInstanceState.getInt(HomeConfigurationKeys.VIEW_VISIBILITY.getKey(), View.GONE)
             );
 
-            if (savedInstanceState.containsKey(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue())) {
-                String gson_subroutine_list = savedInstanceState.getString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), null);
+            if (savedInstanceState.containsKey(HomeConfigurationKeys.SUBROUTINELISTGSON.getKey())) {
+                String gson_subroutine_list = savedInstanceState.getString(HomeConfigurationKeys.SUBROUTINELISTGSON.getKey(), null);
 
                 Type listType = new TypeToken<ArrayList<Subroutines>>() {
                 }.getType();
@@ -582,47 +580,47 @@ public class AddNewHabitFragment extends Fragment
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color);
-        outState.putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color);
+        outState.putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getKey(), current_selected_color);
+        outState.putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getKey(), old_selected_color);
 
         if (binding != null) {
-            outState.putString(HomeConfigurationKeys.HINT_TEXT.getValue(), binding.addNewHabitHint.getText().toString().trim());
-            outState.putString(HomeConfigurationKeys.TITLE.getValue(), binding.addNewHabitTitle.getText().toString().trim());
-            outState.putString(HomeConfigurationKeys.DESCRIPTION.getValue(), binding.addNewHabitDescription.getText().toString().trim());
-            outState.putInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), binding.fabAddDeleteHabit.getVisibility());
+            outState.putString(HomeConfigurationKeys.HINT_TEXT.getKey(), binding.addNewHabitHint.getText().toString().trim());
+            outState.putString(HomeConfigurationKeys.TITLE.getKey(), binding.addNewHabitTitle.getText().toString().trim());
+            outState.putString(HomeConfigurationKeys.DESCRIPTION.getKey(), binding.addNewHabitDescription.getText().toString().trim());
+            outState.putInt(HomeConfigurationKeys.VIEW_VISIBILITY.getKey(), binding.fabAddDeleteHabit.getVisibility());
         }
 
         if (!subroutinesList.isEmpty()) {
             String gson_subroutine_list = new Gson().toJson(subroutinesList);
-            outState.putString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), gson_subroutine_list);
+            outState.putString(HomeConfigurationKeys.SUBROUTINELISTGSON.getKey(), gson_subroutine_list);
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
 
         if (!isFragmentOnRemoved) {
             savedInstanceState = null;
             sharedPreferences.edit()
-                    .putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color)
-                    .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
+                    .putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getKey(), current_selected_color)
+                    .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getKey(), old_selected_color)
                     .apply();
 
             if (binding != null) {
                 sharedPreferences.edit()
-                        .putString(HomeConfigurationKeys.HINT_TEXT.getValue(), binding.addNewHabitHint.getText().toString().trim())
-                        .putString(HomeConfigurationKeys.TITLE.getValue(), binding.addNewHabitTitle.getText().toString().trim())
-                        .putString(HomeConfigurationKeys.DESCRIPTION.getValue(), binding.addNewHabitDescription.getText().toString().trim())
-                        .putInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), binding.fabAddDeleteHabit.getVisibility())
+                        .putString(HomeConfigurationKeys.HINT_TEXT.getKey(), binding.addNewHabitHint.getText().toString().trim())
+                        .putString(HomeConfigurationKeys.TITLE.getKey(), binding.addNewHabitTitle.getText().toString().trim())
+                        .putString(HomeConfigurationKeys.DESCRIPTION.getKey(), binding.addNewHabitDescription.getText().toString().trim())
+                        .putInt(HomeConfigurationKeys.VIEW_VISIBILITY.getKey(), binding.fabAddDeleteHabit.getVisibility())
                         .apply();
             }
 
             if (!subroutinesList.isEmpty()) {
                 String gson_subroutine_list = new Gson().toJson(subroutinesList);
                 sharedPreferences.edit().
-                        putString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), gson_subroutine_list)
+                        putString(HomeConfigurationKeys.SUBROUTINELISTGSON.getKey(), gson_subroutine_list)
                         .apply();
             }
         } else {
@@ -635,30 +633,30 @@ public class AddNewHabitFragment extends Fragment
     public void onResume() {
         super.onResume();
 
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_NEW_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
 
         if (!sharedPreferences.getAll().isEmpty()) {
-            current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
-            old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+            current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getKey(), 0);
+            old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getKey(), 0);
 
             clearSelected();
             setSelected_color();
 
             binding.addNewHabitHint.setText(
-                    sharedPreferences.getString(HomeConfigurationKeys.HINT_TEXT.getValue(), null)
+                    sharedPreferences.getString(HomeConfigurationKeys.HINT_TEXT.getKey(), null)
             );
             binding.addNewHabitTitle.setText(
-                    sharedPreferences.getString(HomeConfigurationKeys.TITLE.getValue(), null)
+                    sharedPreferences.getString(HomeConfigurationKeys.TITLE.getKey(), null)
             );
             binding.addNewHabitDescription.setText(
-                    sharedPreferences.getString(HomeConfigurationKeys.DESCRIPTION.getValue(), null)
+                    sharedPreferences.getString(HomeConfigurationKeys.DESCRIPTION.getKey(), null)
             );
             binding.fabAddDeleteHabit.setVisibility(
-                    sharedPreferences.getInt(HomeConfigurationKeys.VIEW_VISIBILITY.getValue(), View.GONE)
+                    sharedPreferences.getInt(HomeConfigurationKeys.VIEW_VISIBILITY.getKey(), View.GONE)
             );
 
-            if (sharedPreferences.contains(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue())) {
-                String gson_subroutine_list = sharedPreferences.getString(HomeConfigurationKeys.SUBROUTINELISTGSON.getValue(), null);
+            if (sharedPreferences.contains(HomeConfigurationKeys.SUBROUTINELISTGSON.getKey())) {
+                String gson_subroutine_list = sharedPreferences.getString(HomeConfigurationKeys.SUBROUTINELISTGSON.getKey(), null);
 
                 Type listType = new TypeToken<ArrayList<Subroutines>>() {
                 }.getType();

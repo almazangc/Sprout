@@ -34,8 +34,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 
 public class AddDefaultHabitFragment extends Fragment {
 
@@ -153,14 +151,14 @@ public class AddDefaultHabitFragment extends Fragment {
         super.onStart();
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
 
-            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
-            old_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+            current_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getKey(), 0);
+            old_selected_color = savedInstanceState.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getKey(), 0);
 
             clearSelected();
             setSelected_color();
 
-            if (savedInstanceState.containsKey(HomeConfigurationKeys.SELECTED_HABIT.getValue())) {
-                habit = (Habits) savedInstanceState.getSerializable(HomeConfigurationKeys.SELECTED_HABIT.getValue());
+            if (savedInstanceState.containsKey(HomeConfigurationKeys.SELECTED_HABIT.getKey())) {
+                habit = (Habits) savedInstanceState.getSerializable(HomeConfigurationKeys.SELECTED_HABIT.getKey());
                 binding.addFromDefaultHabitItems.setText(habit.getHabit());
                 setContentView();
                 binding.habitDescriptionLbl.setVisibility(View.VISIBLE);
@@ -472,11 +470,11 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color);
-        outState.putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color);
+        outState.putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getKey(), current_selected_color);
+        outState.putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getKey(), old_selected_color);
 
         if (habit != null) {
-            outState.putSerializable(HomeConfigurationKeys.SELECTED_HABIT.getValue(), habit);
+            outState.putSerializable(HomeConfigurationKeys.SELECTED_HABIT.getKey(), habit);
         }
     }
 
@@ -484,19 +482,19 @@ public class AddDefaultHabitFragment extends Fragment {
     public void onPause() {
         super.onPause();
 
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
 
         if (!isFragmentOnRemoved) {
             savedInstanceState = null; // set to null to clear bundle and not trigger on start restore but trigger on resume
             sharedPreferences.edit()
-                    .putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), current_selected_color)
-                    .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), old_selected_color)
+                    .putInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getKey(), current_selected_color)
+                    .putInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getKey(), old_selected_color)
                     .apply();
 
             if (habit != null) {
                 String gson_habit = new Gson().toJson(habit);
                 sharedPreferences.edit().
-                        putString(HomeConfigurationKeys.SELECTED_HABIT.getValue(), gson_habit)
+                        putString(HomeConfigurationKeys.SELECTED_HABIT.getKey(), gson_habit)
                         .apply();
             }
         } else {
@@ -508,17 +506,17 @@ public class AddDefaultHabitFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getValue(), Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences(HomeConfigurationKeys.HOME_ADD_DEFAULT_SHAREDPREF.getKey(), Context.MODE_PRIVATE);
 
         if (!sharedPreferences.getAll().isEmpty()) {
-            current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getValue(), 0);
-            old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getValue(), 0);
+            current_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.CURRENT_SELECTED_COLOR.getKey(), 0);
+            old_selected_color = sharedPreferences.getInt(HomeConfigurationKeys.OLD_SELECTED_COLOR.getKey(), 0);
 
             clearSelected();
             setSelected_color();
 
-            if (sharedPreferences.contains(HomeConfigurationKeys.SELECTED_HABIT.getValue())) {
-                String json_habit = sharedPreferences.getString(HomeConfigurationKeys.SELECTED_HABIT.getValue(), null);
+            if (sharedPreferences.contains(HomeConfigurationKeys.SELECTED_HABIT.getKey())) {
+                String json_habit = sharedPreferences.getString(HomeConfigurationKeys.SELECTED_HABIT.getKey(), null);
                 habit = new Gson().fromJson(json_habit, Habits.class);
 
                 setContentView();

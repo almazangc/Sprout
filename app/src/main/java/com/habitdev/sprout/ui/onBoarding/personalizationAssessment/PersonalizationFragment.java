@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +82,7 @@ public class PersonalizationFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (savedInstanceState != null) {
-            position = savedInstanceState.getInt(OnBoardingConfigurationKeys.POSITION.getValue());
+            position = savedInstanceState.getInt(OnBoardingConfigurationKeys.POSITION.getKey());
             setAssessment();
             upCheckedRadioButtons();
         }
@@ -294,7 +293,7 @@ public class PersonalizationFragment extends Fragment {
         if (binding != null) {
             saveSelection();
         }
-        outState.putInt(OnBoardingConfigurationKeys.POSITION.getValue(), position-1);
+        outState.putInt(OnBoardingConfigurationKeys.POSITION.getKey(), position-1);
     }
 
     @Override
