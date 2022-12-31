@@ -10,6 +10,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -31,18 +32,27 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
+import com.habitdev.sprout.enums.SettingConfigurationKeys;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Stream;
 
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
-
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
+    private String selectedProfilePath;
+    private boolean onCustomProfile;
 
     public interface OnReturnSetting {
         void returnFromProfileToSetting();
@@ -68,12 +78,64 @@ public class ProfileFragment extends Fragment {
             binding.settingProfileChangeNickname.setText(nickname);
         });
 
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE);
+        if (!sharedPreferences.getAll().isEmpty()) {
+            onCustomProfile = sharedPreferences.getBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), onCustomProfile);
+
+            if (onCustomProfile) {
+
+                selectedProfilePath = sharedPreferences.getString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), null);
+
+                if (selectedProfilePath != null) {
+                    binding.settingProfileImgView.setVisibility(View.VISIBLE);
+                    binding.settingProfileLottieAvatar.setVisibility(View.GONE);
+                    binding.settingProfileImgView.setImageBitmap(BitmapFactory.decodeFile(selectedProfilePath));
+                }
+
+            } else {
+
+                final String[] default_male_profiles = {
+                        "default_user_profile_male-avatar.json",
+                        "default_user_profile_male-avatar-v1.json",
+                        "default_user_profile_male-avatar-v2.json",
+                        "default_user_profile_male-avatar-v3.json",
+                        "default_user_profile_male-avatar-v4.json"
+                };
+
+                final String[] default_female_profiles = {
+                        "default_user_profile_female-avatar.json",
+                        "default_user_profile_female-avatar-v1.json",
+                        "default_user_profile_female-avatar-v2.json",
+                        "default_user_profile_female-avatar-v3.json",
+                        "default_user_profile_female-avatar-v4.json",
+                        "default_user_profile_female-avatar-v5.json"
+                };
+
+                final String[] default_non_binary_profiles = Stream.concat(Arrays.stream(default_male_profiles), Arrays.stream(default_female_profiles)).toArray(String[]::new);
+
+                String identity = user.getIdentity();
+
+                    binding.settingProfileLottieAvatar.setVisibility(View.VISIBLE);
+                    binding.settingProfileImgView.setVisibility(View.GONE);
+                    switch (identity != null ? identity: "Default") {
+                        case "Male":
+                            binding.settingProfileLottieAvatar.setAnimation(default_male_profiles[new Random().nextInt(default_male_profiles.length)]);
+                            break;
+                        case "Female":
+                            binding.settingProfileLottieAvatar.setAnimation(default_female_profiles[new Random().nextInt(default_female_profiles.length)]);
+                            break;
+                        default:
+                            binding.settingProfileLottieAvatar.setAnimation(default_non_binary_profiles[new Random().nextInt(default_non_binary_profiles.length)]);
+                            break;
+                    }
+            }
+        }
+
         binding.settingChangeProfilePhotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkSelfPermission(requireActivity())) {
                     chooseImage(requireActivity());
-                    Log.d("tag", "onClick: Change Photo");
                 }
             }
         });
@@ -88,6 +150,17 @@ public class ProfileFragment extends Fragment {
                 } else {
                     Toast.makeText(requireActivity(), "Empty Nickname", Toast.LENGTH_SHORT).show();
                 }
+
+                //update phofile
+                if (!selectedProfilePath.trim().isEmpty()) {
+                    requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE)
+                            .edit()
+                            .putBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), onCustomProfile)
+                            .putString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), selectedProfilePath)
+                            .apply();
+                }
+
+                //Toast for notification of saved sucessful
             }
         });
 
@@ -166,8 +239,21 @@ public class ProfileFragment extends Fragment {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
-                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        binding.settingProfileImgView.setImageBitmap(selectedImage);
+                        Bitmap photo = (Bitmap) data.getExtras().get("data");
+                        binding.settingProfileImgView.setImageBitmap(photo);
+                        //camera capture get path and save on room instead
+
+                        // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+                        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                        photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes); //thumbnail
+                        photo = Bitmap.createScaledBitmap(photo, 1000, 1000,true); //original image
+
+                        String path = MediaStore.Images.Media.insertImage(requireActivity().getContentResolver(), photo, "Sprout_CapturedPhoto", null);
+                        Uri capturedImageUri = Uri.parse(path);
+
+                        selectedProfilePath = getRealPathFromURI(capturedImageUri);
+
+                        onCustomProfile = true;
                     }
                     break;
                 case 1:
@@ -180,7 +266,10 @@ public class ProfileFragment extends Fragment {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
+                                selectedProfilePath = picturePath;
                                 binding.settingProfileImgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+                                onCustomProfile = true;
                                 cursor.close();
                             }
                         }
@@ -188,6 +277,20 @@ public class ProfileFragment extends Fragment {
                     break;
             }
         }
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        String path = "";
+        if (requireActivity().getContentResolver() != null) {
+            Cursor cursor = requireActivity().getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                cursor.moveToFirst();
+                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                path = cursor.getString(idx);
+                cursor.close();
+            }
+        }
+        return path;
     }
 
     private void onBackPress() {

@@ -25,70 +25,85 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/setting_profile_img_card_view"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_below="@id/setting_profile_top_bar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:elevation="12dp"
-        app:cardCornerRadius="100dp">
-
-        <ImageView
-            android:id="@+id/setting_profile_img_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/neko_happy_1"/>
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:minWidth="50dp"
-            android:minHeight="50dp"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_speed="1" />
-    </androidx.cardview.widget.CardView>
-
-
-    <Button
-        android:id="@+id/setting_change_profile_photo_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/setting_profile_img_card_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/background_btn_normal_selector"
-        android:drawableStart="@drawable/ic_upload"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:text="  Change Photo"
-        android:textAllCaps="false"
-        android:textColor="@color/NIGHT"
-        android:textSize="16sp"
-        android:textStyle="normal" />
-
-    <EditText
-        android:id="@+id/setting_profile_change_nickname"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/setting_change_profile_photo_btn"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:hint="Edit Profile"
-        android:textAlignment="center"
-        android:textColor="@color/NIGHT"
-        android:textColorHint="@color/WAIKAWA_GREY"
-        android:textSize="16dp" />
+        android:layout_height="match_parent"
+        android:id="@+id/setting_profile_scrollable_content"
+        android:fillViewport="true"
+        android:layout_above="@id/setting_profile_save_btn"
+        android:layout_below="@id/setting_profile_top_bar"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:isScrollContainer="true"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/setting_profile_img_card_view"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:elevation="12dp"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/setting_profile_img_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"/>
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/setting_profile_lottie_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:minWidth="50dp"
+                    android:minHeight="50dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_speed="1" />
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/setting_change_profile_photo_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/setting_profile_img_card_view"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/background_btn_normal_selector"
+                android:drawableStart="@drawable/ic_upload"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:text="  Change Photo"
+                android:textAllCaps="false"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/setting_profile_change_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/setting_change_profile_photo_btn"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:hint="Edit Profile"
+                android:textAlignment="center"
+                android:textColor="@color/NIGHT"
+                android:textColorHint="@color/WAIKAWA_GREY"
+                android:textSize="16dp" />
+
+
+        </RelativeLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/setting_profile_save_btn"

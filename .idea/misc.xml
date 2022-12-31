@@ -305,6 +305,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_table_chart.xml" value="0.299" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_terminal.xml" value="0.199" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_theme.xml" value="0.199" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_upload.xml" value="0.2215" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/ic_upvote.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/identity_svg.xml" value="0.306" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/illus_identity.xml" value="0.33" />
@@ -368,6 +369,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_home_item_on_click.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_initial.xml" value="0.28327495621716287" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_personalization.xml" value="0.2" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_setting.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_startup.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout-land/fragment_subroutine_modify.xml" value="0.25" />

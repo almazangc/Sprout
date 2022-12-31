@@ -1,6 +1,8 @@
 package com.habitdev.sprout.ui.menu.setting;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentSettingBinding;
+import com.habitdev.sprout.enums.SettingConfigurationKeys;
 import com.habitdev.sprout.ui.menu.setting.ui.AboutUsFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.LearnMoreFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
@@ -48,8 +51,9 @@ public class SettingFragment extends Fragment implements
     private static final TechStackInfoFragment techStackInfoFragment = new TechStackInfoFragment();
     private static final TerminalFragment terminalFragment = new TerminalFragment();
 
-    public SettingFragment() {
-    }
+    private static boolean isOnProfileTab, isOnThemeTab, isOnStackInfoTab, isOnLearnMoreInfoTab, isOnAboutUsTab, isOnTerminalTab;
+
+    public SettingFragment() {}
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -95,7 +99,34 @@ public class SettingFragment extends Fragment implements
 
         String identity = user.getIdentity();
 
-        if (true) {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE);
+
+        if (!sharedPreferences.getAll().isEmpty()) {
+            boolean onCustomProfile = sharedPreferences.getBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), false);
+            if (onCustomProfile) {
+
+                String selectedProfilePath = sharedPreferences.getString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), null);
+                if (selectedProfilePath != null) {
+                    binding.settingImgView.setVisibility(View.VISIBLE);
+                    binding.settingLottieAvatar.setVisibility(View.GONE);
+                    binding.settingImgView.setImageBitmap(BitmapFactory.decodeFile(selectedProfilePath));
+                } else {
+                    binding.settingLottieAvatar.setVisibility(View.VISIBLE);
+                    binding.settingImgView.setVisibility(View.GONE);
+                    switch (identity != null ? identity: "Default") {
+                        case "Male":
+                            binding.settingLottieAvatar.setAnimation(default_male_profiles[new Random().nextInt(default_male_profiles.length)]);
+                            break;
+                        case "Female":
+                            binding.settingLottieAvatar.setAnimation(default_female_profiles[new Random().nextInt(default_female_profiles.length)]);
+                            break;
+                        default:
+                            binding.settingLottieAvatar.setAnimation(default_non_binary_profiles[new Random().nextInt(default_non_binary_profiles.length)]);
+                            break;
+                    }
+                }
+            }
+        } else {
             binding.settingLottieAvatar.setVisibility(View.VISIBLE);
             binding.settingImgView.setVisibility(View.GONE);
             switch (identity != null ? identity: "Default") {
@@ -109,40 +140,47 @@ public class SettingFragment extends Fragment implements
                     binding.settingLottieAvatar.setAnimation(default_non_binary_profiles[new Random().nextInt(default_non_binary_profiles.length)]);
                     break;
             }
-        } else {
-            binding.settingImgView.setVisibility(View.VISIBLE);
-            binding.settingLottieAvatar.setVisibility(View.GONE);
-            //check if lottie is modifed
-
         }
 
         binding.editProfile.setOnClickListener(view -> {
+            isOnProfileTab = true;
             changeFragment(profileFragment);
         });
 
         binding.selectThemeBtn.setOnClickListener(view -> {
+            isOnThemeTab = true;
             changeFragment(themeFragment);
         });
 
         binding.aboutUsBtn.setOnClickListener(view -> {
+            isOnAboutUsTab = true;
             changeFragment(aboutUsFragment);
         });
 
         binding.learnMoreBtn.setOnClickListener(view -> {
+            isOnLearnMoreInfoTab = true;
             changeFragment(learnMoreFragment);
 
         });
 
         binding.techStackInfoBtn.setOnClickListener(view -> {
+            isOnStackInfoTab = true;
             changeFragment(techStackInfoFragment);
         });
 
         binding.terminalBtn.setOnClickListener(view -> {
+            isOnTerminalTab = true;
             changeFragment(terminalFragment);
         });
 
         onBackPress();
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //restore which tab was last selected
     }
 
     private void changeFragment(Fragment fragment) {
@@ -159,31 +197,38 @@ public class SettingFragment extends Fragment implements
     @Override
     public void returnFromProfileToSetting() {
         returnFromFragmentToSetting(profileFragment);
+        isOnProfileTab = false;
     }
 
     @Override
     public void returnFromThemeToSetting() {
         returnFromFragmentToSetting(themeFragment);
-    }
-
-    @Override
-    public void returnFromAboutUsToSetting() {
-        returnFromFragmentToSetting(aboutUsFragment);
-    }
-
-    @Override
-    public void returnFromLearnMoreToSetting() {
-        returnFromFragmentToSetting(learnMoreFragment);
+        isOnThemeTab = false;
     }
 
     @Override
     public void returnFromTechStackInfoToSetting() {
         returnFromFragmentToSetting(techStackInfoFragment);
+        isOnStackInfoTab = false;
     }
+
+    @Override
+    public void returnFromLearnMoreToSetting() {
+        returnFromFragmentToSetting(learnMoreFragment);
+        isOnLearnMoreInfoTab = false;
+    }
+
+    @Override
+    public void returnFromAboutUsToSetting() {
+        returnFromFragmentToSetting(aboutUsFragment);
+        isOnAboutUsTab = false;
+    }
+
 
     @Override
     public void returnFromTerminalToSetting() {
         returnFromFragmentToSetting(terminalFragment);
+        isOnTerminalTab = false;
     }
 
     private void returnFromFragmentToSetting(Fragment fragment) {
@@ -235,6 +280,47 @@ public class SettingFragment extends Fragment implements
             userViewModel = null;
         }
         binding = null;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //save which tab
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //restore which tab
+        if (isOnProfileTab) {
+            changeFragment(profileFragment);
+        }
+
+        if (isOnThemeTab) {
+            changeFragment(themeFragment);
+        }
+
+        if (isOnStackInfoTab) {
+            changeFragment(techStackInfoFragment);
+        }
+
+        if (isOnLearnMoreInfoTab) {
+            changeFragment(learnMoreFragment);
+        }
+
+        if (isOnAboutUsTab) {
+            changeFragment(aboutUsFragment);
+        }
+
+        if (isOnTerminalTab) {
+            changeFragment(terminalFragment);
+        }
     }
 
     @Override

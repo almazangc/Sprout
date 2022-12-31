@@ -24,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="Setting"
+                android:text="Theme"
                 android:textColor="@color/NIGHT"
                 android:textSize="20sp"
                 android:textStyle="bold" />
