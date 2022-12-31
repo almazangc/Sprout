@@ -266,8 +266,6 @@ public class Main extends AppCompatActivity {
                                 "Today is whatever you make it. You get to decide whether it’s a good day or a bad day."
                         };
 
-                int rand = new Random(msg_greet.length - 1).nextInt();
-
                 NotificationChannel notificationChannel = new NotificationChannel(
                         MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value,
                         "Daily Reset Notifier",
@@ -288,7 +286,7 @@ public class Main extends AppCompatActivity {
                 Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
                         .setSmallIcon(R.drawable.ic_smile)
                         .setContentText("Welcome back")
-                        .setSubText(msg_greet[rand])
+                        .setSubText(msg_greet[new Random().nextInt(msg_greet.length)])
                         .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                         .setPriority(NotificationManager.IMPORTANCE_DEFAULT)

@@ -58,7 +58,6 @@
     </androidx.cardview.widget.CardView>
 
 
-
     <Button
         android:id="@+id/setting_change_profile_photo_btn"
         android:layout_width="wrap_content"
