@@ -53,6 +53,8 @@ public class SettingFragment extends Fragment implements
 
     private static boolean isOnProfileTab, isOnThemeTab, isOnStackInfoTab, isOnLearnMoreInfoTab, isOnAboutUsTab, isOnTerminalTab;
 
+    private static User user;
+
     public SettingFragment() {}
 
     @Override
@@ -76,8 +78,46 @@ public class SettingFragment extends Fragment implements
             binding.nickname.setText(nickname);
         });
 
-        User user = userViewModel.getUserByUID(1);
+        user = userViewModel.getUserByUID(1);
 
+        updateProfile(user);
+
+        binding.editProfile.setOnClickListener(view -> {
+            isOnProfileTab = true;
+            changeFragment(profileFragment);
+        });
+
+        binding.selectThemeBtn.setOnClickListener(view -> {
+            isOnThemeTab = true;
+            changeFragment(themeFragment);
+        });
+
+        binding.aboutUsBtn.setOnClickListener(view -> {
+            isOnAboutUsTab = true;
+            changeFragment(aboutUsFragment);
+        });
+
+        binding.learnMoreBtn.setOnClickListener(view -> {
+            isOnLearnMoreInfoTab = true;
+            changeFragment(learnMoreFragment);
+
+        });
+
+        binding.techStackInfoBtn.setOnClickListener(view -> {
+            isOnStackInfoTab = true;
+            changeFragment(techStackInfoFragment);
+        });
+
+        binding.terminalBtn.setOnClickListener(view -> {
+            isOnTerminalTab = true;
+            changeFragment(terminalFragment);
+        });
+
+        onBackPress();
+        return binding.getRoot();
+    }
+
+    private void updateProfile(User user) {
         final String[] default_male_profiles = {
                 "default_user_profile_male-avatar.json",
                 "default_user_profile_male-avatar-v1.json",
@@ -141,40 +181,6 @@ public class SettingFragment extends Fragment implements
                     break;
             }
         }
-
-        binding.editProfile.setOnClickListener(view -> {
-            isOnProfileTab = true;
-            changeFragment(profileFragment);
-        });
-
-        binding.selectThemeBtn.setOnClickListener(view -> {
-            isOnThemeTab = true;
-            changeFragment(themeFragment);
-        });
-
-        binding.aboutUsBtn.setOnClickListener(view -> {
-            isOnAboutUsTab = true;
-            changeFragment(aboutUsFragment);
-        });
-
-        binding.learnMoreBtn.setOnClickListener(view -> {
-            isOnLearnMoreInfoTab = true;
-            changeFragment(learnMoreFragment);
-
-        });
-
-        binding.techStackInfoBtn.setOnClickListener(view -> {
-            isOnStackInfoTab = true;
-            changeFragment(techStackInfoFragment);
-        });
-
-        binding.terminalBtn.setOnClickListener(view -> {
-            isOnTerminalTab = true;
-            changeFragment(terminalFragment);
-        });
-
-        onBackPress();
-        return binding.getRoot();
     }
 
     @Override
@@ -197,6 +203,7 @@ public class SettingFragment extends Fragment implements
     @Override
     public void returnFromProfileToSetting() {
         returnFromFragmentToSetting(profileFragment);
+        updateProfile(user);
         isOnProfileTab = false;
     }
 
@@ -282,44 +289,45 @@ public class SettingFragment extends Fragment implements
         binding = null;
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        //save which tab
-    }
 
     @Override
     public void onResume() {
         super.onResume();
         //restore which tab
         if (isOnProfileTab) {
-            changeFragment(profileFragment);
+            if(!profileFragment.isAdded()) {
+                changeFragment(profileFragment);
+            }
         }
 
         if (isOnThemeTab) {
-            changeFragment(themeFragment);
+            if (!themeFragment.isAdded()) {
+                changeFragment(themeFragment);
+            }
         }
 
         if (isOnStackInfoTab) {
-            changeFragment(techStackInfoFragment);
+            if (!techStackInfoFragment.isAdded()) {
+                changeFragment(techStackInfoFragment);
+            }
         }
 
         if (isOnLearnMoreInfoTab) {
-            changeFragment(learnMoreFragment);
+            if (!learnMoreFragment.isAdded()) {
+                changeFragment(learnMoreFragment);
+            }
         }
 
         if (isOnAboutUsTab) {
-            changeFragment(aboutUsFragment);
+            if (!aboutUsFragment.isAdded()) {
+                changeFragment(aboutUsFragment);
+            }
         }
 
         if (isOnTerminalTab) {
-            changeFragment(terminalFragment);
+            if (!terminalFragment.isAdded()) {
+                changeFragment(terminalFragment);
+            }
         }
     }
 

@@ -8,6 +8,24 @@
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
+        android:id="@+id/setting_profile_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@drawable/background_top_bar_view_amethyst">
+
+        <TextView
+            android:id="@+id/settingTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Development Stack Info"
+            android:textColor="@color/NIGHT"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/tech_stack_info_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
