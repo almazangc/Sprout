@@ -57,6 +57,30 @@
                     app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     app:spanCount="2"
                     tools:listitem="@layout/adapter_analytic_parent_item" />
+
+                <TextView
+                    android:id="@+id/analytic_empty_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/date_since_installed"
+                    android:layout_marginTop="-220dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="EMPTY HABIT ON REFORM"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="15dp"
+                    android:visibility="invisible" />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/analytic_empty_lottie_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minWidth="150dp"
+                    android:minHeight="150dp"
+                    android:visibility="invisible"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="lottie_anim_empty_state_ghost.json"
+                    app:lottie_loop="true"
+                    app:lottie_speed="1" />
             </RelativeLayout>
         </ScrollView>
 </RelativeLayout>

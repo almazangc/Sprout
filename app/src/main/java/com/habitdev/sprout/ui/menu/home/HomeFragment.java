@@ -165,7 +165,6 @@ public class HomeFragment extends Fragment
      * Control Number of habits can be added with a maximum of 2
      */
     private void fabVisibility() {
-//        Log.d(TAG, "fabVisibility: ");
         binding.homeFab.setVisibility(View.VISIBLE);
         binding.homeFab.setClickable(true);
         binding.homeFab.setOnClickListener(view -> displayFabDialog());
