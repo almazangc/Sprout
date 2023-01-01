@@ -15,6 +15,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
@@ -155,16 +156,26 @@ public class AnalyticFragment extends Fragment
             analyticParentItemAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
             analyticParentItemAdapter.setmOnItemClick(this);
             binding.analyticHabitOnReformRecyclerView.setAdapter(analyticParentItemAdapter);
-            habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), analyticParentItemAdapter::setNewHabitList);
             setEmptyRVBackground();
+
+            habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), new Observer<List<Habits>>() {
+                @Override
+                public void onChanged(List<Habits> habits) {
+                    analyticParentItemAdapter.setNewHabitList(habits);
+                    setEmptyRVBackground();
+                }
+            });
         }
     }
 
     private void setEmptyRVBackground() {
         if (AnalyticFragment.analyticParentItemAdapter.getItemCount() > 0) {
+            Log.d("tag", "setEmptyRVBackground: " + AnalyticFragment.analyticParentItemAdapter.getItemCount());
+            Log.d("tag", "setEmptyRVBackground: > 0");
             binding.analyticEmptyLottieRecyclerView.setVisibility(View.INVISIBLE);
             binding.analyticEmptyLbl.setVisibility(View.INVISIBLE);
         } else {
+            Log.d("tag", "setEmptyRVBackground: empty");
             binding.analyticEmptyLottieRecyclerView.setVisibility(View.VISIBLE);
             binding.analyticEmptyLbl.setVisibility(View.VISIBLE);
         }
