@@ -35,10 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="20dp"
-            android:text="This will used for development debugging, inserting or updating datbase (need to learn) need scrip here to automate insert and update without, imitates console"
+            android:text="This will used for development debugging, inserting or updating datbase (need to learn) need script here to automate insert and update without, imitates console. (for debugging) - for actual use can be converted to chatting with users and communicatte their thoughts"
             android:textAlignment="center"
             android:textColor="@color/NIGHT"
-            android:textSize="12dp" />
-
+            android:textSize="12sp" />
     </RelativeLayout>
 </FrameLayout>

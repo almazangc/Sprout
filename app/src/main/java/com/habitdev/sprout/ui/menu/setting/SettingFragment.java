@@ -2,6 +2,7 @@ package com.habitdev.sprout.ui.menu.setting;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -55,7 +56,8 @@ public class SettingFragment extends Fragment implements
 
     private static User user;
 
-    public SettingFragment() {}
+    public SettingFragment() {
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -118,6 +120,31 @@ public class SettingFragment extends Fragment implements
     }
 
     private void updateProfile(User user) {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE);
+
+        if (!sharedPreferences.getAll().isEmpty()) {
+            boolean onCustomProfile = sharedPreferences.getBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), false);
+            if (onCustomProfile) {
+                String selectedProfilePath = sharedPreferences.getString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), null);
+                if (selectedProfilePath != null) {
+                    Bitmap profile = BitmapFactory.decodeFile(selectedProfilePath);
+                    if (profile != null) {
+                        binding.settingImgView.setVisibility(View.VISIBLE);
+                        binding.settingLottieAvatar.setVisibility(View.GONE);
+                        binding.settingImgView.setImageBitmap(profile);
+                    } else {
+                        setDefaultProfile(user);
+                    }
+                } else {
+                    setDefaultProfile(user);
+                }
+            }
+        } else {
+            setDefaultProfile(user);
+        }
+    }
+
+    private void setDefaultProfile(User user) {
         final String[] default_male_profiles = {
                 "default_user_profile_male-avatar.json",
                 "default_user_profile_male-avatar-v1.json",
@@ -139,54 +166,20 @@ public class SettingFragment extends Fragment implements
 
         String identity = user.getIdentity();
 
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE);
-
-        if (!sharedPreferences.getAll().isEmpty()) {
-            boolean onCustomProfile = sharedPreferences.getBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), false);
-            if (onCustomProfile) {
-
-                String selectedProfilePath = sharedPreferences.getString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), null);
-                if (selectedProfilePath != null) {
-                    binding.settingImgView.setVisibility(View.VISIBLE);
-                    binding.settingLottieAvatar.setVisibility(View.GONE);
-                    binding.settingImgView.setImageBitmap(BitmapFactory.decodeFile(selectedProfilePath));
-                } else {
-                    binding.settingLottieAvatar.setVisibility(View.VISIBLE);
-                    binding.settingImgView.setVisibility(View.GONE);
-                    switch (identity != null ? identity: "Default") {
-                        case "Male":
-                            binding.settingLottieAvatar.setAnimation(default_male_profiles[new Random().nextInt(default_male_profiles.length)]);
-                            break;
-                        case "Female":
-                            binding.settingLottieAvatar.setAnimation(default_female_profiles[new Random().nextInt(default_female_profiles.length)]);
-                            break;
-                        default:
-                            binding.settingLottieAvatar.setAnimation(default_non_binary_profiles[new Random().nextInt(default_non_binary_profiles.length)]);
-                            break;
-                    }
-                }
-            }
-        } else {
-            binding.settingLottieAvatar.setVisibility(View.VISIBLE);
-            binding.settingImgView.setVisibility(View.GONE);
-            switch (identity != null ? identity: "Default") {
-                case "Male":
-                    binding.settingLottieAvatar.setAnimation(default_male_profiles[new Random().nextInt(default_male_profiles.length)]);
-                    break;
-                case "Female":
-                    binding.settingLottieAvatar.setAnimation(default_female_profiles[new Random().nextInt(default_female_profiles.length)]);
-                    break;
-                default:
-                    binding.settingLottieAvatar.setAnimation(default_non_binary_profiles[new Random().nextInt(default_non_binary_profiles.length)]);
-                    break;
-            }
+        binding.settingLottieAvatar.setVisibility(View.VISIBLE);
+        binding.settingImgView.setVisibility(View.GONE);
+        switch (identity != null ? identity : "Default") {
+            case "Male":
+                binding.settingLottieAvatar.setAnimation(default_male_profiles[new Random().nextInt(default_male_profiles.length)]);
+                break;
+            case "Female":
+                binding.settingLottieAvatar.setAnimation(default_female_profiles[new Random().nextInt(default_female_profiles.length)]);
+                break;
+            case "Non-Binary":
+            default:
+                binding.settingLottieAvatar.setAnimation(default_non_binary_profiles[new Random().nextInt(default_non_binary_profiles.length)]);
+                break;
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        //restore which tab was last selected
     }
 
     private void changeFragment(Fragment fragment) {
@@ -257,7 +250,6 @@ public class SettingFragment extends Fragment implements
                 keypress_count[0]++;
 
                 //toast msg double backpress to close app not minimize
-
                 new CountDownTimer(200, 200) {
                     @Override
                     public void onTick(long l) {
@@ -295,7 +287,7 @@ public class SettingFragment extends Fragment implements
         super.onResume();
         //restore which tab
         if (isOnProfileTab) {
-            if(!profileFragment.isAdded()) {
+            if (!profileFragment.isAdded()) {
                 changeFragment(profileFragment);
             }
         }

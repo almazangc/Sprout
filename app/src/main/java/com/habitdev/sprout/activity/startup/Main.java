@@ -285,8 +285,8 @@ public class Main extends AppCompatActivity {
 
                 Notification notification = new NotificationCompat.Builder(Main.this, MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
                         .setSmallIcon(R.drawable.ic_smile)
-                        .setContentText("Welcome back")
-                        .setSubText(msg_greet[new Random().nextInt(msg_greet.length)])
+                        .setContentText(msg_greet[new Random().nextInt(msg_greet.length)])
+                        .setSubText("Welcome back")
                         .setChannelId(MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value)
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                         .setPriority(NotificationManager.IMPORTANCE_DEFAULT)

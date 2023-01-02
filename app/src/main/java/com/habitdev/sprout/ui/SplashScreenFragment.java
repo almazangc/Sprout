@@ -38,7 +38,6 @@ import java.util.Random;
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenFragment extends Fragment {
 
-    private static final String TAG = "tag";
     /**
      * Startup Fragment View Binding
      */
@@ -47,7 +46,7 @@ public class SplashScreenFragment extends Fragment {
     private FragmentActivity fragment;
 
     public SplashScreenFragment() {
-        this.splashDuration = 3000;
+        this.splashDuration = 10000;
     }
 
     @Override
@@ -134,7 +133,7 @@ public class SplashScreenFragment extends Fragment {
                 }
             }.start();
         } else {
-            final String MESSAGE = "First Time Message for new installation";
+            final String MESSAGE = "Warm welcome to sprout!";
             binding.qouteLbl.setText(MESSAGE);
         }
     }
@@ -176,7 +175,6 @@ public class SplashScreenFragment extends Fragment {
 //                    Fragment SplashScreenFragment not associated with a fragment manager
                     }
                 }
-
                 onDestroyView();
             }, splashDuration);
         }
@@ -186,7 +184,7 @@ public class SplashScreenFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                //cannot back press
+                //disregard on back press callback
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

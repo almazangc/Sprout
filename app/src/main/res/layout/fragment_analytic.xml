@@ -38,15 +38,16 @@
 
                 <TextView
                     android:id="@+id/date_since_installed"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:textAlignment="center"
+                    android:layout_centerHorizontal="true"
                     android:textAllCaps="true"
                     android:textColor="@color/NIGHT"
                     android:textSize="13sp"
                     android:textStyle="italic|bold"
-                    tools:text="Sample Text" />
+                    tools:text="1 year 2 Day 11 Hours 5 Minutes 43 Seconds"/>
 
                 <!-- empty -->
                 <TextView
@@ -58,7 +59,7 @@
                     android:gravity="center_vertical|center_horizontal"
                     android:text="EMPTY HABIT ON REFORM"
                     android:textColor="@color/NIGHT"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="invisible" />
 
                 <com.airbnb.lottie.LottieAnimationView

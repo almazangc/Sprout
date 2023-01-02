@@ -51,8 +51,9 @@ public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
-    private String selectedProfilePath;
-    private boolean onCustomProfile;
+    private static String selectedProfilePath;
+    private static boolean onCustomProfile;
+    private static User user;
 
     public interface OnReturnSetting {
         void returnFromProfileToSetting();
@@ -72,7 +73,7 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         final UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        User user = userViewModel.getUserByUID(1);
+        user = userViewModel.getUserByUID(1);
 
         userViewModel.getUserNickname().observe(getViewLifecycleOwner(), nickname -> {
             binding.settingProfileChangeNickname.setText(nickname);
@@ -87,48 +88,18 @@ public class ProfileFragment extends Fragment {
                 selectedProfilePath = sharedPreferences.getString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), null);
 
                 if (selectedProfilePath != null) {
-                    binding.settingProfileImgView.setVisibility(View.VISIBLE);
-                    binding.settingProfileLottieAvatar.setVisibility(View.GONE);
-                    binding.settingProfileImgView.setImageBitmap(BitmapFactory.decodeFile(selectedProfilePath));
-                }
-
-            } else {
-
-                final String[] default_male_profiles = {
-                        "default_user_profile_male-avatar.json",
-                        "default_user_profile_male-avatar-v1.json",
-                        "default_user_profile_male-avatar-v2.json",
-                        "default_user_profile_male-avatar-v3.json",
-                        "default_user_profile_male-avatar-v4.json"
-                };
-
-                final String[] default_female_profiles = {
-                        "default_user_profile_female-avatar.json",
-                        "default_user_profile_female-avatar-v1.json",
-                        "default_user_profile_female-avatar-v2.json",
-                        "default_user_profile_female-avatar-v3.json",
-                        "default_user_profile_female-avatar-v4.json",
-                        "default_user_profile_female-avatar-v5.json"
-                };
-
-                final String[] default_non_binary_profiles = Stream.concat(Arrays.stream(default_male_profiles), Arrays.stream(default_female_profiles)).toArray(String[]::new);
-
-                String identity = user.getIdentity();
-
-                    binding.settingProfileLottieAvatar.setVisibility(View.VISIBLE);
-                    binding.settingProfileImgView.setVisibility(View.GONE);
-                    switch (identity != null ? identity: "Default") {
-                        case "Male":
-                            binding.settingProfileLottieAvatar.setAnimation(default_male_profiles[new Random().nextInt(default_male_profiles.length)]);
-                            break;
-                        case "Female":
-                            binding.settingProfileLottieAvatar.setAnimation(default_female_profiles[new Random().nextInt(default_female_profiles.length)]);
-                            break;
-                        default:
-                            binding.settingProfileLottieAvatar.setAnimation(default_non_binary_profiles[new Random().nextInt(default_non_binary_profiles.length)]);
-                            break;
+                    Bitmap profile = BitmapFactory.decodeFile(selectedProfilePath); // checks if the photo still exist in gallery
+                    if (profile != null) {
+                        binding.settingProfileImgView.setVisibility(View.VISIBLE);
+                        binding.settingProfileLottieAvatar.setVisibility(View.GONE);
+                        binding.settingProfileImgView.setImageBitmap(profile);
+                    } else {
+                        setDefaultProfile();
                     }
+                }
             }
+        } else {
+            setDefaultProfile();
         }
 
         binding.settingChangeProfilePhotoBtn.setOnClickListener(new View.OnClickListener() {
@@ -166,6 +137,43 @@ public class ProfileFragment extends Fragment {
 
         onBackPress();
         return binding.getRoot();
+    }
+
+    private void setDefaultProfile() {
+        final String[] default_male_profiles = {
+                "default_user_profile_male-avatar.json",
+                "default_user_profile_male-avatar-v1.json",
+                "default_user_profile_male-avatar-v2.json",
+                "default_user_profile_male-avatar-v3.json",
+                "default_user_profile_male-avatar-v4.json"
+        };
+
+        final String[] default_female_profiles = {
+                "default_user_profile_female-avatar.json",
+                "default_user_profile_female-avatar-v1.json",
+                "default_user_profile_female-avatar-v2.json",
+                "default_user_profile_female-avatar-v3.json",
+                "default_user_profile_female-avatar-v4.json",
+                "default_user_profile_female-avatar-v5.json"
+        };
+
+        final String[] default_non_binary_profiles = Stream.concat(Arrays.stream(default_male_profiles), Arrays.stream(default_female_profiles)).toArray(String[]::new);
+
+        String identity = user.getIdentity();
+
+        binding.settingProfileLottieAvatar.setVisibility(View.VISIBLE);
+        binding.settingProfileImgView.setVisibility(View.GONE);
+        switch (identity != null ? identity: "Default") {
+            case "Male":
+                binding.settingProfileLottieAvatar.setAnimation(default_male_profiles[new Random().nextInt(default_male_profiles.length)]);
+                break;
+            case "Female":
+                binding.settingProfileLottieAvatar.setAnimation(default_female_profiles[new Random().nextInt(default_female_profiles.length)]);
+                break;
+            default:
+                binding.settingProfileLottieAvatar.setAnimation(default_non_binary_profiles[new Random().nextInt(default_non_binary_profiles.length)]);
+                break;
+        }
     }
 
     // function to check permission
@@ -207,7 +215,7 @@ public class ProfileFragment extends Fragment {
 
     // function to let's the user to choose image from camera or gallery
     private void chooseImage(Context context){
-        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Exit" }; // create a menuOption Array
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Default Profile", "Exit" }; // create a menuOption Array
         // create a dialog for showing the optionsMenu
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         // set the items in builder.
@@ -223,6 +231,13 @@ public class ProfileFragment extends Fragment {
                     // choose from  external storage
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(pickPhoto , 1);
+                }
+                else if(optionsMenu[i].equals("Default Profile")) {
+                    requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE)
+                            .edit().clear().apply();
+                    onCustomProfile = false;
+                    selectedProfilePath = "";
+                    setDefaultProfile();
                 }
                 else if (optionsMenu[i].equals("Exit")) {
                     dialogInterface.dismiss();
@@ -242,10 +257,12 @@ public class ProfileFragment extends Fragment {
                         Bitmap photo = (Bitmap) data.getExtras().get("data");
                         binding.settingProfileImgView.setImageBitmap(photo);
                         //camera capture get path and save on room instead
+                        binding.settingProfileLottieAvatar.setVisibility(View.GONE);
+                        binding.settingProfileImgView.setVisibility(View.VISIBLE);
 
                         // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                        photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes); //thumbnail
+//                        photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes); //thumbnail
                         photo = Bitmap.createScaledBitmap(photo, 1000, 1000,true); //original image
 
                         String path = MediaStore.Images.Media.insertImage(requireActivity().getContentResolver(), photo, "Sprout_CapturedPhoto", null);
@@ -268,7 +285,8 @@ public class ProfileFragment extends Fragment {
                                 String picturePath = cursor.getString(columnIndex);
                                 selectedProfilePath = picturePath;
                                 binding.settingProfileImgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
+                                binding.settingProfileLottieAvatar.setVisibility(View.GONE);
+                                binding.settingProfileImgView.setVisibility(View.VISIBLE);
                                 onCustomProfile = true;
                                 cursor.close();
                             }

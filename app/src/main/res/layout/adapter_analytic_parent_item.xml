@@ -153,7 +153,7 @@
 
             <TextView
                 android:id="@+id/adapter_analytic_parent_item_elapsed_abstinence"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="0dp"
                 android:padding="3dp"
@@ -161,7 +161,7 @@
                 android:textColor="@color/NIGHT"
                 android:textSize="15sp"
                 tools:ignore="RtlSymmetry"
-                tools:text="1 Day 11 Hours 5 Minutes 43 Seconds" />
+                tools:text="2 Day 11 Hours 5 Minutes 43 Seconds"/>
         </LinearLayout>
 
         <LinearLayout
