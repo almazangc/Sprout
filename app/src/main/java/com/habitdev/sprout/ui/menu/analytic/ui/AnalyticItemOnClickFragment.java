@@ -10,6 +10,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
@@ -76,9 +77,13 @@ public class AnalyticItemOnClickFragment extends Fragment {
             analyticItemOnClickParentItemAdapter.setOldSubroutinesList(subroutinesList);
             binding.analyticItemOnClickRecyclerView.setAdapter(analyticItemOnClickParentItemAdapter);
 
-            habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), subroutines -> {
-                analyticItemOnClickParentItemAdapter.setNewSubroutineList(subroutinesList);
-            });
+            habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(),
+                    new Observer<List<Subroutines>>() {
+                        @Override
+                        public void onChanged(List<Subroutines> subroutines) {
+                            analyticItemOnClickParentItemAdapter.setNewSubroutineList(subroutinesList);
+                        }
+                    });
         }
     }
 

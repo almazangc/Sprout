@@ -138,6 +138,7 @@ public class AnalyticFragment extends Fragment
                         try {
                             binding.dateSinceInstalled.setText(dateTimeElapsedUtil.getResult());
                         } catch (Exception e) {
+                            //prevent null binding
                             e.printStackTrace();
                         }
                     });
@@ -162,6 +163,7 @@ public class AnalyticFragment extends Fragment
                 @Override
                 public void onChanged(List<Habits> habits) {
                     analyticParentItemAdapter.setNewHabitList(habits);
+                    habitsList = habits;
                     setEmptyRVBackground();
                 }
             });
@@ -170,12 +172,9 @@ public class AnalyticFragment extends Fragment
 
     private void setEmptyRVBackground() {
         if (AnalyticFragment.analyticParentItemAdapter.getItemCount() > 0) {
-            Log.d("tag", "setEmptyRVBackground: " + AnalyticFragment.analyticParentItemAdapter.getItemCount());
-            Log.d("tag", "setEmptyRVBackground: > 0");
             binding.analyticEmptyLottieRecyclerView.setVisibility(View.INVISIBLE);
             binding.analyticEmptyLbl.setVisibility(View.INVISIBLE);
         } else {
-            Log.d("tag", "setEmptyRVBackground: empty");
             binding.analyticEmptyLottieRecyclerView.setVisibility(View.VISIBLE);
             binding.analyticEmptyLbl.setVisibility(View.VISIBLE);
         }

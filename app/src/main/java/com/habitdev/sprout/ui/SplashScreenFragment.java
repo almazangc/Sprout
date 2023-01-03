@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleCoroutineScope;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -46,7 +48,7 @@ public class SplashScreenFragment extends Fragment {
     private FragmentActivity fragment;
 
     public SplashScreenFragment() {
-        this.splashDuration = 10000;
+        this.splashDuration = 3000;
     }
 
     @Override
@@ -119,7 +121,7 @@ public class SplashScreenFragment extends Fragment {
 
             Random random = new Random();
 
-            new CountDownTimer(splashDuration, 1500) {
+            new CountDownTimer(splashDuration, 3000) {
                 public void onTick(long millisUntilFinished) {
                     fragment.runOnUiThread(() -> {
                         int ran = random.nextInt(quotes.size());
@@ -157,6 +159,7 @@ public class SplashScreenFragment extends Fragment {
                     } catch (Exception e) {
 //                        Log.d("tag", "checkStatus: " + e.getMessage());
 //                    Fragment SplashScreenFragment not attached to an activity.
+                        e.printStackTrace();
                     }
                 }
 
@@ -166,6 +169,7 @@ public class SplashScreenFragment extends Fragment {
                     } catch (Exception e) {
 //                        Log.d("tag", "checkStatus: " + e.getMessage());
 //                    Fragment SplashScreenFragment not associated with a fragment manager
+                        e.printStackTrace();
                     }
                 } else {
                     try {
@@ -173,6 +177,7 @@ public class SplashScreenFragment extends Fragment {
                     } catch (Exception e) {
 //                        Log.d("tag", "checkStatus: " + e.getMessage());
 //                    Fragment SplashScreenFragment not associated with a fragment manager
+                        e.printStackTrace();
                     }
                 }
                 onDestroyView();
