@@ -25,8 +25,10 @@ import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentAnalyticBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
+import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticParentItemAdapter;
 import com.habitdev.sprout.ui.menu.analytic.ui.AnalyticItemOnClickFragment;
+import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.util.ArrayList;
@@ -94,7 +96,6 @@ public class AnalyticFragment extends Fragment
         binding = FragmentAnalyticBinding.inflate(inflater, container, false);
         userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
-        setDateSinceInstalledElapsedTime();
         setRecyclerViewAdapter();
         onBackPress();
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
@@ -121,33 +122,6 @@ public class AnalyticFragment extends Fragment
                 binding.analysisContainer.setVisibility(View.GONE);
             }
         }
-    }
-
-    private void setDateSinceInstalledElapsedTime() {
-        User user = userViewModel.getUserByUID(1);
-        String date = user.getDateInstalled();
-        DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date);
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (binding != null) {
-                    new Handler(Looper.getMainLooper()).post(() -> {
-                        dateTimeElapsedUtil.calculateElapsedDateTime();
-                        try {
-                            binding.dateSinceInstalled.setText(dateTimeElapsedUtil.getResult());
-                        } catch (Exception e) {
-                            //prevent null binding
-                            e.printStackTrace();
-                        }
-                    });
-                } else {
-                    timer.cancel();
-                    timer.purge();
-                }
-            }
-        }, 0, 1000);
     }
 
     private void setRecyclerViewAdapter() {
@@ -182,6 +156,7 @@ public class AnalyticFragment extends Fragment
 
     private void onBackPress() {
         final int[] keypress_count = {0};
+        final boolean[] isOnBackPressDialogShowing = {false};
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -191,6 +166,7 @@ public class AnalyticFragment extends Fragment
 
                 //toast msg double backpress to close app not minimize
 
+
                 new CountDownTimer(200, 200) {
                     @Override
                     public void onTick(long l) {}
@@ -198,7 +174,20 @@ public class AnalyticFragment extends Fragment
                     @Override
                     public void onFinish() {
                         if (keypress_count[0] > 1) {
-                            requireActivity().finishAndRemoveTask();
+                            //Dialog is displayed twice
+                            OnBackPressDialogFragment dialog = new OnBackPressDialogFragment();
+                            if (!isOnBackPressDialogShowing[0]) {
+                                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AnalyticFragment.this.getId()), 1);
+                                dialog.show(getChildFragmentManager(), "Menu.onBackPress");
+                                dialog.setmOnCancelDialog(new OnBackPressDialogFragment.onCancelDialog() {
+                                    @Override
+                                    public void cancelDialog() {
+                                        keypress_count[0] = 0;
+                                        isOnBackPressDialogShowing[0] = false;
+                                    }
+                                });
+                                isOnBackPressDialogShowing[0] = true;
+                            }
                         } else {
                             requireActivity().moveTaskToBack(true);
                             keypress_count[0] = 0;

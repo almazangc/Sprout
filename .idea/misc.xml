@@ -408,6 +408,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/dialog_fragment_home_add_new_insert_subroutine.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/dialog_fragment_home_on_fab_click_dialog.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/dialog_fragment_home_parent_item_adapter_modify.xml" value="0.2702009405728944" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/dialog_fragment_on_back_press.xml" value="0.67" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/dialog_fragment_subroutine_modify_parent_item_adapter.xml" value="0.2702009405728944" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/dialog_fragment_subroutine_modify_parent_item_adapter_modify.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_about_us.xml" value="0.33" />
@@ -417,7 +418,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_new_subroutine.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_add_note.xml" value="0.32916666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_analysis.xml" value="0.33" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_analytic.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_analytic.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_analytic_item_on_click.xml" value="0.22" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_bottom.xml" value="0.2484825493171472" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_bottom_navigation.xml" value="0.5" />
@@ -447,7 +448,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_note.xml" value="0.24544764795144158" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_on_boarding.xml" value="0.3411458333333333" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_personalization.xml" value="0.22" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_setting.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_splash_screen.xml" value="0.4637421665174575" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_startup.xml" value="0.1" />
@@ -524,7 +525,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.5" />
+        <option name="scale" value="0.67" />
       </ProjectState>
     </option>
   </component>

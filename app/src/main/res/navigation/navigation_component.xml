@@ -234,6 +234,9 @@
         <action
             android:id="@+id/action_analyticsFragment_to_analyticItemOnClickFragment"
             app:destination="@id/analyticItemOnClickFragment" />
+        <action
+            android:id="@+id/action_analyticsFragment_to_onBackPressDialogFragment"
+            app:destination="@id/onBackPressDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/journalFragment"
@@ -255,6 +258,9 @@
         <action
             android:id="@+id/action_journalFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_journalFragment_to_onBackPressDialogFragment"
+            app:destination="@id/onBackPressDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -294,6 +300,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_themeFragment"
             app:destination="@id/themeFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_onBackPressDialogFragment"
+            app:destination="@id/onBackPressDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/subroutineFragment"
@@ -318,6 +327,9 @@
         <action
             android:id="@+id/action_subroutineFragment_to_modifySubroutinesFragment"
             app:destination="@id/modifySubroutinesFragment" />
+        <action
+            android:id="@+id/action_subroutineFragment_to_onBackPressDialogFragment"
+            app:destination="@id/onBackPressDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -345,6 +357,9 @@
         <action
             android:id="@+id/action_homeFragment_to_homeOnFabClickDialogFragment"
             app:destination="@id/homeOnFabClickDialogFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_onBackPressDialogFragment"
+            app:destination="@id/onBackPressDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNoteFragment"
@@ -511,4 +526,9 @@
             android:id="@+id/action_analyticItemOnClickFragment_to_analyticsFragment"
             app:destination="@id/analyticsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/onBackPressDialogFragment"
+        android:name="com.habitdev.sprout.ui.menu.OnBackPressDialogFragment"
+        android:label="dialog_fragment_on_back_press"
+        tools:layout="@layout/dialog_fragment_on_back_press" />
 </navigation>

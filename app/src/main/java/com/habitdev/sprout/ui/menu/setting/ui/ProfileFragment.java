@@ -17,7 +17,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +42,7 @@ import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
 import com.habitdev.sprout.enums.SettingConfigurationKeys;
+import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,6 +50,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class ProfileFragment extends Fragment {
@@ -111,32 +119,94 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        binding.settingProfileIdentityLbl.setText(user.getIdentity());
+        setTimeElapsedSinceInstalled();
+        validate_nickname();
+
         binding.settingProfileSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //update nickname
-                if (!binding.settingProfileChangeNickname.getText().toString().trim().isEmpty()) {
+                if (binding.settingProfileChangeNicknameHint.getText().toString().trim().isEmpty()) {
                     user.setNickname(binding.settingProfileChangeNickname.getText().toString().trim());
                     userViewModel.update(user);
-                } else {
-                    Toast.makeText(requireActivity(), "Empty Nickname", Toast.LENGTH_SHORT).show();
                 }
 
                 //update phofile
-                if (!selectedProfilePath.trim().isEmpty()) {
-                    requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE)
-                            .edit()
-                            .putBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), onCustomProfile)
-                            .putString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), selectedProfilePath)
-                            .apply();
+                if (selectedProfilePath != null) {
+                    if (!selectedProfilePath.trim().isEmpty()) {
+                        requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE)
+                                .edit()
+                                .putBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), onCustomProfile)
+                                .putString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), selectedProfilePath)
+                                .apply();
+                    }
                 }
-
-                //Toast for notification of saved sucessful
             }
         });
 
         onBackPress();
         return binding.getRoot();
+    }
+
+    private void validate_nickname() {
+        final String REQUIRED = "Required*";
+        final String MIN_MAX_CHARACTERS = "Minimum of 3, Maximum of 15 Characters*";
+        final String INVALID = "Invalid nickname*";
+
+        binding.settingProfileChangeNickname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().isEmpty()){
+                    binding.settingProfileChangeNicknameHint.setText(REQUIRED);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()){
+                    binding.settingProfileChangeNicknameHint.setText(REQUIRED);
+                } else if (editable.toString().trim().length() > 15 || editable.toString().trim().length() < 3 ) {
+                    binding.settingProfileChangeNicknameHint.setText(MIN_MAX_CHARACTERS);
+                } else if (!Pattern.compile("^[a-zA-Z ]*$").matcher(editable.toString().trim()).matches()){
+//            Allowed Input a-zA-Z space
+                    binding.settingProfileChangeNicknameHint.setText(INVALID);
+                } else {
+                    binding.settingProfileChangeNicknameHint.setText("");
+                }
+            }
+        });
+    }
+
+    private void setTimeElapsedSinceInstalled() {
+        String date = user.getDateInstalled();
+        DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (binding != null) {
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        dateTimeElapsedUtil.calculateElapsedDateTime();
+                        try {
+                            binding.settingProfileDateInstalledLbl.setText(dateTimeElapsedUtil.getResult());
+                        } catch (Exception e) {
+                            //prevent null binding
+                            e.printStackTrace();
+                        }
+                    });
+                } else {
+                    timer.cancel();
+                    timer.purge();
+                }
+            }
+        }, 0, 1000);
     }
 
     private void setDefaultProfile() {
@@ -262,8 +332,8 @@ public class ProfileFragment extends Fragment {
 
                         // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
                         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//                        photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes); //thumbnail
-                        photo = Bitmap.createScaledBitmap(photo, 1000, 1000,true); //original image
+                        photo.compress(Bitmap.CompressFormat.JPEG, 100, bytes); //thumbnail
+//                        photo = Bitmap.createScaledBitmap(photo, 1000, 1000,true); //original image
 
                         String path = MediaStore.Images.Media.insertImage(requireActivity().getContentResolver(), photo, "Sprout_CapturedPhoto", null);
                         Uri capturedImageUri = Uri.parse(path);

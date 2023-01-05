@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,10 @@ import com.habitdev.sprout.database.habit.model.Habits;
 import com.habitdev.sprout.database.habit.model.Subroutines;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
+import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.ui.HomeItemOnClickFragment;
+import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeOnFabClickDialogFragment;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
@@ -268,6 +271,7 @@ public class HomeFragment extends Fragment
 
     private void onBackPress() {
         final int[] keypress_count = {0};
+        final boolean[] isOnBackPressDialogShowing = {false};
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -277,15 +281,28 @@ public class HomeFragment extends Fragment
 
                 //toast msg double backpress to close app not minimize
 
+
                 new CountDownTimer(200, 200) {
                     @Override
-                    public void onTick(long l) {
-                    }
+                    public void onTick(long l) {}
 
                     @Override
                     public void onFinish() {
                         if (keypress_count[0] > 1) {
-                            requireActivity().finishAndRemoveTask();
+                            //Dialog is displayed twice
+                            OnBackPressDialogFragment dialog = new OnBackPressDialogFragment();
+                            if (!isOnBackPressDialogShowing[0]) {
+                                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(HomeFragment.this.getId()), 1);
+                                dialog.show(getChildFragmentManager(), "Menu.onBackPress");
+                                dialog.setmOnCancelDialog(new OnBackPressDialogFragment.onCancelDialog() {
+                                    @Override
+                                    public void cancelDialog() {
+                                        keypress_count[0] = 0;
+                                        isOnBackPressDialogShowing[0] = false;
+                                    }
+                                });
+                                isOnBackPressDialogShowing[0] = true;
+                            }
                         } else {
                             requireActivity().moveTaskToBack(true);
                             keypress_count[0] = 0;

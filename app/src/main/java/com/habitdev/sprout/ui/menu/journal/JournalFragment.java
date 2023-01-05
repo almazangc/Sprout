@@ -20,6 +20,8 @@ import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentJournalBinding;
 import com.habitdev.sprout.enums.BundleKeys;
+import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
+import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.journal.adapter.JournalNoteItemAdapter;
 import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
 
@@ -124,6 +126,7 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
 
     private void onBackPress() {
         final int[] keypress_count = {0};
+        final boolean[] isOnBackPressDialogShowing = {false};
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -133,6 +136,7 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
 
                 //toast msg double backpress to close app not minimize
 
+
                 new CountDownTimer(200, 200) {
                     @Override
                     public void onTick(long l) {}
@@ -140,7 +144,20 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
                     @Override
                     public void onFinish() {
                         if (keypress_count[0] > 1) {
-                            requireActivity().finishAndRemoveTask();
+                            //Dialog is displayed twice
+                            OnBackPressDialogFragment dialog = new OnBackPressDialogFragment();
+                            if (!isOnBackPressDialogShowing[0]) {
+                                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(JournalFragment.this.getId()), 1);
+                                dialog.show(getChildFragmentManager(), "Menu.onBackPress");
+                                dialog.setmOnCancelDialog(new OnBackPressDialogFragment.onCancelDialog() {
+                                    @Override
+                                    public void cancelDialog() {
+                                        keypress_count[0] = 0;
+                                        isOnBackPressDialogShowing[0] = false;
+                                    }
+                                });
+                                isOnBackPressDialogShowing[0] = true;
+                            }
                         } else {
                             requireActivity().moveTaskToBack(true);
                             keypress_count[0] = 0;

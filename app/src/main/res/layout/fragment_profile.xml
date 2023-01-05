@@ -26,18 +26,18 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/setting_profile_scrollable_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/setting_profile_scrollable_content"
-        android:fillViewport="true"
         android:layout_above="@id/setting_profile_save_btn"
         android:layout_below="@id/setting_profile_top_bar"
+        android:fillViewport="true"
         android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:isScrollContainer="true"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/setting_profile_img_card_view"
@@ -53,7 +53,7 @@
                     android:id="@+id/setting_profile_img_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop" />
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/setting_profile_lottie_avatar"
@@ -99,9 +99,67 @@
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"
                 android:textColorHint="@color/WAIKAWA_GREY"
-                android:textSize="16dp" />
+                android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/setting_profile_change_nickname_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_change_nickname"
+                tools:text=""
+                android:textAlignment="center"
+                android:textColor="@color/CORAL_RED"
+                android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/setting_profile_identity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_change_nickname_hint"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="\u2022 Identity"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setting_profile_identity_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_change_nickname_hint"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_toEndOf="@id/setting_profile_identity"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp"
+                tools:text="Male" />
+
+            <TextView
+                android:id="@+id/setting_profile_date_installed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_identity"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="\u2022 Elapsed time since installed"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setting_profile_date_installed_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_date_installed"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp"
+                tools:text="1 year 2 Day 11 Hours 5 Minutes 43 Seconds" />
         </RelativeLayout>
     </ScrollView>
 

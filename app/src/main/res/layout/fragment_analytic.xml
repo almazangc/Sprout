@@ -36,25 +36,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/analysis_container">
 
-                <TextView
-                    android:id="@+id/date_since_installed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:textAlignment="center"
-                    android:layout_centerHorizontal="true"
-                    android:textAllCaps="true"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="italic|bold"
-                    tools:text="1 year 2 Day 11 Hours 5 Minutes 43 Seconds"/>
-
                 <!-- empty -->
                 <TextView
                     android:id="@+id/analytic_empty_lbl"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/date_since_installed"
                     android:layout_marginTop="-220dp"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="EMPTY HABIT ON REFORM"
@@ -78,9 +64,9 @@
                     android:id="@+id/analytic_habit_on_reform_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/date_since_installed"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
+                    android:paddingTop="5dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="2"
                     tools:listitem="@layout/adapter_analytic_parent_item" />

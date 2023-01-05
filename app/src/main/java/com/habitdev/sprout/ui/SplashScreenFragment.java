@@ -121,7 +121,7 @@ public class SplashScreenFragment extends Fragment {
 
             Random random = new Random();
 
-            new CountDownTimer(splashDuration, 3000) {
+            new CountDownTimer(splashDuration, 1500) {
                 public void onTick(long millisUntilFinished) {
                     fragment.runOnUiThread(() -> {
                         int ran = random.nextInt(quotes.size());

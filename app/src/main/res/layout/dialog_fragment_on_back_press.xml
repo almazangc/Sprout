@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/on_back_press_dialog_cardview"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="5dp"
+    app:cardCornerRadius="15dp"
+    app:cardBackgroundColor="@color/CLOUDS"
+    tools:context=".ui.menu.OnBackPressDialogFragment">
+
+    <RelativeLayout
+        android:id="@+id/on_back_press_dialog_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/on_back_press_dialog_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="5dp"
+            android:text="Close Application?"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/on_back_press_dialog_lbl"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/on_back_press_dialog_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/background_btn_normal_selector"
+                android:minWidth="0dp"
+                android:minHeight="40dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Exit"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp" />
+
+            <Button
+                android:id="@+id/on_back_press_dialog_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/background_btn_normal_selector"
+                android:ellipsize="end"
+                android:minWidth="0dp"
+                android:minHeight="40dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Cancel"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

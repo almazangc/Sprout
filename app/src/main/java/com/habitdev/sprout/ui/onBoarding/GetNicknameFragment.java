@@ -21,7 +21,6 @@ import java.util.regex.Pattern;
 
 public class GetNicknameFragment extends Fragment {
 
-    //View Binding
     private FragmentGetNicknameBinding binding;
     private String nickname;
 
@@ -53,11 +52,15 @@ public class GetNicknameFragment extends Fragment {
     }
 
     private void validate_nickname() {
+        final String REQUIRED = "Required*";
+        final String MIN_MAX_CHARACTERS = "Minimum of 3, Maximum of 15 Characters*";
+        final String INVALID = "Invalid nickname*";
+
         binding.editNickname.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().isEmpty()){
-                    binding.editNicknameContainer.setHelperText("Required*");
+                    binding.editNicknameContainer.setHelperText(REQUIRED);
                 }
             }
 
@@ -67,12 +70,12 @@ public class GetNicknameFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()){
-                    binding.editNicknameContainer.setHelperText("Required*");
+                    binding.editNicknameContainer.setHelperText(REQUIRED);
                 } else if (editable.toString().trim().length() > 15 || editable.toString().trim().length() < 3 ) {
-                    binding.editNicknameContainer.setHelperText("Minimum of 3, Maximum of 15 Characters*");
+                    binding.editNicknameContainer.setHelperText(MIN_MAX_CHARACTERS);
                 } else if (!Pattern.compile("^[a-zA-Z ]*$").matcher(editable.toString().trim()).matches()){
 //            Allowed Input a-zA-Z space
-                    binding.editNicknameContainer.setHelperText("Invalid nickname*");
+                    binding.editNicknameContainer.setHelperText(INVALID);
                 } else {
                     binding.editNicknameContainer.setHelperText("");
                 }
