@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
-                android:text="You scored 70 and it has been noted that your struggling with breaking from bad habit of yours we suggest you to choose on the list of habit you wanna break"
+                android:text="Place Holder MSG for the recommended habit based on assessment | personalization result that using knowledge based recommender"
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"
                 android:textSize="13sp"

@@ -193,7 +193,7 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
                 .state()
                 .edit()
                 .setFirstDayOfWeek(DayOfWeek.of(Calendar.SUNDAY))
-                .setMaximumDate(CalendarDay.today())
+                .setMaximumDate(CalendarDay.from(year, month, day)) // CalendarDay.today()
                 .setMinimumDate(CalendarDay.from(year, month, day))
                 .setCalendarDisplayMode(CalendarMode.WEEKS)
                 .setShowWeekDays(true)
