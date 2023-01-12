@@ -237,7 +237,7 @@ public class Main extends AppCompatActivity {
                             for (Subroutines subroutine : subroutinesList) {
                                     subroutine.setMax_streak(0);
                                     subroutine.setTotal_skips(subroutine.getTotal_skips() + 1);
-                                habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                                    habitWithSubroutinesViewModel.updateSubroutine(subroutine);
                             }
                         }
                     }
