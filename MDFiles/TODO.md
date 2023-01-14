@@ -105,5 +105,13 @@ Glide - not used by implemented
 
 #### Journal Configuration
 
+* [ ]  Default
+* [ ]  Rotation
+* [ ]  Change Tab
+* [ ]  Restart
 
 #### Habit display check if still on reform before restoring at on pause and resume state for change tab
+
+#### FIX: APP Tracker for skips and completed subroutines not matching with total skips when app is not opened for more than a day
+
+#### FIX NEGATIVE DAYS WHEN USER MODIFY THIER DEVICE SETTING DATE

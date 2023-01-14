@@ -57,23 +57,24 @@ public class HabitWithSubroutinesRepository {
     }
 
     public void updateSubroutine(Subroutines subroutine) {
-        new UpdateSubroutineAsyncTask(habitWithSubroutinesDao).execute(subroutine);
+//        new UpdateSubroutineAsyncTask(habitWithSubroutinesDao).execute(subroutine);
+        habitWithSubroutinesDao.updateSubroutine(subroutine);
     }
 
-    public static class UpdateSubroutineAsyncTask extends AsyncTask<Subroutines, Void, Void> {
-
-        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
-
-        public UpdateSubroutineAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
-            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
-        }
-
-        @Override
-        protected Void doInBackground(Subroutines... subroutine) {
-            habitWithSubroutinesDao.updateSubroutine(subroutine[0]);
-            return null;
-        }
-    }
+//    public static class UpdateSubroutineAsyncTask extends AsyncTask<Subroutines, Void, Void> {
+//
+//        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
+//
+//        public UpdateSubroutineAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
+//            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Subroutines... subroutine) {
+//            habitWithSubroutinesDao.updateSubroutine(subroutine[0]);
+//            return null;
+//        }
+//    }
 
     public void deleteHabit(Habits habit) {
         new DeleteHabitAsyncTask(habitWithSubroutinesDao).execute(habit);
