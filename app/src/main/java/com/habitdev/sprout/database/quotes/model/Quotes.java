@@ -3,14 +3,16 @@ package com.habitdev.sprout.database.quotes.model;
 import androidx.annotation.NonNull;
 
 public class Quotes {
-    String author;
-    String quoted;
+    private String id;
+    private String author;
+    private String quoted;
 
     public Quotes() {
-
+        // Default constructor required for calls to DataSnapshot.getValue( quotes.class)
     }
 
-    public Quotes(String author, String quoted) {
+    public Quotes(String id, String author, String quoted) {
+        this.id = id;
         this.author = author;
         this.quoted = quoted;
     }
@@ -31,11 +33,20 @@ public class Quotes {
         this.quoted = quoted;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @NonNull
     @Override
     public String toString() {
         return "Quotes{" +
-                "author='" + author + '\'' +
+                "id='" + id + '\'' +
+                ", author='" + author + '\'' +
                 ", quoted='" + quoted + '\'' +
                 '}';
     }

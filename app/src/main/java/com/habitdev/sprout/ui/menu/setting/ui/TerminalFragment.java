@@ -1,10 +1,8 @@
 package com.habitdev.sprout.ui.menu.setting.ui;
 
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +14,14 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.database.quotes.QuotesViewModel;
 import com.habitdev.sprout.database.quotes.model.Quotes;
 import com.habitdev.sprout.databinding.FragmentTerminalBinding;
 
@@ -33,11 +29,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class TerminalFragment extends Fragment {
 
     private FragmentTerminalBinding binding;
+    private static QuotesViewModel quotesViewModel;
+    private static final List<Quotes>[] quotesList = new List[]{new ArrayList<>()};
+    private static int selectedItemPos = -1; // default none selected item
 
     public interface OnReturnSetting {
         void returnFromTerminalToSetting();
@@ -49,8 +47,7 @@ public class TerminalFragment extends Fragment {
         this.mOnReturnSetting = mOnReturnSetting;
     }
 
-    public TerminalFragment() {
-    }
+    public TerminalFragment() {}
 
     @Nullable
     @Override
@@ -58,9 +55,11 @@ public class TerminalFragment extends Fragment {
         binding = FragmentTerminalBinding.inflate(inflater, container, false);
         onBackPress();
 
+        quotesViewModel = new ViewModelProvider(requireActivity()).get(QuotesViewModel.class);
+
         //Get db ref
         FirebaseFirestore firebaseFirestoreDB = FirebaseFirestore.getInstance();
-        updateDropItems(firebaseFirestoreDB);
+        setDropItems(firebaseFirestoreDB);
 
         //Keys
         final String QUOTED_KEY = "quoted";
@@ -74,41 +73,21 @@ public class TerminalFragment extends Fragment {
                 final String author = binding.author.getText().toString().trim();
 
                 //create map obj
-                Map<String, Object> quotes = new HashMap<>(); //impletation of map interface
-                quotes.put(QUOTED_KEY, quoted);
-                quotes.put(AUTHOR_KEY, author);
+                Map<String, Object> quotesMap = new HashMap<>(); //impletation of map interface
+                quotesMap.put(QUOTED_KEY, quoted);
+                quotesMap.put(AUTHOR_KEY, author);
 
-                if (docID.isEmpty()) {
-                    firebaseFirestoreDB.collection("quotes").document().set(quotes)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(requireContext(), "This is added", Toast.LENGTH_SHORT).show();
-                                    updateDropItems(firebaseFirestoreDB);
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(requireContext(), "Failed to save, please check your internet connection", Toast.LENGTH_SHORT).show();
-                                    e.printStackTrace();
-                                }
-                            });
-                } else {
-                    firebaseFirestoreDB.collection("quotes").document(docID).set(quotes)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(requireContext(), "success", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(requireContext(), "Failed to save, please check your internet connection", Toast.LENGTH_SHORT).show();
-                                    e.printStackTrace();
-                                }
-                            });
+                if (selectedItemPos == -1) {
+                    quotesViewModel.insert_quotes(docID, quotesMap);
+                    Toast.makeText(requireActivity(), "Inserted", Toast.LENGTH_SHORT).show();
+                }
+
+                if (selectedItemPos >= 0 && selectedItemPos < quotesList[0].size()) {
+                    Quotes quotes = quotesList[0].get(selectedItemPos);
+                    quotes.setQuoted(quoted);
+                    quotes.setAuthor(author);
+                    quotesViewModel.update_quotes(quotes);
+                    Toast.makeText(requireActivity(), "Updated", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -117,28 +96,20 @@ public class TerminalFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 final String docID = binding.docID.getText().toString().trim();
-                if (!docID.isEmpty()) {
-                    firebaseFirestoreDB.collection("quotes").document(docID).delete()
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(requireContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                                    updateDropItems(firebaseFirestoreDB);
-
-                                    binding.docID.setText("");
-                                    binding.docID.setEnabled(true);
-                                    binding.quoted.setText("");
-                                    binding.author.setText("");
-                                    binding.quotesDropItem.setText("");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(requireContext(), "Failed to save, please check your internet connection", Toast.LENGTH_SHORT).show();
-                                    e.printStackTrace();
-                                }
-                            });
+                if (selectedItemPos == -1) {
+                    Toast.makeText(requireActivity(), "Item is not found dabase", Toast.LENGTH_SHORT).show();
+                }
+                if (selectedItemPos >= 0 && selectedItemPos < quotesList[0].size()) {
+                    quotesViewModel.delete_quotes(quotesList[0].get(selectedItemPos).getId());
+                    quotesList[0].remove(quotesList[0].get(selectedItemPos));
+                    selectedItemPos = -1;
+                    Toast.makeText(requireContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                    binding.docID.setText("");
+                    binding.docID.setEnabled(true);
+                    binding.quoted.setText("");
+                    binding.author.setText("");
+                    binding.quotesDropItem.setText("");
+                    binding.save.setText("Save");
                 }
             }
         });
@@ -152,6 +123,7 @@ public class TerminalFragment extends Fragment {
                 binding.quoted.setText("");
                 binding.author.setText("");
                 binding.quotesDropItem.setText("");
+                binding.save.setText("Save");
             }
         });
 
@@ -169,10 +141,12 @@ public class TerminalFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()) {
+                    selectedItemPos = -1; // for none is selected
                     binding.docID.setText("");
                     binding.docID.setEnabled(true);
                     binding.quoted.setText("");
                     binding.author.setText("");
+                    binding.save.setText("Save");
                 }
             }
         });
@@ -180,52 +154,84 @@ public class TerminalFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void updateDropItems(FirebaseFirestore firebaseFirestoreDB) {
-        firebaseFirestoreDB.collection("quotes").get(Source.SERVER);
-        firebaseFirestoreDB.collection("quotes")
-                .get(Source.CACHE)
-                .addOnSuccessListener(requireActivity(), new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot documents) {
-                        if (documents != null) {
-                            List<String> quotes_doc_id = new ArrayList<>();
-                            List<Quotes> quotesList = documents.toObjects(Quotes.class);
+    private void setDropItems(FirebaseFirestore firebaseFirestoreDB) {
+        quotesViewModel.fetchData();
+        quotesList[0] = quotesViewModel.getData();
 
-                            if (!quotesList.isEmpty()) {
-                                for (int pos = 0; pos < quotesList.size(); pos++) {
-                                    String documentID = documents.getDocuments().get(pos).getId();
-                                    quotes_doc_id.add(documentID);
-                                }
-                                ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_setting_terminal_quotes_item, quotes_doc_id); // handle config changes
-                                binding.quotesDropItem.setAdapter(adapterItems);
-                                Toast.makeText(requireContext(), "new adapteritems: " + quotes_doc_id.size(), Toast.LENGTH_SHORT).show();
+        List<String> quotesID = new ArrayList<>();
+        for (Quotes quotes : quotesList[0]){
+            quotesID.add(quotes.getQuoted());
+        }
 
-                                binding.quotesDropItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                                        Quotes quotes = quotesList.get(position);
-                                        String documentID = documents.getDocuments().get(position).getId();
-                                        binding.docID.setText(documentID);
-                                        binding.docID.setEnabled(false);
-                                        binding.quoted.setText(quotes.getQuoted());
-                                        binding.author.setText(quotes.getAuthor());
-                                    }
-                                });
-                            } else {
-                                //do nothing for now
-                            }
-                        } else {
-                            Log.d("tag", "SplashScreen: onSuccess() called: null documents ");
-                            firebaseFirestoreDB.collection("quotes").get(Source.SERVER);
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("tag", "SplashScreen: onFailure() called: Data is not available on CACHE");
-                    }
-                });
+        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_setting_terminal_quotes_item, quotesID); // handle config changes
+        binding.quotesDropItem.setAdapter(adapterItems);
+
+        binding.quotesDropItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                selectedItemPos = position;
+                Quotes quotes = quotesList[0].get(position);
+                binding.docID.setText(quotes.getId());
+                binding.docID.setEnabled(false);
+                binding.quoted.setText(quotes.getQuoted());
+                binding.author.setText(quotes.getAuthor());
+                binding.save.setText("Update");
+            }
+        });
+
+        quotesViewModel.getLiveData().observe(getViewLifecycleOwner(), new Observer<List<Quotes>>() {
+            @Override
+            public void onChanged(List<Quotes> quotes) {
+                quotesViewModel.fetchData();
+                quotesList[0] = quotes;
+            }
+        });
+
+//        firebaseFirestoreDB.collection("quotes").get(Source.SERVER);
+//        firebaseFirestoreDB.collection("quotes")
+//                .get(Source.CACHE)
+//                .addOnSuccessListener(requireActivity(), new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot documents) {
+//                        if (documents != null) {
+//                            List<String> quotes_doc_id = new ArrayList<>();
+//                            List<Quotes> quotesList = documents.toObjects(Quotes.class);
+//
+//                            if (!quotesList.isEmpty()) {
+//                                for (int pos = 0; pos < quotesList.size(); pos++) {
+//                                    String documentID = documents.getDocuments().get(pos).getId();
+//                                    quotes_doc_id.add(documentID);
+//                                }
+//                                ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_setting_terminal_quotes_item, quotes_doc_id); // handle config changes
+//                                binding.quotesDropItem.setAdapter(adapterItems);
+//                                Toast.makeText(requireContext(), "new adapteritems: " + quotes_doc_id.size(), Toast.LENGTH_SHORT).show();
+//
+//                                binding.quotesDropItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                                    @Override
+//                                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                                        Quotes quotes = quotesList.get(position);
+//                                        String documentID = documents.getDocuments().get(position).getId();
+//                                        binding.docID.setText(documentID);
+//                                        binding.docID.setEnabled(false);
+//                                        binding.quoted.setText(quotes.getQuoted());
+//                                        binding.author.setText(quotes.getAuthor());
+//                                    }
+//                                });
+//                            } else {
+//                                //do nothing for now
+//                            }
+//                        } else {
+//                            Log.d("tag", "SplashScreen: onSuccess() called: null documents ");
+//                            firebaseFirestoreDB.collection("quotes").get(Source.SERVER);
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.d("tag", "SplashScreen: onFailure() called: Data is not available on CACHE");
+//                    }
+//                });
     }
 
     private void onBackPress() {
