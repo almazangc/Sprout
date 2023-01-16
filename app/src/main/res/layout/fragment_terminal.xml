@@ -31,11 +31,10 @@
         android:layout_below="@id/setting_terminal_top_bar">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/quotes_drop_item_input"
+            android:id="@+id/quotes_drop_item_text_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -45,6 +44,7 @@
                 android:id="@+id/quotes_drop_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/TRANSPARENT"
                 android:hint="Quotes in Firestore"
                 android:inputType="none"
                 android:textColor="@color/NIGHT"
@@ -56,8 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
             android:layout_centerInParent="true"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
             <EditText
@@ -98,8 +98,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:gravity="center"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
@@ -107,7 +107,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginBottom="5sp"
                     android:text="Clear Value"
+                    android:background="@drawable/background_btn_normal_selector"
                     android:textAllCaps="false" />
 
                 <Button
@@ -115,7 +118,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginBottom="5sp"
                     android:text="Save"
+                    android:background="@drawable/background_btn_normal_selector"
                     android:textAllCaps="false" />
 
                 <Button
@@ -123,7 +129,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5sp"
                     android:text="Delete"
+                    android:background="@drawable/background_btn_normal_selector"
                     android:textAllCaps="false" />
             </LinearLayout>
 

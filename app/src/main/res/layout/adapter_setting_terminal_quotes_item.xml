@@ -1,9 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:ellipsize="end"
-    android:maxLines="1"
-    android:padding="16dp"
-    android:text="@string/app_name"
-    android:textAppearance="?attr/textAppearanceSubtitle1" />
+    android:id="@+id/quotes_drop_item_layout"
+    android:background="@drawable/background_bottom_bar_view_waikawa_grey_"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/quotes_drop_item_quoted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="@string/app_name"
+        android:textColor="@color/NIGHT"
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/quotes_drop_item_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingTop="3dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp"
+        android:text="@string/app_name"
+        android:textColor="@color/NIGHT"
+        android:textSize="13sp" />
+</LinearLayout>
+
+

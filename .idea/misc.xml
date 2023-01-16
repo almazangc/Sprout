@@ -148,6 +148,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_bottom_bar_view_nephritis.xml" value="0.2115" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_bottom_bar_view_sunflower.xml" value="0.2115" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_bottom_bar_view_waikawa_grey.xml" value="0.2115" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_bottom_bar_view_waikawa_grey_.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_all_on_pressed.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_alzarin_default.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_alzarin_on_pressed.xml" value="0.16" />
@@ -397,7 +398,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_on_item_click_comment_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_journal_parent_note_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_personalization_parent_choices_item.xml" value="0.5509259259259259" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_setting_terminal_quotes_item.xml" value="0.26588136306268406" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_setting_terminal_quotes_item.xml" value="0.576725025746653" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_child_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_modify_parent_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_subroutine_modify_subroutine_parent_item.xml" value="0.5" />
@@ -456,7 +457,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_subroutine.xml" value="0.4563176895306859" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_subroutine_modify.xml" value="0.3979848866498741" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_tech_stack_info.xml" value="0.40331844288449265" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_terminal.xml" value="0.33" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_terminal.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/fragment_theme.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/get_started_custom_toast.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/home_parent_adapter_item.xml" value="0.32916666666666666" />
@@ -517,7 +518,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17_PREVIEW" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
