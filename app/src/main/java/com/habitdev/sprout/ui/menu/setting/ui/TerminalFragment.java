@@ -60,12 +60,12 @@ public class TerminalFragment extends Fragment {
         binding.quotesDropItem.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //not neeed
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //not neeed
             }
 
             @Override
@@ -81,10 +81,6 @@ public class TerminalFragment extends Fragment {
             }
         });
 
-        //Keys
-        final String QUOTED_KEY = "quoted";
-        final String AUTHOR_KEY = "author";
-
         binding.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,13 +88,11 @@ public class TerminalFragment extends Fragment {
                 final String quoted = binding.quoted.getText().toString().trim();
                 final String author = binding.author.getText().toString().trim();
 
-                //create map obj
-                Map<String, Object> quotesMap = new HashMap<>(); //impletation of map interface
-                quotesMap.put(QUOTED_KEY, quoted);
-                quotesMap.put(AUTHOR_KEY, author);
+                Quotes quote = new Quotes(quoted, author);
+                quote.setId(docID);
 
                 if (selectedItemPos == -1) {
-                    quotesViewModel.insert_quotes(docID, quotesMap);
+                    quotesViewModel.insertQuote(docID, quote);
                     Toast.makeText(requireActivity(), "Inserted", Toast.LENGTH_SHORT).show();
                     notifyDataSetChanged();
                 }
@@ -107,7 +101,7 @@ public class TerminalFragment extends Fragment {
                     Quotes quotes = quotesList[0].get(selectedItemPos);
                     quotes.setQuoted(quoted);
                     quotes.setAuthor(author);
-                    quotesViewModel.update_quotes(quotes);
+                    quotesViewModel.updateQuote(quotes);
                     Toast.makeText(requireActivity(), "Updated", Toast.LENGTH_SHORT).show();
                     notifyDataSetChanged();
                 }
@@ -121,7 +115,7 @@ public class TerminalFragment extends Fragment {
                     Toast.makeText(requireActivity(), "Item is not found dabase", Toast.LENGTH_SHORT).show();
                 }
                 if (selectedItemPos >= 0 && selectedItemPos < quotesList[0].size()) {
-                    quotesViewModel.delete_quotes(quotesList[0].get(selectedItemPos).getId());
+                    quotesViewModel.deleteQuote(quotesList[0].get(selectedItemPos).getId());
                     quotesList[0].remove(quotesList[0].get(selectedItemPos));
                     selectedItemPos = -1;
                     Toast.makeText(requireContext(), "Deleted", Toast.LENGTH_SHORT).show();

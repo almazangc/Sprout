@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f2aeff058dd623e8604b3ace733171b8",
+    "identityHash": "6f46a3cfc41b7adc4763eac9fb0df14a",
     "entities": [
       {
         "tableName": "User",
@@ -294,7 +294,7 @@
       },
       {
         "tableName": "Habits",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `color` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `color` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_habit_uid",
@@ -359,6 +359,18 @@
           {
             "fieldPath": "completed_subroutine",
             "columnName": "completed_subroutines",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "upvote",
+            "columnName": "upvote",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downvote",
+            "columnName": "downvote",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -528,7 +540,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f2aeff058dd623e8604b3ace733171b8')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6f46a3cfc41b7adc4763eac9fb0df14a')"
     ]
   }
 }

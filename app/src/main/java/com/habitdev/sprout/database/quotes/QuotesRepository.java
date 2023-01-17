@@ -12,10 +12,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
+import com.habitdev.sprout.database.habit.HabitFireStoreRepository;
+import com.habitdev.sprout.database.habit.model.HabitFireStore;
 import com.habitdev.sprout.database.quotes.model.Quotes;
 
 import java.util.ArrayList;
@@ -24,41 +27,89 @@ import java.util.Map;
 
 public class QuotesRepository {
 
-    private final FirebaseFirestore firestore;
-    private final QuotesViewModel quotesViewModel;
-    private final CollectionReference quotesCollection;
+    private final FirebaseFirestore firestore; // instance of the FirebaseFirestore class, used to access the Firestore database.
+    private final CollectionReference quotesCollection; // CollectionReference object for the "habit" collection in Firestore.
 
     public QuotesRepository(QuotesViewModel quotesViewModel) {
-        this.quotesViewModel = quotesViewModel;
         firestore = FirebaseFirestore.getInstance();
         quotesCollection = firestore.collection("quotes");
     }
 
-    public void fetchData() {
-        quotesCollection
-                .get(
-                        Source.DEFAULT
-                )
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    public interface FetchCallback {
+        void onFetchQuoteSuccess(List<Quotes> quotesList);
+        void onFetchQuoteFailure(Exception e);
+    }
+
+    public interface InsertCallback {
+        void onInsertQuoteSuccess();
+        void onInsertQuoteFailure(Exception e);
+    }
+
+    public interface UpdateCallback {
+        void onUpdateQuoteSuccess();
+        void onUpdateQuoteFailure(Exception e);
+    }
+
+    public interface DeleteCallback {
+        void onDeleteQuoteSuccess();
+        void onDeleteQuoteFailure(Exception e);
+    }
+
+    public void fetchData(final FetchCallback callback) {
+        quotesCollection.get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            List<Quotes> dataList = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Quotes quotes = document.toObject(Quotes.class); // document id
-                                quotes.setId(document.getId());
-                                dataList.add(quotes);
-                            }
-                            quotesViewModel.setLiveData(dataList);
-                            quotesViewModel.setData(dataList);
-                        } else {
-                            Log.d("tag", "onComplete: fetchdata failed due to network");
+                    public void onSuccess(QuerySnapshot querySnapshot) {
+                        List<Quotes> quotes = new ArrayList<>();
+                        for (DocumentSnapshot documentSnapshot : querySnapshot.getDocuments()) {
+                            Quotes quote = documentSnapshot.toObject(Quotes.class);
+                            quote.setId(documentSnapshot.getId());
+                            quotes.add(quote);
                         }
+                        callback.onFetchQuoteSuccess(quotes);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onFetchQuoteFailure(e);
                     }
                 });
     }
 
-    public void updateQuotes(Quotes quotes) {
+    public void insertQuote(String docID, Quotes quote, final InsertCallback callback) {
+        if (quote.getId().trim().isEmpty()) {
+            quotesCollection.document().set(quote.toMap())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            callback.onInsertQuoteSuccess();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            callback.onInsertQuoteFailure(e);
+                        }
+                    });
+        } else {
+            quotesCollection.document(docID.trim()).set(quote.toMap())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            callback.onInsertQuoteSuccess();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            callback.onInsertQuoteFailure(e);
+                        }
+                    });
+        }
+    }
+
+    public void updateQuote(Quotes quotes) {
         quotesCollection.document(quotes.getId())
                 .set(quotes)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -75,55 +126,8 @@ public class QuotesRepository {
                 });
     }
 
-    public void insert_quotes(String docID, Map<String, Object> quotes) {
-//        firestore.collection("quotes")
-//                .add(quotes)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d(" quotesRepository", "DocumentSnapshot written with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w(" quotesRepository", "Error adding document", e);
-//                    }
-//                });
-
-        if (docID.isEmpty()) {
-            firestore.collection("quotes").document().set(quotes)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Log.d(" quotesRepository", "DocumentSnapshot successfully inserted!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(" quotesRepository", "Error inserting new document", e);
-                        }
-                    });
-        } else {
-            firestore.collection("quotes").document(docID).set(quotes)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Log.d(" quotesRepository", "DocumentSnapshot successfully inserted!");
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w(" quotesRepository", "Error inserting new document", e);
-                        }
-                    });
-        }
-    }
-
-    public void delete_quotes(String id) {
-        firestore.collection("quotes").document(id)
+    public void deleteQuote(String id) {
+        quotesCollection.document(id)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

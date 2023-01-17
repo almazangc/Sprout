@@ -1,6 +1,12 @@
 package com.habitdev.sprout.database.quotes.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.Ignore;
+
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Quotes {
     private String id;
@@ -11,8 +17,16 @@ public class Quotes {
         // Default constructor required for calls to DataSnapshot.getValue( quotes.class)
     }
 
+    @Ignore
     public Quotes(String id, String author, String quoted) {
         this.id = id;
+        this.author = author;
+        this.quoted = quoted;
+    }
+
+    @Ignore
+    public Quotes(String author, String quoted) {
+        this.id = "";
         this.author = author;
         this.quoted = quoted;
     }
@@ -49,5 +63,13 @@ public class Quotes {
                 ", author='" + author + '\'' +
                 ", quoted='" + quoted + '\'' +
                 '}';
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("author", author);
+        result.put("quoted", quoted);
+        return result;
     }
 }

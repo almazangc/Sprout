@@ -268,11 +268,9 @@ public class AddDefaultHabitFragment extends Fragment {
                         true,
                         habit.isModifiable(),
                         habit.getAbstinence(),
-                        0,
                         new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault())
                                 .format(new Date()),
-                        subroutinesList.size(),
-                        0
+                        subroutinesList.size()
                 ));
                 habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
 

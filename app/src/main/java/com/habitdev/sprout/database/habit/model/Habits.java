@@ -44,6 +44,12 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "completed_subroutines")
     private int completed_subroutine;
 
+    @ColumnInfo(name = "upvote")
+    private int upvote;
+
+    @ColumnInfo(name = "downvote")
+    private int downvote;
+
     @Ignore
     public Habits(String habit, String description, String color, Boolean onReform, Boolean modifiable) {
         this.habit = habit;
@@ -56,8 +62,27 @@ public class Habits implements Serializable {
         this.date_started = null;
         this.total_subroutine = 0;
         this.completed_subroutine = 0;
+        this.upvote = 0; //to be updated
+        this.downvote = 0;
     }
 
+    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int abstinence, int relapse, String date_started, int total_subroutine, int completed_subroutine, int upvote, int downvote) {
+        this.pk_habit_uid = pk_habit_uid;
+        this.habit = habit;
+        this.description = description;
+        this.color = color;
+        this.onReform = onReform;
+        this.modifiable = modifiable;
+        this.abstinence = abstinence;
+        this.relapse = relapse;
+        this.date_started = date_started;
+        this.total_subroutine = total_subroutine;
+        this.completed_subroutine = completed_subroutine;
+        this.upvote = upvote;
+        this.downvote = downvote;
+    }
+
+    @Ignore
     public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int abstinence, int relapse, String date_started, int total_subroutine, int completed_subroutine) {
         this.pk_habit_uid = pk_habit_uid;
         this.habit = habit;
@@ -70,6 +95,25 @@ public class Habits implements Serializable {
         this.date_started = date_started;
         this.total_subroutine = total_subroutine;
         this.completed_subroutine = completed_subroutine;
+        this.upvote = 0;
+        this.downvote = 0;
+    }
+
+    @Ignore
+    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int abstinence, String date_started, int total_subroutine) {
+        this.pk_habit_uid = pk_habit_uid;
+        this.habit = habit;
+        this.description = description;
+        this.color = color;
+        this.onReform = onReform;
+        this.modifiable = modifiable;
+        this.abstinence = abstinence;
+        this.relapse = 0;
+        this.date_started = date_started;
+        this.total_subroutine = total_subroutine;
+        this.completed_subroutine = 0;
+        this.upvote = 0;
+        this.downvote = 0;
     }
 
     @NonNull
@@ -166,6 +210,22 @@ public class Habits implements Serializable {
 
     public int getCompleted_subroutine() {
         return completed_subroutine;
+    }
+
+    public int getUpvote() {
+        return upvote;
+    }
+
+    public void setUpvote(int upvote) {
+        this.upvote = upvote;
+    }
+
+    public int getDownvote() {
+        return downvote;
+    }
+
+    public void setDownvote(int downvote) {
+        this.downvote = downvote;
     }
 }
 
