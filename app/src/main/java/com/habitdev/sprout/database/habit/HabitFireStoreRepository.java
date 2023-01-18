@@ -50,7 +50,7 @@ public class HabitFireStoreRepository {
                     public void onSuccess(QuerySnapshot querySnapshot) {
                         List<HabitFireStore> habits = new ArrayList<>();
                         for (DocumentSnapshot documentSnapshot : querySnapshot.getDocuments()) {
-                            HabitFireStore habit = documentSnapshot.toObject(HabitFireStore.class);
+                            HabitFireStore habit = documentSnapshot.toObject(HabitFireStore.class); //
                             habit.setId(documentSnapshot.getId());
                             habits.add(habit);
                         }

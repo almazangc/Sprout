@@ -54,104 +54,12 @@ public class TerminalFragment extends Fragment {
         onBackPress();
 
         quotesViewModel = new ViewModelProvider(requireActivity()).get(QuotesViewModel.class);
-
         setDropItems();
-
-        binding.quotesDropItem.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //not neeed
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //not neeed
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.toString().trim().isEmpty()) {
-                    selectedItemPos = -1; // for none is selected
-                    binding.docID.setText("");
-                    binding.docID.setEnabled(true);
-                    binding.quoted.setText("");
-                    binding.author.setText("");
-                    binding.save.setText("Save");
-                }
-            }
-        });
-
-        binding.save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String docID = binding.docID.getText().toString().trim();
-                final String quoted = binding.quoted.getText().toString().trim();
-                final String author = binding.author.getText().toString().trim();
-
-                Quotes quote = new Quotes(quoted, author);
-                quote.setId(docID);
-
-                if (selectedItemPos == -1) {
-                    quotesViewModel.insertQuote(docID, quote);
-                    Toast.makeText(requireActivity(), "Inserted", Toast.LENGTH_SHORT).show();
-                    notifyDataSetChanged();
-                }
-
-                if (selectedItemPos >= 0 && selectedItemPos < quotesList[0].size()) {
-                    Quotes quotes = quotesList[0].get(selectedItemPos);
-                    quotes.setQuoted(quoted);
-                    quotes.setAuthor(author);
-                    quotesViewModel.updateQuote(quotes);
-                    Toast.makeText(requireActivity(), "Updated", Toast.LENGTH_SHORT).show();
-                    notifyDataSetChanged();
-                }
-            }
-        });
-
-        binding.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (selectedItemPos == -1) {
-                    Toast.makeText(requireActivity(), "Item is not found dabase", Toast.LENGTH_SHORT).show();
-                }
-                if (selectedItemPos >= 0 && selectedItemPos < quotesList[0].size()) {
-                    quotesViewModel.deleteQuote(quotesList[0].get(selectedItemPos).getId());
-                    quotesList[0].remove(quotesList[0].get(selectedItemPos));
-                    selectedItemPos = -1;
-                    Toast.makeText(requireContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                    binding.docID.setText("");
-                    binding.docID.setEnabled(true);
-                    binding.quoted.setText("");
-                    binding.author.setText("");
-                    binding.quotesDropItem.setText("");
-                    binding.save.setText("Save");
-                    notifyDataSetChanged();
-                }
-
-            }
-        });
-
-        binding.clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(requireContext(), "Cleared", Toast.LENGTH_SHORT).show();
-                binding.docID.setText("");
-                binding.docID.setEnabled(true);
-                binding.quoted.setText("");
-                binding.author.setText("");
-                binding.quotesDropItem.setText("");
-                binding.save.setText("Save");
-                notifyDataSetChanged();
-            }
-        });
+        setSaveOnClearListener();
+        setDeleteOnClickListener();
+        setClearOnClickListener();
 
         return binding.getRoot();
-    }
-
-    private void notifyDataSetChanged() {
-        if (quotesAdapter != null && binding.quotesDropItem.getAdapter() != null) {
-            quotesAdapter.notifyDataSetChanged();
-        }
     }
 
     private void setDropItems() {
@@ -207,6 +115,106 @@ public class TerminalFragment extends Fragment {
                 quotesList[0] = quotes;
             }
         });
+
+        binding.quotesDropItem.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //not neeed
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //not neeed
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().isEmpty()) {
+                    selectedItemPos = -1; // for none is selected
+                    binding.docID.setText("");
+                    binding.docID.setEnabled(true);
+                    binding.quoted.setText("");
+                    binding.author.setText("");
+                    binding.save.setText("Save");
+                }
+            }
+        });
+    }
+
+    private void setSaveOnClearListener() {
+        binding.save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String docID = binding.docID.getText().toString().trim();
+                final String quoted = binding.quoted.getText().toString().trim();
+                final String author = binding.author.getText().toString().trim();
+
+                Quotes quote = new Quotes(quoted, author);
+                quote.setId(docID);
+
+                if (selectedItemPos == -1) {
+                    quotesViewModel.insertQuote(docID, quote);
+                    Toast.makeText(requireActivity(), "Inserted", Toast.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
+                }
+
+                if (selectedItemPos >= 0 && selectedItemPos < quotesList[0].size()) {
+                    Quotes quotes = quotesList[0].get(selectedItemPos);
+                    quotes.setQuoted(quoted);
+                    quotes.setAuthor(author);
+                    quotesViewModel.updateQuote(quotes);
+                    Toast.makeText(requireActivity(), "Updated", Toast.LENGTH_SHORT).show();
+                    notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    private void setDeleteOnClickListener() {
+        binding.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (selectedItemPos == -1) {
+                    Toast.makeText(requireActivity(), "Item is not found dabase", Toast.LENGTH_SHORT).show();
+                }
+                if (selectedItemPos >= 0 && selectedItemPos < quotesList[0].size()) {
+                    quotesViewModel.deleteQuote(quotesList[0].get(selectedItemPos).getId());
+                    quotesList[0].remove(quotesList[0].get(selectedItemPos));
+                    selectedItemPos = -1;
+                    Toast.makeText(requireContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                    binding.docID.setText("");
+                    binding.docID.setEnabled(true);
+                    binding.quoted.setText("");
+                    binding.author.setText("");
+                    binding.quotesDropItem.setText("");
+                    binding.save.setText("Save");
+                    notifyDataSetChanged();
+                }
+
+            }
+        });
+    }
+
+    private void setClearOnClickListener() {
+        binding.clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(requireContext(), "Cleared", Toast.LENGTH_SHORT).show();
+                binding.docID.setText("");
+                binding.docID.setEnabled(true);
+                binding.quoted.setText("");
+                binding.author.setText("");
+                binding.quotesDropItem.setText("");
+                binding.save.setText("Save");
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    private void notifyDataSetChanged() {
+        if (quotesAdapter != null && binding.quotesDropItem.getAdapter() != null) {
+            quotesAdapter.notifyDataSetChanged();
+        }
     }
 
     private void onBackPress() {

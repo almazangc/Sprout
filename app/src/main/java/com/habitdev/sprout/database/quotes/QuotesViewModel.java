@@ -52,7 +52,7 @@ public class QuotesViewModel extends AndroidViewModel {
             @Override
             public void onFetchQuoteFailure(Exception e) {
                 // Handle failure
-                Log.d(TAG, "onFetchQuoteFailure: " + e.getMessage());
+                Log.e(TAG, "onFetchQuoteFailure: " + e.getMessage());
             }
         });
     }
@@ -67,18 +67,38 @@ public class QuotesViewModel extends AndroidViewModel {
             @Override
             public void onInsertQuoteFailure(Exception e) {
                 // Handle failure
-                Log.d(TAG, "onInsertHabitFailure: :" + e.getMessage());
+                Log.e(TAG, "onInsertHabitFailure: :" + e.getMessage());
             }
         });
     }
 
     public void updateQuote(Quotes quote) {
-        repository.updateQuote(quote);
+        repository.updateQuote(quote, new QuotesRepository.UpdateCallback() {
+            @Override
+            public void onUpdateQuoteSuccess() {
+                // Handle success
+            }
+
+            @Override
+            public void onUpdateQuoteFailure(Exception e) {
+                // Handle failure
+                Log.e(TAG, "onUpdateQuoteFailure: :" + e.getMessage());
+            }
+        });
     }
 
-
-
     public void deleteQuote(String id) {
-        repository.deleteQuote(id);
+        repository.deleteQuote(id, new QuotesRepository.DeleteCallback() {
+            @Override
+            public void onDeleteQuoteSuccess() {
+                // Handle success
+            }
+
+            @Override
+            public void onDeleteQuoteFailure(Exception e) {
+                // Handle failure
+                Log.e(TAG, "onDeleteQuoteFailure: :" + e.getMessage());
+            }
+        });
     }
 }

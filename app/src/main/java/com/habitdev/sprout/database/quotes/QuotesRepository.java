@@ -109,36 +109,34 @@ public class QuotesRepository {
         }
     }
 
-    public void updateQuote(Quotes quotes) {
-        quotesCollection.document(quotes.getId())
-                .set(quotes)
+    public void updateQuote(Quotes quotes, final UpdateCallback callback) {
+        quotesCollection.document(quotes.getId()).set(quotes.toMap())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("QuotesRepository", "DocumentSnapshot successfully updated!");
+                        callback.onUpdateQuoteSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(" quotesRepository", "Error updating document", e);
+                        callback.onUpdateQuoteFailure(e);
                     }
                 });
     }
 
-    public void deleteQuote(String id) {
-        quotesCollection.document(id)
-                .delete()
+    public void deleteQuote(String id, final DeleteCallback callback) {
+        quotesCollection.document(id).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(" quotesRepository", "DocumentSnapshot successfully deleted!");
+                        callback.onDeleteQuoteSuccess();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(" quotesRepository", "Error deleting document", e);
+                        callback.onDeleteQuoteFailure(e);
                     }
                 });
     }

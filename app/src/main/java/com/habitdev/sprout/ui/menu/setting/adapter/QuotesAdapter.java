@@ -143,28 +143,24 @@ public class QuotesAdapter extends ArrayAdapter<Quotes> {
             public void onInserted(int position, int count) {
                 oldQuotesList = newQuotesList;
                 originalNoteList = oldQuotesList;
-//                notifyDataSetChanged();
             }
 
             @Override
             public void onRemoved(int position, int count) {
                 oldQuotesList = newQuotesList;
                 originalNoteList = oldQuotesList;
-//                notifyDataSetChanged();
             }
 
             @Override
             public void onMoved(int fromPosition, int toPosition) {
                 oldQuotesList = newQuotesList;
                 originalNoteList = oldQuotesList;
-//                notifyDataSetChanged();
             }
 
             @Override
             public void onChanged(int position, int count, @Nullable Object payload) {
                 oldQuotesList = newQuotesList;
                 originalNoteList = oldQuotesList;
-//                notifyDataSetChanged();
             }
         });
     }

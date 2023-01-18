@@ -12,6 +12,9 @@ import com.habitdev.sprout.database.habit.model.HabitFireStore;
 
 import java.util.List;
 
+/**
+ * Unused for now
+ */
 public class HabitFireStoreViewModel extends AndroidViewModel {
 
     private HabitFireStoreRepository repository;

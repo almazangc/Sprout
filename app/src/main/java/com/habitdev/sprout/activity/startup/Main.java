@@ -1,17 +1,21 @@
 package com.habitdev.sprout.activity.startup;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -66,6 +70,7 @@ public class Main extends AppCompatActivity {
     private ActivityMainBinding binding;
     private static SharedPreferences sharedPreferences;
     private static boolean isDataAvailableOnLocal;
+    private static final int REQUEST_CODE_PERMISSION = 1;
 
     private enum MAIN_ENUMS {
 
@@ -97,7 +102,46 @@ public class Main extends AppCompatActivity {
         clearSharedPref();
         fetchFirestoreDB();
         setDailyDateTracker();
+
+        if (!checkPermission()) {
+            requestPermissions();
+        }
+
         setContentView(binding.getRoot());
+    }
+
+    private void requestPermissions() {
+        String[] permissions = new String[]{
+                Manifest.permission.SET_ALARM,
+                Manifest.permission.FOREGROUND_SERVICE,
+                Manifest.permission.RECEIVE_BOOT_COMPLETED
+        };
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_PERMISSION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_PERMISSION) {
+            boolean granted = true;
+            for (int grantResult : grantResults) {
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    granted = false;
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Check if the permission is granted
+     *
+     * @return true if permission is granted, false otherwise
+     */
+    private boolean checkPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.SET_ALARM) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.FOREGROUND_SERVICE) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_BOOT_COMPLETED) == PackageManager.PERMISSION_GRANTED;
     }
 
     /**

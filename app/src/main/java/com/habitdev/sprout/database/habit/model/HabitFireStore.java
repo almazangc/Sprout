@@ -1,6 +1,7 @@
 package com.habitdev.sprout.database.habit.model;
 
 import com.google.firebase.database.Exclude;
+import com.habitdev.sprout.enums.AppColor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +10,7 @@ public class HabitFireStore {
     private String id;
     private String title;
     private String description;
+    private String color;
     private long pk_uid;
     private int upvote;
     private int downvote;
@@ -21,6 +23,9 @@ public class HabitFireStore {
         this.title = title;
         this.description = description;
         this.pk_uid = pk_uid;
+        this.color = AppColor.CLOUDS.getColor();
+        this.upvote = 0;
+        this.downvote = 0;
     }
 
     public String getId() {
@@ -71,12 +76,21 @@ public class HabitFireStore {
         this.downvote = downvote;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     @Override
     public String toString() {
         return "HabitFireStore{" +
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
+                ", color='" + color + '\'' +
                 ", pk_uid=" + pk_uid +
                 ", upvote=" + upvote +
                 ", downvote=" + downvote +
@@ -88,6 +102,7 @@ public class HabitFireStore {
         HashMap<String, Object> result = new HashMap<>();
         result.put("title", title);
         result.put("description", description);
+        result.put("color", color);
         result.put("pk_uid", pk_uid);
         result.put("upvote", upvote);
         result.put("downvote", downvote);
