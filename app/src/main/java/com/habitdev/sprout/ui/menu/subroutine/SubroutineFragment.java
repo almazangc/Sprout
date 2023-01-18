@@ -17,13 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
 import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
-import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
 

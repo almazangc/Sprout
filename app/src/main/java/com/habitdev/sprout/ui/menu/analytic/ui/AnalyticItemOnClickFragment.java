@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.habit.model.Habits;
-import com.habitdev.sprout.database.habit.model.Subroutines;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.model.room.Habits;
+import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.databinding.FragmentAnalyticItemOnClickBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticItemOnClickParentItemAdapter;

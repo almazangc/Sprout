@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "6f46a3cfc41b7adc4763eac9fb0df14a",
+    "identityHash": "d6ecfab4635371f4860e0b786f2da968",
     "entities": [
       {
         "tableName": "User",
@@ -386,7 +386,7 @@
       },
       {
         "tableName": "Subroutines",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `isModifiable` INTEGER, `isMarkedDone` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `isModifiable` INTEGER, `isMarkedDone` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_subroutine_uid",
@@ -451,6 +451,18 @@
           {
             "fieldPath": "total_skips",
             "columnName": "skips",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "upvote",
+            "columnName": "upvote",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downvote",
+            "columnName": "downvote",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -540,7 +552,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6f46a3cfc41b7adc4763eac9fb0df14a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd6ecfab4635371f4860e0b786f2da968')"
     ]
   }
 }

@@ -18,9 +18,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.habit.model.Habits;
-import com.habitdev.sprout.database.habit.model.Subroutines;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.model.room.Habits;
+import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.databinding.FragmentSubroutineModifyBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.SubroutineConfigurationKeys;

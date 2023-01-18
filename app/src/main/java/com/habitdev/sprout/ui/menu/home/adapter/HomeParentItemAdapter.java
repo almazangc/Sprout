@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.TimeMilestone;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;

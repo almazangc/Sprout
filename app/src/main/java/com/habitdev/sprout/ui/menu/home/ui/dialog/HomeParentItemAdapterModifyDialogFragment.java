@@ -15,8 +15,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.databinding.DialogFragmentHomeParentItemAdapterModifyBinding;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apachat.swipereveallayout.core.SwipeLayout;
 import com.apachat.swipereveallayout.core.ViewBinder;
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habit.model.Subroutines;
+import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.utill.SubroutineDiffUtil;
 

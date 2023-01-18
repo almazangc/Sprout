@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,22 +17,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
-import com.habitdev.sprout.database.habit.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.habit.model.Habits;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.user.UserViewModel;
-import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentAnalyticBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticParentItemAdapter;
 import com.habitdev.sprout.ui.menu.analytic.ui.AnalyticItemOnClickFragment;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
-import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class AnalyticFragment extends Fragment
         implements

@@ -1,29 +1,17 @@
 package com.habitdev.sprout.database.quotes;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
-import com.habitdev.sprout.database.habit.HabitFireStoreRepository;
-import com.habitdev.sprout.database.habit.model.HabitFireStore;
 import com.habitdev.sprout.database.quotes.model.Quotes;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class QuotesRepository {
 
