@@ -39,10 +39,10 @@
         android:layout_below="@id/lbl_titleMainHeader"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
-        android:text="@string/habit_reform_and_routine_management"
+        android:text="Sample Assessment Tool For Knowledge Based Part of Recommender, In identifying what habit is recommended"
         android:textAlignment="viewStart"
         android:textColor="@color/NIGHT"
-        android:textSize="16sp" />
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/lbl_question"
@@ -51,8 +51,9 @@
         android:layout_below="@+id/lbl_subHeader1"
         android:layout_centerHorizontal="true"
         android:textColor="@color/NIGHT"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
+        android:layout_marginTop="5sp"
         tools:text="Question: How would you like your text be seen" />
 
     <RelativeLayout
