@@ -115,3 +115,5 @@ Glide - not used by implemented
 #### FIX: APP Tracker for skips and completed subroutines not matching with total skips when app is not opened for more than a day
 
 #### FIX NEGATIVE DAYS WHEN USER MODIFY THIER DEVICE SETTING DATE
+
+#### Fix setting multi touching

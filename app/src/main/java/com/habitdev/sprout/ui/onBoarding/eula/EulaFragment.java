@@ -1,5 +1,7 @@
 package com.habitdev.sprout.ui.onBoarding.eula;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,6 @@ public class EulaFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentEulaBinding.inflate(inflater, container, false);
-        binding.lblEULA.setText(getString(R.string.sampleText));
         return binding.getRoot();
     }
 
@@ -30,13 +31,25 @@ public class EulaFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        binding.btnAgree.setOnClickListener(view -> {
+        binding.btnAccept.setOnClickListener(view -> {
             Bundle bundle = new Bundle();
             bundle.putBoolean(BundleKeys.EULA.getKEY(), true);
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_getCommonWakeup, bundle);
         });
 
-        binding.btnDisagree.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_initial));
+        binding.btnDecline.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_navigate_from_eula_to_initial));
+        sendEmail();
+    }
+
+    public void sendEmail() {
+        binding.contactEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:sproutdev.technology@gmail.com"));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -11,8 +11,12 @@
         <item name="colorOnSecondary">@color/MIRAGE</item>
 
         <item name="android:windowFullscreen">true</item>
+        
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <!--Disable multitouch feature-->
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:splitMotionEvents">false</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

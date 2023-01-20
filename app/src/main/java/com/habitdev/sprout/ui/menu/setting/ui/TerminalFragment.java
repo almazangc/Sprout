@@ -3,6 +3,7 @@ package com.habitdev.sprout.ui.menu.setting.ui;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,6 +114,7 @@ public class TerminalFragment extends Fragment {
                 quotesViewModel.fetchData();
                 quotesAdapter.setNewQuotesList(quotes);
                 quotesList[0] = quotes;
+                Log.d("tag", "onChanged: obsserving");
             }
         });
 
@@ -224,7 +226,8 @@ public class TerminalFragment extends Fragment {
                 if (mOnReturnSetting != null) {
                     mOnReturnSetting.returnFromTerminalToSetting();
                 }
-                //detach observer maybe
+                quotesViewModel.getLiveData().removeObservers(getViewLifecycleOwner()); // limiter for reads
+                Log.d("tag", "handleOnBackPressed: removed observers");
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
