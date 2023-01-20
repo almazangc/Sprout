@@ -1,8 +1,6 @@
 package com.habitdev.sprout.ui.menu.setting.ui;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -43,66 +40,58 @@ public class TechStackInfoFragment extends Fragment {
         binding = FragmentTechStackInfoBinding.inflate(inflater, container, false);
         openRepository();
         sendMail();
+        readEULA();
         onBackPress();
         return binding.getRoot();
     }
 
-    /**
-     * Open the link provided on Github Application if installed,
-     * Otherwise opens in default browser
-     */
-    private void openRepository() {
+
+    public void openRepository() {
         binding.githubRepository.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://github.com/DOMO-Dom/Sprout";
-                Intent githubIntent = requireActivity().getPackageManager().getLaunchIntentForPackage("com.github.android");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                List<ResolveInfo> resolveInfoList = requireActivity().getPackageManager().queryIntentActivities(browserIntent, 0);
-                if (githubIntent != null) {
-                    // Create a chooser dialog to allow user to select between GitHub app and browser
-                    Intent chooserIntent = Intent.createChooser(githubIntent, "Open with");
-                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, resolveInfoList.toArray(new Parcelable[0]));
-                    startActivity(chooserIntent);
-                } else {
-                    startActivity(browserIntent);
-                }
+                openGitHubURL("https://github.com/DOMO-Dom/Sprout");
             }
         });
     }
 
-    private void sendMail() {
+    public void sendMail() {
         binding.sendMail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://github.com/DOMO-Dom/Sprout";
-                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                PackageManager packageManager = requireActivity().getPackageManager();
-                if (appIntent.resolveActivity(packageManager) != null) {
-                    startActivity(appIntent);
-                } else {
-                    startActivity(webIntent);
-                }
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:sproutdev.technology@gmail.com"));
+                startActivity(intent);
             }
         });
     }
 
     private void readEULA(){
-        binding.readUla.setOnClickListener(new View.OnClickListener() {
+        binding.readEula.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "https://github.com/DOMO-Dom/Sprout";
-                Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                PackageManager packageManager = requireActivity().getPackageManager();
-                if (appIntent.resolveActivity(packageManager) != null) {
-                    startActivity(appIntent);
-                } else {
-                    startActivity(webIntent);
-                }
+                openGitHubURL("https://github.com/DOMO-Dom/Sprout/blob/main/app/src/main/assets/sprout_generated_eula.md");
             }
         });
+    }
+
+    /**
+     * Open the link provided on Github Application if installed,
+     * Otherwise opens in default browser
+     * @param url link of the site
+     */
+    private void openGitHubURL(String url) {
+        Intent githubIntent = requireActivity().getPackageManager().getLaunchIntentForPackage("com.github.android");
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        List<ResolveInfo> resolveInfoList = requireActivity().getPackageManager().queryIntentActivities(browserIntent, 0);
+        if (githubIntent != null) {
+            // Create a chooser dialog to allow user to select between GitHub app and browser
+            Intent chooserIntent = Intent.createChooser(githubIntent, "Open with");
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, resolveInfoList.toArray(new Parcelable[0]));
+            startActivity(chooserIntent);
+        } else {
+            startActivity(browserIntent);
+        }
     }
 
     private void onBackPress() {
