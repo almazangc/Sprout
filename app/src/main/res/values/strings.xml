@@ -93,5 +93,7 @@
     <string name="availability_of_the_application_02">\t\tYou acknowledge and agree that we have no control over the availability of this Application on a continuous or uninterrupted basis and that we assume no liability to you or any other party with regard thereto.</string>
     <string name="compliance_with_local_law_01">\t\tSprout Technology makes no representation or warranty that all the content available on this Application is appropriate in every country or jurisdiction and use of this Application from countries or jurisdictions where its content is illegal is prohibited. Users who choose to use this Software are responsible for compliance with all local laws, rules, and regulations.</string>
     <string name="governing_law_01">\t\tThis EULA agreement and any dispute or claim arising out of or in connection with it or its subject matter or formation shall be governed by and construed in accordance with the laws of Philippines, to the exclusion of conflict of law rules.</string>
-    <string name="email">\t\t<u>Sprout Technology Email Us</u></string>
+    <string name="email"><u>Sprout Technology</u></string>
+
+    <string name="domo_dom_sprout"><u>DOMO-Dom/Sprout</u></string>
 </resources>

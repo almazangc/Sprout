@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.tiagohm.MarkdownView:library:0.19.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f8049c9ef99b9e5e8169d4164c48b7ed/transformed/jetified-library-0.19.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f8049c9ef99b9e5e8169d4164c48b7ed/transformed/jetified-library-0.19.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f8049c9ef99b9e5e8169d4164c48b7ed/transformed/jetified-library-0.19.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.tiagohm.MarkdownView/library/0.19.0/ca25cdb85771c2716752a41d271b381e663f178d/library-0.19.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
