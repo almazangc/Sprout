@@ -4,8 +4,6 @@ PLEASE READ THIS MOBILE APPLICATION END-USER LICENSE AGREEMENT ("EULA AGREEMENT"
 
 Last Revised: 2023-01-20 02:17:31
 
-Generated from: https://termshub.io and modified with some changes
-
 ## 1. OVERVIEW
 
 This EULA agreement is a binding agreement, entered into by and between Sprout Technology, registered address Not Available,  ("Sprout Technology") and you, and is made effective as of the date you download, install or use the Application Sprout ("Application") or from the date of your electronic acceptance.
