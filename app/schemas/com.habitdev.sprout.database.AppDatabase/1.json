@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d6ecfab4635371f4860e0b786f2da968",
+    "identityHash": "79baa5e7b4bf7f54760cbc88d727a2a4",
     "entities": [
       {
         "tableName": "User",
@@ -118,7 +118,7 @@
       },
       {
         "tableName": "Choices",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_choices_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `choices` TEXT, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_choices_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `choices` TEXT, `value` INTEGER NOT NULL, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_choices_uid",
@@ -137,6 +137,12 @@
             "columnName": "choices",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -552,7 +558,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd6ecfab4635371f4860e0b786f2da968')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '79baa5e7b4bf7f54760cbc88d727a2a4')"
     ]
   }
 }

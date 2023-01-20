@@ -2,7 +2,6 @@ package com.habitdev.sprout.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,11 +11,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.assessment.AssessmentDao;
 import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.model.Choices;
+import com.habitdev.sprout.database.assessment.model.Frequency;
 import com.habitdev.sprout.database.assessment.model.Question;
 import com.habitdev.sprout.database.comment.CommentDao;
 import com.habitdev.sprout.database.comment.model.Comment;
@@ -93,311 +91,439 @@ public abstract class AppDatabase extends RoomDatabase {
             long uid;
             uid = insertQuestion(new Question("1: How long does it take to complete the application?"));
             List<Choices> choices = new ArrayList<>();
-            choices.add(new Choices("3 Months"));
-            choices.add(new Choices("2 Years"));
-            choices.add(new Choices("Never"));
-            choices.add(new Choices("Long Time"));
-            choices.add(new Choices("Until then"));
+            choices.add(new Choices("3 Months", 0));
+            choices.add(new Choices("2 Years", 0));
+            choices.add(new Choices("Never", 0));
+            choices.add(new Choices("Long Time", 0));
+            choices.add(new Choices("Until then", 0));
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             uid = insertQuestion(new Question("2: How contented are with your current self?"));
             choices.clear();
-            choices.add(new Choices("Not Enough"));
-            choices.add(new Choices("Contented"));
-            choices.add(new Choices("A little bit contented"));
-            choices.add(new Choices("Overly contented"));
+            choices.add(new Choices("Not Enough", 4));
+            choices.add(new Choices("Contented", 3));
+            choices.add(new Choices("A little bit contented", 2));
+            choices.add(new Choices("Overly contented", 0));
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             uid = insertQuestion(new Question("3: What is the application name?"));
             choices.clear();
-            choices.add(new Choices("Habit"));
-            choices.add(new Choices("Sprout"));
-            choices.add(new Choices("Peanut"));
+            choices.add(new Choices("Habit", 99));
+            choices.add(new Choices("Sprout", 0));
+            choices.add(new Choices("Peanut", 99));
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             uid = insertQuestion(new Question("4: This is just a sample assessment for recommending habit?"));
             choices.clear();
-            choices.add(new Choices("Okay"));
-            choices.add(new Choices("Good"));
-            choices.add(new Choices("Next"));
+            choices.add(new Choices("Okay", 0));
+            choices.add(new Choices("Good", 0));
+            choices.add(new Choices("Next", 0));
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
-
-            uid = insertQuestion(new Question("4: This is just a sample assessment for recommending habit?"));
-            choices.clear();
-            choices.add(new Choices("Okay"));
-            choices.add(new Choices("Good"));
-            choices.add(new Choices("Next"));
-            assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
-
 
             //1
             uid = insertQuestion(new Question("5: How often do you put off tasks or assignments until the last minute?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER_.getValue());
+            choices.add(Frequency.SELDOM_.getValue());
+            choices.add(Frequency.RARELY_.getValue());
+            choices.add(Frequency.OCCASIONALLY_.getValue());
+            choices.add(Frequency.SOMETIMES_.getValue());
+            choices.add(Frequency.OFTEN_.getValue());
+            choices.add(Frequency.USUALLY_.getValue());
+            choices.add(Frequency.REGULARLY_.getValue());
+            choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //2
             uid = insertQuestion(new Question("6: How often do you feel overwhelmed with the amount of tasks you have to complete?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER_.getValue());
+            choices.add(Frequency.SELDOM_.getValue());
+            choices.add(Frequency.RARELY_.getValue());
+            choices.add(Frequency.OCCASIONALLY_.getValue());
+            choices.add(Frequency.SOMETIMES_.getValue());
+            choices.add(Frequency.OFTEN_.getValue());
+            choices.add(Frequency.USUALLY_.getValue());
+            choices.add(Frequency.REGULARLY_.getValue());
+            choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //1
             uid = insertQuestion(new Question("7: How often do you find yourself not understanding the material due to procrastination?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER_.getValue());
+            choices.add(Frequency.SELDOM_.getValue());
+            choices.add(Frequency.RARELY_.getValue());
+            choices.add(Frequency.OCCASIONALLY_.getValue());
+            choices.add(Frequency.SOMETIMES_.getValue());
+            choices.add(Frequency.OFTEN_.getValue());
+            choices.add(Frequency.USUALLY_.getValue());
+            choices.add(Frequency.REGULARLY_.getValue());
+            choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //2
             uid = insertQuestion(new Question("8: How often do you stick to a schedule or to-do list for completing tasks?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //2
             uid = insertQuestion(new Question("9: How often do you prioritize tasks and focus on the most important or urgent ones first?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //2
             uid = insertQuestion(new Question("10: How often do you use a timer to stay on track during study sessions?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //2
             uid = insertQuestion(new Question("11: How often do you eliminate unnecessary activities or distractions from your schedule?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //2
             uid = insertQuestion(new Question("12: How often do you make a plan for the next day before going to bed?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
-            assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
-
-            //3
-            uid = insertQuestion(new Question("12: How often do you make a plan for the next day before going to bed?"));
-            choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //3
             uid = insertQuestion(new Question("13: How often do you develop a consistent study schedule and stick to it?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //3
             uid = insertQuestion(new Question("14: How often do you find a study method that works for you, such as flashcards or summarizing notes?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //3
             uid = insertQuestion(new Question("15: How often do you take frequent breaks during study sessions?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //3
             uid = insertQuestion(new Question("16: How often do you use a timer to keep track of your study time?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //3
-            uid = insertQuestion(new Question("17: How often do you review material regularly and practice with practice tests or quizzes?"));
+            uid = insertQuestion(new Question("17: How often do you NOT review material regularly and practice with practice tests or quizzes?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM_.getValue());
+            choices.add(Frequency.RARELY_.getValue());
+            choices.add(Frequency.OCCASIONALLY_.getValue());
+            choices.add(Frequency.SOMETIMES_.getValue());
+            choices.add(Frequency.OFTEN_.getValue());
+            choices.add(Frequency.USUALLY_.getValue());
+            choices.add(Frequency.REGULARLY_.getValue());
+            choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
             uid = insertQuestion(new Question("18: How often do you find yourself constantly checking social media, phone, or other electronic devices while studying?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM_.getValue());
+            choices.add(Frequency.RARELY_.getValue());
+            choices.add(Frequency.OCCASIONALLY_.getValue());
+            choices.add(Frequency.SOMETIMES_.getValue());
+            choices.add(Frequency.OFTEN_.getValue());
+            choices.add(Frequency.USUALLY_.getValue());
+            choices.add(Frequency.REGULARLY_.getValue());
+            choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
             uid = insertQuestion(new Question("19: How often do you eliminate electronic distractions, such as social media or phone notifications while studying?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
             uid = insertQuestion(new Question("20: How often do you create a designated study space free from distractions?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
             uid = insertQuestion(new Question("21: How often do you use apps or website blockers during study time?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
             uid = insertQuestion(new Question("22: How often do you put your phone on silent or in another room while studying?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
             uid = insertQuestion(new Question("23: How often do you use noise-canceling headphones to block out background noise while studying?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //5
             uid = insertQuestion(new Question("24: How often do you establish a consistent sleep schedule and aim for 7-8 hours of sleep per night?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //5
             uid = insertQuestion(new Question("25: How often do you avoid screens and stimulating activities before bedtime?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //5
             uid = insertQuestion(new Question("26: How often do you create a bedtime environment to relax and wind down?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //5
             uid = insertQuestion(new Question("27: How often do you keep your bedroom cool, dark, and quiet for a good night's sleep?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //6
             uid = insertQuestion(new Question("28: How often do you use positive affirmations to stay motivated?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //6
             uid = insertQuestion(new Question("29: How often do you take a short break to do something you enjoy after completing a task?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //6
             uid = insertQuestion(new Question("30: How often do you practice stress-relieving activities, such as meditation or yoga?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //6
             uid = insertQuestion(new Question("31: How often do you reflect on your own learning process and identify strengths and achievements?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER.getValue());
+            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.USUALLY.getValue());
+            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //6
             uid = insertQuestion(new Question("32: How often do you feel unmotivated and disengaged in coursework?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER_.getValue());
+            choices.add(Frequency.SELDOM_.getValue());
+            choices.add(Frequency.RARELY_.getValue());
+            choices.add(Frequency.OCCASIONALLY_.getValue());
+            choices.add(Frequency.SOMETIMES_.getValue());
+            choices.add(Frequency.OFTEN_.getValue());
+            choices.add(Frequency.USUALLY_.getValue());
+            choices.add(Frequency.REGULARLY_.getValue());
+            choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //6
             uid = insertQuestion(new Question("33: How often do you have a negative attitude and mindset towards your studies?"));
             choices.clear();
-            choices.add(new Choices("Usually"));
-            choices.add(new Choices("Sometimes"));
-            choices.add(new Choices("Most of the time"));
-            choices.add(new Choices("Never"));
+            choices.add(Frequency.NEVER_.getValue());
+            choices.add(Frequency.SELDOM_.getValue());
+            choices.add(Frequency.RARELY_.getValue());
+            choices.add(Frequency.OCCASIONALLY_.getValue());
+            choices.add(Frequency.SOMETIMES_.getValue());
+            choices.add(Frequency.OFTEN_.getValue());
+            choices.add(Frequency.USUALLY_.getValue());
+            choices.add(Frequency.REGULARLY_.getValue());
+            choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             return null;

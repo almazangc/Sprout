@@ -27,15 +27,20 @@ public class Choices implements Serializable {
     @ColumnInfo(name = "choices")
     private String choices;
 
-    public Choices(String choices) {
+    @ColumnInfo(name = "value")
+    private int value;
+
+    public Choices(String choices, int value) {
         this.choices = choices;
+        this.value = value;
     }
 
     @Ignore
-    public Choices(long pk_choices_uid, long fk_question_uid, String choices) {
+    public Choices(long pk_choices_uid, long fk_question_uid, String choices, int value) {
         this.pk_choices_uid = pk_choices_uid;
         this.fk_question_uid = fk_question_uid;
         this.choices = choices;
+        this.value = value;
     }
 
     @NonNull
@@ -45,6 +50,7 @@ public class Choices implements Serializable {
                 "pk_choices_uid=" + pk_choices_uid +
                 ", fk_question_uid=" + fk_question_uid +
                 ", choices='" + choices + '\'' +
+                ", value=" + value +
                 '}';
     }
 
@@ -70,5 +76,13 @@ public class Choices implements Serializable {
 
     public void setChoices(String choices) {
         this.choices = choices;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }
