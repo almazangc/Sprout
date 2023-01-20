@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * AppDatabase is a singleton class for handling room entities, typeConverter and can be used to pre-populate database
+ * AppDatabase is a singleton class for handling room entities, typeConverter and can be used to pre-populate database in the installation of application
  */
 @Database(entities = {User.class, Question.class, Choices.class, Answer.class, Note.class, Habits.class, Subroutines.class, Comment.class}, version = 1)
 @TypeConverters({ArrayListConverter.class})
@@ -129,7 +129,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.OCCASIONALLY_.getValue());
             choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
-            choices.add(Frequency.USUALLY_.getValue());
             choices.add(Frequency.REGULARLY_.getValue());
             choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
@@ -142,7 +141,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.RARELY_.getValue());
             choices.add(Frequency.OCCASIONALLY_.getValue());
             choices.add(Frequency.SOMETIMES_.getValue());
-            choices.add(Frequency.OFTEN_.getValue());
             choices.add(Frequency.USUALLY_.getValue());
             choices.add(Frequency.REGULARLY_.getValue());
             choices.add(Frequency.ALWAYS_.getValue());
@@ -154,7 +152,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.NEVER_.getValue());
             choices.add(Frequency.SELDOM_.getValue());
             choices.add(Frequency.RARELY_.getValue());
-            choices.add(Frequency.OCCASIONALLY_.getValue());
             choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
             choices.add(Frequency.USUALLY_.getValue());
@@ -168,11 +165,9 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -183,8 +178,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.OCCASIONALLY.getValue());
-            choices.add(Frequency.SOMETIMES.getValue());
-            choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
@@ -201,7 +194,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.REGULARLY.getValue());
-            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //2
@@ -214,7 +206,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -222,9 +213,7 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("12: How often do you make a plan for the next day before going to bed?"));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
@@ -236,9 +225,7 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("13: How often do you develop a consistent study schedule and stick to it?"));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
@@ -251,11 +238,8 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM.getValue());
-            choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
-            choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
@@ -265,12 +249,9 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM.getValue());
-            choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -280,11 +261,9 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -294,8 +273,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM_.getValue());
             choices.add(Frequency.RARELY_.getValue());
-            choices.add(Frequency.OCCASIONALLY_.getValue());
-            choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
             choices.add(Frequency.USUALLY_.getValue());
             choices.add(Frequency.REGULARLY_.getValue());
@@ -307,8 +284,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM_.getValue());
-            choices.add(Frequency.RARELY_.getValue());
-            choices.add(Frequency.OCCASIONALLY_.getValue());
             choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
             choices.add(Frequency.USUALLY_.getValue());
@@ -321,7 +296,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM.getValue());
-            choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
@@ -340,7 +314,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -362,14 +335,12 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("22: How often do you put your phone on silent or in another room while studying?"));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.REGULARLY.getValue());
-            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
@@ -382,7 +353,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -405,7 +375,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM.getValue());
-            choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
@@ -423,8 +392,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -434,8 +401,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
-            choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.REGULARLY.getValue());
@@ -451,7 +416,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
@@ -475,12 +439,9 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.SELDOM.getValue());
-            choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -494,7 +455,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -508,7 +468,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
             choices.add(Frequency.USUALLY_.getValue());
-            choices.add(Frequency.REGULARLY_.getValue());
             choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -518,8 +477,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.NEVER_.getValue());
             choices.add(Frequency.SELDOM_.getValue());
             choices.add(Frequency.RARELY_.getValue());
-            choices.add(Frequency.OCCASIONALLY_.getValue());
-            choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
             choices.add(Frequency.USUALLY_.getValue());
             choices.add(Frequency.REGULARLY_.getValue());
