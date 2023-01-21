@@ -1,5 +1,7 @@
 package com.habitdev.sprout.database.habit.model.firestore;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.Exclude;
 import com.habitdev.sprout.enums.AppColor;
 
@@ -84,6 +86,7 @@ public class HabitFireStore {
         this.color = color;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "HabitFireStore{" +

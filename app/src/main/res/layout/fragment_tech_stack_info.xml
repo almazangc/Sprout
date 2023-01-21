@@ -121,6 +121,31 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Export: "
+                android:textAlignment="center"
+                android:textColor="@color/NIGHT"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/export_note_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="Note.JSON"
+                android:textAlignment="center"
+                android:textColor="@color/NIGHT"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

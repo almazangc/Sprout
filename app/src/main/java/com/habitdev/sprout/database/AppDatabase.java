@@ -54,7 +54,6 @@ public abstract class AppDatabase extends RoomDatabase {
             new PopulateAssessmentAsyncTask(INSTANCE).execute();
 //            new PopulateNoteAsyncTask(INSTANCE).execute();
             new PopulateHabitWithSubroutinesAsyncTask(INSTANCE).execute();
-            Log.d("tag", "onCreate: Room");
         }
 
         @Override
@@ -565,10 +564,10 @@ public abstract class AppDatabase extends RoomDatabase {
                     if (!result.isEmpty()) {
                         for (HabitFireStore habit : result) {
                             Habits habits = new Habits(habit.getTitle(), habit.getDescription(), habit.getColor(), false, false);
+                            Log.e("tag", "onFetchHabitSuccess: " + habits.toString());
                             List<Subroutines> list = getSubroutine_by_fk_uid(habit.getPk_uid(), subroutinesList[0]);
                             habits.setTotal_subroutine(list.size());
                             long id = habitWithSubroutinesDao.insertHabit(habits);
-
                             habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
                         }
                     } else {

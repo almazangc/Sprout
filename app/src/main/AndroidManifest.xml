@@ -30,6 +30,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sprout"
         tools:targetApi="31">
+
+<!--        android:name attribute is the name of the class which provides the file sharing functionality.-->
+<!--        android:authorities attribute is the unique identifier for your FileProvider.-->
+<!--        android:exported attribute is set to false, as the FileProvider should only be accessible to your app.-->
+<!--        android:grantUriPermissions attribute is set to true so that other apps can access the shared files.-->
+<!--        <meta-data>: this tag is used to specify the path where the files are located.-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.habitdev.sprout"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name="com.habitdev.sprout.activity.startup.Main"
             android:exported="true">
