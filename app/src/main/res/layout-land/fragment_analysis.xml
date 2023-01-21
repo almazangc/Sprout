@@ -68,9 +68,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Predefined Habits"
                     android:inputType="none"
+                    android:enabled="false"
                     android:textColor="@color/NIGHT"
                     android:textSize="13sp" />
-
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

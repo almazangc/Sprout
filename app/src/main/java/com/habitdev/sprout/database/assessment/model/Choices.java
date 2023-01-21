@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -18,7 +19,7 @@ import java.io.Serializable;
 ))
 public class Choices implements Serializable {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "pk_choices_uid")
+    @ColumnInfo(name = "pk_choices_uid", index = true)
     private long pk_choices_uid;
 
     @ColumnInfo(name = "fk_question_uid", index = true)
@@ -28,15 +29,15 @@ public class Choices implements Serializable {
     private String choices;
 
     @ColumnInfo(name = "value")
-    private int value;
+    private double value;
 
-    public Choices(String choices, int value) {
+    public Choices(String choices, double value) {
         this.choices = choices;
         this.value = value;
     }
 
     @Ignore
-    public Choices(long pk_choices_uid, long fk_question_uid, String choices, int value) {
+    public Choices(long pk_choices_uid, long fk_question_uid, String choices, double value) {
         this.pk_choices_uid = pk_choices_uid;
         this.fk_question_uid = fk_question_uid;
         this.choices = choices;
@@ -78,7 +79,7 @@ public class Choices implements Serializable {
         this.choices = choices;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 

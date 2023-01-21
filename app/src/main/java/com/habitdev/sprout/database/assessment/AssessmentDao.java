@@ -29,11 +29,15 @@ public interface AssessmentDao {
     @Query("SELECT * FROM question INNER JOIN choices ON pk_questions_uid = fk_question_uid")
     LiveData<List<Assessment>> getAssessmentsListLiveData();
 
+    @Transaction
+    @Query("SELECT * FROM question INNER JOIN choices ON pk_questions_uid = fk_question_uid")
+    List<Assessment> getAllAssessmentsList();
+
     @Query("SELECT * FROM question")
     List<Question> getAllQuestion();
 
     @Query("SELECT * FROM Choices WHERE fk_question_uid=:pk_uid_question")
-    List<Choices> getAllChoices(long pk_uid_question);
+    List<Choices> getAllChoicesByUID(long pk_uid_question);
 
     @Query("SELECT * FROM Answer")
     LiveData<List<Answer>> getAllAnswerListLiveData();

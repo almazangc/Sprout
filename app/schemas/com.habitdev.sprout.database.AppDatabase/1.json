@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "79baa5e7b4bf7f54760cbc88d727a2a4",
+    "identityHash": "8db643ae0080327c4e9b6b24822265cb",
     "entities": [
       {
         "tableName": "User",
@@ -92,7 +92,7 @@
       },
       {
         "tableName": "Question",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_questions_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_questions_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT, `classification` INTEGER NOT NULL, `fk_habit_uid` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_question_uid",
@@ -105,6 +105,18 @@
             "columnName": "question",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "classification",
+            "columnName": "classification",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fk_habit_uid",
+            "columnName": "fk_habit_uid",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -113,12 +125,22 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_Question_pk_questions_uid",
+            "unique": false,
+            "columnNames": [
+              "pk_questions_uid"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Question_pk_questions_uid` ON `${TABLE_NAME}` (`pk_questions_uid`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
         "tableName": "Choices",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_choices_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `choices` TEXT, `value` INTEGER NOT NULL, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_choices_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `choices` TEXT, `value` REAL NOT NULL, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_choices_uid",
@@ -141,7 +163,7 @@
           {
             "fieldPath": "value",
             "columnName": "value",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           }
         ],
@@ -152,6 +174,15 @@
           "autoGenerate": true
         },
         "indices": [
+          {
+            "name": "index_Choices_pk_choices_uid",
+            "unique": false,
+            "columnNames": [
+              "pk_choices_uid"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Choices_pk_choices_uid` ON `${TABLE_NAME}` (`pk_choices_uid`)"
+          },
           {
             "name": "index_Choices_fk_question_uid",
             "unique": false,
@@ -212,6 +243,15 @@
           "autoGenerate": true
         },
         "indices": [
+          {
+            "name": "index_Answer_pk_answer_uid",
+            "unique": false,
+            "columnNames": [
+              "pk_answer_uid"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Answer_pk_answer_uid` ON `${TABLE_NAME}` (`pk_answer_uid`)"
+          },
           {
             "name": "index_Answer_fk_question_uid",
             "unique": false,
@@ -558,7 +598,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '79baa5e7b4bf7f54760cbc88d727a2a4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8db643ae0080327c4e9b6b24822265cb')"
     ]
   }
 }

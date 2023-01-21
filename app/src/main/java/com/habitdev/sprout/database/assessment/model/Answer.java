@@ -7,6 +7,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(foreignKeys = @ForeignKey(
         entity = Question.class,
         parentColumns = "pk_questions_uid",
@@ -14,19 +16,31 @@ import androidx.room.PrimaryKey;
         onDelete = ForeignKey.CASCADE,
         onUpdate = ForeignKey.CASCADE
 ))
-public class Answer {
+public class Answer implements Serializable {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "pk_answer_uid", index = true)
     private long pk_answer_uid;
 
     @ColumnInfo(name = "fk_question_uid", index = true)
     private long fk_question_uid;
 
+    /**
+     * This is the selected answer from choices. Which will be used for checking the corresponding value the selected answer on choices
+     */
     @ColumnInfo(name = "selected_answer")
     private String selected_answer;
 
+    /**
+     * This is the id of user answering the assessment tool
+     */
     @ColumnInfo(name = "user_uid")
     private long user_uid;
 
+    public Answer() {
+
+    }
+
+    @Ignore
     public Answer(long fk_question_uid, String selected_answer, long user_uid) {
         this.fk_question_uid = fk_question_uid;
         this.selected_answer = selected_answer;

@@ -67,6 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Predefined Habits"
+                    android:enabled="false"
                     android:inputType="none"
                     android:textColor="@color/NIGHT"
                     android:textSize="13sp" />

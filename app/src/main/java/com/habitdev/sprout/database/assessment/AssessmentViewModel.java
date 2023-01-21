@@ -22,23 +22,27 @@ public class AssessmentViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Assessment>> getAssessmentListLiveData() {
-        return repository.getAssessmentsListLiveData();
+        return repository.getGetAllAssessmentsListLiveData();
+    }
+
+    public List<Assessment> getAllAssessmentList() {
+        return  repository.getAllAssessmentList();
     }
 
     public LiveData<List<Answer>> getGetAllAnswerListLiveData() {
         return repository.getGetAllAnswerListLiveData();
     }
 
-    public List<Answer> getGetAllAnswerList() {
-        return repository.getGetAllAnswerList();
+    public List<Answer> getAllAnswerList() {
+        return repository.getAllAnswerList();
     }
 
-    public List<Question> getQuestionList() {
+    public List<Question> getAllQuestionList() {
         return repository.getQuestionList();
     }
 
-    public List<Choices> getChoicesList(long uid) {
-        return repository.getChoicesList(uid);
+    public List<Choices> getAllChoicesByUID(long uid) {
+        return repository.getAllChoicesByUID(uid);
     }
 
     public long doesAnswerExist(long uid){
@@ -56,4 +60,6 @@ public class AssessmentViewModel extends AndroidViewModel {
     public void update(Answer answer) {
         repository.updateAnswer(answer);
     }
+
+
 }

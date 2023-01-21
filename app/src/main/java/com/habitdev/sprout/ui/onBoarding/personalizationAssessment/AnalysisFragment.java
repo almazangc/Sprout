@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.onBoarding.personalizationAssessment;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.assessment.AssessmentViewModel;
+import com.habitdev.sprout.database.assessment.Recommender.HabitRecommender;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
@@ -23,11 +26,16 @@ import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentAnalysisBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
+import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
+import com.habitdev.sprout.ui.menu.setting.adapter.QuotesAdapter;
 import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.AnalysisParentItemAdapter;
+import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.AnalytisParentItemDropDownAdapter;
+import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.Model.Result;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,6 +47,7 @@ public class AnalysisFragment extends Fragment {
     private static Habits habit;
     private static AnalysisParentItemAdapter analysisParentItemAdapter;
     private static List<Subroutines> subroutinesList;
+    private static List<Result> habitScore = new ArrayList<>();
 
     public AnalysisFragment() {
         habit = new Habits(
@@ -63,25 +72,37 @@ public class AnalysisFragment extends Fragment {
         super.onStart();
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         toggleHabitDescriptionVisibility(false);
-        setDropDownItems();
-        setRecyclerViewAdapter();
-        setDropDownItemListener();
         setContinueListener();
+        calculateRecommendedHabit();
+        setRecyclerViewAdapter();
+    }
+
+    /**
+     * A knowledge-based recommender which follower a rule-base algorithm using assessment tool for determining what habit will likely be recommended.
+     */
+    private void calculateRecommendedHabit(){
+        AssessmentViewModel assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
+        HabitRecommender habitRecommender = new HabitRecommender();
+        habitRecommender.setAssessmentViewModel(assessmentViewModel);
+        habitRecommender.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+        habitRecommender.calculateHabitScores();
+        habitRecommender.getRecommendedHabitsScore();
+        habitScore = habitRecommender.getconvertedToResultList();
+        setDropDownItems();
     }
 
     private void setDropDownItems(){
-        //Recommender Algorithm Here to display result according to the analysis
-        // the habits suggested should adjust depending on what user score or answers on assessment
-        List<String> habitTitles = new ArrayList<>();
+        setHabitObserver();
+        AnalytisParentItemDropDownAdapter analytisParentItemDropDownAdapter = new AnalytisParentItemDropDownAdapter(requireContext(), habitScore);
+        analytisParentItemDropDownAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+        binding.analysisDropItem.setAdapter(analytisParentItemDropDownAdapter);
+        setDropDownItemListener();
+    }
+
+    private void setHabitObserver() {
         habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             habitsList = habits;
-            for (Habits habit : habits) {
-                habitTitles.add(habit.getHabit());
-            }
         });
-
-        ArrayAdapter<String> adapterItems = new ArrayAdapter<>(requireContext(), R.layout.adapter_analysis_parent_habit_item, habitTitles);
-        binding.analysisDropItem.setAdapter(adapterItems);
     }
 
     private void toggleHabitDescriptionVisibility(boolean visibility){
@@ -157,10 +178,40 @@ public class AnalysisFragment extends Fragment {
     }
 
     private void onBackPress() {
+        final int[] keypress_count = {0};
+        final boolean[] isOnBackPressDialogShowing = {false};
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                //Block on back press
+
+                keypress_count[0]++;
+
+                new CountDownTimer(200, 200) {
+                    @Override
+                    public void onTick(long l) {}
+
+                    @Override
+                    public void onFinish() {
+                        if (keypress_count[0] > 1) {
+                            //Dialog is displayed twice
+                            OnBackPressDialogFragment dialog = new OnBackPressDialogFragment();
+                            if (!isOnBackPressDialogShowing[0]) {
+                                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AnalysisFragment.this.getId()), 1);
+                                dialog.show(getChildFragmentManager(), "Menu.onBackPress");
+                                dialog.setmOnCancelDialog(() -> {
+                                    keypress_count[0] = 0;
+                                    isOnBackPressDialogShowing[0] = false;
+                                });
+                                isOnBackPressDialogShowing[0] = true;
+                            }
+                        } else {
+                            requireActivity().moveTaskToBack(true);
+                            keypress_count[0] = 0;
+                        }
+                        this.cancel();
+                    }
+                }.start();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

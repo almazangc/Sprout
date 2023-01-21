@@ -11,13 +11,16 @@ import com.habitdev.sprout.database.assessment.model.Question;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
 public class Assessment implements Serializable {
     @Embedded
     public Question question;
 
     @Relation(parentColumn = "pk_questions_uid", entityColumn = "pk_choices_uid")
     public List<Choices> choices;
+
+    public Assessment() {
+
+    }
 
     public Assessment(Question question, List<Choices> choices) {
         this.question = question;

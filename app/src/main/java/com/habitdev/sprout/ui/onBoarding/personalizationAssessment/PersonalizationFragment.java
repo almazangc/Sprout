@@ -58,8 +58,8 @@ public class PersonalizationFragment extends Fragment {
 
         assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
 
-        questionsList = assessmentViewModel.getQuestionList();
-        answersList = assessmentViewModel.getGetAllAnswerList();
+        questionsList = assessmentViewModel.getAllQuestionList();
+        answersList = assessmentViewModel.getAllAnswerList();
 
         onBackPress(); // set on back press listener
 
@@ -165,7 +165,7 @@ public class PersonalizationFragment extends Fragment {
      * Get Choices of the current question
      */
     private void getCurrentQuestionChoices() {
-        choicesList = assessmentViewModel.getChoicesList(position + 1);
+        choicesList = assessmentViewModel.getAllChoicesByUID(position + 1);
         position++;
     }
 

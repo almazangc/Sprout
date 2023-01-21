@@ -14,14 +14,16 @@ import java.util.List;
 
 public class AssessmentRepository {
     private final AssessmentDao assessmentDao;
-    private final LiveData<List<Assessment>> AssessmentsListLiveData;
+    private final LiveData<List<Assessment>> getAllAssessmentsListLiveData;
+    private final List<Assessment> getAllAssessmentsList;
     private final LiveData<List<Answer>> getAllAnswerListLiveData;
     private final List<Answer> getAllAnswerList;
 
     public AssessmentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         this.assessmentDao = appDatabase.assessmentDao();
-        AssessmentsListLiveData = assessmentDao.getAssessmentsListLiveData();
+        getAllAssessmentsListLiveData = assessmentDao.getAssessmentsListLiveData();
+        getAllAssessmentsList = assessmentDao.getAllAssessmentsList();
         getAllAnswerListLiveData = assessmentDao.getAllAnswerListLiveData();
         getAllAnswerList = assessmentDao.getAllAnswerList();
     }
@@ -51,6 +53,7 @@ public class AssessmentRepository {
     public void deleteChoice(Choices choices) {
         new AssessmentRepository.DeleteChoiceAsyncTask(assessmentDao).execute(choices);
     }
+
 
     public static class UpdateQuestionAsyncTask extends AsyncTask<Question, Void, Void> {
 
@@ -142,15 +145,19 @@ public class AssessmentRepository {
         }
     }
 
-    public LiveData<List<Assessment>> getAssessmentsListLiveData() {
-        return AssessmentsListLiveData;
+    public LiveData<List<Assessment>> getGetAllAssessmentsListLiveData() {
+        return getAllAssessmentsListLiveData;
+    }
+
+    public List<Assessment> getAllAssessmentList() {
+        return getAllAssessmentsList;
     }
 
     public LiveData<List<Answer>> getGetAllAnswerListLiveData() {
         return getAllAnswerListLiveData;
     }
 
-    public List<Answer> getGetAllAnswerList() {
+    public List<Answer> getAllAnswerList() {
         return getAllAnswerList;
     }
 
@@ -158,8 +165,8 @@ public class AssessmentRepository {
         return assessmentDao.getAllQuestion();
     }
 
-    public List<Choices> getChoicesList(long uid) {
-        return assessmentDao.getAllChoices(uid);
+    public List<Choices> getAllChoicesByUID(long uid) {
+        return assessmentDao.getAllChoicesByUID(uid);
     }
 
     public long doesAnswerExist(long uid){
