@@ -12,6 +12,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.habitdev.sprout.database.assessment.Assessment;
 import com.habitdev.sprout.database.assessment.AssessmentDao;
 import com.habitdev.sprout.database.assessment.model.Answer;
@@ -30,6 +31,8 @@ import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesDao;
 import com.habitdev.sprout.database.note.NoteDao;
 import com.habitdev.sprout.database.note.model.Note;
+import com.habitdev.sprout.database.quotes.QuotesRepository;
+import com.habitdev.sprout.database.quotes.model.Quotes;
 import com.habitdev.sprout.database.user.UserDao;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.enums.AppColor;
@@ -51,8 +54,8 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+            new FetchFirestoreDatabaseAsyncTask(INSTANCE).execute();
             new PopulateAssessmentAsyncTask(INSTANCE).execute();
-//            new PopulateNoteAsyncTask(INSTANCE).execute();
             new PopulateHabitWithSubroutinesAsyncTask(INSTANCE).execute();
         }
 
@@ -83,6 +86,64 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract HabitWithSubroutinesDao habitsDao();
 
     public abstract CommentDao commentDao();
+
+    private static class FetchFirestoreDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        public FetchFirestoreDatabaseAsyncTask(AppDatabase instance) {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            QuotesRepository quotesRepository = new QuotesRepository();
+            HabitFireStoreRepository habitRepository = new HabitFireStoreRepository();
+            SubroutineFireStoreRepository subroutineRepository = new SubroutineFireStoreRepository();
+
+            quotesRepository.fetchData(new QuotesRepository.FetchCallback() {
+                @Override
+                public void onFetchQuoteSuccess(List<Quotes> quotesList) {
+                    //success
+                    Log.d("tag", "onFetchQuoteSuccess: ");
+                }
+
+                @Override
+                public void onFetchQuoteFailure(Exception e) {
+                    Log.e("tag", e.getMessage());
+                    Log.d("tag", "onFetchQuoteFailure: ");
+                }
+            });
+
+            habitRepository.fetchData(new HabitFireStoreRepository.FetchCallback() {
+                @Override
+                public void onFetchHabitSuccess(List<HabitFireStore> habitFireStoreList) {
+                    //success
+                    Log.d("tag", "onFetchHabitSuccess: ");
+                }
+
+                @Override
+                public void onFetchHabitFailure(Exception e) {
+                    Log.e("tag", e.getMessage());
+                    Log.d("tag", "onFetchHabitFailure: ");
+                }
+            });
+
+            subroutineRepository.fetchData(new SubroutineFireStoreRepository.FetchCallback() {
+                @Override
+                public void onFetchSubroutineSuccess(List<SubroutineFireStore> result) {
+                    //success
+                    Log.d("tag", "onFetchSubroutineSuccess: ");
+                }
+
+                @Override
+                public void onFetchSubroutineFailure(Exception e) {
+                    Log.e("tag", e.getMessage());
+                    Log.d("tag", "onFetchSubroutineFailure: ");
+                }
+            });
+            return null;
+
+        }
+    }
 
     private static class PopulateAssessmentAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -549,9 +610,13 @@ public abstract class AppDatabase extends RoomDatabase {
             subroutineRepository.fetchData(new SubroutineFireStoreRepository.FetchCallback() {
                 @Override
                 public void onFetchSubroutineSuccess(List<SubroutineFireStore> result) {
-                    subroutinesList[0] = result;
+                    if (!result.isEmpty()) {
+                        subroutinesList[0] = result;
+                        for (SubroutineFireStore subroutine : result) {
+                            Log.d("tag", "onFetchSubroutineSuccess: " + subroutine.toString());
+                        }
+                    }
                 }
-
                 @Override
                 public void onFetchSubroutineFailure(Exception e) {
                     Log.e("tag", e.getMessage());
@@ -564,7 +629,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     if (!result.isEmpty()) {
                         for (HabitFireStore habit : result) {
                             Habits habits = new Habits(habit.getTitle(), habit.getDescription(), habit.getColor(), false, false);
-                            Log.e("tag", "onFetchHabitSuccess: " + habits.toString());
+                            Log.d("tag", "onFetchHabitSuccess: " + habits.toString());
                             List<Subroutines> list = getSubroutine_by_fk_uid(habit.getPk_uid(), subroutinesList[0]);
                             habits.setTotal_subroutine(list.size());
                             long id = habitWithSubroutinesDao.insertHabit(habits);

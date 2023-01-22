@@ -23,6 +23,11 @@ public class QuotesRepository {
         quotesCollection = firestore.collection("quotes");
     }
 
+    public QuotesRepository() {
+        firestore = FirebaseFirestore.getInstance();
+        quotesCollection = firestore.collection("quotes");
+    }
+
     public interface FetchCallback {
         void onFetchQuoteSuccess(List<Quotes> quotesList);
         void onFetchQuoteFailure(Exception e);
