@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -18,7 +17,8 @@ import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.assessment.AssessmentViewModel;
-import com.habitdev.sprout.database.assessment.Recommender.HabitRecommender;
+import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.Model.Result;
+import com.habitdev.sprout.utill.Recommender.HabitRecommender;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
@@ -27,15 +27,12 @@ import com.habitdev.sprout.databinding.FragmentAnalysisBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
-import com.habitdev.sprout.ui.menu.setting.adapter.QuotesAdapter;
 import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.AnalysisParentItemAdapter;
 import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.AnalytisParentItemDropDownAdapter;
-import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.Model.Result;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,7 +44,6 @@ public class AnalysisFragment extends Fragment {
     private static Habits habit;
     private static AnalysisParentItemAdapter analysisParentItemAdapter;
     private static List<Subroutines> subroutinesList;
-    private static List<Result> habitScore = new ArrayList<>();
 
     public AnalysisFragment() {
         habit = new Habits(
@@ -87,16 +83,15 @@ public class AnalysisFragment extends Fragment {
         habitRecommender.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
         habitRecommender.calculateHabitScores();
         habitRecommender.getRecommendedHabitsScore();
-        habitScore = habitRecommender.getconvertedToResultList();
-        setDropDownItems();
+        setDropDownItems(habitRecommender.getConvertedToResultList()); //gets the result to be displayed right.
     }
 
-    private void setDropDownItems(){
-        setHabitObserver();
+    private void setDropDownItems(List<Result> habitScore){
         AnalytisParentItemDropDownAdapter analytisParentItemDropDownAdapter = new AnalytisParentItemDropDownAdapter(requireContext(), habitScore);
         analytisParentItemDropDownAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
         binding.analysisDropItem.setAdapter(analytisParentItemDropDownAdapter);
         setDropDownItemListener();
+        setHabitObserver();
     }
 
     private void setHabitObserver() {
@@ -132,6 +127,7 @@ public class AnalysisFragment extends Fragment {
     }
 
     private void setDropDownItemListener() {
+
         binding.analysisDropItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {

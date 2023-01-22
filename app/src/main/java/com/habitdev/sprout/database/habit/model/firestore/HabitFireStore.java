@@ -16,6 +16,7 @@ public class HabitFireStore {
     private long pk_uid;
     private int upvote;
     private int downvote;
+    private double rating;
 
     public HabitFireStore() {
         // Default constructor required for calls to DataSnapshot.getValue(HabitFireStore.class)
@@ -28,6 +29,7 @@ public class HabitFireStore {
         this.color = AppColor.CLOUDS.getColor();
         this.upvote = 0;
         this.downvote = 0;
+        this.rating = 0d;
     }
 
     public String getId() {
@@ -86,6 +88,14 @@ public class HabitFireStore {
         this.color = color;
     }
 
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -97,6 +107,7 @@ public class HabitFireStore {
                 ", pk_uid=" + pk_uid +
                 ", upvote=" + upvote +
                 ", downvote=" + downvote +
+                ", rating=" + rating +
                 '}';
     }
 
@@ -109,6 +120,7 @@ public class HabitFireStore {
         result.put("pk_uid", pk_uid);
         result.put("upvote", upvote);
         result.put("downvote", downvote);
+        result.put("rating", rating);
         return result;
     }
 }
