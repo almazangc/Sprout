@@ -15,6 +15,7 @@ import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
 import com.habitdev.sprout.utill.CommentDiffUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapter<HomeItemOnClickParentCommentItemAdapter.CommentViewHolder> {
@@ -70,8 +71,13 @@ public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapte
     public void setNewCommentList(List<Comment> newCommentList){
         DiffUtil.Callback DIFF_CALLBACK = new CommentDiffUtil(oldCommentList, newCommentList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
-        oldCommentList.clear();
-        oldCommentList.addAll(newCommentList);
+        if (oldCommentList != null) {
+            oldCommentList.clear();
+            oldCommentList.addAll(newCommentList);
+        } else {
+            oldCommentList = new ArrayList<>(newCommentList);
+        }
+
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 
