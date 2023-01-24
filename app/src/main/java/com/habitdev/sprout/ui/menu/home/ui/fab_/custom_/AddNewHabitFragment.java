@@ -547,7 +547,7 @@ public class AddNewHabitFragment extends Fragment
             if (binding.addNewHabitSubroutineRecyclerView.getAdapter() == null) {
                 binding.addNewHabitSubroutineRecyclerView.setAdapter(homeAddNewHabitParentAdapter);
             } else {
-                homeAddNewHabitParentAdapter.setNewSubroutinesList(subroutinesList);
+                homeAddNewHabitParentAdapter.setNewSubroutinesList(new ArrayList<>(subroutinesList));
             }
         }
     }

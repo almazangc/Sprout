@@ -107,7 +107,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         if (holder.childRecycleView.getAdapter() == null) {
             List<Subroutines> habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
             SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter();
-            childAdapterItem.setOldSubroutineList(habitWithSubroutines);
+            childAdapterItem.setOldSubroutineList(new ArrayList<>(habitWithSubroutines));
             childAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
             holder.childRecycleView.setAdapter(childAdapterItem);
 
@@ -181,7 +181,8 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
     public void setNewHabitList(List<Habits> newHabitList) {
         DiffUtil.Callback DIFF_CALLBACK = new HabitDiffUtil(oldHabitList, newHabitList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
-        oldHabitList = newHabitList;
+        oldHabitList.clear();
+        oldHabitList.addAll(newHabitList);
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 

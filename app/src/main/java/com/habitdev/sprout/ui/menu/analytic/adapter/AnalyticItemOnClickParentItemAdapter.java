@@ -62,7 +62,8 @@ public class AnalyticItemOnClickParentItemAdapter extends RecyclerView.Adapter<A
     public void setNewSubroutineList(List<Subroutines> newSubroutineList) {
         DiffUtil.Callback DIFF_CALLBACK = new SubroutineDiffUtil(oldSubroutinesList, newSubroutineList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
-        oldSubroutinesList = newSubroutineList;
+        oldSubroutinesList.clear();
+        oldSubroutinesList.addAll(newSubroutineList);
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 

@@ -108,7 +108,8 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
     public void setNewHabitList(List<Habits> newHabitList) {
         DiffUtil.Callback DIFF_CALLBACK = new HabitDiffUtil(oldHabitList, newHabitList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
-        oldHabitList = newHabitList;
+        oldHabitList.clear();
+        oldHabitList.addAll(newHabitList);
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 

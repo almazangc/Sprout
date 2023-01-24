@@ -247,10 +247,10 @@ public class AddDefaultHabitFragment extends Fragment {
         subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
 
         HomeAddDefaultHabitParentItemAdapter subroutineItemAdapter = new HomeAddDefaultHabitParentItemAdapter();
-        subroutineItemAdapter.setOldSubroutineList(subroutinesList);
+        subroutineItemAdapter.setOldSubroutineList(new ArrayList<>(subroutinesList));
 
         binding.habitSubroutinesRecyclerView.setAdapter(subroutineItemAdapter);
-        subroutineItemAdapter.setNewSubroutineList(subroutinesList);
+        subroutineItemAdapter.setNewSubroutineList(new ArrayList<>(subroutinesList));
         binding.subroutineCountLbl.setText(String.format(Locale.getDefault(), "%d", subroutinesList.size()));
     }
 

@@ -80,7 +80,7 @@ public class SubroutineFragment extends Fragment
             binding.subroutineRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
             SubroutineParentItemAdapter parentAdapterItem = new SubroutineParentItemAdapter();
-            parentAdapterItem.setOldHabitList(habitWithSubroutinesViewModel.getAllHabitOnReform());
+            parentAdapterItem.setOldHabitList(new ArrayList<>(habitWithSubroutinesViewModel.getAllHabitOnReform()));
 
             setEmptyRVBackground(parentAdapterItem);
 
@@ -93,7 +93,7 @@ public class SubroutineFragment extends Fragment
 
 
             habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
-                parentAdapterItem.setNewHabitList(habits);
+                parentAdapterItem.setNewHabitList(new ArrayList<>(habits));
                 setEmptyRVBackground(parentAdapterItem);
             });
         }

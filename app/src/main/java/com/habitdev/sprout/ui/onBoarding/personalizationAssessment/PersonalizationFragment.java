@@ -263,7 +263,7 @@ public class PersonalizationFragment extends Fragment {
 
     private void observeAnswerList() {
         assessmentViewModel.getGetAllAnswerListLiveData().observe(getViewLifecycleOwner(), answers ->
-                answersList = answers);
+                answersList = new ArrayList<>(answers));
     }
 
     /**

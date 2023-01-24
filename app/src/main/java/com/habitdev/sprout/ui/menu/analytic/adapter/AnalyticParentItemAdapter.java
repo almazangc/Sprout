@@ -208,7 +208,8 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
     public void setNewHabitList(List<Habits> newHabitList) {
         DiffUtil.Callback DIFF_CALLBACK = new HabitDiffUtil(oldHabitsList, newHabitList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
-        this.oldHabitsList = newHabitList;
+        this.oldHabitsList.clear();
+        this.oldHabitsList.addAll(newHabitList);
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 

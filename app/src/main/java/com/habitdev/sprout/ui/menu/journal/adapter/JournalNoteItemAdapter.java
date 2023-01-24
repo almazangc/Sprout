@@ -64,7 +64,7 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
         DiffUtil.Callback DIFF_CALLBACK = new NotesDiffUtil(oldNoteList, newNoteList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
         oldNoteList = newNoteList;
-        originalNoteList = newNoteList;
+        originalNoteList.addAll(newNoteList);
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 

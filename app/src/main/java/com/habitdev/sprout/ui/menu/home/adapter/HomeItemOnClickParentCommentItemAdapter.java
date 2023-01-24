@@ -70,7 +70,8 @@ public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapte
     public void setNewCommentList(List<Comment> newCommentList){
         DiffUtil.Callback DIFF_CALLBACK = new CommentDiffUtil(oldCommentList, newCommentList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
-        oldCommentList = newCommentList;
+        oldCommentList.clear();
+        oldCommentList.addAll(newCommentList);
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 

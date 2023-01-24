@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
@@ -28,6 +29,7 @@ import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentItem
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentOnclickListener;
 import com.habitdev.sprout.ui.menu.subroutine.ui.dialog.SubroutineModifyParentItemAdapterDialogFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubroutineModifyFragment extends Fragment implements SubroutineModifyParentOnclickListener{
@@ -112,9 +114,12 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
         LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation_fall);
         binding.subroutineModifyRecyclerView.setLayoutAnimation(animationController);
 
-        habitWithSubroutinesViewModel
-                .getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid())
-                .observe(getViewLifecycleOwner(), adapter::setNewSubroutineList);
+        habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), new Observer<List<Subroutines>>() {
+            @Override
+            public void onChanged(List<Subroutines> subroutines) {
+                adapter.setNewSubroutineList(new ArrayList<>(subroutines));
+            }
+        });
     }
 
     private void setHabitTitleBackground() {

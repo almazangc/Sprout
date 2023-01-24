@@ -20,6 +20,7 @@ import com.habitdev.sprout.databinding.FragmentAnalyticItemOnClickBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticItemOnClickParentItemAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AnalyticItemOnClickFragment extends Fragment {
@@ -74,14 +75,14 @@ public class AnalyticItemOnClickFragment extends Fragment {
         if (binding.analyticItemOnClickRecyclerView.getAdapter() == null) {
             HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
             List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
-            analyticItemOnClickParentItemAdapter.setOldSubroutinesList(subroutinesList);
+            analyticItemOnClickParentItemAdapter.setOldSubroutinesList(new ArrayList<>(subroutinesList));
             binding.analyticItemOnClickRecyclerView.setAdapter(analyticItemOnClickParentItemAdapter);
 
             habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(),
                     new Observer<List<Subroutines>>() {
                         @Override
                         public void onChanged(List<Subroutines> subroutines) {
-                            analyticItemOnClickParentItemAdapter.setNewSubroutineList(subroutinesList);
+                            analyticItemOnClickParentItemAdapter.setNewSubroutineList(new ArrayList<>(subroutines));
                         }
                     });
         }

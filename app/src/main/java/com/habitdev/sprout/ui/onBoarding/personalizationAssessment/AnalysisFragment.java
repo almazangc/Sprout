@@ -97,7 +97,7 @@ public class AnalysisFragment extends Fragment {
 
     private void setHabitObserver() {
         habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
-            habitsList = habits;
+            habitsList = new ArrayList<>(habits);
         });
     }
 
@@ -115,14 +115,14 @@ public class AnalysisFragment extends Fragment {
         if (subroutinesList != null){
             if (analysisParentItemAdapter == null) {
                 analysisParentItemAdapter = new AnalysisParentItemAdapter();
-                analysisParentItemAdapter.setOldSubroutinesList(subroutinesList);
+                analysisParentItemAdapter.setOldSubroutinesList(new ArrayList<>(subroutinesList));
             }
 
             if (binding.analysisRecyclerView.getAdapter() == null) {
                 binding.analysisRecyclerView.setAdapter(analysisParentItemAdapter);
             } else {
                 binding.analysisHabitDescrition.setText(habit.getDescription());
-                analysisParentItemAdapter.setNewSubroutineList(subroutinesList);
+                analysisParentItemAdapter.setNewSubroutineList(new ArrayList<>(subroutinesList));
             }
         }
     }

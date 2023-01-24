@@ -25,6 +25,7 @@ import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
@@ -290,7 +291,7 @@ public class HomeItemOnClickFragment extends Fragment {
             HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(commentViewModel);
             binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
             commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {
-                if (comments != null) homeParentItemAdapter.setNewCommentList(comments);
+                if (comments != null) homeParentItemAdapter.setNewCommentList(new ArrayList<>(comments));
             });
         }
     }

@@ -35,6 +35,7 @@ import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDia
 import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment
@@ -131,7 +132,7 @@ public class HomeFragment extends Fragment
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
 
-        homeParentItemAdapter.setOldHabitList(habitsList);
+        homeParentItemAdapter.setOldHabitList(new ArrayList<>(habitsList));
         binding.homeRecyclerView.setAdapter(homeParentItemAdapter);
 
         setEmptyRVBackground(homeParentItemAdapter);
@@ -183,8 +184,8 @@ public class HomeFragment extends Fragment
 
     private void setRecyclerViewObserver(@NonNull HomeParentItemAdapter homeParentItemAdapter) {
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
-            homeParentItemAdapter.setNewHabitList(habits);
-            habitsList = habits;
+            homeParentItemAdapter.setNewHabitList(new ArrayList<>(habits));
+            habitsList = new ArrayList<>(habits);
             setEmptyRVBackground(homeParentItemAdapter); //adapts on ui changes
         });
     }

@@ -112,8 +112,8 @@ public class TerminalFragment extends Fragment {
             @Override
             public void onChanged(List<Quotes> quotes) {
                 quotesViewModel.fetchData();
-                quotesAdapter.setNewQuotesList(quotes);
-                quotesList[0] = quotes;
+                quotesAdapter.setNewQuotesList(new ArrayList<>(quotes));
+                quotesList[0] = new ArrayList<>(quotes);
                 Log.d("tag", "onChanged: obsserving");
             }
         });

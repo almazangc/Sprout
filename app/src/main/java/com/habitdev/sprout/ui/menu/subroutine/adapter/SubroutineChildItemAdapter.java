@@ -83,7 +83,8 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
     public void setNewSubroutineList(List<Subroutines> newSubroutineList) {
         DiffUtil.Callback DIFF_CALLBACK = new SubroutineDiffUtil(oldSubroutineList, newSubroutineList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
-        this.oldSubroutineList = newSubroutineList;
+        this.oldSubroutineList.clear();
+        this.oldSubroutineList.addAll(newSubroutineList);
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 

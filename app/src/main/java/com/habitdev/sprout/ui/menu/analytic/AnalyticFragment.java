@@ -120,7 +120,7 @@ public class AnalyticFragment extends Fragment
     private void setRecyclerViewAdapter() {
         if (binding.analyticHabitOnReformRecyclerView.getAdapter() == null) {
             habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
-            analyticParentItemAdapter.setOldHabitsList(habitsList);
+            analyticParentItemAdapter.setOldHabitsList(new ArrayList<>(habitsList));
             analyticParentItemAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
             analyticParentItemAdapter.setmOnItemClick(this);
             binding.analyticHabitOnReformRecyclerView.setAdapter(analyticParentItemAdapter);
@@ -129,8 +129,8 @@ public class AnalyticFragment extends Fragment
             habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), new Observer<List<Habits>>() {
                 @Override
                 public void onChanged(List<Habits> habits) {
-                    analyticParentItemAdapter.setNewHabitList(habits);
-                    habitsList = habits;
+                    analyticParentItemAdapter.setNewHabitList(new ArrayList<>(habits));
+                    habitsList = new ArrayList<>(habits);
                     setEmptyRVBackground();
                 }
             });

@@ -25,6 +25,7 @@ import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.journal.adapter.JournalNoteItemAdapter;
 import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JournalFragment extends Fragment implements NoteItemOnClickListener {
@@ -54,8 +55,8 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
         binding.journalRecyclerView.setAdapter(journalNoteItemAdapter);
 
         noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> {
-            journalNoteItemAdapter.setNewNoteList(notes);
-            noteList = notes;
+            journalNoteItemAdapter.setNewNoteList(new ArrayList<>(notes));
+            noteList = new ArrayList<>(notes);
             setEmptyJournalView();
         });
         onSwipeRefresh();

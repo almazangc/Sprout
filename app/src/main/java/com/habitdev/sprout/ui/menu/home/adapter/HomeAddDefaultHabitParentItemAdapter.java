@@ -50,7 +50,8 @@ public class HomeAddDefaultHabitParentItemAdapter extends RecyclerView.Adapter<H
     public void setNewSubroutineList(List<Subroutines> newSubroutineList) {
         DiffUtil.Callback DIFF_CALLBACK = new SubroutineDiffUtil(oldSubroutineList, newSubroutineList);
         DiffUtil.DiffResult DIFF_CALLBACK_RESULT = DiffUtil.calculateDiff(DIFF_CALLBACK);
-        oldSubroutineList = newSubroutineList;
+        oldSubroutineList.clear();
+        oldSubroutineList.addAll(newSubroutineList);
         DIFF_CALLBACK_RESULT.dispatchUpdatesTo(this);
     }
 
