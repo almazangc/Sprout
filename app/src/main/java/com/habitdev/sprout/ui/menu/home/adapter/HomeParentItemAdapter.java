@@ -69,21 +69,34 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(oldHabitList.get(holder.getAbsoluteAdapterPosition()).getDate_started());
         dateTimeElapsedUtil.calculateElapsedDateTime();
 
-        Timer timer = new Timer(); //create new instance of timer
-        timer.schedule(new TimerTask() {
+//        Timer timer = new Timer(); //create new instance of timer
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                new Handler(Looper.getMainLooper()).post(() -> {
+//                    dateTimeElapsedUtil.calculateElapsedDateTime();
+//                    holder.daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+//                });
+//            }
+//        }, 0, 1000);
+
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    dateTimeElapsedUtil.calculateElapsedDateTime();
-                    holder.daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
-                });
+                dateTimeElapsedUtil.calculateElapsedDateTime();
+                holder.daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
+                handler.postDelayed(this, 1000);
             }
-        }, 0, 1000);
+        };
+        handler.post(runnable);
 
         holder.drop.setOnClickListener(v -> {
             homeParentItemOnclickListener.onClickHabitDrop(oldHabitList.get(holder.getAbsoluteAdapterPosition()));
-            timer.cancel();
-            timer.purge();
+            handler.removeCallbacks(runnable);
+            // cancel the TimerTask when the drop button is clicked
+//            timer.cancel();
+//            timer.purge();
         });
 
         if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.AVG_HABIT_BREAK_DAY.getDays()) {

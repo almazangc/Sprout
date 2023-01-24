@@ -44,6 +44,8 @@ public class HomeItemOnClickFragment extends Fragment {
     private static int old_selected_color;
     private static String color = AppColor.CLOUDS.getColor();
 
+    private static Timer timer;
+
     public interface OnItemOnClickReturnHome {
         void onHomeItemOnClickReturnHome();
     }
@@ -96,7 +98,7 @@ public class HomeItemOnClickFragment extends Fragment {
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
         dateTimeElapsedUtil.calculateElapsedDateTime();
 
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -302,6 +304,11 @@ public class HomeItemOnClickFragment extends Fragment {
             public void handleOnBackPressed() {
                 if (mOnItemOnClickReturnHome != null)
                     mOnItemOnClickReturnHome.onHomeItemOnClickReturnHome();
+
+                if (timer != null) {
+                    timer.cancel();
+                    timer.purge();
+                }
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
