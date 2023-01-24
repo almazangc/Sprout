@@ -73,21 +73,16 @@ public class AboutUsFragment extends Fragment {
                 // Try to open the link in the Facebook app
                 facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=" + profileUrl));
                 startActivity(facebookIntent);
-                // unregister the network callback
-                if (connectivityManager != null && networkMonitoringUtil != null) {
-                    connectivityManager.unregisterNetworkCallback(networkMonitoringUtil);
-                }
-            } catch (ActivityNotFoundException e) {
-                // If the Facebook app is not installed, open the link in the device's default browser
-                facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(profileUrl));
-                startActivity(facebookIntent);
-                // unregister the network callback
-                if (connectivityManager != null && networkMonitoringUtil != null) {
-                    connectivityManager.unregisterNetworkCallback(networkMonitoringUtil);
-                }
             } catch (Exception e) {
-                // Handle any other exceptions
-                Toast.makeText(getContext(), "An error occurred while trying to open the Facebook profile.", Toast.LENGTH_SHORT).show();
+                if (e instanceof ActivityNotFoundException) {
+                    // If the Facebook app is not installed, open the link in the device's default browser
+                    facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(profileUrl));
+                    startActivity(facebookIntent);
+                } else {
+                    // Handle any other exceptions
+                    Toast.makeText(getContext(), "An error occurred while trying to open the Facebook profile.", Toast.LENGTH_SHORT).show();
+                }
+            } finally {
                 // unregister the network callback
                 if (connectivityManager != null && networkMonitoringUtil != null) {
                     connectivityManager.unregisterNetworkCallback(networkMonitoringUtil);
