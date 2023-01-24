@@ -6,32 +6,60 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * DateTimeElapsedUtil is a utility class that calculates the elapsed time between a given start date and the current date.
+ * The class can be instantiated with or without a pattern type. The pattern type is used to specify the format of the start date.
+ */
 public class DateTimeElapsedUtil {
 
+    /**
+     * A string that holds the final result of the elapsed time calculation.
+     */
     private String result;
+
+    /**
+     * A string that holds the start date.
+     */
     private String date_started;
+
+    /**
+     * An int that holds the pattern type of the date format.
+     */
     private  int patternType;
+
+    /**
+     * A long that holds the elapsed days use to identify days elapsed.
+     */
     private long elapsed_day;
+
+    /**
+     * A Date object that holds the start date, current_date (prior).
+     */
     private Date start_date, current_date;
 
+    /**
+     * Constructs a new DateTimeElapsedUtil with a given start date and a pattern type of 0.
+     *
+     * @param date_started the start date: pattern EEEE, dd MMMM yyyy hh:mm:ss a
+     */
     public DateTimeElapsedUtil(String date_started) {
         this.date_started = date_started;
         patternType = 0;
     }
 
+    /**
+     * Constructs a new DateTimeElapsedUtil with a given start date and pattern type.
+     * @param date_started the start date
+     * @param patternType the pattern type, 0 | 1
+     */
     public DateTimeElapsedUtil(String date_started, int patternType) {
         this.date_started = date_started;
         this.patternType = patternType;
     }
 
-    public void setDate_started(String date_started) {
-        this.date_started = date_started;
-    }
-
-    public void setPatternType(int patternType) {
-        this.patternType = patternType;
-    }
-
+    /**
+     * Calculates the elapsed time between the start date and the current date.
+     */
     public void calculateElapsedDateTime() {
 
         SimpleDateFormat[] simpleDateFormatPattern = new SimpleDateFormat[2];
@@ -59,6 +87,9 @@ public class DateTimeElapsedUtil {
         }
     }
 
+    /**
+     * Converts the start date and current date to date objects.
+     */
     public void convertToDate(){
         final SimpleDateFormat[] simpleDateFormatPattern = new SimpleDateFormat[2];
         simpleDateFormatPattern [0] = new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault());
@@ -72,6 +103,15 @@ public class DateTimeElapsedUtil {
         }
     }
 
+    /**
+     * Formats the result of the elapsed time calculation.
+     *
+     * @param y the number of elapsed years
+     * @param d the number of elapsed days
+     * @param h the number of elapsed hours
+     * @param m the number of elapsed minutes
+     * @param s the number of elapsed seconds
+     */
     private void formatResult(long y, long d, long h, long m, long s) {
         result = ((y == 0 ? "" : y + ((y > 1) ? y + " Year's " : y + " Years "))
                 + (d == 0 ? "" : (d > 1) ? d + " Days " : d + " Day ")
@@ -79,6 +119,14 @@ public class DateTimeElapsedUtil {
                 + (m == 0 ? "" : (m > 1) ? m + " Minutes " : m + " Minute ")
                 + (s == 0 ? "" : (s > 1) ? s + " Seconds" : s + " Second")
         ).trim();
+    }
+
+    public void setDate_started(String date_started) {
+        this.date_started = date_started;
+    }
+
+    public void setPatternType(int patternType) {
+        this.patternType = patternType;
     }
 
     public Date getStart_date() {

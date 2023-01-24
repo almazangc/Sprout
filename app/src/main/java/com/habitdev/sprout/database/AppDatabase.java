@@ -1,7 +1,6 @@
 package com.habitdev.sprout.database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,8 +11,6 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.habitdev.sprout.database.assessment.Assessment;
 import com.habitdev.sprout.database.assessment.AssessmentDao;
 import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.model.Choices;
@@ -104,6 +101,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 public void onFetchQuoteSuccess(List<Quotes> quotesList) {
                     //success
                     Log.d("tag", "onFetchQuoteSuccess: ");
+
                 }
 
                 @Override
@@ -613,7 +611,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     if (!result.isEmpty()) {
                         subroutinesList[0] = result;
                         for (SubroutineFireStore subroutine : result) {
-                            Log.d("tag", "onFetchSubroutineSuccess: " + subroutine.toString());
+                            subroutinesList[0] = result;
                         }
                     }
                 }
@@ -628,377 +626,19 @@ public abstract class AppDatabase extends RoomDatabase {
                 public void onFetchHabitSuccess(List<HabitFireStore> result) {
                     if (!result.isEmpty()) {
                         for (HabitFireStore habit : result) {
-                            Habits habits = new Habits(habit.getTitle(), habit.getDescription(), habit.getColor(), false, false);
-                            Log.d("tag", "onFetchHabitSuccess: " + habits.toString());
-                            List<Subroutines> list = getSubroutine_by_fk_uid(habit.getPk_uid(), subroutinesList[0]);
-                            habits.setTotal_subroutine(list.size());
-                            long id = habitWithSubroutinesDao.insertHabit(habits);
-                            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
+                            if(!subroutinesList[0].isEmpty()) {
+                                Habits habits = new Habits(habit.getTitle(), habit.getDescription(), habit.getColor(), false, false);
+                                Log.d("tag", "onFetchHabitSuccess: " + habits.toString());
+                                List<Subroutines> list = getSubroutine_by_fk_uid(habit.getPk_uid(), subroutinesList[0]);
+                                habits.setTotal_subroutine(list.size());
+                                long id = habitWithSubroutinesDao.insertHabit(habits);
+                                habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
+                            } else {
+                                populateOffline();
+                            }
                         }
                     } else {
-                        //Add offline
-                        //                    Subroutines sample = new Subroutines(getString(R.string.sample_subroutine_title), getString(R.string.sample_subroutine_description), AppColor.BRIGHT_SKY_BLUE.getColor(), false);
-//                    Habits habits = new Habits(getString(R.string.sample_habit_title), getString(R.string.sample_habit_description), AppColor.CLOUDS.getColor(),false, false);
-//                    habits.setTotal_subroutine(5);
-//                    long id = habitWithSubroutinesDao.insertHabit(habits);
-//                    List<Subroutines> list = new ArrayList<>();
-//                    list.add(sample);
-//                    list.add(sample);
-//                    list.add(sample);
-//                    list.add(sample);
-//                    list.add(sample);
-//                    habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
-
-                        //Procrastination
-                        Habits habit = new Habits(
-                                "Procrastination",
-                                "Putting off tasks or assignments until the last minute can lead to increased stress and a lack of understanding of the material.",
-                                AppColor.CLOUDS.getColor(),
-                                false,
-                                false
-                        );
-
-                        List<Subroutines> subroutinesList = new ArrayList<>();
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Time management",
-                                        "Set specific deadlines for yourself and break down larger tasks into smaller, manageable chunks.",
-                                        AppColor.CLOUDS.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Focus enhancement",
-                                        "Eliminate distractions and create a designated study space.",
-                                        AppColor.ALZARIN.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Time-boxing",
-                                        "Use a timer to focus on one task for a specific amount of time.",
-                                        AppColor.AMETHYST.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Prioritization",
-                                        "Prioritize your to-do list and tackle the most important task first.",
-                                        AppColor.BRIGHT_SKY_BLUE.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Motivation boost",
-                                        "Use a reward system for completing tasks on time.",
-                                        AppColor.NEPHRITIS.getColor(),
-                                        false
-                                )
-                        );
-
-                        habit.setTotal_subroutine(subroutinesList.size());
-                        long uid = habitWithSubroutinesDao.insertHabit(habit);
-                        habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
-
-                        //Lack of time management
-                        habit = new Habits(
-                                "Lack of time management",
-                                "Not effectively managing one's time can lead to feeling overwhelmed and difficulty completing assignments on time.",
-                                AppColor.ALZARIN.getColor(),
-                                false,
-                                false
-                        );
-
-                        subroutinesList.clear();
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Task planning",
-                                        "Create a schedule or to-do list of tasks and stick to it.",
-                                        AppColor.SUNFLOWER.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Priority setting",
-                                        "Prioritize tasks and focus on the most important or urgent ones first.",
-                                        AppColor.CLOUDS.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Time tracking",
-                                        "Use a timer to stay on track during study sessions.",
-                                        AppColor.ALZARIN.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Distraction elimination",
-                                        "Eliminate unnecessary activities or distractions from your schedule.",
-                                        AppColor.AMETHYST.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Future planning",
-                                        "Make a plan for the next day before going to bed.",
-                                        AppColor.BRIGHT_SKY_BLUE.getColor(),
-                                        false
-                                )
-                        );
-
-                        habit.setTotal_subroutine(subroutinesList.size());
-                        uid = habitWithSubroutinesDao.insertHabit(habit);
-                        habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
-
-                        //Poor study practices
-                        habit = new Habits(
-                                "Poor study practices",
-                                "Not studying in a focused and consistent manner can lead to poor performance on exams and assignments.",
-                                AppColor.AMETHYST.getColor(),
-                                false,
-                                false
-                        );
-
-                        subroutinesList.clear();
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Schedule consistency",
-                                        "Develop a consistent study schedule and stick to it.",
-                                        AppColor.NEPHRITIS.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Take frequent breaks during study sessions.",
-                                        "Break intervals",
-                                        AppColor.CLOUDS.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Study method",
-                                        "Find a study method that works for you, such as flashcards or summarizing notes.",
-                                        AppColor.SUNFLOWER.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Time management",
-                                        "Use a timer to keep track of your study time.",
-                                        AppColor.ALZARIN.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Regular review",
-                                        "Review material regularly and practice with practice tests or quizzes.",
-                                        AppColor.AMETHYST.getColor(),
-                                        false
-                                )
-                        );
-
-                        habit.setTotal_subroutine(subroutinesList.size());
-                        uid = habitWithSubroutinesDao.insertHabit(habit);
-                        habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
-
-                        //Easily Distracted
-                        habit = new Habits(
-                                "Easily Distracted",
-                                "Constantly checking social media, phone, or other electronic devices can distract from studying and lead to lower productivity.",
-                                AppColor.BRIGHT_SKY_BLUE.getColor(),
-                                false,
-                                false
-                        );
-
-                        subroutinesList.clear();
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Distraction elimination",
-                                        "Eliminate electronic distractions, such as social media or phone notifications.",
-                                        AppColor.BRIGHT_SKY_BLUE.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Study environment",
-                                        "Create a designated study space free from distractions.",
-                                        AppColor.NEPHRITIS.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Digital blocking",
-                                        "Use apps or website blockers during study time.",
-                                        AppColor.SUNFLOWER.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Phone management",
-                                        "Put your phone on silent or in another room while studying.",
-                                        AppColor.CLOUDS.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Noise reduction",
-                                        "Use noise-canceling headphones to block out background noise.",
-                                        AppColor.ALZARIN.getColor(),
-                                        false
-                                )
-                        );
-
-                        habit.setTotal_subroutine(subroutinesList.size());
-                        uid = habitWithSubroutinesDao.insertHabit(habit);
-                        habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
-
-                        //Poor sleep management
-                        habit = new Habits(
-                                "Poor sleep management",
-                                "Not getting enough sleep can negatively impact memory, concentration, and overall well-being, making it harder to study effectively.",
-                                AppColor.BRIGHT_SKY_BLUE.getColor(),
-                                false,
-                                false
-                        );
-
-                        subroutinesList.clear();
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Sleep schedule",
-                                        "Establish a consistent sleep schedule and aim for 7-8 hours of sleep per night.",
-                                        AppColor.BRIGHT_SKY_BLUE.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Pre-sleep preparation",
-                                        "Avoid screens and stimulating activities before bedtime.",
-                                        AppColor.NEPHRITIS.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Bedtime wind down",
-                                        "Create a bedtime environment to relax and wind down.",
-                                        AppColor.SUNFLOWER.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Sleep environment",
-                                        "Keep your bedroom cool, dark, and quiet.",
-                                        AppColor.CLOUDS.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Noise mitigation",
-                                        "Use a white noise machine to block out any background noise.",
-                                        AppColor.ALZARIN.getColor(),
-                                        false
-                                )
-                        );
-
-                        habit.setTotal_subroutine(subroutinesList.size());
-                        uid = habitWithSubroutinesDao.insertHabit(habit);
-                        habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
-
-                        //Negative outlook
-                        habit = new Habits(
-                                "Poor sleep management",
-                                "Having a negative attitude and mindset can make it harder to stay motivated and engaged in coursework.",
-                                AppColor.NEPHRITIS.getColor(),
-                                false,
-                                false
-                        );
-
-                        subroutinesList.clear();
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Positive reinforcement",
-                                        "Use positive affirmations to stay motivated.",
-                                        AppColor.AMETHYST.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Break activities",
-                                        "Take a short break to do something you enjoy after completing a task.",
-                                        AppColor.BRIGHT_SKY_BLUE.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Stress management",
-                                        "Practice stress-relieving activities, such as meditation or yoga.",
-                                        AppColor.NEPHRITIS.getColor(),
-                                        false
-                                )
-                        );
-
-                        subroutinesList.add(
-                                new Subroutines(
-                                        "Self-reflection",
-                                        "Reflect on your own learning process and identify strengths and achievements.",
-                                        AppColor.SUNFLOWER.getColor(),
-                                        false
-                                )
-                        );
-
-                        habit.setTotal_subroutine(subroutinesList.size());
-                        uid = habitWithSubroutinesDao.insertHabit(habit);
-                        habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
+                        populateOffline();
                     }
                 }
 
@@ -1008,6 +648,359 @@ public abstract class AppDatabase extends RoomDatabase {
                 }
             });
             return null;
+        }
+
+        private void populateOffline() {
+            //Procrastination
+            Habits habit = new Habits(
+                    "Procrastination",
+                    "Putting off tasks or assignments until the last minute can lead to increased stress and a lack of understanding of the material.",
+                    AppColor.CLOUDS.getColor(),
+                    false,
+                    false
+            );
+
+            List<Subroutines> subroutinesList = new ArrayList<>();
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Time management",
+                            "Set specific deadlines for yourself and break down larger tasks into smaller, manageable chunks.",
+                            AppColor.CLOUDS.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Focus enhancement",
+                            "Eliminate distractions and create a designated study space.",
+                            AppColor.ALZARIN.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Time-boxing",
+                            "Use a timer to focus on one task for a specific amount of time.",
+                            AppColor.AMETHYST.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Prioritization",
+                            "Prioritize your to-do list and tackle the most important task first.",
+                            AppColor.BRIGHT_SKY_BLUE.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Motivation boost",
+                            "Use a reward system for completing tasks on time.",
+                            AppColor.NEPHRITIS.getColor(),
+                            false
+                    )
+            );
+
+            habit.setTotal_subroutine(subroutinesList.size());
+            long uid = habitWithSubroutinesDao.insertHabit(habit);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
+
+            //Lack of time management
+            habit = new Habits(
+                    "Lack of time management",
+                    "Not effectively managing one's time can lead to feeling overwhelmed and difficulty completing assignments on time.",
+                    AppColor.ALZARIN.getColor(),
+                    false,
+                    false
+            );
+
+            subroutinesList.clear();
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Task planning",
+                            "Create a schedule or to-do list of tasks and stick to it.",
+                            AppColor.SUNFLOWER.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Priority setting",
+                            "Prioritize tasks and focus on the most important or urgent ones first.",
+                            AppColor.CLOUDS.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Time tracking",
+                            "Use a timer to stay on track during study sessions.",
+                            AppColor.ALZARIN.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Distraction elimination",
+                            "Eliminate unnecessary activities or distractions from your schedule.",
+                            AppColor.AMETHYST.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Future planning",
+                            "Make a plan for the next day before going to bed.",
+                            AppColor.BRIGHT_SKY_BLUE.getColor(),
+                            false
+                    )
+            );
+
+            habit.setTotal_subroutine(subroutinesList.size());
+            uid = habitWithSubroutinesDao.insertHabit(habit);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
+
+            //Poor study practices
+            habit = new Habits(
+                    "Poor study practices",
+                    "Not studying in a focused and consistent manner can lead to poor performance on exams and assignments.",
+                    AppColor.AMETHYST.getColor(),
+                    false,
+                    false
+            );
+
+            subroutinesList.clear();
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Schedule consistency",
+                            "Develop a consistent study schedule and stick to it.",
+                            AppColor.NEPHRITIS.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Break intervals",
+                            "Take frequent breaks during study sessions.",
+                            AppColor.CLOUDS.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Study method",
+                            "Find a study method that works for you, such as flashcards or summarizing notes.",
+                            AppColor.SUNFLOWER.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Time management",
+                            "Use a timer to keep track of your study time.",
+                            AppColor.ALZARIN.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Regular review",
+                            "Review material regularly and practice with practice tests or quizzes.",
+                            AppColor.AMETHYST.getColor(),
+                            false
+                    )
+            );
+
+            habit.setTotal_subroutine(subroutinesList.size());
+            uid = habitWithSubroutinesDao.insertHabit(habit);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
+
+            //Easily Distracted
+            habit = new Habits(
+                    "Easily Distracted",
+                    "Constantly checking social media, phone, or other electronic devices can distract from studying and lead to lower productivity.",
+                    AppColor.BRIGHT_SKY_BLUE.getColor(),
+                    false,
+                    false
+            );
+
+            subroutinesList.clear();
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Distraction elimination",
+                            "Eliminate electronic distractions, such as social media or phone notifications.",
+                            AppColor.BRIGHT_SKY_BLUE.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Study environment",
+                            "Create a designated study space free from distractions.",
+                            AppColor.NEPHRITIS.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Digital blocking",
+                            "Use apps or website blockers during study time.",
+                            AppColor.SUNFLOWER.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Phone management",
+                            "Put your phone on silent or in another room while studying.",
+                            AppColor.CLOUDS.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Noise reduction",
+                            "Use noise-canceling headphones to block out background noise.",
+                            AppColor.ALZARIN.getColor(),
+                            false
+                    )
+            );
+
+            habit.setTotal_subroutine(subroutinesList.size());
+            uid = habitWithSubroutinesDao.insertHabit(habit);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
+
+            //Poor sleep management
+            habit = new Habits(
+                    "Poor sleep management",
+                    "Not getting enough sleep can negatively impact memory, concentration, and overall well-being, making it harder to study effectively.",
+                    AppColor.BRIGHT_SKY_BLUE.getColor(),
+                    false,
+                    false
+            );
+
+            subroutinesList.clear();
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Sleep schedule",
+                            "Establish a consistent sleep schedule and aim for 7-8 hours of sleep per night.",
+                            AppColor.BRIGHT_SKY_BLUE.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Pre-sleep preparation",
+                            "Avoid screens and stimulating activities before bedtime.",
+                            AppColor.NEPHRITIS.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Bedtime wind down",
+                            "Create a bedtime environment to relax and wind down.",
+                            AppColor.SUNFLOWER.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Sleep environment",
+                            "Keep your bedroom cool, dark, and quiet.",
+                            AppColor.CLOUDS.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Noise mitigation",
+                            "Use a white noise machine to block out any background noise.",
+                            AppColor.ALZARIN.getColor(),
+                            false
+                    )
+            );
+
+            habit.setTotal_subroutine(subroutinesList.size());
+            uid = habitWithSubroutinesDao.insertHabit(habit);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
+
+            //Negative outlook
+            habit = new Habits(
+                    "Negative Outlook",
+                    "Having a negative attitude and mindset can make it harder to stay motivated and engaged in coursework.",
+                    AppColor.NEPHRITIS.getColor(),
+                    false,
+                    false
+            );
+
+            subroutinesList.clear();
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Positive reinforcement",
+                            "Use positive affirmations to stay motivated.",
+                            AppColor.AMETHYST.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Break activities",
+                            "Take a short break to do something you enjoy after completing a task.",
+                            AppColor.BRIGHT_SKY_BLUE.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Stress management",
+                            "Practice stress-relieving activities, such as meditation or yoga.",
+                            AppColor.NEPHRITIS.getColor(),
+                            false
+                    )
+            );
+
+            subroutinesList.add(
+                    new Subroutines(
+                            "Self-reflection",
+                            "Reflect on your own learning process and identify strengths and achievements.",
+                            AppColor.SUNFLOWER.getColor(),
+                            false
+                    )
+            );
+
+            habit.setTotal_subroutine(subroutinesList.size());
+            uid = habitWithSubroutinesDao.insertHabit(habit);
+            habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(subroutinesList, uid));
         }
 
         private String getString(int id) {

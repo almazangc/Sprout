@@ -17,7 +17,6 @@ public class AssessmentRepository {
     private final LiveData<List<Assessment>> getAllAssessmentsListLiveData;
     private final List<Assessment> getAllAssessmentsList;
     private final LiveData<List<Answer>> getAllAnswerListLiveData;
-    private final List<Answer> getAllAnswerList;
 
     public AssessmentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -25,7 +24,6 @@ public class AssessmentRepository {
         getAllAssessmentsListLiveData = assessmentDao.getAssessmentsListLiveData();
         getAllAssessmentsList = assessmentDao.getAllAssessmentsList();
         getAllAnswerListLiveData = assessmentDao.getAllAnswerListLiveData();
-        getAllAnswerList = assessmentDao.getAllAnswerList();
     }
 
     public void updateQuestion(Question question) {
@@ -158,7 +156,7 @@ public class AssessmentRepository {
     }
 
     public List<Answer> getAllAnswerList() {
-        return getAllAnswerList;
+        return assessmentDao.getAllAnswerList();
     }
 
     public List<Question> getQuestionList() {

@@ -53,11 +53,11 @@ public class AssessmentViewModel extends AndroidViewModel {
         return repository.getAnswerByFkQuestionUID(uid);
     }
 
-    public void insert(Answer answer) {
+    public void insertAnswer(Answer answer) {
         repository.insertAnswer(answer);
     }
 
-    public void update(Answer answer) {
+    public void updateAnswer(Answer answer) {
         repository.updateAnswer(answer);
     }
 

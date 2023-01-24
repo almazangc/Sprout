@@ -126,13 +126,13 @@ public class ProfileFragment extends Fragment {
         binding.settingProfileSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //update nickname
+                //updateAnswer nickname
                 if (binding.settingProfileChangeNicknameHint.getText().toString().trim().isEmpty()) {
                     user.setNickname(binding.settingProfileChangeNickname.getText().toString().trim());
                     userViewModel.update(user);
                 }
 
-                //update phofile
+                //updateAnswer phofile
                 if (selectedProfilePath != null) {
                     if (!selectedProfilePath.trim().isEmpty()) {
                         requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE)

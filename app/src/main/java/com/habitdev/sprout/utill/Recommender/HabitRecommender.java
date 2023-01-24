@@ -43,18 +43,18 @@ public class HabitRecommender {
      * The higher the score, the more likely the habit is recommended.
      */
     public void calculateHabitScores() {
-        List<Question> questions = assessmentViewModel.getAllQuestionList();
-        List<Answer> answers = assessmentViewModel.getAllAnswerList();
+        List<Question> questionList = assessmentViewModel.getAllQuestionList();
+        List<Answer> answerList = assessmentViewModel.getAllAnswerList();
 
-        List<Assessment> assessments = new ArrayList<>();
+        List<Assessment> assessmentList = new ArrayList<>();
 
-        for (Question question : questions) {
+        for (Question question : questionList) {
             long uid = question.getPk_question_uid();
             List<Choices> choices = assessmentViewModel.getAllChoicesByUID(uid);
-            assessments.add(new Assessment(question, choices));
+            assessmentList.add(new Assessment(question, choices));
         }
 
-        for (Assessment assessment : assessments) {
+        for (Assessment assessment : assessmentList) {
             Question question = assessment.getQuestion();
             List<Choices> choices = assessment.getChoices();
 
@@ -64,7 +64,7 @@ public class HabitRecommender {
                 long habitUid = question.getFk_habit_uid();
                 double value = 0;
 
-                for (Answer answer : answers) {
+                for (Answer answer : answerList) {
                     if (answer.getFk_question_uid() == question.getPk_question_uid()) {
                         for (Choices choice : choices) {
                             if (choice.getChoices().equals(answer.getSelected_answer())) {

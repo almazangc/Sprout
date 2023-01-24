@@ -83,7 +83,8 @@ public class AnalysisFragment extends Fragment {
         habitRecommender.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
         habitRecommender.calculateHabitScores();
         habitRecommender.getRecommendedHabitsScore();
-        setDropDownItems(habitRecommender.getConvertedToResultList()); //gets the result to be displayed right.
+        List<Result> habitScoreResult = habitRecommender.getConvertedToResultList();
+        setDropDownItems(habitScoreResult); //gets the result to be displayed right.
     }
 
     private void setDropDownItems(List<Result> habitScore){

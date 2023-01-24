@@ -62,7 +62,7 @@ public class HomeAddNewHabitParentAdapter extends RecyclerView.Adapter<HomeAddNe
         return position;
     }
 
-    @SuppressLint({"DiffCallBack Does not work without observer to update UI", "NotifyDataSetChanged"})
+    @SuppressLint({"DiffCallBack Does not work without observer to updateAnswer UI", "NotifyDataSetChanged"})
     public void setNewSubroutinesList(List<Subroutines> newSubroutineList) {
         oldSubroutinesList = newSubroutineList;
         notifyDataSetChanged();

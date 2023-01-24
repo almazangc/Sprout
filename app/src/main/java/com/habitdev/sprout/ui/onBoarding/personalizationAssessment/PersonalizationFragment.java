@@ -244,19 +244,19 @@ public class PersonalizationFragment extends Fragment {
         long fk_user_uid = 1;
 
         if (answersList.isEmpty()) {
-            assessmentViewModel.insert(new Answer(fk_question_uid, selected_answer, fk_user_uid));
+            assessmentViewModel.insertAnswer(new Answer(fk_question_uid, selected_answer, fk_user_uid));
         } else {
             //check if question answer exist
             if (assessmentViewModel.doesAnswerExist(fk_question_uid) > 1) {
 //                Log.d("tag", "onChanged: duplicate found");
                 //In case of error for duplicate
             } else if (assessmentViewModel.doesAnswerExist(fk_question_uid) == 1) {
-                // update
+                // updateAnswer
                 Answer answer = assessmentViewModel.getAnswerByFkQuestionUID(fk_question_uid);
-                assessmentViewModel.update(new Answer(answer.getPk_answer_uid(), fk_question_uid, selected_answer, fk_user_uid));
+                assessmentViewModel.updateAnswer(new Answer(answer.getPk_answer_uid(), fk_question_uid, selected_answer, fk_user_uid));
             } else {
-                // new insert
-                assessmentViewModel.insert(new Answer(fk_question_uid, selected_answer, fk_user_uid));
+                // new insertAnswer
+                assessmentViewModel.insertAnswer(new Answer(fk_question_uid, selected_answer, fk_user_uid));
             }
         }
     }
@@ -267,7 +267,7 @@ public class PersonalizationFragment extends Fragment {
     }
 
     /**
-     * Iterates though the list of radio button and checks matching selected user selection and update UI of selected radio buttons
+     * Iterates though the list of radio button and checks matching selected user selection and updateAnswer UI of selected radio buttons
      */
     private void upCheckedRadioButtons() {
         ArrayList<RadioButton> radioButtonList = getRadioButtonList();
