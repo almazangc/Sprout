@@ -280,7 +280,6 @@ public class HomeFragment extends Fragment
 
                 //toast msg double backpress to close app not minimize
 
-
                 new CountDownTimer(200, 200) {
                     @Override
                     public void onTick(long l) {}

@@ -116,6 +116,28 @@ public class Habits implements Serializable {
         this.downvote = 0;
     }
 
+
+    /**
+     * Create new Habit obj so it wont hold reference from the passed originalHabit
+     * @param originalHabit the reference obj to create a copy
+     */
+    @Ignore
+    public Habits(Habits originalHabit) {
+        this.pk_habit_uid = originalHabit.pk_habit_uid;
+        this.habit = originalHabit.habit;
+        this.description = originalHabit.description;
+        this.color = originalHabit.color;
+        this.onReform = originalHabit.onReform;
+        this.modifiable = originalHabit.modifiable;
+        this.abstinence = originalHabit.abstinence;
+        this.relapse = originalHabit.relapse;
+        this.date_started = originalHabit.date_started;
+        this.total_subroutine = originalHabit.total_subroutine;
+        this.completed_subroutine = originalHabit.completed_subroutine;
+        this.upvote = originalHabit.upvote;
+        this.downvote = originalHabit.downvote;
+    }
+
     @NonNull
     @Override
     public String toString() {

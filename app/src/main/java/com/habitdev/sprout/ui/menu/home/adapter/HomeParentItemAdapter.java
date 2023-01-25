@@ -3,7 +3,6 @@ package com.habitdev.sprout.ui.menu.home.adapter;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,12 +27,11 @@ import com.habitdev.sprout.utill.HabitDiffUtil;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAdapter.HabitViewHolder> {
 
     private List<Habits> oldHabitList;
+    private HomeParentItemOnClickListener homeParentItemOnclickListener;
 
     public HomeParentItemAdapter() {}
 
@@ -43,8 +41,6 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         void onClickHabitRelapse(Habits habit);
         void onClickHabitDrop(Habits habit);
     }
-
-    private HomeParentItemOnClickListener homeParentItemOnclickListener;
 
     public void setHomeParentItemOnclickListener(HomeParentItemOnClickListener homeParentItemOnclickListener) {
         this.homeParentItemOnclickListener = homeParentItemOnclickListener;
@@ -69,34 +65,21 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(oldHabitList.get(holder.getAbsoluteAdapterPosition()).getDate_started());
         dateTimeElapsedUtil.calculateElapsedDateTime();
 
-//        Timer timer = new Timer(); //create new instance of timer
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                new Handler(Looper.getMainLooper()).post(() -> {
-//                    dateTimeElapsedUtil.calculateElapsedDateTime();
-//                    holder.daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
-//                });
-//            }
-//        }, 0, 1000);
-
-        Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
+        holder.runnable = new Runnable() {
             @Override
             public void run() {
                 dateTimeElapsedUtil.calculateElapsedDateTime();
                 holder.daysOfAbstinence.setText(dateTimeElapsedUtil.getResult());
-                handler.postDelayed(this, 1000);
+                holder.handler.postDelayed(this, 1000);
             }
         };
-        handler.post(runnable);
+        holder.handler.post(holder.runnable);
 
         holder.drop.setOnClickListener(v -> {
             homeParentItemOnclickListener.onClickHabitDrop(oldHabitList.get(holder.getAbsoluteAdapterPosition()));
-            handler.removeCallbacks(runnable);
-            // cancel the TimerTask when the drop button is clicked
-//            timer.cancel();
-//            timer.purge();
+            holder.handler.removeCallbacks(holder.runnable); //handle leaking
+            holder.handler.removeCallbacks(holder.runnable); // use the saved runnable to remove the callbacks
+            holder.handler.removeCallbacksAndMessages(null); //hanlde leaking
         });
 
         if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.AVG_HABIT_BREAK_DAY.getDays()) {
@@ -106,6 +89,34 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             holder.upVote.setVisibility(View.GONE);
             holder.downVote.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull HabitViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.handler.removeCallbacks(holder.runnable);
+        holder.handler.removeCallbacksAndMessages(null); //handle leaking
+
+        holder.habitTitle.setText("");
+        holder.habitDescription.setText("");
+        holder.dateStarted.setText("");
+        holder.totalRelapse.setText("");
+        holder.completedSubroutine.setText("");
+        holder.relapse.setText("");
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(@NonNull HabitViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.handler.removeCallbacks(holder.runnable);
+        holder.handler.removeCallbacksAndMessages(null); //handle leaking
+
+        holder.habitTitle.setText("");
+        holder.habitDescription.setText("");
+        holder.dateStarted.setText("");
+        holder.totalRelapse.setText("");
+        holder.completedSubroutine.setText("");
+        holder.relapse.setText("");
     }
 
     @Override
@@ -130,16 +141,18 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
         final RelativeLayout itemContainer;
         final LinearLayout itemLayout;
-        final TextView habitHeader, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalRelapse;
+        final TextView habitTitle, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalRelapse;
         final Button upVote, downVote, modify, relapse, drop;
         final Drawable cloud, amethyst, sunflower, nephritis, bright_sky_blue, alzarin;
+        Handler handler;
+        Runnable runnable;
 
         public HabitViewHolder(@NonNull View itemView, HomeParentItemOnClickListener HomeParentItemOnclickListener) {
             super(itemView);
 
             itemContainer = itemView.findViewById(R.id.adapter_home_parent_item_container);
             itemLayout = itemContainer.findViewById(R.id.adapter_home_parent_item_layout);
-            habitHeader = itemView.findViewById(R.id.header);
+            habitTitle = itemView.findViewById(R.id.header);
             habitDescription = itemView.findViewById(R.id.home_item_on_click_habit_description);
             dateStarted = itemView.findViewById(R.id.date_started);
             completedSubroutine = itemView.findViewById(R.id.completed_subroutine);
@@ -168,20 +181,25 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             nephritis = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_nephritis_selector);
             bright_sky_blue = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_brightsky_blue_selector);
             alzarin = ContextCompat.getDrawable(itemView.getContext(), R.drawable.background_btn_parent_item_view_alzarin_selector);
+
+            handler = new Handler();
+            //runnable
         }
 
         @SuppressLint("ClickableViewAccessibility")
         void bindHabit(Habits habit, HomeParentItemOnClickListener homeParentItemOnClickListener) {
 
-            if (habit.getColor().equals(AppColor.ALZARIN.getColor())) {
+            Habits habits = new Habits(habit);
+
+            if (habits.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemContainer.setBackground(alzarin);
-            } else if (habit.getColor().equals(AppColor.AMETHYST.getColor())) {
+            } else if (habits.getColor().equals(AppColor.AMETHYST.getColor())) {
                 itemContainer.setBackground(amethyst);
-            } else if (habit.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
+            } else if (habits.getColor().equals(AppColor.BRIGHT_SKY_BLUE.getColor())) {
                 itemContainer.setBackground(bright_sky_blue);
-            } else if (habit.getColor().equals(AppColor.NEPHRITIS.getColor())) {
+            } else if (habits.getColor().equals(AppColor.NEPHRITIS.getColor())) {
                 itemContainer.setBackground(nephritis);
-            } else if (habit.getColor().equals(AppColor.SUNFLOWER.getColor())) {
+            } else if (habits.getColor().equals(AppColor.SUNFLOWER.getColor())) {
                 itemContainer.setBackground(sunflower);
             } else {
                 itemContainer.setBackground(cloud);
@@ -199,17 +217,17 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 }
             });
 
-            habitHeader.setText(habit.getHabit());
+            habitTitle.setText(habits.getHabit());
 
-            if (habit.getDescription().trim().isEmpty()) {
+            if (habits.getDescription().trim().isEmpty()) {
                 habitDescription.setVisibility(View.GONE);
             } else {
-                habitDescription.setText(habit.getDescription());
+                habitDescription.setText(habits.getDescription());
             }
 
-            dateStarted.setText(habit.getDate_started());
-            completedSubroutine.setText(String.valueOf(habit.getCompleted_subroutine()));
-            totalRelapse.setText((String.format(Locale.getDefault(), "%d", habit.getRelapse())));
+            dateStarted.setText(habits.getDate_started());
+            completedSubroutine.setText(String.valueOf(habits.getCompleted_subroutine()));
+            totalRelapse.setText((String.format(Locale.getDefault(), "%d", habits.getRelapse())));
 
             upVote.setOnClickListener(view -> {
                 Toast.makeText(itemView.getContext(), "Upvote", Toast.LENGTH_SHORT).show();
@@ -219,17 +237,17 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 Toast.makeText(itemView.getContext(), "DownVote", Toast.LENGTH_SHORT).show();
             });
 
-            if (habit.isModifiable()) {
+            if (habits.isModifiable()) {
                 modify.setOnClickListener(view -> {
-                    homeParentItemOnClickListener.onClickHabitModify(habit, getAbsoluteAdapterPosition());
+                    homeParentItemOnClickListener.onClickHabitModify(habits, getAbsoluteAdapterPosition());
                 });
             } else {
                 modify.setVisibility(View.GONE);
             }
 
             relapse.setOnClickListener(view -> {
-                homeParentItemOnClickListener.onClickHabitRelapse(habit);
-                totalRelapse.setText(String.valueOf(habit.getRelapse()));
+                homeParentItemOnClickListener.onClickHabitRelapse(habits);
+                totalRelapse.setText(String.valueOf(habits.getRelapse()));
             });
         }
 
