@@ -77,11 +77,33 @@ public class HabitRecommender {
                 //positive flag
                 if (question.getClassification() == 1) {
                     //The value is already defined on Frequency enum, so no need for different calculation for diferent
+                    //Never: 100%
+                    //Seldom: 70%
+                    //Rarely: 60%
+                    //Occasionally: 50%
+                    //Sometimes: 40%
+                    //Often: 30%
+                    //Usually: 20%
+                    //Regularly: 10%
+                    //Always: 0%
+
+                    //for positive question
                 }
 
                 //negative flag
                 if (question.getClassification() == -1) {
                     //The value is already defined on Frequency enum, so no need for different calculation for defirent flag
+                    //Never: 0%
+                    //Seldom: 10%
+                    //Rarely: 20%
+                    //Occasionally: 30%
+                    //Sometimes: 40%
+                    //Often: 50%
+                    //Usually: 60%
+                    //Regularly: 70%
+                    //Always: 100%
+
+                    //for negative Question
                 }
 
                 boolean doesContainHabitUID = false;
@@ -111,9 +133,13 @@ public class HabitRecommender {
         for (HashMap<Long, Result> map : habitScore) {
             for (Map.Entry<Long, Result> entry : map.entrySet()) {
                 Result result = entry.getValue();
+                double m = result.getTotal_count() - result.getScore();
+                double n = m / result.getTotal_count();
+                double o = n * 100;
+                double p = o / 100;
+
                 result.setScore(
-                        (double) Math.round(
-                                ((result.getTotal_count() - result.getScore()) / result.getTotal_count()) * 100) / 100
+                        (double) Math.round(p)
                 );
                 map.put(entry.getKey(), result);
             }
