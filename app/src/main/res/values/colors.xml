@@ -5,11 +5,11 @@
     <color name="DARK">#202124</color>
     <color name="LIGHT">#FFFFFF</color>
 
-    <color name="NIGHT">#040000</color>
+    <color name="NIGHT">#0D0D0D</color>
     <color name="CLOUDS">#ecf0f1</color>
     <color name="WAIKAWA_GREY">#686da3</color>
 
-    <color name="NIGHT_">#040000</color>
+    <color name="NIGHT_">#0D0D0D</color>
     <color name="ClOUDS_">#ecf0f1</color>
     <color name="BLUE_BELL">#989BD5</color>
 

@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class HabitRecommender {
 
-    private final List<HashMap<Long, Result>> habitScore = new ArrayList<HashMap<Long, Result>>();
+    private final List<HashMap<Long, Result>> habitScore = new ArrayList<>();
     private AssessmentViewModel assessmentViewModel;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
 
@@ -121,6 +121,9 @@ public class HabitRecommender {
                     }
                 }
 
+                /**
+                 * Identifies which of assessment question is not a filler
+                 */
                 if (!doesContainHabitUID) {
                     HashMap<Long, Result> hashMap = new HashMap<>();
                     Result item = new Result(habitUid, value, 1);
@@ -133,14 +136,13 @@ public class HabitRecommender {
         for (HashMap<Long, Result> map : habitScore) {
             for (Map.Entry<Long, Result> entry : map.entrySet()) {
                 Result result = entry.getValue();
-                double m = result.getTotal_count() - result.getScore();
-                double n = m / result.getTotal_count();
-                double o = n * 100;
-                double p = o / 100;
+//                double m = result.getTotal_count() - result.getScore();
+//                double n = m / result.getTotal_count();
+//                double o = n * 100;
+//                double p = o / 100;
+//                Log.d("tag", "calculateHabitScores: " + (double) Math.round(p));
 
-                result.setScore(
-                        (double) Math.round(p)
-                );
+                result.setScore((double) Math.round(((result.getTotal_count() - result.getScore()) / result.getTotal_count()) * 100) / 100);
                 map.put(entry.getKey(), result);
             }
         }

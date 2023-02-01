@@ -1,7 +1,7 @@
 <resources>
     <!--App Name-->
-    <string name="app_name">Sprout Leaks</string>
-    <string name="sprout">Sprout</string>
+    <string name="app_name">SPROUT</string>
+    <string name="sprout">SPROUT</string>
 
     <!-- Intro -->
     <string name="habit_reform_and_routine_management">Habit Reform Monitoring Tool</string>

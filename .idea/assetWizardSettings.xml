@@ -68,6 +68,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="imagePath" value="C:\Program Files\Android\Android Studio\plugins\android\resources\images\asset_studio\ic_launcher_foreground.xml" />
+                                                <entry key="scalingPercent" value="0" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -91,8 +92,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\User\Downloads\sprout_logo.png" />
-                                                <entry key="scalingPercent" value="79" />
+                                                <entry key="imagePath" value="C:\Users\User\Downloads\logo-sprout.png" />
+                                                <entry key="scalingPercent" value="110" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -105,6 +106,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -116,6 +118,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -126,7 +129,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ebf4ff" />
+                                      <entry key="backgroundColor" value="deffff" />
                                     </map>
                                   </option>
                                 </PersistentState>
