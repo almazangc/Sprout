@@ -75,6 +75,8 @@
 
         <Button
             android:id="@+id/btn_continue"
+            android:background="@drawable/background_btn_normal_selector"
+            android:textColor="@color/NIGHT"
             style="@style/btn_continue_landscape" />
 
     </RelativeLayout>

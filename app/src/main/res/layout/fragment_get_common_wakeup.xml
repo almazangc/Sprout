@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_wakeup_portrait"
     tools:context=".ui.onBoarding.GetCommonWakeupFragment">
 
     <RelativeLayout
@@ -17,7 +18,7 @@
             android:layout_alignParentTop="true"
             android:text="@string/lbl_getCommonWakeUpTime"
             android:textAlignment="center"
-            android:textColor="@color/NIGHT"
+            android:textColor="@color/NIGHT_"
             android:textSize="32sp"
             android:textStyle="bold" />
 
@@ -29,7 +30,7 @@
         <Button
             android:id="@+id/btn_continue"
             style="@style/btn_continue_portrait"
-            android:background="@drawable/selector_btn_continue"
+            android:background="@drawable/background_btn_normal_selector"
             android:textColor="@color/NIGHT" />
 
     </RelativeLayout>

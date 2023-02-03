@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_wakeup_landscape"
+    tools:context=".ui.onBoarding.GetCommonWakeupFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/relativeLayoutPadding">
+
+        <TextView
+            android:id="@+id/lbl_askCommonWakeTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="@string/lbl_getCommonWakeUpTime"
+            android:textAlignment="center"
+            android:textColor="@color/NIGHT_"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+
+        <include
+            android:id="@+id/WakeTimePicker"
+            layout="@layout/spinner_time_selector" />
+
+        <Button
+            android:id="@+id/btn_continue"
+            style="@style/btn_continue_portrait"
+            android:background="@drawable/background_btn_normal_selector"
+            android:textColor="@color/NIGHT" />
+
+    </RelativeLayout>
+</FrameLayout>

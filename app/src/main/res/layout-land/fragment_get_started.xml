@@ -50,7 +50,7 @@
         style="@style/btn_continue_landscape"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/selector_btn_continue"
+        android:background="@drawable/background_btn_normal_selector"
         android:text="@string/get_started"
         android:textColor="@color/NIGHT" />
 </RelativeLayout>

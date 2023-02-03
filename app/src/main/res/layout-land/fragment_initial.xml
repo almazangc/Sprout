@@ -12,12 +12,12 @@
         android:id="@+id/sproutLogo"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="sprout-splash-screen.json"
-        app:lottie_loop="true"
         android:layout_above="@+id/appName"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="-65dp"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="sprout-splash-screen.json"
+        app:lottie_loop="true"
         app:lottie_speed="1" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_centerInParent="true"
         android:text="@string/sprout"
         android:textAlignment="center"
-        android:textColor="#0D0D0D"
+        android:textColor="@color/NIGHT"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -38,17 +38,18 @@
         android:layout_below="@id/appName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
-        android:text="@string/habit_reform_and_routine_management"
+        android:text="@string/initial_subtitle"
         android:textAlignment="center"
-        android:textColor="#0D0D0D" />
+        android:textColor="@color/NIGHT" />
 
     <Button
         android:id="@+id/btn_letsDoIt"
         style="@style/btn_continue_landscape"
-        android:layout_above="@id/agreement"
-        android:layout_alignParentBottom="false"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
-        android:text="@string/lets_do_it" />
+        android:background="@drawable/background_btn_normal_selector"
+        android:text="@string/lets_do_it"
+        android:textColor="@color/NIGHT" />
 
     <TextView
         android:id="@+id/agreement"
@@ -58,6 +59,6 @@
         android:layout_centerHorizontal="true"
         android:text="@string/eula"
         android:textAlignment="center"
-        android:textColor="#0D0D0D" />
-
+        android:textColor="@color/NIGHT"
+        android:visibility="gone" />
 </RelativeLayout>

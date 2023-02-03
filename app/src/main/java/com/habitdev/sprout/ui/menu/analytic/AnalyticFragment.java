@@ -196,7 +196,6 @@ public class AnalyticFragment extends Fragment
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d("tag", "onSaveInstanceState: " + isOnItemClick);
         outState.putBoolean(AnalyticConfigurationKeys.IS_ON_ITEM_CLICK.getKey(), isOnItemClick);
         outState.putSerializable(AnalyticConfigurationKeys.HABIT.getKey(), habitOnClick);
     }

@@ -49,7 +49,7 @@
                 android:text="Place Holder MESSAGE for the recommended habit based on assessment result using knowledge based recommender, with the used of Rule-based systems Algortihm. \n\n A rule-based recommender system uses a set of predefined if-then rules to make recommendations. \n\n  For example, if a user has meet the necessary points the habit will be suggested. It uses the knowledge of the user attributes and characteristics to decide what to habit recommend."
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/analysis_drop_item_input"
@@ -66,8 +66,8 @@
                     android:id="@+id/analysis_drop_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Predefined Habits"
                     android:enabled="false"
+                    android:hint="Predefined Habits"
                     android:inputType="none"
                     android:textColor="@color/NIGHT"
                     android:textSize="13sp" />
@@ -75,11 +75,35 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/analysis_habit_descrition_lbl"
+                android:id="@+id/analysis_habit_title_lbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:text="Habit"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/analysis_habit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="20"
+                android:padding="5dp"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                tools:text="habit title placeholder" />
+
+            <TextView
+                android:id="@+id/analysis_habit_descrition_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:padding="5dp"
                 android:text="Description"
                 android:textColor="@color/NIGHT"

@@ -243,6 +243,8 @@ public class HomeFragment extends Fragment
     @Override
     public void onClickHabitDrop(Habits habit) {
 
+        //ArrayIndexOutOfBoundsException
+
         habit.setOnReform(false);
         habit.setRelapse(0);
         habit.setCompleted_subroutine(0);

@@ -4,7 +4,7 @@
     <string name="sprout">SPROUT</string>
 
     <!-- Intro -->
-    <string name="habit_reform_and_routine_management">Habit Reform Monitoring Tool</string>
+    <string name="initial_subtitle">Habit Reform</string>
     <string name="lets_do_it">Lets do it!</string>
 
     <!-- Eula -->
@@ -19,8 +19,8 @@
     <string name="lbl_getCommonWakeUpTime">What time do you usually wake up?</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ask_commonSleepTime">What time do you usually sleep?</string>
-    <string name="break_your_bad_habits_in_no_of_days">Break your bad habit in 21 of days</string>
-    <string name="qoute">Give up bad habit that affect your well-being and health and become a better version of yourself using the guided routines methods.</string>
+    <string name="break_your_bad_habits_in_no_of_days">Break your bad habit</string>
+    <string name="greeting_msg">Give up bad habit that affect your well-being and health and become a better version of yourself.</string>
     <string name="greetingsvg">GreetingSVG</string>
     <string name="my_firstname_is">My Firstname is....</string>
     <string name="what_should_we_call_you">What should we call you?</string>

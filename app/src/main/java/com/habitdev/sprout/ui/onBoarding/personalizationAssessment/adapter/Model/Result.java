@@ -27,8 +27,8 @@ public class Result {
         this.score = score;
     }
 
-    public int getTotal_count() {
-        return total_count;
+    public double getTotal_count() {
+        return (double) total_count;
     }
 
     public void setTotal_count(int total_count) {

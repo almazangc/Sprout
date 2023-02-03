@@ -615,6 +615,7 @@ public abstract class AppDatabase extends RoomDatabase {
                         }
                     }
                 }
+
                 @Override
                 public void onFetchSubroutineFailure(Exception e) {
                     Log.e("tag", e.getMessage());
@@ -624,18 +625,18 @@ public abstract class AppDatabase extends RoomDatabase {
             habitRepository.fetchData(new HabitFireStoreRepository.FetchCallback() {
                 @Override
                 public void onFetchHabitSuccess(List<HabitFireStore> result) {
-                    if (!result.isEmpty()) {
-                        for (HabitFireStore habit : result) {
-                            if(!subroutinesList[0].isEmpty()) {
+                    if (!result.isEmpty()) { // check for empty result no data fetch from firebase, otherwise populate offline
+                        if (!subroutinesList[0].isEmpty()) {  // check for subroutine fetched from firebase, otherwise populate offline
+                            for (HabitFireStore habit : result) {
                                 Habits habits = new Habits(habit.getTitle(), habit.getDescription(), habit.getColor(), false, false);
                                 Log.d("tag", "onFetchHabitSuccess: " + habits.toString());
                                 List<Subroutines> list = getSubroutine_by_fk_uid(habit.getPk_uid(), subroutinesList[0]);
                                 habits.setTotal_subroutine(list.size());
                                 long id = habitWithSubroutinesDao.insertHabit(habits);
                                 habitWithSubroutinesDao.insertSubroutines(setFk_habit_uid(list, id));
-                            } else {
-                                populateOffline();
                             }
+                        } else {
+                            populateOffline();
                         }
                     } else {
                         populateOffline();

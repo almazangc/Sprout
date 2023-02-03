@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:weightSum="10"
+    android:background="@color/LIGHT"
     tools:context=".ui.onBoarding.personalizationAssessment.PersonalizationFragment">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -120,5 +121,6 @@
         android:id="@+id/btn_continue"
         style="@style/btn_continue_portrait"
         android:layout_alignParentBottom="true"
-        android:textColor="@color/ClOUDS_" />
+        android:background="@drawable/background_btn_normal_selector"
+        android:textColor="@color/NIGHT" />
 </RelativeLayout>

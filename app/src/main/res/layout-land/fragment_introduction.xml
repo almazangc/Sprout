@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_introduction_landscape"
+    tools:context=".ui.onBoarding.IntroductionFragment">
+
+    <TextView
+        android:id="@+id/lbl_titleMainHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/relativeLayoutPadding"
+        android:text="@string/sprout"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_startup_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:justificationMode="inter_word"
+        android:paddingLeft="@dimen/relativeLayoutPadding"
+        android:paddingRight="@dimen/relativeLayoutPadding"
+        android:text="@string/textView_startup_introduction"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btn_continue"
+        style="@style/btn_continue_portrait"
+        android:layout_marginLeft="@dimen/relativeLayoutPadding"
+        android:layout_marginRight="@dimen/relativeLayoutPadding"
+        android:layout_marginBottom="@dimen/relativeLayoutPadding"
+        android:background="@drawable/background_btn_normal_selector"
+        android:textColor="@color/NIGHT" />
+
+</RelativeLayout>

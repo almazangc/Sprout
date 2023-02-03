@@ -117,3 +117,61 @@ Glide - not used by implemented
 #### FIX NEGATIVE DAYS WHEN USER MODIFY THIER DEVICE SETTING DATE
 
 #### Fix setting multi touching
+
+* [X]  Fixed
+
+#### Fix Color Match on Analytic Menu when a habit is selected in the view
+
+#### Learn how to set a daily alarm manager that will be based on oboarding layout, and also add the a feature to control the daily reminder for mornign and noon
+
+#### Urgent: Fix Double Entry of Habit and Subroutines
+
+* [X]  Fixed
+
+#### Update Lottie Animation on Empty Habit on Reform
+
+* [ ]  Use more suitable lottie anim other than ghost
+
+#### Handle Drop Habit causing recycler view items a ArrayIndexOutOfBoundsException
+
+* [ ]  Possible Solution, Add Confirmation Dialog
+* [ ]  F*** coding........................
+
+Layouts:
+
+* Splash Screen
+* Onboarding
+  * Initial
+  * Eula
+  * Get Usual Wake Up
+  * Get Usual Sleep
+  * Introduction of app prolly
+  * Greetings, 21 day
+  * Nickname
+  * Identity (Confirmation Dialog)
+  * Get Started
+  * Personalization (Assessment Section), (Confirmation Dialog)
+  * Analysis (Percentage of Identified bad habits based on the provided answer in assessment tool)
+* Home
+  * Home
+  * Floating Action Button: Add Habit Dialog
+    * Predefined
+      * Add Default Habit
+        * FAB (Modify DB, Mark Selected Habit on Reform)
+    * Custom
+      * Add New Habit
+        * Insert | Add Subroutine Dialog (Limitation min of 2 subroutine)
+  * Item Habit View (Home Item on Click)
+  * Relapse Button
+  * Drop Button (Drop Dialog, Set Habit DB on Default)
+  * Modify Habit Dialog
+* Subroutine
+  * Subroutine
+  * Modify Subroutines
+    * Remove Subroutine Button
+    * Insert Subroutine Dialog
+* Analytic
+  * Analytic (Habits)
+    * Item on Click (Subroutines)
+* Journal
+* Setting

@@ -75,7 +75,7 @@
                 android:layout_marginLeft="@dimen/relativeLayoutPadding"
                 android:layout_marginRight="@dimen/relativeLayoutPadding"
                 android:layout_marginBottom="@dimen/relativeLayoutPadding"
-                android:background="@drawable/selector_btn_continue"
+                android:background="@drawable/background_btn_normal_selector"
                 android:text="@string/get_started"
                 android:textColor="@color/NIGHT" />
         </RelativeLayout>

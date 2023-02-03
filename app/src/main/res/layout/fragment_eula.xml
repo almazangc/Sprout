@@ -545,10 +545,10 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
         android:layout_toStartOf="@id/btn_decline"
-        android:background="@drawable/background_rounded_waikawa_grey_btn"
+        android:background="@drawable/background_btn_normal_selector"
         android:letterSpacing=".1"
         android:text="Accept"
-        android:textColor="@color/ClOUDS_"
+        android:textColor="@color/NIGHT"
         android:textStyle="bold"
         tools:ignore="TextContrastCheck" />
 
@@ -559,12 +559,12 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/background_rounded_coral_red_btn"
+        android:background="@drawable/background_btn_delete_selector"
         android:letterSpacing=".1"
         android:paddingLeft="10sp"
         android:paddingRight="10sp"
         android:text="DECLINE"
-        android:textColor="@color/ClOUDS_"
+        android:textColor="@color/NIGHT"
         android:textStyle="bold"
         tools:ignore="TextContrastCheck" />
 </RelativeLayout>

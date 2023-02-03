@@ -114,16 +114,14 @@ public class HabitRecommender {
                             //if added just adds up the new habit_score
                             Result item = habit_score.get(habitUid);
                             item.setScore(item.getScore() + value);
-                            item.setTotal_count(item.getTotal_count() + 1);
+                            item.setTotal_count((int) (item.getTotal_count() + 1));
                             habit_score.put(habitUid, item);
                             doesContainHabitUID = true;
                         }
                     }
                 }
 
-                /**
-                 * Identifies which of assessment question is not a filler
-                 */
+                //Identifies which of assessment question is not a filler
                 if (!doesContainHabitUID) {
                     HashMap<Long, Result> hashMap = new HashMap<>();
                     Result item = new Result(habitUid, value, 1);
@@ -136,13 +134,17 @@ public class HabitRecommender {
         for (HashMap<Long, Result> map : habitScore) {
             for (Map.Entry<Long, Result> entry : map.entrySet()) {
                 Result result = entry.getValue();
-//                double m = result.getTotal_count() - result.getScore();
-//                double n = m / result.getTotal_count();
-//                double o = n * 100;
-//                double p = o / 100;
-//                Log.d("tag", "calculateHabitScores: " + (double) Math.round(p));
+                //Caculates the percentage of base on score
+//                Log.d("tag", "Total: " + result.getTotal_count());
+//                Log.d("tag", "Score: " + result.getScore());
+//                double n = result.getScore() / result.getTotal_count(); // Get Average Score
+//                Log.d("tag", "N >> Score("+ result.getScore() + ") / Total Count(" + result.getTotal_count() + "): = " + n);
+//                double o = (double) Math.round(n * 100); // Round to 2 decimal place, convert into percentage
+//                Log.d("tag", "O >> Math.round(N(" + n + ") * 100) = " + o);
+//                double p = o / 100; //convert to decimal
+//                Log.d("tag", "P >> (" + o + ") / 100: = " + p);
 
-                result.setScore((double) Math.round(((result.getTotal_count() - result.getScore()) / result.getTotal_count()) * 100) / 100);
+                result.setScore(((double) Math.round((result.getScore() / result.getTotal_count()) * 100)) / 100);
                 map.put(entry.getKey(), result);
             }
         }

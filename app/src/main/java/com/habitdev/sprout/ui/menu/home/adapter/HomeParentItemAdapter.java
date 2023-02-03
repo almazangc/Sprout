@@ -3,6 +3,7 @@ package com.habitdev.sprout.ui.menu.home.adapter;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -76,10 +77,18 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         holder.handler.post(holder.runnable);
 
         holder.drop.setOnClickListener(v -> {
-            homeParentItemOnclickListener.onClickHabitDrop(oldHabitList.get(holder.getAbsoluteAdapterPosition()));
-            holder.handler.removeCallbacks(holder.runnable); //handle leaking
-            holder.handler.removeCallbacks(holder.runnable); // use the saved runnable to remove the callbacks
-            holder.handler.removeCallbacksAndMessages(null); //hanlde leaking
+            try {
+                //oldHabitList.get(holder.getAbsoluteAdapterPosition()) the cause of error
+                homeParentItemOnclickListener.onClickHabitDrop(oldHabitList.get(holder.getAbsoluteAdapterPosition()));
+                holder.handler.removeCallbacks(holder.runnable); //handle leaking
+                holder.handler.removeCallbacks(holder.runnable); // use the saved runnable to remove the callbacks
+                holder.handler.removeCallbacksAndMessages(null); //handle leaking
+            } catch (ArrayIndexOutOfBoundsException e) {
+                Log.e("tag", "Out of Bounds: ", e.fillInStackTrace());
+            } catch (Exception e) {
+                Log.e("tag", "onBindViewHolder: exception", e);
+            }
+
         });
 
         if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.AVG_HABIT_BREAK_DAY.getDays()) {

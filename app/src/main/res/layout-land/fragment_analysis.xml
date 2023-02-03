@@ -74,11 +74,35 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/analysis_habit_descrition_lbl"
+                android:id="@+id/analysis_habit_title_lbl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:text="Habit"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/analysis_habit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:maxLines="20"
+                android:padding="5dp"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                tools:text="habit title placeholder" />
+
+            <TextView
+                android:id="@+id/analysis_habit_descrition_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:padding="5dp"
                 android:text="Description"
                 android:textColor="@color/NIGHT"

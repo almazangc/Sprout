@@ -103,9 +103,13 @@ public class AnalysisFragment extends Fragment {
 
     private void toggleHabitDescriptionVisibility(boolean visibility){
         if (!visibility) {
+            binding.analysisHabitTitle.setVisibility(View.GONE);
+            binding.analysisHabitTitleLbl.setVisibility(View.GONE);
             binding.analysisHabitDescrition.setVisibility(View.GONE);
             binding.analysisHabitDescritionLbl.setVisibility(View.GONE);
         } else {
+            binding.analysisHabitTitle.setVisibility(View.VISIBLE);
+            binding.analysisHabitTitleLbl.setVisibility(View.VISIBLE);
             binding.analysisHabitDescrition.setVisibility(View.VISIBLE);
             binding.analysisHabitDescritionLbl.setVisibility(View.VISIBLE);
         }
@@ -132,7 +136,10 @@ public class AnalysisFragment extends Fragment {
         binding.analysisDropItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //updates selected habit
                 habit = habitsList.get(position);
+                binding.analysisDropItem.setText("");
+                binding.analysisHabitTitle.setText(habit.getHabit());
                 subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
                 toggleHabitDescriptionVisibility(true);
                 binding.analysisHabitDescrition.setText(habit.getDescription());

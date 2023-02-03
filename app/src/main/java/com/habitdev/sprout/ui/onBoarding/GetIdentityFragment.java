@@ -51,8 +51,8 @@ public class GetIdentityFragment extends Fragment {
             setIdentity();
             new AlertDialog.Builder(requireContext())
                     .setMessage("Please Confirm!\n" +
-                            String.format("\n%-14s%d:%d", "Wake Time:", wakeHour, wakeMinute) +
-                            String.format("\n%-15s%d:%d", "Sleep Time:", sleepHour, sleepMinute) +
+                            String.format("\n%-14s%d:%s", "Wake Time:", wakeHour, wakeMinute == 0 ? "00": wakeMinute) +
+                            String.format("\n%-15s%d:%s", "Sleep Time:", sleepHour, sleepMinute == 0 ? "00" : sleepMinute) +
                             String.format("\n%-15s%s", "Nickname:", nickname) +
                             String.format("\n%-20s%s", "Identity:", identity))
                     .setCancelable(false)

@@ -37,7 +37,7 @@
         android:layout_below="@id/appName"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
-        android:text="@string/habit_reform_and_routine_management"
+        android:text="@string/initial_subtitle"
         android:textAlignment="center"
         android:textColor="@color/NIGHT" />
 
@@ -45,21 +45,21 @@
         android:id="@+id/btn_letsDoIt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/agreement"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
-        android:background="@drawable/background_rounded_waikawa_grey_btn"
+        android:background="@drawable/background_btn_normal_selector"
         android:text="@string/lets_do_it"
-        android:textColor="@color/ClOUDS_"
+        android:textColor="@color/NIGHT"
         android:textStyle="bold"
         tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/agreement"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:text="@string/eula"
         android:textAlignment="center"
         android:textColor="@color/NIGHT" />
-
 </RelativeLayout>
