@@ -12,9 +12,9 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="12dp"
-        android:clickable="true"
         android:layout_marginBottom="3dp"
-        android:background="@drawable/background_child_item_view_cloud">
+        android:background="@drawable/background_child_item_view_cloud"
+        android:clickable="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,10 +37,9 @@
                         android:id="@+id/btn_upvote_subroutine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
                         android:layout_marginStart="5dp"
-                        android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
                         android:background="@drawable/background_btn_upvote_selector"
                         android:drawableStart="@drawable/ic_upvote"
                         android:insetTop="0dp"
@@ -55,8 +54,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:layout_margin="5dp"
-                        android:layout_toEndOf="@id/btn_upvote_subroutine"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
                         android:background="@drawable/background_btn_downvote_selector"
                         android:drawableStart="@drawable/ic_downvote"
                         android:insetTop="0dp"

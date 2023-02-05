@@ -9,21 +9,21 @@
     tools:showIn="@layout/fragment_home">
 
     <RelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/adapter_home_parent_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/background_btn_parent_item_view_cloud_default"
-        android:clickable="true"
-        android:layout_height="match_parent">
+        android:clickable="true">
 
         <LinearLayout
+            android:id="@+id/adapter_home_parent_item_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="20dp"
             android:paddingTop="10dp"
-            android:id="@+id/adapter_home_parent_item_layout"
-            android:orientation="horizontal">
+            android:paddingEnd="10dp"
+            android:paddingBottom="20dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="3dp"
+                    android:layout_marginBottom="5dp"
                     android:background="@drawable/background_btn_upvote_selector"
                     android:drawableStart="@drawable/ic_upvote"
                     android:insetTop="0dp"
