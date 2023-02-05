@@ -32,7 +32,7 @@ public enum Frequency {
     //Often: 30%
     //Usually: 20%
     //Regularly: 10%
-    //Always: 0%
+    //Always: 0%F
 
     //for positive question
     NEVER(new Choices("Never", 1)),

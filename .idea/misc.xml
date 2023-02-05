@@ -125,6 +125,8 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.248" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Sprout/app/src/main/res/xml/root_preferences.xml" value="0.2702009405728944" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable-v24/background_rounded_a80_cloud_btn.xml" value="0.2015" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable-v24/background_rounded_cloud_btn.xml" value="0.2015" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable-v24/background_rounded_default_btn.xml" value="0.225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable-v24/background_rounded_onselected_btn.xml" value="0.225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable-v24/btn_continue_white_landscape.xml" value="0.257" />
@@ -172,6 +174,9 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_delete_default.xml" value="0.2" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_delete_on_pressed.xml" value="0.2" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_delete_selector.xml" value="0.2755" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_downvote_default.xml" value="0.2015" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_downvote_on_pressed.xml" value="0.2015" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_downvote_selector.xml" value="0.2015" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_nephritis_blue_selector.xml" value="0.225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_nephritis_default.xml" value="0.225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_nephritis_on_pressed.xml" value="0.225" />
@@ -201,6 +206,9 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_sunflower_default.xml" value="0.225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_sunflower_on_pressed.xml" value="0.225" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_sunflower_selector.xml" value="0.225" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_upvote_default.xml" value="0.2015" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_upvote_on_pressed.xml" value="0.2015" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_btn_upvote_on_selector.xml" value="0.2015" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_child_item_view_cloud.xml" value="0.294" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_child_item_view_nephritis.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/drawable/background_child_item_view_night.xml" value="0.201" />
@@ -405,7 +413,7 @@
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_add_new_habit_parent_item.xml" value="0.5" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_add_default_habit_item.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_comment_item.xml" value="0.5" />
-        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_item.xml" value="0.67" />
+        <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_home_parent_habit_on_item_click_comment_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_journal_parent_note_item.xml" value="0.33" />
         <entry key="..\:/Users/User/Documents/GitHub/Sprout/app/src/main/res/layout/adapter_personalization_parent_choices_item.xml" value="0.5509259259259259" />
