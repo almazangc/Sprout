@@ -13,7 +13,7 @@
         android:background="@drawable/background_topbar_view_sunflower">
 
         <TextView
-            android:id="@+id/settingLearnMoreHeader"
+            android:id="@+id/settingTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -25,9 +25,27 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/terminal_container_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:layout_below="@id/setting_terminal_top_bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="There is no set use for this layout yet.\n\nThere is a possibility of using this section for a developers section where user can donate small amount to support the peoples working on this application and funding."
+            android:textColor="@color/NIGHT"
+            android:textStyle="italic"
+            android:textAlignment="center"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/terminal_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_below="@id/setting_terminal_top_bar">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -109,8 +127,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5sp"
                     android:layout_marginBottom="5sp"
-                    android:text="Clear Value"
                     android:background="@drawable/background_btn_normal_selector"
+                    android:text="Clear Value"
                     android:textAllCaps="false" />
 
                 <Button
@@ -120,8 +138,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5sp"
                     android:layout_marginBottom="5sp"
-                    android:text="Save"
                     android:background="@drawable/background_btn_normal_selector"
+                    android:text="Save"
                     android:textAllCaps="false" />
 
                 <Button
@@ -130,8 +148,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5sp"
-                    android:text="Delete"
                     android:background="@drawable/background_btn_normal_selector"
+                    android:text="Delete"
                     android:textAllCaps="false" />
             </LinearLayout>
 

@@ -7,69 +7,69 @@
     android:layout_height="match_parent"
     tools:context=".ui.menu.analytic.AnalyticFragment">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:id="@+id/analytic_top_bar"
-            android:background="@drawable/background_topbar_view_brightsky_blue"
-            android:layout_height="?android:attr/actionBarSize">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/analytic_top_bar"
+        android:background="@drawable/background_topbar_view_brightsky_blue"
+        android:layout_height="?android:attr/actionBarSize">
 
-            <TextView
-                android:id="@+id/analytic_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Current Progress"
-                android:textColor="@color/NIGHT"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <ScrollView
+        <TextView
+            android:id="@+id/analytic_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/analytic_top_bar"
-            android:scrollbars="none"
-            android:fillViewport="true">
+            android:gravity="center"
+            android:text="Current Progress"
+            android:textColor="@color/NIGHT"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/analytic_top_bar"
+        android:scrollbars="none"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/analysis_container">
+
+            <!-- empty -->
+            <TextView
+                android:id="@+id/analytic_empty_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-220dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="EMPTY HABIT ON REFORM"
+                android:textColor="@color/NIGHT"
+                android:textSize="15sp"
+                android:visibility="invisible" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/analytic_empty_lottie_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minWidth="150dp"
+                android:minHeight="150dp"
+                android:visibility="invisible"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="lottie_anim_empty_state_ghost.json"
+                app:lottie_loop="true"
+                app:lottie_speed="1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/analytic_habit_on_reform_recycler_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/analysis_container">
-
-                <!-- empty -->
-                <TextView
-                    android:id="@+id/analytic_empty_lbl"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="-220dp"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="EMPTY HABIT ON REFORM"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="15sp"
-                    android:visibility="invisible" />
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/analytic_empty_lottie_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:minWidth="150dp"
-                    android:minHeight="150dp"
-                    android:visibility="invisible"
-                    app:lottie_autoPlay="true"
-                    app:lottie_fileName="lottie_anim_empty_state_ghost.json"
-                    app:lottie_loop="true"
-                    app:lottie_speed="1" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/analytic_habit_on_reform_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="5dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/adapter_analytic_parent_item" />
-            </RelativeLayout>
-        </ScrollView>
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="2"
+                tools:listitem="@layout/adapter_analytic_parent_item" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
