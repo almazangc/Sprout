@@ -19,7 +19,7 @@
             android:layout_height="?android:attr/actionBarSize">
 
             <TextView
-                android:id="@+id/settingTitle"
+                android:id="@+id/settingLearnMoreHeader"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"

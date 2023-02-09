@@ -14,10 +14,10 @@
         android:title="@string/analytics" />
     <item
         android:id="@+id/tab_journal"
-        android:icon="@drawable/ic_note"
+        android:icon="@drawable/ic_journal"
         android:title="@string/journal"/>
     <item
         android:id="@+id/tab_settings"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_setting"
         android:title="@string/settings" />
 </menu>

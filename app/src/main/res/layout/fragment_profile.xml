@@ -14,7 +14,7 @@
         android:background="@drawable/background_topbar_view_cloud">
 
         <TextView
-            android:id="@+id/settingTitle"
+            android:id="@+id/settingLearnMoreHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"

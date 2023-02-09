@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.menu.setting.ui.LearnMoreFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:id="@+id/setting_learn_more_top_bar"
         android:layout_width="match_parent"
@@ -14,7 +13,7 @@
         android:background="@drawable/background_topbar_view_brightsky_blue">
 
         <TextView
-            android:id="@+id/settingTitle"
+            android:id="@+id/settingLearnMoreHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
@@ -25,282 +24,61 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/setting_learn_more_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/setting_learn_more_top_bar"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginBottom="3dp"
-        android:fadeScrollbars="false"
-        android:fillViewport="true"
-        android:scrollbarThumbVertical="@color/WAIKAWA_GREY"
-        android:verticalScrollbarPosition="left">
+        android:layout_below="@id/setting_learn_more_top_bar">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/learn_more_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/setting_learn_more_dots_layout" />
 
         <LinearLayout
-            android:id="@+id/learn_more_container"
-            android:layout_width="match_parent"
+            android:id="@+id/setting_learn_more_dots_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:isScrollContainer="true"
-            android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp">
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:minHeight="60dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/setting_learn_more_sprout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5sp"
-                    android:layout_marginEnd="5sp"
-                    android:src="@drawable/ic_spout" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Sprout"
-                    android:textAllCaps="true"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/setting_learn_more_sprout_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:justificationMode="inter_word"
-                android:letterSpacing=".03"
-                android:paddingStart="10dp"
-                android:text="   The sprout was chosen as its app name, because just like a sprout plant, the app aims to help users reshape and change their negative habits, similar to how a sprout grows from a seed into a mature plant.\n   The app guides, support, and help reforms users' habits, just as a sprout needs proper care and guidance to grow into a healthy plant.\n   The app also emphasizes the importance of starting small and breaking down a habit into manageable tasks, similar to how a sprout starts as a small seed before growing into a mature plant.\n Overall, the app and the sprout plant share the common goal of growth and development."
-                android:textAlignment="viewStart"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:id="@+id/setting_learn_more_menus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5sp"
-                    android:layout_marginEnd="5sp"
-                    android:src="@drawable/ic_read_more" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Menu | Tabs"
-                    android:textAllCaps="true"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/setting_learn_more_menus_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:justificationMode="inter_word"
-                android:letterSpacing=".03"
-                android:paddingStart="10dp"
-                android:text=" The app consist of 5 menus for navigation, located on the bottom  section of the app.\n Note: The top_bar of the app can also be used for navigating between menus by swiping left  or right."
-                android:textAlignment="viewStart"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:id="@+id/setting_learn_more_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5sp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5sp"
-                    android:layout_marginEnd="5sp"
-                    android:src="@drawable/ic_home" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Home"
-                    android:textAllCaps="true"
-                    android:textColor="@color/DARK"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-
-            <TextView
-                android:id="@+id/setting_learn_more_home_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:justificationMode="inter_word"
-                android:letterSpacing=".03"
-                android:text=" The home menu display the current habit on reform and information about the habit status.\n Add Button: Which allows user to add a habit whether its predefined or custom.\n More Habit info: The user can tap on the habit added and view more information and also leave a comment about the habit."
-                android:textAlignment="viewStart"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5sp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5sp"
-                    android:layout_marginEnd="5sp"
-                    android:src="@drawable/ic_subroutine" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Subroutine"
-                    android:textAllCaps="true"
-                    android:textColor="@color/DARK"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:justificationMode="inter_word"
-                android:letterSpacing=".03"
-                android:text=" The Subroutine menu display list subroutine of habits on reform, which can be marked as done daily after completing the subroutine for the day.\n The system will record the collected data locally as progress.\n Modify subroutine Button: will be displayed if the habit added by user is custom, it gives freedom to update thier subroutines."
-                android:textAlignment="viewStart"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:id="@+id/setting_learn_more_subroutine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5sp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5sp"
-                    android:layout_marginEnd="5sp"
-                    android:src="@drawable/ic_analytics" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Analytics"
-                    android:textAllCaps="true"
-                    android:textColor="@color/DARK"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/setting_learn_more_subroutine_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:justificationMode="inter_word"
-                android:letterSpacing=".03"
-                android:text=" This menu contains a visually represented infomation of the users progress on thier habit and its subroutines."
-                android:textAlignment="viewStart"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:id="@+id/setting_learn_more_journal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5sp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5sp"
-                    android:layout_marginEnd="5sp"
-                    android:src="@drawable/ic_note" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Journal"
-                    android:textAllCaps="true"
-                    android:textColor="@color/DARK"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/setting_learn_more_journal_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:justificationMode="inter_word"
-                android:letterSpacing=".03"
-                android:text=" Journal Tab allows user to write and record thier own journal, reflection which they can add, read, modify, and remove"
-                android:textAlignment="viewStart"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:id="@+id/setting_learn_more_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5sp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5sp"
-                    android:layout_marginEnd="5sp"
-                    android:src="@drawable/ic_settings" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Setting"
-                    android:textAllCaps="true"
-                    android:textColor="@color/DARK"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/setting_learn_more_setting_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20sp"
-                android:justificationMode="inter_word"
-                android:letterSpacing=".03"
-                android:text=" The setting allows user to modify thier profile, nickname, daily notification, identity(fixed not allowed to change), how long since the app was installed, theme change, about the app, about the people involve, the technology used in development, and a terminal(which is not yet fixed)."
-                android:textAlignment="viewStart"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
         </LinearLayout>
-    </ScrollView>
+
+        <Button
+            android:id="@+id/setting_learn_more_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_btn_normal_selector"
+            android:paddingStart="-5dp"
+            android:text="Back"
+            android:textColor="@color/NIGHT"
+            android:textSize="13sp"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/setting_learn_more_next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/background_btn_normal_selector"
+            android:paddingStart="-5dp"
+            android:text="Next"
+            android:textColor="@color/NIGHT"
+            android:textSize="13sp"/>
+    </RelativeLayout>
 </RelativeLayout>
