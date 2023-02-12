@@ -124,6 +124,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
@@ -138,7 +139,7 @@
                 android:id="@+id/export_note_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:clickable="true"
+                android:clickable="false"
                 android:text="Note.JSON"
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +29,11 @@ import com.habitdev.sprout.databinding.FragmentPersonalizationBinding;
 import com.habitdev.sprout.enums.OnBoardingConfigurationKeys;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PersonalizationFragment extends Fragment {
 
-    private static final String TAG = "tag";
     private FragmentPersonalizationBinding binding;
     private AssessmentViewModel assessmentViewModel;
     private static List<Question> questionsList;
@@ -58,7 +59,7 @@ public class PersonalizationFragment extends Fragment {
 
         assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
 
-        questionsList = assessmentViewModel.getAllQuestionList();
+        questionsList = assessmentViewModel.getShuffledQuestions();
         answersList = assessmentViewModel.getAllAnswerList();
 
         onBackPress(); // set on back press listener
@@ -84,7 +85,6 @@ public class PersonalizationFragment extends Fragment {
         if (savedInstanceState != null) {
             position = savedInstanceState.getInt(OnBoardingConfigurationKeys.POSITION.getKey());
             setAssessment();
-            upCheckedRadioButtons();
         }
     }
 
@@ -96,7 +96,6 @@ public class PersonalizationFragment extends Fragment {
             } else {
                 saveSelection();
                 setAssessment();
-                upCheckedRadioButtons();
             }
         });
     }
@@ -110,7 +109,7 @@ public class PersonalizationFragment extends Fragment {
             binding.choicesRadioGroup.removeAllViews();
             binding.lblQuestion.setText(questionsList.get(position).getQuestion());
 
-            getCurrentQuestionChoices();
+            getCurrentQuestionChoices(questionsList.get(position).getPk_question_uid());
 
             for (Choices choice : choicesList) {
                 RadioButton radioButton = new RadioButton(requireContext());
@@ -145,6 +144,7 @@ public class PersonalizationFragment extends Fragment {
                 binding.choicesRadioGroup.addView(radioButton);
             }
 
+            upCheckedRadioButtons();
             updateProgressBar();
 
         } else {
@@ -164,8 +164,8 @@ public class PersonalizationFragment extends Fragment {
     /**
      * Get Choices of the current question
      */
-    private void getCurrentQuestionChoices() {
-        choicesList = assessmentViewModel.getAllChoicesByUID(position + 1);
+    private void getCurrentQuestionChoices(long uid) {
+        choicesList = assessmentViewModel.getAllChoicesByUID(uid);
         position++;
     }
 
@@ -194,9 +194,8 @@ public class PersonalizationFragment extends Fragment {
                 if (position > 1) {
                     position = position - 2;
                     setAssessment();
-                    upCheckedRadioButtons();
                 } else {
-                    requireActivity().moveTaskToBack(true);
+//                    requireActivity().moveTaskToBack(true);
                     // dialog close app?
                 }
             }
@@ -272,7 +271,8 @@ public class PersonalizationFragment extends Fragment {
     private void upCheckedRadioButtons() {
         ArrayList<RadioButton> radioButtonList = getRadioButtonList();
         for (RadioButton radioButton : radioButtonList) {
-            if ((radioButton.getText().toString()).equals(assessmentViewModel.getAnswerByFkQuestionUID(position) != null ? assessmentViewModel.getAnswerByFkQuestionUID(position).getSelected_answer(): "")) {
+            Question current_question = questionsList.get(position-1);
+            if ((radioButton.getText().toString()).equals(assessmentViewModel.getAnswerByFkQuestionUID(current_question.getPk_question_uid()) != null ? assessmentViewModel.getAnswerByFkQuestionUID(current_question.getPk_question_uid()).getSelected_answer(): "")) {
                 radioButton.setChecked(true);
                 break;
             }

@@ -107,10 +107,8 @@ public class SubroutineFragment extends Fragment
     private void setEmptyRVBackground(SubroutineParentItemAdapter adapter) {
         if (adapter.getItemCount() > 0) {
             binding.subroutineEmptyLottieRecyclerView.setVisibility(View.INVISIBLE);
-            binding.subroutineEmptyLbl.setVisibility(View.INVISIBLE);
         } else {
             binding.subroutineEmptyLottieRecyclerView.setVisibility(View.VISIBLE);
-            binding.subroutineEmptyLbl.setVisibility(View.VISIBLE);
         }
     }
 

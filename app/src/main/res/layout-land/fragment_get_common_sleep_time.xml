@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_sleep_landscape"
+    android:background="@drawable/background_waikawa_grey_wave_landscape"
     tools:context=".ui.onBoarding.GetCommonSleepTimeFragment">
 
     <RelativeLayout
@@ -31,7 +31,7 @@
         <Button
             android:id="@+id/btn_continue"
             style="@style/btn_continue_portrait"
-            android:background="@drawable/background_btn_normal_selector"
+            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
             android:textColor="@color/NIGHT" />
     </RelativeLayout>
 

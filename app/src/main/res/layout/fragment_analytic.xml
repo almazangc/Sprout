@@ -37,17 +37,6 @@
             android:id="@+id/analysis_container">
 
             <!-- empty -->
-            <TextView
-                android:id="@+id/analytic_empty_lbl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="-220dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:text="EMPTY HABIT ON REFORM"
-                android:textColor="@color/NIGHT"
-                android:textSize="15sp"
-                android:visibility="invisible" />
-
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/analytic_empty_lottie_recycler_view"
                 android:layout_width="match_parent"
@@ -56,7 +45,7 @@
                 android:minHeight="150dp"
                 android:visibility="invisible"
                 app:lottie_autoPlay="true"
-                app:lottie_fileName="lottie_anim_empty_state_ghost.json"
+                app:lottie_fileName="lottie_anim_empty_state.json"
                 app:lottie_loop="true"
                 app:lottie_speed="1" />
 

@@ -260,6 +260,7 @@ public class AddDefaultHabitFragment extends Fragment {
     private void addHabitOnReform() {
         binding.addHabitOnReformBtn.setOnClickListener(view -> {
             if (habit != null) {
+                //TODO: Need to rework in order to check if the status is on reform, not onreform on archive, or completed.So that it wont update the date started and will freexe the date and timer
                 habitWithSubroutinesViewModel.updateHabit(new Habits(
                         habit.getPk_habit_uid(),
                         habit.getHabit(),
@@ -268,9 +269,13 @@ public class AddDefaultHabitFragment extends Fragment {
                         true,
                         habit.isModifiable(),
                         habit.getAbstinence(),
+                        habit.getRelapse(),
                         new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault())
                                 .format(new Date()),
-                        subroutinesList.size()
+                        subroutinesList.size(),
+                        habit.getCompleted_subroutine(),
+                        habit.getUpvote(),
+                        habit.getDownvote()
                 ));
                 habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
 

@@ -35,8 +35,6 @@
                     android:id="@+id/home_upvote_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/background_btn_upvote_selector"
                     android:drawableStart="@drawable/ic_upvote"
@@ -51,17 +49,15 @@
                     android:id="@+id/home_downvote_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:layout_marginBottom="3dp"
                     android:background="@drawable/background_btn_downvote_selector"
                     android:drawableStart="@drawable/ic_downvote"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
+                    android:minWidth="15dp"
+                    android:minHeight="15dp"
                     android:textColor="@color/NIGHT"
                     android:textSize="0sp" />
-
             </LinearLayout>
 
             <!--        habit on reform basic info-->
@@ -78,63 +74,11 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_toStartOf="@id/home_modify_btn"
                     android:maxLines="3"
                     android:textColor="@color/NIGHT"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     tools:text="Procrastinating" />
-
-                <Button
-                    android:id="@+id/home_modify_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_toStartOf="@+id/home_relapse_btn"
-                    android:background="@color/TRANSPARENT"
-                    android:drawableStart="@drawable/ic_modify"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textSize="0sp" />
-
-                <Button
-                    android:id="@+id/home_relapse_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_toStartOf="@+id/home_drop_btn"
-                    android:background="@color/TRANSPARENT"
-                    android:drawableStart="@drawable/ic_relapse"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textSize="0sp" />
-
-                <Button
-                    android:id="@+id/home_drop_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/TRANSPARENT"
-                    android:drawableStart="@drawable/ic_drop"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textSize="0sp" />
 
                 <TextView
                     android:id="@+id/home_item_on_click_habit_description"
@@ -158,7 +102,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/home_item_on_click_habit_description"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentBottom="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="5dp">
@@ -255,10 +198,64 @@
                         android:textSize="11sp"
                         tools:text="0" />
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/adapter_home_parent_item_control_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/details_container"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/adapter_home_parent_item_modify_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_toStartOf="@+id/adapter_home_parent_item_relapse_btn"
+                        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+                        android:drawableStart="@drawable/ic_modify"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="MODIFY"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/adapter_home_parent_item_relapse_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_toStartOf="@+id/adapter_home_parent_item_drop_btn"
+                        android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+                        android:drawableStart="@drawable/ic_relapse"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="RELAPSE"
+                        android:textSize="11sp" />
+
+                    <Button
+                        android:id="@+id/adapter_home_parent_item_drop_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/background_btn_delete_selector"
+                        android:drawableStart="@drawable/ic_drop"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="DROP"
+                        android:textSize="11sp" />
+
+                </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
-
     </RelativeLayout>
-
-
 </RelativeLayout>

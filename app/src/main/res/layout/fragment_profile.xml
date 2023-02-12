@@ -77,7 +77,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/background_btn_normal_selector"
+                android:background="@drawable/background_btn_normal_selector_waikawa_grey"
                 android:drawableStart="@drawable/ic_upload"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
@@ -160,6 +160,54 @@
                 android:textColor="@color/NIGHT"
                 android:textSize="16sp"
                 tools:text="1 year 2 Day 11 Hours 5 Minutes 43 Seconds" />
+
+            <TextView
+                android:id="@+id/setting_profile_change_daily_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_date_installed_lbl"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="\u2022 Daily Notification"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setting_profile_change_daily_notification_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_change_daily_notification"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="15dp"
+                android:text="Change Button"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/setting_profile_retake_assessment_tool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_change_daily_notification_lbl"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="\u2022 Retake-Assessment"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setting_profile_retake_assessment_tool_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_retake_assessment_tool"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="15dp"
+                android:text="Assessment Button"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp" />
         </RelativeLayout>
     </ScrollView>
 
@@ -172,7 +220,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/background_btn_normal_selector"
+        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
         android:text="Save Profile"
         android:textAllCaps="false"
         android:textColor="@color/NIGHT"

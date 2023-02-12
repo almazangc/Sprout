@@ -106,7 +106,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/background_btn_normal_selector"
+            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
             android:text="Apply Theme"
             android:textAllCaps="false"
             android:textColor="@color/NIGHT"

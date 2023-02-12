@@ -62,6 +62,7 @@ public class ProfileFragment extends Fragment {
     private static String selectedProfilePath;
     private static boolean onCustomProfile;
     private static User user;
+    private static UserViewModel userViewModel;
 
     public interface OnReturnSetting {
         void returnFromProfileToSetting();
@@ -80,7 +81,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
-        final UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
         user = userViewModel.getUserByUID(1);
 
         userViewModel.getUserNickname().observe(getViewLifecycleOwner(), nickname -> {
@@ -126,27 +127,74 @@ public class ProfileFragment extends Fragment {
         binding.settingProfileSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //updateAnswer nickname
-                if (binding.settingProfileChangeNicknameHint.getText().toString().trim().isEmpty()) {
-                    user.setNickname(binding.settingProfileChangeNickname.getText().toString().trim());
-                    userViewModel.update(user);
-                }
 
-                //updateAnswer phofile
-                if (selectedProfilePath != null) {
-                    if (!selectedProfilePath.trim().isEmpty()) {
-                        requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE)
-                                .edit()
-                                .putBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), onCustomProfile)
-                                .putString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), selectedProfilePath)
-                                .apply();
-                    }
+                String currentProfilePath = requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE).getString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), "");
+
+                Log.d("tag", "onClick: " + currentProfilePath + ":" + selectedProfilePath);
+
+                if ((binding.settingProfileChangeNicknameHint.getText().toString().trim().isEmpty() && !binding.settingProfileChangeNickname.getText().toString().trim().equals(user.getNickname())) && (selectedProfilePath != null && !selectedProfilePath.trim().isEmpty() && !selectedProfilePath.equals(currentProfilePath))) {
+                    showConfirmUpdateDialog(0);
+                } else if ((binding.settingProfileChangeNicknameHint.getText().toString().trim().isEmpty() && !binding.settingProfileChangeNickname.getText().toString().trim().equals(user.getNickname()))) {
+                   showConfirmUpdateDialog(1);
+                } else if (selectedProfilePath != null && !selectedProfilePath.trim().isEmpty() && !selectedProfilePath.equals(currentProfilePath)) {
+                    showConfirmUpdateDialog(2);
+                } else {
+                    // do not show prompt
                 }
             }
         });
 
         onBackPress();
         return binding.getRoot();
+    }
+
+    public void showConfirmUpdateDialog(int updateType) {
+        String[] message = {
+            "Do you want to apply changes for nickname and profile photo?",
+            "Do you want to apply changes for nickname?",
+            "Do you want to appy changes for profile photo"
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        builder.setMessage(message[updateType])
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        switch (updateType) {
+                            case 0:
+                                updateNickname();
+                                updateProfile();
+                                break;
+                            case 1:
+                                updateNickname();
+                                break;
+                            case 2:
+                                updateProfile();
+                                break;
+                        }
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Perform action for "No" button click
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void updateNickname(){
+        user.setNickname(binding.settingProfileChangeNickname.getText().toString().trim());
+        userViewModel.update(user);
+    }
+
+    private void updateProfile(){
+        requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), onCustomProfile)
+                .putString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), selectedProfilePath)
+                .apply();
+        selectedProfilePath = "";
     }
 
     private void validate_nickname() {

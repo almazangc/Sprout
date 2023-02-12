@@ -80,6 +80,7 @@ public class ThemeFragment extends Fragment {
                         sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_YES).apply();
                         break;
                 }
+
             }
         });
         onBackPress();

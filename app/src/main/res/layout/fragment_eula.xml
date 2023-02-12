@@ -545,7 +545,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="5dp"
         android:layout_toStartOf="@id/btn_decline"
-        android:background="@drawable/background_btn_normal_selector"
+        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
         android:letterSpacing=".1"
         android:text="Accept"
         android:textColor="@color/NIGHT"

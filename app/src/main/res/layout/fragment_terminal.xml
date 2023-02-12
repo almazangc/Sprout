@@ -127,7 +127,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5sp"
                     android:layout_marginBottom="5sp"
-                    android:background="@drawable/background_btn_normal_selector"
+                    android:background="@drawable/background_btn_normal_selector_waikawa_grey"
                     android:text="Clear Value"
                     android:textAllCaps="false" />
 
@@ -138,7 +138,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="5sp"
                     android:layout_marginBottom="5sp"
-                    android:background="@drawable/background_btn_normal_selector"
+                    android:background="@drawable/background_btn_normal_selector_waikawa_grey"
                     android:text="Save"
                     android:textAllCaps="false" />
 
@@ -148,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5sp"
-                    android:background="@drawable/background_btn_normal_selector"
+                    android:background="@drawable/background_btn_normal_selector_waikawa_grey"
                     android:text="Delete"
                     android:textAllCaps="false" />
             </LinearLayout>

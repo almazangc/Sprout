@@ -61,7 +61,7 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
         dateTimeElapsedUtil.calculateElapsedDateTime();
 
-        if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.AVG_HABIT_BREAK_DAY.getDays()) {
+        if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.MIN_HABIT_BREAK_DAY.getDays()) {
             holder.UpVote.setVisibility(View.VISIBLE);
             holder.DownVote.setVisibility(View.VISIBLE);
         } else {

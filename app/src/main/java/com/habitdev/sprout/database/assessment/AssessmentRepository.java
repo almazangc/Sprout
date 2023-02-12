@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 
 import com.habitdev.sprout.database.AppDatabase;
 import com.habitdev.sprout.database.assessment.model.Answer;
+import com.habitdev.sprout.database.assessment.model.Assessment;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 
@@ -15,14 +16,12 @@ import java.util.List;
 public class AssessmentRepository {
     private final AssessmentDao assessmentDao;
     private final LiveData<List<Assessment>> getAllAssessmentsListLiveData;
-    private final List<Assessment> getAllAssessmentsList;
     private final LiveData<List<Answer>> getAllAnswerListLiveData;
 
     public AssessmentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         this.assessmentDao = appDatabase.assessmentDao();
         getAllAssessmentsListLiveData = assessmentDao.getAssessmentsListLiveData();
-        getAllAssessmentsList = assessmentDao.getAllAssessmentsList();
         getAllAnswerListLiveData = assessmentDao.getAllAnswerListLiveData();
     }
 
@@ -148,7 +147,15 @@ public class AssessmentRepository {
     }
 
     public List<Assessment> getAllAssessmentList() {
-        return getAllAssessmentsList;
+        return assessmentDao.getAllAssessmentsList();
+    }
+
+    public List<Question> getQuestionList() {
+        return assessmentDao.getAllQuestion();
+    }
+
+    public List<Question> getShuffledQuestions(){
+        return assessmentDao.getShuffledQuestions();
     }
 
     public LiveData<List<Answer>> getGetAllAnswerListLiveData() {
@@ -157,10 +164,6 @@ public class AssessmentRepository {
 
     public List<Answer> getAllAnswerList() {
         return assessmentDao.getAllAnswerList();
-    }
-
-    public List<Question> getQuestionList() {
-        return assessmentDao.getAllQuestion();
     }
 
     public List<Choices> getAllChoicesByUID(long uid) {

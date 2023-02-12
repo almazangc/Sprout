@@ -2,7 +2,7 @@ package com.habitdev.sprout.utill.Recommender;
 
 import android.util.Log;
 
-import com.habitdev.sprout.database.assessment.Assessment;
+import com.habitdev.sprout.database.assessment.model.Assessment;
 import com.habitdev.sprout.database.assessment.AssessmentViewModel;
 import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.model.Choices;
@@ -58,7 +58,7 @@ public class HabitRecommender {
             Question question = assessment.getQuestion();
             List<Choices> choices = assessment.getChoices();
 
-            //Check for not flag as neutral
+            //Check for not flag of 1 and -1
             if (question.getClassification() != 0) {
 
                 long habitUid = question.getFk_habit_uid();
@@ -134,16 +134,6 @@ public class HabitRecommender {
         for (HashMap<Long, Result> map : habitScore) {
             for (Map.Entry<Long, Result> entry : map.entrySet()) {
                 Result result = entry.getValue();
-                //Caculates the percentage of base on score
-//                Log.d("tag", "Total: " + result.getTotal_count());
-//                Log.d("tag", "Score: " + result.getScore());
-//                double n = result.getScore() / result.getTotal_count(); // Get Average Score
-//                Log.d("tag", "N >> Score("+ result.getScore() + ") / Total Count(" + result.getTotal_count() + "): = " + n);
-//                double o = (double) Math.round(n * 100); // Round to 2 decimal place, convert into percentage
-//                Log.d("tag", "O >> Math.round(N(" + n + ") * 100) = " + o);
-//                double p = o / 100; //convert to decimal
-//                Log.d("tag", "P >> (" + o + ") / 100: = " + p);
-
                 result.setScore(((double) Math.round((result.getScore() / result.getTotal_count()) * 100)) / 100);
                 map.put(entry.getKey(), result);
             }

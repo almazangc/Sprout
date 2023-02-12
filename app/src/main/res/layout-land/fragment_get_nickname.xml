@@ -75,7 +75,7 @@
 
         <Button
             android:id="@+id/btn_continue"
-            android:background="@drawable/background_btn_normal_selector"
+            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
             android:textColor="@color/NIGHT"
             style="@style/btn_continue_landscape" />
 

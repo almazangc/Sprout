@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/background_btn_normal_on_pressed_bright_sky_blue" android:state_pressed="true" />
+    <item android:drawable="@drawable/background_btn_normal_default_bright_sky_blue" android:state_first="false" />
+    <item android:drawable="@drawable/background_btn_normal_default_bright_sky_blue"/>
+</selector>

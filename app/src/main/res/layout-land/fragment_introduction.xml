@@ -38,7 +38,7 @@
         android:layout_marginLeft="@dimen/relativeLayoutPadding"
         android:layout_marginRight="@dimen/relativeLayoutPadding"
         android:layout_marginBottom="@dimen/relativeLayoutPadding"
-        android:background="@drawable/background_btn_normal_selector"
+        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
         android:textColor="@color/NIGHT" />
 
 </RelativeLayout>

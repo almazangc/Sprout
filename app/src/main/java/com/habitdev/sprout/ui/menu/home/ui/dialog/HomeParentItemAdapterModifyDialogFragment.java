@@ -1,6 +1,8 @@
 package com.habitdev.sprout.ui.menu.home.ui.dialog;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -172,18 +174,38 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     private void onUpdate() {
         binding.homeParentItemAdapterModifyUpdate.setOnClickListener(view -> {
             if (binding.homeParentItemAdapterModifyHint.getText().toString().trim().isEmpty()) {
-                habitOnModify.setHabit(binding.homeParentItemAdapterModifyTitle.getText().toString().trim());
-                habitOnModify.setDescription(binding.homeParentItemAdapterModifyDescription.getText().toString().trim());
-                HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
-                habitWithSubroutinesViewModel.updateHabit(habitOnModify);
-                adapter_ref.notifyItemChanged(position);
-
-                clearSharedPref();
-                if (mOnHabitModifyListener != null) mOnHabitModifyListener.onDialogDismiss();
-                Objects.requireNonNull(getDialog()).dismiss();
+                //show dialog confirmation update method
+                showConfirmUpdateDialog();
             }
         });
     }
+
+    public void showConfirmUpdateDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setMessage("Apply change's?")
+                .setCancelable(false)
+                .setPositiveButton("Sure", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        habitOnModify.setHabit(binding.homeParentItemAdapterModifyTitle.getText().toString().trim());
+                        habitOnModify.setDescription(binding.homeParentItemAdapterModifyDescription.getText().toString().trim());
+                        HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+                        habitWithSubroutinesViewModel.updateHabit(habitOnModify);
+                        adapter_ref.notifyItemChanged(position);
+
+                        clearSharedPref();
+                        if (mOnHabitModifyListener != null) mOnHabitModifyListener.onDialogDismiss();
+                        Objects.requireNonNull(getDialog()).dismiss(); //dismiss the dialog fragment
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     private void setUpdateVisibility() {
         if (binding.homeParentItemAdapterModifyTitle.getText().toString().trim().equals(habit_title_snapshot) &&

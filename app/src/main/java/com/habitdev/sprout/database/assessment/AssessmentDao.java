@@ -10,6 +10,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.habitdev.sprout.database.assessment.model.Answer;
+import com.habitdev.sprout.database.assessment.model.Assessment;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 
@@ -35,6 +36,9 @@ public interface AssessmentDao {
 
     @Query("SELECT * FROM question")
     List<Question> getAllQuestion();
+
+    @Query("SELECT * FROM question ORDER BY RANDOM()")
+    List<Question> getShuffledQuestions();
 
     @Query("SELECT * FROM Choices WHERE fk_question_uid=:pk_uid_question")
     List<Choices> getAllChoicesByUID(long pk_uid_question);

@@ -140,10 +140,8 @@ public class AnalyticFragment extends Fragment
     private void setEmptyRVBackground() {
         if (AnalyticFragment.analyticParentItemAdapter.getItemCount() > 0) {
             binding.analyticEmptyLottieRecyclerView.setVisibility(View.INVISIBLE);
-            binding.analyticEmptyLbl.setVisibility(View.INVISIBLE);
         } else {
             binding.analyticEmptyLottieRecyclerView.setVisibility(View.VISIBLE);
-            binding.analyticEmptyLbl.setVisibility(View.VISIBLE);
         }
     }
 

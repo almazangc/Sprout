@@ -122,50 +122,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
             }
 
             habitWithSubroutinesViewModel.getAllSubroutinesOnReformHabitLiveData(uid).observe(subroutineLifecycleOwner, childAdapterItem::setNewSubroutineList);
-
-            setItemTouchHelper(holder, childAdapterItem);
         }
-    }
-
-
-    private void setItemTouchHelper(SubroutineParentItemAdapter.ParentItemViewHolder holder, SubroutineChildItemAdapter childAdapterItem) {
-
-        ItemTouchHelper itemTouchHelper;
-        ItemTouchHelper.Callback itemTouchHelperCallback = new ItemTouchHelper.Callback() {
-            @Override
-            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                return makeMovementFlags(0, ItemTouchHelper.END | ItemTouchHelper.START);
-            }
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public boolean isLongPressDragEnabled() {
-                return false;
-            }
-
-            @Override
-            public boolean isItemViewSwipeEnabled() {
-                return true;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                switch (direction) {
-                    case ItemTouchHelper.END:
-                    case ItemTouchHelper.START:
-                        SubroutineChildItemAdapter.ChildItemViewHolder childItemViewHolder;
-                        childItemViewHolder = (SubroutineChildItemAdapter.ChildItemViewHolder) viewHolder;
-                        childAdapterItem.notifyItemChanged(childItemViewHolder.getAbsoluteAdapterPosition());
-                        break;
-                }
-            }
-        };
-        itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
-        itemTouchHelper.attachToRecyclerView(holder.childRecycleView);
     }
 
     @Override

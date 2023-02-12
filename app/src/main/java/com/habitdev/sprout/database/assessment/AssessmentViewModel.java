@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.habitdev.sprout.database.assessment.model.Answer;
+import com.habitdev.sprout.database.assessment.model.Assessment;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 
@@ -29,16 +30,20 @@ public class AssessmentViewModel extends AndroidViewModel {
         return  repository.getAllAssessmentList();
     }
 
+    public List<Question> getAllQuestionList() {
+        return repository.getQuestionList();
+    }
+
+    public List<Question> getShuffledQuestions(){
+        return repository.getShuffledQuestions();
+    }
+
     public LiveData<List<Answer>> getGetAllAnswerListLiveData() {
         return repository.getGetAllAnswerListLiveData();
     }
 
     public List<Answer> getAllAnswerList() {
         return repository.getAllAnswerList();
-    }
-
-    public List<Question> getAllQuestionList() {
-        return repository.getQuestionList();
     }
 
     public List<Choices> getAllChoicesByUID(long uid) {
@@ -60,6 +65,5 @@ public class AssessmentViewModel extends AndroidViewModel {
     public void updateAnswer(Answer answer) {
         repository.updateAnswer(answer);
     }
-
 
 }

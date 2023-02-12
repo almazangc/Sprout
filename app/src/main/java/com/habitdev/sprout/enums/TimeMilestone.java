@@ -5,7 +5,8 @@ package com.habitdev.sprout.enums;
  */
 public enum TimeMilestone {
 
-    AVG_HABIT_BREAK_DAY(21),
+    MIN_HABIT_BREAK_DAY(18),
+    AVG_HABIT_BREAK_DAY(66),
     DAILY(1),
     WEEKLY(7);
 

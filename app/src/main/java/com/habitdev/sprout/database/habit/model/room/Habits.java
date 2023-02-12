@@ -62,7 +62,7 @@ public class Habits implements Serializable {
         this.date_started = null;
         this.total_subroutine = 0;
         this.completed_subroutine = 0;
-        this.upvote = 0; //to be updated
+        this.upvote = 0;
         this.downvote = 0;
     }
 

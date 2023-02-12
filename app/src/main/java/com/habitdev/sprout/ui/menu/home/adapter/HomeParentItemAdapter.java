@@ -78,20 +78,16 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
         holder.drop.setOnClickListener(v -> {
             try {
-                //oldHabitList.get(holder.getAbsoluteAdapterPosition()) the cause of error
                 homeParentItemOnclickListener.onClickHabitDrop(oldHabitList.get(holder.getAbsoluteAdapterPosition()));
-                holder.handler.removeCallbacks(holder.runnable); //handle leaking
+                holder.handler.removeCallbacks(holder.runnable);
                 holder.handler.removeCallbacks(holder.runnable); // use the saved runnable to remove the callbacks
-                holder.handler.removeCallbacksAndMessages(null); //handle leaking
-            } catch (ArrayIndexOutOfBoundsException e) {
-                Log.e("tag", "Out of Bounds: ", e.fillInStackTrace());
+                holder.handler.removeCallbacksAndMessages(null);
             } catch (Exception e) {
                 Log.e("tag", "onBindViewHolder: exception", e);
             }
-
         });
 
-        if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.AVG_HABIT_BREAK_DAY.getDays()) {
+        if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.MIN_HABIT_BREAK_DAY.getDays()) {
             holder.upVote.setVisibility(View.VISIBLE);
             holder.downVote.setVisibility(View.VISIBLE);
         } else {
@@ -104,28 +100,20 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
     public void onViewRecycled(@NonNull HabitViewHolder holder) {
         super.onViewRecycled(holder);
         holder.handler.removeCallbacks(holder.runnable);
-        holder.handler.removeCallbacksAndMessages(null); //handle leaking
-
-        holder.habitTitle.setText("");
-        holder.habitDescription.setText("");
-        holder.dateStarted.setText("");
-        holder.totalRelapse.setText("");
-        holder.completedSubroutine.setText("");
-        holder.relapse.setText("");
+        holder.handler.removeCallbacksAndMessages(null); //handles leaking
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull HabitViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
         holder.handler.removeCallbacks(holder.runnable);
-        holder.handler.removeCallbacksAndMessages(null); //handle leaking
+        holder.handler.removeCallbacksAndMessages(null); //handle sleaking
+    }
 
-        holder.habitTitle.setText("");
-        holder.habitDescription.setText("");
-        holder.dateStarted.setText("");
-        holder.totalRelapse.setText("");
-        holder.completedSubroutine.setText("");
-        holder.relapse.setText("");
+    @Override
+    public void onViewAttachedToWindow(@NonNull HabitViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+        holder.handler.post(holder.runnable); // continue runnable when item on display
     }
 
     @Override
@@ -171,9 +159,9 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             upVote = itemView.findViewById(R.id.home_upvote_btn);
             downVote = itemView.findViewById(R.id.home_downvote_btn);
 
-            modify = itemView.findViewById(R.id.home_modify_btn);
-            relapse = itemView.findViewById(R.id.home_relapse_btn);
-            drop = itemView.findViewById(R.id.home_drop_btn);
+            modify = itemView.findViewById(R.id.adapter_home_parent_item_modify_btn);
+            relapse = itemView.findViewById(R.id.adapter_home_parent_item_relapse_btn);
+            drop = itemView.findViewById(R.id.adapter_home_parent_item_drop_btn);
 
             itemContainer.setOnClickListener(v -> {
                 if (HomeParentItemOnclickListener != null) {

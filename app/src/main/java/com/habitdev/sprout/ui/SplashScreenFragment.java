@@ -48,7 +48,7 @@ public class SplashScreenFragment extends Fragment {
     private FragmentActivity fragment;
 
     public SplashScreenFragment() {
-        this.splashDuration = 3000;
+        this.splashDuration = 6000;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class SplashScreenFragment extends Fragment {
 
             Random random = new Random();
 
-            new CountDownTimer(splashDuration, 1500) {
+            new CountDownTimer(splashDuration, splashDuration/2) {
                 public void onTick(long millisUntilFinished) {
                     fragment.runOnUiThread(() -> {
                         int ran = random.nextInt(quotes.size());
@@ -135,8 +135,7 @@ public class SplashScreenFragment extends Fragment {
                 }
             }.start();
         } else {
-            final String MESSAGE = "Warm welcome to sprout!";
-            binding.qouteLbl.setText(MESSAGE);
+            binding.qouteLbl.setText(""); //empty for now
         }
     }
 
