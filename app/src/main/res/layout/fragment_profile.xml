@@ -106,10 +106,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/setting_profile_change_nickname"
-                tools:text=""
                 android:textAlignment="center"
                 android:textColor="@color/CORAL_RED"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="" />
 
             <TextView
                 android:id="@+id/setting_profile_identity"
@@ -208,6 +208,29 @@
                 android:text="Assessment Button"
                 android:textColor="@color/NIGHT"
                 android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btn_schedule_notfi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/setting_profile_retake_assessment_tool_lbl"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+                android:padding="10dp"
+                android:text="Schedule Notifcation"
+                android:textSize="16dp" />
+
+            <Button
+                android:id="@+id/btn_cancel_schedule_notfi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_schedule_notfi"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+                android:padding="10dp"
+                android:text=" Cancel Schedule Notifcation"
+                android:textSize="16dp" />
+
         </RelativeLayout>
     </ScrollView>
 

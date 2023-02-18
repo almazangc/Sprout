@@ -18,6 +18,7 @@ import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentGetIdentityBinding;
 import com.habitdev.sprout.enums.BundleKeys;
+import com.habitdev.sprout.utill.AlarmScheduler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,12 +58,19 @@ public class GetIdentityFragment extends Fragment {
                             String.format("\n%-20s%s", "Identity:", identity))
                     .setCancelable(false)
                     .setPositiveButton("Yes", (dialogInterface, i) -> {
+                        setAlarm();
                         addUser();
                         Navigation.findNavController(view).navigate(R.id.action_navigate_from_getIdentity_to_getStarted, getArguments());
                     })
                     .setNegativeButton("No", null)
                     .show();
         });
+    }
+
+    private void setAlarm() {
+        AlarmScheduler alarmScheduler = new AlarmScheduler(requireContext());
+        alarmScheduler.scheduleMorningAlarm(wakeHour, wakeMinute, "Keep going, You can do it");
+        alarmScheduler.scheduleMorningAlarm(wakeHour, wakeMinute, "Dont forget to update your progress");
     }
 
     // Unpack Bundle

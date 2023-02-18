@@ -6,7 +6,6 @@ import static android.app.Activity.RESULT_OK;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,16 +35,14 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
 import com.habitdev.sprout.enums.SettingConfigurationKeys;
+import com.habitdev.sprout.utill.AlarmScheduler;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,6 +61,8 @@ public class ProfileFragment extends Fragment {
     private static User user;
     private static UserViewModel userViewModel;
 
+    private final AlarmScheduler alarmScheduler = new AlarmScheduler();
+
     public interface OnReturnSetting {
         void returnFromProfileToSetting();
     }
@@ -74,7 +73,9 @@ public class ProfileFragment extends Fragment {
         this.mOnReturnSetting = mOnReturnSetting;
     }
 
-    public ProfileFragment() {}
+    public ProfileFragment() {
+
+    }
 
     @Nullable
     @Override
@@ -130,17 +131,48 @@ public class ProfileFragment extends Fragment {
 
                 String currentProfilePath = requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE).getString(SettingConfigurationKeys.CUSTOM_PROFILE_PATH.getKey(), "");
 
-                Log.d("tag", "onClick: " + currentProfilePath + ":" + selectedProfilePath);
-
                 if ((binding.settingProfileChangeNicknameHint.getText().toString().trim().isEmpty() && !binding.settingProfileChangeNickname.getText().toString().trim().equals(user.getNickname())) && (selectedProfilePath != null && !selectedProfilePath.trim().isEmpty() && !selectedProfilePath.equals(currentProfilePath))) {
                     showConfirmUpdateDialog(0);
                 } else if ((binding.settingProfileChangeNicknameHint.getText().toString().trim().isEmpty() && !binding.settingProfileChangeNickname.getText().toString().trim().equals(user.getNickname()))) {
-                   showConfirmUpdateDialog(1);
+                    showConfirmUpdateDialog(1);
                 } else if (selectedProfilePath != null && !selectedProfilePath.trim().isEmpty() && !selectedProfilePath.equals(currentProfilePath)) {
                     showConfirmUpdateDialog(2);
                 } else {
                     // do not show prompt
                 }
+            }
+        });
+
+        binding.btnScheduleNotfi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("tag", "onClick: Setting Alarm");
+
+                alarmScheduler.setContext(getContext());
+
+                // Schedule the morning and evening alarms
+                alarmScheduler.scheduleMorningAlarm(14, 47, "Good Morning");
+                alarmScheduler.scheduleEveningAlarm(14, 48, "Good Evening");
+
+                // Show a toast message to confirm that the alarm has been set
+                Toast.makeText(requireContext(), "Alarm set", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        binding.btnCancelScheduleNotfi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // cancel
+                Log.d("tag", "onClick: Cancelling Alarm");
+
+                alarmScheduler.setContext(getContext());
+
+                // Cancel the morning and evening alarms
+                alarmScheduler.cancelMorningAlarm();
+                alarmScheduler.cancelEveningAlarm();
+
+                // Show a toast message to confirm that the alarm has been cancelled
+                Toast.makeText(requireContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -150,9 +182,9 @@ public class ProfileFragment extends Fragment {
 
     public void showConfirmUpdateDialog(int updateType) {
         String[] message = {
-            "Do you want to apply changes for nickname and profile photo?",
-            "Do you want to apply changes for nickname?",
-            "Do you want to appy changes for profile photo"
+                "Do you want to apply changes for nickname and profile photo?",
+                "Do you want to apply changes for nickname?",
+                "Do you want to appy changes for profile photo"
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -183,12 +215,12 @@ public class ProfileFragment extends Fragment {
         alert.show();
     }
 
-    private void updateNickname(){
+    private void updateNickname() {
         user.setNickname(binding.settingProfileChangeNickname.getText().toString().trim());
         userViewModel.update(user);
     }
 
-    private void updateProfile(){
+    private void updateProfile() {
         requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE)
                 .edit()
                 .putBoolean(SettingConfigurationKeys.IS_CUSTOM_PROFILE.getKey(), onCustomProfile)
@@ -205,7 +237,7 @@ public class ProfileFragment extends Fragment {
         binding.settingProfileChangeNickname.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().isEmpty()){
+                if (charSequence.toString().trim().isEmpty()) {
                     binding.settingProfileChangeNicknameHint.setText(REQUIRED);
                 }
             }
@@ -217,11 +249,11 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().trim().isEmpty()){
+                if (editable.toString().trim().isEmpty()) {
                     binding.settingProfileChangeNicknameHint.setText(REQUIRED);
-                } else if (editable.toString().trim().length() > 15 || editable.toString().trim().length() < 3 ) {
+                } else if (editable.toString().trim().length() > 15 || editable.toString().trim().length() < 3) {
                     binding.settingProfileChangeNicknameHint.setText(MIN_MAX_CHARACTERS);
-                } else if (!Pattern.compile("^[a-zA-Z ]*$").matcher(editable.toString().trim()).matches()){
+                } else if (!Pattern.compile("^[a-zA-Z ]*$").matcher(editable.toString().trim()).matches()) {
 //            Allowed Input a-zA-Z space
                     binding.settingProfileChangeNicknameHint.setText(INVALID);
                 } else {
@@ -281,7 +313,7 @@ public class ProfileFragment extends Fragment {
 
         binding.settingProfileLottieAvatar.setVisibility(View.VISIBLE);
         binding.settingProfileImgView.setVisibility(View.GONE);
-        switch (identity != null ? identity: "Default") {
+        switch (identity != null ? identity : "Default") {
             case "Male":
                 binding.settingProfileLottieAvatar.setAnimation(default_male_profiles[new Random().nextInt(default_male_profiles.length)]);
                 break;
@@ -332,32 +364,29 @@ public class ProfileFragment extends Fragment {
     }
 
     // function to let's the user to choose image from camera or gallery
-    private void chooseImage(Context context){
-        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Default Profile", "Exit" }; // create a menuOption Array
+    private void chooseImage(Context context) {
+        final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Default Profile", "Exit"}; // create a menuOption Array
         // create a dialog for showing the optionsMenu
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         // set the items in builder.
         builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(optionsMenu[i].equals("Take Photo")){
+                if (optionsMenu[i].equals("Take Photo")) {
                     // Open the camera and get the photo
                     Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
-                }
-                else if(optionsMenu[i].equals("Choose from Gallery")){
+                } else if (optionsMenu[i].equals("Choose from Gallery")) {
                     // choose from  external storage
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
-                }
-                else if(optionsMenu[i].equals("Default Profile")) {
+                    startActivityForResult(pickPhoto, 1);
+                } else if (optionsMenu[i].equals("Default Profile")) {
                     requireActivity().getSharedPreferences(SettingConfigurationKeys.SETTING_SHAREDPRED.getKey(), Context.MODE_PRIVATE)
                             .edit().clear().apply();
                     onCustomProfile = false;
                     selectedProfilePath = "";
                     setDefaultProfile();
-                }
-                else if (optionsMenu[i].equals("Exit")) {
+                } else if (optionsMenu[i].equals("Exit")) {
                     dialogInterface.dismiss();
                 }
             }
