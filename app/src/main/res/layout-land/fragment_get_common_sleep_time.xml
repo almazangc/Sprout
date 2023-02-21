@@ -1,38 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_waikawa_grey_wave_landscape"
+    android:padding="20dp"
     tools:context=".ui.onBoarding.GetCommonSleepTimeFragment">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/lbl_askCommonSleepTime"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/relativeLayoutPadding">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/ask_commonSleepTime"
+        android:textAlignment="center"
+        android:textColor="@color/ClOUDS_"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="20dp" />
 
-        <TextView
-            android:id="@+id/lbl_askCommonSleepTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:text="@string/ask_commonSleepTime"
-            android:textAlignment="center"
-            android:textColor="@color/ClOUDS_"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="20dp"
-            tools:layout_editor_absoluteY="20dp" />
+    <include
+        android:id="@+id/SleepTimePicker"
+        layout="@layout/spinner_time_selector" />
 
-        <include
-            android:id="@+id/SleepTimePicker"
-            layout="@layout/spinner_time_selector" />
-
-        <Button
-            android:id="@+id/btn_continue"
-            style="@style/btn_continue_portrait"
-            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-            android:textColor="@color/NIGHT" />
-    </RelativeLayout>
-
-</FrameLayout>
+    <Button
+        android:id="@+id/btn_continue"
+        style="@style/btn_continue_portrait"
+        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+        android:textColor="@color/NIGHT" />
+</RelativeLayout>

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:weightSum="10"
     android:background="@color/LIGHT"
+    android:padding="20dp"
+    android:weightSum="10"
     tools:context=".ui.onBoarding.personalizationAssessment.PersonalizationFragment">
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -40,10 +40,10 @@
         android:layout_below="@id/lbl_titleMainHeader"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
-        android:text="Sample Assessment Tool For Knowledge Based Part of Recommender, In identifying what habit is recommended"
+        android:text="Please take your time to answers the assessment questionnaire."
         android:textAlignment="viewStart"
         android:textColor="@color/NIGHT"
-        android:textSize="13sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/lbl_question"
@@ -51,10 +51,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lbl_subHeader1"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/NIGHT"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:layout_marginTop="5sp"
+        android:textColor="@color/NIGHT"
+        android:textSize="22sp"
+        android:textStyle="bold"
         tools:text="Question: How would you like your text be seen" />
 
     <RelativeLayout
@@ -119,8 +119,11 @@
 
     <Button
         android:id="@+id/btn_continue"
-        style="@style/btn_continue_portrait"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-        android:textColor="@color/NIGHT" />
+        android:text="@string/continue_lbl"
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold" />
 </RelativeLayout>

@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_waikawa_grey_wave_landscape"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".ui.onBoarding.GetStartedFragment">
 
     <TextView
         style="@style/textViewHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/relativeLayoutPadding"
         android:text="@string/sprout"
         android:textAlignment="center"
         android:textColor="@color/CLOUDS" />
@@ -58,7 +58,7 @@
                 android:layout_below="@id/lbl_name"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="@dimen/relativeLayoutPadding"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:justificationMode="inter_word"
@@ -70,13 +70,12 @@
 
             <Button
                 android:id="@+id/btn_continue"
-                style="@style/btn_continue_portrait"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/relativeLayoutPadding"
-                android:layout_marginRight="@dimen/relativeLayoutPadding"
-                android:layout_marginBottom="@dimen/relativeLayoutPadding"
                 android:background="@drawable/background_btn_normal_selector_waikawa_grey"
                 android:text="@string/get_started"
+                android:textStyle="bold"
                 android:textColor="@color/NIGHT" />
         </RelativeLayout>
     </LinearLayout>

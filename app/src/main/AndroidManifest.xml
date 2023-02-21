@@ -13,12 +13,11 @@
     <!--Camera Access Request-->
     <uses-permission android:name="android.permission.CAMERA"/>
 
-    <!--Alarm Manager for Notification-->
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+<!--    &lt;!&ndash;Alarm Manager for Notification&ndash;&gt;-->
+<!--    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />-->
 
-    <!--Foreground Services for making notif will still go though even the app is closed or restarted-->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!--Alarm Manager for Notification-->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -31,21 +30,6 @@
         android:theme="@style/Theme.Sprout"
         tools:targetApi="31">
 
-<!--        android:name attribute is the name of the class which provides the file sharing functionality.-->
-<!--        android:authorities attribute is the unique identifier for your FileProvider.-->
-<!--        android:exported attribute is set to false, as the FileProvider should only be accessible to your app.-->
-<!--        android:grantUriPermissions attribute is set to true so that other apps can access the shared files.-->
-<!--        <meta-data>: this tag is used to specify the path where the files are located.-->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.habitdev.sprout"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
         <activity
             android:name="com.habitdev.sprout.activity.startup.Main"
             android:exported="true">
@@ -56,16 +40,26 @@
             </intent-filter>
         </activity>
 
-<!--&lt;!&ndash;        Required to start and stop job scheduler&ndash;&gt;-->
-<!--        <service android:name="com.habitdev.sprout.utill.JobServiceScheduler"-->
-<!--            android:permission="android.permission.BIND_JOB_SERVICE"/>-->
-
-<!--        <service android:name="com.habitdev.sprout.utill.NotificationJobScheduler"-->
-<!--            android:permission="android.permission.BIND_JOB_SERVICE"/>-->
+        <!--        android:name attribute is the name of the class which provides the file sharing functionality.-->
+        <!--        android:authorities attribute is the unique identifier for your FileProvider.-->
+        <!--        android:exported attribute is set to false, as the FileProvider should only be accessible to your app.-->
+        <!--        android:grantUriPermissions attribute is set to true so that other apps can access the shared files.-->
+        <!--        <meta-data>: this tag is used to specify the path where the files are located.-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.habitdev.sprout"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
 <!--        For broadcast reciever-->
         <receiver android:name=".utill.AlarmReceiver"
-            android:exported="false">
+            android:exported="true"
+            android:process=":remote"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="morning"/>
                 <action android:name="evening"/>
@@ -73,5 +67,4 @@
         </receiver>
 
     </application>
-
 </manifest>

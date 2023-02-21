@@ -50,7 +50,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginHorizontal">20dp</item>
-        <item name="android:layout_marginBottom">@dimen/radio_margin_bottom</item>
+        <item name="android:layout_marginBottom">15dp</item>
         <item name="android:background">@drawable/selector_background_radio_button</item>
         <item name="android:button">@null</item>
         <item name="android:ellipsize">end</item>
@@ -58,7 +58,7 @@
         <item name="android:padding">20dp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@drawable/selector_radiobtn_text_color</item>
-        <item name="android:textSize">@dimen/radio_button_textSize</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:checked">false</item>
     </style>
 
@@ -66,7 +66,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginHorizontal">20dp</item>
-        <item name="android:layout_marginBottom">@dimen/radio_margin_bottom</item>
+        <item name="android:layout_marginBottom">15dp</item>
         <item name="android:layout_marginEnd">100dp</item>
         <item name="android:layout_marginStart">100dp</item>
         <item name="android:background">@drawable/selector_background_radio_button</item>
@@ -76,7 +76,7 @@
         <item name="android:padding">10dp</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@drawable/selector_radiobtn_text_color</item>
-        <item name="android:textSize">@dimen/radio_button_textSize</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:checked">false</item>
     </style>
 </resources>

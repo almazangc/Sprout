@@ -86,7 +86,7 @@ public class AlarmScheduler {
     @NonNull
     public Calendar setCaledendar(int hour, int minute) {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
+//        calendar.add(Calendar.DAY_OF_YEAR, 1);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
@@ -220,12 +220,12 @@ public class AlarmScheduler {
         }
     }
 
-    public void turnOffDailyNotification(){
+    public void turnOffDailyNotification() {
         cancelMorningAlarm();
         cancelEveningAlarm();
     }
 
-    public void turnOnDailyNotifcation(Calendar morningCalendar, Calendar eveningCalendar){
+    public void turnOnDailyNotifcation(Calendar morningCalendar, Calendar eveningCalendar) {
         scheduleMorningAlarm(morningCalendar, "Keep going, You can do it!");
         scheduleEveningAlarm(eveningCalendar, "Dont forget to update your progress!");
     }

@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splash_screen_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/relativeLayoutPadding"
     android:layout_gravity="center"
-    android:id="@+id/splash_screen_background"
     android:gravity="center"
+    android:padding="10dp"
     tools:context=".ui.SplashScreenFragment">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/sproutLogo"
+        android:id="@+id/splash_screen_logo"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_centerInParent="true"
@@ -23,24 +23,25 @@
 
     <TextView
         android:id="@+id/appName"
-        style="@style/textViewHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sproutLogo"
+        android:layout_below="@id/splash_screen_logo"
         android:layout_marginTop="-65dp"
         android:text="@string/sprout"
         android:textAlignment="center"
         android:textColor="@color/NIGHT"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/qoute_lbl"
-        style="@style/textViewSubHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/appName"
-        android:layout_marginTop="-15dp"
-        tools:text="Developmental Stage"
+        android:padding="5dp"
         android:textAlignment="center"
-        android:textColor="@color/NIGHT" />
+        android:textColor="@color/NIGHT"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        tools:text="Developmental Stage" />
 </RelativeLayout>

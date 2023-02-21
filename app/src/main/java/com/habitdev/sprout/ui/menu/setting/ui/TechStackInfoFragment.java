@@ -136,17 +136,14 @@ public class TechStackInfoFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission granted, continue with creating the directory and file
-                    exportData();
-                } else {
-                    // Permission denied, show an explanation to the user
-                    Toast.makeText(getContext(), "Permission denied, unable to export data", Toast.LENGTH_SHORT).show();
-                }
+        if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, continue with creating the directory and file
+                exportData();
+            } else {
+                // Permission denied, show an explanation to the user
+                Toast.makeText(getContext(), "Permission denied, unable to export data", Toast.LENGTH_SHORT).show();
             }
-            break;
         }
     }
 

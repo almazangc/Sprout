@@ -140,11 +140,14 @@
 
     <Button
         android:id="@+id/analysis_continue"
-        style="@style/btn_continue_portrait"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/relativeLayoutPadding"
-        android:layout_marginRight="@dimen/relativeLayoutPadding"
-        android:layout_marginBottom="@dimen/relativeLayoutPadding"
-        android:background="@drawable/background_btn_cloud_selector"
-        android:textColor="@color/NIGHT" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+        android:text="@string/continue_lbl"
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold" />
 </RelativeLayout>

@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_wavy_2"
-    android:padding="@dimen/relativeLayoutPadding"
+    android:padding="20dp"
     tools:context=".ui.onBoarding.GreetingsFragment">
-
 
     <ImageView
         android:id="@+id/img_welcome"
@@ -36,8 +35,12 @@
 
     <Button
         android:id="@+id/btn_continue"
-        style="@style/btn_continue_portrait"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+        android:text="@string/continue_lbl"
+        android:textStyle="bold"
         android:textColor="@color/NIGHT" />
 
 </RelativeLayout>

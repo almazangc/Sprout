@@ -9,7 +9,7 @@
     tools:context=".ui.onBoarding.InitialFragment">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/sproutLogo"
+        android:id="@+id/splash_screen_logo"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_above="@+id/appName"
@@ -44,12 +44,17 @@
 
     <Button
         android:id="@+id/btn_letsDoIt"
-        style="@style/btn_continue_landscape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/background_btn_normal_selector_waikawa_grey"
         android:text="@string/lets_do_it"
-        android:textColor="@color/NIGHT" />
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/agreement"

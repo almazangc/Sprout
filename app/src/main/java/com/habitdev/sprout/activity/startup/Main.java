@@ -312,7 +312,7 @@ public class Main extends AppCompatActivity {
 
                 NotificationChannel notificationChannel = new NotificationChannel(
                         MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value,
-                        "Daily Reset Notifier",
+                        "Daily Greeting",
                         NotificationManager.IMPORTANCE_HIGH
                 );
 

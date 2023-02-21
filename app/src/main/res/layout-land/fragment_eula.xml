@@ -1,577 +1,573 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".ui.onBoarding.eula.EulaFragment">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/lbl_titleMainHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sprout"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/lbl_subHeader1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lbl_titleMainHeader"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="MOBILE APPLICATION END-USER LICENSE AGREEMENT (EULA)"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT"
+        android:textSize="13sp" />
+
+    <ScrollView
+        android:id="@+id/scrollView_lblEulaContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/relativeLayoutPadding">
+        android:layout_above="@id/btn_decline"
+        android:layout_below="@id/lbl_subHeader1"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/background_rounded_scrollview_a15kimberly"
+        android:paddingStart="22dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:scrollbarSize="3sp"
+        android:scrollbarThumbVertical="@color/WAIKAWA_GREY"
+        android:scrollbars="vertical"
+        android:verticalScrollbarPosition="left">
 
-        <TextView
-            android:id="@+id/lbl_titleMainHeader"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sprout"
-            android:textColor="@color/NIGHT"
-            android:textSize="34sp"
-            android:textStyle="bold" />
+            android:isScrollContainer="true"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="10dp">
 
-        <TextView
-            android:id="@+id/lbl_subHeader1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lbl_titleMainHeader"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="3dp"
-            android:text="MOBILE APPLICATION END-USER LICENSE AGREEMENT (EULA)"
-            android:textAlignment="viewStart"
-            android:textColor="@color/NIGHT"
-            android:textSize="13sp"/>
-
-        <ScrollView
-            android:id="@+id/scrollView_lblEulaContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/btn_decline"
-            android:layout_below="@id/lbl_subHeader1"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/background_rounded_scrollview_a15kimberly"
-            android:paddingStart="22dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="10dp"
-            android:scrollbarSize="3sp"
-            android:scrollbarThumbVertical="@color/WAIKAWA_GREY"
-            android:scrollbars="vertical"
-            android:verticalScrollbarPosition="left">
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:isScrollContainer="true"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingEnd="10dp">
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="\n\t\tPLEASE READ THIS MOBILE APPLICATION END-USER LICENSE AGREEMENT (EULA AGREEMENT) CAREFULLY, BEFORE COMPLETING THE DOWNLOAD OR INSTALLATION PROCESS OR USING THE APPLICATION, AS IT CONTAINS IMPORTANT INFORMATION REGARDING YOUR LEGAL RIGHTS AND REMEDIES."
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="\n\t\tPLEASE READ THIS MOBILE APPLICATION END-USER LICENSE AGREEMENT (EULA AGREEMENT) CAREFULLY, BEFORE COMPLETING THE DOWNLOAD OR INSTALLATION PROCESS OR USING THE APPLICATION, AS IT CONTAINS IMPORTANT INFORMATION REGARDING YOUR LEGAL RIGHTS AND REMEDIES."
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Last Revised: 2023-01-20"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="italic" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Last Revised: 2023-01-20"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="italic" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="1. OVERVIEW"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="1. OVERVIEW"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/overview_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/overview_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                android:textStyle="normal" />
 
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/overview_02"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/overview_02"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/overview_03"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/overview_03"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/overview_04"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/overview_04"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="2. ELIGIBILITY"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="2. ELIGIBILITY"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/eligibility_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/eligibility_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="3. LICENSE GRANT"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="3. LICENSE GRANT"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/license_grant_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/license_grant_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/license_grant_02"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/license_grant_02"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="4. RESTRICTIONS"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="4. RESTRICTIONS"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_02"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_02"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_03"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_03"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_04"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_04"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_05"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_05"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_06"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_06"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_07"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_07"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_08"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_08"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_09"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_09"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_10"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_10"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_11"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_11"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/restriction_12"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/restriction_12"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="5. INTELLECTUAL PROPERTY"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="5. INTELLECTUAL PROPERTY"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/intellectual_property_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/intellectual_property_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/intellectual_property_02"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/intellectual_property_02"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/intellectual_property_03"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/intellectual_property_03"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="6. UPDATES"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="6. UPDATES"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/updates_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/updates_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/updates_02"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/updates_02"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/updates_03"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/updates_03"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="7. USER SUBMISSIONS"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="7. USER SUBMISSIONS"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/user_submission_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/user_submission_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/user_submission_02"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/user_submission_02"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/user_submission_03"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/user_submission_03"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/user_submission_04"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/user_submission_04"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/user_submission_05"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/user_submission_05"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="8. AVAILABILITY OF APPLICATION"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="8. AVAILABILITY OF APPLICATION"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/availability_of_the_application_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/availability_of_the_application_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/availability_of_the_application_02"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/availability_of_the_application_02"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="9: COMPLIANCE WITH LOCAL LAWS"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="9: COMPLIANCE WITH LOCAL LAWS"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/compliance_with_local_law_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/compliance_with_local_law_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="10. GOVERNING LAW"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="10. GOVERNING LAW"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/governing_law_01"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/governing_law_01"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="11. CONTACT INFORMATION"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="11. CONTACT INFORMATION"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="\t\tIf you have any questions about this EULA agreement, please contact us by email or regular mail at the following address:"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="\t\tIf you have any questions about this EULA agreement, please contact us by email or regular mail at the following address:"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:textStyle="normal" />
+            <TextView
+                android:id="@+id/contact_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:justificationMode="inter_word"
+                android:letterSpacing="-.02"
+                android:text="@string/email"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </ScrollView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:justificationMode="inter_word"
-                    android:letterSpacing="-.02"
-                    android:text="@string/email"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
-                    android:id="@+id/contact_email"
-                    android:clickable="true"
-                    android:textStyle="normal" />
-            </LinearLayout>
-        </ScrollView>
+    <Button
+        android:id="@+id/btn_accept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_toStartOf="@id/btn_decline"
+        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+        android:letterSpacing=".1"
+        android:text="Accept"
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold"
+        tools:ignore="TextContrastCheck" />
 
-        <Button
-            android:id="@+id/btn_accept"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_toStartOf="@id/btn_decline"
-            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-            android:text="Accept"
-            android:letterSpacing=".1"
-            android:textColor="@color/NIGHT"
-            android:textStyle="bold"
-            tools:ignore="TextContrastCheck" />
-
-        <Button
-            android:id="@+id/btn_decline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/background_btn_delete_selector"
-            android:paddingLeft="10sp"
-            android:paddingRight="10sp"
-            android:text="DECLINE"
-            android:letterSpacing=".1"
-            android:textColor="@color/NIGHT"
-            android:textStyle="bold"
-            tools:ignore="TextContrastCheck" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+    <Button
+        android:id="@+id/btn_decline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/background_btn_delete_selector"
+        android:letterSpacing=".1"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:text="DECLINE"
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold" />
+</RelativeLayout>

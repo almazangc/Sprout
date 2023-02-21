@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_introduction_landscape"
+    android:padding="10dp"
     tools:context=".ui.onBoarding.IntroductionFragment">
 
     <TextView
@@ -11,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:padding="@dimen/relativeLayoutPadding"
         android:text="@string/sprout"
         android:textAlignment="center"
         android:textColor="@color/NIGHT"
@@ -22,10 +22,10 @@
         android:id="@+id/textView_startup_introduction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_above="@id/btn_continue"
+        android:layout_below="@id/lbl_titleMainHeader"
+        android:gravity="center"
         android:justificationMode="inter_word"
-        android:paddingLeft="@dimen/relativeLayoutPadding"
-        android:paddingRight="@dimen/relativeLayoutPadding"
         android:text="@string/textView_startup_introduction"
         android:textAlignment="center"
         android:textColor="@color/NIGHT"
@@ -34,11 +34,14 @@
 
     <Button
         android:id="@+id/btn_continue"
-        style="@style/btn_continue_portrait"
-        android:layout_marginLeft="@dimen/relativeLayoutPadding"
-        android:layout_marginRight="@dimen/relativeLayoutPadding"
-        android:layout_marginBottom="@dimen/relativeLayoutPadding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+        android:text="@string/continue_lbl"
         android:textColor="@color/NIGHT" />
 
 </RelativeLayout>

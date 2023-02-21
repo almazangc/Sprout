@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_wavy_1"
+    android:padding="20dp"
     tools:context=".ui.onBoarding.GetIdentityFragment">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/img_identity"
+        android:layout_width="250dp"
+        android:layout_height="220dp"
+        android:layout_above="@id/lbl_askIdentity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/illus_identity"
+        android:contentDescription="SOME GENDER ART" />
+
+    <TextView
+        android:id="@+id/lbl_askIdentity"
+        style="@style/textViewHeader"
+        android:layout_above="@id/identity_selection"
+        android:letterSpacing=".05"
+        android:text="@string/lbl_how_do_you_identity"
+        android:textAlignment="center"
+        android:textColor="@color/NIGHT" />
+
+    <RadioGroup
+        android:id="@+id/identity_selection"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_wavy_1"
-        android:padding="@dimen/relativeLayoutPadding">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_continue"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/img_identity"
-            android:layout_width="250dp"
-            android:layout_height="220dp"
-            android:layout_above="@id/lbl_askIdentity"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/illus_identity"
-            android:contentDescription="SOME GENDER ART" />
+        <RadioButton
+            android:id="@+id/id_male"
+            style="@style/radioButtonPortrait"
+            android:checked="true"
+            android:text="@string/male"
+            android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/lbl_askIdentity"
-            style="@style/textViewHeader"
-            android:layout_above="@id/identity_selection"
-            android:letterSpacing=".05"
-            android:text="@string/lbl_how_do_you_identity"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT" />
+        <RadioButton
+            android:id="@+id/id_female"
+            style="@style/radioButtonPortrait"
+            android:text="@string/female" />
 
-        <RadioGroup
-            android:id="@+id/identity_selection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/btn_continue"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/id_nonBinary"
+            style="@style/radioButtonPortrait"
+            android:text="@string/non_binary" />
+    </RadioGroup>
 
-            <RadioButton
-                android:id="@+id/id_male"
-                style="@style/radioButtonPortrait"
-                android:checked="true"
-                android:text="@string/male"
-                android:textSize="@dimen/radio_button_textSize" />
-
-            <RadioButton
-                android:id="@+id/id_female"
-                style="@style/radioButtonPortrait"
-                android:text="@string/female" />
-
-            <RadioButton
-                android:id="@+id/id_nonBinary"
-                style="@style/radioButtonPortrait"
-                android:text="@string/non_binary" />
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/btn_continue"
-            style="@style/btn_continue_portrait"
-            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-            android:textColor="@color/NIGHT" />
-
-    </RelativeLayout>
-</FrameLayout>
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+        android:text="@string/continue_lbl"
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold" />
+</RelativeLayout>

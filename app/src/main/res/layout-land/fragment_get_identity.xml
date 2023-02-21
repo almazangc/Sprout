@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_wavy_1"
-    android:padding="@dimen/relativeLayoutPadding"
+    android:padding="20dp"
     tools:context=".ui.onBoarding.GetIdentityFragment">
 
     <TextView
@@ -67,7 +67,11 @@
 
     <Button
         android:id="@+id/btn_continue"
-        style="@style/btn_continue_landscape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-        android:textColor="@color/NIGHT" />
+        android:text="@string/continue_lbl"
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold" />
 </RelativeLayout>

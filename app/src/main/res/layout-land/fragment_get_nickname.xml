@@ -1,84 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_wavy_1"
+    android:padding="20dp"
     tools:context=".ui.onBoarding.GetNicknameFragment">
 
-    <RelativeLayout
+    <TextView
+        style="@style/textViewHeader"
+        android:layout_above="@id/lbl_2"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="0dp"
+        android:text="@string/my_firstname_is"
+        android:textColor="@color/NIGHT" />
+
+    <TextView
+        android:id="@+id/lbl_2"
+        style="@style/textViewSubHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_wavy_1"
-        android:padding="@dimen/relativeLayoutPadding">
+        android:layout_above="@id/edit_nickname_container"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:text="@string/what_should_we_call_you"
+        android:textColor="@color/NIGHT" />
 
-        <TextView
-            style="@style/textViewHeader"
-            android:layout_above="@id/lbl_2"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="0dp"
-            android:text="@string/my_firstname_is"
-            android:textColor="@color/NIGHT" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_nickname_container"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:hint="Nickname"
+        android:maxLines="1"
+        android:textColor="@color/NIGHT"
+        android:textColorHint="@color/NIGHT"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxStrokeColor="@color/WAIKAWA_GREY"
+        app:counterEnabled="true"
+        app:counterMaxLength="15"
+        app:counterTextColor="@color/CORAL_RED"
+        app:helperText="Required*"
+        app:helperTextEnabled="true"
+        app:helperTextTextColor="@color/A80_CORAL_RED"
+        app:startIconDrawable="@drawable/ic_person">
 
-        <TextView
-            android:id="@+id/lbl_2"
-            style="@style/textViewSubHeader"
-            android:layout_width="match_parent"
-            android:layout_above="@id/edit_nickname_container"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:text="@string/what_should_we_call_you"
-            android:textColor="@color/NIGHT" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_nickname_container"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:hint="Nickname"
+            android:clickable="true"
+            android:ems="10"
+            android:maxLength="25"
             android:maxLines="1"
+            android:padding="15dp"
+            android:paddingStart="15dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:textColor="@color/NIGHT"
             android:textColorHint="@color/NIGHT"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
-            app:boxStrokeColor="@color/WAIKAWA_GREY"
-            app:counterEnabled="true"
-            app:counterMaxLength="15"
-            app:counterTextColor="@color/CORAL_RED"
-            app:helperText="Required*"
-            app:helperTextEnabled="true"
-            app:helperTextTextColor="@color/A80_CORAL_RED"
-            app:startIconDrawable="@drawable/ic_person">
+            android:textSize="18sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_nickname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:ems="10"
-                android:maxLength="25"
-                android:maxLines="1"
-                android:padding="15dp"
-                android:paddingStart="15dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/NIGHT"
-                android:textColorHint="@color/NIGHT"
-                android:textSize="18sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+        android:text="@string/continue_lbl"
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btn_continue"
-            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-            android:textColor="@color/NIGHT"
-            style="@style/btn_continue_landscape" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>

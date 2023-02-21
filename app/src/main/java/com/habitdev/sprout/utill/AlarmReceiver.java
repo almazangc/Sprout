@@ -18,8 +18,8 @@ import com.habitdev.sprout.activity.startup.Main;
 public class AlarmReceiver extends BroadcastReceiver {
 
     private static final String CHANNEL_ID = "alarm_notification_channel_id";
-    private static final String CHANNEL_NAME = "daily_notification_channel";
-    private static final String CHANNEL_DESC = "daily notification";
+    private static final String CHANNEL_NAME = "Daily Reminder";
+    private static final String CHANNEL_DESC = "Daily Notification";
     private static final String PREFS_NAME = "ALARM_SHARED_PREF";
     
     private static final String TAG = "tag";
