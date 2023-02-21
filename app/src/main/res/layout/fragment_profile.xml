@@ -142,6 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/setting_profile_identity"
+                android:layout_marginTop="5dp"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
@@ -161,63 +162,72 @@
                 android:textSize="16sp"
                 tools:text="1 year 2 Day 11 Hours 5 Minutes 43 Seconds" />
 
-            <TextView
-                android:id="@+id/setting_profile_change_daily_notification"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/setting_profile_change_daily_notification_switch"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/setting_profile_date_installed_lbl"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginTop="5dp"
                 android:text="\u2022 Daily Notification"
                 android:textColor="@color/NIGHT"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/setting_profile_change_daily_notification_lbl"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/setting_profile_retake_assessment_tool_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_change_daily_notification"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="15dp"
-                android:text="Change Button"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
+                android:layout_below="@id/setting_profile_change_daily_notification_switch"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/setting_profile_retake_assessment_tool"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_change_daily_notification_lbl"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:text="\u2022 Retake-Assessment"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/setting_profile_retake_assessment_tool"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="\u2022 Assesssment Tool"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/setting_profile_retake_assessment_tool_lbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_retake_assessment_tool"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="15dp"
-                android:text="Assessment Button"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
+                <Button
+                    android:id="@+id/setting_profile_retake_assessment_tool_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@id/setting_profile_retake_assessment_tool"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="10dp"
+                    android:text="Take Assessment"
+                    android:textAllCaps="false"
+                    android:textSize="16dp" />
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/btn_schedule_notfi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_retake_assessment_tool_lbl"
+                android:layout_below="@id/setting_profile_retake_assessment_tool_layout"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
                 android:padding="10dp"
                 android:text="Schedule Notifcation"
+                android:textAllCaps="false"
+                android:visibility="gone"
                 android:textSize="16dp" />
 
             <Button
@@ -226,11 +236,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btn_schedule_notfi"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:text=" Cancel Schedule Notifcation"
+                android:textAllCaps="false"
                 android:textSize="16dp" />
-
         </RelativeLayout>
     </ScrollView>
 

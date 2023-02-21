@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -35,6 +37,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
@@ -143,36 +146,50 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        binding.settingProfileRetakeAssessmentToolLbl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(requireActivity(), "Retake Assessment", Toast.LENGTH_SHORT).show();
+                /*
+                    TODO: Add confirmation to redo, retake assessment to check for habits
+                          If yes, shows personalization assessment questions
+                          Then show analysis result. But different layout used in onboarding or can be re used but add a new constructor as identifier.
+                 */
+            }
+        });
+
+        toggleDailyNotification();
+
         binding.btnScheduleNotfi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("tag", "onClick: Setting Alarm");
-
-                alarmScheduler.setContext(getContext());
-
-                // Schedule the morning and evening alarms
-                alarmScheduler.scheduleMorningAlarm(14, 47, "Good Morning");
-                alarmScheduler.scheduleEveningAlarm(14, 48, "Good Evening");
-
-                // Show a toast message to confirm that the alarm has been set
-                Toast.makeText(requireContext(), "Alarm set", Toast.LENGTH_SHORT).show();
+//                Log.d("tag", "onClick: Setting Alarm");
+//
+//                alarmScheduler.setContext(getContext());
+//
+//                // Schedule the morning and evening alarms
+//                alarmScheduler.scheduleMorningAlarm(alarmScheduler.setCalendar(17, 28), "Good Morning");
+//                alarmScheduler.scheduleEveningAlarm(alarmScheduler.setCalendar(17, 30), "Good Evening");
+//
+//                // Show a toast message to confirm that the alarm has been set
+//                Toast.makeText(requireContext(), "Alarm set", Toast.LENGTH_SHORT).show();
             }
         });
 
         binding.btnCancelScheduleNotfi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // cancel
-                Log.d("tag", "onClick: Cancelling Alarm");
-
-                alarmScheduler.setContext(getContext());
-
-                // Cancel the morning and evening alarms
-                alarmScheduler.cancelMorningAlarm();
-                alarmScheduler.cancelEveningAlarm();
-
-                // Show a toast message to confirm that the alarm has been cancelled
-                Toast.makeText(requireContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
+//                // cancel
+//                Log.d("tag", "onClick: Cancelling Alarm");
+//
+//                alarmScheduler.setContext(getContext());
+//
+//                // Cancel the morning and evening alarms
+//                alarmScheduler.cancelMorningAlarm();
+//                alarmScheduler.cancelEveningAlarm();
+//
+//                // Show a toast message to confirm that the alarm has been cancelled
+//                Toast.makeText(requireContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -180,11 +197,80 @@ public class ProfileFragment extends Fragment {
         return binding.getRoot();
     }
 
+    private void toggleDailyNotification() {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("DAILY_NOTIFY_SHARED_PREF", Context.MODE_PRIVATE);
+        final String isToggledONKEY = "IS_DAILY_TOGGLED_ON";
+
+        boolean isToggledON = sharedPreferences.getBoolean(isToggledONKEY, false);
+        binding.settingProfileChangeDailyNotificationSwitch.setChecked(isToggledON);
+
+        binding.settingProfileChangeDailyNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isToggledON) {
+                if (isToggledON) {
+                    displayDialog("Turn on daily notification",
+                            "Are you sure you want to turn on daily notification?",
+                            "onCheckedChanged: turn on",
+                            true,
+                            false,
+                            R.drawable.ic_round_notification_on
+                    );
+                } else if (!isToggledON) {
+                    displayDialog("Turn off daily notification",
+                            "Are you sure you want to turn off daily notification?",
+                            "onCheckedChanged: turn off",
+                            false,
+                            true,
+                            R.drawable.ic_round_notifications_off
+                    );
+                }
+            }
+
+            private void displayDialog(String title, String message, String messageTAG, boolean toggleState, boolean originalState, int p) {
+                new AlertDialog.Builder(requireActivity())
+                        .setTitle(title)
+                        .setMessage(message)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // User clicked Yes button, do something to turn off daily notification
+                                Log.d("tag", messageTAG);
+                                sharedPreferences.edit().putBoolean(isToggledONKEY, toggleState).apply();
+
+                                alarmScheduler.setContext(requireContext());
+
+                                if (toggleState) {
+                                    Log.d("tag", "onClick: TurnON Notify");
+
+                                    Calendar morningCalendar = alarmScheduler.setCaledendar(user.getWakeHour(), user.getWakeMinute());
+                                    Calendar eveningCalendar = alarmScheduler.setCaledendar(user.getSleepHour(), user.getSleepMinute());
+                                    alarmScheduler.turnOnDailyNotifcation(morningCalendar, eveningCalendar);
+
+                                } else {
+                                    Log.d("tag", "onClick: TurnOFF Notify");
+                                    alarmScheduler.turnOffDailyNotification();
+                                }
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // User clicked No button, restore the original toggle state
+                                binding.settingProfileChangeDailyNotificationSwitch.setOnCheckedChangeListener(null);
+                                binding.settingProfileChangeDailyNotificationSwitch.setChecked(originalState);
+                                toggleDailyNotification();
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(p)
+                        .show();
+            }
+        });
+    }
+
     public void showConfirmUpdateDialog(int updateType) {
         String[] message = {
                 "Do you want to apply changes for nickname and profile photo?",
                 "Do you want to apply changes for nickname?",
-                "Do you want to appy changes for profile photo"
+                "Do you want to apply changes for profile photo"
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -328,21 +414,21 @@ public class ProfileFragment extends Fragment {
 
     // function to check permission
     public static boolean checkSelfPermission(final Activity activity) {
-        int WriteExternastoragePermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int WriteExternalStoragePermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int CameraPermission = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
 
-        List<String> permmisionRequired = new ArrayList<>();
+        List<String> permissionRequired = new ArrayList<>();
 
-        if (WriteExternastoragePermission != PackageManager.PERMISSION_GRANTED) {
-            permmisionRequired.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (WriteExternalStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            permissionRequired.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         }
 
         if (CameraPermission != PackageManager.PERMISSION_GRANTED) {
-            permmisionRequired.add(Manifest.permission.CAMERA);
+            permissionRequired.add(Manifest.permission.CAMERA);
         }
 
-        if (!permmisionRequired.isEmpty()) {
-            ActivityCompat.requestPermissions(activity, permmisionRequired.toArray(new String[permmisionRequired.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+        if (!permissionRequired.isEmpty()) {
+            ActivityCompat.requestPermissions(activity, permissionRequired.toArray(new String[permissionRequired.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
             return false;
         }
 

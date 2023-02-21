@@ -30,37 +30,61 @@ public class AlarmScheduler {
         this.context = context;
     }
 
-    public void scheduleMorningAlarm(int hour, int minute, String message) {
+    public void scheduleMorningAlarm(Calendar calendar, String message) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int savedHour = prefs.getInt("morning_hour", -1);
         int savedMinute = prefs.getInt("morning_minute", -1);
-        if (savedHour == hour && savedMinute == minute) {
+        long savedTimeInMillis = prefs.getLong("morning_time_in_millis", -1);
+
+        if (savedHour == calendar.get(Calendar.HOUR_OF_DAY)
+                && savedMinute == calendar.get(Calendar.MINUTE)
+                && isSameDay(savedTimeInMillis, calendar.getTimeInMillis())) {
             Log.d("tag", "Schedule Morning: Alarm already set for this time");
             return;
         }
-        Calendar calendar = setCaledendar(hour, minute);
+
         scheduleAlarm(calendar, "morning", message);
-        prefs.edit().putInt("morning_hour", hour).putInt("morning_minute", minute).apply();
+        prefs.edit()
+                .putInt("morning_hour", calendar.get(Calendar.HOUR_OF_DAY))
+                .putInt("morning_minute", calendar.get(Calendar.MINUTE))
+                .putLong("morning_time_in_millis", calendar.getTimeInMillis())
+                .apply();
         Log.d("tag", "Schedule Morning: Alarm Set");
     }
 
-    public void scheduleEveningAlarm(int hour, int minute, String message) {
+    public void scheduleEveningAlarm(Calendar calendar, String message) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int savedHour = prefs.getInt("evening_hour", -1);
         int savedMinute = prefs.getInt("evening_minute", -1);
+        long savedTimeInMillis = prefs.getLong("evening_time_in_millis", -1);
 
-        if (savedHour == hour && savedMinute == minute) {
+        if (savedHour == calendar.get(Calendar.HOUR_OF_DAY)
+                && savedMinute == calendar.get(Calendar.MINUTE)
+                && isSameDay(savedTimeInMillis, calendar.getTimeInMillis())) {
             Log.d("tag", "Schedule Evening: Alarm already set for this time");
             return;
         }
-        Calendar calendar = setCaledendar(hour, minute);
+
         scheduleAlarm(calendar, "evening", message);
-        prefs.edit().putInt("evening_hour", hour).putInt("evening_minute", minute).apply();
+        prefs.edit()
+                .putInt("evening_hour", calendar.get(Calendar.HOUR_OF_DAY))
+                .putInt("evening_minute", calendar.get(Calendar.MINUTE))
+                .putLong("evening_time_in_millis", calendar.getTimeInMillis())
+                .apply();
         Log.d("tag", "Schedule Evening: Alarm Set");
     }
 
+    private boolean isSameDay(long timeInMillis1, long timeInMillis2) {
+        Calendar calendar1 = Calendar.getInstance();
+        Calendar calendar2 = Calendar.getInstance();
+        calendar1.setTimeInMillis(timeInMillis1);
+        calendar2.setTimeInMillis(timeInMillis2);
+        return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR)
+                && calendar1.get(Calendar.DAY_OF_YEAR) == calendar2.get(Calendar.DAY_OF_YEAR);
+    }
+
     @NonNull
-    private Calendar setCaledendar(int hour, int minute) {
+    public Calendar setCaledendar(int hour, int minute) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -69,34 +93,36 @@ public class AlarmScheduler {
         return calendar;
     }
 
-    public void updateMorningAlarm(int hour, int minute, String message) {
+    public void updateMorningAlarm(Calendar calendar, String message) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int morningHour = prefs.getInt("morning_hour", -1);
         int morningMinute = prefs.getInt("morning_minute", -1);
+        long savedTimeInMillis = prefs.getLong("morning_time_in_millis", -1);
 
-        if (morningHour == hour && morningMinute == minute) {
-            Log.d("tag", "updateMorningAlarm: already set for " + hour + ":" + minute);
+        if (morningHour == calendar.get(Calendar.HOUR_OF_DAY) && morningMinute == calendar.get(Calendar.MINUTE) && savedTimeInMillis == calendar.getTimeInMillis()) {
+            Log.d("tag", "updateMorningAlarm: already set for " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
             return;
         }
 
         cancelMorningAlarm();
-        scheduleMorningAlarm(hour, minute, message);
-        Log.d("tag", "updateMorningAlarm: alarm updated to " + hour + ":" + minute);
+        scheduleMorningAlarm(calendar, message);
+        Log.d("tag", "updateMorningAlarm: alarm updated to " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
     }
 
-    public void updateEveningAlarm(int hour, int minute, String message) {
+    public void updateEveningAlarm(Calendar calendar, String message) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         int eveningHour = prefs.getInt("evening_hour", -1);
         int eveningMinute = prefs.getInt("evening_minute", -1);
+        long savedTimeInMillis = prefs.getLong("evening_time_in_millis", -1);
 
-        if (eveningHour == hour && eveningMinute == minute) {
-            Log.d("tag", "updateEveningAlarm: already set for " + hour + ":" + minute);
+        if (eveningHour == calendar.get(Calendar.HOUR_OF_DAY) && eveningMinute == calendar.get(Calendar.MINUTE) && savedTimeInMillis == calendar.getTimeInMillis()) {
+            Log.d("tag", "updateEveningAlarm: already set for " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
             return;
         }
 
         cancelEveningAlarm();
-        scheduleEveningAlarm(hour, minute, message);
-        Log.d("tag", "updateEveningAlarm: alarm updated to " + hour + ":" + minute);
+        scheduleEveningAlarm(calendar, message);
+        Log.d("tag", "updateEveningAlarm: alarm updated to " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
     }
 
     public void cancelMorningAlarm() {
@@ -117,7 +143,7 @@ public class AlarmScheduler {
             int morningMinute = prefs.getInt("morning_minute", -1);
 
             if (morningHour != -1 && morningMinute != -1) {
-                Intent intent = new Intent(context, AlarmReciever.class);
+                Intent intent = new Intent(context, AlarmReceiver.class);
                 intent.putExtra("message", "message");
                 PendingIntent morningPendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
@@ -151,7 +177,7 @@ public class AlarmScheduler {
             int eveningMinute = prefs.getInt("evening_minute", -1);
 
             if (eveningHour != -1 && eveningMinute != -1) {
-                Intent intent = new Intent(context, AlarmReciever.class);
+                Intent intent = new Intent(context, AlarmReceiver.class);
                 intent.putExtra("type", "evening");
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
@@ -176,7 +202,7 @@ public class AlarmScheduler {
         String formattedDate = dateFormat.format(calendar.getTime());
         Log.d("tag", "scheduleAlarm: " + formattedDate);
 
-        Intent intent = new Intent(context, AlarmReciever.class);
+        Intent intent = new Intent(context, AlarmReceiver.class);
         intent.setAction(type);
         intent.putExtra("message", message);
 
@@ -192,5 +218,15 @@ public class AlarmScheduler {
             alarmMgrEvening = alarmMgr;
             alarmIntentEvening = pendingIntent;
         }
+    }
+
+    public void turnOffDailyNotification(){
+        cancelMorningAlarm();
+        cancelEveningAlarm();
+    }
+
+    public void turnOnDailyNotifcation(Calendar morningCalendar, Calendar eveningCalendar){
+        scheduleMorningAlarm(morningCalendar, "Keep going, You can do it!");
+        scheduleEveningAlarm(eveningCalendar, "Dont forget to update your progress!");
     }
 }

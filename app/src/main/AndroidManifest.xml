@@ -64,7 +64,7 @@
 <!--            android:permission="android.permission.BIND_JOB_SERVICE"/>-->
 
 <!--        For broadcast reciever-->
-        <receiver android:name=".utill.AlarmReciever"
+        <receiver android:name=".utill.AlarmReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="morning"/>

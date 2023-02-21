@@ -1,5 +1,7 @@
 package com.habitdev.sprout.ui.onBoarding;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,8 +71,11 @@ public class GetIdentityFragment extends Fragment {
 
     private void setAlarm() {
         AlarmScheduler alarmScheduler = new AlarmScheduler(requireContext());
-        alarmScheduler.scheduleMorningAlarm(wakeHour, wakeMinute, "Keep going, You can do it");
-        alarmScheduler.scheduleMorningAlarm(wakeHour, wakeMinute, "Dont forget to update your progress");
+        alarmScheduler.scheduleMorningAlarm(alarmScheduler.setCaledendar(wakeHour, wakeMinute), "Keep going, You can do it");
+        alarmScheduler.scheduleEveningAlarm(alarmScheduler.setCaledendar(sleepHour, sleepMinute), "Dont forget to update your progress");
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("DAILY_NOTIFY_SHARED_PREF", Context.MODE_PRIVATE);
+        final String isToggledONKEY = "IS_DAILY_TOGGLED_ON";
+        sharedPreferences.edit().putBoolean(isToggledONKEY, true).apply();
     }
 
     // Unpack Bundle
