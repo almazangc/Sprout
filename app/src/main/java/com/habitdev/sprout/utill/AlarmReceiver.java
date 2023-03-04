@@ -36,6 +36,9 @@ public class AlarmReceiver extends BroadcastReceiver {
         } else if (intent.getAction().equals("evening")) {
             Log.d(TAG, "onReceive: show evening notify");
             showEveningNotification(context, intent);
+
+        } else {
+            Log.d(TAG, "onReceive action: " + intent.getAction());
         }
     }
 

@@ -35,13 +35,17 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
 import com.habitdev.sprout.enums.SettingConfigurationKeys;
+import com.habitdev.sprout.ui.HabitAssessment.PersonalizationFragment;
+import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 import com.habitdev.sprout.utill.AlarmScheduler;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
@@ -63,6 +67,7 @@ public class ProfileFragment extends Fragment {
     private static boolean onCustomProfile;
     private static User user;
     private static UserViewModel userViewModel;
+    private static PersonalizationFragment personalizationFragment;
 
     private final AlarmScheduler alarmScheduler = new AlarmScheduler();
 
@@ -77,7 +82,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public ProfileFragment() {
-
+        //no-arg constructor
     }
 
     @Nullable
@@ -146,55 +151,35 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        binding.settingProfileRetakeAssessmentToolLbl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(requireActivity(), "Retake Assessment", Toast.LENGTH_SHORT).show();
-                /*
-                    TODO: Add confirmation to redo, retake assessment to check for habits
-                          If yes, shows personalization assessment questions
-                          Then show analysis result. But different layout used in onboarding or can be re used but add a new constructor as identifier.
-                 */
-            }
-        });
-
         toggleDailyNotification();
 
-        binding.btnScheduleNotfi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Log.d("tag", "onClick: Setting Alarm");
-//
-//                alarmScheduler.setContext(getContext());
-//
-//                // Schedule the morning and evening alarms
-//                alarmScheduler.scheduleMorningAlarm(alarmScheduler.setCalendar(17, 28), "Good Morning");
-//                alarmScheduler.scheduleEveningAlarm(alarmScheduler.setCalendar(17, 30), "Good Evening");
-//
-//                // Show a toast message to confirm that the alarm has been set
-//                Toast.makeText(requireContext(), "Alarm set", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        binding.btnCancelScheduleNotfi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                // cancel
-//                Log.d("tag", "onClick: Cancelling Alarm");
-//
-//                alarmScheduler.setContext(getContext());
-//
-//                // Cancel the morning and evening alarms
-//                alarmScheduler.cancelMorningAlarm();
-//                alarmScheduler.cancelEveningAlarm();
-//
-//                // Show a toast message to confirm that the alarm has been cancelled
-//                Toast.makeText(requireContext(), "Alarm cancelled", Toast.LENGTH_SHORT).show();
-            }
-        });
+        retakeAssessmentTool();
 
         onBackPress();
         return binding.getRoot();
+    }
+
+    private void retakeAssessmentTool() {
+        binding.settingProfileRetakeAssessmentToolBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(requireContext())
+                        .setMessage("Do you want to retake habit asssessment?")
+                        .setCancelable(false)
+                        .setPositiveButton("YES", (dialogInterface, i) -> {
+                            personalizationFragment = new PersonalizationFragment(true);
+                            getChildFragmentManager()
+                                    .beginTransaction()
+                                    .addToBackStack(ProfileFragment.this.getTag())
+                                    .add(binding.settingProfileFrameLayout.getId(), personalizationFragment)
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                                    .commit();
+                            binding.settingProfileContainer.setVisibility(View.GONE);
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
     }
 
     private void toggleDailyNotification() {

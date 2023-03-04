@@ -1,10 +1,9 @@
-package com.habitdev.sprout.ui.onBoarding.personalizationAssessment;
+package com.habitdev.sprout.ui.HabitAssessment;
 
 import android.app.AlertDialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,13 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.AssessmentViewModel;
+import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 import com.habitdev.sprout.database.user.UserViewModel;
@@ -29,7 +29,6 @@ import com.habitdev.sprout.databinding.FragmentPersonalizationBinding;
 import com.habitdev.sprout.enums.OnBoardingConfigurationKeys;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PersonalizationFragment extends Fragment {
@@ -40,14 +39,24 @@ public class PersonalizationFragment extends Fragment {
     private static List<Choices> choicesList;
     private static List<Answer> answersList;
     private static int position;
-
+    private static boolean isOnRekateAssessment;
     private static Bundle savedInstanceState;
+    private static AnalysisFragment analysisFragment;
 
     public PersonalizationFragment() {
         position = 0;
         questionsList = new ArrayList<>();
         choicesList = new ArrayList<>();
         answersList = new ArrayList<>();
+        isOnRekateAssessment = false;
+    }
+
+    public PersonalizationFragment(boolean isOnRekateAssessment) {
+        position = 0;
+        questionsList = new ArrayList<>();
+        choicesList = new ArrayList<>();
+        answersList = new ArrayList<>();
+        PersonalizationFragment.isOnRekateAssessment = isOnRekateAssessment;
     }
 
     @Override
@@ -62,7 +71,7 @@ public class PersonalizationFragment extends Fragment {
         questionsList = assessmentViewModel.getShuffledQuestions();
         answersList = assessmentViewModel.getAllAnswerList();
 
-        onBackPress(); // set on back press listener
+        onBackPress();
 
         return binding.getRoot();
     }
@@ -153,8 +162,22 @@ public class PersonalizationFragment extends Fragment {
                     .setMessage("Are you done answering all?")
                     .setCancelable(false)
                     .setPositiveButton("YES", (dialogInterface, i) -> {
-                        setUserAssessmentTrue();
-                        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_personalization_to_analysis);
+                        if (isOnRekateAssessment) {
+                            analysisFragment = null;
+                            analysisFragment = new AnalysisFragment(true);
+                            getChildFragmentManager()
+                                    .beginTransaction()
+                                    .addToBackStack(PersonalizationFragment.this.getTag())
+                                    .add(binding.personalizationRelativeLayout.getId(), analysisFragment)
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                                    .commit();
+                            binding.personalizationContainer.setVisibility(View.GONE);
+                            assessmentViewModel.getGetAllAnswerListLiveData().removeObservers(getViewLifecycleOwner());
+                            assessmentViewModel = null;
+                        } else {
+                            setUserAssessmentTrue();
+                            Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_personalization_to_analysis);
+                        }
                     })
                     .setNegativeButton("No", null)
                     .show();
@@ -173,7 +196,7 @@ public class PersonalizationFragment extends Fragment {
      * Sets the progressbar size
      */
     private void setProgressBarMaxSize() {
-        binding.assessmentProgressBar.setMax(questionsList.size()-1);
+        binding.assessmentProgressBar.setMax(questionsList.size() - 1);
         updateProgressBar();
     }
 
@@ -181,7 +204,7 @@ public class PersonalizationFragment extends Fragment {
      * Updates Progress Bar
      */
     private void updateProgressBar() {
-        binding.assessmentProgressBar.setProgress(position-1, true);
+        binding.assessmentProgressBar.setProgress(position - 1, true);
     }
 
     /**
@@ -196,7 +219,6 @@ public class PersonalizationFragment extends Fragment {
                     setAssessment();
                 } else {
 //                    requireActivity().moveTaskToBack(true);
-                    // dialog close app?
                 }
             }
         };
@@ -271,8 +293,8 @@ public class PersonalizationFragment extends Fragment {
     private void upCheckedRadioButtons() {
         ArrayList<RadioButton> radioButtonList = getRadioButtonList();
         for (RadioButton radioButton : radioButtonList) {
-            Question current_question = questionsList.get(position-1);
-            if ((radioButton.getText().toString()).equals(assessmentViewModel.getAnswerByFkQuestionUID(current_question.getPk_question_uid()) != null ? assessmentViewModel.getAnswerByFkQuestionUID(current_question.getPk_question_uid()).getSelected_answer(): "")) {
+            Question current_question = questionsList.get(position - 1);
+            if ((radioButton.getText().toString()).equals(assessmentViewModel.getAnswerByFkQuestionUID(current_question.getPk_question_uid()) != null ? assessmentViewModel.getAnswerByFkQuestionUID(current_question.getPk_question_uid()).getSelected_answer() : "")) {
                 radioButton.setChecked(true);
                 break;
             }
@@ -293,7 +315,7 @@ public class PersonalizationFragment extends Fragment {
         if (binding != null) {
             saveSelection();
         }
-        outState.putInt(OnBoardingConfigurationKeys.POSITION.getKey(), position-1);
+        outState.putInt(OnBoardingConfigurationKeys.POSITION.getKey(), position - 1);
     }
 
     @Override

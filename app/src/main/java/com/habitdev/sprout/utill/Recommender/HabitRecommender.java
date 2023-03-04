@@ -8,7 +8,7 @@ import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.Model.Result;
+import com.habitdev.sprout.ui.HabitAssessment.adapter.Model.Result;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;

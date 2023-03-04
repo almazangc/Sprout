@@ -1,4 +1,4 @@
-package com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.Model;
+package com.habitdev.sprout.ui.HabitAssessment.adapter.Model;
 
 import androidx.annotation.NonNull;
 

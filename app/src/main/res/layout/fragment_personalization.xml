@@ -5,125 +5,133 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/LIGHT"
-    android:padding="20dp"
+
     android:weightSum="10"
-    tools:context=".ui.onBoarding.personalizationAssessment.PersonalizationFragment">
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/assessment_progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        app:indicatorColor="@color/WAIKAWA_GREY"
-        app:trackThickness="5dp"
-        tools:max="6"
-        tools:progress="5" />
-
-    <TextView
-        android:id="@+id/lbl_titleMainHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/assessment_progressBar"
-        android:layout_centerHorizontal="true"
-        android:text="@string/personalization"
-        android:textColor="@color/NIGHT"
-        android:textSize="34sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/lbl_subHeader1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lbl_titleMainHeader"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
-        android:text="Please take your time to answers the assessment questionnaire."
-        android:textAlignment="viewStart"
-        android:textColor="@color/NIGHT"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/lbl_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lbl_subHeader1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5sp"
-        android:textColor="@color/NIGHT"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        tools:text="Question: How would you like your text be seen" />
+    android:id="@+id/personalization_relative_layout"
+    tools:context=".ui.HabitAssessment.PersonalizationFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btn_continue"
-        android:layout_below="@id/lbl_question">
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        android:id="@+id/personalization_container">
 
-        <ScrollView
-            android:id="@+id/choices_scroll_view"
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/assessment_progressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:fadeScrollbars="false"
-            android:fillViewport="false"
-            android:scrollbarTrackVertical="@color/WAIKAWA_GREY">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            app:indicatorColor="@color/WAIKAWA_GREY"
+            app:trackThickness="5dp"
+            tools:max="6"
+            tools:progress="5" />
 
-            <RadioGroup
-                android:id="@+id/choices_radio_group"
+        <TextView
+            android:id="@+id/lbl_titleMainHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assessment_progressBar"
+            android:layout_centerHorizontal="true"
+            android:text="@string/personalization"
+            android:textColor="@color/NIGHT"
+            android:textSize="34sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lbl_subHeader1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_titleMainHeader"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:text="Please take your time to answers the assessment questionnaire."
+            android:textAlignment="viewStart"
+            android:textColor="@color/NIGHT"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/lbl_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lbl_subHeader1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5sp"
+            android:textColor="@color/NIGHT"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            tools:text="Question: How would you like your text be seen" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_continue"
+            android:layout_below="@id/lbl_question">
+
+            <ScrollView
+                android:id="@+id/choices_scroll_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:isScrollContainer="true"
-                android:orientation="vertical"
-                android:paddingEnd="5dp">
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fadeScrollbars="false"
+                android:fillViewport="false"
+                android:scrollbarTrackVertical="@color/WAIKAWA_GREY">
 
-                <RadioButton
+                <RadioGroup
+                    android:id="@+id/choices_radio_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_background_radio_button"
-                    android:padding="10dp"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="15dp"
-                    tools:text="Sample Choices" />
+                    android:isScrollContainer="true"
+                    android:orientation="vertical"
+                    android:paddingEnd="5dp">
 
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_background_radio_button"
-                    android:padding="10dp"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="15dp"
-                    tools:text="Sample Choices" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/selector_background_radio_button"
+                        android:padding="10dp"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="15dp"
+                        tools:text="Sample Choices" />
 
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_background_radio_button"
-                    android:padding="10dp"
-                    android:textColor="@color/NIGHT"
-                    android:textSize="15dp"
-                    tools:text="Sample Choices" />
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/selector_background_radio_button"
+                        android:padding="10dp"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="15dp"
+                        tools:text="Sample Choices" />
 
-            </RadioGroup>
-        </ScrollView>
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/selector_background_radio_button"
+                        android:padding="10dp"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="15dp"
+                        tools:text="Sample Choices" />
 
+                </RadioGroup>
+            </ScrollView>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+            android:text="@string/continue_lbl"
+            android:textColor="@color/NIGHT"
+            android:textStyle="bold" />
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/btn_continue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-        android:text="@string/continue_lbl"
-        android:textColor="@color/NIGHT"
-        android:textStyle="bold" />
 </RelativeLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/setting_profile_frame_layout"
@@ -8,259 +8,234 @@
     tools:context=".ui.menu.setting.ui.ProfileFragment">
 
     <RelativeLayout
-        android:id="@+id/setting_profile_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@drawable/background_topbar_view_cloud">
-
-        <TextView
-            android:id="@+id/settingLearnMoreHeader"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="Profile"
-            android:textColor="@color/NIGHT"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <ScrollView
-        android:id="@+id/setting_profile_scrollable_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/setting_profile_save_btn"
-        android:layout_below="@id/setting_profile_top_bar"
-        android:fillViewport="true"
-        android:scrollbars="none">
+        android:id="@+id/setting_profile_container">
 
         <RelativeLayout
+            android:id="@+id/setting_profile_top_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:isScrollContainer="true">
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@drawable/background_topbar_view_cloud">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/setting_profile_img_card_view"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:elevation="12dp"
-                app:cardCornerRadius="100dp">
-
-                <ImageView
-                    android:id="@+id/setting_profile_img_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/setting_profile_lottie_avatar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:minWidth="50dp"
-                    android:minHeight="50dp"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_speed="1" />
-            </androidx.cardview.widget.CardView>
-
-            <Button
-                android:id="@+id/setting_change_profile_photo_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/setting_profile_img_card_view"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-                android:drawableStart="@drawable/ic_upload"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:text="  Change Photo"
-                android:textAllCaps="false"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp"
-                android:textStyle="normal" />
-
-            <EditText
-                android:id="@+id/setting_profile_change_nickname"
+            <TextView
+                android:id="@+id/settingLearnMoreHeader"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/setting_change_profile_photo_btn"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:hint="Edit Profile"
-                android:textAlignment="center"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Profile"
                 android:textColor="@color/NIGHT"
-                android:textColorHint="@color/WAIKAWA_GREY"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/setting_profile_change_nickname_hint"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_change_nickname"
-                android:textAlignment="center"
-                android:textColor="@color/CORAL_RED"
-                android:textSize="16sp"
-                tools:text="" />
-
-            <TextView
-                android:id="@+id/setting_profile_identity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_change_nickname_hint"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:text="\u2022 Identity"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
+        </RelativeLayout>
 
-            <TextView
-                android:id="@+id/setting_profile_identity_lbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_change_nickname_hint"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_toEndOf="@id/setting_profile_identity"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp"
-                tools:text="Male" />
-
-            <TextView
-                android:id="@+id/setting_profile_date_installed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_identity"
-                android:layout_marginTop="5dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:text="\u2022 Elapsed time since installed"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/setting_profile_date_installed_lbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_date_installed"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="15dp"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp"
-                tools:text="1 year 2 Day 11 Hours 5 Minutes 43 Seconds" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/setting_profile_change_daily_notification_switch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_date_installed_lbl"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginTop="5dp"
-                android:text="\u2022 Daily Notification"
-                android:textColor="@color/NIGHT"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+        <ScrollView
+            android:id="@+id/setting_profile_scrollable_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/setting_profile_save_btn"
+            android:layout_below="@id/setting_profile_top_bar"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
             <RelativeLayout
-                android:id="@+id/setting_profile_retake_assessment_tool_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_change_daily_notification_switch"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:isScrollContainer="true">
 
-                <TextView
-                    android:id="@+id/setting_profile_retake_assessment_tool"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/setting_profile_img_card_view"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:elevation="12dp"
+                    app:cardCornerRadius="100dp">
+
+                    <ImageView
+                        android:id="@+id/setting_profile_img_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/setting_profile_lottie_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:minWidth="50dp"
+                        android:minHeight="50dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_speed="1" />
+                </androidx.cardview.widget.CardView>
+
+                <Button
+                    android:id="@+id/setting_change_profile_photo_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
+                    android:layout_below="@+id/setting_profile_img_card_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+                    android:drawableStart="@drawable/ic_upload"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:text="  Change Photo"
+                    android:textAllCaps="false"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/setting_profile_change_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/setting_change_profile_photo_btn"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
-                    android:text="\u2022 Assesssment Tool"
+                    android:hint="Edit Profile"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textColorHint="@color/WAIKAWA_GREY"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/setting_profile_change_nickname_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/setting_profile_change_nickname"
+                    android:textAlignment="center"
+                    android:textColor="@color/CORAL_RED"
+                    android:textSize="16sp"
+                    tools:text="" />
+
+                <TextView
+                    android:id="@+id/setting_profile_identity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/setting_profile_change_nickname_hint"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="\u2022 Identity"
                     android:textColor="@color/NIGHT"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/setting_profile_retake_assessment_tool_lbl"
+                <TextView
+                    android:id="@+id/setting_profile_identity_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignEnd="@id/setting_profile_retake_assessment_tool"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginLeft="15dp"
+                    android:layout_below="@id/setting_profile_change_nickname_hint"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
-                    android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:padding="10dp"
-                    android:text="Take Assessment"
-                    android:textAllCaps="false"
-                    android:textSize="16dp" />
+                    android:layout_toEndOf="@id/setting_profile_identity"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="16sp"
+                    tools:text="Male" />
+
+                <TextView
+                    android:id="@+id/setting_profile_date_installed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/setting_profile_identity"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:text="\u2022 Elapsed time since installed"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/setting_profile_date_installed_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/setting_profile_date_installed"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="16sp"
+                    tools:text="1 year 2 Day 11 Hours 5 Minutes 43 Seconds" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/setting_profile_change_daily_notification_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/setting_profile_date_installed_lbl"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="\u2022 Daily Notification"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/setting_profile_retake_assessment_tool_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/setting_profile_change_daily_notification_switch"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/setting_profile_retake_assessment_tool_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:text="\u2022 Assesssment Tool"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/setting_profile_retake_assessment_tool_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignEnd="@id/setting_profile_retake_assessment_tool_lbl"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="10dp"
+                        android:text="Take Assessment"
+                        android:textAllCaps="false"
+                        android:textSize="16sp" />
+                </RelativeLayout>
             </RelativeLayout>
+        </ScrollView>
 
-            <Button
-                android:id="@+id/btn_schedule_notfi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/setting_profile_retake_assessment_tool_layout"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:padding="10dp"
-                android:text="Schedule Notifcation"
-                android:textAllCaps="false"
-                android:visibility="gone"
-                android:textSize="16dp" />
+        <Button
+            android:id="@+id/setting_profile_save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+            android:text="Save Profile"
+            android:textAllCaps="false"
+            android:textColor="@color/NIGHT"
+            android:textSize="16sp"
+            android:textStyle="normal" />
 
-            <Button
-                android:id="@+id/btn_cancel_schedule_notfi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btn_schedule_notfi"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:padding="10dp"
-                android:visibility="gone"
-                android:text=" Cancel Schedule Notifcation"
-                android:textAllCaps="false"
-                android:textSize="16dp" />
-        </RelativeLayout>
-    </ScrollView>
-
-    <Button
-        android:id="@+id/setting_profile_save_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-        android:text="Save Profile"
-        android:textAllCaps="false"
-        android:textColor="@color/NIGHT"
-        android:textSize="16sp"
-        android:textStyle="normal" />
-</RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>

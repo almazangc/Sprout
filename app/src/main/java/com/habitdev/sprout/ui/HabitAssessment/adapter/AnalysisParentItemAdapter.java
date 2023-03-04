@@ -1,4 +1,4 @@
-package com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter;
+package com.habitdev.sprout.ui.HabitAssessment.adapter;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;

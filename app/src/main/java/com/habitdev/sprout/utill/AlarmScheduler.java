@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
+import android.net.Uri;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -145,7 +148,7 @@ public class AlarmScheduler {
             if (morningHour != -1 && morningMinute != -1) {
                 Intent intent = new Intent(context, AlarmReceiver.class);
                 intent.putExtra("message", "message");
-                PendingIntent morningPendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+                PendingIntent morningPendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
                 AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 alarmMgr.cancel(morningPendingIntent);
@@ -179,7 +182,7 @@ public class AlarmScheduler {
             if (eveningHour != -1 && eveningMinute != -1) {
                 Intent intent = new Intent(context, AlarmReceiver.class);
                 intent.putExtra("type", "evening");
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
                 AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 alarmMgr.cancel(pendingIntent);
@@ -193,12 +196,42 @@ public class AlarmScheduler {
     }
 
 
-    private void scheduleAlarm(Calendar calendar, String type, String message) {
+//    private void scheduleAlarm(Calendar calendar, String type, String message) {
+//
+//        final String SDFPattern = "yyyy-MM-dd HH:mm:ss"; //2000-01-01 00:00:00
+//        SimpleDateFormat dateFormat = new SimpleDateFormat(SDFPattern);
+//
+//        String formattedDate = dateFormat.format(calendar.getTime());
+//        Log.d("tag", "scheduleAlarm: " + formattedDate);
+//
+//        Intent intent = new Intent(context, AlarmReceiver.class);
+//        intent.setAction(type);
+//        intent.putExtra("message", message);
+//
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+//
+//        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        alarmMgr.setExactAndAllowWhileIdle(
+//                AlarmManager.RTC_WAKEUP,
+//                calendar.getTimeInMillis(),
+//                pendingIntent
+//        );
+//
+//        if (type.equals("morning")) {
+//            alarmMgrMorning = alarmMgr;
+//            alarmIntentMorning = pendingIntent;
+//        } else if (type.equals("evening")) {
+//            alarmMgrEvening = alarmMgr;
+//            alarmIntentEvening = pendingIntent;
+//        }
+//    }
 
-        // create a SimpleDateFormat object with the desired format
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        // use the format() method to convert the Calendar object to a string
+    public void scheduleAlarm(Calendar calendar, String type, String message) {
+
+        final String SDFPattern = "yyyy-MM-dd HH:mm:ss"; //2000-01-01 00:00:00
+        SimpleDateFormat dateFormat = new SimpleDateFormat(SDFPattern);
+
         String formattedDate = dateFormat.format(calendar.getTime());
         Log.d("tag", "scheduleAlarm: " + formattedDate);
 
@@ -206,18 +239,42 @@ public class AlarmScheduler {
         intent.setAction(type);
         intent.putExtra("message", message);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        // Check if the app has the necessary permission to use setExactAndAllowWhileIdle
+        if (!isIgnoringBatteryOptimizations()) {
+            requestBatteryOptimizationsIgnored();
+        } else {
+            // Schedule the alarm with setExactAndAllowWhileIdle
+            Log.d("tag", "scheduleAlarm: scheduling alarm");
+            AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            alarmMgr.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    pendingIntent
+            );
 
-        if (type.equals("morning")) {
-            alarmMgrMorning = alarmMgr;
-            alarmIntentMorning = pendingIntent;
-        } else if (type.equals("evening")) {
-            alarmMgrEvening = alarmMgr;
-            alarmIntentEvening = pendingIntent;
+            if (type.equals("morning")) {
+                alarmMgrMorning = alarmMgr;
+                alarmIntentMorning = pendingIntent;
+            } else if (type.equals("evening")) {
+                alarmMgrEvening = alarmMgr;
+                alarmIntentEvening = pendingIntent;
+            }
         }
+    }
+
+    private boolean isIgnoringBatteryOptimizations() {
+        Log.d("tag", "isIgnoringBatteryOptimizations: checking battery optimization");
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        return powerManager.isIgnoringBatteryOptimizations(context.getPackageName());
+    }
+
+    private void requestBatteryOptimizationsIgnored() {
+        Log.d("tag", "scheduleAlarm: requesting battery optimization");
+        Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+        intent.setData(Uri.parse("package:" + context.getPackageName()));
+        context.startActivity(intent);
     }
 
     public void turnOffDailyNotification() {

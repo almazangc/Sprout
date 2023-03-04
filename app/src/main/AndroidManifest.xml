@@ -3,21 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.habitdev.sprout">
     <!-- Read and Write External Storage -->
+    <!-- Use for profile image update and access -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <!--Internet Connection Permision-->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <!--Camera Access Request-->
     <uses-permission android:name="android.permission.CAMERA"/>
 
-<!--    &lt;!&ndash;Alarm Manager for Notification&ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />-->
+    <!--Internet Connection Permision-->
+    <!-- Use for checking network availability to fetch updated firebase data and update with the latest-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!--Alarm Manager for Notification-->
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <!--Use for application daily notification reminder for morning and evening not to forget updating progress-->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -55,16 +54,16 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-<!--        For broadcast reciever-->
+        <!--For broadcast reciever manifest-->
         <receiver android:name=".utill.AlarmReceiver"
             android:exported="true"
+            android:enabled="true"
             android:process=":remote"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            android:permission="android.intent.action.BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="morning"/>
                 <action android:name="evening"/>
             </intent-filter>
         </receiver>
-
     </application>
 </manifest>

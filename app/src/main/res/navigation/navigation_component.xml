@@ -149,7 +149,7 @@
     </fragment>
     <fragment
         android:id="@+id/personalizationFragment"
-        android:name="com.habitdev.sprout.ui.onBoarding.personalizationAssessment.PersonalizationFragment"
+        android:name="com.habitdev.sprout.ui.HabitAssessment.PersonalizationFragment"
         android:label="fragment_personalization"
         tools:layout="@layout/fragment_personalization">
         <action
@@ -160,7 +160,7 @@
     </fragment>
     <fragment
         android:id="@+id/analysisFragment"
-        android:name="com.habitdev.sprout.ui.onBoarding.personalizationAssessment.AnalysisFragment"
+        android:name="com.habitdev.sprout.ui.HabitAssessment.AnalysisFragment"
         android:label="fragment_analysis"
         tools:layout="@layout/fragment_analysis" >
         <action

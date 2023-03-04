@@ -4,149 +4,156 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.onBoarding.personalizationAssessment.AnalysisFragment">
+    android:id="@+id/analysis_relative_layout"
+    tools:context=".ui.HabitAssessment.AnalysisFragment">
 
     <RelativeLayout
-        android:id="@+id/analysis_topbar"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@drawable/background_top_bar_view_waikawa_grey">
+        android:layout_height="match_parent"
+        android:id="@+id/analysis_container">
 
-        <TextView
-            android:id="@+id/analysis_topbar_lbl"
+        <RelativeLayout
+            android:id="@+id/analysis_topbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="RESULT"
-            android:textColor="@color/NIGHT"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@drawable/background_top_bar_view_waikawa_grey">
 
-    <ScrollView
-        android:id="@+id/analysis_scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/analysis_continue"
-        android:layout_below="@+id/analysis_topbar"
-        android:fillViewport="true"
-        android:scrollbars="none">
+            <TextView
+                android:id="@+id/analysis_topbar_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="RESULT"
+                android:textColor="@color/NIGHT"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/analysis_scrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:isScrollContainer="true"
-            android:orientation="vertical">
+            android:layout_above="@id/analysis_continue"
+            android:layout_below="@+id/analysis_topbar"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-            <TextView
-                android:id="@+id/analysis_result_lbl"
-                style="@style/textViewSubHeader"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:text="Place Holder MESSAGE for the recommended habit based on assessment result using knowledge based recommender, with the used of Rule-based systems Algortihm. \n\n A rule-based recommender system uses a set of predefined if-then rules to make recommendations. \n\n  For example, if a user has meet the necessary points the habit will be suggested. It uses the knowledge of the user attributes and characteristics to decide what to habit recommend."
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="13sp" />
+                android:isScrollContainer="true"
+                android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/analysis_drop_item_input"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textSubHeader"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/analysis_drop_item"
+                <TextView
+                    android:id="@+id/analysis_result_lbl"
+                    style="@style/textViewSubHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:hint="Predefined Habits"
-                    android:inputType="none"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="Place Holder MESSAGE for the recommended habit based on assessment result using knowledge based recommender, with the used of Rule-based systems Algortihm. \n\n A rule-based recommender system uses a set of predefined if-then rules to make recommendations. \n\n  For example, if a user has meet the necessary points the habit will be suggested. It uses the knowledge of the user attributes and characteristics to decide what to habit recommend."
+                    android:textAlignment="center"
                     android:textColor="@color/NIGHT"
                     android:textSize="13sp" />
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/analysis_habit_title_lbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:padding="5dp"
-                android:text="Habit"
-                android:textColor="@color/NIGHT"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/analysis_drop_item_input"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textSubHeader"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp">
 
-            <TextView
-                android:id="@+id/analysis_habit_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:ellipsize="end"
-                android:maxLines="20"
-                android:padding="5dp"
-                android:textColor="@color/NIGHT"
-                android:textSize="13sp"
-                tools:text="habit title placeholder" />
+                    <AutoCompleteTextView
+                        android:id="@+id/analysis_drop_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:hint="Predefined Habits"
+                        android:inputType="none"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="13sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/analysis_habit_descrition_lbl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:padding="5dp"
-                android:text="Description"
-                android:textColor="@color/NIGHT"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/analysis_habit_title_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:padding="5dp"
+                    android:text="Habit"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/analysis_habit_descrition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:ellipsize="end"
-                android:maxLines="20"
-                android:padding="5dp"
-                android:textColor="@color/NIGHT"
-                android:textSize="13sp"
-                tools:text="description placeholder" />
+                <TextView
+                    android:id="@+id/analysis_habit_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="20"
+                    android:padding="5dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    tools:text="habit title placeholder" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/analysis_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/menu"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="10dp"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:spanCount="2"
-                tools:listitem="@layout/adapter_analysis_parent_item" />
-        </LinearLayout>
-    </ScrollView>
+                <TextView
+                    android:id="@+id/analysis_habit_descrition_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:padding="5dp"
+                    android:text="Description"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/analysis_continue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
-        android:text="@string/continue_lbl"
-        android:textColor="@color/NIGHT"
-        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/analysis_habit_descrition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:ellipsize="end"
+                    android:maxLines="20"
+                    android:padding="5dp"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    tools:text="description placeholder" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/analysis_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/menu"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="10dp"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    app:spanCount="2"
+                    tools:listitem="@layout/adapter_analysis_parent_item" />
+            </LinearLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/analysis_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+            android:text="@string/continue_lbl"
+            android:textColor="@color/NIGHT"
+            android:textStyle="bold" />
+    </RelativeLayout>
 </RelativeLayout>

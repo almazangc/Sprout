@@ -1,4 +1,4 @@
-package com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter;
+package com.habitdev.sprout.ui.HabitAssessment.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.ui.onBoarding.personalizationAssessment.adapter.Model.Result;
+import com.habitdev.sprout.ui.HabitAssessment.adapter.Model.Result;
 
 import java.text.DecimalFormat;
 import java.util.List;

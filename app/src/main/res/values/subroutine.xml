@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="sample_subroutine_title">
-        Subroutine Title
-    </string>
-    <string name="sample_subroutine_description">
-        This is a sample subroutine description.
-    </string>
-</resources>
