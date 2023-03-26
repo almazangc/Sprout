@@ -3,7 +3,6 @@ package com.habitdev.sprout.ui.menu.setting.adapter;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,6 @@ import androidx.recyclerview.widget.ListUpdateCallback;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.quotes.model.Quotes;
-import com.habitdev.sprout.ui.menu.journal.adapter.JournalNoteItemAdapter;
-import com.habitdev.sprout.utill.NotesDiffUtil;
 import com.habitdev.sprout.utill.QuotesDiffUtil;
 
 import java.util.ArrayList;
@@ -44,7 +41,7 @@ public class QuotesAdapter extends ArrayAdapter<Quotes> {
         View itemView = convertView;
         if (itemView == null) {
             itemView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.adapter_setting_terminal_quotes_item, parent, false);
+                    .inflate(R.layout.adapter_setting_achievement_quotes_item, parent, false);
         }
 
         Quotes quotes = oldQuotesList.get(position);

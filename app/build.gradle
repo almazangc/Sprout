@@ -156,5 +156,5 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.4'
 
     //https://github.com/tiagohm/MarkdownView
-    implementation 'com.github.tiagohm.MarkdownView:library:0.19.0'
+//    implementation 'com.github.tiagohm.MarkdownView:library:0.19.0'
 }

@@ -29,9 +29,6 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "modifiable")
     private final boolean modifiable;
 
-    @ColumnInfo(name = "abstinence")
-    private final int abstinence;
-
     @ColumnInfo(name = "relapse")
     private int relapse;
 
@@ -50,6 +47,9 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "downvote")
     private int downvote;
 
+    @ColumnInfo(name = "vote_status")
+    private int vote_status;
+
     @Ignore
     public Habits(String habit, String description, String color, Boolean onReform, Boolean modifiable) {
         this.habit = habit;
@@ -57,63 +57,63 @@ public class Habits implements Serializable {
         this.color = color;
         this.onReform = onReform;
         this.modifiable = modifiable;
-        this.abstinence = 0;
         this.relapse = 0;
         this.date_started = null;
         this.total_subroutine = 0;
         this.completed_subroutine = 0;
         this.upvote = 0;
         this.downvote = 0;
+        this.vote_status = 0;
     }
 
-    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int abstinence, int relapse, String date_started, int total_subroutine, int completed_subroutine, int upvote, int downvote) {
+    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int relapse, String date_started, int total_subroutine, int completed_subroutine, int upvote, int downvote, int vote_status) {
         this.pk_habit_uid = pk_habit_uid;
         this.habit = habit;
         this.description = description;
         this.color = color;
         this.onReform = onReform;
         this.modifiable = modifiable;
-        this.abstinence = abstinence;
         this.relapse = relapse;
         this.date_started = date_started;
         this.total_subroutine = total_subroutine;
         this.completed_subroutine = completed_subroutine;
         this.upvote = upvote;
         this.downvote = downvote;
+        this.vote_status = vote_status;
     }
 
     @Ignore
-    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int abstinence, int relapse, String date_started, int total_subroutine, int completed_subroutine) {
+    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int relapse, String date_started, int total_subroutine, int completed_subroutine) {
         this.pk_habit_uid = pk_habit_uid;
         this.habit = habit;
         this.description = description;
         this.color = color;
         this.onReform = onReform;
         this.modifiable = modifiable;
-        this.abstinence = abstinence;
         this.relapse = relapse;
         this.date_started = date_started;
         this.total_subroutine = total_subroutine;
         this.completed_subroutine = completed_subroutine;
         this.upvote = 0;
         this.downvote = 0;
+        this.vote_status = 0;
     }
 
     @Ignore
-    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int abstinence, String date_started, int total_subroutine) {
+    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, String date_started, int total_subroutine) {
         this.pk_habit_uid = pk_habit_uid;
         this.habit = habit;
         this.description = description;
         this.color = color;
         this.onReform = onReform;
         this.modifiable = modifiable;
-        this.abstinence = abstinence;
         this.relapse = 0;
         this.date_started = date_started;
         this.total_subroutine = total_subroutine;
         this.completed_subroutine = 0;
         this.upvote = 0;
         this.downvote = 0;
+        this.vote_status = 0;
     }
 
 
@@ -129,13 +129,13 @@ public class Habits implements Serializable {
         this.color = originalHabit.color;
         this.onReform = originalHabit.onReform;
         this.modifiable = originalHabit.modifiable;
-        this.abstinence = originalHabit.abstinence;
         this.relapse = originalHabit.relapse;
         this.date_started = originalHabit.date_started;
         this.total_subroutine = originalHabit.total_subroutine;
         this.completed_subroutine = originalHabit.completed_subroutine;
         this.upvote = originalHabit.upvote;
         this.downvote = originalHabit.downvote;
+        this.vote_status = originalHabit.vote_status;
     }
 
     @NonNull
@@ -145,12 +145,16 @@ public class Habits implements Serializable {
                 "pk_habit_uid=" + pk_habit_uid +
                 ", habit='" + habit + '\'' +
                 ", description='" + description + '\'' +
+                ", color='" + color + '\'' +
                 ", onReform=" + onReform +
                 ", modifiable=" + modifiable +
-                ", abstinence=" + abstinence +
                 ", relapse=" + relapse +
                 ", date_started='" + date_started + '\'' +
                 ", total_subroutine=" + total_subroutine +
+                ", completed_subroutine=" + completed_subroutine +
+                ", upvote=" + upvote +
+                ", downvote=" + downvote +
+                ", vote_status=" + vote_status +
                 '}';
     }
 
@@ -196,10 +200,6 @@ public class Habits implements Serializable {
 
     public boolean isModifiable() {
         return modifiable;
-    }
-
-    public int getAbstinence() {
-        return abstinence;
     }
 
     public int getRelapse() {
@@ -248,6 +248,14 @@ public class Habits implements Serializable {
 
     public void setDownvote(int downvote) {
         this.downvote = downvote;
+    }
+
+    public int getVote_status() {
+        return vote_status;
+    }
+
+    public void setVote_status(int vote_status) {
+        this.vote_status = vote_status;
     }
 }
 

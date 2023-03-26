@@ -197,7 +197,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/NIGHT"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:textStyle="italic" />
 
             <androidx.cardview.widget.CardView
@@ -274,7 +274,7 @@
                 android:layout_marginStart="15dp"
                 android:text="Required*"
                 android:textColor="@color/CORAL_RED"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/note_content_card_view"

@@ -295,13 +295,13 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/terminal_btn"
+                            android:id="@+id/achievements_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_row="2"
                             android:layout_rowWeight="1"
                             android:layout_column="1"
-                            android:layout_columnWeight="1"
+                            android:layout_columnWeight=".7"
                             android:layout_margin="6dp"
                             android:background="@drawable/background_btn_sunflower_selector">
 
@@ -323,7 +323,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:text="Terminal"
+                                    android:text="Achievement"
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textColor="@color/NIGHT"

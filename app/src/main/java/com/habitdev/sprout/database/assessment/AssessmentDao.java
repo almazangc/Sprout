@@ -61,11 +61,11 @@ public interface AssessmentDao {
     @Update
     void updateChoice(Choices choices);
 
-    @Insert
-    void insertAnswer(Answer... answers);
-
     @Update
     void updateAnswer(Answer... answers);
+
+    @Insert
+    void insertAnswer(Answer... answers);
 
     @Delete
     void deleteQuestion(Question question);

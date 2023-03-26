@@ -12,11 +12,16 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.habitdev.sprout.database.habit.firestore.HabitFireStoreViewModel;
+import com.habitdev.sprout.database.habit.firestore.SubroutineFireStoreViewModel;
+import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
+import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
@@ -26,6 +31,7 @@ import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapte
 import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SubroutineFragment extends Fragment
         implements
@@ -77,6 +83,8 @@ public class SubroutineFragment extends Fragment
     private void setRecyclerViewAdapter() {
         if (binding.subroutineRecyclerView.getAdapter() == null) {
             HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+            SubroutineFireStoreViewModel subroutineFireStoreViewModel = new ViewModelProvider(requireActivity()).get(SubroutineFireStoreViewModel.class);
+
             binding.subroutineRecyclerView.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
             SubroutineParentItemAdapter parentAdapterItem = new SubroutineParentItemAdapter();
@@ -87,7 +95,10 @@ public class SubroutineFragment extends Fragment
             parentAdapterItem.setmOnClickListener(this);
             parentAdapterItem.setSubroutineLifecycleOwner(getViewLifecycleOwner());
             parentAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+            parentAdapterItem.setSubroutineFireStoreViewModel(subroutineFireStoreViewModel);
+
             parentAdapterItem.setArrayList(arrayList);
+
 
             binding.subroutineRecyclerView.setAdapter(parentAdapterItem);
 

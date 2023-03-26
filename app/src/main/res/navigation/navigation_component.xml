@@ -149,7 +149,7 @@
     </fragment>
     <fragment
         android:id="@+id/personalizationFragment"
-        android:name="com.habitdev.sprout.ui.HabitAssessment.PersonalizationFragment"
+        android:name="com.habitdev.sprout.ui.habit_assessment.PersonalizationFragment"
         android:label="fragment_personalization"
         tools:layout="@layout/fragment_personalization">
         <action
@@ -160,7 +160,7 @@
     </fragment>
     <fragment
         android:id="@+id/analysisFragment"
-        android:name="com.habitdev.sprout.ui.HabitAssessment.AnalysisFragment"
+        android:name="com.habitdev.sprout.ui.habit_assessment.AnalysisFragment"
         android:label="fragment_analysis"
         tools:layout="@layout/fragment_analysis" >
         <action
@@ -293,7 +293,7 @@
             app:destination="@id/analyticsFragment" />
         <action
             android:id="@+id/action_settingsFragment_to_terminalFragment"
-            app:destination="@id/terminalFragment" />
+            app:destination="@id/Achievement_Fragment" />
         <action
             android:id="@+id/action_settingsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -442,7 +442,7 @@
         android:label="fragment_theme"
         tools:layout="@layout/fragment_theme" >
         <action
-            android:id="@+id/action_themeFragment_to_settingsFragment"
+            android:id="@+id/action_achievementFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
@@ -455,12 +455,12 @@
             app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/terminalFragment"
-        android:name="com.habitdev.sprout.ui.menu.setting.ui.TerminalFragment"
-        android:label="fragment_terminal"
-        tools:layout="@layout/fragment_terminal" >
+        android:id="@+id/Achievement_Fragment"
+        android:name="com.habitdev.sprout.ui.menu.setting.ui.AchievementsFragment"
+        android:label="fragment_achievement"
+        tools:layout="@layout/fragment_achievements">
         <action
-            android:id="@+id/action_terminalFragment_to_settingsFragment"
+            android:id="@+id/action_achievementFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
     </fragment>
     <fragment

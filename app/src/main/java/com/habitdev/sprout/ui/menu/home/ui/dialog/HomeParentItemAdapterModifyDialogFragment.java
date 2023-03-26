@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +14,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.databinding.DialogFragmentHomeParentItemAdapterModifyBinding;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 
+import java.util.List;
 import java.util.Objects;
 
 public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
@@ -181,31 +186,34 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
     }
 
     public void showConfirmUpdateDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setMessage("Apply change's?")
+        new AlertDialog.Builder(requireContext())
+                .setMessage("Apply change's?")
                 .setCancelable(false)
-                .setPositiveButton("Sure", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        habitOnModify.setHabit(binding.homeParentItemAdapterModifyTitle.getText().toString().trim());
-                        habitOnModify.setDescription(binding.homeParentItemAdapterModifyDescription.getText().toString().trim());
-                        HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
-                        habitWithSubroutinesViewModel.updateHabit(habitOnModify);
-                        adapter_ref.notifyItemChanged(position);
+                .setPositiveButton("Yes", (dialogInterface, i) -> {
+                    habitOnModify.setHabit(binding.homeParentItemAdapterModifyTitle.getText().toString().trim());
+                    habitOnModify.setDescription(binding.homeParentItemAdapterModifyDescription.getText().toString().trim());
+                    HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+                    habitWithSubroutinesViewModel.updateHabit(habitOnModify);
+                    adapter_ref.notifyItemChanged(position);
 
-                        clearSharedPref();
-                        if (mOnHabitModifyListener != null) mOnHabitModifyListener.onDialogDismiss();
-                        Objects.requireNonNull(getDialog()).dismiss(); //dismiss the dialog fragment
-                    }
+                    //Show snackbar notif
+                    Snackbar.make(binding.getRoot(), Html.fromHtml("<b> " + habit_title_snapshot + " has been updated!"), Snackbar.LENGTH_LONG)
+                            .setAction("Dismiss", view -> {
+                                //Dismiss snack bar
+                            })
+                            .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                            .setTextColor(getResources().getColor(R.color.NIGHT))
+                            .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                            .show();
+
+                    clearSharedPref();
+
+                    if (mOnHabitModifyListener != null) mOnHabitModifyListener.onDialogDismiss();
+                    Objects.requireNonNull(getDialog()).dismiss(); //dismiss the dialog fragment
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+                .setNegativeButton("No", null)
+                .show();
     }
-
 
     private void setUpdateVisibility() {
         if (binding.homeParentItemAdapterModifyTitle.getText().toString().trim().equals(habit_title_snapshot) &&

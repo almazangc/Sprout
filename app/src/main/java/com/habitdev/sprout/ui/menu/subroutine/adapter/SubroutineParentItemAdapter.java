@@ -15,31 +15,35 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.firestore.SubroutineFireStoreViewModel;
+import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.utill.HabitDiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//User List Adapter
 public class SubroutineParentItemAdapter extends RecyclerView.Adapter<SubroutineParentItemAdapter.ParentItemViewHolder> {
 
     private List<Habits> oldHabitList;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private SubroutineFireStoreViewModel subroutineFireStoreViewModel;
     private LifecycleOwner subroutineLifecycleOwner;
     private ArrayList<Integer> arrayList = new ArrayList<>();
 
     public interface OnClickListener {
         void onModifySubroutine(Habits habit);
+
         void isExapanded(int position);
+
         void isHidden(int position);
     }
 
@@ -57,6 +61,10 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         this.habitWithSubroutinesViewModel = habitWithSubroutinesViewModel;
     }
 
+    public void setSubroutineFireStoreViewModel(SubroutineFireStoreViewModel subroutineFireStoreViewModel) {
+        this.subroutineFireStoreViewModel = subroutineFireStoreViewModel;
+    }
+
     public void setSubroutineLifecycleOwner(LifecycleOwner subroutineLifecycleOwner) {
         this.subroutineLifecycleOwner = subroutineLifecycleOwner;
     }
@@ -65,7 +73,8 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         this.arrayList = arrayList;
     }
 
-    public SubroutineParentItemAdapter() {}
+    public SubroutineParentItemAdapter() {
+    }
 
     @NonNull
     @Override
@@ -106,9 +115,15 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
         if (holder.childRecycleView.getAdapter() == null) {
             List<Subroutines> habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
-            SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter();
+            subroutineFireStoreViewModel.fetchHabit();
+
+            SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter(habitWithSubroutinesViewModel.getHabitByUID(uid).isModifiable());
             childAdapterItem.setOldSubroutineList(new ArrayList<>(habitWithSubroutines));
+            childAdapterItem.setOldSubroutineFireStoreList(subroutineFireStoreViewModel.getData());
+            subroutineFireStoreViewModel.getLiveData().observe(subroutineLifecycleOwner, childAdapterItem::setOldSubroutineFireStoreList);
             childAdapterItem.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+            childAdapterItem.setSubroutineFireStoreViewModel(subroutineFireStoreViewModel);
+
             holder.childRecycleView.setAdapter(childAdapterItem);
 
             if (arrayList != null) {

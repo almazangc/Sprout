@@ -21,12 +21,11 @@ import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentSettingBinding;
 import com.habitdev.sprout.enums.SettingConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.AboutUsFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.LearnMoreFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.TechStackInfoFragment;
-import com.habitdev.sprout.ui.menu.setting.ui.TerminalFragment;
+import com.habitdev.sprout.ui.menu.setting.ui.AchievementsFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ThemeFragment;
 
 import java.util.Arrays;
@@ -42,19 +41,19 @@ public class SettingFragment extends Fragment implements
         AboutUsFragment.OnReturnSetting,
         LearnMoreFragment.OnReturnSetting,
         TechStackInfoFragment.OnReturnSetting,
-        TerminalFragment.OnReturnSetting {
+        AchievementsFragment.OnReturnSetting {
 
     private FragmentSettingBinding binding;
     private UserViewModel userViewModel;
 
-    private static final ProfileFragment profileFragment = new ProfileFragment();
-    private static final ThemeFragment themeFragment = new ThemeFragment();
-    private static final AboutUsFragment aboutUsFragment = new AboutUsFragment();
-    private static final LearnMoreFragment learnMoreFragment = new LearnMoreFragment();
-    private static final TechStackInfoFragment techStackInfoFragment = new TechStackInfoFragment();
-    private static final TerminalFragment terminalFragment = new TerminalFragment();
+    private static final ProfileFragment PROFILE_FRAGMENT = new ProfileFragment();
+    private static final ThemeFragment THEME_FRAGMENT = new ThemeFragment();
+    private static final AboutUsFragment ABOUT_US_FRAGMENT = new AboutUsFragment();
+    private static final LearnMoreFragment LEARN_MORE_FRAGMENT = new LearnMoreFragment();
+    private static final TechStackInfoFragment TECH_STACK_INFO_FRAGMENT = new TechStackInfoFragment();
+    private static final AchievementsFragment ACHIEVEMENTS_FRAGMENT = new AchievementsFragment();
 
-    private static boolean isOnProfileTab, isOnThemeTab, isOnStackInfoTab, isOnLearnMoreInfoTab, isOnAboutUsTab, isOnTerminalTab;
+    private static boolean isOnProfileTab, isOnThemeTab, isOnStackInfoTab, isOnLearnMoreInfoTab, isOnAboutUsTab, isOnAchievementsTab;
 
     private static User user;
 
@@ -64,12 +63,12 @@ public class SettingFragment extends Fragment implements
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        profileFragment.setmOnReturnSetting(this);
-        themeFragment.setmOnReturnSetting(this);
-        aboutUsFragment.setmOnReturnSetting(this);
-        learnMoreFragment.setmOnReturnSetting(this);
-        techStackInfoFragment.setmOnReturnSetting(this);
-        terminalFragment.setmOnReturnSetting(this);
+        PROFILE_FRAGMENT.setmOnReturnSetting(this);
+        THEME_FRAGMENT.setmOnReturnSetting(this);
+        ABOUT_US_FRAGMENT.setmOnReturnSetting(this);
+        LEARN_MORE_FRAGMENT.setmOnReturnSetting(this);
+        TECH_STACK_INFO_FRAGMENT.setmOnReturnSetting(this);
+        ACHIEVEMENTS_FRAGMENT.setmOnReturnSetting(this);
     }
 
     @Override
@@ -88,33 +87,33 @@ public class SettingFragment extends Fragment implements
 
         binding.editProfile.setOnClickListener(view -> {
             isOnProfileTab = true;
-            changeFragment(profileFragment);
+            changeFragment(PROFILE_FRAGMENT);
         });
 
         binding.selectThemeBtn.setOnClickListener(view -> {
             isOnThemeTab = true;
-            changeFragment(themeFragment);
+            changeFragment(THEME_FRAGMENT);
         });
 
         binding.aboutUsBtn.setOnClickListener(view -> {
             isOnAboutUsTab = true;
-            changeFragment(aboutUsFragment);
+            changeFragment(ABOUT_US_FRAGMENT);
         });
 
         binding.learnMoreBtn.setOnClickListener(view -> {
             isOnLearnMoreInfoTab = true;
-            changeFragment(learnMoreFragment);
+            changeFragment(LEARN_MORE_FRAGMENT);
 
         });
 
         binding.techStackInfoBtn.setOnClickListener(view -> {
             isOnStackInfoTab = true;
-            changeFragment(techStackInfoFragment);
+            changeFragment(TECH_STACK_INFO_FRAGMENT);
         });
 
-        binding.terminalBtn.setOnClickListener(view -> {
-            isOnTerminalTab = true;
-            changeFragment(terminalFragment);
+        binding.achievementsBtn.setOnClickListener(view -> {
+            isOnAchievementsTab = true;
+            changeFragment(ACHIEVEMENTS_FRAGMENT);
         });
 
         onBackPress();
@@ -197,40 +196,40 @@ public class SettingFragment extends Fragment implements
 
     @Override
     public void returnFromProfileToSetting() {
-        returnFromFragmentToSetting(profileFragment);
+        returnFromFragmentToSetting(PROFILE_FRAGMENT);
         updateProfile(user);
         isOnProfileTab = false;
     }
 
     @Override
     public void returnFromThemeToSetting() {
-        returnFromFragmentToSetting(themeFragment);
+        returnFromFragmentToSetting(THEME_FRAGMENT);
         isOnThemeTab = false;
     }
 
     @Override
     public void returnFromTechStackInfoToSetting() {
-        returnFromFragmentToSetting(techStackInfoFragment);
+        returnFromFragmentToSetting(TECH_STACK_INFO_FRAGMENT);
         isOnStackInfoTab = false;
     }
 
     @Override
     public void returnFromLearnMoreToSetting() {
-        returnFromFragmentToSetting(learnMoreFragment);
+        returnFromFragmentToSetting(LEARN_MORE_FRAGMENT);
         isOnLearnMoreInfoTab = false;
     }
 
     @Override
     public void returnFromAboutUsToSetting() {
-        returnFromFragmentToSetting(aboutUsFragment);
+        returnFromFragmentToSetting(ABOUT_US_FRAGMENT);
         isOnAboutUsTab = false;
     }
 
 
     @Override
     public void returnFromTerminalToSetting() {
-        returnFromFragmentToSetting(terminalFragment);
-        isOnTerminalTab = false;
+        returnFromFragmentToSetting(ACHIEVEMENTS_FRAGMENT);
+        isOnAchievementsTab = false;
     }
 
     private void returnFromFragmentToSetting(Fragment fragment) {
@@ -301,38 +300,38 @@ public class SettingFragment extends Fragment implements
         super.onResume();
         //restore which tab
         if (isOnProfileTab) {
-            if (!profileFragment.isAdded()) {
-                changeFragment(profileFragment);
+            if (!PROFILE_FRAGMENT.isAdded()) {
+                changeFragment(PROFILE_FRAGMENT);
             }
         }
 
         if (isOnThemeTab) {
-            if (!themeFragment.isAdded()) {
-                changeFragment(themeFragment);
+            if (!THEME_FRAGMENT.isAdded()) {
+                changeFragment(THEME_FRAGMENT);
             }
         }
 
         if (isOnStackInfoTab) {
-            if (!techStackInfoFragment.isAdded()) {
-                changeFragment(techStackInfoFragment);
+            if (!TECH_STACK_INFO_FRAGMENT.isAdded()) {
+                changeFragment(TECH_STACK_INFO_FRAGMENT);
             }
         }
 
         if (isOnLearnMoreInfoTab) {
-            if (!learnMoreFragment.isAdded()) {
-                changeFragment(learnMoreFragment);
+            if (!LEARN_MORE_FRAGMENT.isAdded()) {
+                changeFragment(LEARN_MORE_FRAGMENT);
             }
         }
 
         if (isOnAboutUsTab) {
-            if (!aboutUsFragment.isAdded()) {
-                changeFragment(aboutUsFragment);
+            if (!ABOUT_US_FRAGMENT.isAdded()) {
+                changeFragment(ABOUT_US_FRAGMENT);
             }
         }
 
-        if (isOnTerminalTab) {
-            if (!terminalFragment.isAdded()) {
-                changeFragment(terminalFragment);
+        if (isOnAchievementsTab) {
+            if (!ACHIEVEMENTS_FRAGMENT.isAdded()) {
+                changeFragment(ACHIEVEMENTS_FRAGMENT);
             }
         }
     }
@@ -340,11 +339,11 @@ public class SettingFragment extends Fragment implements
     @Override
     public void onDetach() {
         super.onDetach();
-        profileFragment.setmOnReturnSetting(null);
-        themeFragment.setmOnReturnSetting(null);
-        aboutUsFragment.setmOnReturnSetting(null);
-        learnMoreFragment.setmOnReturnSetting(null);
-        techStackInfoFragment.setmOnReturnSetting(null);
-        terminalFragment.setmOnReturnSetting(null);
+        PROFILE_FRAGMENT.setmOnReturnSetting(null);
+        THEME_FRAGMENT.setmOnReturnSetting(null);
+        ABOUT_US_FRAGMENT.setmOnReturnSetting(null);
+        LEARN_MORE_FRAGMENT.setmOnReturnSetting(null);
+        TECH_STACK_INFO_FRAGMENT.setmOnReturnSetting(null);
+        ACHIEVEMENTS_FRAGMENT.setmOnReturnSetting(null);
     }
 }

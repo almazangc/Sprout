@@ -51,7 +51,7 @@
             android:layout_marginBottom="4dp"
             android:text="Note Contents Goes here"
             android:textColor="@color/NIGHT"
-            android:textSize="11sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/noteDateTime"

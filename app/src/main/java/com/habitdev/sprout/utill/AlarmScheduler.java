@@ -12,6 +12,10 @@ import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.Navigation;
+
+import com.habitdev.sprout.R;
 
 import java.text.SimpleDateFormat;
 
@@ -195,38 +199,6 @@ public class AlarmScheduler {
         }
     }
 
-
-//    private void scheduleAlarm(Calendar calendar, String type, String message) {
-//
-//        final String SDFPattern = "yyyy-MM-dd HH:mm:ss"; //2000-01-01 00:00:00
-//        SimpleDateFormat dateFormat = new SimpleDateFormat(SDFPattern);
-//
-//        String formattedDate = dateFormat.format(calendar.getTime());
-//        Log.d("tag", "scheduleAlarm: " + formattedDate);
-//
-//        Intent intent = new Intent(context, AlarmReceiver.class);
-//        intent.setAction(type);
-//        intent.putExtra("message", message);
-//
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-//
-//        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        alarmMgr.setExactAndAllowWhileIdle(
-//                AlarmManager.RTC_WAKEUP,
-//                calendar.getTimeInMillis(),
-//                pendingIntent
-//        );
-//
-//        if (type.equals("morning")) {
-//            alarmMgrMorning = alarmMgr;
-//            alarmIntentMorning = pendingIntent;
-//        } else if (type.equals("evening")) {
-//            alarmMgrEvening = alarmMgr;
-//            alarmIntentEvening = pendingIntent;
-//        }
-//    }
-
-
     public void scheduleAlarm(Calendar calendar, String type, String message) {
 
         final String SDFPattern = "yyyy-MM-dd HH:mm:ss"; //2000-01-01 00:00:00
@@ -243,8 +215,16 @@ public class AlarmScheduler {
 
         // Check if the app has the necessary permission to use setExactAndAllowWhileIdle
         if (!isIgnoringBatteryOptimizations()) {
-            requestBatteryOptimizationsIgnored();
+            new AlertDialog.Builder(context)
+                    .setMessage("In order to be notified daily, please disable battery optimization for this app in order to ensure timely delivery of notifications.")
+                    .setCancelable(false)
+                    .setPositiveButton("Go to settings", (dialogInterface, i) -> {
+                        requestBatteryOptimizationsIgnored();
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
         } else {
+
             // Schedule the alarm with setExactAndAllowWhileIdle
             Log.d("tag", "scheduleAlarm: scheduling alarm");
             AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

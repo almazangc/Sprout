@@ -10,12 +10,12 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity(foreignKeys = @ForeignKey(
-                entity = Habits.class,
-                parentColumns = "pk_habit_uid",
-                childColumns = "fk_habit_uid",
-                onDelete = ForeignKey.CASCADE,
-                onUpdate = ForeignKey.CASCADE
-        ))
+        entity = Habits.class,
+        parentColumns = "pk_habit_uid",
+        childColumns = "fk_habit_uid",
+        onDelete = ForeignKey.CASCADE,
+        onUpdate = ForeignKey.CASCADE
+))
 public class Subroutines implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pk_subroutine_uid")
@@ -57,6 +57,9 @@ public class Subroutines implements Serializable {
     @ColumnInfo(name = "downvote")
     private int downvote;
 
+    @ColumnInfo(name = "vote_status")
+    private int vote_status;
+
     @Ignore
     public Subroutines(String subroutine, String description, String color, boolean isModifiable) {
         this.subroutine = subroutine;
@@ -69,11 +72,11 @@ public class Subroutines implements Serializable {
         this.longest_streak = 0;
         this.total_skips = 0;
         this.upvote = 0;
-        this.downvote  = 0;
+        this.downvote = 0;
+        this.vote_status = 0;
     }
 
-    public Subroutines(long pk_subroutine_uid, long fk_habit_uid, String subroutine, String description, String color, Boolean isModifiable, boolean isMarkDone, int total_completed, int max_streak, int total_skips, int
-                       longest_streak) {
+    public Subroutines(long pk_subroutine_uid, long fk_habit_uid, String subroutine, String description, String color, Boolean isModifiable, boolean isMarkDone, int total_completed, int max_streak, int total_skips, int longest_streak) {
         this.pk_subroutine_uid = pk_subroutine_uid;
         this.fk_habit_uid = fk_habit_uid;
         this.subroutine = subroutine;
@@ -86,7 +89,8 @@ public class Subroutines implements Serializable {
         this.longest_streak = longest_streak;
         this.total_skips = total_skips;
         this.upvote = 0;
-        this.downvote  = 0;
+        this.downvote = 0;
+        this.vote_status = 0;
     }
 
     @NonNull
@@ -106,6 +110,7 @@ public class Subroutines implements Serializable {
                 ", total_skips=" + total_skips +
                 ", upvote=" + upvote +
                 ", downvote=" + downvote +
+                ", vote_status=" + vote_status +
                 '}';
     }
 
@@ -211,6 +216,14 @@ public class Subroutines implements Serializable {
 
     public void setDownvote(int downvote) {
         this.downvote = downvote;
+    }
+
+    public int getVote_status() {
+        return vote_status;
+    }
+
+    public void setVote_status(int vote_status) {
+        this.vote_status = vote_status;
     }
 }
 

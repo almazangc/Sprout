@@ -37,15 +37,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
 import com.habitdev.sprout.enums.SettingConfigurationKeys;
-import com.habitdev.sprout.ui.HabitAssessment.PersonalizationFragment;
-import com.habitdev.sprout.ui.menu.setting.SettingFragment;
+import com.habitdev.sprout.ui.habit_assessment.PersonalizationFragment;
 import com.habitdev.sprout.utill.AlarmScheduler;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
@@ -258,32 +256,25 @@ public class ProfileFragment extends Fragment {
                 "Do you want to apply changes for profile photo"
         };
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setMessage(message[updateType])
+        new AlertDialog.Builder(requireContext())
+                .setMessage(message[updateType])
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        switch (updateType) {
-                            case 0:
-                                updateNickname();
-                                updateProfile();
-                                break;
-                            case 1:
-                                updateNickname();
-                                break;
-                            case 2:
-                                updateProfile();
-                                break;
-                        }
+                .setPositiveButton("Yes", (dialogInterface, i) -> {
+                    switch (updateType) {
+                        case 0:
+                            updateNickname();
+                            updateProfile();
+                            break;
+                        case 1:
+                            updateNickname();
+                            break;
+                        case 2:
+                            updateProfile();
+                            break;
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Perform action for "No" button click
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.show();
+                .setNegativeButton("No", null)
+                .show();
     }
 
     private void updateNickname() {

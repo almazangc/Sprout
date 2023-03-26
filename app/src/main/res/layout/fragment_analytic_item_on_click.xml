@@ -24,26 +24,26 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/analytic_item_on_click_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/analytic_item_on_click_top_bar"
-        android:fillViewport="true"
-        android:scrollbars="none">
+        android:fillViewport="true">
 
-        <RelativeLayout
-            android:id="@+id/analytic_item_on_click_container"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/analytic_item_on_click_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/analytic_item_on_click_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/adapter_analytic_item_on_click_parent_item" />
-        </RelativeLayout>
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="2dp"
+            android:paddingBottom="5dp"
+            android:fastScrollEnabled="true"
+            android:overScrollMode="always"
+            android:scrollbarThumbVertical="@drawable/scrollbar_vertical"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/adapter_analytic_item_on_click_parent_item" />
+    </RelativeLayout>
 </RelativeLayout>

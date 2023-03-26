@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8db643ae0080327c4e9b6b24822265cb",
+    "identityHash": "947122bd9ca3d376a18868203996524e",
     "entities": [
       {
         "tableName": "User",
@@ -340,7 +340,7 @@
       },
       {
         "tableName": "Habits",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `color` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `abstinence` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `color` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_habit_uid",
@@ -379,12 +379,6 @@
             "notNull": true
           },
           {
-            "fieldPath": "abstinence",
-            "columnName": "abstinence",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
             "fieldPath": "relapse",
             "columnName": "relapse",
             "affinity": "INTEGER",
@@ -419,6 +413,12 @@
             "columnName": "downvote",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "vote_status",
+            "columnName": "vote_status",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -432,7 +432,7 @@
       },
       {
         "tableName": "Subroutines",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `isModifiable` INTEGER, `isMarkedDone` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `isModifiable` INTEGER, `isMarkedDone` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_subroutine_uid",
@@ -509,6 +509,12 @@
           {
             "fieldPath": "downvote",
             "columnName": "downvote",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vote_status",
+            "columnName": "vote_status",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -593,12 +599,56 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "Milestone",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_milestone_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `description` TEXT, `date_completed` INTEGER NOT NULL, `completed` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "pk_milestone_uid",
+            "columnName": "pk_milestone_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_completed",
+            "columnName": "date_completed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "completed",
+            "columnName": "completed",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pk_milestone_uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8db643ae0080327c4e9b6b24822265cb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '947122bd9ca3d376a18868203996524e')"
     ]
   }
 }

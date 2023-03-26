@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -260,33 +261,42 @@ public class AddDefaultHabitFragment extends Fragment {
     private void addHabitOnReform() {
         binding.addHabitOnReformBtn.setOnClickListener(view -> {
             if (habit != null) {
-                //TODO: Need to rework in order to check if the status is on reform, not onreform on archive, or completed.So that it wont update the date started and will freexe the date and timer
-                habitWithSubroutinesViewModel.updateHabit(new Habits(
-                        habit.getPk_habit_uid(),
-                        habit.getHabit(),
-                        habit.getDescription(),
-                        color,
-                        true,
-                        habit.isModifiable(),
-                        habit.getAbstinence(),
-                        habit.getRelapse(),
-                        new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault())
-                                .format(new Date()),
-                        subroutinesList.size(),
-                        habit.getCompleted_subroutine(),
-                        habit.getUpvote(),
-                        habit.getDownvote()
-                ));
-                habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
+                //TODO: Need to rework in order to check if the status is on reform,
+                // not onreform on archive, or completed.So that it wont update
+                // the date started and will freexe the date and timer
+                new AlertDialog.Builder(requireContext())
+                        .setMessage("Do you want to add " + habit.getHabit().toLowerCase() + "  on reform and start now?")
+                        .setCancelable(false)
+                        .setPositiveButton("YES", (dialogInterface, i) -> {
+                            habitWithSubroutinesViewModel.updateHabit(new Habits(
+                                    habit.getPk_habit_uid(),
+                                    habit.getHabit(),
+                                    habit.getDescription(),
+                                    color,
+                                    true,
+                                    habit.isModifiable(),
+                                    habit.getRelapse(),
+                                    new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault())
+                                            .format(new Date()),
+                                    subroutinesList.size(),
+                                    habit.getCompleted_subroutine(),
+                                    habit.getUpvote(),
+                                    habit.getDownvote(),
+                                    habit.getVote_status()
+                            ));
+                            habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
 
-                if (savedInstanceState != null) savedInstanceState = null;
+                            if (savedInstanceState != null) savedInstanceState = null;
 
-                current_selected_color = 0;
+                            current_selected_color = 0;
 
-                isFragmentOnRemoved = true;
+                            isFragmentOnRemoved = true;
 
-                if (mOnAddDefaultReturnHome != null)
-                    mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
+                            if (mOnAddDefaultReturnHome != null)
+                                mOnAddDefaultReturnHome.onAddDefaultHabitClickReturnHome();
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             } else {
                 Toast.makeText(requireActivity(), "There is no habit selected", Toast.LENGTH_SHORT).show();
             }
@@ -297,6 +307,7 @@ public class AddDefaultHabitFragment extends Fragment {
      * Set color On Click Listener and updates color selected
      */
     private void colorSelect() {
+
         /*
             To Toggle hide because on edit mode, gotta disable
          */

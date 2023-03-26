@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubroutineFireStoreRepository {
-    private FirebaseFirestore firestore; // instance of the FirebaseFirestore class, used to access the Firestore database.
-    private CollectionReference subroutineCollection; // CollectionReference object for the "subroutine" collection in Firestore.
+    private final CollectionReference subroutineCollection; // CollectionReference object for the "subroutine" collection in Firestore.
 
     public interface FetchCallback {
         void onFetchSubroutineSuccess(List<SubroutineFireStore> subroutineFireStores);
@@ -43,7 +42,8 @@ public class SubroutineFireStoreRepository {
     }
 
     public SubroutineFireStoreRepository() {
-        firestore = FirebaseFirestore.getInstance();
+        // instance of the FirebaseFirestore class, used to access the Firestore database.
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         subroutineCollection = firestore.collection("subroutine");
     }
 

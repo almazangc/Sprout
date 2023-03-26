@@ -26,6 +26,8 @@ import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesDao;
+import com.habitdev.sprout.database.milestone.MilestoneDao;
+import com.habitdev.sprout.database.milestone.model.Milestone;
 import com.habitdev.sprout.database.note.NoteDao;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.database.quotes.QuotesRepository;
@@ -40,7 +42,7 @@ import java.util.List;
 /**
  * AppDatabase is a singleton class for handling room entities, typeConverter and can be used to pre-populate database in the installation of application
  */
-@Database(entities = {User.class, Question.class, Choices.class, Answer.class, Note.class, Habits.class, Subroutines.class, Comment.class}, version = 1)
+@Database(entities = {User.class, Question.class, Choices.class, Answer.class, Note.class, Habits.class, Subroutines.class, Comment.class, Milestone.class}, version = 1)
 @TypeConverters({ArrayListConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -84,11 +86,11 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract CommentDao commentDao();
 
+    public abstract MilestoneDao milestoneAchievementDao();
+
     private static class FetchFirestoreDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        public FetchFirestoreDatabaseAsyncTask(AppDatabase instance) {
-
-        }
+        public FetchFirestoreDatabaseAsyncTask(AppDatabase instance) {}
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -101,7 +103,6 @@ public abstract class AppDatabase extends RoomDatabase {
                 public void onFetchQuoteSuccess(List<Quotes> quotesList) {
                     //success
                     Log.d("tag", "onFetchQuoteSuccess: ");
-
                 }
 
                 @Override
@@ -155,35 +156,13 @@ public abstract class AppDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
 
             long uid;
-            uid = insertQuestion(new Question("How long does it take to complete the application?"));
             List<Choices> choices = new ArrayList<>();
-            choices.add(new Choices("3 Months", 0));
-            choices.add(new Choices("2 Years", 0));
-            choices.add(new Choices("Never", 0));
-            choices.add(new Choices("Long Time", 0));
-            choices.add(new Choices("Until then", 0));
-            assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             uid = insertQuestion(new Question("How contented are with your current self?"));
-            choices.clear();
             choices.add(new Choices("Not Enough", 4));
             choices.add(new Choices("Contented", 3));
             choices.add(new Choices("A little bit contented", 2));
             choices.add(new Choices("Overly contented", 0));
-            assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
-
-            uid = insertQuestion(new Question("What is the application name?"));
-            choices.clear();
-            choices.add(new Choices("Habit", 99));
-            choices.add(new Choices("Sprout", 0));
-            choices.add(new Choices("Peanut", 99));
-            assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
-
-            uid = insertQuestion(new Question("This is just a sample assessment for recommending habit?"));
-            choices.clear();
-            choices.add(new Choices("Okay", 0));
-            choices.add(new Choices("Good", 0));
-            choices.add(new Choices("Next", 0));
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //1
@@ -568,27 +547,6 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     }
 
-    private static class PopulateNoteAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        private final NoteDao noteDao;
-
-        public PopulateNoteAsyncTask(AppDatabase instance) {
-            noteDao = instance.noteDao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            noteDao.insert(new Note("Note 1", "", "Subtitle in a nutshell", AppColor.CLOUDS.getColor()));
-            noteDao.insert(new Note("Test", "", "A very short sentence. Second part of the sentence", AppColor.SUNFLOWER.getColor()));
-            noteDao.insert(new Note("What?", "", "SampleSubTitle, but no thought. You are baka!!!!!", AppColor.BRIGHT_SKY_BLUE.getColor()));
-            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", AppColor.NEPHRITIS.getColor()));
-            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", AppColor.AMETHYST.getColor()));
-            noteDao.insert(new Note("No time to spend", "", "SampleSubTitle, you need to learn how to integrate the application", AppColor.ALZARIN.getColor()));
-            noteDao.insert(new Note("Note Sample 6 Title", "date?", "SampleSubTitle", AppColor.SUNFLOWER.getColor()));
-            return null;
-        }
-    }
-
     private static class PopulateHabitWithSubroutinesAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private final HabitWithSubroutinesDao habitWithSubroutinesDao;
@@ -614,6 +572,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             subroutinesList[0] = result;
                         }
                     }
+                    Log.d("tag", "onFetchSubroutineSuccess: appdb");
                 }
 
                 @Override
@@ -1024,6 +983,42 @@ public abstract class AppDatabase extends RoomDatabase {
                 }
             }
             return list;
+        }
+    }
+
+    private static class PopulateNoteAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private final NoteDao noteDao;
+
+        public PopulateNoteAsyncTask(AppDatabase instance) {
+            noteDao = instance.noteDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            noteDao.insert(new Note("Note 1", "", "Subtitle in a nutshell", AppColor.CLOUDS.getColor()));
+            noteDao.insert(new Note("Test", "", "A very short sentence. Second part of the sentence", AppColor.SUNFLOWER.getColor()));
+            noteDao.insert(new Note("What?", "", "SampleSubTitle, but no thought. You are baka!!!!!", AppColor.BRIGHT_SKY_BLUE.getColor()));
+            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", AppColor.NEPHRITIS.getColor()));
+            noteDao.insert(new Note("Note 4", "", "SampleSubTitle", AppColor.AMETHYST.getColor()));
+            noteDao.insert(new Note("No time to spend", "", "SampleSubTitle, you need to learn how to integrate the application", AppColor.ALZARIN.getColor()));
+            noteDao.insert(new Note("Note Sample 6 Title", "date?", "SampleSubTitle", AppColor.SUNFLOWER.getColor()));
+            return null;
+        }
+    }
+
+    private static class PopulateMilestoneAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private final MilestoneDao milestoneDao;
+
+        public PopulateMilestoneAsyncTask(AppDatabase instance) {
+            milestoneDao = instance.milestoneAchievementDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            //Popluate the list of milestones
+            return null;
         }
     }
 }

@@ -41,6 +41,8 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         void onClickHabitModify(Habits habit, int position);
         void onClickHabitRelapse(Habits habit);
         void onClickHabitDrop(Habits habit);
+        void onClickUpvoteHabit(Habits habit);
+        void onClickDownvoteHabit(Habits habits);
     }
 
     public void setHomeParentItemOnclickListener(HomeParentItemOnClickListener homeParentItemOnclickListener) {
@@ -88,8 +90,13 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         });
 
         if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.MIN_HABIT_BREAK_DAY.getDays()) {
-            holder.upVote.setVisibility(View.VISIBLE);
-            holder.downVote.setVisibility(View.VISIBLE);
+            if (!oldHabitList.get(holder.getAbsoluteAdapterPosition()).isModifiable()) {
+                holder.upVote.setVisibility(View.VISIBLE);
+                holder.downVote.setVisibility(View.VISIBLE);
+            } else {
+                holder.upVote.setVisibility(View.GONE);
+                holder.downVote.setVisibility(View.GONE);
+            }
         } else {
             holder.upVote.setVisibility(View.GONE);
             holder.downVote.setVisibility(View.GONE);
@@ -227,11 +234,11 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             totalRelapse.setText((String.format(Locale.getDefault(), "%d", habits.getRelapse())));
 
             upVote.setOnClickListener(view -> {
-                Toast.makeText(itemView.getContext(), "Upvote", Toast.LENGTH_SHORT).show();
+                homeParentItemOnClickListener.onClickUpvoteHabit(habits);
             });
 
             downVote.setOnClickListener(view -> {
-                Toast.makeText(itemView.getContext(), "DownVote", Toast.LENGTH_SHORT).show();
+                homeParentItemOnClickListener.onClickDownvoteHabit(habits);
             });
 
             if (habits.isModifiable()) {

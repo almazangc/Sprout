@@ -26,6 +26,7 @@ public class SubroutineFireStoreViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<SubroutineFireStore>> getLiveData() {
+        fetchHabit();
         return liveData;
     }
 

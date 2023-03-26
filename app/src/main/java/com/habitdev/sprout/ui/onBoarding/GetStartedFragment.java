@@ -2,11 +2,10 @@ package com.habitdev.sprout.ui.onBoarding;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -17,10 +16,10 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentGetStartedBinding;
 import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.enums.OnBoardingConfigurationKeys;
+import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 
 public class GetStartedFragment extends Fragment {
 
-    // View Binding
     private FragmentGetStartedBinding binding;
 
     public GetStartedFragment() {}
@@ -42,39 +41,48 @@ public class GetStartedFragment extends Fragment {
             Navigation.findNavController(view).navigate(R.id.action_navigate_from_getStarted_to_personalization);
         });
 
-        onBackPressed();
+        onBackPress();
     }
 
-    private void onBackPressed() {
+    private void onBackPress() {
+        final int[] keypress_count = {0};
+        final boolean[] isOnBackPressDialogShowing = {false};
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-//              showToast();
+
+                keypress_count[0]++;
+
+                new CountDownTimer(200, 200) {
+                    @Override
+                    public void onTick(long l) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        if (keypress_count[0] > 1) {
+                            //Dialog is displayed twice
+                            OnBackPressDialogFragment dialog = new OnBackPressDialogFragment();
+                            if (!isOnBackPressDialogShowing[0]) {
+                                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(GetStartedFragment.this.getId()), 1);
+                                dialog.show(getChildFragmentManager(), "Menu.onBackPress");
+                                dialog.setmOnCancelDialog(() -> {
+                                    keypress_count[0] = 0;
+                                    isOnBackPressDialogShowing[0] = false;
+                                });
+                                isOnBackPressDialogShowing[0] = true;
+                            }
+                        } else {
+                            requireActivity().moveTaskToBack(true);
+                            keypress_count[0] = 0;
+                        }
+                        this.cancel();
+                    }
+                }.start();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
-    }
-
-
-    /**
-     * Example of custom toast
-     */
-    private void showToast() {
-//        TODO: REMOVE THIS REPLACE WTITH SNACKBAR
-        final CharSequence MESSAGE = "DATA IS ALREADY SAVED";
-
-        final int duration = Toast.LENGTH_LONG;
-
-        View layout = getLayoutInflater().inflate(R.layout.get_started_custom_toast, binding.getRoot().findViewById(R.id.custom_toast_layout));
-        TextView text = layout.findViewById(R.id.custom_toast_lbl);
-        text.setText(MESSAGE);
-
-        Toast toast = new Toast(requireContext());
-//        E/Toast: setGravity() shouldn't be called on text toasts, the values won't be used
-//        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.setView(layout);
-        toast.setDuration(duration);
-        toast.show();
     }
 
     private void clearWakeAndSleepSharedPref(){

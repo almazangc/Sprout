@@ -51,6 +51,27 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="Achievement_Fragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_achievementFragment_to_settingsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="SplashScreenFragment">
                     <value>
                       <LayoutPositions>
@@ -1037,27 +1058,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="terminalFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="1347" />
-                            <option name="y" value="3592" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_terminalFragment_to_settingsFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="themeFragment">
                     <value>
                       <LayoutPositions>
@@ -1069,7 +1069,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_themeFragment_to_settingsFragment">
+                            <entry key="action_achievementFragment_to_settingsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

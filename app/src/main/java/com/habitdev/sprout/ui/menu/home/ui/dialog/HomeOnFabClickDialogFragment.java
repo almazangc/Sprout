@@ -1,6 +1,5 @@
 package com.habitdev.sprout.ui.menu.home.ui.dialog;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +21,7 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
 
     public interface OnClickListener {
         void onPredefinedClick();
-        void onUserDefineClick();
+        void onUserNewHabitClick();
         void onDismissDialog();
     }
 
@@ -39,16 +38,12 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
         getDialog().setCanceledOnTouchOutside(false);
         setOnclickListener();
-//        setPadding();
+        setPredifinedHabitsClickability();
         return binding.getRoot();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private void setPadding(){
-        binding.homeOnFabClickDialogPredefinedHabit.setOnTouchListener((view, motionEvent) -> {
-//            Log.d("tag", "onTouch: " + motionEvent.getAction());
-            return false;
-        });
+    private void setPredifinedHabitsClickability() {
+
     }
 
     private void setOnclickListener() {
@@ -67,7 +62,7 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
             Objects.requireNonNull(getDialog()).dismiss();
         }
         if (view.getId() == R.id.home_on_fab_click_dialog_user_defined_habit) {
-            if (this.onClickListener != null) this.onClickListener.onUserDefineClick();
+            if (this.onClickListener != null) this.onClickListener.onUserNewHabitClick();
             Objects.requireNonNull(getDialog()).dismiss();
         }
     }

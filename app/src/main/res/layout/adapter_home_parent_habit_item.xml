@@ -29,12 +29,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="5dp"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/home_upvote_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/background_btn_upvote_selector"
                     android:drawableStart="@drawable/ic_upvote"
@@ -47,15 +48,15 @@
 
                 <Button
                     android:id="@+id/home_downvote_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="3dp"
                     android:background="@drawable/background_btn_downvote_selector"
                     android:drawableStart="@drawable/ic_downvote"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:minWidth="15dp"
-                    android:minHeight="15dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
                     android:textColor="@color/NIGHT"
                     android:textSize="0sp" />
             </LinearLayout>
@@ -93,7 +94,7 @@
                     android:minHeight="0dp"
                     android:padding="3dp"
                     android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
+                    android:textSize="12sp"
                     tools:text="\t\tProcrastination is the action of unnecessarily and voluntarily delaying or postponing something despite knowing that there will be negative consequences for doing so." />
 
                 <RelativeLayout
@@ -114,7 +115,7 @@
                         android:layout_marginEnd="5dp"
                         android:text="Date Started:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -127,7 +128,7 @@
                         android:minWidth="0dp"
                         android:paddingStart="10dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         tools:text="Saturday, November 5, 2022: 12:25" />
 
 
@@ -139,7 +140,7 @@
                         android:layout_marginEnd="5dp"
                         android:text="Elapsed Abstinence:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -150,7 +151,7 @@
                         android:minWidth="0dp"
                         android:paddingStart="10dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         tools:text="21 Days 05 Hours 4 Seconds" />
 
                     <TextView
@@ -162,7 +163,7 @@
                         android:layout_marginEnd="5dp"
                         android:text="Completed Subroutine:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -173,7 +174,7 @@
                         android:layout_toEndOf="@+id/completed_subroutine_lbl"
                         android:minWidth="0dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         tools:text="7" />
 
                     <TextView
@@ -184,7 +185,7 @@
                         android:layout_marginEnd="5dp"
                         android:text="Relapse:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -195,7 +196,7 @@
                         android:layout_toEndOf="@id/total_relapse_lbl"
                         android:minWidth="0dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="11sp"
+                        android:textSize="12sp"
                         tools:text="0" />
                 </RelativeLayout>
 
@@ -220,7 +221,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:text="MODIFY"
-                        android:textSize="11sp" />
+                        android:textSize="12sp" />
 
                     <Button
                         android:id="@+id/adapter_home_parent_item_relapse_btn"
@@ -236,7 +237,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:text="RELAPSE"
-                        android:textSize="11sp" />
+                        android:textSize="12sp" />
 
                     <Button
                         android:id="@+id/adapter_home_parent_item_drop_btn"
@@ -252,7 +253,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:text="DROP"
-                        android:textSize="11sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
             </RelativeLayout>

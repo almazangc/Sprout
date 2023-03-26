@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.home.ui.fab_.custom_;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -23,9 +24,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.databinding.FragmentAddNewHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
@@ -464,28 +465,35 @@ public class AddNewHabitFragment extends Fragment
     }
 
     private void insertNewHabit() {
-        binding.fabAddNewHabit.setOnClickListener(v -> {
+        binding.fabAddNewHabit.setOnClickListener(view -> {
             if (binding.addNewHabitHint.getText().toString().trim().isEmpty()) {
-                habit.setHabit(binding.addNewHabitTitle.getText().toString().trim());
-                habit.setDescription(binding.addNewHabitDescription.getText().toString().trim());
-                habit.setOnReform(true);
-                habit.setDate_started(binding.addNewHabitCurrentTime.getText().toString().trim());
-                habit.setColor(color);
-                habit.setTotal_subroutine(subroutinesList.size());
+                new AlertDialog.Builder(requireContext())
+                        .setMessage("Do you want to the custom habit, " + binding.addNewHabitTitle.getText().toString().trim().toLowerCase() + " on reform?")
+                        .setCancelable(false)
+                        .setPositiveButton("YES", (dialogInterface, i) -> {
+                            habit.setHabit(binding.addNewHabitTitle.getText().toString().trim());
+                            habit.setDescription(binding.addNewHabitDescription.getText().toString().trim());
+                            habit.setOnReform(true);
+                            habit.setDate_started(binding.addNewHabitCurrentTime.getText().toString().trim());
+                            habit.setColor(color);
+                            habit.setTotal_subroutine(subroutinesList.size());
 
-                long uid = habitWithSubroutinesViewModel.insertHabit(habit);
+                            long uid = habitWithSubroutinesViewModel.insertHabit(habit);
 
-                if (!subroutinesList.isEmpty()) {
-                    for (Subroutines subroutine : subroutinesList) {
-                        subroutine.setFk_habit_uid(uid);
-                    }
-                    habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
-                }
-                if (mOnAddNewHabitReturnHome != null)
-                    mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
+                            if (!subroutinesList.isEmpty()) {
+                                for (Subroutines subroutine : subroutinesList) {
+                                    subroutine.setFk_habit_uid(uid);
+                                }
+                                habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
+                            }
+                            if (mOnAddNewHabitReturnHome != null)
+                                mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
 
-                if (savedInstanceState != null) savedInstanceState = null;
-                isFragmentOnRemoved = true;
+                            if (savedInstanceState != null) savedInstanceState = null;
+                            isFragmentOnRemoved = true;
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
     }

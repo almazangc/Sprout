@@ -1,8 +1,10 @@
 package com.habitdev.sprout.ui.menu.subroutine.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
@@ -188,8 +191,25 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     public void onItemDelete(int position) {
         if (habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).size() > 2) {
             final Subroutines subroutine = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid()).get(position);
-            habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
-            updateTotalSubroutine();
+            new AlertDialog.Builder(requireContext())
+                    .setMessage("Removing a subroutine will also remove the progress of the subroutine.\nAre you sure you want to remove the subroutine " + subroutine.getSubroutine().toLowerCase() + "?")
+                    .setCancelable(false)
+                    .setPositiveButton("YES", (dialogInterface, i) -> {
+                        habitWithSubroutinesViewModel.deleteSubroutine(subroutine);
+                        updateTotalSubroutine();
+
+                        //Show snackbar notif
+                        Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + habit.getHabit() + "</b>: " + subroutine.getSubroutine().toLowerCase() + "has been removed"), Snackbar.LENGTH_LONG)
+                                .setAction("Dismiss", view -> {
+                                    //Dismiss snack bar
+                                })
+                                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                                .setTextColor(getResources().getColor(R.color.NIGHT))
+                                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                                .show();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         } else {
             Toast.makeText(requireActivity(), "Required minimum of (2) subroutines", Toast.LENGTH_SHORT).show();
         }

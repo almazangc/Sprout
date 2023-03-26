@@ -8,12 +8,12 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -21,14 +21,16 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
-
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.habit.firestore.HabitFireStoreViewModel;
+import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.enums.TimeMilestone;
@@ -43,6 +45,7 @@ import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class HomeFragment extends Fragment
         implements
@@ -63,10 +66,13 @@ public class HomeFragment extends Fragment
     private static int position = 0;
     private static Habits habitOnModify = null;
     private static Bundle savedInstanceState = null;
+    private static boolean isToastShowing = false;
     private final HomeParentItemAdapter homeParentItemAdapter = new HomeParentItemAdapter();
     private FragmentHomeBinding binding = null;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private HabitFireStoreViewModel habitFireStoreViewModel;
     private List<Habits> habitsList = null;
+    private List<HabitFireStore> habitFireStoreList = null;
 
     public HomeFragment() {
     }
@@ -83,6 +89,17 @@ public class HomeFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        habitFireStoreViewModel = new ViewModelProvider(requireActivity()).get(HabitFireStoreViewModel.class);
+        habitFireStoreViewModel.fetchHabit();
+        habitFireStoreList = habitFireStoreViewModel.getData();
+        habitFireStoreViewModel.getLiveData().observe(getViewLifecycleOwner(), new Observer<List<HabitFireStore>>() {
+            @Override
+            public void onChanged(List<HabitFireStore> habitFireStores) {
+                habitFireStoreList = habitFireStores;
+            }
+        });
+
 
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
             HomeFragment.savedInstanceState = savedInstanceState;
@@ -136,6 +153,7 @@ public class HomeFragment extends Fragment
 
     private void setRecyclerViewAdapter() {
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
+
         habitsList = habitWithSubroutinesViewModel.getAllHabitOnReform();
 
         homeParentItemAdapter.setOldHabitList(new ArrayList<>(habitsList));
@@ -143,11 +161,7 @@ public class HomeFragment extends Fragment
 
         setEmptyRVBackground(homeParentItemAdapter);
 
-//        LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation_fall);
-//        binding.homeRecyclerView.setLayoutAnimation(animationController);
-
         setRecyclerViewObserver(homeParentItemAdapter);
-//        recyclerViewItemTouchHelper(homeParentItemAdapter);
     }
 
     private void setEmptyRVBackground(@NonNull HomeParentItemAdapter adapter) {
@@ -160,14 +174,16 @@ public class HomeFragment extends Fragment
 
 
     /**
-     * Control Number of habits can be added with a maximum of 2 Habits
+     * Control Number of habits can be added with a maximum of N Habits
      */
     private void fabVisibility() {
+        final int MAXIMUM_HABITS_CURRENTLY_ON_REFORM_STATUS = 5;
+
         binding.homeFab.setVisibility(View.VISIBLE);
         binding.homeFab.setClickable(true);
         binding.homeFab.setOnClickListener(view -> displayFabDialog());
         habitWithSubroutinesViewModel.getGetHabitOnReformCount().observe(getViewLifecycleOwner(), count -> {
-            if (count <= 5) { // 2 HABITS
+            if (count < MAXIMUM_HABITS_CURRENTLY_ON_REFORM_STATUS) {
                 binding.homeFab.setVisibility(View.VISIBLE);
                 binding.homeFab.setClickable(true);
             } else {
@@ -210,16 +226,23 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onClickHabitModify(Habits habit, int position) {
-        isOnModify = true;
-        habitOnModify = habit;
-        HomeFragment.position = position;
+        new AlertDialog.Builder(requireContext())
+                .setMessage("Do you want to modify the habit?")
+                .setCancelable(false)
+                .setPositiveButton("YES", (dialogInterface, i) -> {
+                    isOnModify = true;
+                    habitOnModify = habit;
+                    HomeFragment.position = position;
 
-        HomeParentItemAdapterModifyDialogFragment onModifydialogFragment = new HomeParentItemAdapterModifyDialogFragment(habit, position);
-        onModifydialogFragment.setAdapter_ref(homeParentItemAdapter);
-        onModifydialogFragment.setmOnHabitModifyListener(this);
+                    HomeParentItemAdapterModifyDialogFragment onModifydialogFragment = new HomeParentItemAdapterModifyDialogFragment(habit, position);
+                    onModifydialogFragment.setAdapter_ref(homeParentItemAdapter);
+                    onModifydialogFragment.setmOnHabitModifyListener(this);
 
-        onModifydialogFragment.setTargetFragment(getChildFragmentManager().findFragmentById(HomeFragment.this.getId()), 1);
-        onModifydialogFragment.show(getChildFragmentManager(), "Modify Habit Dialog");
+                    onModifydialogFragment.setTargetFragment(getChildFragmentManager().findFragmentById(HomeFragment.this.getId()), 1);
+                    onModifydialogFragment.show(getChildFragmentManager(), "Modify Habit Dialog");
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 
     @Override
@@ -229,27 +252,90 @@ public class HomeFragment extends Fragment
         isOnModify = false;
     }
 
-//    @Override
-//    public void onClickHabitRelapse(Habits habit) {
-//        //it will only work once every 3 hours, use current time and subtract it for countdown
-//        //also need to display message this is not spammable and can only add relapse once every hour
-//        habit.setRelapse(habit.getRelapse() + 1);
-//        habitWithSubroutinesViewModel.updateHabit(habit);
-//    }
-
     @Override
     public void onClickHabitRelapse(Habits habit) {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("HabitPreferences", MODE_PRIVATE);
         long lastRelapseTime = sharedPreferences.getLong(habit.getHabit() + "LastRelapseTime", 0);
         long timeDifference = System.currentTimeMillis() - lastRelapseTime;
 
-        if (timeDifference >= convertToMilliseconds(3, 0, 0)) {
+        if (timeDifference >= convertToMilliseconds(1, 0, 0)) {
+            showMotivationalMessage();
             habit.setRelapse(habit.getRelapse() + 1);
             habitWithSubroutinesViewModel.updateHabit(habit);
             sharedPreferences.edit().putLong(habit.getHabit() + "LastRelapseTime", System.currentTimeMillis()).apply();
         } else {
-            Toast.makeText(requireActivity() , "Limited relapse every (3) hour, configurable time limit. You can do it.", Toast.LENGTH_SHORT).show();
+
+            showMotivationalMessage();
+
+            if (!isToastShowing) {
+                Toast.makeText(requireActivity(), "Relapse will be available every (1) hour. You can do it.", Toast.LENGTH_SHORT).show();
+                isToastShowing = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        isToastShowing = false;
+                    }
+                }, 60000); // 1 minute delay time in milliseconds for the duration of the toast message
+            }
         }
+    }
+
+    private void showMotivationalMessage() {
+        String[] motivational_message = {
+                "Don't be too hard on yourself. A relapse is a setback, not a failure.",
+                "Remember why you started. Visualize the benefits of breaking this habit.",
+                "Focus on progress, not perfection. Each try is a step towards your goal.",
+                "Take it one day at a time. Focus on making good choices today.",
+                "Talk to someone you trust for help and encouragement.",
+                "Celebrate your successes, no matter how small. Each step counts.",
+                "You've proven you can make positive changes.",
+                "Don't let a setback stop you.",
+                "Keep getting back up and trying again.",
+                "You are capable of overcoming this habit. Believe in yourself.",
+                "Believe in yourself.",
+                "Setbacks are opportunities for growth. Learn something new each time.",
+                "Don't give up on yourself. You are worth the effort.",
+                "Breaking a bad habit is not a straight line. Keep moving forward.",
+
+                "Believe in yourself! ʕっ•ᴥ•ʔっ",
+                "Believe in yourself! (✿◠‿◠)",
+                "Be proud of yourself for trying! (•̀o•́)ง",
+                "Don't give up! Keep pushing! (ง'̀-'́)ง",
+                "Embrace challenges and grow! (•̀ᴗ•́)و ̑̑",
+                "Every small step counts! (＾▽＾)",
+                "Every small step counts! Keep moving forward! (•́ε•̀٥)",
+                "It's okay to make mistakes, learn from them and keep going! (╥﹏╥)",
+                "Keep going, don't give up! ᕦ(ò_óˇ)ᕤ",
+                "Keep pushing forward! (ง'̀-'́)ง✧",
+                "Remember, progress is progress no matter how small! (＾▽＾)",
+                "Success is just around the corner! \n(｡•̀ᴗ-)✧",
+                "Strive for progress, not perfection! \nᕙ(⇀‸↼‶)ᕗ",
+                "The only way to fail is to give up! \n(ง'̀-'́)ง",
+                "You can do it! ٩(◕‿◕)۶",
+                "You can do it! (ง •̀_•́)ง",
+                "You are stronger than you think! \nᕦ(ò_óˇ)ᕤ",
+                "You're amazing and capable of great things! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧",
+                "You've got this! (ง •̀_•́)ง",
+                "You've got this! (ง'̀-'́)ง✧",
+        };
+        // Create a new instance of the Random class
+        Random rand = new Random();
+
+        // Generate a random integer between 0 and the length of the array
+        int index = rand.nextInt(motivational_message.length);
+
+        // Print the randomly selected message
+        String message = motivational_message[index];
+
+        Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + message), Snackbar.LENGTH_LONG)
+                .setAction("Dismiss", view -> {
+                    //Dismiss snack bar
+                })
+                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                .setTextColor(getResources().getColor(R.color.NIGHT))
+                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                .setDuration(10000) //to seconds duration
+                .show();
     }
 
     private long convertToMilliseconds(long hours, long minutes, long seconds) {
@@ -259,6 +345,94 @@ public class HomeFragment extends Fragment
     @Override
     public void onClickHabitDrop(Habits habit) {
         showDialog(habit);
+    }
+
+    @Override
+    public void onClickUpvoteHabit(Habits habit) {
+
+        HabitFireStore habitFireStoreItem = new HabitFireStore();
+
+        for (HabitFireStore habitFireStore : habitFireStoreList) {
+            if (habitFireStore.getPk_uid() == habit.getPk_habit_uid() && habitFireStore.getTitle().equals(habit.getHabit())){
+                habitFireStoreItem = habitFireStore;
+                break;
+            }
+        }
+
+        habit.setUpvote(habitFireStoreItem.getUpvote());
+        habit.setDownvote(habitFireStoreItem.getDownvote());
+        habitWithSubroutinesViewModel.updateHabit(habit);
+
+        Toast toast = Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT);
+        switch (habit.getVote_status()){
+            case 0:
+                habitFireStoreItem.setUpvote(habitFireStoreItem.getUpvote() + 1);
+                habitFireStoreViewModel.updateHabit(habitFireStoreItem);
+
+                habit.setUpvote(habit.getUpvote() + 1);
+                habit.setVote_status(1);
+                habitWithSubroutinesViewModel.updateHabit(habit);
+                toast.setText("Upvoted");
+                toast.show();
+                break;
+            case 1:
+                toast.setText("Already upvoted");
+                toast.show();
+                break;
+            case  -1:
+                habitFireStoreItem.setDownvote(habitFireStoreItem.getDownvote() - 1);
+                habitFireStoreViewModel.updateHabit(habitFireStoreItem);
+
+                habit.setDownvote(habit.getDownvote() - 1);
+                habit.setVote_status(0);
+                habitWithSubroutinesViewModel.updateHabit(habit);
+                toast.setText("Downvote was removed");
+                toast.show();
+                break;
+        }
+    }
+
+    @Override
+    public void onClickDownvoteHabit(Habits habit) {
+
+        HabitFireStore habitFireStoreItem = new HabitFireStore();
+        for (HabitFireStore habitFireStore : habitFireStoreList) {
+            if (habitFireStore.getPk_uid() == habit.getPk_habit_uid() && habitFireStore.getTitle().equals(habit.getHabit())){
+                habitFireStoreItem = habitFireStore;
+                break;
+            }
+        }
+
+        habit.setUpvote(habitFireStoreItem.getUpvote());
+        habit.setDownvote(habitFireStoreItem.getDownvote());
+        habitWithSubroutinesViewModel.updateHabit(habit);
+
+        Toast toast = Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT);
+        switch (habit.getVote_status()){
+            case 0:
+                habitFireStoreItem.setDownvote(habitFireStoreItem.getDownvote() + 1);
+                habitFireStoreViewModel.updateHabit(habitFireStoreItem);
+                habit.setDownvote(habit.getDownvote() + 1);
+                habit.setVote_status(-1);
+                habitWithSubroutinesViewModel.updateHabit(habit);
+                toast.setText("Downvoted");
+                toast.show();
+                break;
+            case 1:
+                habitFireStoreItem.setUpvote(habitFireStoreItem.getUpvote() - 1);
+                habitFireStoreViewModel.updateHabit(habitFireStoreItem);
+
+                habit.setUpvote(habit.getUpvote() - 1);
+                habit.setVote_status(0);
+                habitWithSubroutinesViewModel.updateHabit(habit);
+                toast.setText("Upvote was removed");
+                toast.show();
+                break;
+            case  -1:
+                toast.setText("Already downvoted");
+                toast.show();
+                break;
+        }
     }
 
     private void showDialog(Habits habit) {
@@ -286,7 +460,7 @@ public class HomeFragment extends Fragment
                             dialog.dismiss();
                         } else if (options[which].equals("Drop Habit")) {
                             showConfirmationDialog(habit, 0);
-                        } else if (options[which].equals("Archive Habit")){
+                        } else if (options[which].equals("Archive Habit")) {
                             showConfirmationDialog(habit, 1);
                         }
                     }
@@ -301,63 +475,55 @@ public class HomeFragment extends Fragment
         if (type == 0) {
             title = "Are you sure you want to drop the habit?";
         }
-        if (type == 1){
+        if (type == 1) {
             title = "Did you achieve your goal do you want to archive this habit?";
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setTitle(title)
-                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Perform the action when the user confirms
-                        if (type == 0) {
-                            habit.setOnReform(false);
-                            habit.setRelapse(0);
-                            habit.setCompleted_subroutine(0);
-                            habitWithSubroutinesViewModel.updateHabit(habit);
+        new AlertDialog.Builder(requireContext())
+                .setMessage(title)
+                .setCancelable(false)
+                .setPositiveButton("YES", (dialogInterface, i) -> {
+                    // Perform the action when the user confirms
+                    if (type == 0) {
+                        habit.setOnReform(false);
+                        habit.setRelapse(0);
+                        habit.setCompleted_subroutine(0);
+                        habitWithSubroutinesViewModel.updateHabit(habit);
 
-                            List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
-                            for (Subroutines subroutine : subroutinesList) {
-                                subroutine.setLongest_streak(0);
-                                subroutine.setMax_streak(0);
-                                subroutine.setMarkDone(false);
-                                subroutine.setTotal_skips(0);
-                                subroutine.setTotal_completed(0);
-                                habitWithSubroutinesViewModel.updateSubroutine(subroutine);
-                            }
-
-                            Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + habit.getHabit() + "</b>: All progress has been lost"), Snackbar.LENGTH_LONG)
-                                    .setAction("Dismiss", view -> {
-                                        //Dismiss snack bar
-                                    })
-                                    .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                                    .setTextColor(getResources().getColor(R.color.NIGHT))
-                                    .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
-                                    .show();
-                        } else if (type == 1) {
-                            habit.setOnReform(false);
-                            habitWithSubroutinesViewModel.updateHabit(habit);
-
-                            Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + habit.getHabit() + "</b>: All progress was saved"), Snackbar.LENGTH_LONG)
-                                    .setAction("Dismiss", view -> {
-                                        //Dismiss snack bar
-                                    })
-                                    .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                                    .setTextColor(getResources().getColor(R.color.NIGHT))
-                                    .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
-                                    .show();
+                        List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+                        for (Subroutines subroutine : subroutinesList) {
+                            subroutine.setLongest_streak(0);
+                            subroutine.setMax_streak(0);
+                            subroutine.setMarkDone(false);
+                            subroutine.setTotal_skips(0);
+                            subroutine.setTotal_completed(0);
+                            habitWithSubroutinesViewModel.updateSubroutine(subroutine);
                         }
+
+                        Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + habit.getHabit() + "</b>: All progress has been lost"), Snackbar.LENGTH_LONG)
+                                .setAction("Dismiss", view -> {
+                                    //Dismiss snack bar
+                                })
+                                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                                .setTextColor(getResources().getColor(R.color.NIGHT))
+                                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                                .show();
+                    } else if (type == 1) {
+                        habit.setOnReform(false);
+                        habitWithSubroutinesViewModel.updateHabit(habit);
+
+                        Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + habit.getHabit() + "</b>: All progress was saved"), Snackbar.LENGTH_LONG)
+                                .setAction("Dismiss", view -> {
+                                    //Dismiss snack bar
+                                })
+                                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                                .setTextColor(getResources().getColor(R.color.NIGHT))
+                                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                                .show();
                     }
                 })
-                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-        builder.create().show();
+                .setNegativeButton("No", null)
+                .show();
     }
 
     private void onBackPress() {
@@ -374,7 +540,8 @@ public class HomeFragment extends Fragment
 
                 new CountDownTimer(200, 200) {
                     @Override
-                    public void onTick(long l) {}
+                    public void onTick(long l) {
+                    }
 
                     @Override
                     public void onFinish() {
@@ -406,6 +573,15 @@ public class HomeFragment extends Fragment
     }
 
     private void displayFabDialog() {
+        final long[] predefinedHabitsOnReformCount = {0};
+        final int MAXIMUM_PREDEFINED_HABITS_CURRENTLY_ON_REFORM_STATUS = 2;
+
+        habitWithSubroutinesViewModel.getGetPredefinedHabitOnReformCount().observe(getViewLifecycleOwner(), new Observer<Long>() {
+            @Override
+            public void onChanged(Long aLong) {
+                predefinedHabitsOnReformCount[0] = aLong;
+            }
+        });
 
         isOnFabDialog = true;
 
@@ -417,27 +593,28 @@ public class HomeFragment extends Fragment
         dialog.setOnClickListener(new HomeOnFabClickDialogFragment.OnClickListener() {
             @Override
             public void onPredefinedClick() {
-                //WHEN ALL HABITS WAS ADDED
-//                    List<Habits> habitsList = habitWithSubroutinesViewModel.getAllHabitListLiveData().getValue();
-//                    List<Habits> availableHabits = new ArrayList<>();
-//
-//                    for (Habits habits : habitsList){
-//                        if (!habits.isOnReform()) availableHabits.add(habits);
-//                    }
-//
-//                    if (!availableHabits.isEmpty()) {
                 if (!addDefaultHabitFragment.isAdded()) {
-                    changeFragment(addDefaultHabitFragment);
+                    if (predefinedHabitsOnReformCount[0] < MAXIMUM_PREDEFINED_HABITS_CURRENTLY_ON_REFORM_STATUS) {
+                        changeFragment(addDefaultHabitFragment);
+                        isOnAddDefault = true;
+                    } else {
+                        Snackbar.make(binding.getRoot(), Html.fromHtml("Can only add 2 predefined habits on reform at the same time"), Snackbar.LENGTH_SHORT)
+                                .setAction("Dismiss", view -> {
+                                    //Dismiss snack bar
+                                })
+                                .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                                .setTextColor(getResources().getColor(R.color.NIGHT))
+                                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                                .setDuration(1500) //to seconds duration
+                                .show();
+                        isOnAddDefault = false;
+                    }
                 }
-                isOnAddDefault = true;
                 isOnFabDialog = false;
-//                    } else {
-//                        Toast.makeText(requireActivity(), "No Available Habits", Toast.LENGTH_LONG).show();
-//                    }
             }
 
             @Override
-            public void onUserDefineClick() {
+            public void onUserNewHabitClick() {
                 if (!addNewHabitHomeFragment.isAdded()) {
                     changeFragment(addNewHabitHomeFragment);
                 }
@@ -588,6 +765,7 @@ public class HomeFragment extends Fragment
     public void onDestroyView() {
         super.onDestroyView();
         habitWithSubroutinesViewModel = null;
+        habitFireStoreViewModel = null;
         habitsList = null;
         binding = null;
     }

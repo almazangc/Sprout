@@ -8,7 +8,7 @@
 
     android:weightSum="10"
     android:id="@+id/personalization_relative_layout"
-    tools:context=".ui.HabitAssessment.PersonalizationFragment">
+    tools:context=".ui.habit_assessment.PersonalizationFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

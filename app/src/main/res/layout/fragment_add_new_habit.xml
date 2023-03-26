@@ -220,7 +220,7 @@
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/NIGHT"
-                    android:textSize="11sp"
+                    android:textSize="12sp"
                     android:textStyle="italic" />
 
                 <LinearLayout
@@ -271,7 +271,7 @@
                     android:layout_marginStart="15dp"
                     android:text="Required*"
                     android:textColor="@color/CORAL_RED"
-                    android:textSize="11sp" />
+                    android:textSize="12sp" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/add_new_habit_description_card_view"

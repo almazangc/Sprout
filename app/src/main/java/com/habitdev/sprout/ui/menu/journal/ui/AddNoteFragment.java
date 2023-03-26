@@ -11,10 +11,12 @@ import android.view.ViewGroup;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.note.NoteViewModel;
@@ -294,8 +296,16 @@ public class AddNoteFragment extends Fragment {
     private void onDeleteNote() {
         if (binding.fabDeleteNote.getVisibility() == View.VISIBLE) {
             binding.fabDeleteNote.setOnClickListener(v -> {
-                noteViewModel.delete(note);
-                gotoJournalFragment();
+                new AlertDialog.Builder(requireContext())
+                        .setMessage("Do you want to delete this note?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialogInterface, i) -> {
+                            noteViewModel.delete(note);
+                            gotoJournalFragment();
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
             });
         }
     }
