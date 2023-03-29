@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "947122bd9ca3d376a18868203996524e",
+    "identityHash": "476cae8d5c2e93c824f445dbaeeb7e46",
     "entities": [
       {
         "tableName": "User",
@@ -601,18 +601,18 @@
         "foreignKeys": []
       },
       {
-        "tableName": "Milestone",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_milestone_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `description` TEXT, `date_completed` INTEGER NOT NULL, `completed` INTEGER NOT NULL)",
+        "tableName": "Achievement",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_achievement_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `description` TEXT, `type` INTEGER NOT NULL, `current_progress` INTEGER NOT NULL, `goal_progress` INTEGER NOT NULL, `date_achieved` TEXT, `is_completed` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "pk_milestone_uid",
-            "columnName": "pk_milestone_uid",
+            "fieldPath": "pk_achievement_uid",
+            "columnName": "pk_achievement_uid",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "title",
+            "columnName": "title",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -623,21 +623,39 @@
             "notNull": false
           },
           {
-            "fieldPath": "date_completed",
-            "columnName": "date_completed",
+            "fieldPath": "type",
+            "columnName": "type",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "completed",
-            "columnName": "completed",
+            "fieldPath": "current_progress",
+            "columnName": "current_progress",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "goal_progress",
+            "columnName": "goal_progress",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date_achieved",
+            "columnName": "date_achieved",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "is_completed",
+            "columnName": "is_completed",
             "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "pk_milestone_uid"
+            "pk_achievement_uid"
           ],
           "autoGenerate": true
         },
@@ -648,7 +666,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '947122bd9ca3d376a18868203996524e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '476cae8d5c2e93c824f445dbaeeb7e46')"
     ]
   }
 }

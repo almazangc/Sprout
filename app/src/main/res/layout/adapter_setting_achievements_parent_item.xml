@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:layout_marginBottom="3dp"
+    android:background="@drawable/background_achievement_item"
+    tools:showIn="@layout/fragment_achievements">
+
+    <LinearLayout
+        android:id="@+id/achievement_item_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/achievement_progress_indicator_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="6dp"
+            android:minWidth="80dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/achievement_progress_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                app:indicatorColor="@color/WAIKAWA_GREY"
+                app:trackColor="@color/A80_WAIKAWA_GREY"
+                app:trackCornerRadius="5dp"
+                app:trackThickness="5dp"
+                tools:max="100"
+                tools:progress="32" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/achievement_current_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/achievement_progress_divider"
+                    android:gravity="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    tools:text="35" />
+
+                <TextView
+                    android:id="@+id/achievement_progress_divider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text=" / "
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/achievement_goal_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    tools:text="100" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/achievement_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:letterSpacing=".1"
+                android:textAllCaps="true"
+                android:textColor="@color/NIGHT"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Achivement Title" />
+
+            <TextView
+                android:id="@+id/achievement_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                android:letterSpacing=".05"
+                android:textColor="@color/NIGHT"
+                android:textSize="13sp"
+                android:textStyle="italic"
+                tools:text="One line short Description" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/achievement_general_date_completed_container"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/achievement_date_completeted_lbl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Achievement date: "
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/achievement_date_completeted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toEndOf="@id/achievement_date_completeted_lbl"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp"
+                    tools:text="April 28, 2000" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

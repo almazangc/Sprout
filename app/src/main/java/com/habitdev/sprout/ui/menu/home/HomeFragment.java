@@ -2,6 +2,7 @@ package com.habitdev.sprout.ui.menu.home;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,7 +11,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,7 +172,6 @@ public class HomeFragment extends Fragment
         }
     }
 
-
     /**
      * Control Number of habits can be added with a maximum of N Habits
      */
@@ -257,31 +256,35 @@ public class HomeFragment extends Fragment
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("HabitPreferences", MODE_PRIVATE);
         long lastRelapseTime = sharedPreferences.getLong(habit.getHabit() + "LastRelapseTime", 0);
         long timeDifference = System.currentTimeMillis() - lastRelapseTime;
+        long relapseLimiter = convertToMilliseconds(1, 0, 0); //1 hour limit till relapse will be recorded
 
-        if (timeDifference >= convertToMilliseconds(1, 0, 0)) {
+        if (timeDifference >= relapseLimiter) {
             showMotivationalMessage();
             habit.setRelapse(habit.getRelapse() + 1);
             habitWithSubroutinesViewModel.updateHabit(habit);
             sharedPreferences.edit().putLong(habit.getHabit() + "LastRelapseTime", System.currentTimeMillis()).apply();
         } else {
 
-            showMotivationalMessage();
-
             if (!isToastShowing) {
-                Toast.makeText(requireActivity(), "Relapse will be available every (1) hour. You can do it.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), convertToTime(timeDifference, relapseLimiter) + " till relapse will be available. You can to it.", Toast.LENGTH_SHORT).show();
                 isToastShowing = true;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         isToastShowing = false;
                     }
-                }, 60000); // 1 minute delay time in milliseconds for the duration of the toast message
+                }, 5 * 60 *1000); // 5 minute delay time in milliseconds for the duration of the toast message
+            } else {
+                showMotivationalMessage();
             }
         }
     }
 
+    /**
+     * Display motivational message that help encourage not be affected by it.
+     */
     private void showMotivationalMessage() {
-        String[] motivational_message = {
+        final String[] motivational_message = {
                 "Don't be too hard on yourself. A relapse is a setback, not a failure.",
                 "Remember why you started. Visualize the benefits of breaking this habit.",
                 "Focus on progress, not perfection. Each try is a step towards your goal.",
@@ -296,7 +299,6 @@ public class HomeFragment extends Fragment
                 "Setbacks are opportunities for growth. Learn something new each time.",
                 "Don't give up on yourself. You are worth the effort.",
                 "Breaking a bad habit is not a straight line. Keep moving forward.",
-
                 "Believe in yourself! ʕっ•ᴥ•ʔっ",
                 "Believe in yourself! (✿◠‿◠)",
                 "Be proud of yourself for trying! (•̀o•́)ง",
@@ -318,13 +320,10 @@ public class HomeFragment extends Fragment
                 "You've got this! (ง •̀_•́)ง",
                 "You've got this! (ง'̀-'́)ง✧",
         };
-        // Create a new instance of the Random class
-        Random rand = new Random();
 
-        // Generate a random integer between 0 and the length of the array
+        Random rand = new Random();
         int index = rand.nextInt(motivational_message.length);
 
-        // Print the randomly selected message
         String message = motivational_message[index];
 
         Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + message), Snackbar.LENGTH_LONG)
@@ -334,7 +333,7 @@ public class HomeFragment extends Fragment
                 .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
                 .setTextColor(getResources().getColor(R.color.NIGHT))
                 .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
-                .setDuration(10000) //to seconds duration
+                .setDuration(5000) //5 seconds duration
                 .show();
     }
 
@@ -342,9 +341,17 @@ public class HomeFragment extends Fragment
         return (hours * 60 * 60 * 1000) + (minutes * 60 * 1000) + (seconds * 1000);
     }
 
+    @SuppressLint("DefaultLocale")
+    private String convertToTime(long timeDifference, long relapseLimiter) {
+        long timeRemaining = Math.abs(timeDifference - relapseLimiter);
+        long minutes = (timeRemaining % (1000 * 60 * 60)) / (1000 * 60);
+        long seconds = ((timeRemaining % (1000 * 60 * 60)) % (1000 * 60)) / 1000;
+        return String.format("%02dm:%02ds", minutes, seconds);
+    }
+
     @Override
     public void onClickHabitDrop(Habits habit) {
-        showDialog(habit);
+        showOptionDialog(habit);
     }
 
     @Override
@@ -394,7 +401,6 @@ public class HomeFragment extends Fragment
 
     @Override
     public void onClickDownvoteHabit(Habits habit) {
-
         HabitFireStore habitFireStoreItem = new HabitFireStore();
         for (HabitFireStore habitFireStore : habitFireStoreList) {
             if (habitFireStore.getPk_uid() == habit.getPk_habit_uid() && habitFireStore.getTitle().equals(habit.getHabit())){
@@ -435,20 +441,25 @@ public class HomeFragment extends Fragment
         }
     }
 
-    private void showDialog(Habits habit) {
+    private void showOptionDialog(Habits habit) {
         final DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());
         dateTimeElapsedUtil.calculateElapsedDateTime();
 
+        final String ARCHIVE = "Archive Habit";
+        final String CANCEL = "Cancel";
+        final String DROP = "Drop Habit";
+
         String[] options;
+
         if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.MIN_HABIT_BREAK_DAY.getDays()) {
             options = new String[3];
-            options[0] = "Archive Habit";
-            options[1] = "Drop Habit";
-            options[2] = "Cancel";
+            options[0] = ARCHIVE;
+            options[1] = DROP;
+            options[2] = CANCEL;
         } else {
             options = new String[2];
-            options[0] = "Drop Habit";
-            options[1] = "Cancel";
+            options[0] = DROP;
+            options[1] = CANCEL;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
@@ -456,31 +467,27 @@ public class HomeFragment extends Fragment
                 .setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (options[which].equals("Cancel")) {
-                            dialog.dismiss();
-                        } else if (options[which].equals("Drop Habit")) {
-                            showConfirmationDialog(habit, 0);
-                        } else if (options[which].equals("Archive Habit")) {
-                            showConfirmationDialog(habit, 1);
+                        switch (options[which]) {
+                            case CANCEL:
+                                dialog.dismiss();
+                                break;
+                            case DROP:
+                                showConfirmationDialog(habit, 0);
+                                break;
+                            case ARCHIVE:
+                                showConfirmationDialog(habit, 1);
+                                break;
                         }
                     }
                 });
-
         builder.create().show();
     }
 
     private void showConfirmationDialog(Habits habit, int type) {
-        String title = "";
-
-        if (type == 0) {
-            title = "Are you sure you want to drop the habit?";
-        }
-        if (type == 1) {
-            title = "Did you achieve your goal do you want to archive this habit?";
-        }
+        final String[] title = {"Are you sure you want to drop the habit?", "Did you achieve your goal do you want to archive this habit?"};
 
         new AlertDialog.Builder(requireContext())
-                .setMessage(title)
+                .setMessage(title[type])
                 .setCancelable(false)
                 .setPositiveButton("YES", (dialogInterface, i) -> {
                     // Perform the action when the user confirms
@@ -535,8 +542,6 @@ public class HomeFragment extends Fragment
             public void handleOnBackPressed() {
 
                 keypress_count[0]++;
-
-                //toast msg double backpress to close app not minimize
 
                 new CountDownTimer(200, 200) {
                     @Override

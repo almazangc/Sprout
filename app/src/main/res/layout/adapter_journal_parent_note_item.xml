@@ -51,7 +51,7 @@
             android:layout_marginBottom="4dp"
             android:text="Note Contents Goes here"
             android:textColor="@color/NIGHT"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/noteDateTime"
@@ -62,6 +62,6 @@
             android:layout_marginBottom="8dp"
             android:text="Saturday, April 28, 2000: 14:02"
             android:textColor="@color/NIGHT"
-            android:textSize="7sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 </RelativeLayout>

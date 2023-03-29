@@ -65,5 +65,4 @@ public class AssessmentViewModel extends AndroidViewModel {
     public void updateAnswer(Answer answer) {
         repository.updateAnswer(answer);
     }
-
 }

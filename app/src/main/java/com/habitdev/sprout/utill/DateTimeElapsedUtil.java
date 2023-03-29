@@ -125,16 +125,8 @@ public class DateTimeElapsedUtil {
         this.date_started = date_started;
     }
 
-    public void setPatternType(int patternType) {
-        this.patternType = patternType;
-    }
-
     public Date getStart_date() {
         return start_date;
-    }
-
-    public Date getCurrent_date() {
-        return current_date;
     }
 
     public long getElapsed_day() {

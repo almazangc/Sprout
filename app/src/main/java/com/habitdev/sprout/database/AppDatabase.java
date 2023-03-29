@@ -26,8 +26,8 @@ import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesDao;
-import com.habitdev.sprout.database.milestone.MilestoneDao;
-import com.habitdev.sprout.database.milestone.model.Milestone;
+import com.habitdev.sprout.database.achievement.AchievementDao;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.note.NoteDao;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.database.quotes.QuotesRepository;
@@ -42,7 +42,7 @@ import java.util.List;
 /**
  * AppDatabase is a singleton class for handling room entities, typeConverter and can be used to pre-populate database in the installation of application
  */
-@Database(entities = {User.class, Question.class, Choices.class, Answer.class, Note.class, Habits.class, Subroutines.class, Comment.class, Milestone.class}, version = 1)
+@Database(entities = {User.class, Question.class, Choices.class, Answer.class, Note.class, Habits.class, Subroutines.class, Comment.class, Achievement.class}, version = 1)
 @TypeConverters({ArrayListConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -56,6 +56,7 @@ public abstract class AppDatabase extends RoomDatabase {
             new FetchFirestoreDatabaseAsyncTask(INSTANCE).execute();
             new PopulateAssessmentAsyncTask(INSTANCE).execute();
             new PopulateHabitWithSubroutinesAsyncTask(INSTANCE).execute();
+            new PopulateAchievementAsyncTask(INSTANCE).execute();
         }
 
         @Override
@@ -86,7 +87,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract CommentDao commentDao();
 
-    public abstract MilestoneDao milestoneAchievementDao();
+    public abstract AchievementDao achievementDao();
 
     private static class FetchFirestoreDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -986,11 +987,11 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     }
 
-    private static class PopulateNoteAsyncTask extends AsyncTask<Void, Void, Void> {
+    private static class PopulateSampleNote extends AsyncTask<Void, Void, Void> {
 
         private final NoteDao noteDao;
 
-        public PopulateNoteAsyncTask(AppDatabase instance) {
+        public PopulateSampleNote(AppDatabase instance) {
             noteDao = instance.noteDao();
         }
 
@@ -1007,17 +1008,33 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     }
 
-    private static class PopulateMilestoneAsyncTask extends AsyncTask<Void, Void, Void> {
+    private static class PopulateAchievementAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private final MilestoneDao milestoneDao;
+        private final AchievementDao achievementDao;
 
-        public PopulateMilestoneAsyncTask(AppDatabase instance) {
-            milestoneDao = instance.milestoneAchievementDao();
+        public PopulateAchievementAsyncTask(AppDatabase instance) {
+            achievementDao = instance.achievementDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            //Popluate the list of milestones
+            //Populate the list of achievements
+            //Triggered when first time adding new habit on reform. This is triggered in analysis fragment when clicking and cofirming the habit to be added.
+            achievementDao.insertAchievement(new Achievement("First Step", "Take a leap in reforming a bad habit", 0, 1));
+            //Triggered when first time adding a note in journal
+            achievementDao.insertAchievement(new Achievement("First Note", "Write down your thoughts", 0, 1));
+            //Triggered when first time adding a note in journal
+            achievementDao.insertAchievement(new Achievement("Making progress", "More notes, better self understanding", 1, 10));
+
+            achievementDao.insertAchievement(new Achievement("sample", "description", 1, 5, 15, null, false));
+
+            achievementDao.insertAchievement(new Achievement("sample2", "description2", 1, 30, 75, null, false));
+
+            achievementDao.insertAchievement(new Achievement("sample3", "description", 1, 10, 10, "April 29, 2000", true));
+
+            achievementDao.insertAchievement(new Achievement("sample4", "description", 0, 23, 23, "January 12, 2000", true));
+
+            achievementDao.insertAchievement(new Achievement("sample", "description", 0, 1, 1, null, false));
             return null;
         }
     }

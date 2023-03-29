@@ -19,7 +19,6 @@
         android:clickable="true"
         android:padding="16dp">
 
-        <!--            Habit title-->
         <TextView
             android:id="@+id/adapter_analytic_parent_item_habit_title"
             android:layout_width="match_parent"
@@ -31,7 +30,6 @@
             android:textStyle="bold"
             tools:text="Habit Title" />
 
-        <!--            Habit Description-->
         <TextView
             android:id="@+id/adapter_analytic_parent_item_habit_description"
             android:layout_width="match_parent"
@@ -46,7 +44,6 @@
             android:textSize="15sp"
             tools:text="\t\tProcrastination is the action of unnecessarily and voluntarily delaying or postponing something despite knowing that there will be negative consequences for doing so." />
 
-        <!--            Pie chart-->
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/adapter_analytic_parent_item_pie_chart_total_completed_subroutine"
             android:layout_width="match_parent"
@@ -57,7 +54,6 @@
             android:minWidth="150dp"
             android:minHeight="150dp" />
 
-        <!--            Habit Child Subroutine-->
         <LinearLayout
             android:id="@+id/total_subroutine_layout"
             android:layout_width="wrap_content"

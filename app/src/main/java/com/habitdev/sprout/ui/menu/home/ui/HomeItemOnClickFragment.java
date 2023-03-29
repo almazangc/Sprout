@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.assessment.AssessmentViewModel;
 import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
@@ -20,13 +21,17 @@ import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.databinding.FragmentHomeItemOnClickBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
+import com.habitdev.sprout.ui.habit_assessment.adapter.Model.Result;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
+import com.habitdev.sprout.utill.recommender.RuleBasedAlgorithm;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -81,6 +86,9 @@ public class HomeItemOnClickFragment extends Fragment {
         }
 
         setHabit();
+        if (!habit.isModifiable()) {
+            setRecommendedPercent();
+        }
         colorSelect();
         insertComment();
         setCommentRecyclerView();
@@ -88,11 +96,38 @@ public class HomeItemOnClickFragment extends Fragment {
         return binding.getRoot();
     }
 
+    private void setRecommendedPercent() {
+        AssessmentViewModel assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
+        RuleBasedAlgorithm ruleBasedAlgorithm = new RuleBasedAlgorithm();
+        ruleBasedAlgorithm.setAssessmentViewModel(assessmentViewModel);
+        ruleBasedAlgorithm.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+        ruleBasedAlgorithm.calculateHabitScores();
+        ruleBasedAlgorithm.getRecommendedHabitsScore();
+        List<Result> habitScoreResult = ruleBasedAlgorithm.getConvertedToResultList();
+        Result result = habitScoreResult.get((int) (habit.getPk_habit_uid()-1));
+        Double score = result.getScore();
+        DecimalFormat decimalFormat = new DecimalFormat("##%");
+        String formatedScore = decimalFormat.format(score);
+        binding.recommendedPercent.setText(formatedScore);
+
+        if (score == 1) {
+            binding.recommendedPercent.setTextColor(ContextCompat.getColor(requireContext(), R.color.RUSTIC_RED));
+        } else if (score > .75) {
+            binding.recommendedPercent.setTextColor(ContextCompat.getColor(requireContext(), R.color.CORAL_RED));
+        } else if (score > .5) {
+            binding.recommendedPercent.setTextColor(ContextCompat.getColor(requireContext(), R.color.WISTERIA));
+        } else if (score > .25) {
+            binding.recommendedPercent.setTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER));
+        } else {
+            binding.recommendedPercent.setTextColor(ContextCompat.getColor(requireContext(), R.color.EMERALD));
+        }
+    }
+
     private void setHabit() {
         setHabitColor();
         binding.homeItemOnClickHabitTitle.setText(habit.getHabit());
         binding.homeItemOnClickHabitDescription.setText(habit.getDescription());
-        binding.homeItemOnClickStatus.setText(habit.isOnReform() ? "ON REFORM" : "AVAILABLE");
+        binding.homeItemOnClickStatus.setText(habit.isOnReform() ? "ON REFORM" : "ARCHIVED");
         binding.homeItemOnClickHabitDateStartedOnReform.setText(habit.getDate_started());
 
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(habit.getDate_started());

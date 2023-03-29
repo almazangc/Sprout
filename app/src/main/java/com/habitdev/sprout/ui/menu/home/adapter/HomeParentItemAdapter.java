@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -156,7 +155,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
             itemContainer = itemView.findViewById(R.id.adapter_home_parent_item_container);
             itemLayout = itemContainer.findViewById(R.id.adapter_home_parent_item_layout);
-            habitTitle = itemView.findViewById(R.id.header);
+            habitTitle = itemView.findViewById(R.id.home_item_on_click_habit_title);
             habitDescription = itemView.findViewById(R.id.home_item_on_click_habit_description);
             dateStarted = itemView.findViewById(R.id.date_started);
             completedSubroutine = itemView.findViewById(R.id.completed_subroutine);

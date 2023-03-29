@@ -56,7 +56,7 @@ import java.util.Random;
  * <p>g. portability.</p>
  * <br>
  * <p><b>Development Started:</b> August 27</p>
- * <p><b>Min SDK:</b> 28 Android 9 Pie 98% Commulative Usage</p>
+ * <p><b>Min SDK:</b> 28 Android 9 Pie 98% Commutative Usage</p>
  * <p><b>Target SDK:</b> 32 Android 12L Snowcone</p>
  * <p>Status: 72% Complete</p>
  * <br>

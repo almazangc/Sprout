@@ -38,7 +38,7 @@
             android:minWidth="150dp"
             android:minHeight="150dp"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_anim_empty_state.json"
+            app:lottie_fileName="lottie_anim_empty_state_subroutine.json"
             app:lottie_loop="true"
             android:visibility="invisible"
             app:lottie_speed="1" />

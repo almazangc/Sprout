@@ -203,7 +203,7 @@
             android:layout_below="@id/home_item_on_click_miscellaneous">
 
             <TextView
-                android:id="@+id/weighted_rating"
+                android:id="@+id/recommended_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
@@ -214,11 +214,10 @@
                 android:maxLines="1"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
-                android:textColor="@color/ARTY_CLICK_RED"
+                android:textColor="@color/PETER_RIVER"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="rating_placeholder" />
-
+                tools:text="63%" />
 
             <TextView
                 android:id="@+id/home_item_on_click_habit_title"
@@ -226,7 +225,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
-                android:layout_toEndOf="@id/weighted_rating"
+                android:layout_toEndOf="@id/recommended_percent"
                 android:ellipsize="end"
                 android:gravity="center|start"
                 android:maxLines="1"
@@ -503,7 +502,6 @@
                             app:layout_constraintRight_toRightOf="parent"
                             tools:itemCount="8"
                             tools:listitem="@layout/adapter_home_parent_habit_on_item_click_comment_item" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <LinearLayout
