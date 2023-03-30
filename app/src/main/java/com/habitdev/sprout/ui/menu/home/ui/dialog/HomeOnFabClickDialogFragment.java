@@ -11,13 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.habitdev.sprout.R;
-import com.habitdev.sprout.databinding.DialogFragmentHomeOnFabClickDialogBinding;
+import com.habitdev.sprout.databinding.DialogFragmentHomeOnFabClickBinding;
 
 import java.util.Objects;
 
 public class HomeOnFabClickDialogFragment extends DialogFragment implements View.OnClickListener {
 
-    private DialogFragmentHomeOnFabClickDialogBinding binding;
+    private DialogFragmentHomeOnFabClickBinding binding;
 
     public interface OnClickListener {
         void onPredefinedClick();
@@ -34,16 +34,11 @@ public class HomeOnFabClickDialogFragment extends DialogFragment implements View
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DialogFragmentHomeOnFabClickDialogBinding.inflate(inflater, container, false);
+        binding = DialogFragmentHomeOnFabClickBinding.inflate(inflater, container, false);
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
         getDialog().setCanceledOnTouchOutside(false);
         setOnclickListener();
-        setPredifinedHabitsClickability();
         return binding.getRoot();
-    }
-
-    private void setPredifinedHabitsClickability() {
-
     }
 
     private void setOnclickListener() {

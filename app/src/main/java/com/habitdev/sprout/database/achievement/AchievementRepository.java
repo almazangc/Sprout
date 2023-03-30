@@ -4,7 +4,6 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Query;
 
 import com.habitdev.sprout.database.AppDatabase;
 import com.habitdev.sprout.database.achievement.model.Achievement;
@@ -28,7 +27,7 @@ public class AchievementRepository {
         return achievementDao.getAllAchievementList();
     }
 
-    public LiveData<Achievement> getAchievementByUID(long pk_achievement_uid) {
+    public Achievement getAchievementByUID(long pk_achievement_uid) {
         return achievementDao.getAchievementByUID(pk_achievement_uid);
     }
 

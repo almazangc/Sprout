@@ -143,9 +143,8 @@ public class ProfileFragment extends Fragment {
                     showConfirmUpdateDialog(1);
                 } else if (selectedProfilePath != null && !selectedProfilePath.trim().isEmpty() && !selectedProfilePath.equals(currentProfilePath)) {
                     showConfirmUpdateDialog(2);
-                } else {
-                    // do not show prompt
                 }
+
             }
         });
 
@@ -222,14 +221,10 @@ public class ProfileFragment extends Fragment {
                                 alarmScheduler.setContext(requireContext());
 
                                 if (toggleState) {
-                                    Log.d("tag", "onClick: TurnON Notify");
-
                                     Calendar morningCalendar = alarmScheduler.setCaledendar(user.getWakeHour(), user.getWakeMinute());
                                     Calendar eveningCalendar = alarmScheduler.setCaledendar(user.getSleepHour(), user.getSleepMinute());
                                     alarmScheduler.turnOnDailyNotifcation(morningCalendar, eveningCalendar);
-
                                 } else {
-                                    Log.d("tag", "onClick: TurnOFF Notify");
                                     alarmScheduler.turnOffDailyNotification();
                                 }
                             }

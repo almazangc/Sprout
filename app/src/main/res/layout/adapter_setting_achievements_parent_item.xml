@@ -19,8 +19,8 @@
             android:id="@+id/achievement_progress_indicator_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="6dp"
-            android:minWidth="80dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -75,17 +75,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="6dp"
-            android:layout_marginBottom="6dp"
-            android:padding="5dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/achievement_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:letterSpacing=".1"
@@ -99,7 +98,6 @@
                 android:id="@+id/achievement_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="4dp"
@@ -110,15 +108,15 @@
                 tools:text="One line short Description" />
 
             <RelativeLayout
-                android:layout_width="match_parent"
                 android:id="@+id/achievement_general_date_completed_container"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp">
 
                 <TextView
                     android:id="@+id/achievement_date_completeted_lbl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:text="Achievement date: "
                     android:textColor="@color/NIGHT"
                     android:textSize="13sp" />

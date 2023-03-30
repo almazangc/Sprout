@@ -1018,23 +1018,50 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            //Populate the list of achievements
             //Triggered when first time adding new habit on reform. This is triggered in analysis fragment when clicking and cofirming the habit to be added.
-            achievementDao.insertAchievement(new Achievement("First Step", "Take a leap in reforming a bad habit", 0, 1));
+            Achievement FirstStep = new Achievement("First Step", "Take a leap in reforming a bad habit", 0, 1);
+            achievementDao.insertAchievement(FirstStep);
+
+            //Triggered in adding notes
+            Achievement NoteI = new Achievement("First Note", "Write down your thoughts", 0, 1);
+            achievementDao.insertAchievement(NoteI);
+            Achievement NoteII = new Achievement("Piece by Piece", "Journal your progress", 1, NoteI.getTitle(), achievementDao.getAchievementByTitle(NoteI.getTitle()), 10);
+            achievementDao.insertAchievement(NoteII);
+            Achievement NoteIII = new Achievement("Better Understanding", "Lots of notes written", 1, NoteII.getTitle(), achievementDao.getAchievementByTitle(NoteII.getTitle()), 30);
+            achievementDao.insertAchievement(NoteIII);
+            Achievement NoteIV = new Achievement("Chapter", "Keep writing you thoughts", 1, NoteIII.getTitle(), achievementDao.getAchievementByTitle(NoteIII.getTitle()), 60);
+            achievementDao.insertAchievement(NoteIV);
+            Achievement NoteV = new Achievement("Journal", "You have written your thoughts", 1, NoteIV.getTitle(),achievementDao.getAchievementByTitle(NoteIV.getTitle()), 100);
+            achievementDao.insertAchievement(NoteV);
+
+            //Triggerred by duration of appllication since installed
+            Achievement WEEK = new Achievement("Been a week", "The application was installed for 7 days", 0, 1);
+            achievementDao.insertAchievement(WEEK);
+            Achievement MONTH = new Achievement("You have stayed", "The application was installed for 30 days", 0, 1);
+            achievementDao.insertAchievement(MONTH);
+            Achievement THREE_MONTH = new Achievement("Keep growing", "The application was installed for 90 days", 0, 1);
+            achievementDao.insertAchievement(THREE_MONTH);
+            Achievement AYEAR = new Achievement("Great Dedication", "The application was installed for 365 days", 0, 1);
+            achievementDao.insertAchievement(AYEAR);
+
+            //Triggered by swiping in left and right direction in top bar to navigate between menus
+            Achievement LEFTSWIPE = new Achievement("Secret", "Hidden", 0, 1);
+            achievementDao.insertAchievement(LEFTSWIPE);
+            Achievement RIGHTSWIPE = new Achievement("Secret", "Hidden", 0, 1);
+            achievementDao.insertAchievement(RIGHTSWIPE);
+
             //Triggered when first time adding a note in journal
-            achievementDao.insertAchievement(new Achievement("First Note", "Write down your thoughts", 0, 1));
-            //Triggered when first time adding a note in journal
-            achievementDao.insertAchievement(new Achievement("Making progress", "More notes, better self understanding", 1, 10));
-
-            achievementDao.insertAchievement(new Achievement("sample", "description", 1, 5, 15, null, false));
-
-            achievementDao.insertAchievement(new Achievement("sample2", "description2", 1, 30, 75, null, false));
-
-            achievementDao.insertAchievement(new Achievement("sample3", "description", 1, 10, 10, "April 29, 2000", true));
-
-            achievementDao.insertAchievement(new Achievement("sample4", "description", 0, 23, 23, "January 12, 2000", true));
-
-            achievementDao.insertAchievement(new Achievement("sample", "description", 0, 1, 1, null, false));
+//            achievementDao.insertAchievement(new Achievement("Making progress", "More notes, better self understanding", 1, 10));
+//
+//            achievementDao.insertAchievement(new Achievement("sample", "description", 1, 5, 15, null, false));
+//
+//            achievementDao.insertAchievement(new Achievement("sample2", "description2", 1, 30, 75, null, false));
+//
+//            achievementDao.insertAchievement(new Achievement("sample3", "description", 1, 10, 10, "April 29, 2000", true));
+//
+//            achievementDao.insertAchievement(new Achievement("sample4", "description", 0, 23, 23, "January 12, 2000", true));
+//
+//            achievementDao.insertAchievement(new Achievement("sample", "description", 0, 1, 1, null, false));
             return null;
         }
     }

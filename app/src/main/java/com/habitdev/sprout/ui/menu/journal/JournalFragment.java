@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -21,7 +20,6 @@ import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentJournalBinding;
 import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.journal.adapter.JournalNoteItemAdapter;
 import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
 
@@ -31,6 +29,7 @@ import java.util.List;
 public class JournalFragment extends Fragment implements NoteItemOnClickListener {
 
     private FragmentJournalBinding binding;
+    NoteViewModel noteViewModel;
     private JournalNoteItemAdapter journalNoteItemAdapter;
     private List<Note> noteList;
 
@@ -39,6 +38,7 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentJournalBinding.inflate(inflater, container, false);
+        noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
         setRecyclerViewAdapter();
         fabOnClick();
         onSearchNote();
@@ -47,9 +47,7 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
     }
 
     private void setRecyclerViewAdapter() {
-        NoteViewModel noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
         noteList = noteViewModel.getNoteList();
-
         journalNoteItemAdapter = new JournalNoteItemAdapter(noteList);
         journalNoteItemAdapter.setNoteItemOnClickListener(this);
         binding.journalRecyclerView.setAdapter(journalNoteItemAdapter);
@@ -70,7 +68,11 @@ public class JournalFragment extends Fragment implements NoteItemOnClickListener
         binding.journalSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(requireContext(), "Journal Refresh, For Online Data Fetch", Toast.LENGTH_SHORT).show();
+                noteViewModel.getNoteListLiveData().observe(getViewLifecycleOwner(), notes -> {
+                    journalNoteItemAdapter.setNewNoteList(new ArrayList<>(notes));
+                    noteList = new ArrayList<>(notes);
+                    setEmptyJournalView();
+                });
                 binding.journalSwipeRefresh.setRefreshing(false);
             }
         });

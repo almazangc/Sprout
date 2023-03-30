@@ -26,6 +26,12 @@ public class Achievement {
     @ColumnInfo(name = "type")
     private long type;
 
+    @ColumnInfo(name = "prerequisite")
+    private String prerequisite;
+
+    @ColumnInfo(name = "prerequisite_uid")
+    private long prerequisite_uid;
+
     @ColumnInfo(name = "current_progress")
     private long current_progress;
 
@@ -40,11 +46,25 @@ public class Achievement {
 
     public Achievement() {}
 
-    @Ignore
-    public Achievement(String title, String description, long type, long goal_progress) {
+    public Achievement(String title, String description, long type, String prerequisite, long pk_achievement_uid, long current_progress, long goal_progress, String date_achieved, boolean is_completed) {
         this.title = title;
         this.description = description;
         this.type = type;
+        this.prerequisite = prerequisite;
+        this.prerequisite_uid = prerequisite_uid;
+        this.current_progress = current_progress;
+        this.goal_progress = goal_progress;
+        this.date_achieved = date_achieved;
+        this.is_completed = is_completed;
+    }
+
+    @Ignore
+    public Achievement(String title, String description, long type, String prerequisite, long prerequisite_uid,  long goal_progress) {
+        this.title = title;
+        this.description = description;
+        this.type = type;
+        this.prerequisite = prerequisite;
+        this.prerequisite_uid = prerequisite_uid;
         this.current_progress = 0;
         this.goal_progress = goal_progress;
         this.date_achieved = null;
@@ -52,14 +72,16 @@ public class Achievement {
     }
 
     @Ignore
-    public Achievement(String title, String description, long type, long current_progress, long goal_progress, String date_achieved, boolean is_completed) {
+    public Achievement(String title, String description, long type, long goal_progress) {
         this.title = title;
         this.description = description;
         this.type = type;
-        this.current_progress = current_progress;
+        this.prerequisite = null;
+        this.prerequisite_uid = -1;
+        this.current_progress = 0;
         this.goal_progress = goal_progress;
-        this.date_achieved = date_achieved;
-        this.is_completed = is_completed;
+        this.date_achieved = null;
+        this.is_completed = false;
     }
 
     public long getPk_achievement_uid() {
@@ -94,6 +116,22 @@ public class Achievement {
         this.type = type;
     }
 
+    public String getPrerequisite() {
+        return prerequisite;
+    }
+
+    public void setPrerequisite(String prerequisite) {
+        this.prerequisite = prerequisite;
+    }
+
+    public long getPrerequisite_uid() {
+        return prerequisite_uid;
+    }
+
+    public void setPrerequisite_uid(long prerequisite_uid) {
+        this.prerequisite_uid = prerequisite_uid;
+    }
+
     public long getCurrent_progress() {
         return current_progress;
     }
@@ -118,7 +156,7 @@ public class Achievement {
         this.date_achieved = date_achieved;
     }
 
-    public boolean isIs_completed() {
+    public boolean is_completed() {
         return is_completed;
     }
 
@@ -130,13 +168,15 @@ public class Achievement {
     @Override
     public String toString() {
         return "Achievement{" +
-                "pk_milestone_uid=" + pk_achievement_uid +
+                "pk_achievement_uid=" + pk_achievement_uid +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", type=" + type +
+                ", prerequisite='" + prerequisite + '\'' +
+                ", prerequisite_uid=" + prerequisite_uid +
                 ", current_progress=" + current_progress +
                 ", goal_progress=" + goal_progress +
-                ", date_completed=" + date_achieved +
+                ", date_achieved='" + date_achieved + '\'' +
                 ", is_completed=" + is_completed +
                 '}';
     }

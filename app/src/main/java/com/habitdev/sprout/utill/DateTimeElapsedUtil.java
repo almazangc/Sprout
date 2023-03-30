@@ -37,6 +37,8 @@ public class DateTimeElapsedUtil {
      */
     private Date start_date, current_date;
 
+
+
     /**
      * Constructs a new DateTimeElapsedUtil with a given start date and a pattern type of 0.
      *
@@ -136,4 +138,6 @@ public class DateTimeElapsedUtil {
     public String getResult() {
         return result;
     }
+
+
 }

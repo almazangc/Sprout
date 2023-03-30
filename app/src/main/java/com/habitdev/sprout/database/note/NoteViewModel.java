@@ -46,4 +46,8 @@ public class NoteViewModel extends AndroidViewModel {
     public List<Note> getNoteList() {
         return noteList;
     }
+
+    public long getNoteEntryCount() {
+        return repository.getNoteEntryCount();
+    }
 }

@@ -3,22 +3,27 @@ package com.habitdev.sprout.ui.habit_assessment;
 import android.app.AlertDialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.assessment.AssessmentViewModel;
 import com.habitdev.sprout.database.assessment.model.Answer;
@@ -101,7 +106,15 @@ public class PersonalizationFragment extends Fragment {
     private void setContinueListener() {
         binding.btnContinue.setOnClickListener(v -> {
             if (isAllRadioButtonUnchecked()) {
-                Toast.makeText(requireContext(), "Please Select Answer!", Toast.LENGTH_LONG).show();
+                Snackbar snackbar = Snackbar.make(binding.getRoot(), Html.fromHtml("Please set your answers"), Snackbar.LENGTH_SHORT)
+                        .setTextColor(getResources().getColor(R.color.ClOUDS_))
+                        .setBackgroundTint(getResources().getColor(R.color.POMEGRANATE))
+                        .setDuration(2000); //to seconds duration
+                // Get the Snackbar's default text view
+                TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
+                textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                textView.setTextSize(16);
+                snackbar.show();
             } else {
                 saveSelection();
                 setAssessment();

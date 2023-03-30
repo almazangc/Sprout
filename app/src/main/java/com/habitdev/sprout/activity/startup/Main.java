@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -22,22 +24,30 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.achievement.AchievementViewModel;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
+import com.habitdev.sprout.database.user.UserViewModel;
+import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.enums.TimeMilestone;
+import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
 import com.habitdev.sprout.utill.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.NetworkMonitoringUtil;
 import com.habitdev.sprout.utill.NetworkStateManager;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * <p><b>Sprout:  HABIT BUSTER REFORM WITH BITE-SIZE SUBROUTINES</b></p>
@@ -53,7 +63,6 @@ import java.util.Random;
  * <p>d. usability</p>
  * <p>e. reliability</p>
  * <p>f. security</p>
- * <p>g. portability.</p>
  * <br>
  * <p><b>Development Started:</b> August 27</p>
  * <p><b>Min SDK:</b> 28 Android 9 Pie 98% Commutative Usage</p>
@@ -106,8 +115,84 @@ public class Main extends AppCompatActivity {
         if (!checkPermission()) {
             requestPermissions();
         }
-
+        setTimeElapsedSinceInstalled();
         setContentView(binding.getRoot());
+    }
+
+    private void setTimeElapsedSinceInstalled() {
+        UserViewModel userViewModel = new ViewModelProvider(Main.this).get(UserViewModel.class);
+        Log.d("tag", "setTimeElapsedSinceInstalled: " + userViewModel.getUserCount());
+        if (userViewModel.getUserCount() > 0) {
+            User user = userViewModel.getUserByUID(1);
+            String date = user.getDateInstalled();
+
+            DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date);
+
+            AchievementViewModel achievementViewModel = new ViewModelProvider(Main.this).get(AchievementViewModel.class);
+            //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+            Achievement WEEK = achievementViewModel.getAchievementByUID(7);
+            Achievement MONTH = achievementViewModel.getAchievementByUID(8);
+            Achievement THREE_MONTH = achievementViewModel.getAchievementByUID(9);
+            Achievement YEAR = achievementViewModel.getAchievementByUID(10);
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (binding != null) {
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            dateTimeElapsedUtil.calculateElapsedDateTime();
+                            try {
+                                long elapsedDay = dateTimeElapsedUtil.getElapsed_day();
+                                Log.d("tag", "run(Main) Days: " + elapsedDay);
+                                if (elapsedDay == 7 && !WEEK.is_completed()) {
+                                    WEEK.setIs_completed(true);
+                                    WEEK.setCurrent_progress(WEEK.getCurrent_progress()+1);
+                                    WEEK.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                                    achievementViewModel.updateAchievement(WEEK);
+                                    CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(WEEK.getTitle());
+                                    dialog.show(getSupportFragmentManager(), "CompletedAchievementDiaglog");
+                                }
+
+                                if (elapsedDay == 30 && !MONTH.is_completed()) {
+                                    MONTH.setIs_completed(true);
+                                    MONTH.setCurrent_progress(MONTH.getCurrent_progress()+1);
+                                    MONTH.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                                    achievementViewModel.updateAchievement(MONTH);
+                                    CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(MONTH.getTitle());
+                                    dialog.show(getSupportFragmentManager(), "CompletedAchievementDiaglog");
+                                }
+
+                                if (elapsedDay == 90 && !THREE_MONTH.is_completed()) {
+                                    THREE_MONTH.setIs_completed(true);
+                                    THREE_MONTH.setCurrent_progress(THREE_MONTH.getCurrent_progress()+1);
+                                    THREE_MONTH.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                                    achievementViewModel.updateAchievement(THREE_MONTH);
+                                    CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(THREE_MONTH.getTitle());
+                                    dialog.show(getSupportFragmentManager(), "CompletedAchievementDiaglog");
+                                }
+
+                                if (elapsedDay == 365 && !YEAR.is_completed()) {
+                                    YEAR.setIs_completed(true);
+                                    YEAR.setCurrent_progress(YEAR.getCurrent_progress()+1);
+                                    YEAR.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                                    achievementViewModel.updateAchievement(YEAR);
+                                    CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(YEAR.getTitle());
+                                    dialog.show(getSupportFragmentManager(), "CompletedAchievementDiaglog");
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    } else {
+                        Log.d("tag", "run: main purging timer");
+                        timer.cancel();
+                        timer.purge();
+                    }
+                }
+            }, 0, 1000 * 60);
+        }
     }
 
     private void requestPermissions() {

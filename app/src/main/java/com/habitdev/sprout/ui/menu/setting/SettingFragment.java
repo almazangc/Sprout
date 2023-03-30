@@ -188,7 +188,7 @@ public class SettingFragment extends Fragment implements
                 .beginTransaction()
                 .addToBackStack(SettingFragment.this.getTag())
                 .add(binding.settingFrameLayout.getId(), fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN)
+                .setTransition(FragmentTransaction.TRANSIT_NONE)
                 .commit();
         binding.settingContainer.setVisibility(View.GONE);
         userViewModel = null;

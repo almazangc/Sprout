@@ -94,7 +94,7 @@ public class SettingAchievementParentItemAdapter extends RecyclerView.Adapter<Se
             achievementTitle.setText(achievement.getTitle());
             achievementDescription.setText(achievement.getDescription());
 
-            if (achievement.isIs_completed()) {
+            if (achievement.is_completed()) {
                 achievementDateCompletedlbl.setVisibility(View.VISIBLE);
                 achievementDateCompleted.setVisibility(View.VISIBLE);
                 achievementDateCompleted.setText(achievement.getDate_achieved());

@@ -25,7 +25,7 @@ public class UserRepository {
         userDao = appDatabase.userDao();
         userList = userDao.getAllUser();
         userListLiveData = userDao.getAllUserLiveData();
-        userCount = userDao.countAllSections();
+        userCount = userDao.countAllUser();
         isAssessment = userDao.isAssessment();
         isOnBoarding = userDao.isOnBoarding();
         userNickname = userDao.getNickname();

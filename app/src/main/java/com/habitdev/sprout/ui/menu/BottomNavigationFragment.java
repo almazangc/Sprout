@@ -17,15 +17,23 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.activity.startup.Main;
+import com.habitdev.sprout.database.achievement.AchievementViewModel;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.databinding.FragmentBottomNavigationBinding;
 import com.habitdev.sprout.ui.menu.analytic.AnalyticFragment;
 import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.journal.JournalFragment;
 import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 
@@ -222,22 +230,36 @@ public class BottomNavigationFragment extends Fragment {
                     if (Math.abs(diffX) > Math.abs(diffY)) {
                         if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                             if (diffX > 0) {
+                                //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+                                AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
+                                Achievement RIGTHSWIPE = achievementViewModel.getAchievementByUID(11);
+                                if (!RIGTHSWIPE.is_completed()) {
+                                    RIGTHSWIPE.setIs_completed(true);
+                                    RIGTHSWIPE.setCurrent_progress(RIGTHSWIPE.getCurrent_progress()+1);
+                                    RIGTHSWIPE.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                                    RIGTHSWIPE.setTitle("RIGHT SWIPE");
+                                    RIGTHSWIPE.setDescription("Unlocked by right swiping on top bar to navigate menus");
+                                    achievementViewModel.updateAchievement(RIGTHSWIPE);
+                                    displayAchievementDialog(RIGTHSWIPE);
+                                }
                                 onSwipeRight();
                             } else {
+                                //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+                                AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
+                                Achievement LEFTSWIPE = achievementViewModel.getAchievementByUID(12);
+                                if (!LEFTSWIPE.is_completed()) {
+                                    LEFTSWIPE.setIs_completed(true);
+                                    LEFTSWIPE.setCurrent_progress(LEFTSWIPE.getCurrent_progress()+1);
+                                    LEFTSWIPE.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                                    LEFTSWIPE.setTitle("LEFT SWIPE");
+                                    LEFTSWIPE.setDescription("Unlocked by left swiping on top bar  to navigate menus");
+                                    achievementViewModel.updateAchievement(LEFTSWIPE);
+                                    displayAchievementDialog(LEFTSWIPE);
+                                }
                                 onSwipeLeft();
                             }
                         }
                         result = true;
-
-//                      Listens on Fling up and down
-
-//                    } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-//                        if (diffY > 0) {
-//                            onSwipeBottom();
-//                        } else {
-//                            onSwipeTop();
-//                        }
-
                     }
                     result = true;
 
@@ -246,6 +268,13 @@ public class BottomNavigationFragment extends Fragment {
                     Log.d("tag", "onFling: Bottom Swipe --> " + exception.getMessage());
                 }
                 return result;
+            }
+
+            private void displayAchievementDialog(Achievement LEFTSWIPE) {
+                CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(LEFTSWIPE.getTitle());
+                dialog.setTargetFragment(getChildFragmentManager()
+                        .findFragmentById(BottomNavigationFragment.this.getId()), 1);
+                dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
             }
         });
 

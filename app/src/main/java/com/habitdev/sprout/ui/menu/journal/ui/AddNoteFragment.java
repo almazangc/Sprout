@@ -16,15 +16,17 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.achievement.AchievementViewModel;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentAddNoteBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.ui.menu.journal.JournalFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,10 +36,11 @@ public class AddNoteFragment extends Fragment {
 
     private FragmentAddNoteBinding binding;
     private NoteViewModel noteViewModel;
-    private final int ic_check =  R.drawable.ic_check;
+    private AchievementViewModel achievementViewModel;
+    private final int ic_check = R.drawable.ic_check;
     private int current_selected_color;
     private int old_selected_color;
-    private String color =  AppColor.CLOUDS.getColor();
+    private String color = AppColor.CLOUDS.getColor();
     private Note note;
     private Bundle bundle;
 
@@ -262,7 +265,6 @@ public class AddNoteFragment extends Fragment {
                                                         binding.noteContent.getText().toString(),
                                                         color)
                                 );
-                                //hide save button
                                 gotoJournalFragment();
                             })
                             .setNegativeButton("No", (dialogInterface, i) -> {
@@ -272,41 +274,100 @@ public class AddNoteFragment extends Fragment {
                     gotoJournalFragment();
                 }
             } else {
-                if (binding.noteHint.getText().toString().trim().isEmpty()){
-                    noteViewModel.insert(
-                            binding.noteSubTitle.getText().toString().trim().isEmpty() ?
-                                    new Note(
-                                            binding.noteTitle.getText().toString(),
-                                            binding.noteCurrentTime.getText().toString(),
-                                            binding.noteContent.getText().toString(),
-                                            color) :
-                                    new Note(
-                                            binding.noteTitle.getText().toString(),
-                                            binding.noteCurrentTime.getText().toString(),
-                                            binding.noteSubTitle.getText().toString(),
-                                            binding.noteContent.getText().toString(),
-                                            color)
-                    );
+                if (binding.noteHint.getText().toString().trim().isEmpty()) {
+                    new AlertDialog.Builder(requireContext())
+                            .setMessage("Would you like to add note?")
+                            .setCancelable(false)
+                            .setPositiveButton("YES", (dialogInterface, i) -> {
+                                achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
+                                //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+                                Achievement NoteV = achievementViewModel.getAchievementByUID(6);
+                                Achievement NoteIV = achievementViewModel.getAchievementByUID(NoteV.getPrerequisite_uid());
+                                Achievement NoteIII = achievementViewModel.getAchievementByUID(NoteIV.getPrerequisite_uid());
+                                Achievement NoteII = achievementViewModel.getAchievementByUID(NoteIII.getPrerequisite_uid());
+                                Achievement NoteI = achievementViewModel.getAchievementByUID(NoteII.getPrerequisite_uid());
+
+                                if (!NoteI.is_completed() && noteViewModel.getNoteEntryCount() == NoteI.getGoal_progress() - 1) {
+                                    updateUnlockedAchievement(NoteI);
+                                } else if (!NoteII.is_completed() && NoteI.is_completed() && noteViewModel.getNoteEntryCount() < NoteII.getGoal_progress() - 1) {
+                                    incrementprogress(NoteII);
+                                    achievementViewModel.updateAchievement(NoteII);
+                                } else if (!NoteII.is_completed() && NoteI.is_completed() && noteViewModel.getNoteEntryCount() == NoteII.getGoal_progress() - 1) {
+                                    updateUnlockedAchievement(NoteII);
+                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && noteViewModel.getNoteEntryCount() < NoteIII.getGoal_progress() - 1) {
+                                    incrementprogress(NoteIII);
+                                    achievementViewModel.updateAchievement(NoteIII);
+                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && noteViewModel.getNoteEntryCount() == NoteIII.getGoal_progress() - 1) {
+                                    updateUnlockedAchievement(NoteIII);
+                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && noteViewModel.getNoteEntryCount() < NoteIV.getGoal_progress() - 1) {
+                                    incrementprogress(NoteIV);
+                                    achievementViewModel.updateAchievement(NoteIV);
+                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && noteViewModel.getNoteEntryCount() == NoteIV.getGoal_progress() - 1) {
+                                    updateUnlockedAchievement(NoteIV);
+                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && noteViewModel.getNoteEntryCount() < NoteV.getGoal_progress() - 1) {
+                                    incrementprogress(NoteV);
+                                    achievementViewModel.updateAchievement(NoteV);
+                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && noteViewModel.getNoteEntryCount() == NoteV.getGoal_progress() - 1) {
+                                    updateUnlockedAchievement(NoteV);
+                                }
+
+                                noteViewModel.insert(
+                                            binding.noteSubTitle.getText().toString().trim().isEmpty() ?
+                                                    new Note(
+                                                            binding.noteTitle.getText().toString(),
+                                                            binding.noteCurrentTime.getText().toString(),
+                                                            binding.noteContent.getText().toString(),
+                                                            color) :
+                                                    new Note(
+                                                            binding.noteTitle.getText().toString(),
+                                                            binding.noteCurrentTime.getText().toString(),
+                                                            binding.noteSubTitle.getText().toString(),
+                                                            binding.noteContent.getText().toString(),
+                                                            color)
+                                    );
+                                gotoJournalFragment();
+                            })
+                            .setNegativeButton("No", (dialogInterface, i) -> {
+                            })
+                            .show();
+                } else {
+                    gotoJournalFragment();
                 }
-                gotoJournalFragment();
             }
         });
     }
 
+    private void updateUnlockedAchievement(Achievement achievement) {
+        final String SDF_PATTERN = "MMMM d, yyyy";
+        achievement.setIs_completed(true);
+        incrementprogress(achievement);
+        achievement.setDate_achieved(new SimpleDateFormat(SDF_PATTERN, Locale.getDefault()).format(new Date()));
+        achievementViewModel.updateAchievement(achievement);
+        showCompletedAchievementDialog(achievement);
+    }
+
+    private void incrementprogress(Achievement achievement) {
+        achievement.setCurrent_progress(achievement.getCurrent_progress() + 1);
+    }
+
+    private void showCompletedAchievementDialog(Achievement achievement) {
+        CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(achievement.getTitle());
+        dialog.setTargetFragment(getChildFragmentManager()
+                .findFragmentById(AddNoteFragment.this.getId()), 1);
+        dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+    }
+
     private void onDeleteNote() {
         if (binding.fabDeleteNote.getVisibility() == View.VISIBLE) {
-            binding.fabDeleteNote.setOnClickListener(v -> {
-                new AlertDialog.Builder(requireContext())
-                        .setMessage("Do you want to delete this note?")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", (dialogInterface, i) -> {
-                            noteViewModel.delete(note);
-                            gotoJournalFragment();
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-
-            });
+            binding.fabDeleteNote.setOnClickListener(v -> new AlertDialog.Builder(requireContext())
+                    .setMessage("Do you want to delete this note?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+                        noteViewModel.delete(note);
+                        gotoJournalFragment();
+                    })
+                    .setNegativeButton("No", null)
+                    .show());
         }
     }
 
@@ -331,7 +392,8 @@ public class AddNoteFragment extends Fragment {
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -355,7 +417,8 @@ public class AddNoteFragment extends Fragment {
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="5dp"
+    android:background="@drawable/background_achievement_item"
+    tools:context=".utill.dialog.CompletedAchievementDiaglogFragment">
+
+    <RelativeLayout
+        android:id="@+id/completed_achievement_dialog_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/home_on_fab_click_dialog_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="5dp"
+            android:text="Achievement Unlocked!"
+            android:textAlignment="center"
+            android:textColor="@color/WAIKAWA_GREY"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/home_on_fab_click_dialog_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_on_fab_click_dialog_header"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="5dp"
+            android:justificationMode="inter_word"
+            android:letterSpacing=".02"
+            android:textAlignment="center"
+            android:textColor="@color/DARK"
+            android:textSize="13sp"
+            android:textStyle="normal"
+            tools:text="Congratulations, you have completed [insert achievement name here]! You should be proud of yourself for reaching this milestone. Keep up the good work and continue to strive for excellence." />
+
+        <Button
+            android:id="@+id/home_on_fab_click_dialog_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_on_fab_click_dialog_message"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:letterSpacing=".1"
+            android:maxLines="1"
+            android:minWidth="0dp"
+            android:minHeight="40dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="20dp"
+            android:text="( ´ ▽ ` )ಇ great!"
+            android:textAllCaps="true"
+            android:textColor="@color/NIGHT"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

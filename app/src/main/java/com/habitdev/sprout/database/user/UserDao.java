@@ -16,14 +16,14 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     List<User> getAllUser();
 
-    @Query("SELECT * FROM User WHERE uid=:num")
-    User getUserByUID(long num);
+    @Query("SELECT * FROM User WHERE uid=:pk_useruid")
+    User getUserByUID(long pk_useruid);
 
     @Query("SELECT * FROM user")
     LiveData<List<User>> getAllUserLiveData();
 
     @Query("SELECT COUNT(*) FROM user")
-    int countAllSections();
+    int countAllUser();
 
     @Query("SELECT assessment FROM user WHERE uid = 1")
     boolean isAssessment();

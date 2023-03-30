@@ -337,6 +337,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="completedAchievementDiaglogFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="261" />
+                            <option name="y" value="2856" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="eulaFragment">
                     <value>
                       <LayoutPositions>

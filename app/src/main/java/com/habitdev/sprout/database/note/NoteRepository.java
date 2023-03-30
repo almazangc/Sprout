@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Query;
 
 import com.habitdev.sprout.database.AppDatabase;
 import com.habitdev.sprout.database.note.model.Note;
@@ -106,5 +107,9 @@ public class NoteRepository {
 
     public List<Note> getNotesList() {
         return notesList;
+    }
+
+    public long getNoteEntryCount() {
+        return noteDao.getNoteEntryCount();
     }
 }

@@ -22,7 +22,7 @@ public interface AchievementDao {
     List<Achievement> getAllAchievementList();
 
     @Query("SELECT * FROM Achievement WHERE pk_achievement_uid = :pk_achievement_uid")
-    LiveData<Achievement> getAchievementByUID(long pk_achievement_uid);
+    Achievement getAchievementByUID(long pk_achievement_uid);
 
     @Query("SELECT COUNT(*) FROM achievement WHERE is_completed = 1")
     LiveData<Integer> getCompletedAchievementsCount();
@@ -32,6 +32,9 @@ public interface AchievementDao {
 
     @Query("SELECT COUNT(*) FROM achievement")
     int getTotalAchievementsCount();
+
+    @Query("SELECT pk_achievement_uid FROM Achievement WHERE title = :achievementTitle")
+    long getAchievementByTitle(String achievementTitle);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAchievement(Achievement achievement);

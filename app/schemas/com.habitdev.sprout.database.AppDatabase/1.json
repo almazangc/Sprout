@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "476cae8d5c2e93c824f445dbaeeb7e46",
+    "identityHash": "9ca383322855636a93c3ef76c40b4860",
     "entities": [
       {
         "tableName": "User",
@@ -278,7 +278,7 @@
       },
       {
         "tableName": "Note",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_note_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `date_time` TEXT, `subtitle` TEXT, `note_content` TEXT, `image_path` TEXT, `color` TEXT, `web_link` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_note_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `date_time` TEXT, `subtitle` TEXT, `note_content` TEXT, `color` TEXT)",
         "fields": [
           {
             "fieldPath": "pk_note_uid",
@@ -311,20 +311,8 @@
             "notNull": false
           },
           {
-            "fieldPath": "imagePath",
-            "columnName": "image_path",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
             "fieldPath": "color",
             "columnName": "color",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "webLink",
-            "columnName": "web_link",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -602,7 +590,7 @@
       },
       {
         "tableName": "Achievement",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_achievement_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `description` TEXT, `type` INTEGER NOT NULL, `current_progress` INTEGER NOT NULL, `goal_progress` INTEGER NOT NULL, `date_achieved` TEXT, `is_completed` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_achievement_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `description` TEXT, `type` INTEGER NOT NULL, `prerequisite` TEXT, `prerequisite_uid` INTEGER NOT NULL, `current_progress` INTEGER NOT NULL, `goal_progress` INTEGER NOT NULL, `date_achieved` TEXT, `is_completed` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_achievement_uid",
@@ -625,6 +613,18 @@
           {
             "fieldPath": "type",
             "columnName": "type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prerequisite",
+            "columnName": "prerequisite",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "prerequisite_uid",
+            "columnName": "prerequisite_uid",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -666,7 +666,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '476cae8d5c2e93c824f445dbaeeb7e46')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9ca383322855636a93c3ef76c40b4860')"
     ]
   }
 }

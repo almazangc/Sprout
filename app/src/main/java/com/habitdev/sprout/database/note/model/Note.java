@@ -25,17 +25,10 @@ public class Note implements Serializable {
     @ColumnInfo(name = "note_content")
     private String noteContent;
 
-    @ColumnInfo(name = "image_path")
-    private String imagePath;
-
     @ColumnInfo(name = "color")
     private String color;
 
-    @ColumnInfo(name = "web_link")
-    private String webLink;
-
     public Note() {
-
     }
 
     @Ignore
@@ -116,14 +109,6 @@ public class Note implements Serializable {
         this.noteContent = noteContent;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
     public String getColor() {
         return color;
     }
@@ -132,26 +117,16 @@ public class Note implements Serializable {
         this.color = color;
     }
 
-    public String getWebLink() {
-        return webLink;
-    }
-
-    public void setWebLink(String webLink) {
-        this.webLink = webLink;
-    }
-
     @NonNull
     @Override
     public String toString() {
         return "Note{" +
-                "uid=" + pk_note_uid +
+                "pk_note_uid=" + pk_note_uid +
                 ", title='" + title + '\'' +
                 ", dateTime='" + dateTime + '\'' +
                 ", subtitle='" + subtitle + '\'' +
-                ", noteText='" + noteContent + '\'' +
-                ", imagePath='" + imagePath + '\'' +
+                ", noteContent='" + noteContent + '\'' +
                 ", color='" + color + '\'' +
-                ", webLink='" + webLink + '\'' +
                 '}';
     }
 }

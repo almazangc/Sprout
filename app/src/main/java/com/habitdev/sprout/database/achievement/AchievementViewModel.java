@@ -27,7 +27,7 @@ public class AchievementViewModel extends AndroidViewModel {
         return repository.getAllAchievementList();
     }
 
-    public LiveData<Achievement> getAchievementByUID(long pk_achievement_uid) {
+    public Achievement getAchievementByUID(long pk_achievement_uid) {
         return repository.getAchievementByUID(pk_achievement_uid);
     }
 

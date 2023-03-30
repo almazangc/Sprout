@@ -19,6 +19,9 @@ public interface NoteDao {
     @Query("SELECT * FROM Note ORDER BY pk_note_uid DESC")
     List<Note> getAllNoteList();
 
+    @Query("SELECT COUNT(*) FROM Note")
+    long getNoteEntryCount();
+
     @Insert
     void insert(Note... notes);
 
