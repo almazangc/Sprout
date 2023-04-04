@@ -155,6 +155,7 @@ dependencies {
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.4'
 
-    //https://github.com/tiagohm/MarkdownView
-//    implementation 'com.github.tiagohm.MarkdownView:library:0.19.0'
+//    https://github.com/mreram/ShowCaseView
+    implementation 'com.github.mreram:showcaseview:1.4.1'
+
 }

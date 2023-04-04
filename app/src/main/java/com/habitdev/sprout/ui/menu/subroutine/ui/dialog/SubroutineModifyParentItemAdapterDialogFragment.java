@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.subroutine.ui.dialog;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -33,6 +34,8 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     private static int old_selected_color;
     private static String color;
     private static boolean isOnDismissDialog;
+    private boolean onInsert;
+    private static final String[] BUTTON_LABEL = {"Insert New", "Save Update"};
 
     private OnUpdateClickListener mOnUpdateClickListener;
     private OnInsertClickListener mOnInsertClickListener;
@@ -59,6 +62,7 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
         this.subroutine = subroutine;
         current_selected_color = 0;
         old_selected_color = 0;
+        onInsert = false;
         color = AppColor.CLOUDS.getColor();
     }
 
@@ -66,6 +70,7 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
         this.subroutine = new Subroutines("", "", AppColor.CLOUDS.getColor(), true);
         current_selected_color = 0;
         old_selected_color = 0;
+        onInsert = true;
         color = AppColor.CLOUDS.getColor();
     }
 
@@ -73,6 +78,11 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogFragmentSubroutineModifyParentItemAdapterBinding.inflate(inflater, container, false);
+        if (onInsert) {
+            binding.dialogSubroutineModifyUpdateSubroutineBtn.setText(BUTTON_LABEL[0]);
+        } else {
+            binding.dialogSubroutineModifyUpdateSubroutineBtn.setText(BUTTON_LABEL[1]);
+        }
         Objects.requireNonNull(getDialog()).getWindow().setBackgroundDrawableResource(R.drawable.background_color_transparent);
         getDialog().setCanceledOnTouchOutside(false);
         return binding.getRoot();
@@ -313,20 +323,52 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
         if (view.getId() == R.id.dialog_subroutine_modify_cancel) {
 
             attachOnDialogDismissCallback();
+            isOnDismissDialog = true;
+            Objects.requireNonNull(getDialog()).dismiss();
 
         } else if (view.getId() == R.id.dialog_subroutine_modify_update_subroutine_btn) {
-            if (binding.dialogSubroutineModifyHint.getText().toString().trim().isEmpty()) {
 
-                subroutine.setSubroutine(binding.dialogSubroutineModifyTitle.getText().toString().trim());
-                subroutine.setDescription(binding.dialogSubroutineModifyDescription.getText().toString().trim());
-                subroutine.setColor(color);
+            String title = binding.dialogSubroutineModifyTitle.getText().toString().trim();
+            String description = binding.dialogSubroutineModifyDescription.getText().toString().trim();
 
-                if (mOnUpdateClickListener != null) mOnUpdateClickListener.onClickUpdate(subroutine);
-                if (mOnInsertClickListener != null) mOnInsertClickListener.onClickInsert(subroutine);
+            if (binding.dialogSubroutineModifyUpdateSubroutineBtn.getText().toString().equals(BUTTON_LABEL[0])) {
+                if (binding.dialogSubroutineModifyHint.getText().toString().trim().isEmpty()) {
+                new AlertDialog.Builder(requireContext())
+                        .setMessage("Do you add new subroutine?")
+                        .setCancelable(false)
+                        .setPositiveButton("YES", (dialogInterface, i) -> {
+                            subroutine.setSubroutine(title);
+                            subroutine.setDescription(description);
+                            subroutine.setColor(color);
+
+                            if (mOnInsertClickListener != null) mOnInsertClickListener.onClickInsert(subroutine);
+
+                            isOnDismissDialog = true;
+                            Objects.requireNonNull(getDialog()).dismiss();
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+                }
+            } else {
+                if (binding.dialogSubroutineModifyHint.getText().toString().trim().isEmpty() || (current_selected_color != old_selected_color && !title.isEmpty() && !description.isEmpty())) {
+                    new AlertDialog.Builder(requireContext())
+                            .setMessage("Do you apply changes to subroutine?")
+                            .setCancelable(false)
+                            .setPositiveButton("YES", (dialogInterface, i) -> {
+                                subroutine.setSubroutine(title);
+                                subroutine.setDescription(description);
+                                subroutine.setColor(color);
+
+                                if (mOnUpdateClickListener != null) mOnUpdateClickListener.onClickUpdate(subroutine);
+
+                                isOnDismissDialog = true;
+                                Objects.requireNonNull(getDialog()).dismiss();
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
+                }
             }
         }
-        isOnDismissDialog = true;
-        Objects.requireNonNull(getDialog()).dismiss();
     }
 
     @Override

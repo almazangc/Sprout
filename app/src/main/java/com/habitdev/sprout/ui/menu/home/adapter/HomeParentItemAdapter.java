@@ -22,8 +22,8 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.TimeMilestone;
-import com.habitdev.sprout.utill.DateTimeElapsedUtil;
-import com.habitdev.sprout.utill.HabitDiffUtil;
+import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
+import com.habitdev.sprout.utill.diffutils.HabitDiffUtil;
 
 import java.util.List;
 import java.util.Locale;

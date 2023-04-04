@@ -278,7 +278,7 @@ public class AddNoteFragment extends Fragment {
                     new AlertDialog.Builder(requireContext())
                             .setMessage("Would you like to add note?")
                             .setCancelable(false)
-                            .setPositiveButton("YES", (dialogInterface, i) -> {
+                            .setPositiveButton("YES", (dialogInterface,i) -> {
                                 achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
                                 //TODO: UPDATE UID WHEN APPDATABASE CHANGE
                                 Achievement NoteV = achievementViewModel.getAchievementByUID(6);
@@ -289,25 +289,21 @@ public class AddNoteFragment extends Fragment {
 
                                 if (!NoteI.is_completed() && noteViewModel.getNoteEntryCount() == NoteI.getGoal_progress() - 1) {
                                     updateUnlockedAchievement(NoteI);
-                                } else if (!NoteII.is_completed() && NoteI.is_completed() && noteViewModel.getNoteEntryCount() < NoteII.getGoal_progress() - 1) {
+                                } else if (!NoteII.is_completed() && NoteI.is_completed() && noteViewModel.getNoteEntryCount() < NoteI.getGoal_progress() + NoteII.getGoal_progress() - 1) {
                                     incrementprogress(NoteII);
-                                    achievementViewModel.updateAchievement(NoteII);
-                                } else if (!NoteII.is_completed() && NoteI.is_completed() && noteViewModel.getNoteEntryCount() == NoteII.getGoal_progress() - 1) {
+                                } else if (!NoteII.is_completed() && NoteI.is_completed() && noteViewModel.getNoteEntryCount() == NoteI.getGoal_progress() + NoteII.getGoal_progress() - 1) {
                                     updateUnlockedAchievement(NoteII);
-                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && noteViewModel.getNoteEntryCount() < NoteIII.getGoal_progress() - 1) {
+                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && noteViewModel.getNoteEntryCount() <  NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() - 1) {
                                     incrementprogress(NoteIII);
-                                    achievementViewModel.updateAchievement(NoteIII);
-                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && noteViewModel.getNoteEntryCount() == NoteIII.getGoal_progress() - 1) {
+                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && noteViewModel.getNoteEntryCount() ==  NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() - 1) {
                                     updateUnlockedAchievement(NoteIII);
-                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && noteViewModel.getNoteEntryCount() < NoteIV.getGoal_progress() - 1) {
+                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && noteViewModel.getNoteEntryCount() < NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() + NoteIV.getGoal_progress() - 1) {
                                     incrementprogress(NoteIV);
-                                    achievementViewModel.updateAchievement(NoteIV);
-                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && noteViewModel.getNoteEntryCount() == NoteIV.getGoal_progress() - 1) {
+                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && noteViewModel.getNoteEntryCount() == NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() + NoteIV.getGoal_progress() - 1) {
                                     updateUnlockedAchievement(NoteIV);
-                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && noteViewModel.getNoteEntryCount() < NoteV.getGoal_progress() - 1) {
+                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && noteViewModel.getNoteEntryCount() < NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() + NoteIV.getGoal_progress() + NoteV.getGoal_progress() - 1) {
                                     incrementprogress(NoteV);
-                                    achievementViewModel.updateAchievement(NoteV);
-                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && noteViewModel.getNoteEntryCount() == NoteV.getGoal_progress() - 1) {
+                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && noteViewModel.getNoteEntryCount() ==  NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() + NoteIV.getGoal_progress() + NoteV.getGoal_progress() - 1) {
                                     updateUnlockedAchievement(NoteV);
                                 }
 
@@ -340,14 +336,14 @@ public class AddNoteFragment extends Fragment {
     private void updateUnlockedAchievement(Achievement achievement) {
         final String SDF_PATTERN = "MMMM d, yyyy";
         achievement.setIs_completed(true);
-        incrementprogress(achievement);
         achievement.setDate_achieved(new SimpleDateFormat(SDF_PATTERN, Locale.getDefault()).format(new Date()));
-        achievementViewModel.updateAchievement(achievement);
+        incrementprogress(achievement);
         showCompletedAchievementDialog(achievement);
     }
 
     private void incrementprogress(Achievement achievement) {
         achievement.setCurrent_progress(achievement.getCurrent_progress() + 1);
+        achievementViewModel.updateAchievement(achievement);
     }
 
     private void showCompletedAchievementDialog(Achievement achievement) {

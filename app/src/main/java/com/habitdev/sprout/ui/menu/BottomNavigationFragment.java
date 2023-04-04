@@ -270,8 +270,8 @@ public class BottomNavigationFragment extends Fragment {
                 return result;
             }
 
-            private void displayAchievementDialog(Achievement LEFTSWIPE) {
-                CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(LEFTSWIPE.getTitle());
+            private void displayAchievementDialog(Achievement achievement) {
+                CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(achievement.getTitle());
                 dialog.setTargetFragment(getChildFragmentManager()
                         .findFragmentById(BottomNavigationFragment.this.getId()), 1);
                 dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");

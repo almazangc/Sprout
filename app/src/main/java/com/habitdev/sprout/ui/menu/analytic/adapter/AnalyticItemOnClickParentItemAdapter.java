@@ -24,7 +24,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.utill.SubroutineDiffUtil;
+import com.habitdev.sprout.utill.diffutils.SubroutineDiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;

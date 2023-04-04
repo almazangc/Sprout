@@ -59,62 +59,15 @@ public class HabitWithSubroutinesRepository {
     }
 
     public void updateSubroutine(Subroutines subroutine) {
-//        new UpdateSubroutineAsyncTask(habitWithSubroutinesDao).execute(subroutine);
         habitWithSubroutinesDao.updateSubroutine(subroutine);
     }
 
-//    public static class UpdateSubroutineAsyncTask extends AsyncTask<Subroutines, Void, Void> {
-//
-//        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
-//
-//        public UpdateSubroutineAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
-//            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Subroutines... subroutine) {
-//            habitWithSubroutinesDao.updateSubroutine(subroutine[0]);
-//            return null;
-//        }
-//    }
-
     public void deleteHabit(Habits habit) {
-        new DeleteHabitAsyncTask(habitWithSubroutinesDao).execute(habit);
-    }
-
-    public static class DeleteHabitAsyncTask extends AsyncTask<Habits, Void, Void> {
-
-        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
-
-        public DeleteHabitAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
-            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
-        }
-
-        @Override
-        protected Void doInBackground(Habits... habit) {
-            habitWithSubroutinesDao.deleteHabit(habit[0]);
-            return null;
-        }
+        habitWithSubroutinesDao.deleteHabit(habit);
     }
 
     public void deleteSubroutine(Subroutines subroutine) {
         habitWithSubroutinesDao.deleteSubroutine(subroutine);
-//        new DeleteSubroutineAsyncTask(habitWithSubroutinesDao).execute(subroutine);
-    }
-
-    public static class DeleteSubroutineAsyncTask extends AsyncTask<Subroutines, Void, Void> {
-
-        private final HabitWithSubroutinesDao habitWithSubroutinesDao;
-
-        public DeleteSubroutineAsyncTask(HabitWithSubroutinesDao habitWithSubroutinesDao) {
-            this.habitWithSubroutinesDao = habitWithSubroutinesDao;
-        }
-
-        @Override
-        protected Void doInBackground(Subroutines... subroutine) {
-            habitWithSubroutinesDao.deleteSubroutine(subroutine[0]);
-            return null;
-        }
     }
 
     public void deleteSubroutineList(List<Subroutines> subroutines) {
@@ -159,6 +112,10 @@ public class HabitWithSubroutinesRepository {
 
     public LiveData<List<Habits>> getAllHabitOnReformLiveData() {
         return allHabitOnReformLiveData;
+    }
+
+    public long getAllHabitOnReformCount() {
+        return habitWithSubroutinesDao.getAllHabitOnReformCount();
     }
 
     public List<HabitWithSubroutines> getAllHabitOnReformWithSubroutines() {

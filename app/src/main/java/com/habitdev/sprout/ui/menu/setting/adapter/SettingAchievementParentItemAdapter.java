@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.achievement.model.Achievement;
-import com.habitdev.sprout.utill.AchievementDiffUtil;
+import com.habitdev.sprout.utill.diffutils.AchievementDiffUtil;
 
 import java.util.List;
 

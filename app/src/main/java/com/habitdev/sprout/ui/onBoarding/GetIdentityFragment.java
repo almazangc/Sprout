@@ -20,7 +20,7 @@ import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentGetIdentityBinding;
 import com.habitdev.sprout.enums.BundleKeys;
-import com.habitdev.sprout.utill.AlarmScheduler;
+import com.habitdev.sprout.utill.alarm.AlarmScheduler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

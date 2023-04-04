@@ -46,6 +46,7 @@ public class Achievement {
 
     public Achievement() {}
 
+    @Ignore
     public Achievement(String title, String description, long type, String prerequisite, long pk_achievement_uid, long current_progress, long goal_progress, String date_achieved, boolean is_completed) {
         this.title = title;
         this.description = description;

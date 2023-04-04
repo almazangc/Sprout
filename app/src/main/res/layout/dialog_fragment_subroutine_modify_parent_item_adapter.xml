@@ -308,7 +308,7 @@
                     android:minHeight="40dp"
                     android:paddingLeft="10dp"
                     android:paddingEnd="20dp"
-                    android:text="Update"
+                    android:text="Save Update"
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textColor="@color/NIGHT"

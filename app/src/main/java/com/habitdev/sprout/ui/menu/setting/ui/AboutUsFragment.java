@@ -18,8 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 
 import com.habitdev.sprout.databinding.FragmentAboutUsBinding;
-import com.habitdev.sprout.utill.NetworkMonitoringUtil;
-import com.habitdev.sprout.utill.NetworkStateManager;
+import com.habitdev.sprout.utill.network.NetworkMonitoringUtil;
+import com.habitdev.sprout.utill.network.NetworkStateManager;
 
 public class AboutUsFragment extends Fragment {
 

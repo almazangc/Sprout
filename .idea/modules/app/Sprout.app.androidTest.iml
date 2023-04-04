@@ -180,6 +180,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.PhilJay:MPAndroidChart:v3.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.github.prolificinteractive:material-calendarview:2.0.1@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.jakewharton.threetenabp:threetenabp:1.4.4@aar" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.github.mreram:showcaseview:1.4.1@aar" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Sprout.app.main" />
 </module>

@@ -24,7 +24,7 @@ import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.habit_assessment.adapter.Model.Result;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
-import com.habitdev.sprout.utill.DateTimeElapsedUtil;
+import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.recommender.RuleBasedAlgorithm;
 
 import java.text.DecimalFormat;

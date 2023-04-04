@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.ListUpdateCallback;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.quotes.model.Quotes;
-import com.habitdev.sprout.utill.QuotesDiffUtil;
+import com.habitdev.sprout.utill.diffutils.QuotesDiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;

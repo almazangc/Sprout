@@ -29,13 +29,12 @@ import com.habitdev.sprout.databinding.FragmentSubroutineModifyBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentItemAdapter;
-import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineModifyParentOnclickListener;
 import com.habitdev.sprout.ui.menu.subroutine.ui.dialog.SubroutineModifyParentItemAdapterDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubroutineModifyFragment extends Fragment implements SubroutineModifyParentOnclickListener{
+public class SubroutineModifyFragment extends Fragment implements SubroutineModifyParentItemAdapter.SubroutineModifyParentOnclickListener{
 
     private FragmentSubroutineModifyBinding binding;
     private static HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
@@ -229,14 +228,10 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
     }
 
     private void onItemInsert() {
-
         isOnInsertSubroutine = true;
-
         SubroutineModifyParentItemAdapterDialogFragment dialog = new SubroutineModifyParentItemAdapterDialogFragment();
-
         dialog.setTargetFragment(getChildFragmentManager().findFragmentById(SubroutineModifyFragment.this.getId()), 1);
         dialog.show(getChildFragmentManager(), "ModifySubroutineOnClickDialog");
-
         dialog.setmOnInsertClickListener(new SubroutineModifyParentItemAdapterDialogFragment.OnInsertClickListener() {
             @Override
             public void onClickInsert(Subroutines subroutines) {
@@ -245,7 +240,6 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
                 updateTotalSubroutine();
                 isOnInsertSubroutine = false;
             }
-
             @Override
             public void onDialogDismiss() {
                 isOnInsertSubroutine = false;

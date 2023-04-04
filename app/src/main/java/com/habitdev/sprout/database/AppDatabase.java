@@ -1018,10 +1018,25 @@ public abstract class AppDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            //ONBOARDING
             //Triggered when first time adding new habit on reform. This is triggered in analysis fragment when clicking and cofirming the habit to be added.
             Achievement FirstStep = new Achievement("First Step", "Take a leap in reforming a bad habit", 0, 1);
             achievementDao.insertAchievement(FirstStep);
 
+            //HOME
+            //Add second subroutine
+            //Create and add teh first custom habit
+            //Update habit title
+            //First Comment
+
+            //SUBROUTINES
+            //Number of completed subroutines 1-300
+            //Modify Subroutines
+
+            //ANALYTIC
+            //Longest Streak of Subroutines
+
+            //JOURNAL
             //Triggered in adding notes
             Achievement NoteI = new Achievement("First Note", "Write down your thoughts", 0, 1);
             achievementDao.insertAchievement(NoteI);
@@ -1034,6 +1049,10 @@ public abstract class AppDatabase extends RoomDatabase {
             Achievement NoteV = new Achievement("Journal", "You have written your thoughts", 1, NoteIV.getTitle(),achievementDao.getAchievementByTitle(NoteIV.getTitle()), 100);
             achievementDao.insertAchievement(NoteV);
 
+            //SETTING
+            //Set a theme
+
+            //MISC
             //Triggerred by duration of appllication since installed
             Achievement WEEK = new Achievement("Been a week", "The application was installed for 7 days", 0, 1);
             achievementDao.insertAchievement(WEEK);
@@ -1049,19 +1068,8 @@ public abstract class AppDatabase extends RoomDatabase {
             achievementDao.insertAchievement(LEFTSWIPE);
             Achievement RIGHTSWIPE = new Achievement("Secret", "Hidden", 0, 1);
             achievementDao.insertAchievement(RIGHTSWIPE);
-
-            //Triggered when first time adding a note in journal
-//            achievementDao.insertAchievement(new Achievement("Making progress", "More notes, better self understanding", 1, 10));
-//
-//            achievementDao.insertAchievement(new Achievement("sample", "description", 1, 5, 15, null, false));
-//
-//            achievementDao.insertAchievement(new Achievement("sample2", "description2", 1, 30, 75, null, false));
-//
-//            achievementDao.insertAchievement(new Achievement("sample3", "description", 1, 10, 10, "April 29, 2000", true));
-//
-//            achievementDao.insertAchievement(new Achievement("sample4", "description", 0, 23, 23, "January 12, 2000", true));
-//
-//            achievementDao.insertAchievement(new Achievement("sample", "description", 0, 1, 1, null, false));
+            Achievement CLOSEAPPPROMPT = new Achievement("Secret", "Hidden", 0, 1);
+            achievementDao.insertAchievement(CLOSEAPPPROMPT);
             return null;
         }
     }

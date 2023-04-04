@@ -17,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.ui.menu.journal.NoteItemOnClickListener;
-import com.habitdev.sprout.utill.NotesDiffUtil;
+import com.habitdev.sprout.utill.diffutils.NotesDiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +28,16 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
 
     private List<Note> oldNoteList;
     private NoteItemOnClickListener noteItemOnClickListener;
-
     private Timer timer;
     private List<Note> originalNoteList;
 
     public JournalNoteItemAdapter(List<Note> oldNoteList) {
         this.oldNoteList = oldNoteList;
         originalNoteList = new ArrayList<>();
+    }
+
+    public interface NoteItemOnClickListener {
+        void onItemClick(int position);
     }
 
     public void setNoteItemOnClickListener(NoteItemOnClickListener noteItemOnClickListener) {
@@ -119,7 +121,6 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
         }
 
         void bindNote(Note note) {
-
             if (note.getColor().equals(AppColor.ALZARIN.getColor())) {
                 layout_note.setBackground(alzarin);
             } else if (note.getColor().equals(AppColor.AMETHYST.getColor())) {
@@ -159,9 +160,9 @@ public class JournalNoteItemAdapter extends RecyclerView.Adapter<JournalNoteItem
                     for (Note note : originalNoteList) {
                         String searchKeyword = keyword.toLowerCase();
                         if (note.getTitle().toLowerCase().contains(searchKeyword) ||
-                                        note.getSubtitle().toLowerCase().contains(searchKeyword) ||
-                                        note.getNoteContent().toLowerCase().contains(searchKeyword) ||
-                                        note.getDateTime().toLowerCase().contains(searchKeyword)) {
+                                note.getSubtitle().toLowerCase().contains(searchKeyword) ||
+                                note.getNoteContent().toLowerCase().contains(searchKeyword) ||
+                                note.getDateTime().toLowerCase().contains(searchKeyword)) {
                             tempNote.add(note);
                         }
                     }

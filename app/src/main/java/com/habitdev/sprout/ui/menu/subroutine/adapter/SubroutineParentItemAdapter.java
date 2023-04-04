@@ -15,18 +15,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.firestore.SubroutineFireStoreViewModel;
-import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.utill.HabitDiffUtil;
+import com.habitdev.sprout.utill.diffutils.HabitDiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -17,13 +17,19 @@ import com.apachat.swipereveallayout.core.ViewBinder;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.enums.AppColor;
-import com.habitdev.sprout.utill.SubroutineDiffUtil;
+import com.habitdev.sprout.utill.diffutils.SubroutineDiffUtil;
 
 import java.util.List;
 
 public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder> {
 
     private List<Subroutines> oldSubroutineList;
+
+    public interface SubroutineModifyParentOnclickListener {
+        void onItemUpdate(int position);
+        void onItemDelete(int position);
+    }
+
     private SubroutineModifyParentOnclickListener mSubroutineModifyParentOnclickListener;
 
     private final ViewBinder viewBinder = new ViewBinder();
@@ -70,7 +76,6 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
     }
 
     public static class SubroutineModifyViewHolder extends RecyclerView.ViewHolder {
-
         final SwipeLayout swipeLayout;
         final RelativeLayout itemLayout, deleteLayout;
         final TextView Title, Description;

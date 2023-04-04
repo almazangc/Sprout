@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
-import com.habitdev.sprout.utill.CommentDiffUtil;
+import com.habitdev.sprout.utill.diffutils.CommentDiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;

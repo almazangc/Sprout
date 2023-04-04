@@ -17,6 +17,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
+import com.habitdev.sprout.database.achievement.AchievementViewModel;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.user.UserViewModel;
@@ -25,9 +27,15 @@ import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticParentItemAdapter;
 import com.habitdev.sprout.ui.menu.analytic.ui.AnalyticItemOnClickFragment;
+import com.habitdev.sprout.ui.menu.home.HomeFragment;
+import com.habitdev.sprout.ui.menu.journal.JournalFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AnalyticFragment extends Fragment
         implements
@@ -148,6 +156,7 @@ public class AnalyticFragment extends Fragment
     private void onBackPress() {
         final int[] keypress_count = {0};
         final boolean[] isOnBackPressDialogShowing = {false};
+        final boolean[] isAchievementDialogShowing = {false};
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -165,7 +174,7 @@ public class AnalyticFragment extends Fragment
                             //Dialog is displayed twice
                             OnBackPressDialogFragment dialog = new OnBackPressDialogFragment();
                             if (!isOnBackPressDialogShowing[0]) {
-                                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AnalyticFragment.this.getId()), 1);
+                                dialog.setTargetFragment(getChildFragmentManager().findFragmentById(AnalyticFragment.this.getId()), 2);
                                 dialog.show(getChildFragmentManager(), "Menu.onBackPress");
                                 dialog.setmOnCancelDialog(new OnBackPressDialogFragment.onCancelDialog() {
                                     @Override
@@ -175,6 +184,25 @@ public class AnalyticFragment extends Fragment
                                     }
                                 });
                                 isOnBackPressDialogShowing[0] = true;
+                            }
+                            if (!isAchievementDialogShowing[0]) {
+                                //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+                                AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
+                                Achievement CLOSEAPPPROMPT = achievementViewModel.getAchievementByUID(13);
+
+                                if (!CLOSEAPPPROMPT.is_completed()) {
+                                    CLOSEAPPPROMPT.setIs_completed(true);
+                                    CLOSEAPPPROMPT.setCurrent_progress(CLOSEAPPPROMPT.getCurrent_progress()+1);
+                                    CLOSEAPPPROMPT.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                                    CLOSEAPPPROMPT.setTitle("Close Application");
+                                    CLOSEAPPPROMPT.setDescription("Unlocked by pressing back button twice");
+                                    achievementViewModel.updateAchievement(CLOSEAPPPROMPT);
+                                    CompletedAchievementDiaglogFragment completedAchievementDiaglogFragment = new CompletedAchievementDiaglogFragment(CLOSEAPPPROMPT.getTitle());
+                                    completedAchievementDiaglogFragment.setTargetFragment(getChildFragmentManager()
+                                            .findFragmentById(AnalyticFragment.this.getId()), 1);
+                                    completedAchievementDiaglogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                                    isAchievementDialogShowing[0] = true;
+                                }
                             }
                         } else {
                             requireActivity().moveTaskToBack(true);

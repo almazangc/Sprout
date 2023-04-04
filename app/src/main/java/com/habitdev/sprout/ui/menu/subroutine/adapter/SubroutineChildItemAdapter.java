@@ -24,8 +24,8 @@ import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.TimeMilestone;
-import com.habitdev.sprout.utill.DateTimeElapsedUtil;
-import com.habitdev.sprout.utill.SubroutineDiffUtil;
+import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
+import com.habitdev.sprout.utill.diffutils.SubroutineDiffUtil;
 
 import java.util.List;
 

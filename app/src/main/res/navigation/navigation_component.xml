@@ -174,7 +174,7 @@
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="com.habitdev.sprout.ui.OnBoardingFragment"
+        android:name="com.habitdev.sprout.ui.onBoarding.OnBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" >
         <action

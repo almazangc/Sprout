@@ -44,8 +44,8 @@ import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
 import com.habitdev.sprout.enums.SettingConfigurationKeys;
 import com.habitdev.sprout.ui.habit_assessment.PersonalizationFragment;
-import com.habitdev.sprout.utill.AlarmScheduler;
-import com.habitdev.sprout.utill.DateTimeElapsedUtil;
+import com.habitdev.sprout.utill.alarm.AlarmScheduler;
+import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -411,9 +411,9 @@ public class ProfileFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_ID_MULTIPLE_PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(requireContext(), "FlagUp Requires Access to Camara.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Requires Access to Camera.", Toast.LENGTH_SHORT).show();
             } else if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(requireContext(), "FlagUp Requires Access to Your Storage.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Requires Access to Your Storage.", Toast.LENGTH_SHORT).show();
             } else {
                 chooseImage(requireActivity());
             }
@@ -425,7 +425,6 @@ public class ProfileFragment extends Fragment {
         final CharSequence[] optionsMenu = {"Take Photo", "Choose from Gallery", "Default Profile", "Exit"}; // create a menuOption Array
         // create a dialog for showing the optionsMenu
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        // set the items in builder.
         builder.setItems(optionsMenu, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

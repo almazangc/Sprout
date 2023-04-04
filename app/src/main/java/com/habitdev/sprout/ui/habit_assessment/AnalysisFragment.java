@@ -216,13 +216,7 @@ public class AnalysisFragment extends Fragment {
                                         habitWithSubroutinesViewModel.updateHabit(habit);
 
                                         if (isOnRekateAssessment) {
-                                            getChildFragmentManager()
-                                                    .beginTransaction()
-                                                    .addToBackStack(AnalysisFragment.this.getTag())
-                                                    .add(binding.analysisRelativeLayout.getId(), profileFragment)
-                                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                                    .commit();
-                                            binding.analysisContainer.setVisibility(View.GONE);
+                                            returnToProfileTab();
                                         } else {
                                             setOnBoarding();
                                             Bundle bundle = new Bundle();
@@ -234,13 +228,14 @@ public class AnalysisFragment extends Fragment {
                                     .show();
                         } else {
                             Snackbar.make(binding.getRoot(), Html.fromHtml("Can only add 2 predefined habits on reform at the same time"), Snackbar.LENGTH_SHORT)
-                                    .setAction("Dismiss", view2 -> {
+                                    .setAction("Return to Profile Tab", view2 -> {
                                         //Dismiss snack bar
+                                        returnToProfileTab();
                                     })
                                     .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
                                     .setTextColor(getResources().getColor(R.color.NIGHT))
                                     .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
-                                    .setDuration(1500) //to seconds duration
+                                    .setDuration(5000) //to seconds duration
                                     .show();
                         }
                     } else {
@@ -248,14 +243,7 @@ public class AnalysisFragment extends Fragment {
                                 .setMessage("The habit [" + habit.getHabit() + "] is currently on reform, do you want to proceeed?")
                                 .setCancelable(false)
                                 .setPositiveButton("YES", (dialogInterface, i) -> {
-
-                                    getChildFragmentManager()
-                                            .beginTransaction()
-                                            .addToBackStack(AnalysisFragment.this.getTag())
-                                            .add(binding.analysisRelativeLayout.getId(), profileFragment)
-                                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                            .commit();
-                                    binding.analysisContainer.setVisibility(View.GONE);
+                                    returnToProfileTab();
                                 })
                                 .setNegativeButton("No", null)
                                 .show();
@@ -292,6 +280,17 @@ public class AnalysisFragment extends Fragment {
         });
     }
 
+    private void returnToProfileTab() {
+        habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(getViewLifecycleOwner());
+        getChildFragmentManager()
+                .beginTransaction()
+                .addToBackStack(AnalysisFragment.this.getTag())
+                .add(binding.analysisRelativeLayout.getId(), profileFragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+        binding.analysisContainer.setVisibility(View.GONE);
+    }
+
     private void onBackPress() {
         final int[] keypress_count = {0};
         final boolean[] isOnBackPressDialogShowing = {false};
@@ -304,8 +303,7 @@ public class AnalysisFragment extends Fragment {
 
                 new CountDownTimer(200, 200) {
                     @Override
-                    public void onTick(long l) {
-                    }
+                    public void onTick(long l) {}
 
                     @Override
                     public void onFinish() {

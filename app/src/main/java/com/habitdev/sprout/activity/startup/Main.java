@@ -35,10 +35,9 @@ import com.habitdev.sprout.databinding.ActivityMainBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.enums.TimeMilestone;
-import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
-import com.habitdev.sprout.utill.DateTimeElapsedUtil;
-import com.habitdev.sprout.utill.NetworkMonitoringUtil;
-import com.habitdev.sprout.utill.NetworkStateManager;
+import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
+import com.habitdev.sprout.utill.network.NetworkMonitoringUtil;
+import com.habitdev.sprout.utill.network.NetworkStateManager;
 import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
 
 import java.text.SimpleDateFormat;

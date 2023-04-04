@@ -55,7 +55,7 @@
         </provider>
 
         <!--For broadcast reciever manifest-->
-        <receiver android:name=".utill.AlarmReceiver"
+        <receiver android:name=".utill.alarm.AlarmReceiver"
             android:exported="true"
             android:enabled="true"
             android:process=":remote"

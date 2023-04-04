@@ -36,6 +36,9 @@ public interface HabitWithSubroutinesDao {
     @Query("SELECT * FROM Habits WHERE on_reform = 1")
     LiveData<List<Habits>> getAllHabitOnReformLiveData();
 
+    @Query("SELECT COUNT(*) FROM Habits WHERE on_reform = 1")
+    long getAllHabitOnReformCount();
+
     @Transaction
     @Query("SELECT * FROM Habits INNER JOIN subroutines ON Habits.pk_habit_uid = subroutines.fk_habit_uid WHERE Habits.on_reform = 1")
     List<HabitWithSubroutines> getAllHabitsOnReformWithSubroutines();
