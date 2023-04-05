@@ -25,10 +25,10 @@ public interface UserDao {
     @Query("SELECT COUNT(*) FROM user")
     int countAllUser();
 
-    @Query("SELECT assessment FROM user WHERE uid = 1")
+    @Query("SELECT assessment_done FROM user WHERE uid = 1")
     boolean isAssessment();
 
-    @Query("SELECT onBoarding FROM user WHERE uid = 1")
+    @Query("SELECT onboarding_done FROM user WHERE uid = 1")
     boolean isOnBoarding();
 
     @Query("SELECT nickname FROM user WHERE uid = 1")
@@ -40,10 +40,10 @@ public interface UserDao {
     @Update
     void update(User users);
 
-    @Query("UPDATE user SET assessment = 1 WHERE uid = 1")
+    @Query("UPDATE user SET assessment_done = 1 WHERE uid = 1")
     void setUserAssessmentTrue();
 
-    @Query("UPDATE user SET onBoarding = 1 WHERE uid = 1")
+    @Query("UPDATE user SET onboarding_done = 1 WHERE uid = 1")
     void setUserOnBoardingTrue();
 
     @Delete

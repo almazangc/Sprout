@@ -66,7 +66,6 @@ import java.util.List;
         Comment oldComment = oldCommentList.get(oldItemPosition);
         Comment newComment = newCommentList.get(newItemPosition);
         return oldComment.getComment().equals(newComment.getComment()) &&
-                oldComment.getDate_commented().equals(newComment.getDate_commented()) &&
-                oldComment.getComment_type().equals(newComment.getComment_type());
+                oldComment.getDate_commented().equals(newComment.getDate_commented());
     }
 }

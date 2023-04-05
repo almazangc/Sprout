@@ -311,8 +311,6 @@ public class HomeItemOnClickFragment extends Fragment {
                 commentViewModel.insertComment(
                         new Comment(
                                 habit.getPk_habit_uid(),
-                                0,
-                                "Habit",
                                 binding.addCommentInputText.getText().toString().trim(),
                                 new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault())
                                         .format(new Date())
@@ -327,7 +325,7 @@ public class HomeItemOnClickFragment extends Fragment {
         if (binding.homeCommentRecyclerView.getAdapter() == null) {
             HomeItemOnClickParentCommentItemAdapter homeParentItemAdapter = new HomeItemOnClickParentCommentItemAdapter(commentViewModel);
             binding.homeCommentRecyclerView.setAdapter(homeParentItemAdapter);
-            commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {
+            commentViewModel.getAllHabitCommentByUID(habit.getPk_habit_uid()).observe(getViewLifecycleOwner(), comments -> {
                 if (comments != null) homeParentItemAdapter.setNewCommentList(new ArrayList<>(comments));
             });
         }
@@ -364,7 +362,7 @@ public class HomeItemOnClickFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        commentViewModel.getCommentsFromHabitByUID(habit.getPk_habit_uid()).removeObservers(getViewLifecycleOwner());
+        commentViewModel.getAllHabitCommentByUID(habit.getPk_habit_uid()).removeObservers(getViewLifecycleOwner());
         habit = null;
         commentViewModel = null;
         habitWithSubroutinesViewModel = null;

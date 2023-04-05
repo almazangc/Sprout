@@ -33,7 +33,7 @@ public class User {
     /**
      * User App Streak Count
      */
-    @ColumnInfo(name = "streakCount")
+    @ColumnInfo(name = "streak_count")
     private int streakCount; //unused right now, can be used for keeping track of how many continous days the app was used.
 
     /**
@@ -63,22 +63,22 @@ public class User {
     /**
      * User EULA Agreement
      */
-    @ColumnInfo(name = "eula")
+    @ColumnInfo(name = "eula_agreement")
     private boolean eulaAgreement;
 
     /**
      * Checker for assessment finish
      */
-    @ColumnInfo(name = "assessment")
+    @ColumnInfo(name = "assessment_done")
     private boolean assessmentDone;
 
     /**
      * Checker for onboarding finish
      */
-    @ColumnInfo(name = "onBoarding")
+    @ColumnInfo(name = "onboarding_done")
     private boolean onBoardingDone;
 
-    @ColumnInfo(name = "dateInstalled")
+    @ColumnInfo(name = "date_installed")
     private String dateInstalled;
 
     /**

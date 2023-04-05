@@ -65,10 +65,10 @@ public interface HabitWithSubroutinesDao {
     @Query("SELECT COUNT(*) FROM Habits WHERE Habits.on_reform = 1")
     LiveData<Long> getHabitOnReformCount();
 
-    @Query("SELECT COUNT(*) FROM Habits WHERE Habits.on_reform = 1 and Habits.modifiable = 0")
+    @Query("SELECT COUNT(*) FROM Habits WHERE Habits.on_reform = 1 and Habits.is_modifiable = 0")
     LiveData<Long> getPredefinedHabitOnReformCount();
 
-    @Query("SELECT * FROM Habits WHERE modifiable = 1")
+    @Query("SELECT * FROM Habits WHERE Habits.is_modifiable = 1")
     LiveData<List<Habits>> getAllUserDefinedHabitListLiveData();
 
     @Update

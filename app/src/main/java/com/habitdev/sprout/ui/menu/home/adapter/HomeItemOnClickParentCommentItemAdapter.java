@@ -36,8 +36,7 @@ public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapte
         @Override
         public boolean areContentsTheSame(@NonNull Comment oldItem, @NonNull Comment newItem) {
             return oldItem.getComment().equals(newItem.getComment()) &&
-                    oldItem.getDate_commented().equals(newItem.getDate_commented()) &&
-                    oldItem.getComment_type().equals(newItem.getComment_type());
+                    oldItem.getDate_commented().equals(newItem.getDate_commented());
         }
     };
 

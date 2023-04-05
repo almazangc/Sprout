@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Entity()
 public class Note implements Serializable {
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "pk_note_uid")
     private int pk_note_uid;
 
     @ColumnInfo(name = "title")
@@ -28,8 +29,7 @@ public class Note implements Serializable {
     @ColumnInfo(name = "color")
     private String color;
 
-    public Note() {
-    }
+    public Note() {}
 
     @Ignore
     public Note(int pk_note_uid, String title, String dateTime, String subtitle, String noteContent, String color) {

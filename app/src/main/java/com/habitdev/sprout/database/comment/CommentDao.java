@@ -12,11 +12,8 @@ import java.util.List;
 
 @Dao
 public interface CommentDao {
-    @Query("SELECT * FROM Comment where fk_habit_uid=:uid and comment_type='Habit' ORDER BY pk_comment_uid DESC")
-    LiveData<List<Comment>> CommentFromHabitByUID(long uid);
-
-    @Query("SELECT * FROM Comment where fk_habit_uid=:uid and comment_type='Subroutine' ORDER BY pk_comment_uid DESC")
-    LiveData<List<Comment>> CommentFromSubroutineByUID(long uid);
+    @Query("SELECT * FROM Comment where fk_habit_uid=:uid ORDER BY pk_comment_uid DESC")
+    LiveData<List<Comment>> getAllHabitCommentByUID(long uid);
 
     @Insert
     void insertComment(Comment comments);

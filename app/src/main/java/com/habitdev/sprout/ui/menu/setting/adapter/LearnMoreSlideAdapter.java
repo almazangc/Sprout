@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -45,15 +44,14 @@ public class LearnMoreSlideAdapter extends PagerAdapter {
 
     //Contains array list of heaading lbls
     public String[] slideContent = {
+            //TODO: Improve the details
             " The Sprout was chosen as its app name, because just like a sprout plant, the app aims to help users reshape and change their negative habits, similar to how a sprout grows from a seed into a mature plant.\n The app guides, support, and help reforms users' habits, just as a sprout needs proper care and guidance to grow into a healthy plant.\n The app also emphasizes the importance of starting small and breaking down a habit into manageable tasks, similar to how a sprout starts as a small seed before growing into a mature plant.\n Overall, the app and the sprout plant share the common goal of growth and development.",
             " The Home menu display the current habit on reform and information about the habit status.\n Add Button: Which allows user to add a habit whether its predefined or custom.\n More Habit info: The user can tap on the habit added and view more information and also leave a comment about the habit.",
-            " The Subroutine menu display list subroutine of habits on reform, which can be marked as done daily after completing the subroutine for the day.\n The system will record the collected data locally as progress.\n Modify subroutine Button: will be displayed if the habit added by user is custom, it gives freedom to update thier subroutines.",
-            " The Analytic menu displays a detailed infromations of habits and its subroutines. Use a pie chart for graphing completed, skipped, and total subroutines",
-            " The Journal menu allows user to record and read thier own journal notes, and can also be used for self-reflection.",
-            " The Setting menu user to modify thier profile, nickname, daily notification, identity(fixed not allowed to change), how long since the app was installed, theme change, about the app, about the people involve, the technology used in development, and a terminal(which is not yet fixed)."
+            " The Subroutine menu display list subroutine of habits on reform, which can be marked as done daily after completing the subroutine for the day.\n The system will record the collected data locally as progress.\n Modify subroutine Button: will be displayed if the habit added by user is custom, it gives freedom to update their subroutines.",
+            " The Analytic menu displays a detailed information of habits and its subroutines. Use a pie chart for graphing completed, skipped, and total subroutines",
+            " The Journal menu enables end-user to record and read their own journal notes, and can also be used for self-reflection.",
+            " The Setting menu consist of 6 tabs. Profile Tab, Theme Tab, Stack Info Tab, Learn More Tab, About Us Tab, and lastly Achievement Tab."
     };
-
-
 
     @Override
     public int getCount() {

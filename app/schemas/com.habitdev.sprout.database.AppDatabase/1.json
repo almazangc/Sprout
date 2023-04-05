@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9ca383322855636a93c3ef76c40b4860",
+    "identityHash": "92de4048d36396c2f2bcc4658de491ad",
     "entities": [
       {
         "tableName": "User",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT, `identity` TEXT, `streakCount` INTEGER NOT NULL, `wake_hour` INTEGER NOT NULL, `wake_minute` INTEGER NOT NULL, `sleep_hour` INTEGER NOT NULL, `sleep_minute` INTEGER NOT NULL, `eula` INTEGER NOT NULL, `assessment` INTEGER NOT NULL, `onBoarding` INTEGER NOT NULL, `dateInstalled` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nickname` TEXT, `identity` TEXT, `streak_count` INTEGER NOT NULL, `wake_hour` INTEGER NOT NULL, `wake_minute` INTEGER NOT NULL, `sleep_hour` INTEGER NOT NULL, `sleep_minute` INTEGER NOT NULL, `eula_agreement` INTEGER NOT NULL, `assessment_done` INTEGER NOT NULL, `onboarding_done` INTEGER NOT NULL, `date_installed` TEXT)",
         "fields": [
           {
             "fieldPath": "uid",
@@ -28,7 +28,7 @@
           },
           {
             "fieldPath": "streakCount",
-            "columnName": "streakCount",
+            "columnName": "streak_count",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -58,25 +58,25 @@
           },
           {
             "fieldPath": "eulaAgreement",
-            "columnName": "eula",
+            "columnName": "eula_agreement",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "assessmentDone",
-            "columnName": "assessment",
+            "columnName": "assessment_done",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "onBoardingDone",
-            "columnName": "onBoarding",
+            "columnName": "onboarding_done",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "dateInstalled",
-            "columnName": "dateInstalled",
+            "columnName": "date_installed",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -328,7 +328,7 @@
       },
       {
         "tableName": "Habits",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `desc` TEXT, `color` TEXT, `on_reform` INTEGER NOT NULL, `modifiable` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `description` TEXT, `color` TEXT, `on_reform` INTEGER NOT NULL, `is_modifiable` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_habit_uid",
@@ -344,7 +344,7 @@
           },
           {
             "fieldPath": "description",
-            "columnName": "desc",
+            "columnName": "description",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -361,8 +361,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "modifiable",
-            "columnName": "modifiable",
+            "fieldPath": "isModifiable",
+            "columnName": "is_modifiable",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -420,7 +420,7 @@
       },
       {
         "tableName": "Subroutines",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `isModifiable` INTEGER, `isMarkedDone` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `is_modifiable` INTEGER, `is_marked_done` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_subroutine_uid",
@@ -454,13 +454,13 @@
           },
           {
             "fieldPath": "isModifiable",
-            "columnName": "isModifiable",
+            "columnName": "is_modifiable",
             "affinity": "INTEGER",
             "notNull": false
           },
           {
             "fieldPath": "isMarkDone",
-            "columnName": "isMarkedDone",
+            "columnName": "is_marked_done",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -540,7 +540,7 @@
       },
       {
         "tableName": "Comment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_comment_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `fk_subroutine_uid` INTEGER NOT NULL, `comment_type` TEXT, `comment` TEXT, `date_commented` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_comment_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `comment` TEXT, `date_commented` TEXT)",
         "fields": [
           {
             "fieldPath": "pk_comment_uid",
@@ -553,18 +553,6 @@
             "columnName": "fk_habit_uid",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "fk_subroutine_uid",
-            "columnName": "fk_subroutine_uid",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "comment_type",
-            "columnName": "comment_type",
-            "affinity": "TEXT",
-            "notNull": false
           },
           {
             "fieldPath": "comment",
@@ -666,7 +654,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9ca383322855636a93c3ef76c40b4860')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '92de4048d36396c2f2bcc4658de491ad')"
     ]
   }
 }

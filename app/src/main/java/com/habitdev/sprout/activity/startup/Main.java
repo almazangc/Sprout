@@ -81,7 +81,6 @@ public class Main extends AppCompatActivity {
     private static final int REQUEST_CODE_PERMISSION = 1;
 
     private enum MAIN_ENUMS {
-
         SHARED_PREF_KEY("MAINSHARED.PREF"),
         DAILY_DATE_KEY("DAILY_DATE_KEY.STRING"),
         WEEKLY_DATE_KEY("WEEKLY_DATE_KEY.STRING"),

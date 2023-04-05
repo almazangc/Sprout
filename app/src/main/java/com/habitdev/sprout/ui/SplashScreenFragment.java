@@ -102,7 +102,7 @@ public class SplashScreenFragment extends Fragment {
         _light = ContextCompat.getColor(requireContext(), R.color.LIGHT);
         _dark = ContextCompat.getColor(requireContext(), R.color.DARK);
 
-        final String SHARED_PREF_KEY = "THEME";
+        final String SHARED_PREF_KEY = "THEME_SHARED.PREF";
         int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
         if (theme == 1) {
             binding.splashScreenBackground.setBackground(light);

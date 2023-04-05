@@ -20,12 +20,8 @@ public class CommentViewModel extends AndroidViewModel {
         repository = new CommentRepository(application);
     }
 
-    public LiveData<List<Comment>> getCommentsFromHabitByUID(long uid) {
-        return repository.getCommentsFromHabitByUID(uid);
-    }
-
-    public LiveData<List<Comment>> getCommentsFromSubroutineByUID(long uid) {
-        return repository.getCommentsFromHabitByUID(uid);
+    public LiveData<List<Comment>> getAllHabitCommentByUID(long uid) {
+        return repository.getAllHabitCommentByUID(uid);
     }
 
     public void insertComment(Comment comment){

@@ -104,7 +104,7 @@ public class BottomNavigationFragment extends Fragment {
         final String SharedPreferences_KEY = "SP_DB";
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
-        final String SHARED_PREF_KEY = "THEME";
+        final String SHARED_PREF_KEY = "THEME_SHARED.PREF";
         int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
         if (theme == 1) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

@@ -116,7 +116,6 @@ public class LearnMoreFragment extends Fragment {
             sliderDots[position].setText(Html.fromHtml("&#8226;"));
             sliderDots[position].setTextSize(30);
             sliderDots[position].setTextColor(requireActivity().getResources().getColor(R.color.CLOUDS));
-
             binding.settingLearnMoreDotsLayout.addView(sliderDots[position]);
         }
 

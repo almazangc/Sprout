@@ -56,11 +56,7 @@ public class CommentRepository {
         }
     }
 
-    public LiveData<List<Comment>> getCommentsFromHabitByUID(long uid) {
-        return commentDao.CommentFromHabitByUID(uid);
-    }
-
-    public LiveData<List<Comment>> getCommentsFromSubroutineByUID(long uid) {
-        return commentDao.CommentFromSubroutineByUID(uid);
+    public LiveData<List<Comment>> getAllHabitCommentByUID(long uid) {
+        return commentDao.getAllHabitCommentByUID(uid);
     }
 }

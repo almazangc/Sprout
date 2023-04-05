@@ -17,7 +17,7 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "habit")
     private String habit;
 
-    @ColumnInfo(name = "desc")
+    @ColumnInfo(name = "description")
     private String description;
 
     @ColumnInfo(name = "color")
@@ -26,8 +26,8 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "on_reform")
     private boolean onReform;
 
-    @ColumnInfo(name = "modifiable")
-    private final boolean modifiable;
+    @ColumnInfo(name = "is_modifiable")
+    private final boolean isModifiable;
 
     @ColumnInfo(name = "relapse")
     private int relapse;
@@ -50,13 +50,12 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "vote_status")
     private int vote_status;
 
-    @Ignore
-    public Habits(String habit, String description, String color, Boolean onReform, Boolean modifiable) {
+    public Habits(String habit, String description, String color, Boolean onReform, Boolean isModifiable) {
         this.habit = habit;
         this.description = description;
         this.color = color;
         this.onReform = onReform;
-        this.modifiable = modifiable;
+        this.isModifiable = isModifiable;
         this.relapse = 0;
         this.date_started = null;
         this.total_subroutine = 0;
@@ -66,13 +65,14 @@ public class Habits implements Serializable {
         this.vote_status = 0;
     }
 
-    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int relapse, String date_started, int total_subroutine, int completed_subroutine, int upvote, int downvote, int vote_status) {
+    @Ignore
+    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean isModifiable, int relapse, String date_started, int total_subroutine, int completed_subroutine, int upvote, int downvote, int vote_status) {
         this.pk_habit_uid = pk_habit_uid;
         this.habit = habit;
         this.description = description;
         this.color = color;
         this.onReform = onReform;
-        this.modifiable = modifiable;
+        this.isModifiable = isModifiable;
         this.relapse = relapse;
         this.date_started = date_started;
         this.total_subroutine = total_subroutine;
@@ -83,13 +83,13 @@ public class Habits implements Serializable {
     }
 
     @Ignore
-    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, int relapse, String date_started, int total_subroutine, int completed_subroutine) {
+    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean isModifiable, int relapse, String date_started, int total_subroutine, int completed_subroutine) {
         this.pk_habit_uid = pk_habit_uid;
         this.habit = habit;
         this.description = description;
         this.color = color;
         this.onReform = onReform;
-        this.modifiable = modifiable;
+        this.isModifiable = isModifiable;
         this.relapse = relapse;
         this.date_started = date_started;
         this.total_subroutine = total_subroutine;
@@ -100,13 +100,13 @@ public class Habits implements Serializable {
     }
 
     @Ignore
-    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean modifiable, String date_started, int total_subroutine) {
+    public Habits(long pk_habit_uid, String habit, String description, String color, boolean onReform, boolean isModifiable, String date_started, int total_subroutine) {
         this.pk_habit_uid = pk_habit_uid;
         this.habit = habit;
         this.description = description;
         this.color = color;
         this.onReform = onReform;
-        this.modifiable = modifiable;
+        this.isModifiable = isModifiable;
         this.relapse = 0;
         this.date_started = date_started;
         this.total_subroutine = total_subroutine;
@@ -128,7 +128,7 @@ public class Habits implements Serializable {
         this.description = originalHabit.description;
         this.color = originalHabit.color;
         this.onReform = originalHabit.onReform;
-        this.modifiable = originalHabit.modifiable;
+        this.isModifiable = originalHabit.isModifiable;
         this.relapse = originalHabit.relapse;
         this.date_started = originalHabit.date_started;
         this.total_subroutine = originalHabit.total_subroutine;
@@ -147,7 +147,7 @@ public class Habits implements Serializable {
                 ", description='" + description + '\'' +
                 ", color='" + color + '\'' +
                 ", onReform=" + onReform +
-                ", modifiable=" + modifiable +
+                ", modifiable=" + isModifiable +
                 ", relapse=" + relapse +
                 ", date_started='" + date_started + '\'' +
                 ", total_subroutine=" + total_subroutine +
@@ -199,7 +199,7 @@ public class Habits implements Serializable {
     }
 
     public boolean isModifiable() {
-        return modifiable;
+        return isModifiable;
     }
 
     public int getRelapse() {
