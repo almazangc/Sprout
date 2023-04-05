@@ -36,9 +36,7 @@ public class Answer implements Serializable {
     @ColumnInfo(name = "user_uid")
     private long user_uid;
 
-    public Answer() {
-
-    }
+    public Answer() {}
 
     @Ignore
     public Answer(long fk_question_uid, String selected_answer, long user_uid) {

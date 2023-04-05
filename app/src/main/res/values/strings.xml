@@ -1,7 +1,7 @@
 <resources>
     <!--App Name-->
-    <string name="app_name">SPROUT</string>
-    <string name="sprout">SPROUT</string>
+    <string name="app_name">Sprout</string>
+    <string name="sprout">Sprout</string>
 
     <!-- Intro -->
     <string name="initial_subtitle">Habit Reform</string>
@@ -59,6 +59,7 @@
     <string name="journal">Journal</string>
     <string name="settings">Settings</string>
 
+    <!--    EULA Agreement-->
     <string name="overview_01">\t\tThis EULA agreement is a binding agreement, entered into by and between Sprout Technology, registered address, (\"Sprout Technology\") and you, and is made effective as of the date you download, install or use the Application Sprout (\"Application\") or from the date of your electronic acceptance.</string>
     <string name="overview_02">\t\tThis EULA agreement sets forth the general terms and conditions of your use of the Application, provides a license to use Sprout Technology Application and contains liability disclaimers. This EULA agreement’s terms also apply to any Application update, upgrade, internet-based service, and support service for the Application. EULA agreement signifies that you have read, understand, acknowledge, and agree to be bound by this EULA agreement.</string>
     <string name="overview_03">\t\tThe terms \"we\", \"us\" or \"our\" shall refer to Sprout Technology. The terms \"you\", \"your\", or \"User\" shall refer to any individual or entity who accepts this EULA agreement, uses our Application, or has access to our Application. Sprout Technology may, in its sole and absolute discretion, change or modify this Agreement, and any policies or agreements which are incorporated herein, at any time, and such changes or modifications shall be effective immediately upon posting. Your use of this Application after such changes or modifications have been made shall constitute your acceptance of this EULA agreement as last revised.</string>

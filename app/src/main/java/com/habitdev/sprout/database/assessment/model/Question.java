@@ -32,7 +32,7 @@ public class Question implements Serializable {
     /**
      * Habit related to the question that will be recommended if a certain score is met.
      */
-    @ColumnInfo(name = "fk_habit_uid")
+    @ColumnInfo(name = "habit_uid")
     private long fk_habit_uid;
 
     public Question() {

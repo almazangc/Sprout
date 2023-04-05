@@ -14,7 +14,7 @@ public class Habits implements Serializable {
     @ColumnInfo(name = "pk_habit_uid")
     private long pk_habit_uid;
 
-    @ColumnInfo(name = "habit")
+    @ColumnInfo(name = "title")
     private String habit;
 
     @ColumnInfo(name = "description")

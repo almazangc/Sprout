@@ -1040,13 +1040,13 @@ public abstract class AppDatabase extends RoomDatabase {
             //Triggered in adding notes
             Achievement NoteI = new Achievement("First Note", "Write down your thoughts", 0, 1);
             achievementDao.insertAchievement(NoteI);
-            Achievement NoteII = new Achievement("Piece by Piece", "Journal your progress", 1, NoteI.getTitle(), achievementDao.getAchievementByTitle(NoteI.getTitle()), 10);
+            Achievement NoteII = new Achievement("Piece by Piece", "Journal your progress", 1, achievementDao.getAchievementByTitle(NoteI.getTitle()), 10);
             achievementDao.insertAchievement(NoteII);
-            Achievement NoteIII = new Achievement("Better Understanding", "Lots of notes written", 1, NoteII.getTitle(), achievementDao.getAchievementByTitle(NoteII.getTitle()), 30);
+            Achievement NoteIII = new Achievement("Better Understanding", "Lots of notes written", 1, achievementDao.getAchievementByTitle(NoteII.getTitle()), 30);
             achievementDao.insertAchievement(NoteIII);
-            Achievement NoteIV = new Achievement("Chapter", "Keep writing you thoughts", 1, NoteIII.getTitle(), achievementDao.getAchievementByTitle(NoteIII.getTitle()), 60);
+            Achievement NoteIV = new Achievement("Chapter", "Keep writing you thoughts", 1, achievementDao.getAchievementByTitle(NoteIII.getTitle()), 60);
             achievementDao.insertAchievement(NoteIV);
-            Achievement NoteV = new Achievement("Journal", "You have written your thoughts", 1, NoteIV.getTitle(),achievementDao.getAchievementByTitle(NoteIV.getTitle()), 100);
+            Achievement NoteV = new Achievement("Journal", "You have written your thoughts", 1,achievementDao.getAchievementByTitle(NoteIV.getTitle()), 100);
             achievementDao.insertAchievement(NoteV);
 
             //SETTING

@@ -24,7 +24,7 @@ public class Subroutines implements Serializable {
     @ColumnInfo(name = "fk_habit_uid", index = true)
     private long fk_habit_uid;
 
-    @ColumnInfo(name = "routine")
+    @ColumnInfo(name = "title")
     private String subroutine;
 
     @ColumnInfo(name = "description")

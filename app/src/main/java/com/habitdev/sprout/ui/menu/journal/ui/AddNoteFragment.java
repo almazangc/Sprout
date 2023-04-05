@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -287,24 +288,35 @@ public class AddNoteFragment extends Fragment {
                                 Achievement NoteII = achievementViewModel.getAchievementByUID(NoteIII.getPrerequisite_uid());
                                 Achievement NoteI = achievementViewModel.getAchievementByUID(NoteII.getPrerequisite_uid());
 
+                                final String TAG = "tag";
+
                                 if (!NoteI.is_completed() && noteViewModel.getNoteEntryCount() == NoteI.getGoal_progress() - 1) {
                                     updateUnlockedAchievement(NoteI);
-                                } else if (!NoteII.is_completed() && NoteI.is_completed() && noteViewModel.getNoteEntryCount() < NoteI.getGoal_progress() + NoteII.getGoal_progress() - 1) {
+                                    Log.d(TAG, "onSaveNote: updateUnlockedAchievement(NoteI);");
+                                } else if (!NoteII.is_completed() && NoteI.is_completed() && NoteII.getGoal_progress() -2 >= NoteII.getCurrent_progress()) {
                                     incrementprogress(NoteII);
-                                } else if (!NoteII.is_completed() && NoteI.is_completed() && noteViewModel.getNoteEntryCount() == NoteI.getGoal_progress() + NoteII.getGoal_progress() - 1) {
+                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteII);");
+                                } else if (!NoteII.is_completed() && NoteI.is_completed() && NoteII.getGoal_progress() -1 == NoteII.getCurrent_progress()) {
                                     updateUnlockedAchievement(NoteII);
-                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && noteViewModel.getNoteEntryCount() <  NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() - 1) {
+                                    Log.d(TAG, "onSaveNote: updateUnlockedAchievement(NoteII);");
+                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && NoteIII.getGoal_progress() -2 >=  NoteIII.getCurrent_progress()){
                                     incrementprogress(NoteIII);
-                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && noteViewModel.getNoteEntryCount() ==  NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() - 1) {
+                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteIII);");
+                                } else if (!NoteIII.is_completed() && NoteII.is_completed() && NoteIII.getGoal_progress() -1 ==  NoteIII.getCurrent_progress()) {
                                     updateUnlockedAchievement(NoteIII);
-                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && noteViewModel.getNoteEntryCount() < NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() + NoteIV.getGoal_progress() - 1) {
+                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteIII);");
+                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && NoteIV.getGoal_progress() -2 >= NoteIV.getCurrent_progress()) {
                                     incrementprogress(NoteIV);
-                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && noteViewModel.getNoteEntryCount() == NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() + NoteIV.getGoal_progress() - 1) {
+                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteIV);");
+                                } else if (!NoteIV.is_completed() && NoteIII.is_completed() && NoteIV.getGoal_progress() -1== NoteIV.getCurrent_progress()) {
                                     updateUnlockedAchievement(NoteIV);
-                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && noteViewModel.getNoteEntryCount() < NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() + NoteIV.getGoal_progress() + NoteV.getGoal_progress() - 1) {
+                                    Log.d(TAG, "onSaveNote: updateUnlockedAchievement(NoteIV);");
+                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && NoteV.getGoal_progress() -2 >= NoteV.getCurrent_progress()) {
                                     incrementprogress(NoteV);
-                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && noteViewModel.getNoteEntryCount() ==  NoteI.getGoal_progress() + NoteII.getGoal_progress() + NoteIII.getGoal_progress() + NoteIV.getGoal_progress() + NoteV.getGoal_progress() - 1) {
+                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteV);");
+                                } else if (!NoteV.is_completed() && NoteIV.is_completed() && NoteV.getGoal_progress() -1 == NoteV.getCurrent_progress()) {
                                     updateUnlockedAchievement(NoteV);
+                                    Log.d(TAG, "onSaveNote: updateUnlockedAchievement(NoteV);");
                                 }
 
                                 noteViewModel.insert(

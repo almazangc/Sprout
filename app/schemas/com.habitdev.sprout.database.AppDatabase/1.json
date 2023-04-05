@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "92de4048d36396c2f2bcc4658de491ad",
+    "identityHash": "b19115c453a0e06bf06dabc65f06fcdd",
     "entities": [
       {
         "tableName": "User",
@@ -92,7 +92,7 @@
       },
       {
         "tableName": "Question",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_questions_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT, `classification` INTEGER NOT NULL, `fk_habit_uid` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_questions_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `question` TEXT, `classification` INTEGER NOT NULL, `habit_uid` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_question_uid",
@@ -114,7 +114,7 @@
           },
           {
             "fieldPath": "fk_habit_uid",
-            "columnName": "fk_habit_uid",
+            "columnName": "habit_uid",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -328,7 +328,7 @@
       },
       {
         "tableName": "Habits",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `habit` TEXT, `description` TEXT, `color` TEXT, `on_reform` INTEGER NOT NULL, `is_modifiable` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_habit_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `description` TEXT, `color` TEXT, `on_reform` INTEGER NOT NULL, `is_modifiable` INTEGER NOT NULL, `relapse` INTEGER NOT NULL, `date_started` TEXT, `total_subroutine` INTEGER NOT NULL, `completed_subroutines` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_habit_uid",
@@ -338,7 +338,7 @@
           },
           {
             "fieldPath": "habit",
-            "columnName": "habit",
+            "columnName": "title",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -420,7 +420,7 @@
       },
       {
         "tableName": "Subroutines",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `routine` TEXT, `description` TEXT, `color` TEXT, `is_modifiable` INTEGER, `is_marked_done` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `title` TEXT, `description` TEXT, `color` TEXT, `is_modifiable` INTEGER, `is_marked_done` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_subroutine_uid",
@@ -436,7 +436,7 @@
           },
           {
             "fieldPath": "subroutine",
-            "columnName": "routine",
+            "columnName": "title",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -578,7 +578,7 @@
       },
       {
         "tableName": "Achievement",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_achievement_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `description` TEXT, `type` INTEGER NOT NULL, `prerequisite` TEXT, `prerequisite_uid` INTEGER NOT NULL, `current_progress` INTEGER NOT NULL, `goal_progress` INTEGER NOT NULL, `date_achieved` TEXT, `is_completed` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_achievement_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT, `description` TEXT, `type` INTEGER NOT NULL, `fk_prerequisite_uid` INTEGER NOT NULL, `current_progress` INTEGER NOT NULL, `goal_progress` INTEGER NOT NULL, `date_achieved` TEXT, `is_completed` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_achievement_uid",
@@ -605,14 +605,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "prerequisite",
-            "columnName": "prerequisite",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
             "fieldPath": "prerequisite_uid",
-            "columnName": "prerequisite_uid",
+            "columnName": "fk_prerequisite_uid",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -654,7 +648,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '92de4048d36396c2f2bcc4658de491ad')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b19115c453a0e06bf06dabc65f06fcdd')"
     ]
   }
 }
