@@ -1,11 +1,14 @@
 package com.habitdev.sprout.ui.habit_assessment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class AnalysisFragment extends Fragment {
 
@@ -51,7 +55,8 @@ public class AnalysisFragment extends Fragment {
     private static Habits habit;
     private static AnalysisParentItemAdapter analysisParentItemAdapter;
     private static List<Subroutines> subroutinesList;
-    private static boolean isOnRekateAssessment;
+    private static boolean isOnRetakeAssessment;
+    private static List<Result> habitScoreResult;
     private static ProfileFragment profileFragment = new ProfileFragment();
 
     public AnalysisFragment() {
@@ -63,10 +68,10 @@ public class AnalysisFragment extends Fragment {
                 false
         );
         subroutinesList = new ArrayList<>();
-        isOnRekateAssessment = false;
+        isOnRetakeAssessment = false;
     }
 
-    public AnalysisFragment(boolean isOnRekateAssessment) {
+    public AnalysisFragment(boolean isOnRetakeAssessment) {
         habit = new Habits(
                 null,
                 null,
@@ -75,7 +80,7 @@ public class AnalysisFragment extends Fragment {
                 false
         );
         subroutinesList = new ArrayList<>();
-        AnalysisFragment.isOnRekateAssessment = isOnRekateAssessment;
+        AnalysisFragment.isOnRetakeAssessment = isOnRetakeAssessment;
     }
 
     @Override
@@ -89,7 +94,6 @@ public class AnalysisFragment extends Fragment {
     public void onStart() {
         super.onStart();
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
-        toggleHabitDescriptionVisibility(false);
         setContinueListener();
         calculateRecommendedHabit();
         setRecyclerViewAdapter();
@@ -105,36 +109,57 @@ public class AnalysisFragment extends Fragment {
         ruleBasedAlgorithm.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
         ruleBasedAlgorithm.calculateHabitScores();
         ruleBasedAlgorithm.getRecommendedHabitsScore();
-        List<Result> habitScoreResult = ruleBasedAlgorithm.getConvertedToResultList();
-        setDropDownItems(habitScoreResult); //gets the result to be displayed right.
+        habitScoreResult = ruleBasedAlgorithm.getConvertedToResultList();
+        setDropDownItems();
+        setInitialRecommendationMessage();
     }
 
-    private void setDropDownItems(List<Result> habitScore) {
-        AnalytisParentItemDropDownAdapter analytisParentItemDropDownAdapter = new AnalytisParentItemDropDownAdapter(requireContext(), habitScore);
+    private void setDropDownItems() {
+        AnalytisParentItemDropDownAdapter analytisParentItemDropDownAdapter = new AnalytisParentItemDropDownAdapter(requireContext(), new ArrayList<>(habitScoreResult));
         analytisParentItemDropDownAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
         binding.analysisDropItem.setAdapter(analytisParentItemDropDownAdapter);
         setDropDownItemListener();
         setHabitObserver();
     }
 
+    private void setInitialRecommendationMessage() {
+        Result result = new Result().getHighestConfidenceScore(habitScoreResult);
+        Habits habit = habitWithSubroutinesViewModel.getHabitByUID(result.getHabit_uid());
+        setAnalysisMessage(result, habit);
+        displayHabitInformation(habit);
+        Log.d("Tag", "setInitialRecommendationMessage: " + habit.getDescription());
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setAnalysisMessage(Result result, Habits habit) {
+        String habitAssessmentResult =
+                "Based on your habit personalization assessment.<br/>The result shows that you have a " +
+                "<b>%s</b> likelihood of having the habit: <b><font color='%s'>%s</font></b>.<br/><br/>";
+        String[] recommendationMessage = {
+                "We recommend you focus on reforming this habit to improve well-being.",
+                "Reforming this habit can positively impact your overall health and wellness.",
+        };
+        String[] considerReformingMessages = {
+                "While this habit may not be a top priority for improvement, it is still worth considering as you work towards building healthier habits.",
+                "This habit may not be at the top of the list, but it's still worth considering as you aim to develop healthier habits.",
+                "Although there may be more significant habits to work on first, improving this one can still have a positive impact on your health and well-being."
+        };
+
+        String focusMessage = recommendationMessage[new Random().nextInt(recommendationMessage.length)];
+        String considerMessage = considerReformingMessages[new Random().nextInt(considerReformingMessages.length)];
+
+        String hexColorValue = String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(requireContext(), R.color.CORAL_RED)));
+        String finalMessage = String.format(habitAssessmentResult, result.getFormattedConfidenceScore(), hexColorValue, habit.getHabit().toUpperCase(Locale.ROOT)) +
+                (result.getRecommendation_score() >= 0.7 ? focusMessage : considerMessage);
+
+        Spanned formattedMessage = Html.fromHtml(finalMessage);
+        binding.analysisResult.setText(formattedMessage);
+    }
+
     private void setHabitObserver() {
         habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(getViewLifecycleOwner(), habits -> {
             habitsList = new ArrayList<>(habits);
         });
-    }
-
-    private void toggleHabitDescriptionVisibility(boolean visibility) {
-        if (!visibility) {
-            binding.analysisHabitTitle.setVisibility(View.GONE);
-            binding.analysisHabitTitleLbl.setVisibility(View.GONE);
-            binding.analysisHabitDescrition.setVisibility(View.GONE);
-            binding.analysisHabitDescritionLbl.setVisibility(View.GONE);
-        } else {
-            binding.analysisHabitTitle.setVisibility(View.VISIBLE);
-            binding.analysisHabitTitleLbl.setVisibility(View.VISIBLE);
-            binding.analysisHabitDescrition.setVisibility(View.VISIBLE);
-            binding.analysisHabitDescritionLbl.setVisibility(View.VISIBLE);
-        }
     }
 
     private void setRecyclerViewAdapter() {
@@ -147,46 +172,45 @@ public class AnalysisFragment extends Fragment {
             if (binding.analysisRecyclerView.getAdapter() == null) {
                 binding.analysisRecyclerView.setAdapter(analysisParentItemAdapter);
             } else {
-                binding.analysisHabitDescrition.setText(habit.getDescription());
                 analysisParentItemAdapter.setNewSubroutineList(new ArrayList<>(subroutinesList));
             }
         }
     }
 
     private void setDropDownItemListener() {
-
         binding.analysisDropItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 //updates selected habit
                 habit = habitsList.get(position);
-                binding.analysisDropItem.setText("");
-                binding.analysisHabitTitle.setText(habit.getHabit());
-                subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
-                toggleHabitDescriptionVisibility(true);
-                binding.analysisHabitDescrition.setText(habit.getDescription());
-                setRecyclerViewAdapter();
+                displayHabitInformation(habit);
+
+                Result result = habitScoreResult.get(position);
+                setAnalysisMessage(result, habit);
             }
         });
 
         binding.analysisDropItem.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().trim().isEmpty()) {
                     subroutinesList.clear();
-                    toggleHabitDescriptionVisibility(false);
                     setRecyclerViewAdapter();
                 }
             }
         });
+    }
+
+    private void displayHabitInformation(Habits habit) {
+        binding.analysisDropItem.setText("");
+        binding.analysisHabitTitle.setText(habit.getHabit());
+        binding.analysisHabitDescription.setText(habit.getDescription());
+        subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+        setRecyclerViewAdapter();
     }
 
     private void setContinueListener() {
@@ -215,7 +239,7 @@ public class AnalysisFragment extends Fragment {
                                         habit.setDate_started(new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm:ss a", Locale.getDefault()).format(new Date()));
                                         habitWithSubroutinesViewModel.updateHabit(habit);
 
-                                        if (isOnRekateAssessment) {
+                                        if (isOnRetakeAssessment) {
                                             returnToProfileTab();
                                         } else {
                                             setOnBoarding();
@@ -240,7 +264,7 @@ public class AnalysisFragment extends Fragment {
                         }
                     } else {
                         new AlertDialog.Builder(requireContext())
-                                .setMessage("The habit [" + habit.getHabit() + "] is currently on reform, do you want to proceeed?")
+                                .setMessage("The habit [" + habit.getHabit() + "] is currently on reform, do you want to proceed?")
                                 .setCancelable(false)
                                 .setPositiveButton("YES", (dialogInterface, i) -> {
                                     returnToProfileTab();

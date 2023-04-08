@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b19115c453a0e06bf06dabc65f06fcdd",
+    "identityHash": "dead9a3e15a5dbeca4798c07c785c5fe",
     "entities": [
       {
         "tableName": "User",
@@ -420,7 +420,7 @@
       },
       {
         "tableName": "Subroutines",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `title` TEXT, `description` TEXT, `color` TEXT, `is_modifiable` INTEGER, `is_marked_done` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_subroutine_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_habit_uid` INTEGER NOT NULL, `title` TEXT, `description` TEXT, `color` TEXT, `is_modifiable` INTEGER NOT NULL, `is_marked_done` INTEGER NOT NULL, `total_completed` INTEGER NOT NULL, `max_streak` INTEGER NOT NULL, `longest_streak` INTEGER NOT NULL, `skips` INTEGER NOT NULL, `upvote` INTEGER NOT NULL, `downvote` INTEGER NOT NULL, `vote_status` INTEGER NOT NULL, FOREIGN KEY(`fk_habit_uid`) REFERENCES `Habits`(`pk_habit_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_subroutine_uid",
@@ -456,7 +456,7 @@
             "fieldPath": "isModifiable",
             "columnName": "is_modifiable",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "isMarkDone",
@@ -648,7 +648,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b19115c453a0e06bf06dabc65f06fcdd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dead9a3e15a5dbeca4798c07c785c5fe')"
     ]
   }
 }

@@ -263,7 +263,7 @@ public class AddDefaultHabitFragment extends Fragment {
             if (habit != null) {
                 //TODO: Need to rework in order to check if the status is on reform,
                 // not onreform on archive, or completed.So that it wont update
-                // the date started and will freexe the date and timer
+                // the date started and will freze the date and timer
                 new AlertDialog.Builder(requireContext())
                         .setMessage("Do you want to add " + habit.getHabit().toLowerCase() + "  on reform and start now?")
                         .setCancelable(false)

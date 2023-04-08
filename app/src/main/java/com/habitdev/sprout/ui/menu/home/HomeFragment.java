@@ -434,23 +434,29 @@ public class HomeFragment extends Fragment
 
         HabitFireStore habitFireStoreItem = new HabitFireStore();
 
-        for (HabitFireStore habitFireStore : habitFireStoreList) {
-            if (habitFireStore.getPk_uid() == habit.getPk_habit_uid() && habitFireStore.getTitle().equals(habit.getHabit())) {
-                habitFireStoreItem = habitFireStore;
-                break;
+        if (habitFireStoreList != null) {
+            for (HabitFireStore habitFireStore : habitFireStoreList) {
+                if (habitFireStore.getPk_uid() == habit.getPk_habit_uid() && habitFireStore.getTitle().equals(habit.getHabit())) {
+                    habitFireStoreItem = habitFireStore;
+                    habit.setUpvote(habitFireStoreItem.getUpvote());
+                    habit.setDownvote(habitFireStoreItem.getDownvote());
+                    break;
+                }
+            }
+
+            if (habitFireStoreItem != null){
+                habit.setUpvote(habitFireStoreItem.getUpvote());
+                habit.setDownvote(habitFireStoreItem.getDownvote());
+                habitWithSubroutinesViewModel.updateHabit(habit);
             }
         }
 
-        habit.setUpvote(habitFireStoreItem.getUpvote());
-        habit.setDownvote(habitFireStoreItem.getDownvote());
-        habitWithSubroutinesViewModel.updateHabit(habit);
 
         Toast toast = Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT);
         switch (habit.getVote_status()) {
             case 0:
                 habitFireStoreItem.setUpvote(habitFireStoreItem.getUpvote() + 1);
                 habitFireStoreViewModel.updateHabit(habitFireStoreItem);
-
                 habit.setUpvote(habit.getUpvote() + 1);
                 habit.setVote_status(1);
                 habitWithSubroutinesViewModel.updateHabit(habit);
@@ -475,18 +481,26 @@ public class HomeFragment extends Fragment
     }
 
     @Override
-    public void onClickDownvoteHabit(Habits habit) {
+    public void onClickDownvoteHabit(Habits habit)
+    {
         HabitFireStore habitFireStoreItem = new HabitFireStore();
-        for (HabitFireStore habitFireStore : habitFireStoreList) {
-            if (habitFireStore.getPk_uid() == habit.getPk_habit_uid() && habitFireStore.getTitle().equals(habit.getHabit())) {
-                habitFireStoreItem = habitFireStore;
-                break;
+
+        if (habitFireStoreList != null) {
+            for (HabitFireStore habitFireStore : habitFireStoreList) {
+                if (habitFireStore.getPk_uid() == habit.getPk_habit_uid() && habitFireStore.getTitle().equals(habit.getHabit())) {
+                    habitFireStoreItem = habitFireStore;
+                    habit.setUpvote(habitFireStoreItem.getUpvote());
+                    habit.setDownvote(habitFireStoreItem.getDownvote());
+                    break;
+                }
+            }
+
+            if (habitFireStoreItem != null){
+                habit.setUpvote(habitFireStoreItem.getUpvote());
+                habit.setDownvote(habitFireStoreItem.getDownvote());
+                habitWithSubroutinesViewModel.updateHabit(habit);
             }
         }
-
-        habit.setUpvote(habitFireStoreItem.getUpvote());
-        habit.setDownvote(habitFireStoreItem.getDownvote());
-        habitWithSubroutinesViewModel.updateHabit(habit);
 
         Toast toast = Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT);
         switch (habit.getVote_status()) {
@@ -502,7 +516,6 @@ public class HomeFragment extends Fragment
             case 1:
                 habitFireStoreItem.setUpvote(habitFireStoreItem.getUpvote() - 1);
                 habitFireStoreViewModel.updateHabit(habitFireStoreItem);
-
                 habit.setUpvote(habit.getUpvote() - 1);
                 habit.setVote_status(0);
                 habitWithSubroutinesViewModel.updateHabit(habit);

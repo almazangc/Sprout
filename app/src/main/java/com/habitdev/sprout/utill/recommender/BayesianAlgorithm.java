@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.habitdev.sprout.database.habit.firestore.HabitFireStoreRepository;
 import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
+import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,15 @@ import java.util.List;
  */
 public class BayesianAlgorithm {
 
-    private static List<HabitFireStore> items; //item The HabitFireStore to calculate the rating for.
+    private static List<HabitFireStore> habits; //item The HabitFireStore to calculate the rating for.
+    private static List<SubroutineFireStore> subroutines;
     private static double R;
     private static double C;
     private static final int M = 5; //  m The constant prior value for minimum vote
 
     public BayesianAlgorithm() {
         // List of HabitFireStore to initialize the ratings for.
-        BayesianAlgorithm.items = getHabitFireStoreList();
+        BayesianAlgorithm.habits = getHabitFireStoreList();
     }
 
     /**
@@ -34,14 +36,14 @@ public class BayesianAlgorithm {
      * proportion of upvotes to total votes (upvotes + downvotes) as a percentage.
      */
     public static void initializeRatings() {
-        if (items == null) {
+        if (habits == null) {
             Log.d("tag", "initializeRatings: Items is null");
         }
-        if (items.isEmpty()) {
+        if (habits.isEmpty()) {
             Log.d("Tag", "initializeRatings: Items is empty");
         }
 
-        for (HabitFireStore item : items) {
+        for (HabitFireStore item : habits) {
             item.setRating((double) item.getUpvote() / (item.getUpvote() + item.getDownvote()));
         }
     }
@@ -50,16 +52,16 @@ public class BayesianAlgorithm {
      * Calculates the rating of an item using the Bayesian average algorithm.
      */
     public static void calculateRating() {
-        if (items == null) {
+        if (habits == null) {
             Log.d("tag", "initializeRatings: Items is null");
         }
-        if (items.isEmpty()) {
+        if (habits.isEmpty()) {
             Log.d("Tag", "initializeRatings: Items is empty");
         }
 
         calculateR();
         calculateC();
-        for (HabitFireStore item : items) {
+        for (HabitFireStore item : habits) {
             double v = item.getUpvote() + item.getDownvote();
             double rating = (v * R + M * C) / (v + M);
             item.setRating(rating);
@@ -96,7 +98,7 @@ public class BayesianAlgorithm {
 
         int totalVotes = 0;
         double totalRating = 0;
-        for (HabitFireStore item : items) {
+        for (HabitFireStore item : habits) {
             totalVotes += item.getUpvote() + item.getDownvote();
             totalRating += item.getUpvote() - item.getDownvote();
         }
@@ -113,7 +115,7 @@ public class BayesianAlgorithm {
     private static void calculateC() {
         double totalUpvotes = 0;
         double totalVotes = 0;
-        for (HabitFireStore item : items) {
+        for (HabitFireStore item : habits) {
             totalUpvotes += item.getUpvote();
             totalVotes += item.getUpvote() + item.getDownvote();
         }
@@ -121,12 +123,12 @@ public class BayesianAlgorithm {
     }
 
     private static boolean checkItems() {
-        if (items == null) {
+        if (habits == null) {
             Log.d("tag", "calculateR: item is null");
             return true;
         }
 
-        if (items.isEmpty()) {
+        if (habits.isEmpty()) {
             Log.d("tag", "calculateR: item is empty");
             return true;
         }

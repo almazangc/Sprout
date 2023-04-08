@@ -24,13 +24,6 @@ public class Quotes {
         this.quoted = quoted;
     }
 
-    @Ignore
-    public Quotes(String author, String quoted) {
-        this.id = "";
-        this.author = author;
-        this.quoted = quoted;
-    }
-
     public String getAuthor() {
         return author;
     }

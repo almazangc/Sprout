@@ -30,10 +30,10 @@ public class Achievement {
     private long prerequisite_uid;
 
     @ColumnInfo(name = "current_progress")
-    private long current_progress;
+    private int current_progress;
 
     @ColumnInfo(name = "goal_progress")
-    private long goal_progress;
+    private int goal_progress;
 
     @ColumnInfo(name = "date_achieved")
     private String date_achieved;
@@ -44,7 +44,7 @@ public class Achievement {
     public Achievement() {}
 
     @Ignore
-    public Achievement(String title, String description, long type, long prerequisite_uid,  long goal_progress) {
+    public Achievement(String title, String description, long type, long prerequisite_uid,  int goal_progress) {
         this.title = title;
         this.description = description;
         this.type = type;
@@ -56,7 +56,7 @@ public class Achievement {
     }
 
     @Ignore
-    public Achievement(String title, String description, long type, long goal_progress) {
+    public Achievement(String title, String description, long type, int goal_progress) {
         this.title = title;
         this.description = description;
         this.type = type;
@@ -107,19 +107,19 @@ public class Achievement {
         this.prerequisite_uid = prerequisite_uid;
     }
 
-    public long getCurrent_progress() {
+    public int getCurrent_progress() {
         return current_progress;
     }
 
-    public void setCurrent_progress(long current_progress) {
+    public void setCurrent_progress(int current_progress) {
         this.current_progress = current_progress;
     }
 
-    public long getGoal_progress() {
+    public int getGoal_progress() {
         return goal_progress;
     }
 
-    public void setGoal_progress(long goal_progress) {
+    public void setGoal_progress(int goal_progress) {
         this.goal_progress = goal_progress;
     }
 

@@ -105,7 +105,7 @@ public class HomeItemOnClickFragment extends Fragment {
         ruleBasedAlgorithm.getRecommendedHabitsScore();
         List<Result> habitScoreResult = ruleBasedAlgorithm.getConvertedToResultList();
         Result result = habitScoreResult.get((int) (habit.getPk_habit_uid()-1));
-        Double score = result.getScore();
+        Double score = result.getRecommendation_score();
         DecimalFormat decimalFormat = new DecimalFormat("##%");
         String formatedScore = decimalFormat.format(score);
         binding.recommendedPercent.setText(formatedScore);

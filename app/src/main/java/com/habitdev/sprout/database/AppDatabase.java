@@ -160,9 +160,9 @@ public abstract class AppDatabase extends RoomDatabase {
             List<Choices> choices = new ArrayList<>();
 
             uid = insertQuestion(new Question("How contented are with your current self?"));
-            choices.add(new Choices("Not Enough", 4));
-            choices.add(new Choices("Contented", 3));
-            choices.add(new Choices("A little bit contented", 2));
+            choices.add(new Choices("Not Enough", .8));
+            choices.add(new Choices("Contented", .5));
+            choices.add(new Choices("A little bit contented", .3));
             choices.add(new Choices("Overly contented", 0));
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 

@@ -48,10 +48,7 @@ public class AnalytisParentItemDropDownAdapter extends ArrayAdapter<Result> {
             if (percentage.getVisibility() == View.GONE) {
                 percentage.setVisibility(View.VISIBLE);
             }
-            Double score = result.getScore();
-            DecimalFormat decimalFormat = new DecimalFormat("##%");
-            String formatedScore = decimalFormat.format(score);
-            percentage.setText(formatedScore);
+            percentage.setText(result.getFormattedConfidenceScore());
             String habit_title = habitWithSubroutinesViewModel.getHabitByUID(result.getHabit_uid()).getHabit();
             habit.setText(habit_title);
         } else {

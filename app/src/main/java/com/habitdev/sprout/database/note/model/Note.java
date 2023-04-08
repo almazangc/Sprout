@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Note implements Serializable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "pk_note_uid")
-    private int pk_note_uid;
+    private long pk_note_uid;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -32,7 +32,7 @@ public class Note implements Serializable {
     public Note() {}
 
     @Ignore
-    public Note(int pk_note_uid, String title, String dateTime, String subtitle, String noteContent, String color) {
+    public Note(long pk_note_uid, String title, String dateTime, String subtitle, String noteContent, String color) {
         this.pk_note_uid = pk_note_uid;
         this.title = title;
         this.dateTime = dateTime;
@@ -42,7 +42,7 @@ public class Note implements Serializable {
     }
 
     @Ignore
-    public Note(int pk_note_uid, String title, String dateTime, String noteContent, String color) {
+    public Note(long pk_note_uid, String title, String dateTime, String noteContent, String color) {
         this.pk_note_uid = pk_note_uid;
         this.title = title;
         this.dateTime = dateTime;
@@ -69,7 +69,7 @@ public class Note implements Serializable {
         this.color = color;
     }
 
-    public int getPk_note_uid() {
+    public long getPk_note_uid() {
         return pk_note_uid;
     }
 

@@ -34,7 +34,7 @@ public class Subroutines implements Serializable {
     private String color;
 
     @ColumnInfo(name = "is_modifiable")
-    private Boolean isModifiable;
+    private boolean isModifiable;
 
     @ColumnInfo(name = "is_marked_done")
     private boolean isMarkDone;

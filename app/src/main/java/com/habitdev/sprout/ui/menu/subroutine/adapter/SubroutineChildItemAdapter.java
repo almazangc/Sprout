@@ -183,13 +183,14 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
 
                 if (subroutineFireStoreList != null) {
                     for (SubroutineFireStore subroutineFireStoreItem : subroutineFireStoreList) {
-                        if (subroutineFireStoreItem.getFk_habit_uid() == subroutineFireStore.getFk_habit_uid() && subroutineFireStoreItem.getTitle().equals(subroutine.getSubroutine())) {
+                        if (subroutineFireStoreItem.getFk_habit_uid() == subroutine.getFk_habit_uid() && subroutineFireStoreItem.getTitle().equals(subroutine.getSubroutine())) {
                             subroutineFireStore = subroutineFireStoreItem;
+                            subroutine.setUpvote(subroutineFireStore.getUpvote());
+                            subroutine.setDownvote(subroutineFireStore.getDownvote());
+                            Log.d("tag", "bindData: found firestore item match: " + subroutineFireStore);
                             break;
                         }
                     }
-
-                    Log.d("tag", "bindData: " + subroutineFireStore.toString());
 
                     if (subroutineFireStore != null){
                         subroutine.setUpvote(subroutineFireStore.getUpvote());
@@ -238,13 +239,14 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
 
                 if (subroutineFireStoreList != null) {
                     for (SubroutineFireStore subroutineFireStoreItem : subroutineFireStoreList) {
-                        if (subroutineFireStoreItem.getFk_habit_uid() == subroutineFireStore.getFk_habit_uid() && subroutineFireStoreItem.getTitle().equals(subroutine.getSubroutine())) {
+                        if (subroutineFireStoreItem.getFk_habit_uid() == subroutine.getFk_habit_uid() && subroutineFireStoreItem.getTitle().equals(subroutine.getSubroutine())) {
                             subroutineFireStore = subroutineFireStoreItem;
+                            subroutine.setUpvote(subroutineFireStore.getUpvote());
+                            subroutine.setDownvote(subroutineFireStore.getDownvote());
+                            Log.d("tag", "bindData: found firestore item match: " + subroutineFireStore);
                             break;
                         }
                     }
-
-                    Log.d("tag", "bindData: " + subroutineFireStore.toString());
 
                     if (subroutineFireStore != null){
                         subroutine.setUpvote(subroutineFireStore.getUpvote());
@@ -260,7 +262,6 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
                             subroutineFireStore.setDownvote(subroutineFireStore.getDownvote() + 1);
                             subroutineFireStoreViewModel.updateSubroutine(subroutineFireStore);
                         }
-
                         subroutine.setDownvote(subroutine.getDownvote() + 1);
                         subroutine.setVote_status(-1);
                         habitWithSubroutinesViewModel.updateSubroutine(subroutine);
