@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.achievement.AchievementViewModel;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.assessment.AssessmentViewModel;
 import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
@@ -24,6 +26,9 @@ import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.habit_assessment.adapter.Model.Result;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
+import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
+import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.recommender.RuleBasedAlgorithm;
 
@@ -40,6 +45,7 @@ public class HomeItemOnClickFragment extends Fragment {
 
     private FragmentHomeItemOnClickBinding binding;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private AchievementViewModel achievementViewModel;
     private CommentViewModel commentViewModel;
     private Habits habit;
     private int position;
@@ -317,8 +323,47 @@ public class HomeItemOnClickFragment extends Fragment {
                         )
                 );
                 binding.addCommentInputText.setText("");
+
+                //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+                achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
+
+                Achievement CommentIII = achievementViewModel.getAchievementByUID(6);
+                Achievement CommentII = achievementViewModel.getAchievementByUID(CommentIII.getPrerequisite_uid());
+                Achievement CommentI = achievementViewModel.getAchievementByUID(CommentII.getPrerequisite_uid());
+
+                if (!CommentI.is_completed()) {
+                    updateUnlockedAchievement(CommentI);
+                } else if (!CommentII.is_completed() && CommentI.is_completed() && CommentII.getGoal_progress() -2 >= CommentII.getCurrent_progress()) {
+                    incrementprogress(CommentII);
+                } else if (!CommentII.is_completed() && CommentI.is_completed() && CommentII.getGoal_progress() -1 == CommentII.getCurrent_progress()) {
+                    updateUnlockedAchievement(CommentII);
+                } else if (!CommentIII.is_completed() && CommentII.is_completed() && CommentIII.getGoal_progress() -2 >=  CommentIII.getCurrent_progress()){
+                    incrementprogress(CommentIII);
+                } else if (!CommentIII.is_completed() && CommentII.is_completed() && CommentIII.getGoal_progress() -1 ==  CommentIII.getCurrent_progress()) {
+                    updateUnlockedAchievement(CommentIII);
+                }
             }
         });
+    }
+
+    private void updateUnlockedAchievement(Achievement achievement) {
+        final String SDF_PATTERN = "MMMM d, yyyy";
+        achievement.setIs_completed(true);
+        achievement.setDate_achieved(new SimpleDateFormat(SDF_PATTERN, Locale.getDefault()).format(new Date()));
+        incrementprogress(achievement);
+        showCompletedAchievementDialog(achievement);
+    }
+
+    private void incrementprogress(Achievement achievement) {
+        achievement.setCurrent_progress(achievement.getCurrent_progress() + 1);
+        achievementViewModel.updateAchievement(achievement);
+    }
+
+    private void showCompletedAchievementDialog(Achievement achievement) {
+        CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(achievement.getTitle());
+        dialog.setTargetFragment(getChildFragmentManager()
+                .findFragmentById(HomeItemOnClickFragment.this.getId()), 1);
+        dialog.show(getChildFragmentManager(), "CompletedAchievementDialog");
     }
 
     private void setCommentRecyclerView() {
@@ -337,7 +382,6 @@ public class HomeItemOnClickFragment extends Fragment {
             public void handleOnBackPressed() {
                 if (mOnItemOnClickReturnHome != null)
                     mOnItemOnClickReturnHome.onHomeItemOnClickReturnHome();
-
                 if (timer != null) {
                     timer.cancel();
                     timer.purge();

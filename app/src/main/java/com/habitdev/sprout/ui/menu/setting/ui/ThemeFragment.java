@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -14,13 +13,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.habitdev.sprout.R;
 import com.habitdev.sprout.activity.startup.Main;
+import com.habitdev.sprout.database.achievement.AchievementViewModel;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.databinding.FragmentThemeBinding;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class ThemeFragment extends Fragment {
 
@@ -90,9 +93,7 @@ public class ThemeFragment extends Fragment {
                                     .setMessage("Do you want to set theme same as in the system?")
                                     .setCancelable(false)
                                     .setPositiveButton("Yes", (dialogInterface, i) -> {
-                                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                                        sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM).apply();
-                                        theme = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+                                        achievementCompleted(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                                     })
                                     .setNegativeButton("No", null)
                                     .show();
@@ -104,9 +105,7 @@ public class ThemeFragment extends Fragment {
                                     .setMessage("Do you want to set to light theme?")
                                     .setCancelable(false)
                                     .setPositiveButton("Yes", (dialogInterface, i) -> {
-                                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                                        sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_NO).apply();
-                                        theme = AppCompatDelegate.MODE_NIGHT_NO;
+                                        achievementCompleted(AppCompatDelegate.MODE_NIGHT_NO);
                                     })
                                     .setNegativeButton("No", null)
                                     .show();
@@ -118,15 +117,42 @@ public class ThemeFragment extends Fragment {
                                     .setMessage("Do you want to set to dark theme?")
                                     .setCancelable(false)
                                     .setPositiveButton("Yes", (dialogInterface, i) -> {
-                                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                                        sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, AppCompatDelegate.MODE_NIGHT_YES).apply();
-                                        theme = AppCompatDelegate.MODE_NIGHT_YES;
+                                        achievementCompleted(AppCompatDelegate.MODE_NIGHT_YES);
                                     })
                                     .setNegativeButton("No", null)
                                     .show();
                         }
                         break;
                 }
+            }
+
+            private void achievementCompleted(int themeMode) {
+                //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+                AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
+                Achievement Theme = achievementViewModel.getAchievementByUID(19);
+                if (!Theme.is_completed()) {
+                    Theme.setIs_completed(true);
+                    Theme.setCurrent_progress(Theme.getCurrent_progress() + 1);
+                    Theme.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                    Theme.setTitle("Theme");
+                    Theme.setDescription("Changed application default theme");
+                    achievementViewModel.updateAchievement(Theme);
+                    CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(Theme.getTitle());
+                    dialog.setTargetFragment(getChildFragmentManager()
+                            .findFragmentById(ThemeFragment.this.getId()), 1);
+                    dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                    dialog.setmOnClick(() -> {
+                        setTheme(themeMode);
+                    });
+                } else {
+                    setTheme(themeMode);
+                }
+            }
+
+            private void setTheme(int modeNightFollowSystem) {
+                AppCompatDelegate.setDefaultNightMode(modeNightFollowSystem);
+                sharedPreferences.edit().putInt(THEME_SHARED_PREF_KEY, modeNightFollowSystem).apply();
+                theme = modeNightFollowSystem;
             }
         });
     }

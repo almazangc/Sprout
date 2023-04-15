@@ -26,14 +26,16 @@ import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
 import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
+import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class SubroutineFragment extends Fragment
         implements
@@ -137,7 +139,28 @@ public class SubroutineFragment extends Fragment
                 .setPositiveButton("YES", (dialogInterface, i) -> {
                     isOnSubroutineModify = true;
                     subroutineModifyFragment.setHabit(habit);
-                    setSubroutineModifyFragment();
+                    //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+                    AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
+                    Achievement EditCustomHabitSubroutine = achievementViewModel.getAchievementByUID(13);
+                    if (!EditCustomHabitSubroutine.is_completed() ) {
+                        EditCustomHabitSubroutine.setIs_completed(true);
+                        EditCustomHabitSubroutine.setCurrent_progress(EditCustomHabitSubroutine.getCurrent_progress() + 1);
+                        EditCustomHabitSubroutine.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                        achievementViewModel.updateAchievement(EditCustomHabitSubroutine);
+                        CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(EditCustomHabitSubroutine.getTitle());
+                        dialog.setTargetFragment(getChildFragmentManager()
+                                .findFragmentById(SubroutineFragment.this.getId()), 1);
+                        dialog.show(getChildFragmentManager(), "CompletedAchievementDialog");
+                        dialog.setmOnClick(new CompletedAchievementDialogFragment.onClick() {
+                            @Override
+                            public void onClickOkay() {
+                                dialog.dismiss();
+                                setSubroutineModifyFragment();
+                            }
+                        });
+                    } else {
+                        setSubroutineModifyFragment();
+                    }
                 })
                 .setNegativeButton("No", null)
                 .show();
@@ -168,13 +191,15 @@ public class SubroutineFragment extends Fragment
     }
 
     private void setSubroutineModifyFragment() {
-        final int TRANSITION = isOnSubroutineModify ? FragmentTransaction.TRANSIT_NONE : FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN;
-        getChildFragmentManager().beginTransaction()
-                .addToBackStack(SubroutineFragment.this.getTag())
-                .add(binding.subroutineFrameLayout.getId(), subroutineModifyFragment)
-                .setTransition(TRANSITION)
-                .commit();
-        binding.subroutineContainer.setVisibility(View.GONE);
+        if (!subroutineModifyFragment.isAdded()){
+            final int TRANSITION = isOnSubroutineModify ? FragmentTransaction.TRANSIT_NONE : FragmentTransaction.TRANSIT_FRAGMENT_MATCH_ACTIVITY_OPEN;
+            getChildFragmentManager().beginTransaction()
+                    .addToBackStack(SubroutineFragment.this.getTag())
+                    .add(binding.subroutineFrameLayout.getId(), subroutineModifyFragment)
+                    .setTransition(TRANSITION)
+                    .commit();
+            binding.subroutineContainer.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -232,7 +257,7 @@ public class SubroutineFragment extends Fragment
                             if (!isAchievementDialogShowing[0]) {
                                 //TODO: UPDATE UID WHEN APPDATABASE CHANGE
                                 AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
-                                Achievement CLOSEAPPPROMPT = achievementViewModel.getAchievementByUID(13);
+                                Achievement CLOSEAPPPROMPT = achievementViewModel.getAchievementByUID(26);
 
                                 if (!CLOSEAPPPROMPT.is_completed()) {
                                     CLOSEAPPPROMPT.setIs_completed(true);
@@ -241,10 +266,10 @@ public class SubroutineFragment extends Fragment
                                     CLOSEAPPPROMPT.setTitle("Close Application");
                                     CLOSEAPPPROMPT.setDescription("Unlocked by pressing back button twice");
                                     achievementViewModel.updateAchievement(CLOSEAPPPROMPT);
-                                    CompletedAchievementDiaglogFragment completedAchievementDiaglogFragment = new CompletedAchievementDiaglogFragment(CLOSEAPPPROMPT.getTitle());
-                                    completedAchievementDiaglogFragment.setTargetFragment(getChildFragmentManager()
+                                    CompletedAchievementDialogFragment completedAchievementDialogFragment = new CompletedAchievementDialogFragment(CLOSEAPPPROMPT.getTitle());
+                                    completedAchievementDialogFragment.setTargetFragment(getChildFragmentManager()
                                             .findFragmentById(SubroutineFragment.this.getId()), 1);
-                                    completedAchievementDiaglogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
                                     isAchievementDialogShowing[0] = true;
                                 }
                             }

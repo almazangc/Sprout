@@ -11,6 +11,8 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.habitdev.sprout.database.achievement.AchievementDao;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.assessment.AssessmentDao;
 import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.model.Choices;
@@ -26,8 +28,6 @@ import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesDao;
-import com.habitdev.sprout.database.achievement.AchievementDao;
-import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.note.NoteDao;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.database.quotes.QuotesRepository;
@@ -91,7 +91,8 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static class FetchFirestoreDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        public FetchFirestoreDatabaseAsyncTask(AppDatabase instance) {}
+        public FetchFirestoreDatabaseAsyncTask(AppDatabase instance) {
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -116,7 +117,6 @@ public abstract class AppDatabase extends RoomDatabase {
             habitRepository.fetchData(new HabitFireStoreRepository.FetchCallback() {
                 @Override
                 public void onFetchHabitSuccess(List<HabitFireStore> habitFireStoreList) {
-                    //success
                     Log.d("tag", "onFetchHabitSuccess: ");
                 }
 
@@ -1019,57 +1019,108 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             //ONBOARDING
-            //Triggered when first time adding new habit on reform. This is triggered in analysis fragment when clicking and cofirming the habit to be added.
+            //Triggered when first time adding new habit on reform. This is triggered in analysis fragment when clicking and confirming the habit to be added.
+            //1
             Achievement FirstStep = new Achievement("First Step", "Take a leap in reforming a bad habit", 0, 1);
             achievementDao.insertAchievement(FirstStep);
 
             //HOME
-            //Add second subroutine
             //Create and add teh first custom habit
+            //2
+            Achievement CreateCustomHabit = new Achievement("Custom Habit", "Create a custom habit to reform on your liking.", 0, 1);
+            achievementDao.insertAchievement(CreateCustomHabit);
+
             //Update habit title
-            //First Comment
+            //3
+            Achievement EditCustomHabitTitle = new Achievement("Edit Custom Habit Title", "Update the title of a custom habit you have created.", 0, 1);
+            achievementDao.insertAchievement(EditCustomHabitTitle);
+
+            //Comment
+            //4
+            Achievement CommentI = new Achievement("First Comment", "Post your first comment on a habit", 0, 1);
+            achievementDao.insertAchievement(CommentI);
+            //5
+            Achievement CommentII = new Achievement("Piling Up", "Comment on 10 habits", 1, achievementDao.getAchievementByTitle(CommentI.getTitle()), 10);
+            achievementDao.insertAchievement(CommentII);
+            //6
+            Achievement CommentIII = new Achievement("Thinker", "Comment on 30 habits", 1, achievementDao.getAchievementByTitle(CommentII.getTitle()), 30);
+            achievementDao.insertAchievement(CommentIII);
 
             //SUBROUTINES
             //Number of completed subroutines 1-300
-            //Modify Subroutines
+            //7
+            Achievement SubroutineI = new Achievement("First Subroutine", "Complete your first subroutine", 0, 1);
+            achievementDao.insertAchievement(SubroutineI);
+            //8
+            Achievement SubroutineII = new Achievement("Subroutine Done?", "Complete 10 subroutines", 1, achievementDao.getAchievementByTitle(SubroutineI.getTitle()), 10);
+            achievementDao.insertAchievement(SubroutineII);
+            //9
+            Achievement SubroutineIII = new Achievement("More Subroutine Completed", "Complete 25 subroutines", 1, achievementDao.getAchievementByTitle(SubroutineII.getTitle()), 25);
+            achievementDao.insertAchievement(SubroutineIII);
+            //10
+            Achievement SubroutineIV = new Achievement("Subroutine Intermediate", "Complete 50 subroutines", 1, achievementDao.getAchievementByTitle(SubroutineIII.getTitle()), 50);
+            achievementDao.insertAchievement(SubroutineIV);
+            //11
+            Achievement SubroutineV = new Achievement("Subroutine Experienced", "Complete 100 subroutines", 1, achievementDao.getAchievementByTitle(SubroutineIV.getTitle()), 100);
+            achievementDao.insertAchievement(SubroutineV);
+            //12
+            Achievement SubroutineVI = new Achievement("Subroutine Advanced", "Complete 150 subroutines", 1, achievementDao.getAchievementByTitle(SubroutineV.getTitle()), 150);
+            achievementDao.insertAchievement(SubroutineVI);
 
-            //ANALYTIC
-            //Longest Streak of Subroutines
+            //Modify Subroutines
+            //13
+            Achievement EditCustomHabitSubroutine = new Achievement("Edit Custom Habit Subroutine", "Update the subroutines of a custom habit you have created.", 0, 1);
+            achievementDao.insertAchievement(EditCustomHabitSubroutine);
 
             //JOURNAL
             //Triggered in adding notes
+            //14
             Achievement NoteI = new Achievement("First Note", "Write down your thoughts", 0, 1);
             achievementDao.insertAchievement(NoteI);
+            //15
             Achievement NoteII = new Achievement("Piece by Piece", "Journal your progress", 1, achievementDao.getAchievementByTitle(NoteI.getTitle()), 10);
             achievementDao.insertAchievement(NoteII);
+            //16
             Achievement NoteIII = new Achievement("Better Understanding", "Lots of notes written", 1, achievementDao.getAchievementByTitle(NoteII.getTitle()), 30);
             achievementDao.insertAchievement(NoteIII);
+            //17
             Achievement NoteIV = new Achievement("Chapter", "Keep writing you thoughts", 1, achievementDao.getAchievementByTitle(NoteIII.getTitle()), 60);
             achievementDao.insertAchievement(NoteIV);
-            Achievement NoteV = new Achievement("Journal", "You have written your thoughts", 1,achievementDao.getAchievementByTitle(NoteIV.getTitle()), 100);
+            //18
+            Achievement NoteV = new Achievement("Journal", "You have written your thoughts", 1, achievementDao.getAchievementByTitle(NoteIV.getTitle()), 100);
             achievementDao.insertAchievement(NoteV);
 
             //SETTING
             //Set a theme
+            //19
+            Achievement Theme = new Achievement("Secret", "Hidden", 0, 1);
+            achievementDao.insertAchievement(Theme);
 
             //MISC
-            //Triggerred by duration of appllication since installed
-            Achievement WEEK = new Achievement("Been a week", "The application was installed for 7 days", 0, 1);
-            achievementDao.insertAchievement(WEEK);
-            Achievement MONTH = new Achievement("You have stayed", "The application was installed for 30 days", 0, 1);
-            achievementDao.insertAchievement(MONTH);
-            Achievement THREE_MONTH = new Achievement("Keep growing", "The application was installed for 90 days", 0, 1);
-            achievementDao.insertAchievement(THREE_MONTH);
-            Achievement AYEAR = new Achievement("Great Dedication", "The application was installed for 365 days", 0, 1);
-            achievementDao.insertAchievement(AYEAR);
+            //Triggered by duration of application since installed
+            //20
+            Achievement WeekLong = new Achievement("Been a week", "The application was installed for 7 days", 0, 1);
+            achievementDao.insertAchievement(WeekLong);
+            //21
+            Achievement MonthLong = new Achievement("You have stayed", "The application was installed for 30 days", 0, 1);
+            achievementDao.insertAchievement(MonthLong);
+            //22
+            Achievement Three_Month = new Achievement("Keep growing", "The application was installed for 90 days", 0, 1);
+            achievementDao.insertAchievement(Three_Month);
+            //23
+            Achievement YearLong = new Achievement("Great Dedication", "The application was installed for 365 days", 0, 1);
+            achievementDao.insertAchievement(YearLong);
 
             //Triggered by swiping in left and right direction in top bar to navigate between menus
-            Achievement LEFTSWIPE = new Achievement("Secret", "Hidden", 0, 1);
-            achievementDao.insertAchievement(LEFTSWIPE);
-            Achievement RIGHTSWIPE = new Achievement("Secret", "Hidden", 0, 1);
-            achievementDao.insertAchievement(RIGHTSWIPE);
-            Achievement CLOSEAPPPROMPT = new Achievement("Secret", "Hidden", 0, 1);
-            achievementDao.insertAchievement(CLOSEAPPPROMPT);
+            //24
+            Achievement RightSwipeNavigation = new Achievement("Secret", "Hidden", 0, 1);
+            achievementDao.insertAchievement(RightSwipeNavigation);
+            //25
+            Achievement LeftSwipeNavigation = new Achievement("Secret", "Hidden", 0, 1);
+            achievementDao.insertAchievement(LeftSwipeNavigation);
+            //26
+            Achievement CloseApplicationPrompt = new Achievement("Secret", "Hidden", 0, 1);
+            achievementDao.insertAchievement(CloseApplicationPrompt);
             return null;
         }
     }

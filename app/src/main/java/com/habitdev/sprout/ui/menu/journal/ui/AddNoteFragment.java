@@ -27,7 +27,7 @@ import com.habitdev.sprout.databinding.FragmentAddNoteBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.ui.menu.journal.JournalFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -282,41 +282,30 @@ public class AddNoteFragment extends Fragment {
                             .setPositiveButton("YES", (dialogInterface,i) -> {
                                 achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
                                 //TODO: UPDATE UID WHEN APPDATABASE CHANGE
-                                Achievement NoteV = achievementViewModel.getAchievementByUID(6);
+                                Achievement NoteV = achievementViewModel.getAchievementByUID(18);
                                 Achievement NoteIV = achievementViewModel.getAchievementByUID(NoteV.getPrerequisite_uid());
                                 Achievement NoteIII = achievementViewModel.getAchievementByUID(NoteIV.getPrerequisite_uid());
                                 Achievement NoteII = achievementViewModel.getAchievementByUID(NoteIII.getPrerequisite_uid());
                                 Achievement NoteI = achievementViewModel.getAchievementByUID(NoteII.getPrerequisite_uid());
 
-                                final String TAG = "tag";
-
                                 if (!NoteI.is_completed() && noteViewModel.getNoteEntryCount() == NoteI.getGoal_progress() - 1) {
                                     updateUnlockedAchievement(NoteI);
-                                    Log.d(TAG, "onSaveNote: updateUnlockedAchievement(NoteI);");
                                 } else if (!NoteII.is_completed() && NoteI.is_completed() && NoteII.getGoal_progress() -2 >= NoteII.getCurrent_progress()) {
                                     incrementprogress(NoteII);
-                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteII);");
                                 } else if (!NoteII.is_completed() && NoteI.is_completed() && NoteII.getGoal_progress() -1 == NoteII.getCurrent_progress()) {
                                     updateUnlockedAchievement(NoteII);
-                                    Log.d(TAG, "onSaveNote: updateUnlockedAchievement(NoteII);");
                                 } else if (!NoteIII.is_completed() && NoteII.is_completed() && NoteIII.getGoal_progress() -2 >=  NoteIII.getCurrent_progress()){
                                     incrementprogress(NoteIII);
-                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteIII);");
                                 } else if (!NoteIII.is_completed() && NoteII.is_completed() && NoteIII.getGoal_progress() -1 ==  NoteIII.getCurrent_progress()) {
                                     updateUnlockedAchievement(NoteIII);
-                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteIII);");
                                 } else if (!NoteIV.is_completed() && NoteIII.is_completed() && NoteIV.getGoal_progress() -2 >= NoteIV.getCurrent_progress()) {
                                     incrementprogress(NoteIV);
-                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteIV);");
                                 } else if (!NoteIV.is_completed() && NoteIII.is_completed() && NoteIV.getGoal_progress() -1== NoteIV.getCurrent_progress()) {
                                     updateUnlockedAchievement(NoteIV);
-                                    Log.d(TAG, "onSaveNote: updateUnlockedAchievement(NoteIV);");
                                 } else if (!NoteV.is_completed() && NoteIV.is_completed() && NoteV.getGoal_progress() -2 >= NoteV.getCurrent_progress()) {
                                     incrementprogress(NoteV);
-                                    Log.d(TAG, "onSaveNote: incrementprogress(NoteV);");
                                 } else if (!NoteV.is_completed() && NoteIV.is_completed() && NoteV.getGoal_progress() -1 == NoteV.getCurrent_progress()) {
                                     updateUnlockedAchievement(NoteV);
-                                    Log.d(TAG, "onSaveNote: updateUnlockedAchievement(NoteV);");
                                 }
 
                                 noteViewModel.insert(
@@ -359,10 +348,10 @@ public class AddNoteFragment extends Fragment {
     }
 
     private void showCompletedAchievementDialog(Achievement achievement) {
-        CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(achievement.getTitle());
+        CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(achievement.getTitle());
         dialog.setTargetFragment(getChildFragmentManager()
                 .findFragmentById(AddNoteFragment.this.getId()), 1);
-        dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+        dialog.show(getChildFragmentManager(), "CompletedAchievementDialog");
     }
 
     private void onDeleteNote() {

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +26,7 @@ import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticParentItemAdapter;
 import com.habitdev.sprout.ui.menu.analytic.ui.AnalyticItemOnClickFragment;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
-import com.habitdev.sprout.ui.menu.journal.JournalFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -188,7 +185,7 @@ public class AnalyticFragment extends Fragment
                             if (!isAchievementDialogShowing[0]) {
                                 //TODO: UPDATE UID WHEN APPDATABASE CHANGE
                                 AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
-                                Achievement CLOSEAPPPROMPT = achievementViewModel.getAchievementByUID(13);
+                                Achievement CLOSEAPPPROMPT = achievementViewModel.getAchievementByUID(26);
 
                                 if (!CLOSEAPPPROMPT.is_completed()) {
                                     CLOSEAPPPROMPT.setIs_completed(true);
@@ -197,10 +194,10 @@ public class AnalyticFragment extends Fragment
                                     CLOSEAPPPROMPT.setTitle("Close Application");
                                     CLOSEAPPPROMPT.setDescription("Unlocked by pressing back button twice");
                                     achievementViewModel.updateAchievement(CLOSEAPPPROMPT);
-                                    CompletedAchievementDiaglogFragment completedAchievementDiaglogFragment = new CompletedAchievementDiaglogFragment(CLOSEAPPPROMPT.getTitle());
-                                    completedAchievementDiaglogFragment.setTargetFragment(getChildFragmentManager()
+                                    CompletedAchievementDialogFragment completedAchievementDialogFragment = new CompletedAchievementDialogFragment(CLOSEAPPPROMPT.getTitle());
+                                    completedAchievementDialogFragment.setTargetFragment(getChildFragmentManager()
                                             .findFragmentById(AnalyticFragment.this.getId()), 1);
-                                    completedAchievementDiaglogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
                                     isAchievementDialogShowing[0] = true;
                                 }
                             }

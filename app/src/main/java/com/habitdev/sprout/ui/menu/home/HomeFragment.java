@@ -44,8 +44,8 @@ import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeOnFabClickDialogFragment;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,6 +68,7 @@ public class HomeFragment extends Fragment
         HomeItemOnClickFragment.OnItemOnClickReturnHome,
         HomeParentItemAdapterModifyDialogFragment.OnHabitModifyListener {
 
+    private FragmentHomeBinding binding = null;
     private static AddDefaultHabitFragment addDefaultHabitFragment = new AddDefaultHabitFragment();
     private static AddNewHabitFragment addNewHabitHomeFragment = new AddNewHabitFragment();
     private static HomeItemOnClickFragment homeItemOnClickFragment = new HomeItemOnClickFragment();
@@ -81,14 +82,12 @@ public class HomeFragment extends Fragment
     private static Bundle savedInstanceState = null;
     private static boolean isToastShowing = false;
     private final HomeParentItemAdapter homeParentItemAdapter = new HomeParentItemAdapter();
-    private FragmentHomeBinding binding = null;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
     private HabitFireStoreViewModel habitFireStoreViewModel;
     private List<Habits> habitsList = null;
     private List<HabitFireStore> habitFireStoreList = null;
 
-    public HomeFragment() {
-    }
+    public HomeFragment() {}
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -107,12 +106,7 @@ public class HomeFragment extends Fragment
         habitFireStoreViewModel = new ViewModelProvider(requireActivity()).get(HabitFireStoreViewModel.class);
         habitFireStoreViewModel.fetchHabit();
         habitFireStoreList = habitFireStoreViewModel.getData();
-        habitFireStoreViewModel.getLiveData().observe(getViewLifecycleOwner(), new Observer<List<HabitFireStore>>() {
-            @Override
-            public void onChanged(List<HabitFireStore> habitFireStores) {
-                habitFireStoreList = habitFireStores;
-            }
-        });
+        habitFireStoreViewModel.getLiveData().observe(getViewLifecycleOwner(), habitFireStores -> habitFireStoreList = habitFireStores);
 
         if (savedInstanceState != null && !savedInstanceState.isEmpty()) {
             HomeFragment.savedInstanceState = savedInstanceState;
@@ -180,7 +174,7 @@ public class HomeFragment extends Fragment
                 FIRST_STEP.setCurrent_progress(FIRST_STEP.getGoal_progress());
                 achievementViewModel.updateAchievement(FIRST_STEP);
 
-                CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(FIRST_STEP.getTitle());
+                CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(FIRST_STEP.getTitle());
                 dialog.setTargetFragment(getChildFragmentManager()
                         .findFragmentById(HomeFragment.this.getId()), 1);
                 dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
@@ -451,7 +445,6 @@ public class HomeFragment extends Fragment
             }
         }
 
-
         Toast toast = Toast.makeText(requireContext(), "", Toast.LENGTH_SHORT);
         switch (habit.getVote_status()) {
             case 0:
@@ -481,8 +474,7 @@ public class HomeFragment extends Fragment
     }
 
     @Override
-    public void onClickDownvoteHabit(Habits habit)
-    {
+    public void onClickDownvoteHabit(Habits habit) {
         HabitFireStore habitFireStoreItem = new HabitFireStore();
 
         if (habitFireStoreList != null) {
@@ -657,7 +649,7 @@ public class HomeFragment extends Fragment
                             if (!isAchievementDialogShowing[0]) {
                                 //TODO: UPDATE UID WHEN APPDATABASE CHANGE
                                 AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
-                                Achievement CLOSEAPPPROMPT = achievementViewModel.getAchievementByUID(13);
+                                Achievement CLOSEAPPPROMPT = achievementViewModel.getAchievementByUID(26);
 
                                 if (!CLOSEAPPPROMPT.is_completed()) {
                                     CLOSEAPPPROMPT.setIs_completed(true);
@@ -666,10 +658,10 @@ public class HomeFragment extends Fragment
                                     CLOSEAPPPROMPT.setTitle("Close Application");
                                     CLOSEAPPPROMPT.setDescription("Unlocked by pressing back button twice");
                                     achievementViewModel.updateAchievement(CLOSEAPPPROMPT);
-                                    CompletedAchievementDiaglogFragment completedAchievementDiaglogFragment = new CompletedAchievementDiaglogFragment(CLOSEAPPPROMPT.getTitle());
-                                    completedAchievementDiaglogFragment.setTargetFragment(getChildFragmentManager()
+                                    CompletedAchievementDialogFragment completedAchievementDialogFragment = new CompletedAchievementDialogFragment(CLOSEAPPPROMPT.getTitle());
+                                    completedAchievementDialogFragment.setTargetFragment(getChildFragmentManager()
                                             .findFragmentById(HomeFragment.this.getId()), 1);
-                                    completedAchievementDiaglogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
                                     isAchievementDialogShowing[0] = true;
                                 }
                             }
@@ -711,7 +703,7 @@ public class HomeFragment extends Fragment
                         changeFragment(addDefaultHabitFragment);
                         isOnAddDefault = true;
                     } else {
-                        Snackbar.make(binding.getRoot(), Html.fromHtml("Can only add 2 predefined habits on reform at the same time"), Snackbar.LENGTH_SHORT)
+                        Snackbar.make(binding.getRoot(), Html.fromHtml("Can only add " + MAXIMUM_PREDEFINED_HABITS_CURRENTLY_ON_REFORM_STATUS + " predefined habits on reform at the same time"), Snackbar.LENGTH_SHORT)
                                 .setAction("Dismiss", view -> {
                                     //Dismiss snack bar
                                 })

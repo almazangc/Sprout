@@ -29,7 +29,7 @@ import com.habitdev.sprout.ui.menu.home.HomeFragment;
 import com.habitdev.sprout.ui.menu.journal.JournalFragment;
 import com.habitdev.sprout.ui.menu.setting.SettingFragment;
 import com.habitdev.sprout.ui.menu.subroutine.SubroutineFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -232,7 +232,7 @@ public class BottomNavigationFragment extends Fragment {
                             if (diffX > 0) {
                                 //TODO: UPDATE UID WHEN APPDATABASE CHANGE
                                 AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
-                                Achievement RIGTHSWIPE = achievementViewModel.getAchievementByUID(11);
+                                Achievement RIGTHSWIPE = achievementViewModel.getAchievementByUID(24);
                                 if (!RIGTHSWIPE.is_completed()) {
                                     RIGTHSWIPE.setIs_completed(true);
                                     RIGTHSWIPE.setCurrent_progress(RIGTHSWIPE.getCurrent_progress()+1);
@@ -246,7 +246,7 @@ public class BottomNavigationFragment extends Fragment {
                             } else {
                                 //TODO: UPDATE UID WHEN APPDATABASE CHANGE
                                 AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
-                                Achievement LEFTSWIPE = achievementViewModel.getAchievementByUID(12);
+                                Achievement LEFTSWIPE = achievementViewModel.getAchievementByUID(25);
                                 if (!LEFTSWIPE.is_completed()) {
                                     LEFTSWIPE.setIs_completed(true);
                                     LEFTSWIPE.setCurrent_progress(LEFTSWIPE.getCurrent_progress()+1);
@@ -271,7 +271,7 @@ public class BottomNavigationFragment extends Fragment {
             }
 
             private void displayAchievementDialog(Achievement achievement) {
-                CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(achievement.getTitle());
+                CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(achievement.getTitle());
                 dialog.setTargetFragment(getChildFragmentManager()
                         .findFragmentById(BottomNavigationFragment.this.getId()), 1);
                 dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");

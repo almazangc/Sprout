@@ -35,10 +35,10 @@ import com.habitdev.sprout.databinding.ActivityMainBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.enums.TimeMilestone;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.network.NetworkMonitoringUtil;
 import com.habitdev.sprout.utill.network.NetworkStateManager;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -128,10 +128,10 @@ public class Main extends AppCompatActivity {
 
             AchievementViewModel achievementViewModel = new ViewModelProvider(Main.this).get(AchievementViewModel.class);
             //TODO: UPDATE UID WHEN APPDATABASE CHANGE
-            Achievement WEEK = achievementViewModel.getAchievementByUID(7);
-            Achievement MONTH = achievementViewModel.getAchievementByUID(8);
-            Achievement THREE_MONTH = achievementViewModel.getAchievementByUID(9);
-            Achievement YEAR = achievementViewModel.getAchievementByUID(10);
+            Achievement WEEK = achievementViewModel.getAchievementByUID(20);
+            Achievement MONTH = achievementViewModel.getAchievementByUID(21);
+            Achievement THREE_MONTH = achievementViewModel.getAchievementByUID(22);
+            Achievement YEAR = achievementViewModel.getAchievementByUID(23);
 
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -148,7 +148,7 @@ public class Main extends AppCompatActivity {
                                     WEEK.setCurrent_progress(WEEK.getCurrent_progress()+1);
                                     WEEK.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
                                     achievementViewModel.updateAchievement(WEEK);
-                                    CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(WEEK.getTitle());
+                                    CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(WEEK.getTitle());
                                     dialog.show(getSupportFragmentManager(), "CompletedAchievementDiaglog");
                                 }
 
@@ -157,7 +157,7 @@ public class Main extends AppCompatActivity {
                                     MONTH.setCurrent_progress(MONTH.getCurrent_progress()+1);
                                     MONTH.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
                                     achievementViewModel.updateAchievement(MONTH);
-                                    CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(MONTH.getTitle());
+                                    CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(MONTH.getTitle());
                                     dialog.show(getSupportFragmentManager(), "CompletedAchievementDiaglog");
                                 }
 
@@ -166,7 +166,7 @@ public class Main extends AppCompatActivity {
                                     THREE_MONTH.setCurrent_progress(THREE_MONTH.getCurrent_progress()+1);
                                     THREE_MONTH.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
                                     achievementViewModel.updateAchievement(THREE_MONTH);
-                                    CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(THREE_MONTH.getTitle());
+                                    CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(THREE_MONTH.getTitle());
                                     dialog.show(getSupportFragmentManager(), "CompletedAchievementDiaglog");
                                 }
 
@@ -175,7 +175,7 @@ public class Main extends AppCompatActivity {
                                     YEAR.setCurrent_progress(YEAR.getCurrent_progress()+1);
                                     YEAR.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
                                     achievementViewModel.updateAchievement(YEAR);
-                                    CompletedAchievementDiaglogFragment dialog = new CompletedAchievementDiaglogFragment(YEAR.getTitle());
+                                    CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(YEAR.getTitle());
                                     dialog.show(getSupportFragmentManager(), "CompletedAchievementDiaglog");
                                 }
 

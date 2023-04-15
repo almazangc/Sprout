@@ -23,15 +23,13 @@ import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentSettingBinding;
 import com.habitdev.sprout.enums.SettingConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
-import com.habitdev.sprout.ui.menu.home.HomeFragment;
-import com.habitdev.sprout.ui.menu.journal.JournalFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.AboutUsFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.LearnMoreFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.TechStackInfoFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.AchievementsFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ThemeFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDiaglogFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -284,7 +282,7 @@ public class SettingFragment extends Fragment implements
                             if (!isAchievementDialogShowing[0]) {
                                 //TODO: UPDATE UID WHEN APPDATABASE CHANGE
                                 AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
-                                Achievement CLOSEAPPPROMPT = achievementViewModel.getAchievementByUID(13);
+                                Achievement CLOSEAPPPROMPT = achievementViewModel.getAchievementByUID(26);
 
                                 if (!CLOSEAPPPROMPT.is_completed()) {
                                     CLOSEAPPPROMPT.setIs_completed(true);
@@ -293,10 +291,10 @@ public class SettingFragment extends Fragment implements
                                     CLOSEAPPPROMPT.setTitle("Close Application");
                                     CLOSEAPPPROMPT.setDescription("Unlocked by pressing back button twice");
                                     achievementViewModel.updateAchievement(CLOSEAPPPROMPT);
-                                    CompletedAchievementDiaglogFragment completedAchievementDiaglogFragment = new CompletedAchievementDiaglogFragment(CLOSEAPPPROMPT.getTitle());
-                                    completedAchievementDiaglogFragment.setTargetFragment(getChildFragmentManager()
+                                    CompletedAchievementDialogFragment completedAchievementDialogFragment = new CompletedAchievementDialogFragment(CLOSEAPPPROMPT.getTitle());
+                                    completedAchievementDialogFragment.setTargetFragment(getChildFragmentManager()
                                             .findFragmentById(SettingFragment.this.getId()), 1);
-                                    completedAchievementDiaglogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
                                     isAchievementDialogShowing[0] = true;
                                 }
                             }

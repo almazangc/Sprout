@@ -24,6 +24,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.achievement.AchievementViewModel;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
@@ -32,6 +34,7 @@ import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -468,9 +471,10 @@ public class AddNewHabitFragment extends Fragment
         binding.fabAddNewHabit.setOnClickListener(view -> {
             if (binding.addNewHabitHint.getText().toString().trim().isEmpty()) {
                 new AlertDialog.Builder(requireContext())
-                        .setMessage("Do you want to the custom habit, " + binding.addNewHabitTitle.getText().toString().trim().toLowerCase() + " on reform?")
+                        .setMessage("Do you want to start the custom habit called" + binding.addNewHabitTitle.getText().toString().trim().toLowerCase() + " on reform?")
                         .setCancelable(false)
                         .setPositiveButton("YES", (dialogInterface, i) -> {
+
                             habit.setHabit(binding.addNewHabitTitle.getText().toString().trim());
                             habit.setDescription(binding.addNewHabitDescription.getText().toString().trim());
                             habit.setOnReform(true);
@@ -486,8 +490,28 @@ public class AddNewHabitFragment extends Fragment
                                 }
                                 habitWithSubroutinesViewModel.insertSubroutines(subroutinesList);
                             }
-                            if (mOnAddNewHabitReturnHome != null)
-                                mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
+
+                            //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+                            AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
+                            Achievement CreateCustomHabit = achievementViewModel.getAchievementByUID(2);
+                            if (!CreateCustomHabit.is_completed() ) {
+                                CreateCustomHabit.setIs_completed(true);
+                                CreateCustomHabit.setCurrent_progress(CreateCustomHabit.getCurrent_progress() + 1);
+                                CreateCustomHabit.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                                achievementViewModel.updateAchievement(CreateCustomHabit);
+                                CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(CreateCustomHabit.getTitle());
+                                dialog.setTargetFragment(getChildFragmentManager()
+                                        .findFragmentById(AddNewHabitFragment.this.getId()), 1);
+                                dialog.show(getChildFragmentManager(), "CompletedAchievementDialog");
+                                dialog.setmOnClick(new CompletedAchievementDialogFragment.onClick() {
+                                    @Override
+                                    public void onClickOkay() {
+                                        returnToHome();
+                                    }
+                                });
+                            } else {
+                                returnToHome();
+                            }
 
                             if (savedInstanceState != null) savedInstanceState = null;
                             isFragmentOnRemoved = true;
@@ -496,6 +520,11 @@ public class AddNewHabitFragment extends Fragment
                         .show();
             }
         });
+    }
+
+    private void returnToHome() {
+        if (mOnAddNewHabitReturnHome != null)
+            mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
     }
 
     /**
@@ -578,8 +607,7 @@ public class AddNewHabitFragment extends Fragment
 
                 isFragmentOnRemoved = true;
 
-                if (mOnAddNewHabitReturnHome != null)
-                    mOnAddNewHabitReturnHome.onAddNewHabitClickReturnHome();
+                returnToHome();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

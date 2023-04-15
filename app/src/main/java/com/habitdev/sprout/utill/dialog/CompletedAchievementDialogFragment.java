@@ -13,21 +13,31 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.DialogFragmentCompletedAchievementBinding;
 import java.util.Objects;
 
-public class CompletedAchievementDiaglogFragment extends DialogFragment {
+public class CompletedAchievementDialogFragment extends DialogFragment {
 
     private DialogFragmentCompletedAchievementBinding binding;
     private String message;
     private String achievementTitle;
 
-    public CompletedAchievementDiaglogFragment() {}
+    public CompletedAchievementDialogFragment() {}
 
-    public CompletedAchievementDiaglogFragment(String message, String achievementTitle) {
+    public CompletedAchievementDialogFragment(String message, String achievementTitle) {
         this.message = message;
         this.achievementTitle = achievementTitle;
     }
 
-    public CompletedAchievementDiaglogFragment(String achievementTitle) {
+    public CompletedAchievementDialogFragment(String achievementTitle) {
         this.achievementTitle = achievementTitle;
+    }
+
+    public interface onClick{
+        void onClickOkay();
+    }
+
+    private onClick mOnClick;
+
+    public void setmOnClick(onClick mOnClick) {
+        this.mOnClick = mOnClick;
     }
 
     @Override
@@ -41,15 +51,21 @@ public class CompletedAchievementDiaglogFragment extends DialogFragment {
     }
 
     private void setOnclickListener() {
-        binding.homeOnFabClickDialogButton.setOnClickListener(view -> Objects.requireNonNull(getDialog()).dismiss());
+        binding.completedAchievementOkButton.setOnClickListener(view -> {
+            if(mOnClick != null){
+                mOnClick.onClickOkay();
+            } else {
+                Objects.requireNonNull(getDialog()).dismiss();
+            }
+        });
     }
 
     public void setMessage() {
         if (message != null) {
-            binding.homeOnFabClickDialogMessage.setText(message);
+            binding.completedAchievementOkButton.setText(message);
         } else {
-            final String message = "Congratulations, you have completed\n[ " + achievementTitle +" ]\n\nYou should be proud of yourself for unlocking achievement. Keep up the good work and continue to strive for excellence.";
-            binding.homeOnFabClickDialogMessage.setText(message);
+            final String message = "Congratulations, you have achieved\n[ " + achievementTitle +" ]\n\nYou should be proud of yourself for unlocking achievement. Keep up the good work and continue to strive for excellence.";
+            binding.completedAchievementMessage.setText(message);
         }
     }
 

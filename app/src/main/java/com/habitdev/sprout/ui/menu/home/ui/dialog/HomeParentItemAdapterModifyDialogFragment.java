@@ -20,14 +20,21 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.achievement.AchievementViewModel;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.databinding.DialogFragmentHomeParentItemAdapterModifyBinding;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
+import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
+import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
@@ -208,8 +215,29 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
 
                     clearSharedPref();
 
-                    if (mOnHabitModifyListener != null) mOnHabitModifyListener.onDialogDismiss();
-                    Objects.requireNonNull(getDialog()).dismiss(); //dismiss the dialog fragment
+                    //TODO: UPDATE UID WHEN APPDATABASE CHANGE
+                    AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
+                    Achievement EditCustomHabitTitle = achievementViewModel.getAchievementByUID(3);
+                    if (!EditCustomHabitTitle.is_completed() ) {
+                        EditCustomHabitTitle.setIs_completed(true);
+                        EditCustomHabitTitle.setCurrent_progress(EditCustomHabitTitle.getCurrent_progress() + 1);
+                        EditCustomHabitTitle.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                        achievementViewModel.updateAchievement(EditCustomHabitTitle);
+                        CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(EditCustomHabitTitle.getTitle());
+                        dialog.setTargetFragment(getChildFragmentManager()
+                                .findFragmentById(HomeParentItemAdapterModifyDialogFragment.this.getId()), 1);
+                        dialog.show(getChildFragmentManager(), "CompletedAchievementDialog");
+                        dialog.setmOnClick(new CompletedAchievementDialogFragment.onClick() {
+                            @Override
+                            public void onClickOkay() {
+                                if (mOnHabitModifyListener != null) mOnHabitModifyListener.onDialogDismiss();
+                                Objects.requireNonNull(getDialog()).dismiss();
+                            }
+                        });
+                    } else {
+                        if (mOnHabitModifyListener != null) mOnHabitModifyListener.onDialogDismiss();
+                        Objects.requireNonNull(getDialog()).dismiss();
+                    }
                 })
                 .setNegativeButton("No", null)
                 .show();

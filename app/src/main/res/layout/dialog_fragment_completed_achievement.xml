@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingEnd="5dp"
     android:background="@drawable/background_achievement_item"
-    tools:context=".utill.dialog.CompletedAchievementDiaglogFragment">
+    tools:context=".utill.dialog.CompletedAchievementDialogFragment">
 
     <RelativeLayout
         android:id="@+id/completed_achievement_dialog_layout"
@@ -14,7 +14,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/home_on_fab_click_dialog_header"
+            android:id="@+id/completed_achievement_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -28,10 +28,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/home_on_fab_click_dialog_message"
+            android:id="@+id/completed_achievement_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/home_on_fab_click_dialog_header"
+            android:layout_below="@id/completed_achievement_title"
             android:layout_centerInParent="true"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="5dp"
@@ -44,10 +44,10 @@
             tools:text="Congratulations, you have completed [insert achievement name here]! You should be proud of yourself for reaching this milestone. Keep up the good work and continue to strive for excellence." />
 
         <Button
-            android:id="@+id/home_on_fab_click_dialog_button"
+            android:id="@+id/completed_achievement_ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/home_on_fab_click_dialog_message"
+            android:layout_below="@id/completed_achievement_message"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="3dp"
