@@ -26,9 +26,9 @@ import com.google.firebase.firestore.Source;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.achievement.AchievementViewModel;
 import com.habitdev.sprout.database.achievement.model.Achievement;
-import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
@@ -123,14 +123,65 @@ public class Main extends AppCompatActivity {
             String date = user.getDateInstalled();
 
             DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date);
-
-            AchievementViewModel achievementViewModel = new ViewModelProvider(Main.this).get(AchievementViewModel.class);
+            final HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(Main.this).get(HabitWithSubroutinesViewModel.class);
+            final AchievementViewModel achievementViewModel = new ViewModelProvider(Main.this).get(AchievementViewModel.class);
             //TODO: UPDATE UID WHEN APPDATABASE CHANGE
             Achievement YEAR = achievementViewModel.getAchievementByUID(23);
             Achievement WEEK = achievementViewModel.getAchievementByUID(20);
             Achievement MONTH = achievementViewModel.getAchievementByUID(21);
             Achievement THREE_MONTH = achievementViewModel.getAchievementByUID(22);
 
+            Achievement SubroutineVI = achievementViewModel.getAchievementByUID(12);
+            Achievement SubroutineV = achievementViewModel.getAchievementByUID(SubroutineVI.getPrerequisite_uid());
+            Achievement SubroutineIV = achievementViewModel.getAchievementByUID(SubroutineV.getPrerequisite_uid());
+            Achievement SubroutineIII = achievementViewModel.getAchievementByUID(SubroutineIV.getPrerequisite_uid());
+            Achievement SubroutineII = achievementViewModel.getAchievementByUID(SubroutineIII.getPrerequisite_uid());
+            Achievement SubroutineI = achievementViewModel.getAchievementByUID(SubroutineII.getPrerequisite_uid());
+
+            final int[] totalCompletedSubroutine = {0};
+            habitWithSubroutinesViewModel.getTotalCompletedSubroutineCountLiveData().observe(Main.this, new Observer<Integer>() {
+                @Override
+                public void onChanged(Integer totalCompletedSubroutineCount) {
+                    totalCompletedSubroutine[0] = totalCompletedSubroutineCount;
+                    if (!SubroutineI.is_completed() && totalCompletedSubroutine[0] >= 1) {
+                        updateUnlockedAchievement(SubroutineI);
+                    } else if (SubroutineI.is_completed() && !SubroutineII.is_completed() && SubroutineII.getGoal_progress() == totalCompletedSubroutineCount) {
+                        updateUnlockedAchievement(SubroutineII);
+                    } else if (SubroutineI.is_completed() && !SubroutineII.is_completed() && SubroutineII.getGoal_progress() - 1 >= totalCompletedSubroutineCount) {
+                        setAchievementCurrentProgress(SubroutineII);
+                    } else if (SubroutineII.is_completed() && !SubroutineIII.is_completed() && SubroutineIII.getGoal_progress() == totalCompletedSubroutineCount) {
+                        updateUnlockedAchievement(SubroutineIII);
+                    } else if (SubroutineII.is_completed() && !SubroutineIII.is_completed() && SubroutineIII.getGoal_progress() - 1 >= totalCompletedSubroutineCount) {
+                        setAchievementCurrentProgress(SubroutineIII);
+                    } else if (SubroutineIII.is_completed() && !SubroutineIV.is_completed() && SubroutineIV.getGoal_progress() == totalCompletedSubroutineCount) {
+                        updateUnlockedAchievement(SubroutineIV);
+                    } else if (SubroutineIII.is_completed() && !SubroutineIV.is_completed() && SubroutineIV.getGoal_progress() - 1 >= totalCompletedSubroutineCount) {
+                        setAchievementCurrentProgress(SubroutineIV);
+                    } else if (SubroutineIV.is_completed() && !SubroutineV.is_completed() && SubroutineV.getGoal_progress() == totalCompletedSubroutineCount) {
+                        updateUnlockedAchievement(SubroutineV);
+                    } else if (SubroutineIV.is_completed() && !SubroutineV.is_completed() && SubroutineV.getGoal_progress() - 1 >= totalCompletedSubroutineCount) {
+                        setAchievementCurrentProgress(SubroutineV);
+                    } else if (SubroutineV.is_completed() && !SubroutineVI.is_completed() && SubroutineVI.getGoal_progress() == totalCompletedSubroutineCount) {
+                        updateUnlockedAchievement(SubroutineVI);
+                        habitWithSubroutinesViewModel.getTotalCompletedSubroutineCountLiveData().removeObservers(Main.this);
+                    } else if (SubroutineV.is_completed() && !SubroutineVI.is_completed() && SubroutineVI.getGoal_progress() - 1 >= totalCompletedSubroutineCount) {
+                        setAchievementCurrentProgress(SubroutineVI);
+                    }
+                }
+
+                private void setAchievementCurrentProgress(Achievement subroutineAchievement) {
+                    subroutineAchievement.setCurrent_progress(totalCompletedSubroutine[0]);
+                    achievementViewModel.updateAchievement(subroutineAchievement);
+                }
+
+                private void updateUnlockedAchievement(Achievement subroutineAchievement) {
+                    subroutineAchievement.setIs_completed(true);
+                    setAchievementCurrentProgress(subroutineAchievement);
+                    subroutineAchievement.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
+                    CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(subroutineAchievement.getTitle());
+                    dialog.show(getSupportFragmentManager(), "CompletedAchievementDialog");
+                }
+            });
 
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -141,10 +192,9 @@ public class Main extends AppCompatActivity {
                             dateTimeElapsedUtil.calculateElapsedDateTime();
                             try {
                                 long elapsedDay = dateTimeElapsedUtil.getElapsed_day();
-                                Log.d("tag", "run(Main) Days: " + elapsedDay);
                                 if (elapsedDay == 7 && !WEEK.is_completed()) {
                                     WEEK.setIs_completed(true);
-                                    WEEK.setCurrent_progress(WEEK.getCurrent_progress()+1);
+                                    WEEK.setCurrent_progress(WEEK.getCurrent_progress() + 1);
                                     WEEK.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
                                     achievementViewModel.updateAchievement(WEEK);
                                     CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(WEEK.getTitle());
@@ -153,7 +203,7 @@ public class Main extends AppCompatActivity {
 
                                 if (elapsedDay == 30 && !MONTH.is_completed()) {
                                     MONTH.setIs_completed(true);
-                                    MONTH.setCurrent_progress(MONTH.getCurrent_progress()+1);
+                                    MONTH.setCurrent_progress(MONTH.getCurrent_progress() + 1);
                                     MONTH.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
                                     achievementViewModel.updateAchievement(MONTH);
                                     CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(MONTH.getTitle());
@@ -162,7 +212,7 @@ public class Main extends AppCompatActivity {
 
                                 if (elapsedDay == 90 && !THREE_MONTH.is_completed()) {
                                     THREE_MONTH.setIs_completed(true);
-                                    THREE_MONTH.setCurrent_progress(THREE_MONTH.getCurrent_progress()+1);
+                                    THREE_MONTH.setCurrent_progress(THREE_MONTH.getCurrent_progress() + 1);
                                     THREE_MONTH.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
                                     achievementViewModel.updateAchievement(THREE_MONTH);
                                     CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(THREE_MONTH.getTitle());
@@ -171,13 +221,12 @@ public class Main extends AppCompatActivity {
 
                                 if (elapsedDay == 365 && !YEAR.is_completed()) {
                                     YEAR.setIs_completed(true);
-                                    YEAR.setCurrent_progress(YEAR.getCurrent_progress()+1);
+                                    YEAR.setCurrent_progress(YEAR.getCurrent_progress() + 1);
                                     YEAR.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
                                     achievementViewModel.updateAchievement(YEAR);
                                     CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(YEAR.getTitle());
                                     dialog.show(getSupportFragmentManager(), "CompletedAchievementDialog");
                                 }
-
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -188,7 +237,7 @@ public class Main extends AppCompatActivity {
                         timer.purge();
                     }
                 }
-            }, 0, 1000 * 60);
+            }, 0, 1000);
         }
     }
 
@@ -358,105 +407,34 @@ public class Main extends AppCompatActivity {
                         for (Habits habit : habitsList) {
                             final List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
                             for (Subroutines subroutine : subroutinesList) {
-                                    subroutine.setMax_streak(0);
-                                    subroutine.setTotal_skips(subroutine.getTotal_skips() + 1);
-                                    habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                                subroutine.setMax_streak(0);
+                                subroutine.setTotal_skips(subroutine.getTotal_skips() + 1);
+                                habitWithSubroutinesViewModel.updateSubroutine(subroutine);
                             }
                         }
                     }
-
-                    AchievementViewModel achievementViewModel = new ViewModelProvider(Main.this).get(AchievementViewModel.class);
-                    //TODO: UPDATE UID WHEN APPDATABASE CHANGE
-                    Achievement SubroutineVI = achievementViewModel.getAchievementByUID(12);
-                    Achievement SubroutineV = achievementViewModel.getAchievementByUID(SubroutineVI.getPrerequisite_uid());
-                    Achievement SubroutineIV = achievementViewModel.getAchievementByUID(SubroutineV.getPrerequisite_uid());
-                    Achievement SubroutineIII = achievementViewModel.getAchievementByUID(SubroutineIV.getPrerequisite_uid());
-                    Achievement SubroutineII = achievementViewModel.getAchievementByUID(SubroutineIII.getPrerequisite_uid());
-                    Achievement SubroutineI = achievementViewModel.getAchievementByUID(SubroutineII.getPrerequisite_uid());
-
-                    final int[] totalCompletedSubroutine = {0};
-                    habitWithSubroutinesViewModel.getTotalCompletedSubroutineCountLiveData().observe(this, new Observer<Integer>() {
-                        @Override
-                        public void onChanged(Integer integer) {
-                            totalCompletedSubroutine[0] = integer;
-                        }
-                    });
-
-                    Timer timer = new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            if (binding != null) {
-                                new Handler(Looper.getMainLooper()).post(() -> {
-                                    Log.d("tag", "run: " + totalCompletedSubroutine[0]);
-                                    if (!SubroutineI.is_completed() && SubroutineI.getCurrent_progress() -1 == totalCompletedSubroutine[0]){
-                                        updateUnlockedAchievement(SubroutineI);
-                                    } else if (!SubroutineI.is_completed() && SubroutineI.getCurrent_progress() -2 > totalCompletedSubroutine[0]) {
-                                        setAchievementCurrentProgress(SubroutineI);
-                                    } else if (SubroutineI.is_completed() && !SubroutineII.is_completed() && SubroutineII.getCurrent_progress() -1 == totalCompletedSubroutine[0]){
-                                        updateUnlockedAchievement(SubroutineII);
-                                    } else if (SubroutineI.is_completed() && !SubroutineII.is_completed() && SubroutineII.getCurrent_progress() -2 > totalCompletedSubroutine[0]) {
-                                        setAchievementCurrentProgress(SubroutineII);
-                                    }  else if (SubroutineII.is_completed() && !SubroutineIII.is_completed() && SubroutineIII.getCurrent_progress() -1 == totalCompletedSubroutine[0]){
-                                        updateUnlockedAchievement(SubroutineIII);
-                                    }  else if (SubroutineII.is_completed() && !SubroutineIII.is_completed() && SubroutineIII.getCurrent_progress() -2 > totalCompletedSubroutine[0]) {
-                                        setAchievementCurrentProgress(SubroutineIII);
-                                    } else if (SubroutineIII.is_completed() && !SubroutineIV.is_completed() && SubroutineIV.getCurrent_progress() -1 == totalCompletedSubroutine[0]){
-                                        updateUnlockedAchievement(SubroutineIV);
-                                    }  else if (SubroutineIII.is_completed() && !SubroutineIV.is_completed() && SubroutineIV.getCurrent_progress() -2 > totalCompletedSubroutine[0]) {
-                                        setAchievementCurrentProgress(SubroutineIV);
-                                    } else if (SubroutineIV.is_completed() && !SubroutineV.is_completed() && SubroutineV.getCurrent_progress() -1 == totalCompletedSubroutine[0]){
-                                        updateUnlockedAchievement(SubroutineV);
-                                    }  else if (SubroutineIV.is_completed() && !SubroutineV.is_completed() && SubroutineV.getCurrent_progress() -2 > totalCompletedSubroutine[0]) {
-                                        setAchievementCurrentProgress(SubroutineV);
-                                    } else if (SubroutineV.is_completed() && !SubroutineVI.is_completed() && SubroutineVI.getCurrent_progress() -1 == totalCompletedSubroutine[0]){
-                                        updateUnlockedAchievement(SubroutineVI);
-                                    }  else if (SubroutineV.is_completed() && !SubroutineVI.is_completed() && SubroutineVI.getCurrent_progress() -2 > totalCompletedSubroutine[0]) {
-                                        setAchievementCurrentProgress(SubroutineVI);
-                                    }
-                                });
-                            } else {
-                                timer.cancel();
-                                timer.purge();
-                            }
-                        }
-
-                        private void setAchievementCurrentProgress(Achievement subroutineAchievement) {
-                            subroutineAchievement.setCurrent_progress(totalCompletedSubroutine[0]);
-                            achievementViewModel.updateAchievement(subroutineAchievement);
-                        }
-
-                        private void updateUnlockedAchievement(Achievement subroutineAchievement) {
-                            subroutineAchievement.setIs_completed(true);
-                            setAchievementCurrentProgress(subroutineAchievement);
-                            subroutineAchievement.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
-                            CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(subroutineAchievement.getTitle());
-                            dialog.show(getSupportFragmentManager(), "CompletedAchievementDialog");
-                        }
-
-                    }, 0, 1000 * 60);
                 }
 
                 String[] msg_greet = {
-                                "Today is a new day.",
-                                "Life is beautiful right?",
-                                "Today is the perfect day for another progress.",
-                                "Don’t forget to show gratitude today.",
-                                "Today is going to be a lovely day.",
-                                "Stay positive.",
-                                "Don't let bad memories get you.",
-                                "I hope you have a blessed day.",
-                                "Life is blissful",
-                                "Take a break once in a while",
-                                "Have a good day and face life with courage!",
-                                "There are so many ways to make today special!",
-                                "It’s time to face the day with a smile on your face and hope in your heart.",
-                                "A bright new day is here.",
-                                "Stop worrying about tomorrow.",
-                                "Focus on your blessings today.",
-                                "Every single day is like a blank canvas. You can paint it however you wish.",
-                                "Today is whatever you make it. You get to decide whether it’s a good day or a bad day."
-                        };
+                        "Today is a new day.",
+                        "Life is beautiful right?",
+                        "Today is the perfect day for another progress.",
+                        "Don’t forget to show gratitude today.",
+                        "Today is going to be a lovely day.",
+                        "Stay positive.",
+                        "Don't let bad memories get you.",
+                        "I hope you have a blessed day.",
+                        "Life is blissful",
+                        "Take a break once in a while",
+                        "Have a good day and face life with courage!",
+                        "There are so many ways to make today special!",
+                        "It’s time to face the day with a smile on your face and hope in your heart.",
+                        "A bright new day is here.",
+                        "Stop worrying about tomorrow.",
+                        "Focus on your blessings today.",
+                        "Every single day is like a blank canvas. You can paint it however you wish.",
+                        "Today is whatever you make it. You get to decide whether it’s a good day or a bad day."
+                };
 
                 NotificationChannel notificationChannel = new NotificationChannel(
                         MAIN_ENUMS.NOTIFICATION_CHANNEL_2.value,

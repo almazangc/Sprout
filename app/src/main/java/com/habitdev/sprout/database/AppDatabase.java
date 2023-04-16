@@ -1047,7 +1047,6 @@ public abstract class AppDatabase extends RoomDatabase {
             achievementDao.insertAchievement(CommentIII);
 
             //SUBROUTINES
-            //Number of completed subroutines 1-300
             //7
             Achievement SubroutineI = new Achievement("First Subroutine", "Complete your first subroutine", 0, 1);
             achievementDao.insertAchievement(SubroutineI);
