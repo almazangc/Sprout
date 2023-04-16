@@ -18,10 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.habit.firestore.HabitFireStoreViewModel;
+import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
@@ -29,6 +32,8 @@ import com.habitdev.sprout.databinding.FragmentAddDefaultHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddDefaultHabitParentItemAdapter;
+import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemDropDownAdapter;
+import com.habitdev.sprout.utill.recommender.PopularityBased;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -196,9 +201,27 @@ public class AddDefaultHabitFragment extends Fragment {
             if (binding.addFromDefaultHabitTextInputLayout.getVisibility() == View.GONE)
                 binding.addFromDefaultHabitTextInputLayout.setVisibility(View.VISIBLE);
 
-            ArrayAdapter<String> adapterItem;
-            adapterItem = new ArrayAdapter<>(requireContext(), R.layout.adapter_home_parent_habit_drop_down_item, habitTitles);
-            binding.addFromDefaultHabitItems.setAdapter(adapterItem);
+            //TODO: Apply Custom Dropdown Adapter
+            HabitFireStoreViewModel habitFireStoreViewModel = new ViewModelProvider(requireActivity()).get(HabitFireStoreViewModel.class);
+            PopularityBased popularityBasedRecommender = new PopularityBased();
+            popularityBasedRecommender.setHabitFireStoreViewModel(habitFireStoreViewModel);
+            popularityBasedRecommender.calculateRating();
+
+            HomeParentItemDropDownAdapter homeParentItemDropDownAdapter = new HomeParentItemDropDownAdapter(requireContext(), habitTitles);
+
+            final List<HabitFireStore>[] habitFireStoreList = new List[]{habitFireStoreViewModel.getData()};
+            homeParentItemDropDownAdapter.setHabitFireStoreList(habitFireStoreList[0]);
+
+            habitFireStoreViewModel.getLiveData().observe(requireActivity(), new Observer<List<HabitFireStore>>() {
+                @Override
+                public void onChanged(List<HabitFireStore> result) {
+                    habitFireStoreList[0] = result;
+                    homeParentItemDropDownAdapter.setHabitFireStoreList(result);
+                }
+            });
+
+            homeParentItemDropDownAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+            binding.addFromDefaultHabitItems.setAdapter(homeParentItemDropDownAdapter);
 
             binding.addFromDefaultHabitItems.setOnItemClickListener((adapterView, view, pos, id) -> {
                 habit = habitsList.get(pos);

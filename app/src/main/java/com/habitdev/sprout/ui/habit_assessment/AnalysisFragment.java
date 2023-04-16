@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -34,7 +33,7 @@ import com.habitdev.sprout.databinding.FragmentAnalysisBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.ui.habit_assessment.adapter.AnalysisParentItemAdapter;
-import com.habitdev.sprout.ui.habit_assessment.adapter.AnalytisParentItemDropDownAdapter;
+import com.habitdev.sprout.ui.habit_assessment.adapter.AnalysisParentItemDropDownAdapter;
 import com.habitdev.sprout.ui.habit_assessment.adapter.Model.Result;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
@@ -115,9 +114,9 @@ public class AnalysisFragment extends Fragment {
     }
 
     private void setDropDownItems() {
-        AnalytisParentItemDropDownAdapter analytisParentItemDropDownAdapter = new AnalytisParentItemDropDownAdapter(requireContext(), new ArrayList<>(habitScoreResult));
-        analytisParentItemDropDownAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
-        binding.analysisDropItem.setAdapter(analytisParentItemDropDownAdapter);
+        AnalysisParentItemDropDownAdapter analysisParentItemDropDownAdapter = new AnalysisParentItemDropDownAdapter(requireContext(), new ArrayList<>(habitScoreResult));
+        analysisParentItemDropDownAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+        binding.analysisDropItem.setAdapter(analysisParentItemDropDownAdapter);
         setDropDownItemListener();
         setHabitObserver();
     }

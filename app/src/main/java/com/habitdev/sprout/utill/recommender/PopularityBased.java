@@ -45,7 +45,7 @@ public class PopularityBased {
         PopularityBased.habitFireStoreViewModel = habitFireStoreViewModel;
     }
 
-    public static void calculateRating() {
+    public void calculateRating() {
         if (checkItems()) {
             Log.d("tag", "calculateRating: failed to calculate rating");
             return;

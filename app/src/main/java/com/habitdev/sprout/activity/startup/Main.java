@@ -321,14 +321,27 @@ public class Main extends AppCompatActivity {
                             final List<SubroutineFireStore>[] subroutineFireStoreList = new List[]{habitWithSubroutinesViewModel.getAllHabits()};
                             subroutineViewModel.getLiveData().observe(Main.this, result -> subroutineFireStoreList[0] = result);
 
+                            if (habitFireStoreList[0] == null) {
+                                Log.d("tag", "onChanged: habitFireStoreList");
+                            }
+
+                            if (subroutineFireStoreList[0] == null) {
+                                Log.d("tag", "onChanged: subroutineFireStoreList");
+                            }
+
+                            if (!habitsList[0].isEmpty() && !habitFireStoreList[0].isEmpty()) {
+                                Log.d("tag", "onChanged: huh");
+                            }
+
                             if (!habitsList[0].isEmpty() && !habitFireStoreList[0].isEmpty()) {
                                 for (Habits habit : habitsList[0]) {
                                     for (HabitFireStore habitFireStore : habitFireStoreList[0]) {
                                         if (habit.getPk_habit_uid() == habitFireStore.getPk_uid()) {
+                                            //TODO: Fix  java.lang.ClassCastException: com.habitdev.sprout.database.habit.model.room.Habits cannot be cast to com.habitdev.sprout.database.habit.model.firestore.HabitFireStore
                                             habit.setHabit(habitFireStore.getTitle());
                                             habit.setDescription(habitFireStore.getDescription());
                                             habit.setUpvote(habitFireStore.getUpvote());
-                                            habit.setDownvote(habit.getDownvote());
+                                            habit.setDownvote(habitFireStore.getDownvote());
                                             habitWithSubroutinesViewModel.updateHabit(habit);
                                         }
                                     }
