@@ -8,7 +8,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.firestore.DocumentReference;
-import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
 import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 
 import java.util.List;
@@ -27,7 +26,7 @@ public class SubroutineFireStoreViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<SubroutineFireStore>> getLiveData() {
-        fetchHabit();
+        fetchData();
         return liveData;
     }
 
@@ -39,7 +38,7 @@ public class SubroutineFireStoreViewModel extends AndroidViewModel {
         this.data = data;
     }
 
-    public void fetchHabit() {
+    public void fetchData() {
         repository.fetchData(new SubroutineFireStoreRepository.FetchCallback() {
             @Override
             public void onFetchSubroutineSuccess(List<SubroutineFireStore> subroutine) {

@@ -163,7 +163,7 @@ public class Habits implements Serializable {
     }
 
     public void setPk_habit_uid(long pk_habit_uid) {
-        this.pk_habit_uid = pk_habit_uid;
+        //do nothing
     }
 
     public String getHabit() {
@@ -226,12 +226,12 @@ public class Habits implements Serializable {
         this.total_subroutine = total_subroutine;
     }
 
-    public void setCompleted_subroutine(int completed_subroutine) {
-        this.completed_subroutine = completed_subroutine;
-    }
-
     public int getCompleted_subroutine() {
         return completed_subroutine;
+    }
+
+    public void setCompleted_subroutine(int completed_subroutine) {
+        this.completed_subroutine = completed_subroutine;
     }
 
     public int getUpvote() {

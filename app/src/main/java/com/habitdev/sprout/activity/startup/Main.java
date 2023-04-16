@@ -26,9 +26,14 @@ import com.google.firebase.firestore.Source;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.achievement.AchievementViewModel;
 import com.habitdev.sprout.database.achievement.model.Achievement;
+import com.habitdev.sprout.database.habit.firestore.HabitFireStoreViewModel;
+import com.habitdev.sprout.database.habit.firestore.SubroutineFireStoreViewModel;
+import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
+import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.database.quotes.QuotesViewModel;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.ActivityMainBinding;
@@ -82,8 +87,8 @@ public class Main extends AppCompatActivity {
 
     private enum MAIN_ENUMS {
         SHARED_PREF_KEY("MAINSHARED.PREF"),
-        DAILY_DATE_KEY("DAILY_DATE_KEY.STRING"),
-        WEEKLY_DATE_KEY("WEEKLY_DATE_KEY.STRING"),
+        DAILY_PROGRESS_KEY("DAILY_PROGRESS_KEY.STRING"),
+        DAILY_FETCH_KEY("DAILY_FETCH_KEY.STRING"),
         SDF_PATTERN("dd MMMM yyyy"),
         DB_LOADED("DB_LOADED.BOOL"),
         IS_DATA_AVAILABLE_ON_LOCAL("IS_DATA_AVAILABLE_ON_LOCAL.BOOL"),
@@ -277,7 +282,6 @@ public class Main extends AppCompatActivity {
      * <p>Checks for available network connection and fetch latest data from firestore database</p>
      */
     private void fetchFirestoreDB() {
-
         sharedPreferences = getSharedPreferences(MAIN_ENUMS.SHARED_PREF_KEY.value, Main.MODE_PRIVATE);
 
         NetworkMonitoringUtil mNetworkMonitoringUtil = new NetworkMonitoringUtil(getApplicationContext());
@@ -286,18 +290,74 @@ public class Main extends AppCompatActivity {
 
         NetworkStateManager networkStateManager = NetworkStateManager.getInstance();
 
-        if (sharedPreferences.contains(MAIN_ENUMS.WEEKLY_DATE_KEY.value)) {
-            String date = sharedPreferences.getString(MAIN_ENUMS.WEEKLY_DATE_KEY.value, null);
+        if (sharedPreferences.contains(MAIN_ENUMS.DAILY_FETCH_KEY.value)) {
+            String date = sharedPreferences.getString(MAIN_ENUMS.DAILY_FETCH_KEY.value, null);
             final DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date, 1);
             dateTimeElapsedUtil.calculateElapsedDateTime();
 
-            if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.WEEKLY.getDays() && date != null) {
+            if (dateTimeElapsedUtil.getElapsed_day() >= TimeMilestone.DAILY.getDays() && date != null) {
                 networkStateManager.getNetworkConnectivityStatus().observe(this, new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean isConnected) {
                         if (isConnected) {
-                            FirebaseFirestore.getInstance().collection("quotes").get(Source.SERVER);
-                            updateNewWeeklyDay();
+
+//                            HabitWithSubroutinesViewModel habitWithSubroutinesViewModel = new ViewModelProvider(Main.this).get(HabitWithSubroutinesViewModel.class);
+//
+//                            QuotesViewModel quotesViewModel = new ViewModelProvider(Main.this).get(QuotesViewModel.class);
+//                            quotesViewModel.fetchData();
+//
+//                            HabitFireStoreViewModel habitViewModel = new ViewModelProvider(Main.this).get(HabitFireStoreViewModel.class);
+//                            habitViewModel.fetchData();
+//
+//                            SubroutineFireStoreViewModel subroutineViewModel = new ViewModelProvider(Main.this).get(SubroutineFireStoreViewModel.class);
+//                            subroutineViewModel.fetchData();
+//
+//                            final List<Habits>[] habitsList = new List[]{habitWithSubroutinesViewModel.getAllHabits()};
+//                            habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(Main.this, habits -> habitsList[0] = habits);
+//
+//                            final List<HabitFireStore>[] habitFireStoreList = new List[]{habitWithSubroutinesViewModel.getAllHabits()};
+//                            habitViewModel.getLiveData().observe(Main.this, result -> habitFireStoreList[0] = result);
+//
+//                            final List<SubroutineFireStore>[] subroutineFireStoreList = new List[]{habitWithSubroutinesViewModel.getAllHabits()};
+//                            subroutineViewModel.getLiveData().observe(Main.this, result -> subroutineFireStoreList[0] = result);
+//
+//                            if (!habitsList[0].isEmpty() && !habitFireStoreList[0].isEmpty()) {
+//                                for (Habits habit : habitsList[0]) {
+//                                    for (HabitFireStore habitFireStore : habitFireStoreList[0]) {
+//                                        if (habit.getPk_habit_uid() == habitFireStore.getPk_uid()) {
+//                                            habit.setHabit(habitFireStore.getTitle());
+//                                            habit.setDescription(habitFireStore.getDescription());
+//                                            habit.setUpvote(habitFireStore.getUpvote());
+//                                            habit.setDownvote(habit.getDownvote());
+//                                            habitWithSubroutinesViewModel.updateHabit(habit);
+//                                        }
+//                                    }
+//
+//                                    List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+//
+//                                    if (!subroutinesList.isEmpty() && !subroutineFireStoreList[0].isEmpty()) {
+//                                        for (Subroutines subroutine: subroutinesList) {
+//                                            for (SubroutineFireStore subroutineFireStore: subroutineFireStoreList[0]) {
+//                                                if (subroutineFireStore.getFk_habit_uid() == subroutine.getFk_habit_uid() && subroutineFireStore.getPk_uid() == subroutine.getPk_subroutine_uid()) {
+//                                                    subroutine.setSubroutine(subroutineFireStore.getTitle());
+//                                                    subroutine.setDescription(subroutineFireStore.getDescription());
+//                                                    subroutine.setUpvote(subroutineFireStore.getUpvote());
+//                                                    subroutine.setDownvote(subroutineFireStore.getDownvote());
+//                                                    habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//
+//                                }
+//                            }
+
+                            updateSharedPref();
+
+//                            habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(Main.this);
+//                            quotesViewModel.getLiveData().removeObservers(Main.this);
+//                            habitViewModel.getLiveData().removeObservers(Main.this);
+//                            subroutineViewModel.getLiveData().removeObservers(Main.this);
                             networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
                         } else {
                             NotificationChannel notificationChannel = new NotificationChannel(
@@ -326,17 +386,17 @@ public class Main extends AppCompatActivity {
                     }
                 });
             } else {
-                firstInstallDataFetch();
+                fetchFirstInstallQuoteData();
             }
         } else {
-            updateNewWeeklyDay();
+            updateSharedPref();
         }
     }
 
     /**
      * Logic for fetching only once from tha server
      */
-    private void firstInstallDataFetch() {
+    private void fetchFirstInstallQuoteData() {
         if (!isDataAvailableOnLocal) {
             if (!sharedPreferences.contains(MAIN_ENUMS.DB_LOADED.value) ||
                     (sharedPreferences.contains(MAIN_ENUMS.DB_LOADED.value) && sharedPreferences.getBoolean(MAIN_ENUMS.DB_LOADED.value, false))) {
@@ -355,11 +415,11 @@ public class Main extends AppCompatActivity {
     }
 
     /**
-     * Fetch latest data from firestore db on weekly basis only if network is available
+     * Fetch latest data from firestore db on daily basis only if network is available
      */
-    private void updateNewWeeklyDay() {
+    private void updateSharedPref() {
         String date = new SimpleDateFormat(MAIN_ENUMS.SDF_PATTERN.value, Locale.getDefault()).format(new Date());
-        sharedPreferences.edit().putString(MAIN_ENUMS.WEEKLY_DATE_KEY.value, date).apply();
+        sharedPreferences.edit().putString(MAIN_ENUMS.DAILY_FETCH_KEY.value, date).apply();
     }
 
     /**
@@ -369,9 +429,9 @@ public class Main extends AppCompatActivity {
      */
     private void setDailyDateTracker() {
 
-        if (sharedPreferences.contains(MAIN_ENUMS.DAILY_DATE_KEY.value)) {
+        if (sharedPreferences.contains(MAIN_ENUMS.DAILY_PROGRESS_KEY.value)) {
 
-            String date = sharedPreferences.getString(MAIN_ENUMS.DAILY_DATE_KEY.value, null);
+            String date = sharedPreferences.getString(MAIN_ENUMS.DAILY_PROGRESS_KEY.value, null);
             final DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(date, 1);
             dateTimeElapsedUtil.calculateElapsedDateTime();
 
@@ -473,7 +533,7 @@ public class Main extends AppCompatActivity {
      */
     private void updateNewDailyDate() {
         final String date = new SimpleDateFormat(MAIN_ENUMS.SDF_PATTERN.value, Locale.getDefault()).format(new Date());
-        sharedPreferences.edit().putString(MAIN_ENUMS.DAILY_DATE_KEY.value, date).apply();
+        sharedPreferences.edit().putString(MAIN_ENUMS.DAILY_PROGRESS_KEY.value, date).apply();
     }
 
     /**

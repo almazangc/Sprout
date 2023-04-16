@@ -185,6 +185,8 @@ public class AnalysisFragment extends Fragment {
 
             Result result = habitScoreResult.get(position);
             setAnalysisMessage(result, habit);
+
+            setRecyclerViewAdapter();
         });
 
         binding.analysisDropItem.addTextChangedListener(new TextWatcher() {

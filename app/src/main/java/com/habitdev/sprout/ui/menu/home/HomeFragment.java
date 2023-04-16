@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment
 
         habitWithSubroutinesViewModel = new ViewModelProvider(requireActivity()).get(HabitWithSubroutinesViewModel.class);
         habitFireStoreViewModel = new ViewModelProvider(requireActivity()).get(HabitFireStoreViewModel.class);
-        habitFireStoreViewModel.fetchHabit();
+        habitFireStoreViewModel.fetchData();
         habitFireStoreList = habitFireStoreViewModel.getData();
         habitFireStoreViewModel.getLiveData().observe(getViewLifecycleOwner(), habitFireStores -> habitFireStoreList = habitFireStores);
 

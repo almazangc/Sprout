@@ -7,16 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
-import com.habitdev.sprout.database.habit.model.room.Habits;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Unused for now
@@ -35,12 +29,12 @@ public class HabitFireStoreViewModel extends AndroidViewModel {
     }
 
     public MutableLiveData<List<HabitFireStore>> getLiveData() {
-        fetchHabit();
+        fetchData();
         return liveData;
     }
 
     public List<HabitFireStore> getData() {
-        fetchHabit();
+        fetchData();
         return data;
     }
 
@@ -48,7 +42,7 @@ public class HabitFireStoreViewModel extends AndroidViewModel {
         this.data = data;
     }
 
-    public void fetchHabit() {
+    public void fetchData() {
         repository.fetchData(new HabitFireStoreRepository.FetchCallback() {
             @Override
             public void onFetchHabitSuccess(List<HabitFireStore> habit) {

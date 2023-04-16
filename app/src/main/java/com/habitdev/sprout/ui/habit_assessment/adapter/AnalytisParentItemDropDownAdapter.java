@@ -14,7 +14,6 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.ui.habit_assessment.adapter.Model.Result;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class AnalytisParentItemDropDownAdapter extends ArrayAdapter<Result> {

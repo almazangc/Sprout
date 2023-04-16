@@ -113,7 +113,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
         if (holder.childRecycleView.getAdapter() == null) {
             List<Subroutines> habitWithSubroutines = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(uid);
-            subroutineFireStoreViewModel.fetchHabit();
+            subroutineFireStoreViewModel.fetchData();
 
             SubroutineChildItemAdapter childAdapterItem = new SubroutineChildItemAdapter(habitWithSubroutinesViewModel.getHabitByUID(uid).isModifiable());
             childAdapterItem.setOldSubroutineList(new ArrayList<>(habitWithSubroutines));

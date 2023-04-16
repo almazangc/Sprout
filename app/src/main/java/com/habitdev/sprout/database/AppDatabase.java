@@ -91,8 +91,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static class FetchFirestoreDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        public FetchFirestoreDatabaseAsyncTask(AppDatabase instance) {
-        }
+        public FetchFirestoreDatabaseAsyncTask(AppDatabase instance) {}
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -103,7 +102,6 @@ public abstract class AppDatabase extends RoomDatabase {
             quotesRepository.fetchData(new QuotesRepository.FetchCallback() {
                 @Override
                 public void onFetchQuoteSuccess(List<Quotes> quotesList) {
-                    //success
                     Log.d("tag", "onFetchQuoteSuccess: ");
                 }
 
@@ -130,7 +128,6 @@ public abstract class AppDatabase extends RoomDatabase {
             subroutineRepository.fetchData(new SubroutineFireStoreRepository.FetchCallback() {
                 @Override
                 public void onFetchSubroutineSuccess(List<SubroutineFireStore> result) {
-                    //success
                     Log.d("tag", "onFetchSubroutineSuccess: ");
                 }
 
