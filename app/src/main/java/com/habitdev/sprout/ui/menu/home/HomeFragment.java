@@ -54,12 +54,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import smartdevelop.ir.eram.showcaseviewlib.GuideView;
-import smartdevelop.ir.eram.showcaseviewlib.config.DismissType;
-import smartdevelop.ir.eram.showcaseviewlib.config.Gravity;
-import smartdevelop.ir.eram.showcaseviewlib.config.PointerType;
-import smartdevelop.ir.eram.showcaseviewlib.listener.GuideListener;
-
 public class HomeFragment extends Fragment
         implements
         HomeParentItemAdapter.HomeParentItemOnClickListener,
@@ -125,44 +119,6 @@ public class HomeFragment extends Fragment
 //        showRecyclerViewTargetPrompt();
     }
 
-    private void showRecyclerViewTargetPrompt() {
-        new GuideView.Builder(requireActivity())
-//                .setTitle("Guide Title Text")
-                .setContentText("The habit on currently reform status can be viewed here")
-                .setPointerType(PointerType.circle)
-                .setGravity(Gravity.center) //optional
-                .setDismissType(DismissType.targetView) //optional - default DismissType.targetView
-                .setTargetView(binding.homeRecyclerView)
-                .setGuideListener(new GuideListener() {
-                    @Override
-                    public void onDismiss(View view) {
-                        //TODO ...
-                        showFabTargetPrompt();
-                    }
-                })
-                .build()
-                .show();
-    }
-
-    private void showFabTargetPrompt() {
-        new GuideView.Builder(requireActivity())
-                .setTitle("Add Habit")
-                .setContentText("Click on the button to add new habit to reform")
-                .setPointerType(PointerType.circle)
-                .setGravity(Gravity.center) //optional
-                .setDismissType(DismissType.targetView) //optional - default DismissType.targetView
-                .setTargetView(binding.homeFab)
-                .setGuideListener(new GuideListener() {
-                    @Override
-                    public void onDismiss(View view) {
-                        //TODO ...
-//                        showFabTargetPrompt();
-                    }
-                })
-                .build()
-                .show();
-    }
-
     private void checkUnlockedAchievement() {
         if (habitWithSubroutinesViewModel.getAllHabitOnReformCount() == 1) {
             AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
@@ -177,7 +133,7 @@ public class HomeFragment extends Fragment
                 CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(FIRST_STEP.getTitle());
                 dialog.setTargetFragment(getChildFragmentManager()
                         .findFragmentById(HomeFragment.this.getId()), 1);
-                dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                dialog.show(getChildFragmentManager(), "CompletedAchievementDialog");
             }
         }
     }
@@ -661,7 +617,7 @@ public class HomeFragment extends Fragment
                                     CompletedAchievementDialogFragment completedAchievementDialogFragment = new CompletedAchievementDialogFragment(CLOSEAPPPROMPT.getTitle());
                                     completedAchievementDialogFragment.setTargetFragment(getChildFragmentManager()
                                             .findFragmentById(HomeFragment.this.getId()), 1);
-                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDialog");
                                     isAchievementDialogShowing[0] = true;
                                 }
                             }

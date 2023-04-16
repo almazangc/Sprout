@@ -71,6 +71,9 @@ public interface HabitWithSubroutinesDao {
     @Query("SELECT * FROM Habits WHERE Habits.is_modifiable = 1")
     LiveData<List<Habits>> getAllUserDefinedHabitListLiveData();
 
+    @Query("SELECT SUM(completed_subroutines) FROM Habits")
+    LiveData<Integer> getTotalCompletedSubroutineCountLiveData();
+
     @Update
     void updateHabit(Habits habit);
 

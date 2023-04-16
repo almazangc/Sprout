@@ -140,7 +140,7 @@ public class ThemeFragment extends Fragment {
                     CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(Theme.getTitle());
                     dialog.setTargetFragment(getChildFragmentManager()
                             .findFragmentById(ThemeFragment.this.getId()), 1);
-                    dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                    dialog.show(getChildFragmentManager(), "CompletedAchievementDialog");
                     dialog.setmOnClick(() -> {
                         setTheme(themeMode);
                     });

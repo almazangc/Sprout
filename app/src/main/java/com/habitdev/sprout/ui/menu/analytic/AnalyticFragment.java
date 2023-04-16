@@ -197,7 +197,7 @@ public class AnalyticFragment extends Fragment
                                     CompletedAchievementDialogFragment completedAchievementDialogFragment = new CompletedAchievementDialogFragment(CLOSEAPPPROMPT.getTitle());
                                     completedAchievementDialogFragment.setTargetFragment(getChildFragmentManager()
                                             .findFragmentById(AnalyticFragment.this.getId()), 1);
-                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDialog");
                                     isAchievementDialogShowing[0] = true;
                                 }
                             }

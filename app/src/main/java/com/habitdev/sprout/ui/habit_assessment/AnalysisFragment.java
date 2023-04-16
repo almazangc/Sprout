@@ -38,7 +38,7 @@ import com.habitdev.sprout.ui.habit_assessment.adapter.AnalytisParentItemDropDow
 import com.habitdev.sprout.ui.habit_assessment.adapter.Model.Result;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
-import com.habitdev.sprout.utill.recommender.RuleBasedAlgorithm;
+import com.habitdev.sprout.utill.recommender.KnowledgeBased;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -104,12 +104,12 @@ public class AnalysisFragment extends Fragment {
      */
     private void calculateRecommendedHabit() {
         AssessmentViewModel assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
-        RuleBasedAlgorithm ruleBasedAlgorithm = new RuleBasedAlgorithm();
-        ruleBasedAlgorithm.setAssessmentViewModel(assessmentViewModel);
-        ruleBasedAlgorithm.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
-        ruleBasedAlgorithm.calculateHabitScores();
-        ruleBasedAlgorithm.getRecommendedHabitsScore();
-        habitScoreResult = ruleBasedAlgorithm.getConvertedToResultList();
+        KnowledgeBased knowledgeBased = new KnowledgeBased();
+        knowledgeBased.setAssessmentViewModel(assessmentViewModel);
+        knowledgeBased.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+        knowledgeBased.calculateHabitScores();
+        knowledgeBased.getRecommendedHabitsScore();
+        habitScoreResult = knowledgeBased.getConvertedToResultList();
         setDropDownItems();
         setInitialRecommendationMessage();
     }
@@ -178,16 +178,13 @@ public class AnalysisFragment extends Fragment {
     }
 
     private void setDropDownItemListener() {
-        binding.analysisDropItem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //updates selected habit
-                habit = habitsList.get(position);
-                displayHabitInformation(habit);
+        binding.analysisDropItem.setOnItemClickListener((adapterView, view, position, id) -> {
+            //updates selected habit
+            habit = habitsList.get(position);
+            displayHabitInformation(habit);
 
-                Result result = habitScoreResult.get(position);
-                setAnalysisMessage(result, habit);
-            }
+            Result result = habitScoreResult.get(position);
+            setAnalysisMessage(result, habit);
         });
 
         binding.analysisDropItem.addTextChangedListener(new TextWatcher() {

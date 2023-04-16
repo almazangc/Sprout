@@ -156,6 +156,6 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.4'
 
 //    https://github.com/mreram/ShowCaseView
-    implementation 'com.github.mreram:showcaseview:1.4.1'
+//    implementation 'com.github.mreram:showcaseview:1.4.1'
 
 }

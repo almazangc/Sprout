@@ -274,7 +274,7 @@ public class BottomNavigationFragment extends Fragment {
                 CompletedAchievementDialogFragment dialog = new CompletedAchievementDialogFragment(achievement.getTitle());
                 dialog.setTargetFragment(getChildFragmentManager()
                         .findFragmentById(BottomNavigationFragment.this.getId()), 1);
-                dialog.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                dialog.show(getChildFragmentManager(), "CompletedAchievementDialog");
             }
         });
 

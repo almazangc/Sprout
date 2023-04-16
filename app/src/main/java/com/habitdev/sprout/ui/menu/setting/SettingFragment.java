@@ -294,7 +294,7 @@ public class SettingFragment extends Fragment implements
                                     CompletedAchievementDialogFragment completedAchievementDialogFragment = new CompletedAchievementDialogFragment(CLOSEAPPPROMPT.getTitle());
                                     completedAchievementDialogFragment.setTargetFragment(getChildFragmentManager()
                                             .findFragmentById(SettingFragment.this.getId()), 1);
-                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDialog");
                                     isAchievementDialogShowing[0] = true;
                                 }
                             }

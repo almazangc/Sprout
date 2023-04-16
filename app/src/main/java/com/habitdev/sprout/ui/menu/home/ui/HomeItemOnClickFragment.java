@@ -26,11 +26,9 @@ import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.habit_assessment.adapter.Model.Result;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
-import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
-import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
 import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
-import com.habitdev.sprout.utill.recommender.RuleBasedAlgorithm;
+import com.habitdev.sprout.utill.recommender.KnowledgeBased;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -104,12 +102,12 @@ public class HomeItemOnClickFragment extends Fragment {
 
     private void setRecommendedPercent() {
         AssessmentViewModel assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
-        RuleBasedAlgorithm ruleBasedAlgorithm = new RuleBasedAlgorithm();
-        ruleBasedAlgorithm.setAssessmentViewModel(assessmentViewModel);
-        ruleBasedAlgorithm.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
-        ruleBasedAlgorithm.calculateHabitScores();
-        ruleBasedAlgorithm.getRecommendedHabitsScore();
-        List<Result> habitScoreResult = ruleBasedAlgorithm.getConvertedToResultList();
+        KnowledgeBased knowledgeBased = new KnowledgeBased();
+        knowledgeBased.setAssessmentViewModel(assessmentViewModel);
+        knowledgeBased.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+        knowledgeBased.calculateHabitScores();
+        knowledgeBased.getRecommendedHabitsScore();
+        List<Result> habitScoreResult = knowledgeBased.getConvertedToResultList();
         Result result = habitScoreResult.get((int) (habit.getPk_habit_uid()-1));
         Double score = result.getRecommendation_score();
         DecimalFormat decimalFormat = new DecimalFormat("##%");

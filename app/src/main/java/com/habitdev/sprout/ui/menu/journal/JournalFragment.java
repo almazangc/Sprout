@@ -181,7 +181,7 @@ public class JournalFragment extends Fragment implements JournalNoteItemAdapter.
                                     CompletedAchievementDialogFragment completedAchievementDialogFragment = new CompletedAchievementDialogFragment(CLOSEAPPPROMPT.getTitle());
                                     completedAchievementDialogFragment.setTargetFragment(getChildFragmentManager()
                                             .findFragmentById(JournalFragment.this.getId()), 1);
-                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDiaglog");
+                                    completedAchievementDialogFragment.show(getChildFragmentManager(), "CompletedAchievementDialog");
                                     isAchievementDialogShowing[0] = true;
                                 }
                             }

@@ -160,16 +160,13 @@ public class SubroutineChildItemAdapter extends RecyclerView.Adapter<SubroutineC
                     isMarkedAsDone(false);
                     subroutine.setMarkDone(false);
                     subroutine.setTotal_completed(subroutine.getTotal_completed() - 1);
-
                     habit.setCompleted_subroutine(habit.getCompleted_subroutine() - 1);
                 } else if (markAsDone.getBackground() == unMarkAsDone) {
                     isMarkedAsDone(true);
                     subroutine.setMarkDone(true);
                     subroutine.setTotal_completed(subroutine.getTotal_completed() + 1);
-
                     habit.setCompleted_subroutine(habit.getCompleted_subroutine() + 1);
                 }
-
                 habitWithSubroutinesViewModel.updateSubroutine(subroutine);
                 habitWithSubroutinesViewModel.updateHabit(habit);
             });

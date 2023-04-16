@@ -23,6 +23,7 @@ public class HabitWithSubroutinesRepository {
     private final LiveData<Long> habitOnReformCount;
     private final LiveData<Long> predefinedHabitOnReformCount;
     private final LiveData<List<Habits>> allUserDefinedHabitListLiveData;
+    private final LiveData<Integer> totalCompletedSubroutineCountLiveData;
 
     public HabitWithSubroutinesRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
@@ -37,6 +38,7 @@ public class HabitWithSubroutinesRepository {
         this.habitOnReformCount = habitWithSubroutinesDao.getHabitOnReformCount();
         this.predefinedHabitOnReformCount = habitWithSubroutinesDao.getPredefinedHabitOnReformCount();
         this.allUserDefinedHabitListLiveData = habitWithSubroutinesDao.getAllUserDefinedHabitListLiveData();
+        this.totalCompletedSubroutineCountLiveData = habitWithSubroutinesDao.getTotalCompletedSubroutineCountLiveData();
     }
 
     public void updateHabit(Habits habit) {
@@ -156,5 +158,9 @@ public class HabitWithSubroutinesRepository {
 
     public LiveData<List<Habits>> getAllUserDefinedHabitListLiveData() {
         return allUserDefinedHabitListLiveData;
+    }
+
+    public LiveData<Integer> getTotalCompletedSubroutineCountLiveData(){
+        return totalCompletedSubroutineCountLiveData;
     }
 }
