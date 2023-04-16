@@ -163,7 +163,7 @@ public class Habits implements Serializable {
     }
 
     public void setPk_habit_uid(long pk_habit_uid) {
-        //do nothing
+        this.pk_habit_uid = pk_habit_uid;
     }
 
     public String getHabit() {
