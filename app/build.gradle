@@ -138,9 +138,9 @@ dependencies {
     // swipeRefreshLayout Dependency
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
-    // Glide : Source Media Management and Image Loading Framework
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+//    // Glide : Source Media Management and Image Loading Framework
+//    implementation 'com.github.bumptech.glide:glide:4.14.2'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
 //     debugImplementation because LeakCanary should only run in debug builds.
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
@@ -154,8 +154,4 @@ dependencies {
     //https://github.com/prolificinteractive/material-calendarview
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.4'
-
-//    https://github.com/mreram/ShowCaseView
-//    implementation 'com.github.mreram:showcaseview:1.4.1'
-
 }

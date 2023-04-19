@@ -53,7 +53,7 @@
                 android:isScrollContainer="true"
                 android:justificationMode="inter_word"
                 android:textColor="@color/NIGHT"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textStyle="normal"
                 tools:text="@string/sampleText" />
 

@@ -22,11 +22,11 @@ public class Result {
         this.total_count = total_count;
     }
 
-    public double getRecommendation_score() {
+    public double getScore() {
         return recommendation_score;
     }
 
-    public void setRecommendation_score(double recommendation_score) {
+    public void setScore(double recommendation_score) {
         this.recommendation_score = recommendation_score;
     }
 
@@ -52,11 +52,11 @@ public class Result {
         }
 
         Result highestConfidenceScoreResult = results.get(0);
-        double highestConfidenceScore = highestConfidenceScoreResult.getRecommendation_score();
+        double highestConfidenceScore = highestConfidenceScoreResult.getScore();
 
         for (int i = 1; i < results.size(); i++) {
             Result currentResult = results.get(i);
-            double currentConfidenceScore = currentResult.getRecommendation_score();
+            double currentConfidenceScore = currentResult.getScore();
 
             if (currentConfidenceScore > highestConfidenceScore) {
                 highestConfidenceScore = currentConfidenceScore;

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -28,6 +30,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.habitdev.sprout.R;
+import com.habitdev.sprout.activity.startup.Main;
 import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentTechStackInfoBinding;
@@ -41,11 +45,6 @@ import java.util.List;
 public class TechStackInfoFragment extends Fragment {
 
     private FragmentTechStackInfoBinding binding;
-
-    private static final String FILE_NAME = "notes.json";
-    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 14;
-    private static File file;
-    private NoteViewModel noteViewModel;
 
     public interface OnReturnSetting {
         void returnFromTechStackInfoToSetting();
@@ -64,133 +63,27 @@ public class TechStackInfoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentTechStackInfoBinding.inflate(inflater, container, false);
-        noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
+        setBackground();
         openRepository();
         sendMail();
         readEULA();
-        exportNote();
         onBackPress();
         return binding.getRoot();
     }
 
-    private void exportNote() {
-        binding.exportNoteData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                exportDatabase();
-                openFileWithDialog(file);
-            }
-        });
-    }
+    private void setBackground() {
+        final String SharedPreferences_KEY = "SP_DB";
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
-    private void exportDatabase() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Export Note Data")
-                .setMessage("Are you sure you want to export your note data to a .json file?")
-                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-                        } else {
-                            // Continue with creating the directory and file
-                            exportData();
-                        }
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
-    }
-
-    private void exportData() {
-        new ExportDataTask(noteViewModel).execute();
-    }
-
-    private class ExportDataTask extends AsyncTask<Void, Void, String> {
-
-        private final NoteViewModel noteViewModel;
-
-        ExportDataTask(NoteViewModel noteViewModel) {
-            this.noteViewModel = noteViewModel;
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            Gson gson = new Gson();
-            List<Note> notes = noteViewModel.getNoteList();
-            Type type = new TypeToken<List<Note>>() {
-            }.getType();
-            return gson.toJson(notes, type);
-        }
-
-        @Override
-        protected void onPostExecute(String jsonString) {
-            file = createFile(FILE_NAME, jsonString);
-            openFileWithDialog(file);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, continue with creating the directory and file
-                exportData();
-            } else {
-                // Permission denied, show an explanation to the user
-                Toast.makeText(getContext(), "Permission denied, unable to export data", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private File createFile(String fileName, String jsonString) {
-        if (jsonString == null || jsonString.isEmpty()) {
-            Log.e("tag", "jsonString is empty or null");
-            return null;
-        }
-
-        File appDir = requireActivity().getExternalFilesDir(null);
-        File file;
-        if (appDir != null) {
-            File dir = new File(appDir, "notes");
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-            file = new File(dir, fileName);
+        final String SHARED_PREF_KEY = "THEME_SHARED.PREF";
+        int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
+        if (theme == 1) {
+            binding.techStackInfoFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_light));
+        } else if (theme == 2) {
+            binding.techStackInfoFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_night));
         } else {
-            appDir = getContext().getFilesDir();
-            file = new File(appDir, fileName);
+            binding.techStackInfoFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_light));
         }
-        try {
-            FileOutputStream outputStream = new FileOutputStream(file);
-            outputStream.write(jsonString.getBytes());
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return file;
-    }
-
-    private void openFileWithDialog(File file) {
-        if (file == null) {
-            Log.d("tag", "file is null");
-            return;
-        }
-
-        if (!file.exists()) {
-            Log.d("tag", "file does not exist");
-            return;
-        }
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = FileProvider.getUriForFile(getContext(), "com.habitdev.sprout", file);
-        intent.setDataAndType(uri, "text/plain");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(intent);
     }
 
     public void openRepository() {

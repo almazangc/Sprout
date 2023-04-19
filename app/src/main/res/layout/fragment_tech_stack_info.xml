@@ -24,128 +24,565 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/tech_stack_info_container"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/setting_tech_stack_top_bar"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="5dp"
-            android:text="This will contain the tech stack used, libraries, resources and reposity of the project, in the creation of the application."
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="12sp" />
+        android:fillViewport="false"
+        android:scrollbarSize="3sp"
+        android:scrollbarThumbVertical="@color/WAIKAWA_GREY"
+        android:scrollbars="vertical"
+        android:verticalScrollbarPosition="right">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/tech_stack_info_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:isScrollContainer="true"
+            android:orientation="vertical"
+            android:padding="16sp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Project Code Repository: "
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="12sp" />
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/github_repository"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="IDE: "
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/ide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Android Studio Chipmunk 2021.2.1 Patch 1"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="@string/domo_dom_sprout"
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Database: "
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/database"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Firebase Firestore and Local Database"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Version Control System: "
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/vcs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:text="GitHub"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Code Repository: "
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/github_repository"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:text="@string/domo_dom_sprout"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Us: "
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/send_mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:text="@string/email"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Read: "
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/read_eula"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:text="@string/eula"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="Dependency Libraries"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Animated Bottom Bar by Droppers"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="A customizable and easy to use BottomBar navigation view with sleek animations, with support for ViewPager, ViewPager2, NavController, and badges."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lottie Animation"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="Renders Lottie animations natively on Android."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Swipe Reveal Layout by FarhamHosseini"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="A layout that you can Swipe/Slide to show another layout. It 's easy, flexible and powerful swipe layout for Android."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MPAndroidChart by PhilJay"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="A powerful and easy to use chart library for Android"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GSON"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="Gson is a Java library that can be used to convert Java Objects into their JSON representation. "
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firebase"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="Firebase is a set of backend cloud computing services and application development platforms provided by Google. It hosts databases, services, authentication, and integration for a variety of applications, including Android, iOS, JavaScript, Node.js, Java, Unity, PHP, and C++."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Room persistence"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="The Room persistence library provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="Asset Sources"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="13dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lottie Animatation"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="An extensive, curated library of free assets awaits you. All free Lottie animations are under Creative Commons License"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="unDraw"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="Browse to find the images that fit your needs and click to download. Use the on-the-fly color image generation to match your brand identity."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="People"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="A diverse bunch of characters from all walks of life! From hair, to style, to stance and more, customize all characteristics with these free illustrations."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IconScout"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="A collection of icons, illustrations, and photos is available for designers and developers to create engaging visuals."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Haikei"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="Haikei is a web app to generate stunning visual content – ready to use with your design tools and workflow."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16sp"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Svg Wave"
+                        android:textAlignment="center"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16sp"
+                        android:justificationMode="inter_word"
+                        android:text="A minimal svg wave generator with lot of customization. It lets you abiltiy to generate and export pngs and svgs of beautiful waves."
+                        android:textColor="@color/NIGHT"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Contact Us: "
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/send_mail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="@string/email"
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Read: "
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/read_eula"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:text="@string/eula"
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Export: "
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/export_note_data"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="Note.JSON"
-                android:textAlignment="center"
-                android:textColor="@color/NIGHT"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-    </LinearLayout>
-
+    </ScrollView>
 </RelativeLayout>

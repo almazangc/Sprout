@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * Class that is used to recommend a habit based on the questions provided.
- * A knowledge-based recommender following a rule-base algorithm | approach using assessment tool for determining what habit will likely be recommended.
+ * A knowledge-based recommender following a rule-base approach using assessment tool for determining what habit will likely be recommended.
  * The class uses the 'habitScores' map to keep track of the scores for each habit.
  */
 public class KnowledgeBased {
@@ -60,13 +60,13 @@ public class KnowledgeBased {
             //Check for flag of 1 and -1
             if (question.getClassification() != 0) {
                 long habitUid = question.getFk_habit_uid();
-                double confidence_value = 0;
 
+                double value = 0;
                 for (Answer answer : answerList) {
                     if (answer.getFk_question_uid() == question.getPk_question_uid()) {
                         for (Choices choice : choices) {
                             if (choice.getChoices().equals(answer.getSelected_answer())) {
-                                confidence_value = choice.getValue();
+                                value = choice.getValue();
                             }
                         }
                     }
@@ -78,7 +78,7 @@ public class KnowledgeBased {
                     for (HashMap<Long, Result> habit_score : habitScore) {
                         if (habit_score.containsKey(habitUid)) {
                             Result item = habit_score.get(habitUid);
-                            item.setRecommendation_score(item.getRecommendation_score() + confidence_value);
+                            item.setScore(item.getScore() + value);
                             item.setTotal_count((int) (item.getTotal_count() + 1));
                             habit_score.put(habitUid, item);
                             doesContainHabitUID = true;
@@ -88,7 +88,7 @@ public class KnowledgeBased {
 
                 if (!doesContainHabitUID) {
                     HashMap<Long, Result> hashMap = new HashMap<>();
-                    Result item = new Result(habitUid, confidence_value, 1);
+                    Result item = new Result(habitUid, value, 1);
                     hashMap.put(habitUid, item);
                     habitScore.add(hashMap);
                 }
@@ -98,7 +98,7 @@ public class KnowledgeBased {
         for (HashMap<Long, Result> map : habitScore) {
             for (Map.Entry<Long, Result> entry : map.entrySet()) {
                 Result result = entry.getValue();
-                result.setRecommendation_score(((double) Math.round((result.getRecommendation_score() / result.getTotal_count()) * 100)) / 100);
+                result.setScore(((double) Math.round((result.getScore() / result.getTotal_count()) * 100)) / 100);
                 map.put(entry.getKey(), result);
             }
         }
@@ -115,10 +115,6 @@ public class KnowledgeBased {
                 Log.d("tag", "Habit, " + entry.getKey() + "-> " + habit_title + " , Result: " + result.getFormattedConfidenceScore() + ", Total Item: " + result.getTotal_count());
             }
         }
-    }
-
-    public List<HashMap<Long, Result>> getHabitScore() {
-        return habitScore;
     }
 
     public List<Result> getConvertedToResultList() {

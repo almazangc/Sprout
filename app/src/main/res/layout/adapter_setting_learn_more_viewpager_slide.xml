@@ -34,10 +34,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/adapter_setting_learn_more_viewpager_slide_logo"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="16dp"
                 android:text="@string/sprout"
                 android:textAlignment="center"
-                android:layout_centerHorizontal="true"
                 android:textColor="@color/NIGHT"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -53,7 +53,7 @@
                 android:isScrollContainer="true"
                 android:justificationMode="inter_word"
                 android:textColor="@color/NIGHT"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textStyle="normal"
                 tools:text="@string/sampleText" />
 

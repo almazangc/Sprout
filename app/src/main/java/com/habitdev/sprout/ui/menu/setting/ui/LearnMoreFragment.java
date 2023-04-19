@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.setting.ui;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -10,10 +11,12 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.activity.startup.Main;
 import com.habitdev.sprout.databinding.FragmentLearnMoreBinding;
 import com.habitdev.sprout.ui.menu.setting.adapter.LearnMoreSlideAdapter;
 
@@ -41,7 +44,13 @@ public class LearnMoreFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentLearnMoreBinding.inflate(inflater, container, false);
+        setBackground();
+        setSlideAdapter();
+        onBackPress();
+        return binding.getRoot();
+    }
 
+    private void setSlideAdapter() {
         LearnMoreSlideAdapter learnMoreSlideAdapter = new LearnMoreSlideAdapter(requireActivity());
         binding.learnMoreViewPager.setAdapter(learnMoreSlideAdapter);
         setIndicatorDots(0);
@@ -89,22 +98,24 @@ public class LearnMoreFragment extends Fragment {
             }
         });
 
-        binding.settingLearnMoreNextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.learnMoreViewPager.setCurrentItem(currentSlideView + 1);
-            }
-        });
+        binding.settingLearnMoreNextBtn.setOnClickListener(view -> binding.learnMoreViewPager.setCurrentItem(currentSlideView + 1));
 
-        binding.settingLearnMoreBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.learnMoreViewPager.setCurrentItem(currentSlideView - 1);
-            }
-        });
+        binding.settingLearnMoreBackBtn.setOnClickListener(view -> binding.learnMoreViewPager.setCurrentItem(currentSlideView - 1));
+    }
 
-        onBackPress();
-        return binding.getRoot();
+    private void setBackground() {
+        final String SharedPreferences_KEY = "SP_DB";
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
+
+        final String SHARED_PREF_KEY = "THEME_SHARED.PREF";
+        int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
+        if (theme == 1) {
+            binding.learnMoreFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_light));
+        } else if (theme == 2) {
+            binding.learnMoreFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_night));
+        } else {
+            binding.learnMoreFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_light));
+        }
     }
 
     private void setIndicatorDots(int pos) {

@@ -315,10 +315,10 @@ public class Main extends AppCompatActivity {
                             final List<Habits>[] habitsList = new List[]{habitWithSubroutinesViewModel.getAllHabits()};
                             habitWithSubroutinesViewModel.getAllHabitListLiveData().observe(Main.this, habits -> habitsList[0] = habits);
 
-                            final List<HabitFireStore>[] habitFireStoreList = new List[]{habitWithSubroutinesViewModel.getAllHabits()};
+                            final List<HabitFireStore>[] habitFireStoreList = new List[]{habitViewModel.getData()};
                             habitViewModel.getLiveData().observe(Main.this, result -> habitFireStoreList[0] = result);
 
-                            final List<SubroutineFireStore>[] subroutineFireStoreList = new List[]{habitWithSubroutinesViewModel.getAllHabits()};
+                            final List<SubroutineFireStore>[] subroutineFireStoreList = new List[]{subroutineViewModel.getData()};
                             subroutineViewModel.getLiveData().observe(Main.this, result -> subroutineFireStoreList[0] = result);
 
                             if (habitFireStoreList[0] == null) {
@@ -329,48 +329,89 @@ public class Main extends AppCompatActivity {
                                 Log.d("tag", "onChanged: subroutineFireStoreList");
                             }
 
-                            if (!habitsList[0].isEmpty() && !habitFireStoreList[0].isEmpty()) {
-                                Log.d("tag", "onChanged: huh");
-                            }
+//                            //TODO: write code that checks if habitsList[0] is not null and subroutineFireStoreList[0] is not null, wait till it is not null anymore
+//                            //TODO: then perform this code inside
+//                            if (!habitsList[0].isEmpty() && !habitFireStoreList[0].isEmpty()) {
+//                                for (Habits habit : habitsList[0]) {
+//                                    for (HabitFireStore habitFireStore : habitFireStoreList[0]) {
+//                                        if (habit.getPk_habit_uid() == habitFireStore.getPk_uid()) {
+//                                            habit.setHabit(habitFireStore.getTitle());
+//                                            habit.setDescription(habitFireStore.getDescription());
+//                                            habit.setUpvote(habitFireStore.getUpvote());
+//                                            habit.setDownvote(habitFireStore.getDownvote());
+//                                            habitWithSubroutinesViewModel.updateHabit(habit);
+//                                        }
+//                                    }
+//
+//                                    List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+//
+//                                    if (!subroutinesList.isEmpty() && !subroutineFireStoreList[0].isEmpty()) {
+//                                        for (Subroutines subroutine: subroutinesList) {
+//                                            for (SubroutineFireStore subroutineFireStore: subroutineFireStoreList[0]) {
+//                                                if (subroutineFireStore.getFk_habit_uid() == subroutine.getFk_habit_uid() && subroutineFireStore.getPk_uid() == subroutine.getPk_subroutine_uid()) {
+//                                                    subroutine.setSubroutine(subroutineFireStore.getTitle());
+//                                                    subroutine.setDescription(subroutineFireStore.getDescription());
+//                                                    subroutine.setUpvote(subroutineFireStore.getUpvote());
+//                                                    subroutine.setDownvote(subroutineFireStore.getDownvote());
+//                                                    habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
 
-                            if (!habitsList[0].isEmpty() && !habitFireStoreList[0].isEmpty()) {
-                                for (Habits habit : habitsList[0]) {
-                                    for (HabitFireStore habitFireStore : habitFireStoreList[0]) {
-                                        if (habit.getPk_habit_uid() == habitFireStore.getPk_uid()) {
-                                            //TODO: Fix  java.lang.ClassCastException: com.habitdev.sprout.database.habit.model.room.Habits cannot be cast to com.habitdev.sprout.database.habit.model.firestore.HabitFireStore
-                                            habit.setHabit(habitFireStore.getTitle());
-                                            habit.setDescription(habitFireStore.getDescription());
-                                            habit.setUpvote(habitFireStore.getUpvote());
-                                            habit.setDownvote(habitFireStore.getDownvote());
-                                            habitWithSubroutinesViewModel.updateHabit(habit);
-                                        }
-                                    }
-
-                                    List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
-
-                                    if (!subroutinesList.isEmpty() && !subroutineFireStoreList[0].isEmpty()) {
-                                        for (Subroutines subroutine: subroutinesList) {
-                                            for (SubroutineFireStore subroutineFireStore: subroutineFireStoreList[0]) {
-                                                if (subroutineFireStore.getFk_habit_uid() == subroutine.getFk_habit_uid() && subroutineFireStore.getPk_uid() == subroutine.getPk_subroutine_uid()) {
-                                                    subroutine.setSubroutine(subroutineFireStore.getTitle());
-                                                    subroutine.setDescription(subroutineFireStore.getDescription());
-                                                    subroutine.setUpvote(subroutineFireStore.getUpvote());
-                                                    subroutine.setDownvote(subroutineFireStore.getDownvote());
-                                                    habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                            // Declare a Handler to wait for habitsList[0] and subroutineFireStoreList[0] to become non-null and non-empty
+                            Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (habitsList[0] != null && subroutineFireStoreList[0] != null) {
+                                        Log.d("tag", "run: not null anymore");
+                                        if (!habitsList[0].isEmpty() && !subroutineFireStoreList[0].isEmpty()) {
+                                            // Perform the code inside the if statement
+                                            for (Habits habit : habitsList[0]) {
+                                                for (HabitFireStore habitFireStore : habitFireStoreList[0]) {
+                                                    if (habit.getPk_habit_uid() == habitFireStore.getPk_uid()) {
+                                                        habit.setHabit(habitFireStore.getTitle());
+                                                        habit.setDescription(habitFireStore.getDescription());
+                                                        habit.setUpvote(habitFireStore.getUpvote());
+                                                        habit.setDownvote(habitFireStore.getDownvote());
+                                                        habitWithSubroutinesViewModel.updateHabit(habit);
+                                                    }
                                                 }
+
+                                                List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
+
+                                                if (!subroutinesList.isEmpty() && !subroutineFireStoreList[0].isEmpty()) {
+                                                    for (Subroutines subroutine: subroutinesList) {
+                                                        for (SubroutineFireStore subroutineFireStore: subroutineFireStoreList[0]) {
+                                                            if (subroutineFireStore.getFk_habit_uid() == subroutine.getFk_habit_uid() &&
+                                                                    subroutineFireStore.getPk_uid() == subroutine.getPk_subroutine_uid()) {
+                                                                subroutine.setSubroutine(subroutineFireStore.getTitle());
+                                                                subroutine.setDescription(subroutineFireStore.getDescription());
+                                                                subroutine.setUpvote(subroutineFireStore.getUpvote());
+                                                                subroutine.setDownvote(subroutineFireStore.getDownvote());
+                                                                habitWithSubroutinesViewModel.updateSubroutine(subroutine);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(Main.this);
+                                                quotesViewModel.getLiveData().removeObservers(Main.this);
+                                                habitViewModel.getLiveData().removeObservers(Main.this);
+                                                subroutineViewModel.getLiveData().removeObservers(Main.this);
                                             }
                                         }
+                                    } else {
+                                        // If habitsList[0] or subroutineFireStoreList[0] are still null or empty, wait for 1000 milliseconds and check again
+                                        Log.d("tag", "run: still null");
+                                        handler.postDelayed(this, 1000);
                                     }
-
                                 }
-                            }
+                            }, 1000);
 
                             updateSharedPref();
-
-                            habitWithSubroutinesViewModel.getAllHabitListLiveData().removeObservers(Main.this);
-                            quotesViewModel.getLiveData().removeObservers(Main.this);
-                            habitViewModel.getLiveData().removeObservers(Main.this);
-                            subroutineViewModel.getLiveData().removeObservers(Main.this);
                             networkStateManager.getNetworkConnectivityStatus().removeObserver(this);
                         } else {
                             NotificationChannel notificationChannel = new NotificationChannel(

@@ -126,7 +126,6 @@ public class AnalysisFragment extends Fragment {
         Habits habit = habitWithSubroutinesViewModel.getHabitByUID(result.getHabit_uid());
         setAnalysisMessage(result, habit);
         displayHabitInformation(habit);
-        Log.d("Tag", "setInitialRecommendationMessage: " + habit.getDescription());
     }
 
     @SuppressLint("SetTextI18n")
@@ -149,7 +148,7 @@ public class AnalysisFragment extends Fragment {
 
         String hexColorValue = String.format("#%06X", (0xFFFFFF & ContextCompat.getColor(requireContext(), R.color.CORAL_RED)));
         String finalMessage = String.format(habitAssessmentResult, result.getFormattedConfidenceScore(), hexColorValue, habit.getHabit().toUpperCase(Locale.ROOT)) +
-                (result.getRecommendation_score() >= 0.7 ? focusMessage : considerMessage);
+                (result.getScore() >= 0.7 ? focusMessage : considerMessage);
 
         Spanned formattedMessage = Html.fromHtml(finalMessage);
         binding.analysisResult.setText(formattedMessage);

@@ -11,6 +11,11 @@ import com.habitdev.sprout.database.habit.model.firestore.SubroutineFireStore;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The `PopularityBased` class is used to calculate the popularity rating of `Predefined Habit List` and their
+ * associated `Subroutines`. The popularity rating is calculated using the Wilson score lower bound
+ * with a margin of error of 5%.
+ */
 public class PopularityBased {
 
     private static List<HabitFireStore> habits;
@@ -44,6 +49,7 @@ public class PopularityBased {
     public void setHabitFireStoreViewModel(HabitFireStoreViewModel habitFireStoreViewModel) {
         PopularityBased.habitFireStoreViewModel = habitFireStoreViewModel;
     }
+
 
     public void calculateRating() {
         if (checkItems()) {
