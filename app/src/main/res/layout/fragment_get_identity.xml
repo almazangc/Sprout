@@ -19,12 +19,16 @@
 
     <TextView
         android:id="@+id/lbl_askIdentity"
-        style="@style/textViewHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@id/identity_selection"
+        android:layout_marginBottom="10dp"
         android:letterSpacing=".05"
         android:text="@string/lbl_how_do_you_identity"
         android:textAlignment="center"
-        android:textColor="@color/NIGHT" />
+        android:textColor="@color/NIGHT"
+        android:textSize="@dimen/sp24"
+        android:textStyle="bold" />
 
     <RadioGroup
         android:id="@+id/identity_selection"
@@ -40,7 +44,7 @@
             style="@style/radioButtonPortrait"
             android:checked="true"
             android:text="@string/male"
-            android:textSize="20sp" />
+            android:textSize="@dimen/sp20" />
 
         <RadioButton
             android:id="@+id/id_female"

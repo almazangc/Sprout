@@ -20,7 +20,7 @@
             android:gravity="center"
             android:text="Development Stack Info"
             android:textColor="@color/NIGHT"
-            android:textSize="20sp"
+            android:textSize="@dimen/sp20"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -54,7 +54,7 @@
                     android:text="IDE: "
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/sp14" />
 
                 <TextView
                     android:id="@+id/ide"
@@ -66,7 +66,7 @@
                     android:text="Android Studio Chipmunk 2021.2.1 Patch 1"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -82,7 +82,7 @@
                     android:text="Database: "
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/sp14" />
 
                 <TextView
                     android:id="@+id/database"
@@ -94,7 +94,7 @@
                     android:text="Firebase Firestore and Local Database"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -110,7 +110,7 @@
                     android:text="Version Control System: "
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/sp14" />
 
                 <TextView
                     android:id="@+id/vcs"
@@ -120,7 +120,7 @@
                     android:text="GitHub"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -137,7 +137,7 @@
                     android:text="Code Repository: "
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/sp14" />
 
                 <TextView
                     android:id="@+id/github_repository"
@@ -147,7 +147,7 @@
                     android:text="@string/domo_dom_sprout"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -163,7 +163,7 @@
                     android:text="Contact Us: "
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/sp14" />
 
                 <TextView
                     android:id="@+id/send_mail"
@@ -173,7 +173,7 @@
                     android:text="@string/email"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -189,7 +189,7 @@
                     android:text="Read: "
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/sp14" />
 
                 <TextView
                     android:id="@+id/read_eula"
@@ -199,7 +199,7 @@
                     android:text="@string/eula"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/sp12"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -215,7 +215,7 @@
                     android:text="Dependency Libraries"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13dp" />
+                    android:textSize="@dimen/sp14" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -230,7 +230,7 @@
                         android:text="Animated Bottom Bar by Droppers"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -240,7 +240,7 @@
                         android:justificationMode="inter_word"
                         android:text="A customizable and easy to use BottomBar navigation view with sleek animations, with support for ViewPager, ViewPager2, NavController, and badges."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -257,7 +257,7 @@
                         android:text="Lottie Animation"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -267,7 +267,7 @@
                         android:justificationMode="inter_word"
                         android:text="Renders Lottie animations natively on Android."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -284,7 +284,7 @@
                         android:text="Swipe Reveal Layout by FarhamHosseini"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -294,7 +294,7 @@
                         android:justificationMode="inter_word"
                         android:text="A layout that you can Swipe/Slide to show another layout. It 's easy, flexible and powerful swipe layout for Android."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -311,7 +311,7 @@
                         android:text="MPAndroidChart by PhilJay"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -321,7 +321,7 @@
                         android:justificationMode="inter_word"
                         android:text="A powerful and easy to use chart library for Android"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -338,7 +338,7 @@
                         android:text="GSON"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -348,7 +348,7 @@
                         android:justificationMode="inter_word"
                         android:text="Gson is a Java library that can be used to convert Java Objects into their JSON representation. "
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -365,7 +365,7 @@
                         android:text="Firebase"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -375,7 +375,7 @@
                         android:justificationMode="inter_word"
                         android:text="Firebase is a set of backend cloud computing services and application development platforms provided by Google. It hosts databases, services, authentication, and integration for a variety of applications, including Android, iOS, JavaScript, Node.js, Java, Unity, PHP, and C++."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -392,7 +392,7 @@
                         android:text="Room persistence"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -402,7 +402,7 @@
                         android:justificationMode="inter_word"
                         android:text="The Room persistence library provides an abstraction layer over SQLite to allow fluent database access while harnessing the full power of SQLite."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
             </LinearLayout>
@@ -419,7 +419,7 @@
                     android:text="Asset Sources"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13dp" />
+                    android:textSize="@dimen/sp14" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -434,7 +434,7 @@
                         android:text="Lottie Animatation"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -444,7 +444,7 @@
                         android:justificationMode="inter_word"
                         android:text="An extensive, curated library of free assets awaits you. All free Lottie animations are under Creative Commons License"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -461,7 +461,7 @@
                         android:text="unDraw"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -471,7 +471,7 @@
                         android:justificationMode="inter_word"
                         android:text="Browse to find the images that fit your needs and click to download. Use the on-the-fly color image generation to match your brand identity."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -488,7 +488,7 @@
                         android:text="People"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -498,7 +498,7 @@
                         android:justificationMode="inter_word"
                         android:text="A diverse bunch of characters from all walks of life! From hair, to style, to stance and more, customize all characteristics with these free illustrations."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -515,7 +515,7 @@
                         android:text="IconScout"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -525,7 +525,7 @@
                         android:justificationMode="inter_word"
                         android:text="A collection of icons, illustrations, and photos is available for designers and developers to create engaging visuals."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -542,7 +542,7 @@
                         android:text="Haikei"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -552,7 +552,7 @@
                         android:justificationMode="inter_word"
                         android:text="Haikei is a web app to generate stunning visual content – ready to use with your design tools and workflow."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -569,7 +569,7 @@
                         android:text="Svg Wave"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="bold" />
 
                     <TextView
@@ -579,7 +579,7 @@
                         android:justificationMode="inter_word"
                         android:text="A minimal svg wave generator with lot of customization. It lets you abiltiy to generate and export pngs and svgs of beautiful waves."
                         android:textColor="@color/NIGHT"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/sp12"
                         android:textStyle="italic" />
                 </LinearLayout>
             </LinearLayout>

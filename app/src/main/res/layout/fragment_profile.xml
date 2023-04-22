@@ -26,7 +26,7 @@
                 android:gravity="center"
                 android:text="Profile"
                 android:textColor="@color/NIGHT"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -89,7 +89,7 @@
                     android:text="  Change Photo"
                     android:textAllCaps="false"
                     android:textColor="@color/NIGHT"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     android:textStyle="normal" />
 
                 <EditText
@@ -104,7 +104,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
                     android:textColorHint="@color/WAIKAWA_GREY"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/sp16" />
 
                 <TextView
                     android:id="@+id/setting_profile_change_nickname_hint"
@@ -113,7 +113,7 @@
                     android:layout_below="@id/setting_profile_change_nickname"
                     android:textAlignment="center"
                     android:textColor="@color/CORAL_RED"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     tools:text="" />
 
                 <TextView
@@ -127,7 +127,7 @@
                     android:layout_marginEnd="15dp"
                     android:text="\u2022 Identity"
                     android:textColor="@color/NIGHT"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     android:textStyle="bold" />
 
                 <TextView
@@ -139,7 +139,7 @@
                     android:layout_marginEnd="15dp"
                     android:layout_toEndOf="@id/setting_profile_identity"
                     android:textColor="@color/NIGHT"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     tools:text="Male" />
 
                 <TextView
@@ -153,7 +153,7 @@
                     android:layout_marginEnd="15dp"
                     android:text="\u2022 Elapsed time since installed"
                     android:textColor="@color/NIGHT"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     android:textStyle="bold" />
 
                 <TextView
@@ -164,7 +164,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="15dp"
                     android:textColor="@color/NIGHT"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     tools:text="1 year 2 Day 11 Hours 5 Minutes 43 Seconds" />
 
                 <androidx.appcompat.widget.SwitchCompat
@@ -178,7 +178,7 @@
                     android:layout_marginTop="5dp"
                     android:text="\u2022 Daily Notification"
                     android:textColor="@color/NIGHT"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -199,7 +199,7 @@
                         android:layout_marginEnd="15dp"
                         android:text="\u2022 Assesssment Tool"
                         android:textColor="@color/NIGHT"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/sp16"
                         android:textStyle="bold" />
 
                     <Button
@@ -216,7 +216,7 @@
                         android:padding="10dp"
                         android:text="Retake Assessment"
                         android:textAllCaps="false"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/sp16" />
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
@@ -234,7 +234,7 @@
             android:text="Save Profile"
             android:textAllCaps="false"
             android:textColor="@color/NIGHT"
-            android:textSize="16sp"
+            android:textSize="@dimen/sp16"
             android:textStyle="normal" />
 
     </RelativeLayout>

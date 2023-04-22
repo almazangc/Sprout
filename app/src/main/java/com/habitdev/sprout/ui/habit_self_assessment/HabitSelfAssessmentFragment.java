@@ -1,23 +1,20 @@
-package com.habitdev.sprout.ui.habit_assessment;
+package com.habitdev.sprout.ui.habit_self_assessment;
 
 import android.app.AlertDialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,7 +33,7 @@ import com.habitdev.sprout.enums.OnBoardingConfigurationKeys;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonalizationFragment extends Fragment {
+public class HabitSelfAssessmentFragment extends Fragment {
 
     private FragmentPersonalizationBinding binding;
     private AssessmentViewModel assessmentViewModel;
@@ -48,7 +45,7 @@ public class PersonalizationFragment extends Fragment {
     private static Bundle savedInstanceState;
     private static AnalysisFragment analysisFragment;
 
-    public PersonalizationFragment() {
+    public HabitSelfAssessmentFragment() {
         position = 0;
         questionsList = new ArrayList<>();
         choicesList = new ArrayList<>();
@@ -56,12 +53,12 @@ public class PersonalizationFragment extends Fragment {
         isOnRekateAssessment = false;
     }
 
-    public PersonalizationFragment(boolean isOnRekateAssessment) {
+    public HabitSelfAssessmentFragment(boolean isOnRekateAssessment) {
         position = 0;
         questionsList = new ArrayList<>();
         choicesList = new ArrayList<>();
         answersList = new ArrayList<>();
-        PersonalizationFragment.isOnRekateAssessment = isOnRekateAssessment;
+        HabitSelfAssessmentFragment.isOnRekateAssessment = isOnRekateAssessment;
     }
 
     @Override
@@ -69,7 +66,7 @@ public class PersonalizationFragment extends Fragment {
         binding = FragmentPersonalizationBinding.inflate(inflater, container, false);
 
         if (savedInstanceState != null)
-            PersonalizationFragment.savedInstanceState = savedInstanceState;
+            HabitSelfAssessmentFragment.savedInstanceState = savedInstanceState;
 
         assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
 
@@ -161,7 +158,7 @@ public class PersonalizationFragment extends Fragment {
                         RadioGroup.LayoutParams.MATCH_PARENT,
                         RadioGroup.LayoutParams.WRAP_CONTENT
                 );
-                params.setMargins(0, 15, 0, 15);
+                params.setMargins(0, 10, 0, 10);
                 radioButton.setLayoutParams(params);
                 binding.choicesRadioGroup.addView(radioButton);
             }
@@ -180,7 +177,7 @@ public class PersonalizationFragment extends Fragment {
                             analysisFragment = new AnalysisFragment(true);
                             getChildFragmentManager()
                                     .beginTransaction()
-                                    .addToBackStack(PersonalizationFragment.this.getTag())
+                                    .addToBackStack(HabitSelfAssessmentFragment.this.getTag())
                                     .add(binding.personalizationRelativeLayout.getId(), analysisFragment)
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                     .commit();

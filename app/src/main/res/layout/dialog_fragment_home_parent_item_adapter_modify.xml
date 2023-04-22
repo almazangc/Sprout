@@ -35,7 +35,7 @@
                     android:maxLines="1"
                     android:padding="10dp"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
 
             </androidx.cardview.widget.CardView>
@@ -48,7 +48,7 @@
             android:layout_marginStart="15dp"
             android:text="Required*"
             android:textColor="@color/CORAL_RED"
-            android:textSize="13sp" />
+            android:textSize="@dimen/sp14" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/home_parent_item_adapter_modify_description_card_view"
@@ -72,7 +72,7 @@
                 android:maxLines="4"
                 android:padding="10dp"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp" />
+                android:textSize="@dimen/sp14" />
         </androidx.cardview.widget.CardView>
 
         <Button
@@ -98,7 +98,7 @@
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textColor="@color/NIGHT"
-            android:textSize="13sp" />
+            android:textSize="@dimen/sp14" />
 
         <Button
             android:id="@+id/home_parent_item_adapter_modify_update"
@@ -123,6 +123,6 @@
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textColor="@color/NIGHT"
-            android:textSize="13sp" />
+            android:textSize="@dimen/sp14" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

@@ -26,7 +26,7 @@
                 android:gravity="center"
                 android:text="Setting"
                 android:textColor="@color/NIGHT"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -83,7 +83,7 @@
                     android:paddingTop="10dp"
                     android:text="Nickname"
                     android:textColor="@color/NIGHT"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/sp16"
                     tools:text="@tools:sample/full_names" />
 
                 <RelativeLayout
@@ -140,7 +140,7 @@
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textColor="@color/NIGHT"
-                                    android:textSize="13sp" />
+                                    android:textSize="@dimen/sp14" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -177,7 +177,7 @@
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textColor="@color/NIGHT"
-                                    android:textSize="13sp" />
+                                    android:textSize="@dimen/sp14" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -215,7 +215,7 @@
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textColor="@color/NIGHT"
-                                    android:textSize="13sp" />
+                                    android:textSize="@dimen/sp14" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -252,7 +252,7 @@
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textColor="@color/NIGHT"
-                                    android:textSize="13sp" />
+                                    android:textSize="@dimen/sp14" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -290,7 +290,7 @@
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textColor="@color/NIGHT"
-                                    android:textSize="13sp" />
+                                    android:textSize="@dimen/sp14" />
                             </LinearLayout>
                         </RelativeLayout>
 
@@ -327,7 +327,7 @@
                                     android:textAlignment="center"
                                     android:textAllCaps="true"
                                     android:textColor="@color/NIGHT"
-                                    android:textSize="13sp" />
+                                    android:textSize="@dimen/sp14" />
                             </LinearLayout>
                         </RelativeLayout>
                     </GridLayout>

@@ -1,50 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="btn_continue_portrait" parent="TextAppearance.AppCompat.Button">
-        <item name="android:textColor">@color/CLOUDS</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:background">@drawable/background_rounded_waikawa_grey_btn</item>
-        <item name="android:text">@string/continue_lbl</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="btn_continue_landscape" parent="TextAppearance.AppCompat.Button">
-        <item name="android:textColor">@color/CLOUDS</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:background">@drawable/background_rounded_waikawa_grey_btn</item>
-        <item name="android:layout_marginEnd">100dp</item>
-        <item name="android:layout_marginStart">100dp</item>
-        <item name="android:text">@string/continue_lbl</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="style_progressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:layout_marginBottom">20dp</item>
-        <item name="android:clickable">false</item>
-    </style>
-
-    <style name="textViewHeader" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:textSize">30sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="textViewSubHeader" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">normal</item>
-    </style>
 
     <style name="radioButtonPortrait" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:layout_width">match_parent</item>

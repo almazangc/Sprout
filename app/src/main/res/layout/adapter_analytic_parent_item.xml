@@ -26,7 +26,7 @@
             android:layout_alignParentTop="true"
             android:clickable="false"
             android:textColor="@color/NIGHT"
-            android:textSize="15sp"
+            android:textSize="@dimen/sp16"
             android:textStyle="bold"
             tools:text="Habit Title" />
 
@@ -41,7 +41,7 @@
             android:minHeight="0dp"
             android:padding="3dp"
             android:textColor="@color/NIGHT"
-            android:textSize="15sp"
+            android:textSize="@dimen/sp16"
             tools:text="\t\tProcrastination is the action of unnecessarily and voluntarily delaying or postponing something despite knowing that there will be negative consequences for doing so." />
 
         <com.github.mikephil.charting.charts.PieChart
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="\u2022 Total Subroutine: "
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp16"
                 android:textStyle="bold" />
 
             <TextView
@@ -77,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp16"
                 android:textStyle="normal"
                 tools:text="2" />
         </LinearLayout>
@@ -97,7 +97,7 @@
                 android:layout_marginEnd="5dp"
                 android:text="\u2022 Date Started"
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp16"
                 android:textStyle="bold" />
 
             <TextView
@@ -110,7 +110,7 @@
                 android:padding="3dp"
                 android:paddingStart="10dp"
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp16"
                 tools:ignore="RtlSymmetry"
                 tools:text="Saturday, November 5, 2022: 12:25" />
 
@@ -143,7 +143,7 @@
                 android:layout_marginEnd="5dp"
                 android:text="\u2022 Elapsed Abstinence"
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp16"
                 android:textStyle="bold"
                 tools:ignore="HardcodedText" />
 
@@ -155,7 +155,7 @@
                 android:padding="3dp"
                 android:paddingStart="10dp"
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp16"
                 tools:ignore="RtlSymmetry"
                 tools:text="2 Day 11 Hours 5 Minutes 43 Seconds"/>
         </LinearLayout>
@@ -175,7 +175,7 @@
                 android:layout_marginEnd="5dp"
                 android:text="\u2022 Relapse:"
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp16"
                 android:textStyle="bold" />
 
             <TextView
@@ -186,7 +186,7 @@
                 android:minWidth="0dp"
                 android:padding="3dp"
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp"
+                android:textSize="@dimen/sp16"
                 tools:text="0" />
         </LinearLayout>
     </RelativeLayout>

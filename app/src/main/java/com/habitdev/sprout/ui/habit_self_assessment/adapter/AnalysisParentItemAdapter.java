@@ -1,4 +1,4 @@
-package com.habitdev.sprout.ui.habit_assessment.adapter;
+package com.habitdev.sprout.ui.habit_self_assessment.adapter;
 
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;

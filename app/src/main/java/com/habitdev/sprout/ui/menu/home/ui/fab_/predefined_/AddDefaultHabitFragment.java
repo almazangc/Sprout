@@ -10,7 +10,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -25,9 +24,9 @@ import com.google.gson.Gson;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.firestore.HabitFireStoreViewModel;
 import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
-import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.databinding.FragmentAddDefaultHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
@@ -40,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AddDefaultHabitFragment extends Fragment {
 
@@ -148,7 +148,6 @@ public class AddDefaultHabitFragment extends Fragment {
         upDateHabitList();
         addHabitOnReform();
         onBackPress();
-
         return binding.getRoot();
     }
 
@@ -221,6 +220,8 @@ public class AddDefaultHabitFragment extends Fragment {
             });
 
             homeParentItemDropDownAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+
+            binding.addFromDefaultHabitItems.setDropDownBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_transparent));
             binding.addFromDefaultHabitItems.setAdapter(homeParentItemDropDownAdapter);
 
             binding.addFromDefaultHabitItems.setOnItemClickListener((adapterView, view, pos, id) -> {

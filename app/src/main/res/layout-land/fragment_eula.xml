@@ -13,7 +13,7 @@
         android:text="@string/sprout"
         android:textAlignment="center"
         android:textColor="@color/NIGHT"
-        android:textSize="34sp"
+        android:textSize="@dimen/sp24"
         android:textStyle="bold" />
 
     <TextView
@@ -26,7 +26,7 @@
         android:text="MOBILE APPLICATION END-USER LICENSE AGREEMENT (EULA)"
         android:textAlignment="center"
         android:textColor="@color/NIGHT"
-        android:textSize="13sp" />
+        android:textSize="@dimen/sp14" />
 
     <ScrollView
         android:id="@+id/scrollView_lblEulaContainer"
@@ -63,7 +63,7 @@
                 android:letterSpacing="-.02"
                 android:text="\n\t\tPLEASE READ THIS MOBILE APPLICATION END-USER LICENSE AGREEMENT (EULA AGREEMENT) CAREFULLY, BEFORE COMPLETING THE DOWNLOAD OR INSTALLATION PROCESS OR USING THE APPLICATION, AS IT CONTAINS IMPORTANT INFORMATION REGARDING YOUR LEGAL RIGHTS AND REMEDIES."
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Last Revised: 2023-01-20"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="italic" />
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_marginTop="5dp"
                 android:text="1. OVERVIEW"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -92,7 +92,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/overview_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
 
                 android:textStyle="normal" />
 
@@ -103,7 +103,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/overview_02"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -113,7 +113,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/overview_03"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -123,7 +123,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/overview_04"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -132,7 +132,7 @@
                 android:layout_marginTop="5dp"
                 android:text="2. ELIGIBILITY"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -142,7 +142,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/eligibility_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -151,7 +151,7 @@
                 android:layout_marginTop="5dp"
                 android:text="3. LICENSE GRANT"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -161,7 +161,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/license_grant_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -171,7 +171,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/license_grant_02"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -180,7 +180,7 @@
                 android:layout_marginTop="5dp"
                 android:text="4. RESTRICTIONS"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -190,7 +190,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -200,7 +200,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_02"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -210,7 +210,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_03"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -220,7 +220,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_04"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -230,7 +230,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_05"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -240,7 +240,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_06"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -250,7 +250,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_07"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -260,7 +260,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_08"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -270,7 +270,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_09"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -280,7 +280,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_10"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -290,7 +290,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_11"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -300,7 +300,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/restriction_12"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -309,7 +309,7 @@
                 android:layout_marginTop="5dp"
                 android:text="5. INTELLECTUAL PROPERTY"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -319,7 +319,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/intellectual_property_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -329,7 +329,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/intellectual_property_02"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -339,7 +339,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/intellectual_property_03"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -348,7 +348,7 @@
                 android:layout_marginTop="5dp"
                 android:text="6. UPDATES"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -358,7 +358,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/updates_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -368,7 +368,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/updates_02"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -378,7 +378,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/updates_03"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -387,7 +387,7 @@
                 android:layout_marginTop="5dp"
                 android:text="7. USER SUBMISSIONS"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -397,7 +397,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/user_submission_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -407,7 +407,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/user_submission_02"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -417,7 +417,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/user_submission_03"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -427,7 +427,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/user_submission_04"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -437,7 +437,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/user_submission_05"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -446,7 +446,7 @@
                 android:layout_marginTop="5dp"
                 android:text="8. AVAILABILITY OF APPLICATION"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -456,7 +456,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/availability_of_the_application_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -466,7 +466,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/availability_of_the_application_02"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -475,7 +475,7 @@
                 android:layout_marginTop="5dp"
                 android:text="9: COMPLIANCE WITH LOCAL LAWS"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -485,7 +485,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/compliance_with_local_law_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -494,7 +494,7 @@
                 android:layout_marginTop="5dp"
                 android:text="10. GOVERNING LAW"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -504,7 +504,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/governing_law_01"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -513,7 +513,7 @@
                 android:layout_marginTop="5dp"
                 android:text="11. CONTACT INFORMATION"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="bold" />
 
             <TextView
@@ -523,7 +523,7 @@
                 android:letterSpacing="-.02"
                 android:text="\t\tIf you have any questions about this EULA agreement, please contact us by email or regular mail at the following address:"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
 
             <TextView
@@ -535,7 +535,7 @@
                 android:letterSpacing="-.02"
                 android:text="@string/email"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal" />
         </LinearLayout>
     </ScrollView>

@@ -20,7 +20,7 @@
             android:gravity="center"
             android:text="Habit Title"
             android:textColor="@color/NIGHT"
-            android:textSize="20sp"
+            android:textSize="@dimen/sp20"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -35,12 +35,10 @@
             android:id="@+id/analytic_item_on_click_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="2dp"
-            android:paddingBottom="5dp"
             android:fastScrollEnabled="true"
             android:overScrollMode="always"
+            android:paddingStart="10dp"
+            android:paddingEnd="2dp"
             android:scrollbarThumbVertical="@drawable/scrollbar_vertical"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

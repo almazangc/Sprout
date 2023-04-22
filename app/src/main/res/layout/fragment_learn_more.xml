@@ -20,7 +20,7 @@
             android:gravity="center"
             android:text="Learn More About Sprout"
             android:textColor="@color/NIGHT"
-            android:textSize="20sp"
+            android:textSize="@dimen/sp20"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -61,7 +61,7 @@
             android:paddingStart="-5dp"
             android:text="Back"
             android:textColor="@color/NIGHT"
-            android:textSize="13sp"
+            android:textSize="@dimen/sp14"
             android:visibility="invisible" />
 
         <Button
@@ -79,6 +79,6 @@
             android:paddingStart="-5dp"
             android:text="Next"
             android:textColor="@color/NIGHT"
-            android:textSize="13sp"/>
+            android:textSize="@dimen/sp14"/>
     </RelativeLayout>
 </RelativeLayout>

@@ -29,7 +29,7 @@
             android:layout_alignParentEnd="true"
             android:text="Lorem Dolor"
             android:textColor="@color/NIGHT"
-            android:textSize="13sp"
+            android:textSize="@dimen/sp14"
             android:textStyle="bold" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_alignParentBottom="true"
             android:justificationMode="inter_word"
             android:textColor="@color/NIGHT"
-            android:textSize="12sp"
+            android:textSize="@dimen/sp12"
             tools:text="\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta pharetra magna, eu laoreet urna condimentum a. Vivamus dapibus ante eget nunc ultrices bibendum. Duis consectetur fermentum nibh nec porta. Ut in fringilla leo. Aenean quis tortor vel tortor finibus cursus vel vel tellus. Nullam tellus enim, viverra et imperdiet sed, egestas id ante. Fusce rhoncus odio molestie elit ornare vulputate." />
     </RelativeLayout>
 

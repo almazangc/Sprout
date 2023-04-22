@@ -25,9 +25,8 @@
                 android:gravity="center"
                 android:text="Habit's on Reform"
                 android:textColor="@color/NIGHT"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
+                android:textSize="@dimen/sp20"
+                android:textStyle="bold"/>
         </RelativeLayout>
 
         <com.airbnb.lottie.LottieAnimationView

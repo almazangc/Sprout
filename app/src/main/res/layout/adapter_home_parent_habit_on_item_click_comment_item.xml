@@ -20,7 +20,7 @@
         android:paddingBottom="2dp"
         android:text="This is a sample comment in the habit, future feature."
         android:textColor="@color/NIGHT"
-        android:textSize="13sp"
+        android:textSize="@dimen/sp14"
         tools:showIn="@layout/fragment_home_item_on_click" />
 
     <Button

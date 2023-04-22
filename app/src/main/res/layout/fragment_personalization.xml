@@ -8,7 +8,7 @@
 
     android:weightSum="10"
     android:id="@+id/personalization_relative_layout"
-    tools:context=".ui.habit_assessment.PersonalizationFragment">
+    tools:context=".ui.habit_self_assessment.HabitSelfAssessmentFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,9 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/assessment_progressBar"
             android:layout_centerHorizontal="true"
-            android:text="@string/personalization"
+            android:text="Habit Self Assessment"
             android:textColor="@color/NIGHT"
-            android:textSize="34sp"
+            android:textSize="@dimen/sp34"
             android:textStyle="bold" />
 
         <TextView
@@ -47,10 +47,10 @@
             android:layout_below="@id/lbl_titleMainHeader"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="3dp"
-            android:text="Please take your time to answers the assessment questionnaire."
+            android:text="Please take time answering the questionnaire, which can help you identify any negative habits you may have."
             android:textAlignment="viewStart"
             android:textColor="@color/NIGHT"
-            android:textSize="16sp" />
+            android:textSize="@dimen/sp16" />
 
         <TextView
             android:id="@+id/lbl_question"
@@ -60,7 +60,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="5sp"
             android:textColor="@color/NIGHT"
-            android:textSize="22sp"
+            android:textSize="@dimen/sp20"
             android:textStyle="bold"
             tools:text="Question: How would you like your text be seen" />
 
@@ -92,31 +92,31 @@
                     <RadioButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/selector_background_radio_button"
                         android:padding="10dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/sp16"
                         tools:text="Sample Choices" />
 
                     <RadioButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/selector_background_radio_button"
                         android:padding="10dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/sp16"
                         tools:text="Sample Choices" />
 
                     <RadioButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/selector_background_radio_button"
                         android:padding="10dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/sp16"
                         tools:text="Sample Choices" />
 
                 </RadioGroup>

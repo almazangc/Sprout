@@ -215,7 +215,7 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
                 android:textColor="@color/PETER_RIVER"
-                android:textSize="16sp"
+                android:textSize="@dimen/sp16"
                 android:textStyle="bold"
                 tools:text="63%" />
 
@@ -232,7 +232,7 @@
                 android:paddingStart="5dp"
                 android:text="HABIT TITLE"
                 android:textColor="@color/NIGHT"
-                android:textSize="16sp"
+                android:textSize="@dimen/sp16"
                 android:textStyle="bold" />
 
             <View
@@ -280,7 +280,7 @@
                     android:text="\u2022 Description"
                     android:textAlignment="viewStart"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
 
                 <TextView
@@ -295,7 +295,7 @@
                     android:justificationMode="inter_word"
                     android:text="\t\t\tSubroutine Description: Procrastination is the bad habit of putting off until the day after tomorrow what should have been done the day before yesterday."
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/sp14" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -311,7 +311,7 @@
                         android:layout_marginBottom="5dp"
                         android:text="\u2022 Status:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -326,7 +326,7 @@
                         android:maxLines="1"
                         android:text=""
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         tools:text="Status Type Placeholder" />
                 </LinearLayout>
 
@@ -340,7 +340,7 @@
                     android:text="\u2022 Date Started"
                     android:textAlignment="viewStart"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
 
                 <TextView
@@ -355,7 +355,7 @@
                     android:maxLines="1"
                     android:text=""
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     tools:text="Date started placeholder" />
 
                 <TextView
@@ -367,7 +367,7 @@
                     android:layout_marginBottom="5dp"
                     android:text="\u2022 Elapsed Abstinence"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
 
                 <TextView
@@ -380,7 +380,7 @@
                     android:layout_marginBottom="5dp"
                     android:text=""
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     tools:text="Elapsed abstinence placeholder" />
 
                 <LinearLayout
@@ -397,7 +397,7 @@
                         android:layout_marginBottom="5dp"
                         android:text="\u2022 Completed Subroutines:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -409,7 +409,7 @@
                         android:layout_marginBottom="5dp"
                         android:text=""
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         tools:text="completed subroutine placeholder" />
                 </LinearLayout>
 
@@ -428,7 +428,7 @@
                         android:text="\u2022 Relapse:"
                         android:textAlignment="viewStart"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -441,7 +441,7 @@
                         android:layout_marginBottom="5dp"
                         android:text=""
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         tools:text="Relapse counter placeholder" />
 
                 </LinearLayout>
@@ -478,10 +478,10 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
-                        android:text="Note"
+                        android:text="Comments"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/sp16" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -528,7 +528,7 @@
                             android:minHeight="30dp"
                             android:textColor="@color/NIGHT"
                             android:textColorHint="@color/NIGHT"
-                            android:textSize="13sp" />
+                            android:textSize="@dimen/sp14" />
 
                         <Button
                             android:id="@+id/add_comment_btn"

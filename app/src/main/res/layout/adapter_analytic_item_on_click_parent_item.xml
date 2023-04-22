@@ -26,7 +26,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:textColor="@color/NIGHT"
-            android:textSize="15sp"
+            android:textSize="@dimen/sp16"
             android:textStyle="bold"
             tools:text="Subroutine Title" />
 
@@ -40,7 +40,7 @@
             android:layout_marginTop="5dp"
             android:justificationMode="inter_word"
             android:textColor="@color/NIGHT"
-            android:textSize="15sp"
+            android:textSize="@dimen/sp16"
             tools:text="\t\tLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam porta pharetra magna, eu laoreet urna condimentum a. Vivamus dapibus ante eget nunc ultrices bibendum. Duis consectetur fermentum nibh nec porta. Ut in fringilla leo. Aenean quis tortor vel tortor finibus cursus vel vel tellus. Nullam tellus enim, viverra et imperdiet sed, egestas id ante. Fusce rhoncus odio molestie elit ornare vulputate." />
 
         <!--Pie chart-->
@@ -76,7 +76,7 @@
                 android:layout_marginEnd="5dp"
                 android:textColor="@color/NIGHT"
                 android:textStyle="bold"
-                android:textSize="15sp" />
+                android:textSize="@dimen/sp16" />
 
             <TextView
                 android:id="@+id/adapter_analytic_item_on_click_subroutine_max_streak"
@@ -85,7 +85,7 @@
                 android:justificationMode="inter_word"
                 tools:text="N Days"
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp" />
+                android:textSize="@dimen/sp16" />
         </LinearLayout>
 
         <!--longest streak-->
@@ -107,7 +107,7 @@
                 android:layout_marginEnd="5dp"
                 android:textColor="@color/NIGHT"
                 android:textStyle="bold"
-                android:textSize="15sp" />
+                android:textSize="@dimen/sp16" />
 
             <TextView
                 android:id="@+id/adapter_analytic_item_on_click_subroutine_longest_streak"
@@ -116,7 +116,7 @@
                 android:justificationMode="inter_word"
                 tools:text="N Days"
                 android:textColor="@color/NIGHT"
-                android:textSize="15sp" />
+                android:textSize="@dimen/sp16" />
         </LinearLayout>
 
 

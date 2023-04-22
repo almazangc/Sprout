@@ -9,19 +9,25 @@
     tools:context=".ui.onBoarding.GetNicknameFragment">
 
     <TextView
-        style="@style/textViewHeader"
         android:layout_above="@id/lbl_2"
         android:layout_marginBottom="0dp"
         android:text="@string/my_firstname_is"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp24"
         android:textColor="@color/NIGHT" />
 
     <TextView
         android:id="@+id/lbl_2"
-        style="@style/textViewSubHeader"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginBottom="10dp"
         android:text="@string/what_should_we_call_you"
-        android:textColor="@color/NIGHT" />
+        android:textColor="@color/NIGHT"
+        android:textSize="@dimen/sp20"
+        android:textStyle="normal" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_nickname_container"
@@ -61,7 +67,7 @@
             android:paddingBottom="8dp"
             android:textColor="@color/NIGHT"
             android:textColorHint="@color/NIGHT"
-            android:textSize="18sp" />
+            android:textSize="@dimen/sp16" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

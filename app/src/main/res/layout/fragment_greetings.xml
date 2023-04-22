@@ -20,17 +20,24 @@
 
     <TextView
         android:id="@+id/textView1"
-        style="@style/textViewHeader"
         android:layout_above="@id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/sp34"
         android:text="@string/break_your_bad_habits_in_no_of_days"
         android:textColor="@color/NIGHT" />
 
+
     <TextView
         android:id="@+id/textView2"
-        style="@style/textViewSubHeader"
         android:layout_above="@id/btn_continue"
         android:layout_marginBottom="30dp"
         android:text="@string/greeting_msg"
+        android:textStyle="normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp20"
         android:textColor="@color/A80_NIGHT" />
 
     <Button

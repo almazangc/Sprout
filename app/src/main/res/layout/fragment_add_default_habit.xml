@@ -220,7 +220,7 @@
                         android:enabled="false"
                         android:inputType="none"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/sp14" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -250,7 +250,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="Description"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
 
                 <TextView
@@ -265,7 +265,7 @@
                     android:maxLines="20"
                     android:padding="10dp"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     tools:text="@string/sampleText" />
 
                 <TextView
@@ -278,7 +278,7 @@
                     android:layout_marginBottom="10dp"
                     android:text="Subroutines"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
 
                 <TextView
@@ -291,7 +291,7 @@
                     android:layout_marginBottom="10dp"
                     tools:text="0"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView

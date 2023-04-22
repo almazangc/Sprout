@@ -85,7 +85,7 @@
                     android:layout_marginEnd="8dp"
                     android:maxLines="3"
                     android:textColor="@color/NIGHT"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sp16"
                     android:textStyle="bold"
                     tools:text="Procrastinating" />
 
@@ -102,7 +102,7 @@
                     android:minHeight="0dp"
                     android:padding="3dp"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     tools:text="\t\tProcrastination is the action of unnecessarily and voluntarily delaying or postponing something despite knowing that there will be negative consequences for doing so." />
 
                 <RelativeLayout
@@ -123,7 +123,7 @@
                         android:layout_marginEnd="5dp"
                         android:text="Date Started:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -136,7 +136,7 @@
                         android:minWidth="0dp"
                         android:paddingStart="10dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         tools:text="Saturday, November 5, 2022: 12:25" />
 
 
@@ -148,7 +148,7 @@
                         android:layout_marginEnd="5dp"
                         android:text="Elapsed Abstinence:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -159,7 +159,7 @@
                         android:minWidth="0dp"
                         android:paddingStart="10dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         tools:text="21 Days 05 Hours 4 Seconds" />
 
                     <TextView
@@ -171,7 +171,7 @@
                         android:layout_marginEnd="5dp"
                         android:text="Completed Subroutine:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -182,7 +182,7 @@
                         android:layout_toEndOf="@+id/completed_subroutine_lbl"
                         android:minWidth="0dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         tools:text="7" />
 
                     <TextView
@@ -193,7 +193,7 @@
                         android:layout_marginEnd="5dp"
                         android:text="Relapse:"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -204,7 +204,7 @@
                         android:layout_toEndOf="@id/total_relapse_lbl"
                         android:minWidth="0dp"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/sp14"
                         tools:text="0" />
                 </RelativeLayout>
 
@@ -229,7 +229,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:text="MODIFY"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/sp12" />
 
                     <Button
                         android:id="@+id/adapter_home_parent_item_relapse_btn"
@@ -245,7 +245,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:text="RELAPSE"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/sp12" />
 
                     <Button
                         android:id="@+id/adapter_home_parent_item_drop_btn"
@@ -261,7 +261,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:text="DROP"
-                        android:textSize="12sp" />
+                        android:textSize="@dimen/sp12" />
 
                 </RelativeLayout>
             </RelativeLayout>

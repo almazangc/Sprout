@@ -1,4 +1,4 @@
-package com.habitdev.sprout.ui.habit_assessment;
+package com.habitdev.sprout.ui.habit_self_assessment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +31,9 @@ import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentAnalysisBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
-import com.habitdev.sprout.ui.habit_assessment.adapter.AnalysisParentItemAdapter;
-import com.habitdev.sprout.ui.habit_assessment.adapter.AnalysisParentItemDropDownAdapter;
-import com.habitdev.sprout.ui.habit_assessment.adapter.Model.Result;
+import com.habitdev.sprout.ui.habit_self_assessment.adapter.AnalysisParentItemAdapter;
+import com.habitdev.sprout.ui.habit_self_assessment.adapter.AnalysisParentItemDropDownAdapter;
+import com.habitdev.sprout.ui.habit_self_assessment.adapter.Model.Result;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
 import com.habitdev.sprout.utill.recommender.KnowledgeBased;
@@ -116,6 +115,7 @@ public class AnalysisFragment extends Fragment {
     private void setDropDownItems() {
         AnalysisParentItemDropDownAdapter analysisParentItemDropDownAdapter = new AnalysisParentItemDropDownAdapter(requireContext(), new ArrayList<>(habitScoreResult));
         analysisParentItemDropDownAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
+        binding.analysisDropItem.setDropDownBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_transparent));
         binding.analysisDropItem.setAdapter(analysisParentItemDropDownAdapter);
         setDropDownItemListener();
         setHabitObserver();

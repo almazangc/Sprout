@@ -26,7 +26,7 @@
                     android:gravity="center"
                     android:text="Habit Subroutine's"
                     android:textColor="@color/NIGHT"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/sp20"
                     android:textStyle="bold" />
             </RelativeLayout>
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/analysis_relative_layout"
-    tools:context=".ui.habit_assessment.AnalysisFragment">
+    tools:context=".ui.habit_self_assessment.AnalysisFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                 android:gravity="center"
                 android:text="RESULT"
                 android:textColor="@color/NIGHT"
-                android:textSize="20sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -46,8 +46,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/analysis_result_lbl"
-                    style="@style/textViewSubHeader"
+                    android:id="@+id/analysis_result"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -55,7 +54,9 @@
                     android:text="Place Holder MESSAGE for the recommended habit based on assessment result using knowledge based recommender, with the used of Rule-based systems Algortihm. \n\n A rule-based recommender system uses a set of predefined if-then rules to make recommendations. \n\n  For example, if a user has meet the necessary points the habit will be suggested. It uses the knowledge of the user attributes and characteristics to decide what to habit recommend."
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp" />
+                    android:textStyle="normal"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="@dimen/sp14" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/analysis_drop_item_input"
@@ -76,7 +77,7 @@
                         android:hint="Predefined Habits"
                         android:inputType="none"
                         android:textColor="@color/NIGHT"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/sp14" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -88,7 +89,7 @@
                     android:padding="5dp"
                     android:text="Habit"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
 
                 <TextView
@@ -101,7 +102,7 @@
                     android:maxLines="20"
                     android:padding="5dp"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     tools:text="habit title placeholder" />
 
                 <TextView
@@ -112,7 +113,7 @@
                     android:padding="5dp"
                     android:text="Description"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
 
                 <TextView
@@ -126,7 +127,7 @@
                     android:maxLines="20"
                     android:padding="5dp"
                     android:textColor="@color/NIGHT"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/sp14"
                     tools:text="description placeholder" />
 
                 <androidx.recyclerview.widget.RecyclerView

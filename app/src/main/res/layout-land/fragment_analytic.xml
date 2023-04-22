@@ -20,8 +20,8 @@
             android:gravity="center"
             android:text="Habit's Progress Analytic"
             android:textColor="@color/NIGHT"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="@dimen/sp20"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -38,7 +38,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="EMPTY HABIT ON REFORM"
             android:textColor="@color/NIGHT"
-            android:textSize="15dp"
+            android:textSize="@dimen/sp16"
             android:visibility="invisible" />
 
         <com.airbnb.lottie.LottieAnimationView
@@ -60,14 +60,12 @@
             android:fastScrollEnabled="true"
             android:overScrollMode="always"
             android:paddingStart="10dp"
-            android:paddingTop="5dp"
             android:paddingEnd="15dp"
-            android:paddingBottom="5dp"
             android:scrollbarThumbVertical="@drawable/scrollbar_vertical"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            tools:itemCount="2"
             app:spanCount="2"
+            tools:itemCount="2"
             tools:listitem="@layout/adapter_analytic_parent_item" />
     </RelativeLayout>
 </RelativeLayout>

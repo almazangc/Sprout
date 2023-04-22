@@ -27,7 +27,7 @@
             android:text="Add Habit"
             android:textAlignment="center"
             android:textColor="@color/NIGHT"
-            android:textSize="16sp"
+            android:textSize="@dimen/sp16"
             android:textStyle="normal" />
 
         <Button
@@ -78,7 +78,7 @@
                 android:text="Predefined"
                 android:textAllCaps="false"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp" />
+                android:textSize="@dimen/sp14" />
 
             <Button
                 android:id="@+id/home_on_fab_click_dialog_user_defined_habit"
@@ -101,7 +101,7 @@
                 android:text="Custom"
                 android:textAllCaps="false"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp" />
+                android:textSize="@dimen/sp14" />
         </LinearLayout>
     </RelativeLayout>
 

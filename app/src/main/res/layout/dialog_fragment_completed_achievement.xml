@@ -24,7 +24,7 @@
             android:text="Achievement Unlocked!"
             android:textAlignment="center"
             android:textColor="@color/WAIKAWA_GREY"
-            android:textSize="16sp"
+            android:textSize="@dimen/sp16"
             android:textStyle="bold" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:letterSpacing=".02"
             android:textAlignment="center"
             android:textColor="@color/DARK"
-            android:textSize="13sp"
+            android:textSize="@dimen/sp14"
             android:textStyle="normal"
             tools:text="Congratulations, you have completed [insert achievement name here]! You should be proud of yourself for reaching this milestone. Keep up the good work and continue to strive for excellence." />
 
@@ -66,7 +66,7 @@
             android:text="( ´ ▽ ` )ಇ great!"
             android:textAllCaps="true"
             android:textColor="@color/NIGHT"
-            android:textSize="13sp" />
+            android:textSize="@dimen/sp14" />
     </RelativeLayout>
 
 </RelativeLayout>

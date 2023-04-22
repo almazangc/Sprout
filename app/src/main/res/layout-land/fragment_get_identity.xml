@@ -9,13 +9,16 @@
 
     <TextView
         android:id="@+id/lbl_askIdentity"
-        style="@style/textViewHeader"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="20dp"
         android:letterSpacing=".05"
-        android:text="@string/lbl_how_do_you_identity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:textColor="@color/NIGHT" />
+        android:textColor="@color/NIGHT"
+        android:text="@string/lbl_how_do_you_identity"
+        android:textSize="@dimen/sp24"
+        android:textStyle="bold"/>
 
     <ImageView
         android:id="@+id/img_identity"

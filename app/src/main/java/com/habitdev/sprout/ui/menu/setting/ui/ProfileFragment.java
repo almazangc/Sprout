@@ -43,7 +43,7 @@ import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
 import com.habitdev.sprout.enums.SettingConfigurationKeys;
-import com.habitdev.sprout.ui.habit_assessment.PersonalizationFragment;
+import com.habitdev.sprout.ui.habit_self_assessment.HabitSelfAssessmentFragment;
 import com.habitdev.sprout.utill.alarm.AlarmScheduler;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
 
@@ -65,7 +65,7 @@ public class ProfileFragment extends Fragment {
     private static boolean onCustomProfile;
     private static User user;
     private static UserViewModel userViewModel;
-    private static PersonalizationFragment personalizationFragment;
+    private static HabitSelfAssessmentFragment habitSelfAssessmentFragment;
 
     private final AlarmScheduler alarmScheduler = new AlarmScheduler();
 
@@ -164,11 +164,11 @@ public class ProfileFragment extends Fragment {
                         .setMessage("Do you want to retake habit asssessment?")
                         .setCancelable(false)
                         .setPositiveButton("YES", (dialogInterface, i) -> {
-                            personalizationFragment = new PersonalizationFragment(true);
+                            habitSelfAssessmentFragment = new HabitSelfAssessmentFragment(true);
                             getChildFragmentManager()
                                     .beginTransaction()
                                     .addToBackStack(ProfileFragment.this.getTag())
-                                    .add(binding.settingProfileFrameLayout.getId(), personalizationFragment)
+                                    .add(binding.settingProfileFrameLayout.getId(), habitSelfAssessmentFragment)
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                     .commit();
                             binding.settingProfileContainer.setVisibility(View.GONE);

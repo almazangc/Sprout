@@ -1,4 +1,4 @@
-package com.habitdev.sprout.ui.habit_assessment.adapter.Model;
+package com.habitdev.sprout.ui.habit_self_assessment.adapter.Model;
 
 import androidx.annotation.NonNull;
 

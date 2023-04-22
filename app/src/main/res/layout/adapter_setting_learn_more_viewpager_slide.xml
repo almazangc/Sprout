@@ -39,7 +39,7 @@
                 android:text="@string/sprout"
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"
-                android:textSize="16sp"
+                android:textSize="@dimen/sp16"
                 android:textStyle="bold" />
 
 
@@ -53,7 +53,7 @@
                 android:isScrollContainer="true"
                 android:justificationMode="inter_word"
                 android:textColor="@color/NIGHT"
-                android:textSize="13sp"
+                android:textSize="@dimen/sp14"
                 android:textStyle="normal"
                 tools:text="@string/sampleText" />
 

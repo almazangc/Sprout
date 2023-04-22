@@ -21,7 +21,7 @@
             android:gravity="center"
             android:text="Achievements"
             android:textColor="@color/NIGHT"
-            android:textSize="20sp"
+            android:textSize="@dimen/sp20"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -52,7 +52,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
+                android:textSize="@dimen/sp16" />
 
             <RelativeLayout
                 android:id="@+id/achievement_general_overview_graph_container"
@@ -91,7 +91,7 @@
                         android:letterSpacing=".1"
                         android:textAllCaps="true"
                         android:textColor="@color/NIGHT"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/sp16"
                         tools:text="78" />
 
                     <TextView
@@ -101,7 +101,7 @@
                         android:text="/"
                         android:textAllCaps="true"
                         android:textColor="@color/NIGHT"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/sp16" />
 
                     <TextView
                         android:id="@+id/achievement_general_total_achievement"
@@ -110,7 +110,7 @@
                         android:letterSpacing=".1"
                         android:textAllCaps="true"
                         android:textColor="@color/NIGHT"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/sp16"
                         tools:text="100" />
                 </LinearLayout>
             </RelativeLayout>
@@ -126,7 +126,7 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/NIGHT"
-                android:textSize="16sp" />
+                android:textSize="@dimen/sp16" />
         </RelativeLayout>
 
         <RelativeLayout

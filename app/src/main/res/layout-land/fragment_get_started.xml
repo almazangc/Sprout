@@ -9,10 +9,12 @@
     tools:context=".ui.onBoarding.GetStartedFragment">
 
     <TextView
-        style="@style/textViewHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sprout"
+        android:layout_marginBottom="10dp"
+        android:textSize="@dimen/sp34"
+        android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/CLOUDS" />
 
@@ -27,7 +29,6 @@
 
             <TextView
                 android:id="@+id/lbl_welcome_msg"
-                style="@style/textViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -35,23 +36,24 @@
                 android:text="@string/welcome_msg"
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"
-                android:textSize="30sp" />
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:textSize="@dimen/sp24" />
 
             <TextView
                 android:id="@+id/lbl_name"
-                style="@style/textViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lbl_welcome_msg"
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"
-                android:textSize="22sp"
+                android:textSize="@dimen/sp20"
                 android:textStyle="normal"
+                android:layout_marginBottom="10dp"
                 tools:text="@tools:sample/full_names" />
 
             <TextView
                 android:id="@+id/textSubHeader"
-                style="@style/textViewSubHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/btn_continue"
@@ -60,13 +62,14 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center"
                 android:justificationMode="inter_word"
                 android:padding="16dp"
                 android:text="@string/motivation"
                 android:textAlignment="center"
                 android:textColor="@color/NIGHT"
-                android:textSize="20sp" />
+                android:textSize="@dimen/sp20" />
 
             <Button
                 android:id="@+id/btn_continue"
