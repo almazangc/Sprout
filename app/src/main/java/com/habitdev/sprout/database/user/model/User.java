@@ -34,7 +34,7 @@ public class User {
      * User App Streak Count
      */
     @ColumnInfo(name = "streak_count")
-    private int streakCount; //unused right now, can be used for keeping track of how many continous days the app was used.
+    private int streakCount; //unused right now, can be used for keeping track of how many continuous days the app was used.
 
     /**
      * User Wake Time Hour

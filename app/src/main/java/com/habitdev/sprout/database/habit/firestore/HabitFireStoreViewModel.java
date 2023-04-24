@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class HabitFireStoreViewModel extends AndroidViewModel {
 
-    private HabitFireStoreRepository repository;
-    private MutableLiveData<List<HabitFireStore>> liveData;
+    private final HabitFireStoreRepository repository;
+    private final MutableLiveData<List<HabitFireStore>> liveData;
     private List<HabitFireStore> data;
     private final String TAG = "tag";
 

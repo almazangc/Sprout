@@ -34,7 +34,7 @@ public class SubroutineModifyParentItemAdapterDialogFragment extends DialogFragm
     private static int old_selected_color;
     private static String color;
     private static boolean isOnDismissDialog;
-    private boolean onInsert;
+    private final boolean onInsert;
     private static final String[] BUTTON_LABEL = {"Insert New", "Save Update"};
 
     private OnUpdateClickListener mOnUpdateClickListener;

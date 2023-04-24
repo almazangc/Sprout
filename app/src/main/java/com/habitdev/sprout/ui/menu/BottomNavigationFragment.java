@@ -196,7 +196,7 @@ public class BottomNavigationFragment extends Fragment {
 
         private final int SWIPE_THRESHOLD = 100;
         private final int SWIPE_VELOCITY_THRESHOLD = 100;
-        private final GestureDetector GUESTURE_DETECTOR = new GestureDetector(new GestureDetector.OnGestureListener() {
+        private final GestureDetector GESTURE_DETECTOR = new GestureDetector(new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent motionEvent) {
                 return true;
@@ -285,7 +285,7 @@ public class BottomNavigationFragment extends Fragment {
         @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
-            return GUESTURE_DETECTOR.onTouchEvent(motionEvent);
+            return GESTURE_DETECTOR.onTouchEvent(motionEvent);
         }
 
         void onSwipeRight() {

@@ -586,7 +586,7 @@ public abstract class AppDatabase extends RoomDatabase {
                         if (!subroutinesList[0].isEmpty()) {  // check for subroutine fetched from firebase, otherwise populate offline
                             for (HabitFireStore habit : result) {
                                 Habits habits = new Habits(habit.getTitle(), habit.getDescription(), habit.getColor(), false, false);
-                                Log.d("tag", "onFetchHabitSuccess: " + habits.toString());
+                                Log.d("tag", "onFetchHabitSuccess: " + habits);
                                 List<Subroutines> list = getSubroutine_by_fk_uid(habit.getPk_uid(), subroutinesList[0]);
                                 habits.setTotal_subroutine(list.size());
                                 long id = habitWithSubroutinesDao.insertHabit(habits);

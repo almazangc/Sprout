@@ -16,7 +16,7 @@ import java.util.List;
 public class QuotesViewModel extends AndroidViewModel {
 
     private final QuotesRepository repository;
-    private MutableLiveData<List<Quotes>> liveData;
+    private final MutableLiveData<List<Quotes>> liveData;
     private List<Quotes> data;
 
     private final String TAG = "tag";

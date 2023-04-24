@@ -113,7 +113,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
     public void onViewDetachedFromWindow(@NonNull HabitViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
         holder.handler.removeCallbacks(holder.runnable);
-        holder.handler.removeCallbacksAndMessages(null); //handle sleaking
+        holder.handler.removeCallbacksAndMessages(null);
     }
 
     @Override

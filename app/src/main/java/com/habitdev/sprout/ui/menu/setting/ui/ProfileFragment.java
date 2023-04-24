@@ -161,7 +161,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(requireContext())
-                        .setMessage("Do you want to retake habit asssessment?")
+                        .setMessage("Do you want to retake habit assessment?")
                         .setCancelable(false)
                         .setPositiveButton("YES", (dialogInterface, i) -> {
                             habitSelfAssessmentFragment = new HabitSelfAssessmentFragment(true);
@@ -221,9 +221,9 @@ public class ProfileFragment extends Fragment {
                                 alarmScheduler.setContext(requireContext());
 
                                 if (toggleState) {
-                                    Calendar morningCalendar = alarmScheduler.setCaledendar(user.getWakeHour(), user.getWakeMinute());
-                                    Calendar eveningCalendar = alarmScheduler.setCaledendar(user.getSleepHour(), user.getSleepMinute());
-                                    alarmScheduler.turnOnDailyNotifcation(morningCalendar, eveningCalendar);
+                                    Calendar morningCalendar = alarmScheduler.setCalendar(user.getWakeHour(), user.getWakeMinute());
+                                    Calendar eveningCalendar = alarmScheduler.setCalendar(user.getSleepHour(), user.getSleepMinute());
+                                    alarmScheduler.turnOnDailyNotification(morningCalendar, eveningCalendar);
                                 } else {
                                     alarmScheduler.turnOffDailyNotification();
                                 }

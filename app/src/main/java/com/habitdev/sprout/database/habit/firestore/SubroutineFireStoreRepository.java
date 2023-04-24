@@ -19,25 +19,21 @@ public class SubroutineFireStoreRepository {
 
     public interface FetchCallback {
         void onFetchSubroutineSuccess(List<SubroutineFireStore> subroutineFireStores);
-
         void onFetchSubroutineFailure(Exception e);
     }
 
     public interface InsertCallback {
         void onInsertSubroutineSuccess(DocumentReference documentReference);
-
         void onInsertSubroutineFailure(Exception e);
     }
 
     public interface UpdateCallback {
         void onUpdateSubroutineSuccess();
-
         void onUpdateSubroutineFailure(Exception e);
     }
 
     public interface DeleteCallback {
         void onDeleteSubroutineSuccess();
-
         void onDeleteSubroutineFailure(Exception e);
     }
 

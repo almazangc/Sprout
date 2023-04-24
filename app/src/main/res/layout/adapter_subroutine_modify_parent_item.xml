@@ -11,7 +11,7 @@
     android:layout_height="wrap_content"
     tools:showIn="@layout/fragment_subroutine_modify">
 
-    <!--    Swipe Reaveal-->
+    <!--    Swipe Reveal-->
     <RelativeLayout
         android:id="@+id/modify_subroutine_parent_item_layout_control"
         android:layout_width="wrap_content"

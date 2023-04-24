@@ -34,12 +34,12 @@ public class AssessmentRepository {
     }
 
     public void insertAnswer(Answer answer) {
-        assessmentDao.insertAnswer(answer); //snychrounous
+        assessmentDao.insertAnswer(answer); //synchronous
 //        new AssessmentRepository.InsertAnswerAsyncTask(assessmentDao).execute(answer);
     }
 
     public void updateAnswer(Answer answer) {
-        assessmentDao.updateAnswer(answer); //snychrounous
+        assessmentDao.updateAnswer(answer); //synchronous
 //        new AssessmentRepository.UpdateAnswerAsyncTask(assessmentDao).execute(answer);
     }
 

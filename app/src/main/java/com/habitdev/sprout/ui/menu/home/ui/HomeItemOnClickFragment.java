@@ -111,8 +111,8 @@ public class HomeItemOnClickFragment extends Fragment {
         Result result = habitScoreResult.get((int) (habit.getPk_habit_uid()-1));
         Double score = result.getScore();
         DecimalFormat decimalFormat = new DecimalFormat("##%");
-        String formatedScore = decimalFormat.format(score);
-        binding.recommendedPercent.setText(formatedScore);
+        String formattedScore = decimalFormat.format(score);
+        binding.recommendedPercent.setText(formattedScore);
 
         if (score == 1) {
             binding.recommendedPercent.setTextColor(ContextCompat.getColor(requireContext(), R.color.RUSTIC_RED));

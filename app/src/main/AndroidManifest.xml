@@ -9,7 +9,7 @@
     <!--Camera Access Request-->
     <uses-permission android:name="android.permission.CAMERA"/>
 
-    <!--Internet Connection Permision-->
+    <!--Internet Connection Permission-->
     <!-- Use for checking network availability to fetch updated firebase data and update with the latest-->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

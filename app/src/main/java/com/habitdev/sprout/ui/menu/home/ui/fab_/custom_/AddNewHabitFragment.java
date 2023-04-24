@@ -352,16 +352,6 @@ public class AddNewHabitFragment extends Fragment
     }
 
     private void colorSelect() {
-//            No need to toggle hide because on edit mode, gotta disable
-
-//        binding.addNewHabitColorSelector.setOnClickListener(v -> {
-//            if (binding.addNewHabitLayoutMiscellaneous.getVisibility() == View.GONE) {
-//                binding.addNewHabitLayoutMiscellaneous.setVisibility(View.VISIBLE);
-//            } else {
-//                binding.addNewHabitLayoutMiscellaneous.setVisibility(View.GONE);
-//            }
-//        });
-
         binding.cloudMisc.setOnClickListener(v -> updateSelectedColorIndex(0));
 
         binding.alzarinMisc.setOnClickListener(v -> updateSelectedColorIndex(1));

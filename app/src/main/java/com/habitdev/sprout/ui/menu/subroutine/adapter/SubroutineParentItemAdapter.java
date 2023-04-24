@@ -39,9 +39,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
 
     public interface OnClickListener {
         void onModifySubroutine(Habits habit);
-
-        void isExapanded(int position);
-
+        void isExpanded(int position);
         void isHidden(int position);
     }
 
@@ -96,7 +94,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
                 holder.childRecycleView.setVisibility(View.VISIBLE);
 
                 if (mOnClickListener != null) {
-                    mOnClickListener.isExapanded(holder.getAbsoluteAdapterPosition());
+                    mOnClickListener.isExpanded(holder.getAbsoluteAdapterPosition());
                 }
             } else {
                 LayoutAnimationController animationController = AnimationUtils.loadLayoutAnimation(holder.childRecycleView.getContext(), R.anim.layout_animation_up);

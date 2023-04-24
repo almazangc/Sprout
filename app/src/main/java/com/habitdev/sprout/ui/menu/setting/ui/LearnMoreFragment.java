@@ -3,6 +3,7 @@ package com.habitdev.sprout.ui.menu.setting.ui;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,7 @@ public class LearnMoreFragment extends Fragment {
                     binding.settingLearnMoreBackBtn.setText("");
 
                 } else if (position == sliderDots.length - 1) {
+                    Log.d("tag", "onPageSelected: " + sliderDots.length);
                     binding.settingLearnMoreNextBtn.setEnabled(false);
                     binding.settingLearnMoreBackBtn.setEnabled(true);
                     binding.settingLearnMoreBackBtn.setVisibility(View.VISIBLE);
@@ -86,7 +88,6 @@ public class LearnMoreFragment extends Fragment {
                     binding.settingLearnMoreBackBtn.setEnabled(true);
                     binding.settingLearnMoreBackBtn.setVisibility(View.VISIBLE);
                     binding.settingLearnMoreNextBtn.setVisibility(View.VISIBLE);
-
                     binding.settingLearnMoreNextBtn.setText("Next");
                     binding.settingLearnMoreBackBtn.setText("Back");
                 }
@@ -119,19 +120,19 @@ public class LearnMoreFragment extends Fragment {
     }
 
     private void setIndicatorDots(int pos) {
-        sliderDots = new TextView[6];
+        sliderDots = new TextView[5];
         binding.settingLearnMoreDotsLayout.removeAllViews(); // clear views
 
         for (int position = 0; position < sliderDots.length; position++) {
             sliderDots[position] = new TextView(requireActivity());
             sliderDots[position].setText(Html.fromHtml("&#8226;"));
             sliderDots[position].setTextSize(30);
-            sliderDots[position].setTextColor(requireActivity().getResources().getColor(R.color.CLOUDS));
+            sliderDots[position].setTextColor(ContextCompat.getColor(requireContext(), R.color.CLOUDS));
             binding.settingLearnMoreDotsLayout.addView(sliderDots[position]);
         }
 
         if (sliderDots.length > 0) {
-            sliderDots[pos].setTextColor(requireActivity().getResources().getColor(R.color.NIGHT));
+            sliderDots[pos].setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT));
         }
     }
 

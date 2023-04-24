@@ -2,7 +2,6 @@ package com.habitdev.sprout.database.assessment.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Embedded;
-import androidx.room.Entity;
 import androidx.room.Relation;
 
 import com.habitdev.sprout.database.assessment.model.Choices;

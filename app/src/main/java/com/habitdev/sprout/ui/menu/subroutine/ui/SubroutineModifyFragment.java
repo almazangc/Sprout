@@ -203,8 +203,8 @@ public class SubroutineModifyFragment extends Fragment implements SubroutineModi
                                     //Dismiss snack bar
                                 })
                                 .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                                .setTextColor(getResources().getColor(R.color.NIGHT))
-                                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                                .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
                                 .show();
                     })
                     .setNegativeButton("No", null)

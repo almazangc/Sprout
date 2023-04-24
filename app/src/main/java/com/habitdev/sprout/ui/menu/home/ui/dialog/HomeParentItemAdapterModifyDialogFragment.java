@@ -2,7 +2,6 @@ package com.habitdev.sprout.ui.menu.home.ui.dialog;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -22,18 +21,15 @@ import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.achievement.AchievementViewModel;
 import com.habitdev.sprout.database.achievement.model.Achievement;
-import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.databinding.DialogFragmentHomeParentItemAdapterModifyBinding;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
-import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
 import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -209,8 +205,8 @@ public class HomeParentItemAdapterModifyDialogFragment extends DialogFragment {
                                 //Dismiss snack bar
                             })
                             .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                            .setTextColor(getResources().getColor(R.color.NIGHT))
-                            .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                            .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
                             .show();
 
                     clearSharedPref();

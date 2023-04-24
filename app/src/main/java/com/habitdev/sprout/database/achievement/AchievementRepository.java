@@ -19,8 +19,8 @@ public class AchievementRepository {
         achievementDao = appDatabase.achievementDao();
     }
 
-    public  LiveData<List<Achievement>> getAllAcheivementLiveDataList(){
-        return achievementDao.getAllAcheivementLiveDataList();
+    public  LiveData<List<Achievement>> getAllAchievementLiveDataList(){
+        return achievementDao.getAllAchievementLiveDataList();
     }
 
     public List<Achievement> getAllAchievementList(){

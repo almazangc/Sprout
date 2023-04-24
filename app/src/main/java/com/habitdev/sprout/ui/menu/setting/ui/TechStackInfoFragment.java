@@ -1,45 +1,25 @@
 package com.habitdev.sprout.ui.menu.setting.ui;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.activity.startup.Main;
-import com.habitdev.sprout.database.note.NoteViewModel;
-import com.habitdev.sprout.database.note.model.Note;
 import com.habitdev.sprout.databinding.FragmentTechStackInfoBinding;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class TechStackInfoFragment extends Fragment {
@@ -87,32 +67,19 @@ public class TechStackInfoFragment extends Fragment {
     }
 
     public void openRepository() {
-        binding.githubRepository.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGitHubURL("https://github.com/DOMO-Dom/Sprout");
-            }
-        });
+        binding.githubRepository.setOnClickListener(view -> openGitHubURL("https://github.com/DOMO-Dom/Sprout"));
     }
 
     public void sendMail() {
-        binding.sendMail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:sproutdev.technology@gmail.com"));
-                startActivity(intent);
-            }
+        binding.sendMail.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:sproutdev.technology@gmail.com"));
+            startActivity(intent);
         });
     }
 
     private void readEULA() {
-        binding.readEula.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGitHubURL("https://github.com/DOMO-Dom/Sprout/blob/main/app/src/main/assets/sprout_generated_eula.md");
-            }
-        });
+        binding.readEula.setOnClickListener(view -> openGitHubURL("https://github.com/DOMO-Dom/Sprout/blob/main/app/src/main/assets/sprout_generated_eula.md"));
     }
 
     /**

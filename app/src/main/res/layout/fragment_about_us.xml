@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/about_us_frame_layout"
     android:layout_width="match_parent"
@@ -30,21 +31,257 @@
         android:layout_height="match_parent"
         android:layout_below="@id/setting_about_us_profile_top_bar">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/sample"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:clickable="true"
-            android:layout_marginBottom="20dp"
-            android:text="This will contain brief information about the project purpose and people involved and the roles, and contact"
-            android:textAlignment="center"
-            android:textColor="@color/NIGHT"
-            android:textSize="@dimen/sp12" />
+            android:scrollbars="none"
+            android:fillViewport="true">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:orientation="vertical"
+                android:padding="@dimen/sp16">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/about_us_sprout_logo"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-50dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_fileName="sprout-splash-screen.json"
+                        app:lottie_loop="true"
+                        app:lottie_speed="1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-55dp"
+                        android:text="@string/sprout"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp24"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:justificationMode="inter_word"
+                    android:letterSpacing=".03"
+                    android:text="\t\t\t\tThe Sprout was chosen as its application name, because just like a sprout plant, the application aims to help users reshape and change their negative habits, similar to how a sprout grows from a seed into a mature plant."
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp14"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:justificationMode="inter_word"
+                    android:letterSpacing=".03"
+                    android:text="\t\t\t\tThe application guides, support, and help reforms users' habits, just as a sprout needs proper care and guidance to grow into a healthy plant."
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp14"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:justificationMode="inter_word"
+                    android:letterSpacing=".03"
+                    android:text="\t\t\t\tThe application also emphasizes the importance of starting small and breaking down a habit into manageable tasks, similar to how a sprout starts as a small seed before growing into a mature plant."
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp14"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:justificationMode="inter_word"
+                    android:letterSpacing=".03"
+                    android:text="\t\t\t\tOverall, the application and the sprout plant share the common goal of growth and development."
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp14"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15sp"
+                    android:justificationMode="inter_word"
+                    android:letterSpacing=".03"
+                    android:text="Team"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp20"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/about_us_sir_buen"
+                    android:background="@drawable/background_child_item_view_amethyst"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_about_us" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DARYL V. BUEN, MIT, MAEd, LPT"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Research Adviser"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp14"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/about_us_almazan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/background_child_item_view_brightsky_blue"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_about_us" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Gilbert C. Almazan"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Team Leader, Researcher"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp14"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/about_us_gabayan"
+                    android:background="@drawable/background_child_item_view_brightsky_blue"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_about_us" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bernalyn Y. Gabayan"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Researcher"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp14"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/about_us_tamag"
+                    android:background="@drawable/background_child_item_view_brightsky_blue"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_about_us" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Janella D. Tamag"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Researcher"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp14"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
-
 </RelativeLayout>

@@ -1,7 +1,6 @@
 package com.habitdev.sprout.ui.menu.setting.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.database.achievement.AchievementViewModel;
 import com.habitdev.sprout.database.achievement.model.Achievement;
-import com.habitdev.sprout.database.habit.model.room.Subroutines;
-import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
-import com.habitdev.sprout.database.note.NoteViewModel;
 import com.habitdev.sprout.databinding.FragmentAchievementsBinding;
-import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticItemOnClickParentItemAdapter;
 import com.habitdev.sprout.ui.menu.setting.adapter.SettingAchievementParentItemAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AchievementsFragment extends Fragment {
@@ -71,11 +65,9 @@ public class AchievementsFragment extends Fragment {
 
     private void setRecyclerViewAdapter() {
         if (binding.achievementRecyclerview.getAdapter() == null) {
-
             settingAchievementParentItemAdapter.setOldAchievementList(achievementViewModel.getAllAchievementList());
             binding.achievementRecyclerview.setAdapter(settingAchievementParentItemAdapter);
-
-            achievementViewModel.getAllAcheivementLiveDataList().observe(getViewLifecycleOwner(), new Observer<List<Achievement>>() {
+            achievementViewModel.getAllAchievementLiveDataList().observe(getViewLifecycleOwner(), new Observer<List<Achievement>>() {
                 @Override
                 public void onChanged(List<Achievement> achievements) {
                     settingAchievementParentItemAdapter.setNewAchievementList(achievements);

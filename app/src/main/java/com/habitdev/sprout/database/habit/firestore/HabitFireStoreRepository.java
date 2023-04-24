@@ -1,55 +1,41 @@
 package com.habitdev.sprout.database.habit.firestore;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Source;
 import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class HabitFireStoreRepository {
-    private FirebaseFirestore firestore; // instance of the FirebaseFirestore class, used to access the Firestore database.
-    private CollectionReference habitCollection; // CollectionReference object for the "habit" collection in Firestore.
+    private final FirebaseFirestore firestore; // instance of the FirebaseFirestore class, used to access the Firestore database.
+    private final CollectionReference habitCollection; // CollectionReference object for the "habit" collection in Firestore.
 
     public interface FetchCallback {
         void onFetchHabitSuccess(List<HabitFireStore> habitFireStoreList);
-
         void onFetchHabitFailure(Exception e);
     }
 
     public interface InsertCallback {
         void onInsertHabitSuccess(DocumentReference documentReference);
-
         void onInsertHabitFailure(Exception e);
     }
 
     public interface UpdateCallback {
         void onUpdateHabitSuccess();
-
         void onUpdateHabitFailure(Exception e);
     }
 
     public interface DeleteCallback {
         void onDeleteHabitSuccess();
-
         void onDeleteHabitFailure(Exception e);
-    }
-
-    public interface SingeDocumentFetchCallback {
-        void onFetchHabitSuccess(HabitFireStore habitFireStoreList);
-        void onFetchHabitFailure(Exception e);
     }
 
     public HabitFireStoreRepository() {

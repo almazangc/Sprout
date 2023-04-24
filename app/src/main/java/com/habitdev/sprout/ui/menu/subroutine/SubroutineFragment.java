@@ -26,7 +26,6 @@ import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.databinding.FragmentSubroutineBinding;
 import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
-import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
 import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
@@ -35,7 +34,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 public class SubroutineFragment extends Fragment
         implements
@@ -167,7 +165,7 @@ public class SubroutineFragment extends Fragment
     }
 
     @Override
-    public void isExapanded(int position) {
+    public void isExpanded(int position) {
         if (arrayList == null) {
             arrayList = new ArrayList<>();
         }

@@ -25,7 +25,7 @@ public class DateTimeElapsedUtil {
     /**
      * An int that holds the pattern type of the date format.
      */
-    private  int patternType;
+    private final int patternType;
 
     /**
      * A long that holds the elapsed days use to identify days elapsed.

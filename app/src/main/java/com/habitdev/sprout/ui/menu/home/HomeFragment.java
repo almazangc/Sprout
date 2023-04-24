@@ -356,8 +356,8 @@ public class HomeFragment extends Fragment
                     //Dismiss snack bar
                 })
                 .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                .setTextColor(getResources().getColor(R.color.NIGHT))
-                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
                 .setDuration(5000) //5 seconds duration
                 .show();
     }
@@ -548,8 +548,8 @@ public class HomeFragment extends Fragment
                                     //Dismiss snack bar
                                 })
                                 .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                                .setTextColor(getResources().getColor(R.color.NIGHT))
-                                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                                .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
                                 .show();
                     } else if (type == 1) {
                         habit.setOnReform(false);
@@ -560,8 +560,8 @@ public class HomeFragment extends Fragment
                                     //Dismiss snack bar
                                 })
                                 .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                                .setTextColor(getResources().getColor(R.color.NIGHT))
-                                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                                .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
                                 .show();
                     }
                 })
@@ -664,8 +664,8 @@ public class HomeFragment extends Fragment
                                     //Dismiss snack bar
                                 })
                                 .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                                .setTextColor(getResources().getColor(R.color.NIGHT))
-                                .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                                .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                                .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
                                 .setDuration(1500) //to seconds duration
                                 .show();
                         isOnAddDefault = false;

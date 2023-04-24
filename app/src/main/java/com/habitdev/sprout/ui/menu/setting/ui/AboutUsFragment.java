@@ -42,12 +42,11 @@ public class AboutUsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentAboutUsBinding.inflate(inflater, container, false);
 
-        binding.sample.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openFacebookProfile("https://www.facebook.com/gcalmazan/");
-            }
-        });
+        binding.aboutUsSirBuen.setOnClickListener(view -> openFacebookProfile("https://www.facebook.com/therealbuen"));
+        binding.aboutUsAlmazan.setOnClickListener(view -> openFacebookProfile("https://www.facebook.com/gcalmazan/"));
+        binding.aboutUsGabayan.setOnClickListener(view -> openFacebookProfile("https://www.facebook.com/bernalyn.gabayan/"));
+        binding.aboutUsTamag.setOnClickListener(view -> openFacebookProfile("https://www.facebook.com/janella.tamagiii"));
+
         onBackPress();
         return binding.getRoot();
     }
@@ -67,7 +66,7 @@ public class AboutUsFragment extends Fragment {
         Intent facebookIntent;
         NetworkStateManager networkStateManager = NetworkStateManager.getInstance();
         LiveData<Boolean> networkConnectivityStatus = networkStateManager.getNetworkConnectivityStatus();
-        boolean isNetworkConnected = networkConnectivityStatus.getValue() == null ? false : networkConnectivityStatus.getValue();
+        boolean isNetworkConnected = networkConnectivityStatus.getValue() != null && networkConnectivityStatus.getValue();
         if (isNetworkConnected) {
             try {
                 // Try to open the link in the Facebook app
@@ -90,7 +89,6 @@ public class AboutUsFragment extends Fragment {
             }
         } else {
             Toast.makeText(getContext(), "No internet connection available", Toast.LENGTH_SHORT).show();
-            connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
             networkMonitoringUtil = new NetworkMonitoringUtil(getContext());
             networkMonitoringUtil.registerNetworkCallbackEvents();
         }

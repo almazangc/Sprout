@@ -19,8 +19,8 @@ public class AchievementViewModel extends AndroidViewModel {
         repository = new AchievementRepository(application);
     }
 
-    public LiveData<List<Achievement>> getAllAcheivementLiveDataList() {
-        return repository.getAllAcheivementLiveDataList();
+    public LiveData<List<Achievement>> getAllAchievementLiveDataList() {
+        return repository.getAllAchievementLiveDataList();
     }
 
     public List<Achievement> getAllAchievementList() {

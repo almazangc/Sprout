@@ -55,7 +55,7 @@ public class AnalysisFragment extends Fragment {
     private static List<Subroutines> subroutinesList;
     private static boolean isOnRetakeAssessment;
     private static List<Result> habitScoreResult;
-    private static ProfileFragment profileFragment = new ProfileFragment();
+    private static final ProfileFragment profileFragment = new ProfileFragment();
 
     public AnalysisFragment() {
         habit = new Habits(
@@ -254,8 +254,8 @@ public class AnalysisFragment extends Fragment {
                                         returnToProfileTab();
                                     })
                                     .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                                    .setTextColor(getResources().getColor(R.color.NIGHT))
-                                    .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                                    .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                                    .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
                                     .setDuration(5000) //to seconds duration
                                     .show();
                         }
@@ -275,8 +275,8 @@ public class AnalysisFragment extends Fragment {
                                 //Dismiss snack bar
                             })
                             .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
-                            .setTextColor(getResources().getColor(R.color.NIGHT))
-                            .setBackgroundTint(getResources().getColor(R.color.CLOUDS))
+                            .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
                             .setDuration(3000);
 
                     View snackbarView = snackbar.getView();

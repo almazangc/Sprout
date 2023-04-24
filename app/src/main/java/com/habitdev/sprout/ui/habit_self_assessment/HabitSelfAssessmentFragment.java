@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -104,8 +105,8 @@ public class HabitSelfAssessmentFragment extends Fragment {
         binding.btnContinue.setOnClickListener(v -> {
             if (isAllRadioButtonUnchecked()) {
                 Snackbar snackbar = Snackbar.make(binding.getRoot(), Html.fromHtml("Please set your answers"), Snackbar.LENGTH_SHORT)
-                        .setTextColor(getResources().getColor(R.color.ClOUDS_))
-                        .setBackgroundTint(getResources().getColor(R.color.POMEGRANATE))
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.ClOUDS_))
+                        .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.POMEGRANATE))
                         .setDuration(2000); //to seconds duration
                 // Get the Snackbar's default text view
                 TextView textView = snackbar.getView().findViewById(com.google.android.material.R.id.snackbar_text);
@@ -227,8 +228,6 @@ public class HabitSelfAssessmentFragment extends Fragment {
                 if (position > 1) {
                     position = position - 2;
                     setAssessment();
-                } else {
-//                    requireActivity().moveTaskToBack(true);
                 }
             }
         };
@@ -277,16 +276,11 @@ public class HabitSelfAssessmentFragment extends Fragment {
         if (answersList.isEmpty()) {
             assessmentViewModel.insertAnswer(new Answer(fk_question_uid, selected_answer, fk_user_uid));
         } else {
-            //check if question answer exist
             if (assessmentViewModel.doesAnswerExist(fk_question_uid) > 1) {
-//                Log.d("tag", "onChanged: duplicate found");
-                //In case of error for duplicate
             } else if (assessmentViewModel.doesAnswerExist(fk_question_uid) == 1) {
-                // updateAnswer
                 Answer answer = assessmentViewModel.getAnswerByFkQuestionUID(fk_question_uid);
                 assessmentViewModel.updateAnswer(new Answer(answer.getPk_answer_uid(), fk_question_uid, selected_answer, fk_user_uid));
             } else {
-                // new insertAnswer
                 assessmentViewModel.insertAnswer(new Answer(fk_question_uid, selected_answer, fk_user_uid));
             }
         }

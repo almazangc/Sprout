@@ -23,7 +23,7 @@ import java.util.List;
 
 public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<SubroutineModifyParentItemAdapter.SubroutineModifyViewHolder> {
 
-    private List<Subroutines> oldSubroutineList;
+    private final List<Subroutines> oldSubroutineList;
 
     public interface SubroutineModifyParentOnclickListener {
         void onItemUpdate(int position);

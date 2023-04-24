@@ -38,7 +38,7 @@ public class AchievementDiffUtil extends DiffUtil.Callback {
         return oldAchievement.getTitle().equals(newAchievement.getTitle()) &&
                 oldAchievement.getDescription().equals(newAchievement.getDescription()) &&
                 oldAchievement.getCurrent_progress() == newAchievement.getCurrent_progress() &&
-                (oldAchievement.getDate_achieved() != null ? (newAchievement.getDate_achieved() != null ? (oldAchievement.getDate_achieved().equals(newAchievement.getDate_achieved())) : false) : false) &&
+                (oldAchievement.getDate_achieved() != null && (newAchievement.getDate_achieved() != null && (oldAchievement.getDate_achieved().equals(newAchievement.getDate_achieved())))) &&
                 oldAchievement.getDate_achieved().equals(newAchievement.getDate_achieved()) &&
                 oldAchievement.is_completed() == newAchievement.is_completed();
     }

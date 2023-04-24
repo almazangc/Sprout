@@ -134,18 +134,12 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
             pieData.setValueTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
             pieData.setHighlightEnabled(true);
 
-            holder.pieChart.setData(pieData); // set date entry
-            holder.pieChart.invalidate(); // refresh
-            holder.pieChart.setDrawHoleEnabled(true); // donut hole
-            holder.pieChart.setUsePercentValues(true); // convert to percentage
-//        holder.pieChart.setEntryLabelColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT)); //entry lbl color
-//        holder.pieChart.setDrawCenterText(true); // true by default
-//        holder.pieChart.setCenterText(completed_subroutine + "/" + total_subroutine); //center lbl content
-//        holder.pieChart.setCenterTextSize(15f); // center lbl text size
-            holder.pieChart.setDrawEntryLabels(false); //entry label hidden or not
-//        holder.pieChart.setEntryLabelColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.NIGHT));
-            holder.pieChart.setDrawSlicesUnderHole(false); // dunno
-//        holder.pieChart.setHoleRadius(10f); // hole radius
+            holder.pieChart.setData(pieData);
+            holder.pieChart.invalidate();
+            holder.pieChart.setDrawHoleEnabled(true);
+            holder.pieChart.setUsePercentValues(true);
+            holder.pieChart.setDrawEntryLabels(false);
+            holder.pieChart.setDrawSlicesUnderHole(false);
             holder.pieChart.setHoleColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.TRANSPARENT));
 
             Description description = new Description();
@@ -180,14 +174,9 @@ public class AnalyticParentItemAdapter extends RecyclerView.Adapter<AnalyticPare
         simpleDateFormat.applyPattern("d");
         int day = Integer.parseInt(simpleDateFormat.format(date));
 
-        holder.calendarView
-                .setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
-        holder.calendarView.
-                setDateSelected(CalendarDay.from(year, month, day), true);
-//        holder.calendarView.
-//                setDateSelected(CalendarDay.today(), true);
-        holder.calendarView
-                .setAllowClickDaysOutsideCurrentMonth(false);
+        holder.calendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
+        holder.calendarView.setDateSelected(CalendarDay.from(year, month, day), true);
+        holder.calendarView.setAllowClickDaysOutsideCurrentMonth(false);
 
         holder.calendarView
                 .state()

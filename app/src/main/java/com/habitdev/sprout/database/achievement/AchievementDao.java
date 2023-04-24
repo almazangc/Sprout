@@ -16,7 +16,7 @@ import java.util.List;
 public interface AchievementDao {
 
     @Query("SELECT * FROM Achievement")
-    LiveData<List<Achievement>> getAllAcheivementLiveDataList();
+    LiveData<List<Achievement>> getAllAchievementLiveDataList();
 
     @Query("SELECT * FROM Achievement")
     List<Achievement> getAllAchievementList();

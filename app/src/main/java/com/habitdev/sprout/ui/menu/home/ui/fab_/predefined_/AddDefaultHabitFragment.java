@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class AddDefaultHabitFragment extends Fragment {
 
@@ -287,7 +286,7 @@ public class AddDefaultHabitFragment extends Fragment {
             if (habit != null) {
                 //TODO: Need to rework in order to check if the status is on reform,
                 // not onreform on archive, or completed.So that it wont update
-                // the date started and will freze the date and timer
+                // the date started and will freeze the date and timer
                 new AlertDialog.Builder(requireContext())
                         .setMessage("Do you want to add " + habit.getHabit().toLowerCase() + "  on reform and start now?")
                         .setCancelable(false)
@@ -331,18 +330,6 @@ public class AddDefaultHabitFragment extends Fragment {
      * Set color On Click Listener and updates color selected
      */
     private void colorSelect() {
-
-        /*
-            To Toggle hide because on edit mode, gotta disable
-         */
-//        binding.addFromDefaultHabitColorSelector.setOnClickListener(v -> {
-//            if (binding.addFromDefaultHabitMiscellaneous.getVisibility() == View.GONE) {
-//                binding.addFromDefaultHabitMiscellaneous.setVisibility(View.VISIBLE);
-//            } else {
-//                binding.addFromDefaultHabitMiscellaneous.setVisibility(View.GONE);
-//            }
-//        });
-
         binding.cloudMisc.setOnClickListener(v -> {
             updateSelectedColorIndex(0);
             setSelected_color();

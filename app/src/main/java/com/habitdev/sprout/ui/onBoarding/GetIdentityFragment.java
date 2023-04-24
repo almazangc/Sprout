@@ -71,8 +71,8 @@ public class GetIdentityFragment extends Fragment {
 
     private void setAlarm() {
         AlarmScheduler alarmScheduler = new AlarmScheduler(requireContext());
-        alarmScheduler.scheduleMorningAlarm(alarmScheduler.setCaledendar(wakeHour, wakeMinute), "Keep going, You can do it");
-        alarmScheduler.scheduleEveningAlarm(alarmScheduler.setCaledendar(sleepHour, sleepMinute), "Dont forget to update your progress");
+        alarmScheduler.scheduleMorningAlarm(alarmScheduler.setCalendar(wakeHour, wakeMinute), "Keep going, You can do it");
+        alarmScheduler.scheduleEveningAlarm(alarmScheduler.setCalendar(sleepHour, sleepMinute), "Don't forget to update your progress");
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("DAILY_NOTIFY_SHARED_PREF", Context.MODE_PRIVATE);
         final String isToggledONKEY = "IS_DAILY_TOGGLED_ON";
         sharedPreferences.edit().putBoolean(isToggledONKEY, true).apply();

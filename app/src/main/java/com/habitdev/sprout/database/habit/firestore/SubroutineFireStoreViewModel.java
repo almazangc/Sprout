@@ -14,8 +14,8 @@ import java.util.List;
 
 public class SubroutineFireStoreViewModel extends AndroidViewModel {
 
-    private SubroutineFireStoreRepository repository;
-    private MutableLiveData<List<SubroutineFireStore>> liveData;
+    private final SubroutineFireStoreRepository repository;
+    private final MutableLiveData<List<SubroutineFireStore>> liveData;
     private List<SubroutineFireStore> data;
     private final String TAG = "tag";
 
