@@ -329,38 +329,6 @@ public class Main extends AppCompatActivity {
                                 Log.d("tag", "onChanged: subroutineFireStoreList");
                             }
 
-//                            //TODO: write code that checks if habitsList[0] is not null and subroutineFireStoreList[0] is not null, wait till it is not null anymore
-//                            //TODO: then perform this code inside
-//                            if (!habitsList[0].isEmpty() && !habitFireStoreList[0].isEmpty()) {
-//                                for (Habits habit : habitsList[0]) {
-//                                    for (HabitFireStore habitFireStore : habitFireStoreList[0]) {
-//                                        if (habit.getPk_habit_uid() == habitFireStore.getPk_uid()) {
-//                                            habit.setHabit(habitFireStore.getTitle());
-//                                            habit.setDescription(habitFireStore.getDescription());
-//                                            habit.setUpvote(habitFireStore.getUpvote());
-//                                            habit.setDownvote(habitFireStore.getDownvote());
-//                                            habitWithSubroutinesViewModel.updateHabit(habit);
-//                                        }
-//                                    }
-//
-//                                    List<Subroutines> subroutinesList = habitWithSubroutinesViewModel.getAllSubroutinesOfHabit(habit.getPk_habit_uid());
-//
-//                                    if (!subroutinesList.isEmpty() && !subroutineFireStoreList[0].isEmpty()) {
-//                                        for (Subroutines subroutine: subroutinesList) {
-//                                            for (SubroutineFireStore subroutineFireStore: subroutineFireStoreList[0]) {
-//                                                if (subroutineFireStore.getFk_habit_uid() == subroutine.getFk_habit_uid() && subroutineFireStore.getPk_uid() == subroutine.getPk_subroutine_uid()) {
-//                                                    subroutine.setSubroutine(subroutineFireStore.getTitle());
-//                                                    subroutine.setDescription(subroutineFireStore.getDescription());
-//                                                    subroutine.setUpvote(subroutineFireStore.getUpvote());
-//                                                    subroutine.setDownvote(subroutineFireStore.getDownvote());
-//                                                    habitWithSubroutinesViewModel.updateSubroutine(subroutine);
-//                                                }
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-
                             // Declare a Handler to wait for habitsList[0] and subroutineFireStoreList[0] to become non-null and non-empty
                             Handler handler = new Handler(Looper.getMainLooper());
                             handler.postDelayed(new Runnable() {
