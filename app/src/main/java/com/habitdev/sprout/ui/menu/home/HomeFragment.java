@@ -44,7 +44,7 @@ import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeOnFabClickDialogFragment;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.ui.menu.home.ui.fab_.custom_.AddNewHabitFragment;
 import com.habitdev.sprout.ui.menu.home.ui.fab_.predefined_.AddDefaultHabitFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
 
 import java.text.SimpleDateFormat;

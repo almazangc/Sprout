@@ -26,7 +26,7 @@ import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.habit_self_assessment.adapter.Model.Result;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.recommender.KnowledgeBased;
 

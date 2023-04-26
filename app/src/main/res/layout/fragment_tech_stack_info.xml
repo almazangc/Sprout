@@ -66,7 +66,7 @@
                     android:text="Android Studio Chipmunk 2021.2.1 Patch 1"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="@dimen/sp12"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -94,7 +94,7 @@
                     android:text="Firebase Firestore and Local Database"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="@dimen/sp12"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -120,7 +120,7 @@
                     android:text="GitHub"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="@dimen/sp12"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -147,7 +147,7 @@
                     android:text="@string/domo_dom_sprout"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="@dimen/sp12"
+                    android:textSize="@dimen/sp16"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -173,7 +173,7 @@
                     android:text="@string/email"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="@dimen/sp12"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -199,7 +199,7 @@
                     android:text="@string/eula"
                     android:textAlignment="center"
                     android:textColor="@color/NIGHT"
-                    android:textSize="@dimen/sp12"
+                    android:textSize="@dimen/sp14"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -230,7 +230,7 @@
                         android:text="Animated Bottom Bar by Droppers"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -257,7 +257,7 @@
                         android:text="Lottie Animation"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -284,7 +284,7 @@
                         android:text="Swipe Reveal Layout by FarhamHosseini"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -311,7 +311,7 @@
                         android:text="MPAndroidChart by PhilJay"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -338,7 +338,7 @@
                         android:text="GSON"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -348,7 +348,7 @@
                         android:justificationMode="inter_word"
                         android:text="Gson is a Java library that can be used to convert Java Objects into their JSON representation. "
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="italic" />
                 </LinearLayout>
 
@@ -365,7 +365,7 @@
                         android:text="Firebase"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -392,7 +392,7 @@
                         android:text="Room persistence"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -461,7 +461,7 @@
                         android:text="unDraw"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -488,7 +488,7 @@
                         android:text="People"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -515,7 +515,7 @@
                         android:text="IconScout"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -542,7 +542,7 @@
                         android:text="Haikei"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView
@@ -569,7 +569,7 @@
                         android:text="Svg Wave"
                         android:textAlignment="center"
                         android:textColor="@color/NIGHT"
-                        android:textSize="@dimen/sp12"
+                        android:textSize="@dimen/sp14"
                         android:textStyle="bold" />
 
                     <TextView

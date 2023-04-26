@@ -19,7 +19,7 @@ import com.habitdev.sprout.activity.startup.Main;
 import com.habitdev.sprout.database.achievement.AchievementViewModel;
 import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.databinding.FragmentThemeBinding;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

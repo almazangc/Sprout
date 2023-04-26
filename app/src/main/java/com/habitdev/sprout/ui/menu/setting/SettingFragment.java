@@ -29,7 +29,7 @@ import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.TechStackInfoFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.AchievementsFragment;
 import com.habitdev.sprout.ui.menu.setting.ui.ThemeFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;

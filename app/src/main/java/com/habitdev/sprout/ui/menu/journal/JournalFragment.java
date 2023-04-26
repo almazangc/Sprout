@@ -24,7 +24,7 @@ import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.journal.adapter.JournalNoteItemAdapter;
 import com.habitdev.sprout.ui.menu.journal.ui.AddNoteFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

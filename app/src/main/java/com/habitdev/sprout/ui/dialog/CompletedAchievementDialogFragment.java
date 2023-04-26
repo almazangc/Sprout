@@ -1,4 +1,4 @@
-package com.habitdev.sprout.utill.dialog;
+package com.habitdev.sprout.ui.dialog;
 
 import android.content.DialogInterface;
 import android.os.Bundle;

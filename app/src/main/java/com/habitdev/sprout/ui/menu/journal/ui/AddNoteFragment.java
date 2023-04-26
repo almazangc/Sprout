@@ -26,7 +26,7 @@ import com.habitdev.sprout.databinding.FragmentAddNoteBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.BundleKeys;
 import com.habitdev.sprout.ui.menu.journal.JournalFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

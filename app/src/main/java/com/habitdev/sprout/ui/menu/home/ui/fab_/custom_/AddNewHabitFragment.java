@@ -34,7 +34,7 @@ import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;

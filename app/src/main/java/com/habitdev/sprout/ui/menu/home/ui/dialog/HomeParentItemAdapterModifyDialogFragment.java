@@ -26,7 +26,7 @@ import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.databinding.DialogFragmentHomeParentItemAdapterModifyBinding;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -533,7 +533,7 @@
         tools:layout="@layout/dialog_fragment_on_back_press" />
     <fragment
         android:id="@+id/completedAchievementDialogFragment"
-        android:name="com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment"
+        android:name="com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment"
         android:label="dialog_fragment_completed_achievement"
         tools:layout="@layout/dialog_fragment_completed_achievement" />
 </navigation>

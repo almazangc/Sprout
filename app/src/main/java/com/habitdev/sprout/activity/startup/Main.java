@@ -40,7 +40,7 @@ import com.habitdev.sprout.databinding.ActivityMainBinding;
 import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.enums.TimeMilestone;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.network.NetworkMonitoringUtil;
 import com.habitdev.sprout.utill.network.NetworkStateManager;

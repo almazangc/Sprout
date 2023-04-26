@@ -26,7 +26,7 @@ import com.habitdev.sprout.enums.AnalyticConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.analytic.adapter.AnalyticParentItemAdapter;
 import com.habitdev.sprout.ui.menu.analytic.ui.AnalyticItemOnClickFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

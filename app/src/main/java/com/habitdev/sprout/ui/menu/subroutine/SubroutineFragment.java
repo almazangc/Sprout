@@ -28,7 +28,7 @@ import com.habitdev.sprout.enums.SubroutineConfigurationKeys;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
 import com.habitdev.sprout.ui.menu.subroutine.adapter.SubroutineParentItemAdapter;
 import com.habitdev.sprout.ui.menu.subroutine.ui.SubroutineModifyFragment;
-import com.habitdev.sprout.utill.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
