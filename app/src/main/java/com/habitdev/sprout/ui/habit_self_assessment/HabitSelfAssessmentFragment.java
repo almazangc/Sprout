@@ -131,13 +131,14 @@ public class HabitSelfAssessmentFragment extends Fragment {
 
             getCurrentQuestionChoices(questionsList.get(position).getPk_question_uid());
 
+            //Increasing Touch Target Size from 42dp to 48dp
             for (Choices choice : choicesList) {
                 RadioButton radioButton = new RadioButton(requireContext());
                 radioButton.setText(choice.getChoices());
                 radioButton.setButtonDrawable(null);
                 radioButton.setChecked(false);
                 radioButton.setEllipsize(TextUtils.TruncateAt.END);
-                radioButton.setPadding(20, 20, 20, 20);
+                radioButton.setPadding(23, 23, 23, 23);
                 radioButton.setMaxLines(1);
                 radioButton.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 radioButton.setTextColor(

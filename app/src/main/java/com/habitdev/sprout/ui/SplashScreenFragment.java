@@ -114,26 +114,29 @@ public class SplashScreenFragment extends Fragment {
     }
 
     private void changeQuotes(List<Quotes> quotes) {
-
-        if (!quotes.isEmpty()) {
-
-            Random random = new Random();
-
-            new CountDownTimer(splashDuration, splashDuration/2) {
-                public void onTick(long millisUntilFinished) {
-                    fragment.runOnUiThread(() -> {
-                        int ran = random.nextInt(quotes.size());
-                        Quotes quote = quotes.get(ran);
-                        String content = "\"" + quote.getQuoted() + "\"" + " by " + quote.getAuthor();
-                        if (binding != null) binding.qouteLbl.setText(content);
-                    });
-                }
-                public void onFinish() {
-                    this.cancel();
-                }
-            }.start();
-        } else {
-            binding.qouteLbl.setText(""); //empty for now
+        /**
+         * java.lang.NullPointerException: Attempt to read from field 'android.widget.TextView
+         * com.habitdev.sprout.databinding.FragmentSplashScreenBinding.qouteLbl' on a null object reference
+         */
+        if (binding.qouteLbl != null) {
+            if (!quotes.isEmpty()) {
+                Random random = new Random();
+                new CountDownTimer(splashDuration, splashDuration/2) {
+                    public void onTick(long millisUntilFinished) {
+                        fragment.runOnUiThread(() -> {
+                            int ran = random.nextInt(quotes.size());
+                            Quotes quote = quotes.get(ran);
+                            String content = "\"" + quote.getQuoted() + "\"" + " by " + quote.getAuthor();
+                            if (binding != null) binding.qouteLbl.setText(content);
+                        });
+                    }
+                    public void onFinish() {
+                        this.cancel();
+                    }
+                }.start();
+            } else {
+                binding.qouteLbl.setText("");
+            }
         }
     }
 
@@ -154,8 +157,6 @@ public class SplashScreenFragment extends Fragment {
                         UserViewModel userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
                         isOnBoardingDone = userViewModel.getOnBoarding();
                     } catch (Exception e) {
-//                        Log.d("tag", "checkStatus: " + e.getMessage());
-//                    Fragment SplashScreenFragment not attached to an activity.
                         e.printStackTrace();
                     }
                 }
@@ -164,16 +165,12 @@ public class SplashScreenFragment extends Fragment {
                     try {
                         NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_onboarding);
                     } catch (Exception e) {
-//                        Log.d("tag", "checkStatus: " + e.getMessage());
-//                    Fragment SplashScreenFragment not associated with a fragment manager
                         e.printStackTrace();
                     }
                 } else {
                     try {
                         NavHostFragment.findNavController(SplashScreenFragment.this).navigate(R.id.action_splashscreen_to_main);
                     } catch (Exception e) {
-//                        Log.d("tag", "checkStatus: " + e.getMessage());
-//                    Fragment SplashScreenFragment not associated with a fragment manager
                         e.printStackTrace();
                     }
                 }

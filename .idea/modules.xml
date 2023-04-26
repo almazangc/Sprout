@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Sprout.iml" filepath="$PROJECT_DIR$/.idea/modules/Sprout.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Sprout.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Sprout.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Sprout.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Sprout.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Sprout.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Sprout.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Sprout.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Sprout.app.unitTest.iml" />
     </modules>
