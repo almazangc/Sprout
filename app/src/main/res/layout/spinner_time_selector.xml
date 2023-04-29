@@ -7,4 +7,4 @@
     android:scaleX="1.5"
     android:scaleY="1.5"
     android:timePickerMode="spinner"
-    tools:showIn="@layout/fragment_get_common_sleep_time" />
+    tools:showIn="@layout/fragment_get_common_wakeup" />
