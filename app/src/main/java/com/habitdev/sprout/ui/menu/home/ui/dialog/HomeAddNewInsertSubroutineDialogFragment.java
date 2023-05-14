@@ -1,5 +1,6 @@
 package com.habitdev.sprout.ui.menu.home.ui.dialog;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -105,14 +106,14 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
 
     private void onClickSave() {
         binding.addNewHabitSubroutineBtn.setOnClickListener(view -> {
-           if (binding.addNewSubroutineHint.getText().toString().trim().isEmpty()){
-               if (subroutine == null) {
-                   onAdd();
-               } else {
-                   onModify();
-               }
-               Objects.requireNonNull(getDialog()).dismiss();
-           }
+            if (binding.addNewSubroutineHint.getText().toString().trim().isEmpty()) {
+                if (subroutine == null) {
+                    onAdd();
+                } else {
+                    onModify();
+                }
+                Objects.requireNonNull(getDialog()).dismiss();
+            }
         });
     }
 
@@ -137,12 +138,19 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
 
     private void onRemove() {
         if (onRemove) {
-            mOnDialogChange.removeSubroutine(subroutine);
+            new AlertDialog.Builder(requireContext())
+                    .setMessage("Do you want to remove " + subroutine.getSubroutine() + "from your custom habit list?")
+                    .setCancelable(false)
+                    .setPositiveButton("YES", (dialogInterface, i) -> {
+                        mOnDialogChange.removeSubroutine(subroutine);
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
             dismiss();
         }
     }
 
-    private void setHint(){
+    private void setHint() {
 
         final String REQUIRED = "Required*";
         final String EMPTY_TITLE = "Empty Title*";
@@ -151,18 +159,20 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
         binding.addNewSubroutineTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText(REQUIRED);
+                if (charSequence.toString().trim().isEmpty())
+                    binding.addNewSubroutineHint.setText(REQUIRED);
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText(EMPTY_TITLE);
+                if (editable.toString().trim().isEmpty()) {
+                    binding.addNewSubroutineHint.setText(EMPTY_TITLE);
                 } else {
-                    if (binding.addNewSubroutineDescription.getText().toString().trim().isEmpty()){
+                    if (binding.addNewSubroutineDescription.getText().toString().trim().isEmpty()) {
                         binding.addNewSubroutineHint.setText(EMPTY_DESC);
                     } else {
                         binding.addNewSubroutineHint.setText("");
@@ -174,18 +184,20 @@ public class HomeAddNewInsertSubroutineDialogFragment extends DialogFragment {
         binding.addNewSubroutineDescription.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().trim().isEmpty()) binding.addNewSubroutineHint.setText(REQUIRED);
+                if (charSequence.toString().trim().isEmpty())
+                    binding.addNewSubroutineHint.setText(REQUIRED);
             }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().trim().isEmpty()){
-                        binding.addNewSubroutineHint.setText(EMPTY_DESC);
+                if (editable.toString().trim().isEmpty()) {
+                    binding.addNewSubroutineHint.setText(EMPTY_DESC);
                 } else {
-                    if (binding.addNewSubroutineTitle.getText().toString().trim().isEmpty()){
+                    if (binding.addNewSubroutineTitle.getText().toString().trim().isEmpty()) {
                         binding.addNewSubroutineHint.setText(EMPTY_TITLE);
                     } else {
                         binding.addNewSubroutineHint.setText("");

@@ -121,15 +121,20 @@ public class SplashScreenFragment extends Fragment {
         if (binding.qouteLbl != null) {
             if (!quotes.isEmpty()) {
                 Random random = new Random();
-                new CountDownTimer(splashDuration, splashDuration/2) {
+                new CountDownTimer(splashDuration, splashDuration / 2) {
                     public void onTick(long millisUntilFinished) {
                         fragment.runOnUiThread(() -> {
                             int ran = random.nextInt(quotes.size());
                             Quotes quote = quotes.get(ran);
                             String content = "\"" + quote.getQuoted() + "\"" + " by " + quote.getAuthor();
-                            if (binding != null) binding.qouteLbl.setText(content);
+                            if (binding != null) {
+                                if (binding.qouteLbl != null) {
+                                    binding.qouteLbl.setText(content);
+                                }
+                            }
                         });
                     }
+
                     public void onFinish() {
                         this.cancel();
                     }
