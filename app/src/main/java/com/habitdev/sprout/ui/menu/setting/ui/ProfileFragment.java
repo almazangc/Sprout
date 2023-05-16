@@ -39,6 +39,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.assessment.AssessmentViewModel;
+import com.habitdev.sprout.database.assessment.model.AssessmentRecord;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
@@ -150,31 +152,52 @@ public class ProfileFragment extends Fragment {
 
         toggleDailyNotification();
 
-        retakeAssessmentTool();
+        retakeAssessment();
 
         onBackPress();
         return binding.getRoot();
     }
 
-    private void retakeAssessmentTool() {
+    private void retakeAssessment() {
+        AssessmentViewModel assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
         binding.settingProfileRetakeAssessmentToolBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(requireContext())
                         .setMessage("Do you want to retake habit assessment?")
                         .setCancelable(false)
-                        .setPositiveButton("YES", (dialogInterface, i) -> {
-                            habitSelfAssessmentFragment = new HabitSelfAssessmentFragment(true);
-                            getChildFragmentManager()
-                                    .beginTransaction()
-                                    .addToBackStack(ProfileFragment.this.getTag())
-                                    .add(binding.settingProfileFrameLayout.getId(), habitSelfAssessmentFragment)
-                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                                    .commit();
-                            binding.settingProfileContainer.setVisibility(View.GONE);
+                        .setPositiveButton("Yes", (dialogInterface, i) -> {
+                            if (assessmentViewModel.getUncompletedAssessmentRecordCount() == 0) {
+                                gotoReassessment();
+                            } else {
+                                new AlertDialog.Builder(requireContext())
+                                        .setMessage("You have an uncompleted reassessment. \nDo you want to continue it?")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Continue", (dialogInterface1, i1) -> {
+                                            gotoReassessment();
+                                        })
+                                        .setNegativeButton("Start New", (dialogInterface2, i2) -> {
+                                            AssessmentRecord assessmentRecord = assessmentViewModel.getAssessmentRecordByUID(assessmentViewModel.getUncompletedAssessmentRecordUID());
+                                            assessmentViewModel.deleteAnswersByAssessmentRecordUid(assessmentRecord.getPk_assessment_record_uid());
+                                            assessmentViewModel.deleteAssessmentRecord(assessmentRecord);
+                                            gotoReassessment();
+                                        })
+                                        .show();
+                            }
                         })
                         .setNegativeButton("No", null)
                         .show();
+            }
+
+            private void gotoReassessment() {
+                habitSelfAssessmentFragment = new HabitSelfAssessmentFragment(true);
+                getChildFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(ProfileFragment.this.getTag())
+                        .add(binding.settingProfileFrameLayout.getId(), habitSelfAssessmentFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .commit();
+                binding.settingProfileContainer.setVisibility(View.GONE);
             }
         });
     }

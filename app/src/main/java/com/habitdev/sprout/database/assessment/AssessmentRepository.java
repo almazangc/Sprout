@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import com.habitdev.sprout.database.AppDatabase;
 import com.habitdev.sprout.database.assessment.model.Answer;
 import com.habitdev.sprout.database.assessment.model.Assessment;
+import com.habitdev.sprout.database.assessment.model.AssessmentRecord;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 
@@ -16,13 +17,21 @@ import java.util.List;
 public class AssessmentRepository {
     private final AssessmentDao assessmentDao;
     private final LiveData<List<Assessment>> getAllAssessmentsListLiveData;
-    private final LiveData<List<Answer>> getAllAnswerListLiveData;
+    private final LiveData<List<AssessmentRecord>> getAssessmentRecordLiveData;
 
     public AssessmentRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getDbInstance(application);
         this.assessmentDao = appDatabase.assessmentDao();
         getAllAssessmentsListLiveData = assessmentDao.getAssessmentsListLiveData();
-        getAllAnswerListLiveData = assessmentDao.getAllAnswerListLiveData();
+        getAssessmentRecordLiveData = assessmentDao.getAssessmentRecordLiveData();
+    }
+
+    public void insertAnswer(Answer answer) {
+        assessmentDao.insertAnswer(answer);
+    }
+
+    public long insertAssessmentRecord(AssessmentRecord assessmentRecords){
+        return assessmentDao.insertAssessmentRecord(assessmentRecords);
     }
 
     public void updateQuestion(Question question) {
@@ -33,14 +42,13 @@ public class AssessmentRepository {
         new AssessmentRepository.UpdateChoicesAsyncTask(assessmentDao).execute(choices);
     }
 
-    public void insertAnswer(Answer answer) {
-        assessmentDao.insertAnswer(answer); //synchronous
-//        new AssessmentRepository.InsertAnswerAsyncTask(assessmentDao).execute(answer);
+    public void updateAnswer(Answer answer) {
+//        new AssessmentRepository.UpdateAnswerAsyncTask(assessmentDao).execute(answer);
+        assessmentDao.updateAnswer(answer);
     }
 
-    public void updateAnswer(Answer answer) {
-        assessmentDao.updateAnswer(answer); //synchronous
-//        new AssessmentRepository.UpdateAnswerAsyncTask(assessmentDao).execute(answer);
+    public void updateAssessmentRecord(AssessmentRecord assessmentRecord){
+        assessmentDao.updateAssessmentRecord(assessmentRecord);
     }
 
     public void deleteQuestion(Question question) {
@@ -51,6 +59,9 @@ public class AssessmentRepository {
         new AssessmentRepository.DeleteChoiceAsyncTask(assessmentDao).execute(choices);
     }
 
+    public void deleteAssessmentRecord(AssessmentRecord assessmentRecord){
+        new AssessmentRepository.DeleteAssessmentRecordAsyncTask(assessmentDao).execute(assessmentRecord);
+    }
 
     public static class UpdateQuestionAsyncTask extends AsyncTask<Question, Void, Void> {
 
@@ -67,36 +78,6 @@ public class AssessmentRepository {
         }
     }
 
-    public static class UpdateChoicesAsyncTask extends AsyncTask<Choices, Void, Void> {
-
-        private final AssessmentDao assessmentDao;
-
-        public UpdateChoicesAsyncTask(AssessmentDao assessmentDao) {
-            this.assessmentDao = assessmentDao;
-        }
-
-        @Override
-        protected Void doInBackground(Choices... choices) {
-            assessmentDao.updateChoice(choices[0]);
-            return null;
-        }
-    }
-
-    public static class InsertAnswerAsyncTask extends AsyncTask<Answer, Void, Void> {
-
-        private final AssessmentDao assessmentDao;
-
-        public InsertAnswerAsyncTask(AssessmentDao assessmentDao) {
-            this.assessmentDao = assessmentDao;
-        }
-
-        @Override
-        protected Void doInBackground(Answer... answers) {
-            assessmentDao.insertAnswer(answers[0]);
-            return null;
-        }
-    }
-
     public static class UpdateAnswerAsyncTask extends AsyncTask<Answer, Void, Void> {
 
         private final AssessmentDao assessmentDao;
@@ -108,6 +89,21 @@ public class AssessmentRepository {
         @Override
         protected Void doInBackground(Answer... answers) {
             assessmentDao.updateAnswer(answers[0]);
+            return null;
+        }
+    }
+
+    public static class UpdateChoicesAsyncTask extends AsyncTask<Choices, Void, Void> {
+
+        private final AssessmentDao assessmentDao;
+
+        public UpdateChoicesAsyncTask(AssessmentDao assessmentDao) {
+            this.assessmentDao = assessmentDao;
+        }
+
+        @Override
+        protected Void doInBackground(Choices... choices) {
+            assessmentDao.updateChoice(choices[0]);
             return null;
         }
     }
@@ -142,6 +138,21 @@ public class AssessmentRepository {
         }
     }
 
+    public static class DeleteAssessmentRecordAsyncTask extends AsyncTask<AssessmentRecord, Void, Void> {
+
+        private final AssessmentDao assessmentDao;
+
+        public DeleteAssessmentRecordAsyncTask(AssessmentDao assessmentDao) {
+            this.assessmentDao = assessmentDao;
+        }
+
+        @Override
+        protected Void doInBackground(AssessmentRecord... assessmentRecords) {
+            assessmentDao.deleteAssessmentRecord(assessmentRecords[0]);
+            return null;
+        }
+    }
+
     public LiveData<List<Assessment>> getGetAllAssessmentsListLiveData() {
         return getAllAssessmentsListLiveData;
     }
@@ -158,23 +169,51 @@ public class AssessmentRepository {
         return assessmentDao.getShuffledQuestions();
     }
 
-    public LiveData<List<Answer>> getGetAllAnswerListLiveData() {
-        return getAllAnswerListLiveData;
+    public LiveData<List<Answer>> getGetAllAnswerListLiveData(long uid) {
+        return assessmentDao.getAllAnswerListLiveData(uid);
     }
 
-    public List<Answer> getAllAnswerList() {
-        return assessmentDao.getAllAnswerList();
+    public List<Answer> getAllAnswerList(long uid) {
+        return assessmentDao.getAllAnswerList(uid);
     }
 
     public List<Choices> getAllChoicesByUID(long uid) {
         return assessmentDao.getAllChoicesByUID(uid);
     }
 
-    public long doesAnswerExist(long uid){
-        return assessmentDao.doesAnswerExist(uid);
+    public long doesAnswerExist(long record_uid, long question_uid){
+        return assessmentDao.doesAnswerExist(record_uid, question_uid);
     }
 
-    public Answer getAnswerByFkQuestionUID(long uid){
-        return assessmentDao.getAnswerByFkQuestionUID(uid);
+    public Answer getAnswerByFkQuestionUID(long record_uid, long question_uid){
+        return assessmentDao.getAnswerByFkQuestionUID(record_uid, question_uid);
+    }
+
+    public LiveData<List<AssessmentRecord>> getGetAssessmentRecordLiveData() {
+        return getAssessmentRecordLiveData;
+    }
+
+    public  List<AssessmentRecord> getAssessmentRecord() {
+        return assessmentDao.getAssessmentRecord();
+    }
+
+    public AssessmentRecord getAssessmentRecordByUID(long uid) {
+        return assessmentDao.getAssessmentRecordByUID(uid);
+    }
+
+    public long getUncompletedAssessmentRecordUID() {
+        return assessmentDao.getUncompletedAssessmentRecordUID();
+    }
+
+    public int getUncompletedAssessmentRecordCount() {
+        return assessmentDao.getUncompletedAssessmentRecordCount();
+    }
+
+    public AssessmentRecord getLatestCompletedAssessmentRecord() {
+        return assessmentDao.getLatestCompletedAssessmentRecord();
+    }
+
+    public void deleteAnswersByAssessmentRecordUid(long uid){
+        assessmentDao.deleteAnswersByAssessmentRecordUid(uid);
     }
 }

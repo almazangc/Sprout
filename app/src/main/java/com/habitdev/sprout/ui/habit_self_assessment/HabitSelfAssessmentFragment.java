@@ -25,14 +25,18 @@ import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.assessment.AssessmentViewModel;
 import com.habitdev.sprout.database.assessment.model.Answer;
+import com.habitdev.sprout.database.assessment.model.AssessmentRecord;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentPersonalizationBinding;
 import com.habitdev.sprout.enums.OnBoardingConfigurationKeys;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class HabitSelfAssessmentFragment extends Fragment {
 
@@ -41,6 +45,7 @@ public class HabitSelfAssessmentFragment extends Fragment {
     private static List<Question> questionsList;
     private static List<Choices> choicesList;
     private static List<Answer> answersList;
+    private static AssessmentRecord assessmentRecord;
     private static int position;
     private static boolean isOnRekateAssessment;
     private static Bundle savedInstanceState;
@@ -70,12 +75,17 @@ public class HabitSelfAssessmentFragment extends Fragment {
             HabitSelfAssessmentFragment.savedInstanceState = savedInstanceState;
 
         assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
-
         questionsList = assessmentViewModel.getShuffledQuestions();
-        answersList = assessmentViewModel.getAllAnswerList();
+
+        if (assessmentViewModel.getUncompletedAssessmentRecordCount() == 1) {
+            assessmentRecord = assessmentViewModel.getAssessmentRecordByUID(assessmentViewModel.getUncompletedAssessmentRecordUID());
+        } else if (assessmentViewModel.getUncompletedAssessmentRecordCount() == 0) {
+            long uid = assessmentViewModel.insertAssessmentRecord(new AssessmentRecord(false));
+            assessmentRecord = assessmentViewModel.getAssessmentRecordByUID(uid);
+        }
+        answersList = assessmentViewModel.getAllAnswerList(assessmentRecord.getPk_assessment_record_uid());
 
         onBackPress();
-
         return binding.getRoot();
     }
 
@@ -167,7 +177,6 @@ public class HabitSelfAssessmentFragment extends Fragment {
 
             upCheckedRadioButtons();
             updateProgressBar();
-
         } else {
             // End of Questions
             new AlertDialog.Builder(requireContext())
@@ -176,7 +185,7 @@ public class HabitSelfAssessmentFragment extends Fragment {
                     .setPositiveButton("YES", (dialogInterface, i) -> {
                         if (isOnRekateAssessment) {
                             analysisFragment = null;
-                            analysisFragment = new AnalysisFragment(true);
+                            analysisFragment = new AnalysisFragment(true, assessmentRecord);
                             getChildFragmentManager()
                                     .beginTransaction()
                                     .addToBackStack(HabitSelfAssessmentFragment.this.getTag())
@@ -184,9 +193,11 @@ public class HabitSelfAssessmentFragment extends Fragment {
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                                     .commit();
                             binding.personalizationContainer.setVisibility(View.GONE);
-                            assessmentViewModel.getGetAllAnswerListLiveData().removeObservers(getViewLifecycleOwner());
+                            updateAssessmentRecord();
+                            assessmentViewModel.getGetAllAnswerListLiveData(assessmentRecord.getPk_assessment_record_uid()).removeObservers(getViewLifecycleOwner());
                             assessmentViewModel = null;
                         } else {
+                            updateAssessmentRecord();
                             setUserAssessmentTrue();
                             Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigate_from_personalization_to_analysis);
                         }
@@ -194,6 +205,14 @@ public class HabitSelfAssessmentFragment extends Fragment {
                     .setNegativeButton("No", null)
                     .show();
         }
+    }
+
+    private void updateAssessmentRecord() {
+        assessmentRecord.setCompleted(true);
+        assessmentRecord.setDate(
+                new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault()).format(new Date())
+        );
+        assessmentViewModel.updateAssessmentRecord(assessmentRecord);
     }
 
     /**
@@ -275,21 +294,21 @@ public class HabitSelfAssessmentFragment extends Fragment {
         long fk_user_uid = 1;
 
         if (answersList.isEmpty()) {
-            assessmentViewModel.insertAnswer(new Answer(fk_question_uid, selected_answer, fk_user_uid));
+            assessmentViewModel.insertAnswer(new Answer(fk_question_uid, assessmentRecord.getPk_assessment_record_uid(), selected_answer, fk_user_uid));
         } else {
-            if (assessmentViewModel.doesAnswerExist(fk_question_uid) > 1) {
-            } else if (assessmentViewModel.doesAnswerExist(fk_question_uid) == 1) {
-                Answer answer = assessmentViewModel.getAnswerByFkQuestionUID(fk_question_uid);
+            if (assessmentViewModel.doesAnswerExist(assessmentRecord.getPk_assessment_record_uid(), fk_question_uid) > 1) {
+                //
+            } else if (assessmentViewModel.doesAnswerExist(assessmentRecord.getPk_assessment_record_uid(), fk_question_uid) == 1) {
+                Answer answer = assessmentViewModel.getAnswerByFkQuestionUID(assessmentRecord.getPk_assessment_record_uid(), fk_question_uid);
                 assessmentViewModel.updateAnswer(new Answer(answer.getPk_answer_uid(), fk_question_uid, selected_answer, fk_user_uid));
             } else {
-                assessmentViewModel.insertAnswer(new Answer(fk_question_uid, selected_answer, fk_user_uid));
+                assessmentViewModel.insertAnswer(new Answer(fk_question_uid, assessmentRecord.getPk_assessment_record_uid(), selected_answer, fk_user_uid));
             }
         }
     }
 
     private void observeAnswerList() {
-        assessmentViewModel.getGetAllAnswerListLiveData().observe(getViewLifecycleOwner(), answers ->
-                answersList = new ArrayList<>(answers));
+        assessmentViewModel.getGetAllAnswerListLiveData(assessmentRecord.getPk_assessment_record_uid()).observe(getViewLifecycleOwner(), answers -> answersList = new ArrayList<>(answers));
     }
 
     /**
@@ -299,7 +318,9 @@ public class HabitSelfAssessmentFragment extends Fragment {
         ArrayList<RadioButton> radioButtonList = getRadioButtonList();
         for (RadioButton radioButton : radioButtonList) {
             Question current_question = questionsList.get(position - 1);
-            if ((radioButton.getText().toString()).equals(assessmentViewModel.getAnswerByFkQuestionUID(current_question.getPk_question_uid()) != null ? assessmentViewModel.getAnswerByFkQuestionUID(current_question.getPk_question_uid()).getSelected_answer() : "")) {
+            if ((radioButton.getText().toString()).equals(
+                    assessmentViewModel.getAnswerByFkQuestionUID(assessmentRecord.getPk_assessment_record_uid(), current_question.getPk_question_uid()) != null ? assessmentViewModel.getAnswerByFkQuestionUID(assessmentRecord.getPk_assessment_record_uid(), current_question.getPk_question_uid()).getSelected_answer() : "")
+            ) {
                 radioButton.setChecked(true);
                 break;
             }

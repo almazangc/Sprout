@@ -15,6 +15,7 @@ import com.habitdev.sprout.database.achievement.AchievementDao;
 import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.assessment.AssessmentDao;
 import com.habitdev.sprout.database.assessment.model.Answer;
+import com.habitdev.sprout.database.assessment.model.AssessmentRecord;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Frequency;
 import com.habitdev.sprout.database.assessment.model.Question;
@@ -42,7 +43,7 @@ import java.util.List;
 /**
  * AppDatabase is a singleton class for handling room entities, typeConverter and can be used to pre-populate database in the installation of application
  */
-@Database(entities = {User.class, Question.class, Choices.class, Answer.class, Note.class, Habits.class, Subroutines.class, Comment.class, Achievement.class}, version = 1)
+@Database(entities = {User.class, Question.class, Choices.class, Answer.class, AssessmentRecord.class, Note.class, Habits.class, Subroutines.class, Comment.class, Achievement.class}, version = 1)
 @TypeConverters({ArrayListConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 

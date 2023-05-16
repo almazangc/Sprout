@@ -25,6 +25,16 @@ public class Answer implements Serializable {
     private long fk_question_uid;
 
     /**
+     *     Recorded Assessment ID
+     *     How will I keep track of the number of assessment taken, and change the id.
+     *     New UI to view the result only for each assessment taken integrated to the reassessment/retake assessment.
+     *     Trigger an assessment was recorded would be asnwering the last question.
+     *     Allows continuation from uncompleted assessment if not clear the currently recorded answer
+     */
+    @ColumnInfo(name = "fk_assessment_record_uid", index = true)
+    private long fk_assessment_record_uid;
+
+    /**
      * This is the selected answer from choices. Which will be used for checking the corresponding value the selected answer on choices
      */
     @ColumnInfo(name = "selected_answer")
@@ -39,16 +49,18 @@ public class Answer implements Serializable {
     public Answer() {}
 
     @Ignore
-    public Answer(long fk_question_uid, String selected_answer, long user_uid) {
+    public Answer(long fk_question_uid, long fk_assessment_record_uid,  String selected_answer, long user_uid) {
         this.fk_question_uid = fk_question_uid;
+        this.fk_assessment_record_uid = fk_assessment_record_uid;
         this.selected_answer = selected_answer;
         this.user_uid = user_uid;
     }
 
     @Ignore
-    public Answer(long pk_answer_uid, long fk_question_uid, String selected_answer, long user_uid) {
+    public Answer(long pk_answer_uid, long fk_question_uid,  long fk_assessment_record_uid, String selected_answer, long user_uid) {
         this.pk_answer_uid = pk_answer_uid;
         this.fk_question_uid = fk_question_uid;
+        this.fk_assessment_record_uid = fk_assessment_record_uid;
         this.selected_answer = selected_answer;
         this.user_uid = user_uid;
     }
@@ -59,6 +71,7 @@ public class Answer implements Serializable {
         return "Answer{" +
                 "pk_answer_uid=" + pk_answer_uid +
                 ", fk_question_uid=" + fk_question_uid +
+                ", fk_assessment_record_uid=" + fk_assessment_record_uid +
                 ", selected_answer='" + selected_answer + '\'' +
                 ", user_uid=" + user_uid +
                 '}';
@@ -78,6 +91,14 @@ public class Answer implements Serializable {
 
     public void setFk_question_uid(long fk_question_uid) {
         this.fk_question_uid = fk_question_uid;
+    }
+
+    public long getFk_assessment_record_uid() {
+        return fk_assessment_record_uid;
+    }
+
+    public void setFk_assessment_record_uid(long fk_assessment_record_uid) {
+        this.fk_assessment_record_uid = fk_assessment_record_uid;
     }
 
     public String getSelected_answer() {

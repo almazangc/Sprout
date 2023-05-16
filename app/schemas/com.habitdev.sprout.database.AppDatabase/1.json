@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "dead9a3e15a5dbeca4798c07c785c5fe",
+    "identityHash": "5ba01a05523f352c8f6e8a776dba84b7",
     "entities": [
       {
         "tableName": "User",
@@ -209,7 +209,7 @@
       },
       {
         "tableName": "Answer",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_answer_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `selected_answer` TEXT, `user_uid` INTEGER NOT NULL, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_answer_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `fk_question_uid` INTEGER NOT NULL, `fk_assessment_record_uid` INTEGER NOT NULL, `selected_answer` TEXT, `user_uid` INTEGER NOT NULL, FOREIGN KEY(`fk_question_uid`) REFERENCES `Question`(`pk_questions_uid`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "pk_answer_uid",
@@ -220,6 +220,12 @@
           {
             "fieldPath": "fk_question_uid",
             "columnName": "fk_question_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fk_assessment_record_uid",
+            "columnName": "fk_assessment_record_uid",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -260,6 +266,15 @@
             ],
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_Answer_fk_question_uid` ON `${TABLE_NAME}` (`fk_question_uid`)"
+          },
+          {
+            "name": "index_Answer_fk_assessment_record_uid",
+            "unique": false,
+            "columnNames": [
+              "fk_assessment_record_uid"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Answer_fk_assessment_record_uid` ON `${TABLE_NAME}` (`fk_assessment_record_uid`)"
           }
         ],
         "foreignKeys": [
@@ -275,6 +290,48 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "AssessmentRecord",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_assessment_record_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` TEXT, `is_completed` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "pk_assessment_record_uid",
+            "columnName": "pk_assessment_record_uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isCompleted",
+            "columnName": "is_completed",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "pk_assessment_record_uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_AssessmentRecord_pk_assessment_record_uid",
+            "unique": false,
+            "columnNames": [
+              "pk_assessment_record_uid"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_AssessmentRecord_pk_assessment_record_uid` ON `${TABLE_NAME}` (`pk_assessment_record_uid`)"
+          }
+        ],
+        "foreignKeys": []
       },
       {
         "tableName": "Note",
@@ -648,7 +705,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dead9a3e15a5dbeca4798c07c785c5fe')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5ba01a05523f352c8f6e8a776dba84b7')"
     ]
   }
 }

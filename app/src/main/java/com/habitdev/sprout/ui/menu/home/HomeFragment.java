@@ -289,7 +289,6 @@ public class HomeFragment extends Fragment
             habitWithSubroutinesViewModel.updateHabit(habit);
             sharedPreferences.edit().putLong(habit.getHabit() + "LastRelapseTime", System.currentTimeMillis()).apply();
         } else {
-
             if (!isToastShowing) {
                 Toast.makeText(requireActivity(), convertToTime(timeDifference, relapseLimiter) + " till relapse will be available. You can to it.", Toast.LENGTH_SHORT).show();
                 isToastShowing = true;
@@ -492,35 +491,34 @@ public class HomeFragment extends Fragment
             options[0] = ARCHIVE;
             options[1] = DROP;
             options[2] = CANCEL;
-        } else {
-            options = new String[2];
-            options[0] = DROP;
-            options[1] = CANCEL;
-        }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setTitle("Select an option")
-                .setItems(options, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (options[which]) {
-                            case CANCEL:
-                                dialog.dismiss();
-                                break;
-                            case DROP:
-                                showConfirmationDialog(habit, 0);
-                                break;
-                            case ARCHIVE:
-                                showConfirmationDialog(habit, 1);
-                                break;
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+            builder.setTitle("Select an option")
+                    .setItems(options, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (options[which]) {
+                                case CANCEL:
+                                    dialog.dismiss();
+                                    break;
+                                case DROP:
+                                    showConfirmationDialog(habit, 0);
+                                    break;
+                                case ARCHIVE:
+                                    showConfirmationDialog(habit, 1);
+                                    break;
+                            }
                         }
-                    }
-                });
-        builder.create().show();
+                    });
+            builder.create().show();
+        } else {
+            showConfirmationDialog(habit, 0);
+        }
     }
 
     private void showConfirmationDialog(Habits habit, int type) {
-        final String[] title = {"Are you sure you want to drop the habit?", "Did you achieve your goal do you want to archive this habit?"};
+        final String[] title = {"Are you sure you would like to drop the habit?", "Did you achieve your goal do you want to archive this habit?"};
+        final String[] negativeButtonLabel = {"Stay", "No"};
 
         new AlertDialog.Builder(requireContext())
                 .setMessage(title[type])
@@ -565,7 +563,7 @@ public class HomeFragment extends Fragment
                                 .show();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(negativeButtonLabel[type], null)
                 .show();
     }
 

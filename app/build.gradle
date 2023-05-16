@@ -11,8 +11,8 @@ android {
         applicationId "com.habitdev.sprout"
         minSdk 26
         targetSdk 32
-        versionCode 8
-        versionName "2.9"
+        versionCode 9
+        versionName "3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 //Room Compiler Configuration for annotation
