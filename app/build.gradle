@@ -11,8 +11,8 @@ android {
         applicationId "com.habitdev.sprout"
         minSdk 26
         targetSdk 32
-        versionCode 9
-        versionName "3.0"
+        versionCode 10
+        versionName "3.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 //Room Compiler Configuration for annotation
@@ -137,10 +137,6 @@ dependencies {
 
     // swipeRefreshLayout Dependency
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-
-//    // Glide : Source Media Management and Image Loading Framework
-//    implementation 'com.github.bumptech.glide:glide:4.14.2'
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 
 //     debugImplementation because LeakCanary should only run in debug builds.
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
