@@ -68,9 +68,8 @@ public class AnalysisFragment extends Fragment {
                 false
         );
         subroutinesList = new ArrayList<>();
-        assessmentRecord = new AssessmentRecord(true);
+        assessmentRecord = new AssessmentRecord( new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault()).format(new Date()));
         assessmentRecord.setPk_assessment_record_uid(1);
-        AnalysisFragment.assessmentRecord = assessmentRecord;
         isOnRetakeAssessment = false;
     }
 
@@ -267,12 +266,12 @@ public class AnalysisFragment extends Fragment {
                         }
                     } else {
                         new AlertDialog.Builder(requireContext())
-                                .setMessage("The habit [" + habit.getHabit() + "] is currently on reform, do you want to proceed?")
+                                .setMessage("The habit [" + habit.getHabit() + "] is currently on reform.")
                                 .setCancelable(false)
-                                .setPositiveButton("YES", (dialogInterface, i) -> {
+                                .setPositiveButton("Return to Profile Tab", (dialogInterface, i) -> {
                                     returnToProfileTab();
                                 })
-                                .setNegativeButton("No", null)
+                                .setNegativeButton("Cancel", null)
                                 .show();
                     }
                 } else {

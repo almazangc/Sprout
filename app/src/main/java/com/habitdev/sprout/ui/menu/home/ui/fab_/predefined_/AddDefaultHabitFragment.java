@@ -284,9 +284,6 @@ public class AddDefaultHabitFragment extends Fragment {
     private void addHabitOnReform() {
         binding.addHabitOnReformBtn.setOnClickListener(view -> {
             if (habit != null) {
-                //TODO: Need to rework in order to check if the status is on reform,
-                // not onreform on archive, or completed.So that it wont update
-                // the date started and will freeze the date and timer
                 new AlertDialog.Builder(requireContext())
                         .setMessage("Do you want to add " + habit.getHabit().toLowerCase() + "  on reform and start now?")
                         .setCancelable(false)

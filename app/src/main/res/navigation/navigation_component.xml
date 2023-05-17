@@ -453,6 +453,9 @@
         <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_assessmentRecordFragment"
+            app:destination="@id/assessmentRecordFragment" />
     </fragment>
     <fragment
         android:id="@+id/Achievement_Fragment"
@@ -536,4 +539,13 @@
         android:name="com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment"
         android:label="dialog_fragment_completed_achievement"
         tools:layout="@layout/dialog_fragment_completed_achievement" />
+    <fragment
+        android:id="@+id/assessmentRecordFragment"
+        android:name="com.habitdev.sprout.ui.habit_self_assessment.AssessmentRecordFragment"
+        android:label="fragment_assessment_record"
+        tools:layout="@layout/fragment_assessment_record" >
+        <action
+            android:id="@+id/action_assessmentRecordFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 </navigation>

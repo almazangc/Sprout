@@ -69,8 +69,7 @@ public class SubroutineParentItemAdapter extends RecyclerView.Adapter<Subroutine
         this.arrayList = arrayList;
     }
 
-    public SubroutineParentItemAdapter() {
-    }
+    public SubroutineParentItemAdapter() {}
 
     @NonNull
     @Override

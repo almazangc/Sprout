@@ -80,7 +80,7 @@ public class HabitSelfAssessmentFragment extends Fragment {
         if (assessmentViewModel.getUncompletedAssessmentRecordCount() == 1) {
             assessmentRecord = assessmentViewModel.getAssessmentRecordByUID(assessmentViewModel.getUncompletedAssessmentRecordUID());
         } else if (assessmentViewModel.getUncompletedAssessmentRecordCount() == 0) {
-            long uid = assessmentViewModel.insertAssessmentRecord(new AssessmentRecord(false));
+            long uid = assessmentViewModel.insertAssessmentRecord(new AssessmentRecord( new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault()).format(new Date())));
             assessmentRecord = assessmentViewModel.getAssessmentRecordByUID(uid);
         }
         answersList = assessmentViewModel.getAllAnswerList(assessmentRecord.getPk_assessment_record_uid());
@@ -209,7 +209,7 @@ public class HabitSelfAssessmentFragment extends Fragment {
 
     private void updateAssessmentRecord() {
         assessmentRecord.setCompleted(true);
-        assessmentRecord.setDate(
+        assessmentRecord.setDate_completed(
                 new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault()).format(new Date())
         );
         assessmentViewModel.updateAssessmentRecord(assessmentRecord);

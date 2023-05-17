@@ -23,6 +23,8 @@ public class HabitWithSubroutinesRepository {
     private final LiveData<Long> habitOnReformCount;
     private final LiveData<Long> predefinedHabitOnReformCount;
     private final LiveData<List<Habits>> allUserDefinedHabitListLiveData;
+    private final List<Habits> allPredefinedHabitList;
+    private final LiveData<List<Habits>> allPredefinedHabitListLiveData;
     private final LiveData<Integer> totalCompletedSubroutineCountLiveData;
 
     public HabitWithSubroutinesRepository(Application application) {
@@ -38,6 +40,8 @@ public class HabitWithSubroutinesRepository {
         this.habitOnReformCount = habitWithSubroutinesDao.getHabitOnReformCount();
         this.predefinedHabitOnReformCount = habitWithSubroutinesDao.getPredefinedHabitOnReformCount();
         this.allUserDefinedHabitListLiveData = habitWithSubroutinesDao.getAllUserDefinedHabitListLiveData();
+        allPredefinedHabitList = habitWithSubroutinesDao.getAllPredefinedHabitList();
+        allPredefinedHabitListLiveData = habitWithSubroutinesDao.getAllPredefinedHabitListLiveData();
         this.totalCompletedSubroutineCountLiveData = habitWithSubroutinesDao.getTotalCompletedSubroutineCountLiveData();
     }
 
@@ -158,6 +162,14 @@ public class HabitWithSubroutinesRepository {
 
     public LiveData<List<Habits>> getAllUserDefinedHabitListLiveData() {
         return allUserDefinedHabitListLiveData;
+    }
+
+    public List<Habits> getAllPredefinedHabitList() {
+        return allPredefinedHabitList;
+    }
+
+    public LiveData<List<Habits>> getAllPredefinedHabitListLiveData() {
+        return allPredefinedHabitListLiveData;
     }
 
     public LiveData<Integer> getTotalCompletedSubroutineCountLiveData(){

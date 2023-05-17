@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5ba01a05523f352c8f6e8a776dba84b7",
+    "identityHash": "259312103d4dfc6e64c09d1f438b9a0b",
     "entities": [
       {
         "tableName": "User",
@@ -293,7 +293,7 @@
       },
       {
         "tableName": "AssessmentRecord",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_assessment_record_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` TEXT, `is_completed` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pk_assessment_record_uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date_taken` TEXT, `date_completed` TEXT, `is_completed` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "pk_assessment_record_uid",
@@ -302,8 +302,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "date",
-            "columnName": "date",
+            "fieldPath": "date_taken",
+            "columnName": "date_taken",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date_completed",
+            "columnName": "date_completed",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -705,7 +711,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5ba01a05523f352c8f6e8a776dba84b7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '259312103d4dfc6e64c09d1f438b9a0b')"
     ]
   }
 }

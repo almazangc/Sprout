@@ -189,7 +189,7 @@ public class AssessmentRepository {
         return assessmentDao.getAnswerByFkQuestionUID(record_uid, question_uid);
     }
 
-    public LiveData<List<AssessmentRecord>> getGetAssessmentRecordLiveData() {
+    public LiveData<List<AssessmentRecord>> getAssessmentRecordLiveData() {
         return getAssessmentRecordLiveData;
     }
 

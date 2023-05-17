@@ -59,8 +59,8 @@ public class AssessmentViewModel extends AndroidViewModel {
         return repository.getAnswerByFkQuestionUID(record_uid, question_uid);
     }
 
-    public LiveData<List<AssessmentRecord>> getGetAssessmentRecordLiveData() {
-        return repository.getGetAssessmentRecordLiveData();
+    public LiveData<List<AssessmentRecord>> getAssessmentRecordLiveData() {
+        return repository.getAssessmentRecordLiveData();
     }
 
     public  List<AssessmentRecord> getAssessmentRecord() {

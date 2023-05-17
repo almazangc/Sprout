@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="12dp"
+    tools:showIn="@layout/fragment_assessment_record">
+
+    <RelativeLayout
+        android:id="@+id/adapter_assessment_record_parent_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_item_waikawa_grey"
+        android:clickable="true">
+
+        <LinearLayout
+            android:id="@+id/adapter_home_parent_item_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/profile_assessment_record_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/profile_drop_assessment_record"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:text="Assessment "
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/profile_assessment_record_no_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp16"
+                        android:textStyle="bold"
+                        tools:text="1" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/profile_drop_assessment_record"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/background_btn_delete_selector"
+                    android:drawableStart="@drawable/ic_drop"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="DROP"
+                    android:textSize="@dimen/sp12" />
+
+                <LinearLayout
+                    android:id="@+id/profile_assessment_record_date_taken"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_assessment_record_no"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:text="Date Taken"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/profile_assessment_record_date_taken_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:maxLines="1"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp16"
+                        tools:text="March, 17 2099 03:34:04 AM" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/profile_assessment_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_assessment_record_date_taken"
+                    android:layout_alignParentStart="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:text="Status"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/profile_assessment_status_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:maxLines="3"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp16"
+                        tools:text="Completed" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/profile_assessment_date_completed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_assessment_status"
+                    android:layout_alignParentStart="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:text="Date Completed"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp16"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/profile_assessment_date_completed_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:maxLines="1"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp16"
+                        tools:text="March, 17 2099 03:34:04 AM" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/profile_assessment_record_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/profile_assessment_date_completed"
+                    android:layout_margin="8dp"
+                    android:background="@color/WAIKAWA_GREY" />
+
+                <TextView
+                    android:id="@+id/profile_assessment_record_habit_score_lbl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_assessment_record_divider"
+                    android:letterSpacing=".2"
+                    android:text="Assessment Result"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp16"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/profile_assessment_record_result_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile_assessment_record_habit_score_lbl"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="6"
+                    tools:listitem="@layout/adapter_setting_profile_assessment_record_child_item" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
