@@ -24,6 +24,7 @@ import androidx.navigation.Navigation;
 import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.assessment.AssessmentViewModel;
+import com.habitdev.sprout.database.assessment.model.AssessmentRecord;
 import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
@@ -53,6 +54,7 @@ public class AnalysisFragment extends Fragment {
     private static Habits habit;
     private static AnalysisParentItemAdapter analysisParentItemAdapter;
     private static List<Subroutines> subroutinesList;
+    private static AssessmentRecord assessmentRecord;
     private static boolean isOnRetakeAssessment;
     private static List<Result> habitScoreResult;
     private static final ProfileFragment profileFragment = new ProfileFragment();
@@ -66,10 +68,12 @@ public class AnalysisFragment extends Fragment {
                 false
         );
         subroutinesList = new ArrayList<>();
+        assessmentRecord = new AssessmentRecord( new SimpleDateFormat("EEEE, dd MMMM yyyy hh:mm a", Locale.getDefault()).format(new Date()));
+        assessmentRecord.setPk_assessment_record_uid(1);
         isOnRetakeAssessment = false;
     }
 
-    public AnalysisFragment(boolean isOnRetakeAssessment) {
+    public AnalysisFragment(boolean isOnRetakeAssessment, AssessmentRecord assessmentRecord) {
         habit = new Habits(
                 null,
                 null,
@@ -78,6 +82,7 @@ public class AnalysisFragment extends Fragment {
                 false
         );
         subroutinesList = new ArrayList<>();
+        AnalysisFragment.assessmentRecord = assessmentRecord;
         AnalysisFragment.isOnRetakeAssessment = isOnRetakeAssessment;
     }
 
@@ -102,7 +107,7 @@ public class AnalysisFragment extends Fragment {
      */
     private void calculateRecommendedHabit() {
         AssessmentViewModel assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
-        KnowledgeBased knowledgeBased = new KnowledgeBased();
+        KnowledgeBased knowledgeBased = new KnowledgeBased(assessmentRecord);
         knowledgeBased.setAssessmentViewModel(assessmentViewModel);
         knowledgeBased.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
         knowledgeBased.calculateHabitScores();
@@ -261,12 +266,12 @@ public class AnalysisFragment extends Fragment {
                         }
                     } else {
                         new AlertDialog.Builder(requireContext())
-                                .setMessage("The habit [" + habit.getHabit() + "] is currently on reform, do you want to proceed?")
+                                .setMessage("The habit [" + habit.getHabit() + "] is currently on reform.")
                                 .setCancelable(false)
-                                .setPositiveButton("YES", (dialogInterface, i) -> {
+                                .setPositiveButton("Return to Profile Tab", (dialogInterface, i) -> {
                                     returnToProfileTab();
                                 })
-                                .setNegativeButton("No", null)
+                                .setNegativeButton("Cancel", null)
                                 .show();
                     }
                 } else {

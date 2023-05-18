@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    tools:showIn="@layout/adapter_setting_profile_assessment_record_parent_item">
+
+    <TextView
+        android:id="@+id/profile_assessment_record_habit_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:maxLines="3"
+        android:textColor="@color/NIGHT"
+        android:textSize="@dimen/sp16"
+        android:textStyle="bold"
+        tools:text="100%" />
+
+    <TextView
+        android:id="@+id/profile_assessment_record_habit_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="5dp"
+        android:layout_toStartOf="@id/profile_reform_habit_record"
+        android:layout_toEndOf="@id/profile_assessment_record_habit_score"
+        android:maxLines="3"
+        android:textColor="@color/NIGHT"
+        android:textSize="@dimen/sp16"
+        tools:text="Habit Title" />
+
+    <Button
+        android:id="@+id/profile_reform_habit_record"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="Reform Habit"
+        android:textSize="@dimen/sp12" />
+</RelativeLayout>

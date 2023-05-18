@@ -9,15 +9,15 @@
     tools:context=".ui.onBoarding.GetNicknameFragment">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@id/lbl_2"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
-        android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/sp24"
         android:text="@string/my_firstname_is"
-        android:textColor="@color/NIGHT" />
+        android:textColor="@color/NIGHT"
+        android:textSize="@dimen/sp24"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/lbl_2"
@@ -26,11 +26,11 @@
         android:layout_above="@id/edit_nickname_container"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
-        android:text="@string/what_should_we_call_you"
-        android:textStyle="normal"
-        android:textSize="@dimen/sp20"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/NIGHT" />
+        android:text="@string/what_should_we_call_you"
+        android:textColor="@color/NIGHT"
+        android:textSize="@dimen/sp20"
+        android:textStyle="normal" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edit_nickname_container"
@@ -51,10 +51,12 @@
         app:boxStrokeColor="@color/WAIKAWA_GREY"
         app:counterEnabled="true"
         app:counterMaxLength="15"
+        app:counterTextAppearance="@style/customHelperTextSize"
         app:counterTextColor="@color/CORAL_RED"
         app:helperText="Required*"
         app:helperTextEnabled="true"
-        app:helperTextTextColor="@color/A80_CORAL_RED"
+        app:helperTextTextAppearance="@style/customHelperTextSize"
+        app:helperTextTextColor="@color/CORAL_RED"
         app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText

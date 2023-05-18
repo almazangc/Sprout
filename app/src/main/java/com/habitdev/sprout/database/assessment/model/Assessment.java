@@ -17,9 +17,7 @@ public class Assessment implements Serializable {
     @Relation(parentColumn = "pk_questions_uid", entityColumn = "pk_choices_uid")
     public List<Choices> choices;
 
-    public Assessment() {
-
-    }
+    public Assessment() {}
 
     public Assessment(Question question, List<Choices> choices) {
         this.question = question;

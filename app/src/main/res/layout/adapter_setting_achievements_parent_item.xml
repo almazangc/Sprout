@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="3dp"
     android:layout_marginBottom="3dp"
-    android:background="@drawable/background_item"
+    android:background="@drawable/background_item_waikawa_grey"
     tools:showIn="@layout/fragment_achievements">
 
     <LinearLayout

@@ -1,7 +1,7 @@
 package com.habitdev.sprout.database.assessment.model;
 
 public enum Frequency {
-//Numerical value representaion of frequency for choices in assessment tool.
+//Numerical value | weight for each choices representaion of frequency for choices in assessment tool.
 
     //Never: 0%
     //Seldom: 10%

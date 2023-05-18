@@ -5,6 +5,7 @@ import android.util.Log;
 import com.habitdev.sprout.database.assessment.model.Assessment;
 import com.habitdev.sprout.database.assessment.AssessmentViewModel;
 import com.habitdev.sprout.database.assessment.model.Answer;
+import com.habitdev.sprout.database.assessment.model.AssessmentRecord;
 import com.habitdev.sprout.database.assessment.model.Choices;
 import com.habitdev.sprout.database.assessment.model.Question;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
@@ -25,8 +26,10 @@ public class KnowledgeBased {
     private final List<HashMap<Long, Result>> habitScore = new ArrayList<>();
     private AssessmentViewModel assessmentViewModel;
     private HabitWithSubroutinesViewModel habitWithSubroutinesViewModel;
+    private final AssessmentRecord assessmentRecord;
 
-    public KnowledgeBased() {
+    public KnowledgeBased(AssessmentRecord assessmentRecord) {
+        this.assessmentRecord = assessmentRecord;
     }
 
     public void setAssessmentViewModel(AssessmentViewModel assessmentViewModel) {
@@ -43,7 +46,7 @@ public class KnowledgeBased {
      */
     public void calculateHabitScores() {
         List<Question> questionList = assessmentViewModel.getAllQuestionList();
-        List<Answer> answerList = assessmentViewModel.getAllAnswerList();
+        List<Answer> answerList = assessmentViewModel.getAllAnswerList(assessmentRecord.getPk_assessment_record_uid());
 
         List<Assessment> assessmentList = new ArrayList<>();
 

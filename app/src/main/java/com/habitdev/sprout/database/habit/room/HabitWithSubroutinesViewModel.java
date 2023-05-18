@@ -24,7 +24,10 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
     private final LiveData<Long> getHabitOnReformCount;
     private final LiveData<Long> getPredefinedHabitOnReformCount;
     private final LiveData<List<Habits>> allUserDefinedHabitListLiveData;
+    private final List<Habits> allPredefinedHabitList;
+    private final LiveData<List<Habits>> allPredefinedHabitListLiveData;
     private final LiveData<Integer> totalCompletedSubroutineCountLiveData;
+
 
     public HabitWithSubroutinesViewModel(@NonNull Application application) {
         super(application);
@@ -39,6 +42,8 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         getHabitOnReformCount = repository.getHabitOnReformCount();
         getPredefinedHabitOnReformCount = repository.getPredefinedHabitOnReformCount();
         allUserDefinedHabitListLiveData = repository.getAllUserDefinedHabitListLiveData();
+        allPredefinedHabitList = repository.getAllPredefinedHabitList();
+        allPredefinedHabitListLiveData = repository.getAllPredefinedHabitListLiveData();
         totalCompletedSubroutineCountLiveData = repository.getTotalCompletedSubroutineCountLiveData();
     }
 
@@ -122,6 +127,14 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
 
     public LiveData<List<Habits>> getAllUserDefinedHabitListLiveData() {
         return allUserDefinedHabitListLiveData;
+    }
+
+    public List<Habits> getAllPredefinedHabitList() {
+        return allPredefinedHabitList;
+    }
+
+    public LiveData<List<Habits>> getAllPredefinedHabitListLiveData() {
+        return allPredefinedHabitListLiveData;
     }
 
     public LiveData<Integer> getTotalCompletedSubroutineCountLiveData(){

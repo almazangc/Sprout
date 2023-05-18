@@ -51,6 +51,8 @@
         app:helperText="Required*"
         app:helperTextEnabled="true"
         app:helperTextTextColor="@color/A80_CORAL_RED"
+        app:helperTextTextAppearance="@style/customHelperTextSize"
+        app:counterTextAppearance="@style/customHelperTextSize"
         app:startIconDrawable="@drawable/ic_person">
 
         <com.google.android.material.textfield.TextInputEditText

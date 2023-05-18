@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +33,9 @@ import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.databinding.FragmentAddNewHabitBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeAddNewHabitParentAdapter;
 import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeAddNewInsertSubroutineDialogFragment;
-import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -100,6 +101,7 @@ public class AddNewHabitFragment extends Fragment
     @Override
     public void modifySubroutine(Subroutines subroutines) {
         subroutine = subroutines;
+        Log.d("tag", "modifySubroutine: ");
         setRecyclerViewAdapter();
     }
 
@@ -107,6 +109,7 @@ public class AddNewHabitFragment extends Fragment
     public void removeSubroutine(Subroutines subroutines) {
         subroutine = subroutines;
         subroutinesList.remove(subroutines);
+        Log.d("tag", "removeSubroutine: ");
         setRecyclerViewAdapter();
     }
 
@@ -484,7 +487,7 @@ public class AddNewHabitFragment extends Fragment
                             //TODO: UPDATE UID WHEN APPDATABASE CHANGE
                             AchievementViewModel achievementViewModel = new ViewModelProvider(requireActivity()).get(AchievementViewModel.class);
                             Achievement CreateCustomHabit = achievementViewModel.getAchievementByUID(2);
-                            if (!CreateCustomHabit.is_completed() ) {
+                            if (!CreateCustomHabit.is_completed()) {
                                 CreateCustomHabit.setIs_completed(true);
                                 CreateCustomHabit.setCurrent_progress(CreateCustomHabit.getCurrent_progress() + 1);
                                 CreateCustomHabit.setDate_achieved(new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault()).format(new Date()));
@@ -534,13 +537,20 @@ public class AddNewHabitFragment extends Fragment
      */
     private void deleteHabit() {
         binding.fabAddDeleteHabit.setOnClickListener(view -> {
-            habitWithSubroutinesViewModel.deleteHabit(habit);
-            habitWithSubroutinesViewModel.deleteSubroutineList(subroutinesList);
-            binding.fabAddDeleteHabit.setVisibility(View.GONE);
-            habit = new Habits("", "", AppColor.CLOUDS.getColor(), true, true);
-            subroutinesList = new ArrayList<>();
-            setDropDownContentView();
-            setDropDownHabits();
+            new AlertDialog.Builder(requireContext())
+                    .setMessage("Do you want to remove " + habit.getHabit() + "from your custom habit list?")
+                    .setCancelable(false)
+                    .setPositiveButton("YES", (dialogInterface, i) -> {
+                        habitWithSubroutinesViewModel.deleteHabit(habit);
+                        habitWithSubroutinesViewModel.deleteSubroutineList(subroutinesList);
+                        binding.fabAddDeleteHabit.setVisibility(View.GONE);
+                        habit = new Habits("", "", AppColor.CLOUDS.getColor(), true, true);
+                        subroutinesList = new ArrayList<>();
+                        setDropDownContentView();
+                        setDropDownHabits();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
     }
 

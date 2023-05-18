@@ -1,6 +1,7 @@
 package com.habitdev.sprout.ui.menu.setting.ui;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -105,17 +106,20 @@ public class LearnMoreFragment extends Fragment {
     }
 
     private void setBackground() {
-        final String SharedPreferences_KEY = "SP_DB";
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            // The device's SDK version is greater than or equal to 28, so continue executing the app
+            final String SharedPreferences_KEY = "SP_DB";
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(SharedPreferences_KEY, Main.MODE_PRIVATE);
 
-        final String SHARED_PREF_KEY = "THEME_SHARED.PREF";
-        int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
-        if (theme == 1) {
-            binding.learnMoreFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_light));
-        } else if (theme == 2) {
-            binding.learnMoreFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_night));
-        } else {
-            binding.learnMoreFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_light));
+            final String SHARED_PREF_KEY = "THEME_SHARED.PREF";
+            int theme = sharedPreferences.getInt(SHARED_PREF_KEY, -1);
+            if (theme == 1) {
+                binding.learnMoreFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_light));
+            } else if (theme == 2) {
+                binding.learnMoreFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_night));
+            } else {
+                binding.learnMoreFrameLayout.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.background_image_light));
+            }
         }
     }
 

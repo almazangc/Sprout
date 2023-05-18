@@ -16,17 +16,18 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.achievement.AchievementViewModel;
 import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.assessment.AssessmentViewModel;
+import com.habitdev.sprout.database.assessment.model.AssessmentRecord;
 import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
-import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.database.habit.model.room.Habits;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.databinding.FragmentHomeItemOnClickBinding;
 import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.ui.habit_self_assessment.adapter.Model.Result;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeItemOnClickParentCommentItemAdapter;
 import com.habitdev.sprout.ui.menu.home.adapter.HomeParentItemAdapter;
-import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
 import com.habitdev.sprout.utill.recommender.KnowledgeBased;
 
@@ -102,7 +103,9 @@ public class HomeItemOnClickFragment extends Fragment {
 
     private void setRecommendedPercent() {
         AssessmentViewModel assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
-        KnowledgeBased knowledgeBased = new KnowledgeBased();
+        AssessmentRecord assessmentRecord = assessmentViewModel.getLatestCompletedAssessmentRecord();
+
+        KnowledgeBased knowledgeBased = new KnowledgeBased(assessmentRecord);
         knowledgeBased.setAssessmentViewModel(assessmentViewModel);
         knowledgeBased.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
         knowledgeBased.calculateHabitScores();

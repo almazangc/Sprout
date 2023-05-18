@@ -19,7 +19,6 @@
             android:background="@drawable/background_topbar_view_cloud">
 
             <TextView
-                android:id="@+id/settingLearnMoreHeader"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
@@ -147,9 +146,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/setting_profile_identity"
-                    android:layout_marginTop="5dp"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
                     android:text="\u2022 Elapsed time since installed"
                     android:textColor="@color/NIGHT"
@@ -174,8 +173,8 @@
                     android:layout_below="@id/setting_profile_date_installed_lbl"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_marginTop="5dp"
                     android:text="\u2022 Daily Notification"
                     android:textColor="@color/NIGHT"
                     android:textSize="@dimen/sp16"
@@ -186,7 +185,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/setting_profile_change_daily_notification_switch"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -197,26 +196,49 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
-                        android:text="\u2022 Assesssment Tool"
+                        android:text="\u2022 Assesssment"
                         android:textColor="@color/NIGHT"
                         android:textSize="@dimen/sp16"
                         android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/setting_profile_retake_assessment_tool_btn"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignEnd="@id/setting_profile_retake_assessment_tool_lbl"
                         android:layout_alignParentEnd="true"
                         android:layout_marginLeft="15dp"
                         android:layout_marginEnd="15dp"
-                        android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:padding="10dp"
-                        android:text="Retake Assessment"
-                        android:textAllCaps="false"
-                        android:textSize="@dimen/sp16" />
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/setting_profile_retake_assessment_tool_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_gravity="end"
+
+                            android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:padding="10dp"
+                            android:text="Retake Assessment"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/sp16" />
+
+                        <Button
+                            android:id="@+id/setting_profile_view_assessment_records_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:padding="10dp"
+                            android:text="Assessment Records"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/sp16" />
+                    </LinearLayout>
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>

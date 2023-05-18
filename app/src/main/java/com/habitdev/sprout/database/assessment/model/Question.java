@@ -42,7 +42,7 @@ public class Question implements Serializable {
     @Ignore
     public Question(String question) {
         this.question = question;
-        this.classification = 0; //0 represent undefined
+        this.classification = 0; // 0 represent undefined
         this.fk_habit_uid = -1; // no habit
     }
 

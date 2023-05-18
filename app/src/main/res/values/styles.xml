@@ -34,4 +34,8 @@
         <item name="android:textSize">20sp</item>
         <item name="android:checked">false</item>
     </style>
+
+    <style name="customHelperTextSize" parent="TextAppearance.Design.HelperText">
+        <item name="android:textSize">@dimen/sp16</item>
+    </style>
 </resources>

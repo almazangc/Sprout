@@ -64,6 +64,7 @@ public class SettingFragment extends Fragment implements
     private static User user;
 
     public SettingFragment() {
+
     }
 
     @Override
