@@ -9,7 +9,7 @@ public enum TimeMilestone {
     AVG_HABIT_BREAK_DAY(66),
     MAX_HABIT_BREAK_DAY(254),
     DAILY(1),
-    INTERVAL_2DAY(2),
+    INTERVAL_DAY(2),
     WEEKLY(7);
 
     private final int days;

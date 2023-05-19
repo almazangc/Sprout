@@ -96,9 +96,11 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 holder.upVote.setVisibility(View.GONE);
                 holder.downVote.setVisibility(View.GONE);
             }
+            holder.drop.setText("More");
         } else {
             holder.upVote.setVisibility(View.GONE);
             holder.downVote.setVisibility(View.GONE);
+            holder.drop.setText("Drop");
         }
     }
 
