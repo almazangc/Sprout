@@ -38,7 +38,8 @@ public class GetStartedFragment extends Fragment {
 
         binding.btnContinue.setOnClickListener(view -> {
             clearWakeAndSleepSharedPref();
-            Navigation.findNavController(view).navigate(R.id.action_navigate_from_getStarted_to_personalization);
+            //TODO: //change to assessment briefing layout
+            Navigation.findNavController(view).navigate(R.id.action_navigate_from_getStarted_to_personalizationBriefing);
         });
 
         onBackPress();

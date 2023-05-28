@@ -62,22 +62,22 @@ public class PopularityBased {
                 habit.setRating(0);
             } else {
                 // Calculate Wilson score lower bound for the habit
-                double pHat = (double) habit.getUpvote() / (habit.getUpvote() + habit.getDownvote());
+                // n is sum of votes
+                //pHat is upvote / upvote + downvote
                 int n = habit.getUpvote() + habit.getDownvote();
-                double habitLowerBound = (pHat + z * z / (2 * n) - z * Math.sqrt((pHat * (1 - pHat) + z * z / (4 * n)) / n))
-                        / (1 + z * z / n);
+                double pHat = (double) habit.getUpvote() / (n);
+
+                double habitLowerBound = (pHat + z * z / (2 * n) - z * Math.sqrt((pHat * (1 - pHat) + z * z / (4 * n)) / n)) / (1 + z * z / n);
 
                 // Calculate Wilson score lower bound for each of the habit's associated subroutines
                 double subroutinesLowerBoundSum = 0.0;
                 for (SubroutineFireStore subroutine : subroutines) {
                     if (habit.getPk_uid() == subroutine.getFk_habit_uid()) {
 
-                        double pHatSub = (double) subroutine.getUpvote() / (subroutine.getUpvote() + subroutine.getDownvote());
                         int nSub = subroutine.getUpvote() + subroutine.getDownvote();
+                        double pHatSub = (double) subroutine.getUpvote() / (nSub);
 
-                        double subroutineLowerBound = (pHatSub + z * z / (2 * nSub) - z * Math.sqrt((pHatSub * (1 - pHatSub) + z * z / (4 * nSub)) / nSub))
-                                / (1 + z * z / nSub);
-
+                        double subroutineLowerBound = (pHatSub + z * z / (2 * nSub) - z * Math.sqrt((pHatSub * (1 - pHatSub) + z * z / (4 * nSub)) / nSub)) / (1 + z * z / nSub);
                         subroutinesLowerBoundSum += subroutineLowerBound;
                     }
                 }
@@ -87,6 +87,7 @@ public class PopularityBased {
                 double totalVotes = habit.getUpvote() + habit.getDownvote();
                 double rating = totalLowerBound / totalVotes;
                 habit.setRating(rating);
+                Log.d("tag", "calculateRating: " + rating);
             }
             habitFireStoreViewModel.updateHabit(habit);
         }

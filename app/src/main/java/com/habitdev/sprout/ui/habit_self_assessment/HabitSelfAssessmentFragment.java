@@ -78,6 +78,8 @@ public class HabitSelfAssessmentFragment extends Fragment {
         assessmentViewModel = new ViewModelProvider(requireActivity()).get(AssessmentViewModel.class);
         questionsList = assessmentViewModel.getShuffledQuestions();
 
+        binding.personalizationProgressIndicator.setText(String.format(Locale.getDefault(), "(1/%d)" , questionsList.size()));
+
         if (assessmentViewModel.getUncompletedAssessmentRecordCount() == 1) {
             assessmentRecord = assessmentViewModel.getAssessmentRecordByUID(assessmentViewModel.getUncompletedAssessmentRecordUID());
         } else if (assessmentViewModel.getUncompletedAssessmentRecordCount() == 0) {
@@ -237,6 +239,7 @@ public class HabitSelfAssessmentFragment extends Fragment {
      */
     private void updateProgressBar() {
         binding.assessmentProgressBar.setProgress(position - 1, true);
+        binding.personalizationProgressIndicator.setText(String.format(Locale.getDefault(), "(%d/%d)" , position, questionsList.size()));
     }
 
     /**

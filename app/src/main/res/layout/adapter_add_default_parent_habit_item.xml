@@ -10,7 +10,9 @@
         android:id="@+id/home_add_default_habit_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         tools:text="69%"
         android:textColor="@color/NIGHT"
         android:textSize="@dimen/sp14"/>

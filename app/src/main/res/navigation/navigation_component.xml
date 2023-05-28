@@ -142,10 +142,8 @@
         android:label="fragment_get_started"
         tools:layout="@layout/fragment_get_started">
         <action
-            android:id="@+id/action_navigate_from_getStarted_to_personalization"
-            app:destination="@id/personalizationFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            android:id="@+id/action_navigate_from_getStarted_to_personalizationBriefing"
+            app:destination="@id/personalizationBriefingFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalizationFragment"
@@ -181,11 +179,6 @@
             android:id="@+id/action_navigate_from_onboarding_to_initial"
             app:destination="@id/initialFragment" />
         <action
-            android:id="@+id/action_navigate_from_onboarding_to_personalization"
-            app:destination="@id/personalizationFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
-        <action
             android:id="@+id/action_navigate_from_onboarding_to_analysis"
             app:destination="@id/analysisFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
@@ -195,6 +188,9 @@
             app:destination="@id/SplashScreenFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_navigate_from_onBoarding_to_personalizationBriefing"
+            app:destination="@id/personalizationBriefingFragment" />
     </fragment>
     <fragment
         android:id="@+id/bottomNavigationFragment"
@@ -547,5 +543,14 @@
         <action
             android:id="@+id/action_assessmentRecordFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalizationBriefingFragment"
+        android:name="com.habitdev.sprout.ui.habit_self_assessment.HabitSelfAssessmentBriefingFragment"
+        android:label="fragment_personalization_briefing"
+        tools:layout="@layout/fragment_personalization_briefing" >
+        <action
+            android:id="@+id/action_navigate_from_personalizationBriefing_to_personalization"
+            app:destination="@id/personalizationFragment" />
     </fragment>
 </navigation>

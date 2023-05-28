@@ -208,6 +208,7 @@ public class AnalysisFragment extends Fragment {
     }
 
     private void displayHabitInformation(Habits habit) {
+        binding.analysisContinue.setText("Reform Habit");
         binding.analysisDropItem.setText("");
         binding.analysisHabitTitle.setText(habit.getHabit());
         binding.analysisHabitDescription.setText(habit.getDescription());

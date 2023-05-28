@@ -5,35 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/LIGHT"
-
     android:weightSum="10"
     android:id="@+id/personalization_relative_layout"
     tools:context=".ui.habit_self_assessment.HabitSelfAssessmentFragment">
 
     <RelativeLayout
+        android:id="@+id/personalization_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        android:id="@+id/personalization_container">
+        android:padding="20dp">
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/assessment_progressBar"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"
-            app:indicatorColor="@color/WAIKAWA_GREY"
-            app:trackThickness="5dp"
-            tools:max="6"
-            tools:progress="5" />
+            android:id="@+id/personalization_question_indicator_container"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="(0/23)"
+                android:textColor="@color/NIGHT"
+                android:id="@+id/personalization_progress_indicator"
+                android:layout_marginEnd="5dp"
+                android:textSize="@dimen/sp16">
+            </TextView>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/assessment_progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:indicatorColor="@color/WAIKAWA_GREY"
+                app:trackThickness="10dp"
+                tools:max="6"
+                tools:progress="5" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/lbl_titleMainHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/assessment_progressBar"
+            android:layout_below="@id/personalization_question_indicator_container"
             android:layout_centerHorizontal="true"
             android:text="Habit Self Assessment"
             android:textColor="@color/NIGHT"
@@ -45,9 +59,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lbl_titleMainHeader"
-            android:layout_centerHorizontal="true"
             android:layout_marginTop="3dp"
-            android:text="Please take time answering the questionnaire, which can help you identify any negative habits you may have."
+            android:text="Please take time answering the questionnaire, which can help you identify potencial negative habits you may have."
             android:textAlignment="viewStart"
             android:textColor="@color/NIGHT"
             android:textSize="@dimen/sp16" />

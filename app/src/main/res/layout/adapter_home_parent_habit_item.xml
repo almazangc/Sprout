@@ -213,6 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_below="@+id/details_container"
+                    android:visibility="gone"
                     android:gravity="center">
 
                     <Button

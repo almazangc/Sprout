@@ -281,10 +281,13 @@ public class HomeFragment extends Fragment
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("HabitPreferences", MODE_PRIVATE);
         long lastRelapseTime = sharedPreferences.getLong(habit.getHabit() + "LastRelapseTime", 0);
         long timeDifference = System.currentTimeMillis() - lastRelapseTime;
-        long relapseLimiter = convertToMilliseconds(1, 0, 0); //1 hour limit till relapse will be recorded
+
+        //1 hour limit till relapse will be recorded
+        long relapseLimiter = convertToMilliseconds(1, 0, 0);
 
         if (timeDifference >= relapseLimiter) {
             showMotivationalMessage();
+            //Increament Relapse Value
             habit.setRelapse(habit.getRelapse() + 1);
             habitWithSubroutinesViewModel.updateHabit(habit);
             sharedPreferences.edit().putLong(habit.getHabit() + "LastRelapseTime", System.currentTimeMillis()).apply();
@@ -540,6 +543,10 @@ public class HomeFragment extends Fragment
                             subroutine.setTotal_completed(0);
                             habitWithSubroutinesViewModel.updateSubroutine(subroutine);
                         }
+
+                        //remove stored shared pref of the pass relapse
+                        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("HabitPreferences", MODE_PRIVATE);
+                        sharedPreferences.edit().remove(habit.getHabit() + "LastRelapseTime").apply();
 
                         Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + habit.getHabit() + "</b>: All progress has been lost"), Snackbar.LENGTH_LONG)
                                 .setAction("Dismiss", view -> {

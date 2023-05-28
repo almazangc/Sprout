@@ -199,7 +199,7 @@ public class AddDefaultHabitFragment extends Fragment {
             if (binding.addFromDefaultHabitTextInputLayout.getVisibility() == View.GONE)
                 binding.addFromDefaultHabitTextInputLayout.setVisibility(View.VISIBLE);
 
-            //TODO: Apply Custom Dropdown Adapter
+            //calculates popularty rating to recommend habits
             HabitFireStoreViewModel habitFireStoreViewModel = new ViewModelProvider(requireActivity()).get(HabitFireStoreViewModel.class);
             PopularityBased popularityBasedRecommender = new PopularityBased();
             popularityBasedRecommender.setHabitFireStoreViewModel(habitFireStoreViewModel);
@@ -219,7 +219,6 @@ public class AddDefaultHabitFragment extends Fragment {
             });
 
             homeParentItemDropDownAdapter.setHabitWithSubroutinesViewModel(habitWithSubroutinesViewModel);
-
             binding.addFromDefaultHabitItems.setDropDownBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.background_color_transparent));
             binding.addFromDefaultHabitItems.setAdapter(homeParentItemDropDownAdapter);
 

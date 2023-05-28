@@ -45,7 +45,8 @@ public class OnBoardingFragment extends Fragment {
         }
 
         if (userCount == 1 && !isAssessmentDone) {
-            NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_onboarding_to_personalization);
+            //TODO: //change to assessment briefing layout
+            NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_onBoarding_to_personalizationBriefing);
         } else if (!isAssessmentDone) {
             NavHostFragment.findNavController(this).navigate(R.id.action_navigate_from_onboarding_to_initial);
         } else {

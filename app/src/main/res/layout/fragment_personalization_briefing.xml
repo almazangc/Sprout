@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/personalization_briefing_relative_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/CLOUDS"
+    tools:context=".ui.habit_self_assessment.HabitSelfAssessmentBriefingFragment">
+
+    <RelativeLayout
+        android:id="@+id/personalization_briefing_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/lbl_titleMainHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Habit Self Assessment"
+            android:textColor="@color/NIGHT"
+            android:textSize="@dimen/sp34"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_continue"
+            android:layout_below="@id/lbl_titleMainHeader"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:id="@+id/scroll_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true">
+
+                <TextView
+                    android:id="@+id/lbl_subHeader1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:justificationMode="inter_word"
+                    android:text="\t\t\tThe Habit Self-Assessment Tool: This assessment tool is designed to help identify potentially negative habits that require reform."
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp16" />
+
+                <TextView
+                    android:id="@+id/lbl_how_does_it_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lbl_subHeader1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:text="HOW DOES IT WORK?"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp20"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lbl_subHeader2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lbl_how_does_it_work"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="\t\t\tThis consists of questions that aim to determine the frequency with which you engage in certain behavior's or action."
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp16" />
+
+                <TextView
+                    android:id="@+id/lbl_subHeader3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lbl_subHeader2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="\t\t\tSample Assessment Question"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/NIGHT"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/sp16" />
+
+                <RelativeLayout
+                    android:id="@+id/sample_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lbl_subHeader3"
+                    android:background="@drawable/background_child_item_view_waikawa_grey"
+                    android:padding="20dp">
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/assessment_progressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerHorizontal="true"
+                        android:max="6"
+                        android:progress="5"
+                        app:indicatorColor="@color/WAIKAWA_GREY"
+                        app:trackThickness="5dp" />
+
+                    <TextView
+                        android:id="@+id/lbl_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5sp"
+                        android:text="Question: How frequent do you plan on using the app?"
+                        android:textColor="@color/NIGHT"
+                        android:textSize="@dimen/sp20"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lbl_question">
+
+                        <ScrollView
+                            android:id="@+id/choices_scroll_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="10dp"
+                            android:fadeScrollbars="false"
+                            android:fillViewport="false"
+                            android:scrollbarTrackVertical="@color/WAIKAWA_GREY">
+
+                            <RadioGroup
+                                android:id="@+id/choices_radio_group"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:isScrollContainer="true"
+                                android:orientation="vertical"
+                                android:paddingEnd="3dp">
+
+                                <RadioButton
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/selector_background_radio_button"
+                                    android:checked="true"
+                                    android:padding="5dp"
+                                    android:text="Always"
+                                    android:textColor="@color/NIGHT"
+                                    android:textSize="@dimen/sp16" />
+
+                                <RadioButton
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/selector_background_radio_button"
+                                    android:padding="5dp"
+                                    android:text="Often"
+                                    android:textColor="@color/NIGHT"
+                                    android:textSize="@dimen/sp16" />
+
+                                <RadioButton
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/selector_background_radio_button"
+                                    android:padding="5dp"
+                                    android:text="Sometimes"
+                                    android:textColor="@color/NIGHT"
+                                    android:textSize="@dimen/sp16" />
+
+                                <RadioButton
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/selector_background_radio_button"
+                                    android:padding="5dp"
+                                    android:text="Rarely"
+                                    android:textColor="@color/NIGHT"
+                                    android:textSize="@dimen/sp16" />
+
+                                <RadioButton
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    android:background="@drawable/selector_background_radio_button"
+                                    android:padding="5dp"
+                                    android:text="Never"
+                                    android:textColor="@color/NIGHT"
+                                    android:textSize="@dimen/sp16" />
+                            </RadioGroup>
+                        </ScrollView>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/selected_choice_live_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sample_question"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/background_item_view_"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Currently Selected: "
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lbl_live_curently_selected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="Always"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingStart="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:text="Representation: "
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/lbl_live_sample_question_numerical_representation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"
+                            android:text="1"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lbl_personalization_briefing_numerical_representation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/selected_choice_live_update"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:text="NUMERICAL REPRESENTATION"
+                    android:textAlignment="center"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp20"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lbl_personalization_briefing_numerical_representation_"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lbl_personalization_briefing_numerical_representation"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="10dp"
+                    android:justificationMode="inter_word"
+                    android:text="\t\t\tThe table below represents numerical representation based on the frequency of action scale."
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/NIGHT"
+                    android:textSize="@dimen/sp16" />
+
+                <LinearLayout
+                    android:id="@+id/numerical_representaion_table_"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/lbl_personalization_briefing_numerical_representation_"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:id="@+id/numerical_representaion_column1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Frequency of Action"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
+                            android:background="@drawable/background_item_view_"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Always"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Often"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Sometimes"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Rarely"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Never"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/numerical_representaion_column2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="Numerical Representation"
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="100%"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="50%"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="30%"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="10%"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_item_view_"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="0%"
+                            android:textAlignment="center"
+                            android:textColor="@color/NIGHT"
+                            android:textSize="@dimen/sp16" />
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/background_btn_normal_selector_waikawa_grey"
+            android:text="Start Habit Self-Assessment"
+            android:textColor="@color/NIGHT"
+            android:textStyle="bold" />
+    </RelativeLayout>
+</RelativeLayout>

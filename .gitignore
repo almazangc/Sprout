@@ -27,3 +27,5 @@ replay_pid*
 *.lock
 *.bin
 *.bin
+app/src/main/java/com/habitdev/sprout/utill/recommender/PopularityBased_structure.puml
+app/src/main/java/com/habitdev/sprout/utill/recommender/KnowledgeBased_structure.puml

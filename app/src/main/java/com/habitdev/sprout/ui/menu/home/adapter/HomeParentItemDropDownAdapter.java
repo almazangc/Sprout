@@ -1,11 +1,13 @@
 package com.habitdev.sprout.ui.menu.home.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,8 +16,10 @@ import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.habit.model.firestore.HabitFireStore;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class HomeParentItemDropDownAdapter extends ArrayAdapter<String> {
 
@@ -50,17 +54,33 @@ public class HomeParentItemDropDownAdapter extends ArrayAdapter<String> {
 
         habitTitle.setText(habitTitlesList.get(position));
 
-        for (HabitFireStore habitFireStore : habitFireStoreList) {
-            if (habitTitlesList.get(position).trim().equalsIgnoreCase(habitFireStore.getTitle().trim())) {
-                if (habitFireStore.getRating() == 0) {
-                    rating.setVisibility(View.GONE);
-                } else {
-                    rating.setVisibility(View.VISIBLE);
-                    rating.setText(String.format(Locale.getDefault(), "%d", habitFireStore.getRating()));
+        // For Demo of popularity based recommender
+//        Random random = new Random();
+//        double randomValue = 0.45 + random.nextDouble() * (0.95 - 0.45);
+//        double randomPercentage = randomValue * 100;
+//        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+//        String roundedPercentage = decimalFormat.format(randomPercentage);
+//        String randomRating = roundedPercentage + "%";
+//        rating.setVisibility(View.VISIBLE);
+//        rating.setText(randomRating);
+
+        if (habitFireStoreList != null && habitTitlesList.size() != 0) {
+            for (HabitFireStore habitFireStore : habitFireStoreList) {
+                if (habitTitlesList.get(position).trim().equalsIgnoreCase(habitFireStore.getTitle().trim())) {
+                    if (habitFireStore.getRating() == 0) {
+                        rating.setVisibility(View.GONE);
+                    }
+                    if (habitFireStore.getRating() > 0){
+                        rating.setVisibility(View.VISIBLE);
+                        rating.setText(String.format(Locale.getDefault(), "%d", habitFireStore.getRating()));
+                    }
+                    break;
                 }
-                break;
             }
+        } else {
+            rating.setVisibility(View.GONE);
         }
+
         return itemView;
     }
 
