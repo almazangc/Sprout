@@ -32,6 +32,7 @@ import com.habitdev.sprout.database.assessment.model.Question;
 import com.habitdev.sprout.database.user.UserViewModel;
 import com.habitdev.sprout.databinding.FragmentPersonalizationBinding;
 import com.habitdev.sprout.enums.OnBoardingConfigurationKeys;
+import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,6 +67,16 @@ public class HabitSelfAssessmentFragment extends Fragment {
         choicesList = new ArrayList<>();
         answersList = new ArrayList<>();
         HabitSelfAssessmentFragment.isOnRekateAssessment = isOnRekateAssessment;
+    }
+
+    public interface OnReturnSetting {
+        void returnFromProfileToSetting();
+    }
+
+    private OnReturnSetting mOnReturnSetting;
+
+    public void setmOnReturnSetting(OnReturnSetting mOnReturnSetting) {
+        this.mOnReturnSetting = mOnReturnSetting;
     }
 
     @Override
@@ -252,6 +263,9 @@ public class HabitSelfAssessmentFragment extends Fragment {
                 if (position > 1) {
                     position = position - 2;
                     setAssessment();
+                } else {
+                    if (mOnReturnSetting != null)
+                        mOnReturnSetting.returnFromProfileToSetting();
                 }
             }
         };

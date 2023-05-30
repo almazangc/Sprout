@@ -102,7 +102,6 @@ public class SubroutineModifyParentItemAdapter extends RecyclerView.Adapter<Subr
         }
 
         void bindSubroutine(Subroutines subroutine) {
-
             if (subroutine.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemLayout.setBackground(alzarin);
             } else if (subroutine.getColor().equals(AppColor.AMETHYST.getColor())) {

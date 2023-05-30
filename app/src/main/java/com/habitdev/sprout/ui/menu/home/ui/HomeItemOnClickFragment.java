@@ -2,9 +2,11 @@ package com.habitdev.sprout.ui.menu.home.ui;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.database.achievement.AchievementViewModel;
 import com.habitdev.sprout.database.achievement.model.Achievement;
@@ -343,6 +346,15 @@ public class HomeItemOnClickFragment extends Fragment {
                 } else if (!CommentIII.is_completed() && CommentII.is_completed() && CommentIII.getGoal_progress() -1 ==  CommentIII.getCurrent_progress()) {
                     updateUnlockedAchievement(CommentIII);
                 }
+            } else {
+                Snackbar.make(binding.getRoot(), Html.fromHtml("Please write a comment"), Snackbar.LENGTH_LONG)
+                        .setAction("Dismiss", view2-> {
+                            //Dismiss snack bar
+                        })
+                        .setActionTextColor(ContextCompat.getColor(requireContext(), R.color.PETER_RIVER))
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.NIGHT))
+                        .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.CLOUDS))
+                        .show();
             }
         });
     }

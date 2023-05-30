@@ -10,34 +10,140 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import com.habitdev.sprout.R;
 import com.habitdev.sprout.databinding.FragmentPersonalizationBriefingBinding;
+import com.habitdev.sprout.ui.menu.setting.ui.ProfileFragment;
 
 import java.util.Locale;
 
 public class HabitSelfAssessmentBriefingFragment extends Fragment {
 
     private FragmentPersonalizationBriefingBinding binding;
+    private static boolean isOnRekateAssessment;
+    private static HabitSelfAssessmentFragment habitSelfAssessmentFragment;
 
     public HabitSelfAssessmentBriefingFragment() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+    public HabitSelfAssessmentBriefingFragment(boolean isOnRekateAssessment) {
+        if (isOnRekateAssessment)
+            habitSelfAssessmentFragment = new HabitSelfAssessmentFragment(true);
 
-        }
+        HabitSelfAssessmentBriefingFragment.isOnRekateAssessment = isOnRekateAssessment;
+    }
+
+    public interface OnReturnSetting {
+        void returnFromProfileToSetting();
+    }
+
+    private OnReturnSetting mOnReturnSetting;
+
+    public void setmOnReturnSetting(OnReturnSetting mOnReturnSetting) {
+        this.mOnReturnSetting = mOnReturnSetting;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPersonalizationBriefingBinding.inflate(inflater, container, false);
+        setRadioButtonStyle();
+        setChoiceListener();
+        setOnContinueListener();
+        onBackPress();
+        return binding.getRoot();
+    }
 
+    /**
+     * Handles onBackPress Key
+     */
+    private void onBackPress() {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (isOnRekateAssessment) {
+                   if(mOnReturnSetting != null)
+                       mOnReturnSetting.returnFromProfileToSetting();
+                }
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+    }
+
+    private void setChoiceListener() {
+        binding.choicesRadioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
+            String selected_answer = ((RadioButton)
+                    (binding.getRoot().findViewById(binding.choicesRadioGroup.getCheckedRadioButtonId())))
+                    .getText()
+                    .toString();
+
+            binding.lblLiveCurentlySelected.setText(selected_answer);
+            //set equivalent value:
+            switch (selected_answer) {
+                case "Always":
+                    setNumericalRepresentation(100);
+                    break;
+                case "Often":
+                    setNumericalRepresentation(50);
+                    break;
+                case "Sometimes":
+                    setNumericalRepresentation(30);
+                    break;
+                case "Rarely":
+                    setNumericalRepresentation(10);
+                    break;
+                case "Never":
+                    setNumericalRepresentation(0);
+                    break;
+                default:
+                    //do nothing
+                    break;
+            }
+        });
+    }
+
+    private void setOnContinueListener() {
+        binding.btnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(requireContext())
+                        .setMessage("Start taking habit self assessment?")
+                        .setCancelable(false)
+                        .setPositiveButton("YES", (dialogInterface, i) -> {
+                            if (isOnRekateAssessment) {
+                                getChildFragmentManager()
+                                        .beginTransaction()
+                                        .addToBackStack(HabitSelfAssessmentBriefingFragment.this.getTag())
+                                        .add(binding.personalizationBriefingRelativeLayout.getId(), habitSelfAssessmentFragment)
+                                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                                        .commit();
+                                binding.personalizationBriefingContainer.setVisibility(View.GONE);
+
+                                habitSelfAssessmentFragment.setmOnReturnSetting(() -> {
+                                    getChildFragmentManager()
+                                            .beginTransaction()
+                                            .remove(habitSelfAssessmentFragment)
+                                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                                            .commit();
+                                    binding.personalizationBriefingContainer.setVisibility(View.VISIBLE);
+                                });
+
+                            } else {
+                                Navigation.findNavController(view).navigate(R.id.action_navigate_from_personalizationBriefing_to_personalization);
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
+    }
+
+    private void setRadioButtonStyle() {
         for (int i = 0; i < binding.choicesRadioGroup.getChildCount(); i++) {
             RadioButton radioButton = (RadioButton) binding.choicesRadioGroup.getChildAt(i);
             radioButton.setButtonDrawable(null);
@@ -70,53 +176,6 @@ public class HabitSelfAssessmentBriefingFragment extends Fragment {
         }
 
         ((RadioButton) binding.choicesRadioGroup.getChildAt(2)).setChecked(true);
-
-        binding.choicesRadioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
-            String selected_answer = ((RadioButton)
-                    (binding.getRoot().findViewById(binding.choicesRadioGroup.getCheckedRadioButtonId())))
-                    .getText()
-                    .toString();
-
-            binding.lblLiveCurentlySelected.setText(selected_answer);
-
-            //set equivalent value:
-            switch (selected_answer) {
-                case "Always":
-                    setNumericalRepresentation(100);
-                    break;
-                case "Often":
-                    setNumericalRepresentation(50);
-                    break;
-                case "Sometimes":
-                    setNumericalRepresentation(30);
-                    break;
-                case "Rarely":
-                    setNumericalRepresentation(10);
-                    break;
-                case "Never":
-                    setNumericalRepresentation(0);
-                    break;
-                default:
-                    //do nothing
-                    break;
-            }
-        });
-
-        binding.btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(requireContext())
-                        .setMessage("Start taking habit self assessment?")
-                        .setCancelable(false)
-                        .setPositiveButton("YES", (dialogInterface, i) -> {
-                            Navigation.findNavController(view).navigate(R.id.action_navigate_from_personalizationBriefing_to_personalization);
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-            }
-        });
-
-        return binding.getRoot();
     }
 
     private void setNumericalRepresentation(int value) {

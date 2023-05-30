@@ -12,27 +12,36 @@
         android:id="@+id/personalization_briefing_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="20dp"
-        android:paddingTop="15dp"
-        android:paddingEnd="20dp"
         android:paddingBottom="20dp">
 
-        <TextView
-            android:id="@+id/lbl_titleMainHeader"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Habit Self Assessment"
-            android:textColor="@color/NIGHT"
-            android:textSize="@dimen/sp34"
-            android:textStyle="bold" />
+            android:id="@+id/personalization_briefing_topbar"
+            android:background="@drawable/background_top_bar_view_waikawa_grey"
+            android:layout_height="?android:attr/actionBarSize">
+
+            <TextView
+                android:id="@+id/settingLearnMoreHeader"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingBottom="5dp"
+                android:text="Habit Self Assessment"
+                android:textColor="@color/NIGHT"
+                android:textSize="@dimen/sp34"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/btn_continue"
-            android:layout_below="@id/lbl_titleMainHeader"
+            android:layout_below="@id/personalization_briefing_topbar"
             android:fillViewport="true"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:scrollbars="none">
 
             <RelativeLayout
@@ -475,6 +484,8 @@
             android:background="@drawable/background_btn_normal_selector_waikawa_grey"
             android:text="Start Habit Self-Assessment"
             android:textColor="@color/NIGHT"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textStyle="bold" />
     </RelativeLayout>
 </RelativeLayout>

@@ -46,6 +46,7 @@ import com.habitdev.sprout.database.user.model.User;
 import com.habitdev.sprout.databinding.FragmentProfileBinding;
 import com.habitdev.sprout.enums.SettingConfigurationKeys;
 import com.habitdev.sprout.ui.habit_self_assessment.AssessmentRecordFragment;
+import com.habitdev.sprout.ui.habit_self_assessment.HabitSelfAssessmentBriefingFragment;
 import com.habitdev.sprout.ui.habit_self_assessment.HabitSelfAssessmentFragment;
 import com.habitdev.sprout.utill.alarm.AlarmScheduler;
 import com.habitdev.sprout.utill.diffutils.DateTimeElapsedUtil;
@@ -68,7 +69,7 @@ public class ProfileFragment extends Fragment implements AssessmentRecordFragmen
     private static boolean onCustomProfile;
     private static User user;
     private static UserViewModel userViewModel;
-    private static HabitSelfAssessmentFragment habitSelfAssessmentFragment;
+    private static HabitSelfAssessmentBriefingFragment habitSelfAssessmentBriefingFragment;
     private static final AssessmentRecordFragment ASSESSMENT_RECORD_FRAGMENT = new AssessmentRecordFragment();
     private static boolean isOnAssessmentRecords;
 
@@ -103,17 +104,13 @@ public class ProfileFragment extends Fragment implements AssessmentRecordFragmen
         user = userViewModel.getUserByUID(1);
 
         observeUserNickname();
-
         initProfile();
         toggleDailyNotification();
         retakeAssessment();
         viewAssessmentRecords();
-
         setChangeProfileBtnListener();
         setSaveProfileButtonListener();
-
         observeAndValidatNickname();
-
         onBackPress();
         return binding.getRoot();
     }
@@ -211,14 +208,23 @@ public class ProfileFragment extends Fragment implements AssessmentRecordFragmen
             }
 
             private void gotoReassessment() {
-                habitSelfAssessmentFragment = new HabitSelfAssessmentFragment(true);
+                habitSelfAssessmentBriefingFragment = new HabitSelfAssessmentBriefingFragment(true);
                 getChildFragmentManager()
                         .beginTransaction()
                         .addToBackStack(ProfileFragment.this.getTag())
-                        .add(binding.settingProfileFrameLayout.getId(), habitSelfAssessmentFragment)
+                        .add(binding.settingProfileFrameLayout.getId(), habitSelfAssessmentBriefingFragment)
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit();
                 binding.settingProfileContainer.setVisibility(View.GONE);
+
+                habitSelfAssessmentBriefingFragment.setmOnReturnSetting(() -> {
+                    getChildFragmentManager()
+                            .beginTransaction()
+                            .remove(habitSelfAssessmentBriefingFragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .commit();
+                    binding.settingProfileContainer.setVisibility(View.VISIBLE);
+                });
             }
         });
     }
@@ -592,6 +598,7 @@ public class ProfileFragment extends Fragment implements AssessmentRecordFragmen
             @Override
             public void handleOnBackPressed() {
                 if (mOnReturnSetting != null) mOnReturnSetting.returnFromProfileToSetting();
+
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);

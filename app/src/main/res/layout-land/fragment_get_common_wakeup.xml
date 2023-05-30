@@ -25,12 +25,12 @@
 
     <Button
         android:id="@+id/btn_continue"
-        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:textStyle="bold"
+        android:background="@drawable/background_btn_normal_selector_waikawa_grey"
         android:text="@string/continue_lbl"
-        android:textColor="@color/NIGHT" />
+        android:textColor="@color/NIGHT"
+        android:textStyle="bold" />
 
 </RelativeLayout>

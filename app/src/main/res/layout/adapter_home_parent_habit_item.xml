@@ -29,8 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <Button
                     android:id="@+id/home_upvote_btn"
@@ -41,12 +41,12 @@
                     android:drawableStart="@drawable/ic_upvote"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:paddingBottom="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingStart="2dp"
-                    android:paddingTop="2dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
+                    android:paddingStart="2dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="5dp"
                     android:textColor="@color/NIGHT"
                     android:textSize="0sp" />
 
@@ -59,12 +59,12 @@
                     android:drawableStart="@drawable/ic_downvote"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
-                    android:paddingBottom="5dp"
-                    android:paddingEnd="5dp"
-                    android:paddingStart="2dp"
-                    android:paddingTop="2dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
+                    android:paddingStart="2dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="5dp"
+                    android:paddingBottom="5dp"
                     android:textColor="@color/NIGHT"
                     android:textSize="0sp" />
             </LinearLayout>
@@ -213,7 +213,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_below="@+id/details_container"
-                    android:visibility="gone"
                     android:gravity="center">
 
                     <Button

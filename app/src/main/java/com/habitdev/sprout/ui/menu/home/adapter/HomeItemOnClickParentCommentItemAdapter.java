@@ -1,5 +1,7 @@
 package com.habitdev.sprout.ui.menu.home.adapter;
 
+import android.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,16 +9,28 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.habitdev.sprout.R;
+import com.habitdev.sprout.database.achievement.AchievementViewModel;
+import com.habitdev.sprout.database.achievement.model.Achievement;
 import com.habitdev.sprout.database.comment.CommentViewModel;
 import com.habitdev.sprout.database.comment.model.Comment;
+import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
+import com.habitdev.sprout.ui.dialog.CompletedAchievementDialogFragment;
+import com.habitdev.sprout.ui.menu.home.ui.dialog.HomeParentItemAdapterModifyDialogFragment;
 import com.habitdev.sprout.utill.diffutils.CommentDiffUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapter<HomeItemOnClickParentCommentItemAdapter.CommentViewHolder> {
 
@@ -53,7 +67,14 @@ public class HomeItemOnClickParentCommentItemAdapter extends RecyclerView.Adapte
         holder.bindComment(oldCommentList.get(position));
 
         holder.delete_comment.setOnClickListener(view -> {
-            commentViewModel.deleteComment(oldCommentList.get(position));
+            new AlertDialog.Builder(holder.itemView.getContext())
+                    .setMessage("Would you like the remove the comment [" + oldCommentList.get(position).getComment() + "]?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", (dialogInterface, i) -> {
+                        commentViewModel.deleteComment(oldCommentList.get(position));
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
         });
     }
 
