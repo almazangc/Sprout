@@ -168,12 +168,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you put off tasks or assignments until the last minute?", -1, 1));
             choices.clear();
             choices.add(Frequency.NEVER_.getValue());
-            choices.add(Frequency.SELDOM_.getValue());
             choices.add(Frequency.RARELY_.getValue());
-            choices.add(Frequency.OCCASIONALLY_.getValue());
             choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
-            choices.add(Frequency.REGULARLY_.getValue());
             choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -181,12 +178,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you feel overwhelmed with the amount of tasks you have to complete?", -1, 1));
             choices.clear();
             choices.add(Frequency.NEVER_.getValue());
-            choices.add(Frequency.SELDOM_.getValue());
             choices.add(Frequency.RARELY_.getValue());
-            choices.add(Frequency.OCCASIONALLY_.getValue());
             choices.add(Frequency.SOMETIMES_.getValue());
-            choices.add(Frequency.USUALLY_.getValue());
-            choices.add(Frequency.REGULARLY_.getValue());
+            choices.add(Frequency.OFTEN_.getValue());
             choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -194,12 +188,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you find yourself not understanding the material due to procrastination?", -1, 1));
             choices.clear();
             choices.add(Frequency.NEVER_.getValue());
-            choices.add(Frequency.SELDOM_.getValue());
             choices.add(Frequency.RARELY_.getValue());
             choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
-            choices.add(Frequency.USUALLY_.getValue());
-            choices.add(Frequency.REGULARLY_.getValue());
             choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -207,11 +198,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you stick to a schedule or to-do list for completing tasks?", 1, 2));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -219,11 +208,10 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you prioritize tasks and focus on the most important or urgent ones first?", 1, 2));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -231,25 +219,19 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you use a timer to stay on track during study sessions?", 1, 2));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //2
             uid = insertQuestion(new Question("How often do you eliminate unnecessary activities or distractions from your schedule?", 1, 2));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -260,8 +242,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -272,8 +252,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -281,10 +259,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you find a study method that works for you, such as flashcards or summarizing notes?", 1, 3));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -292,10 +269,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you take frequent breaks during study sessions?", 1, 3));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
+            choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -303,11 +279,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you use a timer to keep track of your study time?", 1, 3));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -315,36 +289,29 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you NOT review material regularly and practice with practice tests or quizzes?", -1, 3));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM_.getValue());
-            choices.add(Frequency.RARELY_.getValue());
-            choices.add(Frequency.OFTEN_.getValue());
-            choices.add(Frequency.USUALLY_.getValue());
-            choices.add(Frequency.REGULARLY_.getValue());
-            choices.add(Frequency.ALWAYS_.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
             uid = insertQuestion(new Question("How often do you find yourself constantly checking social media, phone, or other electronic devices while studying?", -1, 4));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM_.getValue());
-            choices.add(Frequency.SOMETIMES_.getValue());
-            choices.add(Frequency.OFTEN_.getValue());
-            choices.add(Frequency.USUALLY_.getValue());
-            choices.add(Frequency.REGULARLY_.getValue());
-            choices.add(Frequency.ALWAYS_.getValue());
+            choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
+            choices.add(Frequency.OFTEN.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
             uid = insertQuestion(new Question("How often do you eliminate electronic distractions, such as social media or phone notifications while studying?", 1, 4));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -352,12 +319,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you create a designated study space free from distractions?", 1, 4));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -365,13 +329,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you use apps or website blockers during study time?", 1, 4));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -380,23 +340,18 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
+            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //4
             uid = insertQuestion(new Question("How often do you use noise-canceling headphones to block out background noise while studying?", 1, 4));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -404,13 +359,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you establish a consistent sleep schedule and aim for 7-8 hours of sleep per night?", 1, 5));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -418,12 +369,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you avoid screens and stimulating activities before bedtime?", 1, 5));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -431,9 +379,7 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you create a bedtime environment to relax and wind down?", 1, 5));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.ALWAYS.getValue());
@@ -443,11 +389,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you keep your bedroom cool, dark, and quiet for a good night's sleep?", 1, 5));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
+            choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -455,12 +399,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you use positive affirmations to stay motivated?", 1, 6));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -468,13 +409,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you take a short break to do something you enjoy after completing a task?", 1, 6));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
-            choices.add(Frequency.REGULARLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -482,8 +419,7 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you practice stress-relieving activities, such as meditation or yoga?", 1, 6));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
+            choices.add(Frequency.RARELY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.ALWAYS.getValue());
@@ -493,12 +429,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you reflect on your own learning process and identify strengths and achievements?", 1, 6));
             choices.clear();
             choices.add(Frequency.NEVER.getValue());
-            choices.add(Frequency.SELDOM.getValue());
             choices.add(Frequency.RARELY.getValue());
-            choices.add(Frequency.OCCASIONALLY.getValue());
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
-            choices.add(Frequency.USUALLY.getValue());
             choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -506,12 +439,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you feel unmotivated and disengaged in coursework?", -1, 6));
             choices.clear();
             choices.add(Frequency.NEVER_.getValue());
-            choices.add(Frequency.SELDOM_.getValue());
             choices.add(Frequency.RARELY_.getValue());
-            choices.add(Frequency.OCCASIONALLY_.getValue());
             choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
-            choices.add(Frequency.USUALLY_.getValue());
             choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
@@ -519,11 +449,9 @@ public abstract class AppDatabase extends RoomDatabase {
             uid = insertQuestion(new Question("How often do you have a negative attitude and mindset towards your studies?", -1, 6));
             choices.clear();
             choices.add(Frequency.NEVER_.getValue());
-            choices.add(Frequency.SELDOM_.getValue());
             choices.add(Frequency.RARELY_.getValue());
+            choices.add(Frequency.SOMETIMES_.getValue());
             choices.add(Frequency.OFTEN_.getValue());
-            choices.add(Frequency.USUALLY_.getValue());
-            choices.add(Frequency.REGULARLY_.getValue());
             choices.add(Frequency.ALWAYS_.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 

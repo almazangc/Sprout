@@ -155,6 +155,9 @@
             app:destination="@id/analysisFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_navigage_from_personalization_to_personalizationBriefing"
+            app:destination="@id/personalizationBriefingFragment" />
     </fragment>
     <fragment
         android:id="@+id/analysisFragment"

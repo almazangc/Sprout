@@ -266,6 +266,8 @@ public class HabitSelfAssessmentFragment extends Fragment {
                 } else {
                     if (mOnReturnSetting != null)
                         mOnReturnSetting.returnFromProfileToSetting();
+                    else
+                        Navigation.findNavController(binding.getRoot()).navigate(R.id.action_navigage_from_personalization_to_personalizationBriefing);
                 }
             }
         };

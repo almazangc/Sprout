@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -144,7 +145,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     public static class HabitViewHolder extends RecyclerView.ViewHolder {
 
-        final RelativeLayout itemContainer;
+        final RelativeLayout itemContainer, buttonContainer;
         final LinearLayout itemLayout;
         final TextView habitTitle, habitDescription, dateStarted, completedSubroutine, daysOfAbstinence, totalRelapse;
         final Button upVote, downVote, modify, relapse, drop;
@@ -156,6 +157,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
             super(itemView);
 
             itemContainer = itemView.findViewById(R.id.adapter_home_parent_item_container);
+            buttonContainer = itemView.findViewById(R.id.adapter_home_parent_item_control_btn);
             itemLayout = itemContainer.findViewById(R.id.adapter_home_parent_item_layout);
             habitTitle = itemView.findViewById(R.id.home_item_on_click_habit_title);
             habitDescription = itemView.findViewById(R.id.home_item_on_click_habit_description);
@@ -195,6 +197,10 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         void bindHabit(Habits habit, HomeParentItemOnClickListener homeParentItemOnClickListener) {
 
             Habits habits = new Habits(habit);
+
+            if(habits.isModifiable()) {
+                buttonContainer.setGravity(Gravity.CENTER);
+            }
 
             if (habits.getColor().equals(AppColor.ALZARIN.getColor())) {
                 itemContainer.setBackground(alzarin);

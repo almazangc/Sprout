@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="12dp"
-    android:layout_marginTop="12dp"
-    android:layout_marginEnd="12dp"
+    android:layout_marginStart="6dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginEnd="6dp"
     tools:showIn="@layout/fragment_home">
 
     <RelativeLayout
@@ -20,17 +20,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="12dp"
             android:paddingBottom="20dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginEnd="6dp"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:layout_marginStart="6dp"
+                android:padding="6dp">
 
                 <Button
                     android:id="@+id/home_upvote_btn"
@@ -80,8 +81,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:maxLines="3"
                     android:textColor="@color/NIGHT"
@@ -95,7 +94,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/home_item_on_click_habit_title"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="8dp"
                     android:justificationMode="inter_word"
@@ -111,7 +109,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/home_item_on_click_habit_description"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="5dp">
 
@@ -211,24 +208,29 @@
                 <RelativeLayout
                     android:id="@+id/adapter_home_parent_item_control_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="35dp"
                     android:layout_below="@+id/details_container"
-                    android:gravity="center">
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="right">
 
                     <Button
                         android:id="@+id/adapter_home_parent_item_modify_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
                         android:layout_toStartOf="@+id/adapter_home_parent_item_relapse_btn"
                         android:background="@drawable/background_btn_normal_selector_waikawa_grey"
                         android:drawableStart="@drawable/ic_modify"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="10dp"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="MODIFY"
+                        android:text="Modify"
                         android:textSize="@dimen/sp12" />
 
                     <Button
@@ -236,15 +238,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="5dp"
                         android:layout_toStartOf="@+id/adapter_home_parent_item_drop_btn"
                         android:background="@drawable/background_btn_normal_selector_bright_sky_blue"
                         android:drawableStart="@drawable/ic_relapse"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="10dp"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="RELAPSE"
+                        android:text="Relapse"
                         android:textSize="@dimen/sp12" />
 
                     <Button
@@ -253,14 +258,17 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="5dp"
                         android:background="@drawable/background_btn_delete_selector"
                         android:drawableStart="@drawable/ic_drop"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:padding="10dp"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="DROP"
+                        android:text="Drop"
                         android:textSize="@dimen/sp12" />
 
                 </RelativeLayout>

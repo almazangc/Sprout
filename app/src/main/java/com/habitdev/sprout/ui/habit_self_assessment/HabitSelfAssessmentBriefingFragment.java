@@ -86,19 +86,19 @@ public class HabitSelfAssessmentBriefingFragment extends Fragment {
             //set equivalent value:
             switch (selected_answer) {
                 case "Always":
-                    setNumericalRepresentation(100);
+                    setNumericalRepresentation(5);
                     break;
                 case "Often":
-                    setNumericalRepresentation(50);
+                    setNumericalRepresentation(4);
                     break;
                 case "Sometimes":
-                    setNumericalRepresentation(30);
+                    setNumericalRepresentation(3);
                     break;
                 case "Rarely":
-                    setNumericalRepresentation(10);
+                    setNumericalRepresentation(2);
                     break;
                 case "Never":
-                    setNumericalRepresentation(0);
+                    setNumericalRepresentation(1);
                     break;
                 default:
                     //do nothing
@@ -112,7 +112,7 @@ public class HabitSelfAssessmentBriefingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(requireContext())
-                        .setMessage("Start taking habit self assessment?")
+                        .setMessage("Would you like to start the habit-self assessment?")
                         .setCancelable(false)
                         .setPositiveButton("YES", (dialogInterface, i) -> {
                             if (isOnRekateAssessment) {
@@ -176,9 +176,10 @@ public class HabitSelfAssessmentBriefingFragment extends Fragment {
         }
 
         ((RadioButton) binding.choicesRadioGroup.getChildAt(2)).setChecked(true);
+        binding.lblLiveSampleQuestionNumericalRepresentation.setText("3");
     }
 
     private void setNumericalRepresentation(int value) {
-        binding.lblLiveSampleQuestionNumericalRepresentation.setText(String.format(Locale.getDefault(), "%d%%", value));
+        binding.lblLiveSampleQuestionNumericalRepresentation.setText(String.format(Locale.getDefault(), "%d", value));
     }
 }

@@ -353,7 +353,7 @@ public class HomeFragment extends Fragment
 
         String message = motivational_message[index];
 
-        Snackbar.make(binding.getRoot(), Html.fromHtml("<b>" + message), Snackbar.LENGTH_LONG)
+        Snackbar.make(binding.getRoot(), Html.fromHtml(message), Snackbar.LENGTH_LONG)
                 .setAction("Dismiss", view -> {
                     //Dismiss snack bar
                 })
