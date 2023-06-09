@@ -63,7 +63,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
 
     @Override
     public void onBindViewHolder(@NonNull HomeParentItemAdapter.HabitViewHolder holder, int position) {
-        holder.bindHabit(oldHabitList.get(position), homeParentItemOnclickListener);
+        holder.bindHabit(oldHabitList.get(position), homeParentItemOnclickListener, oldHabitList.size());
 
         DateTimeElapsedUtil dateTimeElapsedUtil = new DateTimeElapsedUtil(oldHabitList.get(holder.getAbsoluteAdapterPosition()).getDate_started());
         dateTimeElapsedUtil.calculateElapsedDateTime();
@@ -194,7 +194,7 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        void bindHabit(Habits habit, HomeParentItemOnClickListener homeParentItemOnClickListener) {
+        void bindHabit(Habits habit, HomeParentItemOnClickListener homeParentItemOnClickListener, int size) {
 
             Habits habits = new Habits(habit);
 
@@ -260,6 +260,12 @@ public class HomeParentItemAdapter extends RecyclerView.Adapter<HomeParentItemAd
                 homeParentItemOnClickListener.onClickHabitRelapse(habits);
                 totalRelapse.setText(String.valueOf(habits.getRelapse()));
             });
+
+            if (size > 1) {
+                buttonContainer.setVisibility(View.VISIBLE);
+            } else {
+                buttonContainer.setVisibility(View.GONE);
+            }
         }
 
         int padding_inPx (int dp){

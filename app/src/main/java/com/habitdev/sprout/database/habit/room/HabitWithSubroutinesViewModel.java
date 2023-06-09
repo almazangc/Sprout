@@ -89,6 +89,10 @@ public class HabitWithSubroutinesViewModel extends AndroidViewModel {
         return repository.getAllHabitOnReformCount();
     }
 
+    public LiveData<Long> getAllHabitOnReformCountLiveData() {
+        return repository.getAllHabitOnReformCountLiveData();
+    }
+
     public List<HabitWithSubroutines> getAllHabitOnReformWithSubroutines() {
         return allHabitOnReformWithSubroutines;
     }

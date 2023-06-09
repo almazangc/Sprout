@@ -56,6 +56,48 @@
             tools:listitem="@layout/adapter_home_parent_habit_item" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/home_fab_modify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/home_fab_relapse"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            app:backgroundTint="@color/WAIKAWA_GREY"
+            app:borderWidth="5dp"
+            app:fabCustomSize="45dp"
+            app:srcCompat="@drawable/ic_modify"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/home_fab_relapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/home_fab_drop"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            app:backgroundTint="@color/BRIGHT_SKY_BLUE"
+            app:borderWidth="5dp"
+            app:fabCustomSize="45dp"
+            app:srcCompat="@drawable/ic_relapse"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/home_fab_drop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/home_fab"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            app:backgroundTint="@color/CORAL_RED"
+            app:borderWidth="5dp"
+            app:fabCustomSize="45dp"
+            app:srcCompat="@drawable/ic_drop"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/home_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

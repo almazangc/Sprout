@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import com.habitdev.sprout.database.habit.model.room.Habits;
 import com.habitdev.sprout.database.habit.model.room.Subroutines;
 import com.habitdev.sprout.database.habit.room.HabitWithSubroutinesViewModel;
 import com.habitdev.sprout.databinding.FragmentHomeBinding;
+import com.habitdev.sprout.enums.AppColor;
 import com.habitdev.sprout.enums.HomeConfigurationKeys;
 import com.habitdev.sprout.enums.TimeMilestone;
 import com.habitdev.sprout.ui.menu.OnBackPressDialogFragment;
@@ -110,6 +112,7 @@ public class HomeFragment extends Fragment
         setRecyclerViewAdapter();
         fabVisibility();
         onBackPress();
+
         return binding.getRoot();
     }
 
@@ -220,8 +223,53 @@ public class HomeFragment extends Fragment
     private void setRecyclerViewObserver(@NonNull HomeParentItemAdapter homeParentItemAdapter) {
         habitWithSubroutinesViewModel.getAllHabitOnReformLiveData().observe(getViewLifecycleOwner(), habits -> {
             homeParentItemAdapter.setNewHabitList(new ArrayList<>(habits));
+            habitsList.clear();
             habitsList = new ArrayList<>(habits);
-            setEmptyRVBackground(homeParentItemAdapter); //adapts on ui changes
+            setEmptyRVBackground(homeParentItemAdapter);
+        });
+
+        habitWithSubroutinesViewModel.getAllHabitOnReformCountLiveData().observe(getViewLifecycleOwner(), habitOnReformCount -> {
+            if (habitOnReformCount == 1) {
+                Habits habit;
+                if (habitsList == null)
+                    return;
+
+                if (habitsList.isEmpty())
+                    return;
+                else
+                    habit = habitsList.get(0);
+
+                if (habit.isModifiable())
+                    binding.homeFabModify.setVisibility(View.VISIBLE);
+                else
+                    binding.homeFabModify.setVisibility(View.GONE);
+
+                binding.homeFabRelapse.setVisibility(View.VISIBLE);
+                binding.homeFabDrop.setVisibility(View.VISIBLE);
+
+                homeParentItemAdapter.notifyDataSetChanged();
+
+                Habits finalHabit = habit;
+                if (binding.homeFabModify.getVisibility() == View.VISIBLE) {
+                    binding.homeFabModify.setOnClickListener(view -> {
+                        onClickHabitModify(finalHabit, 0);
+                    });
+                }
+
+                binding.homeFabRelapse.setOnClickListener(view -> {
+                        onClickHabitRelapse(finalHabit);
+                });
+
+                binding.homeFabDrop.setOnClickListener(view -> {
+                    onClickHabitDrop(finalHabit);
+                });
+
+            } else {
+                binding.homeFabModify.setVisibility(View.GONE);
+                binding.homeFabRelapse.setVisibility(View.GONE);
+                binding.homeFabDrop.setVisibility(View.GONE);
+                homeParentItemAdapter.notifyDataSetChanged();
+            }
         });
     }
 

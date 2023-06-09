@@ -94,7 +94,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/home_item_on_click_habit_title"
                     android:layout_alignParentStart="true"
-                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="8dp"
                     android:justificationMode="inter_word"
                     android:minHeight="0dp"

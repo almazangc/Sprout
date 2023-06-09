@@ -124,6 +124,10 @@ public class HabitWithSubroutinesRepository {
         return habitWithSubroutinesDao.getAllHabitOnReformCount();
     }
 
+    public LiveData<Long> getAllHabitOnReformCountLiveData() {
+        return habitWithSubroutinesDao.getAllHabitOnReformCountLiveData();
+    }
+
     public List<HabitWithSubroutines> getAllHabitOnReformWithSubroutines() {
         return allHabitOnReformWithSubroutines;
     }

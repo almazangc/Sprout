@@ -212,7 +212,6 @@ public abstract class AppDatabase extends RoomDatabase {
             choices.add(Frequency.SOMETIMES.getValue());
             choices.add(Frequency.OFTEN.getValue());
             choices.add(Frequency.ALWAYS.getValue());
-            choices.add(Frequency.ALWAYS.getValue());
             assessmentDao.insertChoices(setFk_Question_uid(choices, uid));
 
             //2
