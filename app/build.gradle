@@ -11,8 +11,8 @@ android {
         applicationId "com.habitdev.sprout"
         minSdk 26
         targetSdk 32
-        versionCode 16
-        versionName "3.7"
+        versionCode 17
+        versionName "3.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 //Room Compiler Configuration for annotation
@@ -138,7 +138,7 @@ dependencies {
     // swipeRefreshLayout Dependency
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
-//     debugImplementation because LeakCanary should only run in debug builds.
+//     debugImplementation because LeakCanary should only run in debug builds
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 
     //https://github.com/FarhamHosseini/SwipeRevealLayout
